@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# C++ / Build files
+build/
+*.o
+*.exe
+
+# Environment & Database
+.env
+*.db
+
+# IDE
+.vscode/
+.idea/
