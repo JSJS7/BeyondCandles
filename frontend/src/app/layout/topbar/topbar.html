@@ -1,0 +1,46 @@
+<header class="topbar">
+  <div class="global-search">
+    <span class="search-icon">⌕</span>
+
+    <input
+      #searchInput
+      type="text"
+      placeholder="Search companies..."
+      [value]="searchQuery()"
+      (input)="onSearchInput(searchInput.value)"
+    />
+
+    @if (searchQuery()) {
+      <button class="clear-button" type="button" (click)="clearSearch()">×</button>
+    }
+
+    @if (searchQuery() && filteredStocks().length > 0) {
+      <div class="search-results">
+        @for (stock of filteredStocks(); track stock.ticker) {
+          <button class="search-result" type="button">
+            <div class="result-main">
+              <strong>{{ stock.ticker }}</strong>
+              <span>{{ stock.name }}</span>
+            </div>
+
+            <span class="result-exchange">
+              {{ stock.exchange }}
+            </span>
+          </button>
+        }
+      </div>
+    }
+
+    @if (searchQuery() && filteredStocks().length === 0) {
+      <div class="search-results">
+        <div class="no-results">No companies found</div>
+      </div>
+    }
+  </div>
+
+  <div class="topbar-actions">
+    <button class="icon-button" type="button">☼</button>
+
+    <div class="user-avatar">U</div>
+  </div>
+</header>

@@ -1,0 +1,12 @@
+/* Global layout reset to keep app scroll inside routed content area. */
+html,
+body {
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+app-root {
+	display: block;
+	height: 100%;
+}

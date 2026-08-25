@@ -1,0 +1,156 @@
+.dashboard {
+  padding: 32px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 28px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.5px;
+}
+
+.dashboard-header p {
+  margin: 7px 0 0;
+  color: #77788b;
+  font-size: 14px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.quick-card {
+  min-height: 120px;
+  background: #ffffff;
+  border: 1px solid #e5e6ed;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.quick-card:hover {
+  transform: translateY(-2px);
+  border-color: #d5d1ff;
+  box-shadow: 0 6px 20px rgba(35, 32, 70, 0.07);
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: #efedff;
+  color: #6650e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.quick-card h3 {
+  margin: 2px 0 6px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.quick-card p {
+  margin: 0;
+  color: #858698;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dashboard-panel {
+  min-height: 430px;
+  background: #ffffff;
+  border: 1px solid #e5e6ed;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 22px 24px;
+  border-bottom: 1px solid #ececf1;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.panel-header p {
+  margin: 5px 0 0;
+  color: #858698;
+  font-size: 13px;
+}
+
+.panel-placeholder {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.placeholder-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: #f0efff;
+  color: #6650e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  margin-bottom: 18px;
+}
+
+.panel-placeholder h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.panel-placeholder p {
+  max-width: 420px;
+  margin: 0;
+  color: #858698;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1100px) {
+  .quick-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 750px) {
+  .dashboard {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .quick-grid {
+    grid-template-columns: 1fr;
+  }
+}
