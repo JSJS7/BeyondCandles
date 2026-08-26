@@ -10,31 +10,49 @@
       (input)="onSearchInput(searchInput.value)"
     />
 
+    @let loadState = stocksLoadState();
+
     @if (searchQuery()) {
-      <button class="clear-button" type="button" (click)="clearSearch()">×</button>
-    }
-
-    @if (searchQuery() && filteredStocks().length > 0) {
-      <div class="search-results">
-        @for (stock of filteredStocks(); track stock.ticker) {
-          <button class="search-result" type="button">
-            <div class="result-main">
-              <strong>{{ stock.ticker }}</strong>
-              <span>{{ stock.name }}</span>
-            </div>
-
-            <span class="result-exchange">
-              {{ stock.exchange }}
-            </span>
-          </button>
+      @switch (loadState.status) {
+        @case ('loading') {
+          <div class="search-results">
+            <div class="no-results">Loading companies...</div>
+          </div>
         }
-      </div>
-    }
 
-    @if (searchQuery() && filteredStocks().length === 0) {
-      <div class="search-results">
-        <div class="no-results">No companies found</div>
-      </div>
+        @case ('error') {
+          <div class="search-results">
+            <div class="no-results">{{ loadState.message }}</div>
+          </div>
+        }
+
+        @case ('ready') {
+          @if (filteredStocks().length > 0) {
+            <div class="search-results">
+              @for (stock of filteredStocks(); track stock.ticker) {
+                <button
+                  class="search-result"
+                  type="button"
+                  (click)="selectStock(stock)"
+                >
+                  <div class="result-main">
+                    <strong>{{ stock.ticker }}</strong>
+                    <span>{{ stock.name }}</span>
+                  </div>
+
+                  <span class="result-exchange">
+                    {{ stock.exchange }}
+                  </span>
+                </button>
+              }
+            </div>
+          } @else {
+            <div class="search-results">
+              <div class="no-results">No companies found</div>
+            </div>
+          }
+        }
+      }
     }
   </div>
 

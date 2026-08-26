@@ -12,4 +12,10 @@ export class StockService {
   getStocks(): Observable<Stock[]> {
     return this.apiService.get<Stock[]>('/stocks');
   }
+
+  getStock(ticker: string): Observable<Stock> {
+    return this.apiService.get<Stock>(
+      `/stocks/${encodeURIComponent(ticker)}`,
+    );
+  }
 }

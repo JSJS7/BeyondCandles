@@ -45,19 +45,6 @@
   z-index: 1;
 }
 
-.clear-button {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 0;
-  background: transparent;
-  color: #858698;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 2;
-}
-
 .search-results {
   position: absolute;
   top: calc(100% + 8px);
@@ -125,12 +112,6 @@
   color: #858698;
   font-size: 13px;
   text-align: center;
-}
-
-.breadcrumb {
-  font-size: 14px;
-  font-weight: 600;
-  color: #44445a;
 }
 
 .topbar-actions {

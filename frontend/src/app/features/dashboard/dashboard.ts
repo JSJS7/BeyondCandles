@@ -10,18 +10,18 @@ import { HealthService } from '../../services/health.service';
 export class Dashboard implements OnInit {
   private readonly healthService = inject(HealthService);
 
-  readonly backendStatus = signal('Sprawdzanie...');
+  readonly backendStatus = signal('Checking backend status...');
 
   ngOnInit(): void {
     this.healthService.getHealth().subscribe({
       next: (response) => {
         this.backendStatus.set(response.status === 'ok'
-          ? 'Backend działa'
-          : 'Backend zwrócił nieoczekiwaną odpowiedź'
+          ? 'Backend is running'
+          : 'Backend returned an unexpected response'
         );
       },
       error: () => {
-        this.backendStatus.set('Backend jest niedostępny');
+        this.backendStatus.set('Backend is unavailable');
       }
     });
   }

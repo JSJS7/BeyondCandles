@@ -101,11 +101,12 @@ Technologie wdrażamy dopiero, gdy pojawi się problem, który rozwiązują.
 - Każda funkcja powinna mieć test automatyczny lub opisany scenariusz testu ręcznego.
 - Ważne decyzje architektoniczne zapisujemy w `docs/decisions/`.
 - README opisuje aktualny stan projektu oraz sposób uruchomienia.
+- Wszystkie napisy widoczne w interfejsie aplikacji oraz komunikaty dla użytkownika są po angielsku. Dokumentacja projektu może pozostać po polsku.
 - Commity są małe i opisowe, np. `chore: add project principles`.
 - Przed optymalizacją najpierw mierzymy problem.
 
 ## Aktualny etap
 
-Jesteśmy na M0 — Foundation.
+Jesteśmy na M1 — First Frontend–Backend Vertical Slice.
 
-Aktualnie przygotowujemy dokumentację, strukturę repozytorium i środowisko. Nie implementujemy jeszcze funkcji aplikacji, bazy danych, kolejek ani workerów.
+Aktualnie budujemy i dopracowujemy pierwszy pełny przepływ danych: Angular → API → FastAPI → JSON → Angular. Obejmuje on wyszukiwanie tymczasowych spółek, stronę szczegółów spółki oraz obsługę błędów 404. Nie dodajemy jeszcze bazy danych, kolejek, workerów ani silnika C++.

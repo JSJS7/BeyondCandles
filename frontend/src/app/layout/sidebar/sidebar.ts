@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +7,4 @@ import { Component, output } from '@angular/core';
   styleUrl: './sidebar.css',
 })
 export class SidebarComponent {
-  readonly clearSearchRequested = output<void>();
-
-  clearSearch(): void {
-    this.clearSearchRequested.emit();
-  }
 }

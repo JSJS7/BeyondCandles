@@ -1,13 +1,7 @@
-<app-sidebar (clearSearchRequested)="clearSearch()" />
+<app-sidebar />
 
 <div class="main-content">
-  <app-topbar
-    [searchQuery]="searchQuery()"
-    [filteredStocks]="filteredStocks()"
-    (searchQueryChanged)="onSearchChange($event)"
-    (searchCleared)="clearSearch()"
-  />
-
+  <app-topbar />
   <main>
     <router-outlet />
   </main>

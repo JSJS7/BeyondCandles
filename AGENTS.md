@@ -11,3 +11,5 @@ Nie przechodź samodzielnie do kolejnych milestone’ów ani nie dodawaj nowych 
 Proponuj małe, skupione zmiany. Po każdej zmianie uruchom odpowiedni test lub opisz ręczny sposób weryfikacji.
 
 Przed wykonaniem istotnej zmiany sprawdź aktualny stan repozytorium i istniejącą dokumentację.
+
+Wszystkie napisy widoczne w interfejsie aplikacji oraz komunikaty dla użytkownika zapisuj po angielsku. Dokumentacja projektu i rozmowa mogą pozostać po polsku.

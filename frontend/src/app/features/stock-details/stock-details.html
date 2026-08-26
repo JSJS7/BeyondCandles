@@ -1,0 +1,37 @@
+<section class="stock-details">
+  @let loadState = stockLoadState();
+
+  @switch (loadState.status) {
+    @case ('loading') {
+      <p class="status-message">Loading stock details...</p>
+    }
+
+    @case ('error') {
+      <div class="status-message">
+        <p class="eyebrow">Stock not found</p>
+        <h1>{{ ticker() }}</h1>
+        <p class="description">{{ loadState.message }}</p>
+        <a class="home-link" routerLink="/">Go to dashboard</a>
+      </div>
+    }
+
+    @case ('ready') {
+      @if (stock(); as stock) {
+        <div class="overview-card">
+          <p class="eyebrow">Stock overview</p>
+          <h1>{{ stock.ticker }}</h1>
+          <dl class="stock-data">
+            <div>
+              <dt>Company</dt>
+              <dd>{{ stock.name }}</dd>
+            </div>
+            <div>
+              <dt>Exchange</dt>
+              <dd>{{ stock.exchange }}</dd>
+            </div>
+          </dl>
+        </div>
+      }
+    }
+  }
+</section>

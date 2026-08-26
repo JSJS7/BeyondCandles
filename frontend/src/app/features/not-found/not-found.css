@@ -1,0 +1,36 @@
+.not-found {
+  display: grid;
+  max-width: 640px;
+  padding: 64px 32px;
+  text-align: center;
+  place-items: center;
+}
+
+.error-code {
+  margin: 0;
+  color: #7561e8;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+h1 {
+  margin: 12px 0 8px;
+  color: #222336;
+  font-size: 32px;
+}
+
+p {
+  margin: 0;
+  color: #66677b;
+}
+
+a {
+  margin-top: 28px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #7561e8;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+}
