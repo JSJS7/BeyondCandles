@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "beyondcandles": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "beyondcandles:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "beyondcandles:build:development"
             }
           },
           "defaultConfiguration": "development"

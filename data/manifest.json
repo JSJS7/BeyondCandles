@@ -1,0 +1,24 @@
+{
+  "id": "kaggle-andrew-v1022",
+  "url": "https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks/versions/1022",
+  "download_url": "https://www.kaggle.com/api/v1/datasets/download/andrewmvd/sp-500-stocks?datasetVersionNumber=1022",
+  "version": 1022,
+  "archive": "data/raw/andrew-v1022.zip",
+  "sha256": "4fa441d4eedee4c53babdfe340ad6592d228aea21732b5af11db14d6230b61e5",
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "period_start": "2015-01-02",
+  "period_end": "2024-12-20",
+  "company_count": 200,
+  "trading_dates": 2510,
+  "price_rows": 502000,
+  "calendar_sha256": "72a868cfb24ef97b691dff4b605d391b5d2f01bf8d1c54861a1d055163749a82",
+  "currency": "USD",
+  "license_declared": "CC0-1.0 (Kaggle publisher declaration)",
+  "selection": "200 largest eligible complete histories by archived market cap snapshot; deduplicated normalized company names",
+  "limitations": [
+    "Static end-of-period constituent selection; survivorship bias; not historical S&P 500 membership",
+    "Capitalization snapshot has no explicit per-company valuation date",
+    "Calendar checked against frozen source dates, not official exchange calendar",
+    "Prices are vendor-adjusted history, not a point-in-time unadjusted tape"
+  ]
+}

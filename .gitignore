@@ -16,5 +16,9 @@ build/
 .vscode/
 .idea/
 
+# Local market data and generated audit output
+/data/raw/
+/data/processed/
+
 # Local project documentation
 /docs/

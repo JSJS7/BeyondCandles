@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoadState } from '../../models/load-state';
 import { Stock } from '../../models/stock';
@@ -15,6 +16,7 @@ import { catchError, distinctUntilChanged, EMPTY, map, switchMap, tap } from 'rx
 export class StockDetailsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly stockService = inject(StockService);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly ticker = signal('Unknown');
 
@@ -46,6 +48,7 @@ export class StockDetailsComponent implements OnInit {
             }),
           ),
         ),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((stock) => {
         this.stock.set(stock);

@@ -5,7 +5,7 @@ from app.schemas.stock import Stock
 
 
 app = FastAPI(
-    title="StockEngine API",
+    title="BeyondCandles API",
     version="0.1.0",
 )
 

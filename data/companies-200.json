@@ -1,0 +1,1230 @@
+{
+  "source": "https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks/versions/1022",
+  "dataset_version": 1022,
+  "source_archive_sha256": "4fa441d4eedee4c53babdfe340ad6592d228aea21732b5af11db14d6230b61e5",
+  "period_start": "2015-01-02",
+  "period_end": "2024-12-20",
+  "selection": "200 largest among structurally valid complete histories, ranked by Marketcap from archived company snapshot; one share class per normalized Longname",
+  "capitalization_asof": "Company CSV has no explicit per-row as-of date; archive file timestamps are 2024-12-22. Not a historical capitalization time series.",
+  "calendar_validation": "Complete against dates in this dataset; not independently reconciled against official exchange calendar",
+  "identifier_validation": "Company names deduplicated; SEC CIK reconciliation has not been performed",
+  "historical_membership": "Not reconstructed; selection uses end-of-period constituent snapshot and excludes incomplete series",
+  "company_count": 200,
+  "trading_dates": 2510,
+  "price_rows": 502000,
+  "sectors": {
+    "Technology": 35,
+    "Consumer Cyclical": 19,
+    "Communication Services": 9,
+    "Financial Services": 36,
+    "Consumer Defensive": 12,
+    "Healthcare": 27,
+    "Energy": 11,
+    "Basic Materials": 5,
+    "Industrials": 32,
+    "Utilities": 6,
+    "Real Estate": 8
+  },
+  "companies": [
+    {
+      "Symbol": "AAPL",
+      "Longname": "Apple Inc.",
+      "Sector": "Technology",
+      "Marketcap": "3846819807232"
+    },
+    {
+      "Symbol": "NVDA",
+      "Longname": "NVIDIA Corporation",
+      "Sector": "Technology",
+      "Marketcap": "3298803056640"
+    },
+    {
+      "Symbol": "MSFT",
+      "Longname": "Microsoft Corporation",
+      "Sector": "Technology",
+      "Marketcap": "3246068596736"
+    },
+    {
+      "Symbol": "AMZN",
+      "Longname": "Amazon.com, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "2365033807872"
+    },
+    {
+      "Symbol": "GOOGL",
+      "Longname": "Alphabet Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "2351625142272"
+    },
+    {
+      "Symbol": "META",
+      "Longname": "Meta Platforms, Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "1477457739776"
+    },
+    {
+      "Symbol": "TSLA",
+      "Longname": "Tesla, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "1351627833344"
+    },
+    {
+      "Symbol": "AVGO",
+      "Longname": "Broadcom Inc.",
+      "Sector": "Technology",
+      "Marketcap": "1031217348608"
+    },
+    {
+      "Symbol": "BRK-B",
+      "Longname": "Berkshire Hathaway Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "978776031232"
+    },
+    {
+      "Symbol": "WMT",
+      "Longname": "Walmart Inc.",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "740999888896"
+    },
+    {
+      "Symbol": "LLY",
+      "Longname": "Eli Lilly and Company",
+      "Sector": "Healthcare",
+      "Marketcap": "690458853376"
+    },
+    {
+      "Symbol": "JPM",
+      "Longname": "JPMorgan Chase & Co.",
+      "Sector": "Financial Services",
+      "Marketcap": "668924837888"
+    },
+    {
+      "Symbol": "V",
+      "Longname": "Visa Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "615235846144"
+    },
+    {
+      "Symbol": "MA",
+      "Longname": "Mastercard Incorporated",
+      "Sector": "Financial Services",
+      "Marketcap": "484642324480"
+    },
+    {
+      "Symbol": "ORCL",
+      "Longname": "Oracle Corporation",
+      "Sector": "Technology",
+      "Marketcap": "474532249600"
+    },
+    {
+      "Symbol": "XOM",
+      "Longname": "Exxon Mobil Corporation",
+      "Sector": "Energy",
+      "Marketcap": "465308188672"
+    },
+    {
+      "Symbol": "UNH",
+      "Longname": "UnitedHealth Group Incorporated",
+      "Sector": "Healthcare",
+      "Marketcap": "460261654528"
+    },
+    {
+      "Symbol": "COST",
+      "Longname": "Costco Wholesale Corporation",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "423510736896"
+    },
+    {
+      "Symbol": "PG",
+      "Longname": "The Procter & Gamble Company",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "395788025856"
+    },
+    {
+      "Symbol": "HD",
+      "Longname": "The Home Depot, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "389994315776"
+    },
+    {
+      "Symbol": "NFLX",
+      "Longname": "Netflix, Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "388580671488"
+    },
+    {
+      "Symbol": "JNJ",
+      "Longname": "Johnson & Johnson",
+      "Sector": "Healthcare",
+      "Marketcap": "347828879360"
+    },
+    {
+      "Symbol": "BAC",
+      "Longname": "Bank of America Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "338911100928"
+    },
+    {
+      "Symbol": "CRM",
+      "Longname": "Salesforce, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "328873050112"
+    },
+    {
+      "Symbol": "ABBV",
+      "Longname": "AbbVie Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "310274424832"
+    },
+    {
+      "Symbol": "KO",
+      "Longname": "The Coca-Cola Company",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "269452886016"
+    },
+    {
+      "Symbol": "TMUS",
+      "Longname": "T-Mobile US, Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "255667552256"
+    },
+    {
+      "Symbol": "CVX",
+      "Longname": "Chevron Corporation",
+      "Sector": "Energy",
+      "Marketcap": "254690115584"
+    },
+    {
+      "Symbol": "MRK",
+      "Longname": "Merck & Co., Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "248031199232"
+    },
+    {
+      "Symbol": "WFC",
+      "Longname": "Wells Fargo & Company",
+      "Sector": "Financial Services",
+      "Marketcap": "234196303872"
+    },
+    {
+      "Symbol": "CSCO",
+      "Longname": "Cisco Systems, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "233071116288"
+    },
+    {
+      "Symbol": "ACN",
+      "Longname": "Accenture plc",
+      "Sector": "Technology",
+      "Marketcap": "229157109760"
+    },
+    {
+      "Symbol": "NOW",
+      "Longname": "ServiceNow, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "225143422976"
+    },
+    {
+      "Symbol": "AXP",
+      "Longname": "American Express Company",
+      "Sector": "Financial Services",
+      "Marketcap": "210382487552"
+    },
+    {
+      "Symbol": "MCD",
+      "Longname": "McDonald's Corporation",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "209740349440"
+    },
+    {
+      "Symbol": "PEP",
+      "Longname": "PepsiCo, Inc.",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "209626349568"
+    },
+    {
+      "Symbol": "BX",
+      "Longname": "Blackstone Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "207208415232"
+    },
+    {
+      "Symbol": "IBM",
+      "Longname": "International Business Machines Corporation",
+      "Sector": "Technology",
+      "Marketcap": "206528708608"
+    },
+    {
+      "Symbol": "DIS",
+      "Longname": "The Walt Disney Company",
+      "Sector": "Communication Services",
+      "Marketcap": "202879614976"
+    },
+    {
+      "Symbol": "LIN",
+      "Longname": "Linde plc",
+      "Sector": "Basic Materials",
+      "Marketcap": "202038607872"
+    },
+    {
+      "Symbol": "TMO",
+      "Longname": "Thermo Fisher Scientific Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "200449114112"
+    },
+    {
+      "Symbol": "MS",
+      "Longname": "Morgan Stanley",
+      "Sector": "Financial Services",
+      "Marketcap": "198866780160"
+    },
+    {
+      "Symbol": "ABT",
+      "Longname": "Abbott Laboratories",
+      "Sector": "Healthcare",
+      "Marketcap": "198127370240"
+    },
+    {
+      "Symbol": "ADBE",
+      "Longname": "Adobe Inc.",
+      "Sector": "Technology",
+      "Marketcap": "196844240896"
+    },
+    {
+      "Symbol": "AMD",
+      "Longname": "Advanced Micro Devices, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "193455177728"
+    },
+    {
+      "Symbol": "PM",
+      "Longname": "Philip Morris International Inc.",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "193140981760"
+    },
+    {
+      "Symbol": "ISRG",
+      "Longname": "Intuitive Surgical, Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "186790952960"
+    },
+    {
+      "Symbol": "GE",
+      "Longname": "GE Aerospace",
+      "Sector": "Industrials",
+      "Marketcap": "182225174528"
+    },
+    {
+      "Symbol": "INTU",
+      "Longname": "Intuit Inc.",
+      "Sector": "Technology",
+      "Marketcap": "180095795200"
+    },
+    {
+      "Symbol": "GS",
+      "Longname": "The Goldman Sachs Group, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "177704452096"
+    },
+    {
+      "Symbol": "CAT",
+      "Longname": "Caterpillar Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "176724836352"
+    },
+    {
+      "Symbol": "TXN",
+      "Longname": "Texas Instruments Incorporated",
+      "Sector": "Technology",
+      "Marketcap": "170465984512"
+    },
+    {
+      "Symbol": "QCOM",
+      "Longname": "QUALCOMM Incorporated",
+      "Sector": "Technology",
+      "Marketcap": "169860792320"
+    },
+    {
+      "Symbol": "VZ",
+      "Longname": "Verizon Communications Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "168090517504"
+    },
+    {
+      "Symbol": "BKNG",
+      "Longname": "Booking Holdings Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "167091666944"
+    },
+    {
+      "Symbol": "DHR",
+      "Longname": "Danaher Corporation",
+      "Sector": "Healthcare",
+      "Marketcap": "165075959808"
+    },
+    {
+      "Symbol": "T",
+      "Longname": "AT&T Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "163237838848"
+    },
+    {
+      "Symbol": "BLK",
+      "Longname": "BlackRock, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "159322472448"
+    },
+    {
+      "Symbol": "RTX",
+      "Longname": "RTX Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "155037220864"
+    },
+    {
+      "Symbol": "SPGI",
+      "Longname": "S&P Global Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "152608636928"
+    },
+    {
+      "Symbol": "PFE",
+      "Longname": "Pfizer Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "149381857280"
+    },
+    {
+      "Symbol": "HON",
+      "Longname": "Honeywell International Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "148464402432"
+    },
+    {
+      "Symbol": "NEE",
+      "Longname": "NextEra Energy, Inc.",
+      "Sector": "Utilities",
+      "Marketcap": "147382190080"
+    },
+    {
+      "Symbol": "CMCSA",
+      "Longname": "Comcast Corporation",
+      "Sector": "Communication Services",
+      "Marketcap": "146250366976"
+    },
+    {
+      "Symbol": "ANET",
+      "Longname": "Arista Networks Inc",
+      "Sector": "Technology",
+      "Marketcap": "142113521664"
+    },
+    {
+      "Symbol": "AMGN",
+      "Longname": "Amgen Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "141575438336"
+    },
+    {
+      "Symbol": "PGR",
+      "Longname": "The Progressive Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "140577062912"
+    },
+    {
+      "Symbol": "LOW",
+      "Longname": "Lowe's Companies, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "139875090432"
+    },
+    {
+      "Symbol": "SYK",
+      "Longname": "Stryker Corporation",
+      "Sector": "Healthcare",
+      "Marketcap": "138991353856"
+    },
+    {
+      "Symbol": "UNP",
+      "Longname": "Union Pacific Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "137208094720"
+    },
+    {
+      "Symbol": "TJX",
+      "Longname": "The TJX Companies, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "137147523072"
+    },
+    {
+      "Symbol": "KKR",
+      "Longname": "KKR & Co. Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "136186535936"
+    },
+    {
+      "Symbol": "SCHW",
+      "Longname": "The Charles Schwab Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "136028905472"
+    },
+    {
+      "Symbol": "ETN",
+      "Longname": "Eaton Corporation plc",
+      "Sector": "Industrials",
+      "Marketcap": "133625020416"
+    },
+    {
+      "Symbol": "AMAT",
+      "Longname": "Applied Materials, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "133110726656"
+    },
+    {
+      "Symbol": "BA",
+      "Longname": "The Boeing Company",
+      "Sector": "Industrials",
+      "Marketcap": "132689018880"
+    },
+    {
+      "Symbol": "BSX",
+      "Longname": "Boston Scientific Corporation",
+      "Sector": "Healthcare",
+      "Marketcap": "131097174016"
+    },
+    {
+      "Symbol": "C",
+      "Longname": "Citigroup Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "130856288256"
+    },
+    {
+      "Symbol": "COP",
+      "Longname": "ConocoPhillips",
+      "Sector": "Energy",
+      "Marketcap": "123043438592"
+    },
+    {
+      "Symbol": "PANW",
+      "Longname": "Palo Alto Networks, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "122565033984"
+    },
+    {
+      "Symbol": "ADP",
+      "Longname": "Automatic Data Processing, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "119800504320"
+    },
+    {
+      "Symbol": "DE",
+      "Longname": "Deere & Company",
+      "Sector": "Industrials",
+      "Marketcap": "117453471744"
+    },
+    {
+      "Symbol": "FI",
+      "Longname": "Fiserv, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "117225758720"
+    },
+    {
+      "Symbol": "BMY",
+      "Longname": "Bristol-Myers Squibb Company",
+      "Sector": "Healthcare",
+      "Marketcap": "116275560448"
+    },
+    {
+      "Symbol": "LMT",
+      "Longname": "Lockheed Martin Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "115914858496"
+    },
+    {
+      "Symbol": "GILD",
+      "Longname": "Gilead Sciences, Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "115367206912"
+    },
+    {
+      "Symbol": "NKE",
+      "Longname": "NIKE, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "114525192192"
+    },
+    {
+      "Symbol": "CB",
+      "Longname": "Chubb Limited",
+      "Sector": "Financial Services",
+      "Marketcap": "110126374912"
+    },
+    {
+      "Symbol": "UPS",
+      "Longname": "United Parcel Service, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "107251539968"
+    },
+    {
+      "Symbol": "ADI",
+      "Longname": "Analog Devices, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "105105776640"
+    },
+    {
+      "Symbol": "MMC",
+      "Longname": "Marsh & McLennan Companies, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "103990173696"
+    },
+    {
+      "Symbol": "MDT",
+      "Longname": "Medtronic plc",
+      "Sector": "Healthcare",
+      "Marketcap": "103903961088"
+    },
+    {
+      "Symbol": "VRTX",
+      "Longname": "Vertex Pharmaceuticals Incorporated",
+      "Sector": "Healthcare",
+      "Marketcap": "102308536320"
+    },
+    {
+      "Symbol": "MU",
+      "Longname": "Micron Technology, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "100408999936"
+    },
+    {
+      "Symbol": "SBUX",
+      "Longname": "Starbucks Corporation",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "99740385280"
+    },
+    {
+      "Symbol": "PLD",
+      "Longname": "Prologis, Inc.",
+      "Sector": "Real Estate",
+      "Marketcap": "95692398592"
+    },
+    {
+      "Symbol": "LRCX",
+      "Longname": "Lam Research Corporation",
+      "Sector": "Technology",
+      "Marketcap": "92371476480"
+    },
+    {
+      "Symbol": "MO",
+      "Longname": "Altria Group, Inc.",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "91248566272"
+    },
+    {
+      "Symbol": "SO",
+      "Longname": "The Southern Company",
+      "Sector": "Utilities",
+      "Marketcap": "90788044800"
+    },
+    {
+      "Symbol": "EQIX",
+      "Longname": "Equinix, Inc.",
+      "Sector": "Real Estate",
+      "Marketcap": "89465782272"
+    },
+    {
+      "Symbol": "SHW",
+      "Longname": "The Sherwin-Williams Company",
+      "Sector": "Basic Materials",
+      "Marketcap": "87007649792"
+    },
+    {
+      "Symbol": "ICE",
+      "Longname": "Intercontinental Exchange, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "86304546816"
+    },
+    {
+      "Symbol": "CME",
+      "Longname": "CME Group Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "85957140480"
+    },
+    {
+      "Symbol": "AMT",
+      "Longname": "American Tower Corporation",
+      "Sector": "Real Estate",
+      "Marketcap": "85855002624"
+    },
+    {
+      "Symbol": "APH",
+      "Longname": "Amphenol Corporation",
+      "Sector": "Technology",
+      "Marketcap": "85091958784"
+    },
+    {
+      "Symbol": "ELV",
+      "Longname": "Elevance Health, Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "84874543104"
+    },
+    {
+      "Symbol": "TT",
+      "Longname": "Trane Technologies plc",
+      "Sector": "Industrials",
+      "Marketcap": "84858798080"
+    },
+    {
+      "Symbol": "MCO",
+      "Longname": "Moody's Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "84517085184"
+    },
+    {
+      "Symbol": "CMG",
+      "Longname": "Chipotle Mexican Grill, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "84303437824"
+    },
+    {
+      "Symbol": "INTC",
+      "Longname": "Intel Corporation",
+      "Sector": "Technology",
+      "Marketcap": "84189757440"
+    },
+    {
+      "Symbol": "KLAC",
+      "Longname": "KLA Corporation",
+      "Sector": "Technology",
+      "Marketcap": "84184530944"
+    },
+    {
+      "Symbol": "DUK",
+      "Longname": "Duke Energy Corporation",
+      "Sector": "Utilities",
+      "Marketcap": "83644350464"
+    },
+    {
+      "Symbol": "PH",
+      "Longname": "Parker-Hannifin Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "83307585536"
+    },
+    {
+      "Symbol": "CDNS",
+      "Longname": "Cadence Design Systems, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "82682068992"
+    },
+    {
+      "Symbol": "WM",
+      "Longname": "Waste Management, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "82613166080"
+    },
+    {
+      "Symbol": "MDLZ",
+      "Longname": "Mondelez International, Inc.",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "79415713792"
+    },
+    {
+      "Symbol": "MAR",
+      "Longname": "Marriott International, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "78910488576"
+    },
+    {
+      "Symbol": "MSI",
+      "Longname": "Motorola Solutions, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "78536843264"
+    },
+    {
+      "Symbol": "WELL",
+      "Longname": "Welltower Inc.",
+      "Sector": "Real Estate",
+      "Marketcap": "77612081152"
+    },
+    {
+      "Symbol": "AON",
+      "Longname": "Aon plc",
+      "Sector": "Financial Services",
+      "Marketcap": "77524877312"
+    },
+    {
+      "Symbol": "REGN",
+      "Longname": "Regeneron Pharmaceuticals, Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "77126295552"
+    },
+    {
+      "Symbol": "CI",
+      "Longname": "The Cigna Group",
+      "Sector": "Healthcare",
+      "Marketcap": "77026131968"
+    },
+    {
+      "Symbol": "HCA",
+      "Longname": "HCA Healthcare, Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "76906029056"
+    },
+    {
+      "Symbol": "PNC",
+      "Longname": "The PNC Financial Services Group, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "76483887104"
+    },
+    {
+      "Symbol": "ITW",
+      "Longname": "Illinois Tool Works Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "76429549568"
+    },
+    {
+      "Symbol": "SNPS",
+      "Longname": "Synopsys, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "76080201728"
+    },
+    {
+      "Symbol": "CTAS",
+      "Longname": "Cintas Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "75429543936"
+    },
+    {
+      "Symbol": "CL",
+      "Longname": "Colgate-Palmolive Company",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "75189518336"
+    },
+    {
+      "Symbol": "USB",
+      "Longname": "U.S. Bancorp",
+      "Sector": "Financial Services",
+      "Marketcap": "74756628480"
+    },
+    {
+      "Symbol": "FTNT",
+      "Longname": "Fortinet, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "74491568128"
+    },
+    {
+      "Symbol": "ZTS",
+      "Longname": "Zoetis Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "74370031616"
+    },
+    {
+      "Symbol": "MCK",
+      "Longname": "McKesson Corporation",
+      "Sector": "Healthcare",
+      "Marketcap": "73592193024"
+    },
+    {
+      "Symbol": "GD",
+      "Longname": "General Dynamics Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "72492826624"
+    },
+    {
+      "Symbol": "TDG",
+      "Longname": "TransDigm Group Incorporated",
+      "Sector": "Industrials",
+      "Marketcap": "71758430208"
+    },
+    {
+      "Symbol": "AJG",
+      "Longname": "Arthur J. Gallagher & Co.",
+      "Sector": "Financial Services",
+      "Marketcap": "70719234048"
+    },
+    {
+      "Symbol": "EMR",
+      "Longname": "Emerson Electric Co.",
+      "Sector": "Industrials",
+      "Marketcap": "70673096704"
+    },
+    {
+      "Symbol": "MMM",
+      "Longname": "3M Company",
+      "Sector": "Industrials",
+      "Marketcap": "70400581632"
+    },
+    {
+      "Symbol": "ORLY",
+      "Longname": "O'Reilly Automotive, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "70380068864"
+    },
+    {
+      "Symbol": "NOC",
+      "Longname": "Northrop Grumman Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "68409634816"
+    },
+    {
+      "Symbol": "COF",
+      "Longname": "Capital One Financial Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "68156760064"
+    },
+    {
+      "Symbol": "ECL",
+      "Longname": "Ecolab Inc.",
+      "Sector": "Basic Materials",
+      "Marketcap": "67474665472"
+    },
+    {
+      "Symbol": "EOG",
+      "Longname": "EOG Resources, Inc.",
+      "Sector": "Energy",
+      "Marketcap": "66954047488"
+    },
+    {
+      "Symbol": "FDX",
+      "Longname": "FedEx Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "66409852928"
+    },
+    {
+      "Symbol": "BDX",
+      "Longname": "Becton, Dickinson and Company",
+      "Sector": "Healthcare",
+      "Marketcap": "66029019136"
+    },
+    {
+      "Symbol": "APD",
+      "Longname": "Air Products and Chemicals, Inc.",
+      "Sector": "Basic Materials",
+      "Marketcap": "65599582208"
+    },
+    {
+      "Symbol": "WMB",
+      "Longname": "The Williams Companies, Inc.",
+      "Sector": "Energy",
+      "Marketcap": "65204850688"
+    },
+    {
+      "Symbol": "SPG",
+      "Longname": "Simon Property Group, Inc.",
+      "Sector": "Real Estate",
+      "Marketcap": "64434921472"
+    },
+    {
+      "Symbol": "ADSK",
+      "Longname": "Autodesk, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "64247537664"
+    },
+    {
+      "Symbol": "RCL",
+      "Longname": "Royal Caribbean Cruises Ltd.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "64107868160"
+    },
+    {
+      "Symbol": "RSG",
+      "Longname": "Republic Services, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "63798456320"
+    },
+    {
+      "Symbol": "CSX",
+      "Longname": "CSX Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "61420175360"
+    },
+    {
+      "Symbol": "HLT",
+      "Longname": "Hilton Worldwide Holdings Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "60803608576"
+    },
+    {
+      "Symbol": "DLR",
+      "Longname": "Digital Realty Trust, Inc.",
+      "Sector": "Real Estate",
+      "Marketcap": "60376125440"
+    },
+    {
+      "Symbol": "TGT",
+      "Longname": "Target Corporation",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "60245712896"
+    },
+    {
+      "Symbol": "KMI",
+      "Longname": "Kinder Morgan, Inc.",
+      "Sector": "Energy",
+      "Marketcap": "59651035136"
+    },
+    {
+      "Symbol": "OKE",
+      "Longname": "ONEOK, Inc.",
+      "Sector": "Energy",
+      "Marketcap": "58471841792"
+    },
+    {
+      "Symbol": "TFC",
+      "Longname": "Truist Financial Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "57508167680"
+    },
+    {
+      "Symbol": "AFL",
+      "Longname": "Aflac Incorporated",
+      "Sector": "Financial Services",
+      "Marketcap": "57047171072"
+    },
+    {
+      "Symbol": "GM",
+      "Longname": "General Motors Company",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "56970276864"
+    },
+    {
+      "Symbol": "BK",
+      "Longname": "The Bank of New York Mellon Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "56435798016"
+    },
+    {
+      "Symbol": "ROP",
+      "Longname": "Roper Technologies, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "56338120704"
+    },
+    {
+      "Symbol": "MET",
+      "Longname": "MetLife, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "56335290368"
+    },
+    {
+      "Symbol": "CPRT",
+      "Longname": "Copart, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "56096600064"
+    },
+    {
+      "Symbol": "FCX",
+      "Longname": "Freeport-McMoRan Inc.",
+      "Sector": "Basic Materials",
+      "Marketcap": "55839100928"
+    },
+    {
+      "Symbol": "CVS",
+      "Longname": "CVS Health Corporation",
+      "Sector": "Healthcare",
+      "Marketcap": "55823069184"
+    },
+    {
+      "Symbol": "PCAR",
+      "Longname": "PACCAR Inc",
+      "Sector": "Industrials",
+      "Marketcap": "55219380224"
+    },
+    {
+      "Symbol": "SRE",
+      "Longname": "Sempra",
+      "Sector": "Utilities",
+      "Marketcap": "54985363456"
+    },
+    {
+      "Symbol": "AZO",
+      "Longname": "AutoZone, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "54690828288"
+    },
+    {
+      "Symbol": "TRV",
+      "Longname": "The Travelers Companies, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "54657093632"
+    },
+    {
+      "Symbol": "NXPI",
+      "Longname": "NXP Semiconductors N.V.",
+      "Sector": "Technology",
+      "Marketcap": "53433757696"
+    },
+    {
+      "Symbol": "JCI",
+      "Longname": "Johnson Controls International plc",
+      "Sector": "Industrials",
+      "Marketcap": "53398601728"
+    },
+    {
+      "Symbol": "GWW",
+      "Longname": "W.W. Grainger, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "53227368448"
+    },
+    {
+      "Symbol": "NSC",
+      "Longname": "Norfolk Southern Corporation",
+      "Sector": "Industrials",
+      "Marketcap": "52974096384"
+    },
+    {
+      "Symbol": "PSA",
+      "Longname": "Public Storage",
+      "Sector": "Real Estate",
+      "Marketcap": "52116942848"
+    },
+    {
+      "Symbol": "SLB",
+      "Longname": "Schlumberger Limited",
+      "Sector": "Energy",
+      "Marketcap": "52009488384"
+    },
+    {
+      "Symbol": "AMP",
+      "Longname": "Ameriprise Financial, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "51623407616"
+    },
+    {
+      "Symbol": "ALL",
+      "Longname": "The Allstate Corporation",
+      "Sector": "Financial Services",
+      "Marketcap": "51255271424"
+    },
+    {
+      "Symbol": "FICO",
+      "Longname": "Fair Isaac Corporation",
+      "Sector": "Technology",
+      "Marketcap": "50910969856"
+    },
+    {
+      "Symbol": "MNST",
+      "Longname": "Monster Beverage Corporation",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "50298736640"
+    },
+    {
+      "Symbol": "PAYX",
+      "Longname": "Paychex, Inc.",
+      "Sector": "Technology",
+      "Marketcap": "50243190784"
+    },
+    {
+      "Symbol": "CHTR",
+      "Longname": "Charter Communications, Inc.",
+      "Sector": "Communication Services",
+      "Marketcap": "49977675776"
+    },
+    {
+      "Symbol": "AEP",
+      "Longname": "American Electric Power Company, Inc.",
+      "Sector": "Utilities",
+      "Marketcap": "49395404800"
+    },
+    {
+      "Symbol": "ROST",
+      "Longname": "Ross Stores, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "49208905728"
+    },
+    {
+      "Symbol": "PWR",
+      "Longname": "Quanta Services, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "48477257728"
+    },
+    {
+      "Symbol": "CMI",
+      "Longname": "Cummins Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "48203010048"
+    },
+    {
+      "Symbol": "AXON",
+      "Longname": "Axon Enterprise, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "48169394176"
+    },
+    {
+      "Symbol": "URI",
+      "Longname": "United Rentals, Inc.",
+      "Sector": "Industrials",
+      "Marketcap": "47421370368"
+    },
+    {
+      "Symbol": "MSCI",
+      "Longname": "MSCI Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "47398957056"
+    },
+    {
+      "Symbol": "LULU",
+      "Longname": "Lululemon Athletica Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "46207287296"
+    },
+    {
+      "Symbol": "O",
+      "Longname": "Realty Income Corporation",
+      "Sector": "Real Estate",
+      "Marketcap": "46202388480"
+    },
+    {
+      "Symbol": "PSX",
+      "Longname": "Phillips 66",
+      "Sector": "Energy",
+      "Marketcap": "45581594624"
+    },
+    {
+      "Symbol": "AIG",
+      "Longname": "American International Group, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "45341773824"
+    },
+    {
+      "Symbol": "FANG",
+      "Longname": "Diamondback Energy, Inc.",
+      "Sector": "Energy",
+      "Marketcap": "45240774656"
+    },
+    {
+      "Symbol": "D",
+      "Longname": "Dominion Energy, Inc.",
+      "Sector": "Utilities",
+      "Marketcap": "45074935808"
+    },
+    {
+      "Symbol": "DHI",
+      "Longname": "D.R. Horton, Inc.",
+      "Sector": "Consumer Cyclical",
+      "Marketcap": "44790935552"
+    },
+    {
+      "Symbol": "KR",
+      "Longname": "The Kroger Co.",
+      "Sector": "Consumer Defensive",
+      "Marketcap": "44755030016"
+    },
+    {
+      "Symbol": "NDAQ",
+      "Longname": "Nasdaq, Inc.",
+      "Sector": "Financial Services",
+      "Marketcap": "44658696192"
+    },
+    {
+      "Symbol": "OXY",
+      "Longname": "Occidental Petroleum Corporation",
+      "Sector": "Energy",
+      "Marketcap": "44224106496"
+    },
+    {
+      "Symbol": "EW",
+      "Longname": "Edwards Lifesciences Corporation",
+      "Sector": "Healthcare",
+      "Marketcap": "44122935296"
+    },
+    {
+      "Symbol": "COR",
+      "Longname": "Cencora, Inc.",
+      "Sector": "Healthcare",
+      "Marketcap": "44007923712"
+    }
+  ]
+}
