@@ -22,3 +22,6 @@ build/
 
 # Local project documentation
 /docs/
+
+# Local AI instructions
+/AGENTS.md

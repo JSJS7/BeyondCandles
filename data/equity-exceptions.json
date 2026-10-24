@@ -1,0 +1,439 @@
+{
+  "version": 1,
+  "method": "Seven reviewed parent positions and four reviewed permanent-NCI note columns. Every approval requires the exact observed SEC snapshot, source checksum, table headers and complete numeric row. Boston Scientific parent positions also require an independently pinned original annual balance sheet.",
+  "positions": {
+    "0000008670:2017-06-30": {
+      "ticker": "ADP",
+      "source_cik": "0000008670",
+      "period_end": "2017-06-30",
+      "accession": "0000008670-19-000021",
+      "observed_sha256": "579d8253acfd40c25da740ec8998179821d0009d2a35526b9139767bfbcea9ed",
+      "value": "4984100000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "stockholders equity",
+      "row_numbers": [
+        "5399.9",
+        "4735.9",
+        "4984.1",
+        "4481.6",
+        "4808.5"
+      ],
+      "value_column": 2,
+      "scale": "1000000",
+      "header_terms": [
+        "2019",
+        "2018",
+        "2017",
+        "2016",
+        "2015",
+        "millions"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/8670/000000867019000021/q4fy1910k.htm",
+        "sha256": "6a9b2ba79f9af9bdb4e8cecf516c9d02a815f534f515fe5a7454b3d7a2a90988",
+        "file": "6a9b2ba79f9af9bdb4e8cecf516c9d02a815f534f515fe5a7454b3d7a2a90988.htm"
+      },
+      "note": "FY2017 was restated for ASC 606. The 2019 10-K explicitly reports 4,984.1 million; the older 3,977.0 million parent fact is stale."
+    },
+    "0000008670:2018-06-30": {
+      "ticker": "ADP",
+      "source_cik": "0000008670",
+      "period_end": "2018-06-30",
+      "accession": "0000008670-19-000021",
+      "observed_sha256": "229f590acae4965a099ab23e43021745841ad5835f665a7d77363512991f89b7",
+      "value": "4735900000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "stockholders equity",
+      "row_numbers": [
+        "5399.9",
+        "4735.9",
+        "4984.1",
+        "4481.6",
+        "4808.5"
+      ],
+      "value_column": 1,
+      "scale": "1000000",
+      "header_terms": [
+        "2019",
+        "2018",
+        "2017",
+        "2016",
+        "2015",
+        "millions"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/8670/000000867019000021/q4fy1910k.htm",
+        "sha256": "6a9b2ba79f9af9bdb4e8cecf516c9d02a815f534f515fe5a7454b3d7a2a90988",
+        "file": "6a9b2ba79f9af9bdb4e8cecf516c9d02a815f534f515fe5a7454b3d7a2a90988.htm"
+      },
+      "note": "The 2019 10-K corroborates the parent balance; the later -679.8 million alternative is not whole equity."
+    },
+    "0000040545:2016-12-31": {
+      "ticker": "GE",
+      "source_cik": "0000040545",
+      "period_end": "2016-12-31",
+      "accession": "0000040545-19-000014",
+      "observed_sha256": "ebd1d41b07cc951784b95710ecaad6812f51a381f73f9a76d6d9418f91bff74a",
+      "value": "70162000000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "ge shareowners equity balance",
+      "row_numbers": [
+        "30981",
+        "56030",
+        "70162"
+      ],
+      "value_column": 2,
+      "scale": "1000000",
+      "header_terms": [
+        "2018",
+        "2017",
+        "2016",
+        "millions"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054519000014/ge10-k2018.htm",
+        "sha256": "812ca4ef8af3a38de890957a9701fabdce3f16093854b6d5528ff7a1552e073f",
+        "file": "812ca4ef8af3a38de890957a9701fabdce3f16093854b6d5528ff7a1552e073f.htm"
+      },
+      "note": "The exact parent-equity row in the 2018 10-K confirms the restated 2016 balance, distinct from group equity."
+    },
+    "0001649338:2015-11-01": {
+      "ticker": "AVGO",
+      "source_cik": "0001649338",
+      "period_end": "2015-11-01",
+      "accession": "0001649338-17-000158",
+      "observed_sha256": "3ec57384e489f7192a0537b77bd4a85bdcbd14b3225af64a9d6fc3a0689ca1a5",
+      "value": "4714000000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "balance as of november",
+      "row_numbers": [
+        "276",
+        "2547",
+        "2240",
+        "-73",
+        "4714"
+      ],
+      "value_column": 4,
+      "scale": "1000000",
+      "header_terms": [
+        "November 1, 2015",
+        "Non-controlling Interest",
+        "Total Shareholders"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/avgo-10292017x10k.htm",
+        "sha256": "1cddce116be595a7a24e62ac59d51f82d050bdce2404231e61dc68ffb8733d00",
+        "file": "1cddce116be595a7a24e62ac59d51f82d050bdce2404231e61dc68ffb8733d00.htm"
+      },
+      "note": "The original 2017 predecessor report identifies the 2015 balance and its ownership columns; the rendered R7 omits dates. The 4,714 million parent fact is retained."
+    },
+    "0000885725:2017-12-31": {
+      "ticker": "BSX",
+      "source_cik": "0000885725",
+      "period_end": "2017-12-31",
+      "accession": "0000885725-19-000011",
+      "observed_sha256": "4ff94d62ef7a22aaab16c9fa4a593a9561ec5fa7f4f27df1c96132584c775e6d",
+      "value": "7012000000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "balance at dec",
+      "row_numbers": [
+        "7012",
+        "16",
+        "-1717",
+        "17161",
+        "-8390",
+        "-59"
+      ],
+      "value_column": 0,
+      "scale": "1000000",
+      "header_terms": [
+        "Millions",
+        "Common Stock",
+        "Treasury Stock",
+        "Additional Paid-in Capital",
+        "Retained Earnings",
+        "Dec. 31, 2017"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572519000011/R6.htm",
+        "sha256": "92f583838dbad37644682de975f0cc5c0e4e94db9b41fec590f802faca0de240",
+        "file": "92f583838dbad37644682de975f0cc5c0e4e94db9b41fec590f802faca0de240.htm"
+      },
+      "corroborating_positions": [
+        {
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572518000010/R4.htm",
+            "sha256": "5cf284b3627e3ae9d0f842330097af5fd6aea3ea7867a4c8cb1ad2c0ef88402d",
+            "file": "5cf284b3627e3ae9d0f842330097af5fd6aea3ea7867a4c8cb1ad2c0ef88402d.htm"
+          },
+          "row_label": "total stockholders equity",
+          "row_numbers": [
+            "7012",
+            "6733"
+          ],
+          "value_column": 0,
+          "scale": "1000000",
+          "value": "7012000000",
+          "header_terms": [
+            "Consolidated Balance Sheets",
+            "Millions",
+            "Dec. 31, 2017"
+          ]
+        }
+      ],
+      "note": "The complete primary equity statement identifies parent capital accounts only; the original annual balance sheet independently reports the same total stockholders equity. Displayed component sums differ by one million at the reported million-dollar precision. Preserve the reported total, do not recompute it or infer an NCI balance from the rounding residual."
+    },
+    "0000885725:2018-12-31": {
+      "ticker": "BSX",
+      "source_cik": "0000885725",
+      "period_end": "2018-12-31",
+      "accession": "0000885725-20-000012",
+      "observed_sha256": "9084f946f64690529662310e842a29d0c3f0d3c1a39e6a3065850a1892ea56a6",
+      "value": "8726000000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "balance at dec",
+      "row_numbers": [
+        "8726",
+        "16",
+        "-1717",
+        "17346",
+        "-6953",
+        "33"
+      ],
+      "value_column": 0,
+      "scale": "1000000",
+      "header_terms": [
+        "Millions",
+        "Common Stock",
+        "Treasury Stock",
+        "Additional Paid-in Capital",
+        "Retained Earnings",
+        "Dec. 31, 2018"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572520000012/R6.htm",
+        "sha256": "c368fc3e356aeeadaf0df4b060dc1358597a2c93bcd0fde9876885bad5eda3a9",
+        "file": "c368fc3e356aeeadaf0df4b060dc1358597a2c93bcd0fde9876885bad5eda3a9.htm"
+      },
+      "corroborating_positions": [
+        {
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572519000011/R4.htm",
+            "sha256": "4dc625088e167d1e9680c6f9c478964fdd1540372280d77067e4e27f8ade4258",
+            "file": "4dc625088e167d1e9680c6f9c478964fdd1540372280d77067e4e27f8ade4258.htm"
+          },
+          "row_label": "total stockholders equity",
+          "row_numbers": [
+            "8726",
+            "7012"
+          ],
+          "value_column": 0,
+          "scale": "1000000",
+          "value": "8726000000",
+          "header_terms": [
+            "Consolidated Balance Sheets",
+            "Millions",
+            "Dec. 31, 2018"
+          ]
+        }
+      ],
+      "note": "The complete primary equity statement identifies parent capital accounts only; the original annual balance sheet independently reports the same total stockholders equity. Displayed component sums differ by one million at the reported million-dollar precision. Preserve the reported total, do not recompute it or infer an NCI balance from the rounding residual."
+    },
+    "0000885725:2020-12-31": {
+      "ticker": "BSX",
+      "source_cik": "0000885725",
+      "period_end": "2020-12-31",
+      "accession": "0000885725-23-000008",
+      "observed_sha256": "38e0cbaf65066ea1e0c815017e4ebcaa4a226dee34f749b770c166732e1489d1",
+      "value": "15326000000",
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "row_label": "stockholders equity including portion attributable to noncontrolling interest at dec",
+      "row_numbers": [
+        "15326",
+        "0",
+        "17",
+        "-2251",
+        "19732",
+        "-2378",
+        "207"
+      ],
+      "value_column": 0,
+      "scale": "1000000",
+      "header_terms": [
+        "Millions",
+        "Common Stock",
+        "Treasury Stock",
+        "Additional Paid-in Capital",
+        "Retained Earnings",
+        "Dec. 31, 2020"
+      ],
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
+        "sha256": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c",
+        "file": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c.htm"
+      },
+      "corroborating_positions": [
+        {
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572521000008/R4.htm",
+            "sha256": "f9b35cdd6d29b5cebed061c48020d959ed0608f7def7323485f9952e3c271545",
+            "file": "f9b35cdd6d29b5cebed061c48020d959ed0608f7def7323485f9952e3c271545.htm"
+          },
+          "row_label": "total stockholders equity",
+          "row_numbers": [
+            "15326",
+            "13877"
+          ],
+          "value_column": 0,
+          "scale": "1000000",
+          "value": "15326000000",
+          "header_terms": [
+            "Consolidated Balance Sheets",
+            "Millions",
+            "Dec. 31, 2020"
+          ]
+        }
+      ],
+      "note": "The complete primary equity statement identifies parent capital accounts only; the original annual balance sheet independently reports the same total stockholders equity. Displayed component sums differ by one million at the reported million-dollar precision. Preserve the reported total, do not recompute it or infer an NCI balance from the rounding residual."
+    }
+  },
+  "nci_controls": {
+    "0000021344:2017-12-31": {
+      "ticker": "KO",
+      "source_cik": "0000021344",
+      "accession": "0000021344-19-000042",
+      "period_end": "2017-12-31",
+      "observed_sha256": "d4f1e53783d46880b8b277751da683e18fc05d8f5589371da832e97b01e617dc",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/21344/000002134419000042/R31.htm",
+        "sha256": "039eede01d3ab7c7ff6740c195bcc2f70cde24c68ba2b7135060bc411e54d66d",
+        "file": "039eede01d3ab7c7ff6740c195bcc2f70cde24c68ba2b7135060bc411e54d66d.htm"
+      },
+      "row_label": "december",
+      "row_numbers": [
+        "4259",
+        "18977",
+        "60430",
+        "-10305",
+        "1760",
+        "15864",
+        "-50677",
+        "1905"
+      ],
+      "value_column": 7,
+      "value": "1905000000",
+      "scale": "1000000",
+      "header_terms": [
+        "Common",
+        "Treasury",
+        "controlling",
+        "December 31, 2017"
+      ],
+      "column_label": "Noncontrolling interests (reviewed primary note table)",
+      "note": "The original note labels this column as noncontrolling interests within total equity. The exact dated row and all numbers are pinned; the original XBRL separately verifies the instant, issuer, USD unit and corresponding ownership member. The column is not redeemable NCI."
+    },
+    "0000021344:2018-12-31": {
+      "ticker": "KO",
+      "source_cik": "0000021344",
+      "accession": "0000021344-20-000046",
+      "period_end": "2018-12-31",
+      "observed_sha256": "dda409b015af2b242b5f251f5315e1ca7eed15c1e2a085602a4252f37da3da9b",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/21344/000002134420000046/R30.htm",
+        "sha256": "8a4313a0ba5539436d759863fce5d5b14e06378a32a0174a18b77b6917a9f086",
+        "file": "8a4313a0ba5539436d759863fce5d5b14e06378a32a0174a18b77b6917a9f086.htm"
+      },
+      "row_label": "december",
+      "row_numbers": [
+        "4268",
+        "19058",
+        "63234",
+        "-12814",
+        "1760",
+        "16520",
+        "-51719",
+        "2077"
+      ],
+      "value_column": 7,
+      "value": "2077000000",
+      "scale": "1000000",
+      "header_terms": [
+        "Common",
+        "Treasury",
+        "controlling",
+        "December 31, 2018"
+      ],
+      "column_label": "Noncontrolling interests (reviewed primary note table)",
+      "note": "The original note labels this column as noncontrolling interests within total equity. The exact dated row and all numbers are pinned; the original XBRL separately verifies the instant, issuer, USD unit and corresponding ownership member. The column is not redeemable NCI."
+    },
+    "0000021344:2019-12-31": {
+      "ticker": "KO",
+      "source_cik": "0000021344",
+      "accession": "0000021344-21-000030",
+      "period_end": "2019-12-31",
+      "observed_sha256": "8c2f274f0a9aa3c1ad11f82ccbc0e487ef8cc9ceba4206ac8a0a723125174873",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/21344/000002134421000030/R31.htm",
+        "sha256": "12e12d753f413ac3493df3fe7e8cb41bc4160df368f4ae7aa566b8b55b81dd2a",
+        "file": "12e12d753f413ac3493df3fe7e8cb41bc4160df368f4ae7aa566b8b55b81dd2a.htm"
+      },
+      "row_label": "december",
+      "row_numbers": [
+        "4280",
+        "21098",
+        "65855",
+        "-13544",
+        "1760",
+        "17154",
+        "-52244",
+        "2117"
+      ],
+      "value_column": 7,
+      "value": "2117000000",
+      "scale": "1000000",
+      "header_terms": [
+        "Common",
+        "Treasury",
+        "controlling",
+        "December 31, 2019"
+      ],
+      "column_label": "Noncontrolling interests (reviewed primary note table)",
+      "note": "The original note labels this column as noncontrolling interests within total equity. The exact dated row and all numbers are pinned; the original XBRL separately verifies the instant, issuer, USD unit and corresponding ownership member. The column is not redeemable NCI."
+    },
+    "0000713676:2024-12-31": {
+      "ticker": "PNC",
+      "source_cik": "0000713676",
+      "accession": "0001628280-26-053170",
+      "period_end": "2024-12-31",
+      "observed_sha256": "d7d3ee717e5292da1671218717ee70780f4b51599a4afd1371a99b778c423c37",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000162828026053170/R36.htm",
+        "sha256": "42d83ea08c96d86cc8fc7ee7791e6e2d8450c764263968743462f55ccf33f501",
+        "file": "42d83ea08c96d86cc8fc7ee7791e6e2d8450c764263968743462f55ccf33f501.htm"
+      },
+      "row_label": "balance at december",
+      "row_numbers": [
+        "396",
+        "2717",
+        "5749",
+        "12961",
+        "59282",
+        "-6565",
+        "-19719",
+        "44",
+        "54469"
+      ],
+      "value_column": 7,
+      "value": "44000000",
+      "scale": "1000000",
+      "header_terms": [
+        "Common",
+        "Treasury",
+        "controlling",
+        "December 31, 2024"
+      ],
+      "column_label": "Noncontrolling interests (reviewed primary note table)",
+      "note": "The original note labels this column as noncontrolling interests within total equity. The exact dated row and all numbers are pinned; the original XBRL separately verifies the instant, issuer, USD unit and corresponding ownership member. The column is not redeemable NCI."
+    }
+  }
+}

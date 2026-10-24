@@ -5,12 +5,19 @@ from datetime import date
 from decimal import Decimal
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Any
 from unittest.mock import patch
 
-from app.data_pipeline.prices import sha256, validate_price
-from app.data_pipeline.sec import cache_response, extract_facts, period_kind, verify_identity
-from app.data_pipeline.verification import fingerprint
 from app.data_pipeline.reconciliation import InlineFacts, reconcile_sec
+from app.data_pipeline.sec import (
+    cache_response,
+    extract_facts,
+    period_kind,
+    verify_identity,
+)
+from app.data_pipeline.source_files import sha256
+from app.data_pipeline.validation import validate_price
+from app.data_pipeline.verification import fingerprint
 
 
 class PriceTests(unittest.TestCase):
@@ -79,7 +86,7 @@ class PriceTests(unittest.TestCase):
 
 
 class SecTests(unittest.TestCase):
-    def body(self):
+    def body(self) -> dict[str, Any]:
         """Build SEC-like data with one repeated fact and a later correction."""
         original = {
             "start": "2020-01-01",
@@ -124,7 +131,9 @@ class SecTests(unittest.TestCase):
                 patch("app.data_pipeline.sec.CACHE", cache),
                 patch("app.data_pipeline.sec.fetch", return_value=downloaded),
             ):
-                result = cache_response("https://example.com/facts.json", "BeyondCandles test")
+                result = cache_response(
+                    "https://example.com/facts.json", "BeyondCandles test"
+                )
 
             self.assertEqual(cached_file.read_bytes(), downloaded)
             self.assertEqual(result["sha256"], digest)
@@ -144,7 +153,9 @@ class SecTests(unittest.TestCase):
 
     def test_reconciliation_creates_output_directory_for_cached_documents(self):
         """Write a review report from cached SEC files even before other commands run."""
-        with TemporaryDirectory(prefix="beyondcandles-reconciliation-test-") as directory:
+        with TemporaryDirectory(
+            prefix="beyondcandles-reconciliation-test-"
+        ) as directory:
             root = Path(directory)
             cache = root / "data/raw/sec"
             cache.mkdir(parents=True)
@@ -159,19 +170,26 @@ class SecTests(unittest.TestCase):
                     "url": "https://example.com/annual.htm",
                 },
             }
-            (cache / "annual-index.json").write_text(json.dumps(annual_index), encoding="utf-8")
+            (cache / "annual-index.json").write_text(
+                json.dumps(annual_index), encoding="utf-8"
+            )
             pilot = {"AAPL": ({}, {"facts": {}})}
 
             with (
                 patch("app.data_pipeline.reconciliation.ROOT", root),
                 patch("app.data_pipeline.reconciliation.CACHE", cache),
-                patch("app.data_pipeline.reconciliation.load_pilot", return_value=({}, pilot)),
+                patch(
+                    "app.data_pipeline.reconciliation.load_pilot",
+                    return_value=({}, pilot),
+                ),
             ):
                 report = reconcile_sec()
 
             # Missing financial facts require review, but must not prevent saving the report.
             self.assertEqual(report["status"], "needs_review")
-            self.assertTrue((root / "data/processed/sec-annual-reconciliation.json").is_file())
+            self.assertTrue(
+                (root / "data/processed/sec-annual-reconciliation.json").is_file()
+            )
 
     def test_conflicting_values_in_same_filing_stop_import(self):
         """Reject two different values for the same fact in the same filing."""

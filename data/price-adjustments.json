@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "source_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "period_end": "2024-12-20",
+  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation.",
+  "companies": {
+    "AVGO": {
+      "status": "reviewed",
+      "method": "cash_dividends",
+      "note": "Use 39 verified ordinary common-stock distributions in the frozen period, expressed on the same share basis as Close. The July 2024 10-for-1 split is already reflected in Close. March and June 2018 cash distributions are each applied once. The December 23, 2024 ex-date is outside the frozen period and is excluded. Preferred-stock and partnership distributions are not common-stock dividends.",
+      "evidence": [
+        "https://investors.broadcom.com/static-files/b23c15d8-4928-4caf-bc1f-a2679b8e81cf",
+        "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/avgo-10292017x10k.htm",
+        "https://investors.broadcom.com/static-files/79c26fe7-0519-4212-af21-08e811fb60f3",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-limited-announces-first-quarter-fiscal-year-2018-0",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-fourth-quarter-and-fiscal-year-2019",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-fourth-quarter-and-fiscal-year-2020",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2021-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-fourth-quarter-and-fiscal-year-2021",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-first-quarter-fiscal-year-2022-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-second-quarter-fiscal-year-2022-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2022-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-fourth-quarter-and-fiscal-year-2022/",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-first-quarter-fiscal-year-2023-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-second-quarter-fiscal-year-2023-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2023-financial",
+        "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-fourth-quarter-and-fiscal-year-2023",
+        "https://www.broadcom.com/company/news/financial-releases/61901",
+        "https://www.broadcom.com/company/news/financial-releases/62226",
+        "https://www.broadcom.com/company/news/financial-releases/62441",
+        "https://investors.broadcom.com/static-files/e90fe911-25c9-47eb-afbe-8e763b71eb64",
+        "https://listingcenter.nasdaq.com/assets/RuleBook/Nasdaq/rules/Issuer_Alert_2024-001.pdf"
+      ],
+      "dividends": [
+        {
+          "ex_date": "2015-03-18",
+          "amount": "0.38",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2015-06-17",
+          "amount": "0.40",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2015-09-16",
+          "amount": "0.42",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2015-12-16",
+          "amount": "0.44",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2016-03-16",
+          "amount": "0.49",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2016-06-15",
+          "amount": "0.50",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2016-09-15",
+          "amount": "0.51",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2016-12-14",
+          "amount": "1.02",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2017-03-16",
+          "amount": "1.02",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2017-06-15",
+          "amount": "1.02",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2017-09-18",
+          "amount": "1.02",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2017-12-18",
+          "amount": "1.75",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2018-03-21",
+          "amount": "1.75",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2018-06-19",
+          "amount": "1.75",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2018-09-18",
+          "amount": "1.75",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2018-12-18",
+          "amount": "2.65",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2019-03-20",
+          "amount": "2.65",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2019-06-21",
+          "amount": "2.65",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2019-09-20",
+          "amount": "2.65",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2019-12-20",
+          "amount": "3.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2020-03-20",
+          "amount": "3.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2020-06-19",
+          "amount": "3.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2020-09-21",
+          "amount": "3.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2020-12-18",
+          "amount": "3.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2021-03-19",
+          "amount": "3.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2021-06-21",
+          "amount": "3.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2021-09-21",
+          "amount": "3.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2021-12-21",
+          "amount": "4.10",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2022-03-21",
+          "amount": "4.10",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2022-06-21",
+          "amount": "4.10",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2022-09-21",
+          "amount": "4.10",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2022-12-19",
+          "amount": "4.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2023-03-21",
+          "amount": "4.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2023-06-21",
+          "amount": "4.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2023-09-20",
+          "amount": "4.60",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2023-12-19",
+          "amount": "5.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2024-03-20",
+          "amount": "5.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2024-06-24",
+          "amount": "5.25",
+          "split_divisor": "10"
+        },
+        {
+          "ex_date": "2024-09-19",
+          "amount": "0.53",
+          "split_divisor": "1"
+        }
+      ]
+    }
+  }
+}

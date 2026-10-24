@@ -1,0 +1,103 @@
+<div class="chart-header">
+  <div class="chart-heading">
+    <h2 id="price-heading">Adjusted closing price</h2>
+    <p>USD · Adjusted historical prices, including dividends and corporate actions.</p>
+  </div>
+  <div class="range-buttons" role="group" aria-label="Price history range">
+    @for (preset of presets; track preset) {
+      <button
+        type="button"
+        [attr.aria-pressed]="selectedPreset() === preset"
+        (click)="choosePreset(preset)"
+      >
+        {{ preset }}
+      </button>
+    }
+    <button
+      type="button"
+      #rangeToggle
+      class="select-range"
+      [attr.aria-expanded]="selectingRange()"
+      (click)="toggleRangeSelection()"
+    >
+      Select range
+    </button>
+  </div>
+</div>
+<div class="chart-summary">
+  <div>
+    <span class="summary-label">Adjusted close</span>
+    <strong class="price-value">{{ finalPriceLabel() }}</strong>
+    @if (lastPrice(); as last) {
+      <span class="summary-date">As of {{ formatDate(last.date) }}</span>
+    }
+  </div>
+  <div>
+    <span class="summary-label">Period change</span>
+    <strong class="change-value">{{ changeLabel() }}</strong>
+    @if (firstPrice(); as first) {
+      @if (lastPrice(); as last) {
+        <span class="summary-date">{{ formatDate(first.date) }} — {{ formatDate(last.date) }}</span>
+      }
+    }
+  </div>
+</div>
+@if (selectingRange()) {
+  <form class="custom-range-form" (submit)="applyCustomRange($event)">
+    <p>Select two trading days on the chart or enter the dates below.</p>
+    <div class="date-controls">
+      <label
+        ><span>Start date</span>
+        <input
+          #startInput
+          type="date"
+          required
+          [min]="prices()[0]?.date"
+          [max]="prices().at(-1)?.date"
+          [value]="startDate()"
+          (input)="startDate.set(startInput.value)"
+        />
+      </label>
+      <label
+        ><span>End date</span>
+        <input
+          #endInput
+          type="date"
+          required
+          [min]="prices()[0]?.date"
+          [max]="prices().at(-1)?.date"
+          [value]="endDate()"
+          (input)="endDate.set(endInput.value)"
+        />
+      </label>
+      <div class="range-actions">
+        <button type="submit">Apply</button>
+        <button type="button" (click)="cancelSelection()">Cancel</button>
+      </div>
+    </div>
+  </form>
+}
+<p class="chart-hint">Choose two days to zoom. On touch screens, enable Select range first.</p>
+<p class="range-message" role="status">{{ message() }}</p>
+<div class="chart-container" [class.selection-enabled]="selectingRange()">
+  <canvas
+    #canvas
+    role="img"
+    aria-label="Adjusted closing price history in USD"
+    (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp($event)"
+    (pointercancel)="onPointerCancelled($event)"
+    (lostpointercapture)="onPointerCancelled($event)"
+  ></canvas>
+  @if (selectionBox(); as box) {
+    <div
+      class="selection-box"
+      aria-hidden="true"
+      [style.left.px]="box.left"
+      [style.top.px]="box.top"
+      [style.width.px]="box.width"
+      [style.height.px]="box.height"
+    ></div>
+  }
+</div>

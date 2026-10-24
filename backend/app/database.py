@@ -1,12 +1,15 @@
-from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
+from collections.abc import Iterator
+from typing import ClassVar
+
+from sqlalchemy import Table, create_engine
+from sqlalchemy.engine import URL, Connection
 from sqlalchemy.orm import DeclarativeBase
 
 from app.core.config import settings
 
 
 class Base(DeclarativeBase):
-    pass
+    __table__: ClassVar[Table]
 
 
 database_url = URL.create(
@@ -19,3 +22,9 @@ database_url = URL.create(
 )
 
 engine = create_engine(database_url, connect_args={"connect_timeout": 5})
+
+
+def get_connection() -> Iterator[Connection]:
+    """Keep one database connection open for the duration of an HTTP request."""
+    with engine.connect() as connection:
+        yield connection

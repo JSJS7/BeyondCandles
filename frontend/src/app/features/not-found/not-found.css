@@ -8,7 +8,7 @@
 
 .error-code {
   margin: 0;
-  color: #7561e8;
+  color: var(--bc-primary);
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -16,21 +16,22 @@
 
 h1 {
   margin: 12px 0 8px;
-  color: #222336;
+  color: var(--bc-text);
   font-size: 32px;
 }
 
 p {
   margin: 0;
-  color: #66677b;
+  color: var(--bc-muted);
 }
 
 a {
   margin-top: 28px;
   padding: 10px 14px;
   border-radius: 8px;
-  background: #7561e8;
-  color: #ffffff;
+  border: 1px solid var(--bc-primary);
+  background: var(--bc-surface);
+  color: var(--bc-primary);
   font-weight: 700;
   text-decoration: none;
 }

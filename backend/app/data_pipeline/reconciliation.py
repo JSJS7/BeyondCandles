@@ -1,17 +1,20 @@
 """Compare companyfacts values to entity-wide inline XBRL in annual SEC documents."""
+
 import json
 from decimal import Decimal, InvalidOperation
 from html.parser import HTMLParser
+from typing import Any
 
-from app.data_pipeline.prices import ROOT, read_json, sha256
 from app.data_pipeline.sec import CACHE, cache_response, extract_facts, load_pilot
+from app.data_pipeline.source_files import ROOT, read_json, sha256
 
 
 class InlineFacts(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.contexts, self.facts = {}, []
-        self.context, self.part, self.fact = None, None, None
+        self.context, self.part = None, None
+        self.fact: dict[str, Any] | None = None
         self.excluded = 0
 
     def handle_starttag(self, tag, attrs):
@@ -55,10 +58,19 @@ class InlineFacts(HTMLParser):
             if fact.get("name") != "us-gaap:" + tag:
                 continue
             context = self.contexts.get(fact.get("contextref"), {})
-            if context.get("dimensioned") or context.get("startdate", "").strip() != str(start) or context.get("enddate", "").strip() != str(end):
+            if (
+                context.get("dimensioned")
+                or context.get("startdate", "").strip() != str(start)
+                or context.get("enddate", "").strip() != str(end)
+            ):
                 continue
             transform = fact.get("format", "").split(":")[-1].lower()
-            if transform and transform not in ("num-dot-decimal", "numdotdecimal", "zerodash", "fixed-zero"):
+            if transform and transform not in (
+                "num-dot-decimal",
+                "numdotdecimal",
+                "zerodash",
+                "fixed-zero",
+            ):
                 continue
             text = "".join(fact["text"].split()).replace(",", "")
             if text in ("-", "—", "–"):
@@ -81,16 +93,19 @@ def annual_candidate(submission):
         report_date = submission["reportDate"][index]
         if form != "10-K" or not "2024-01-01" <= report_date <= "2024-12-31":
             continue
-        candidates.append({
-            "report_date": report_date,
-            "accession": submission["accessionNumber"][index],
-            "document": submission["primaryDocument"][index],
-        })
+        candidates.append(
+            {
+                "report_date": report_date,
+                "accession": submission["accessionNumber"][index],
+                "document": submission["primaryDocument"][index],
+            }
+        )
     return candidates
 
 
 def fetch_annual_documents(pilot):
     from app.core.config import settings
+
     if not settings.sec_user_agent:
         raise ValueError("Set SEC_USER_AGENT before fetching annual reports")
     index = {}
@@ -101,7 +116,10 @@ def fetch_annual_documents(pilot):
             if candidates:
                 break
             if old["filingFrom"] <= "2025-12-31" and old["filingTo"] >= "2024-01-01":
-                cached = cache_response("https://data.sec.gov/submissions/" + old["name"], settings.sec_user_agent)
+                cached = cache_response(
+                    "https://data.sec.gov/submissions/" + old["name"],
+                    settings.sec_user_agent,
+                )
                 candidates.extend(annual_candidate(read_json(CACHE / cached["file"])))
         if not candidates:
             raise ValueError(f"No 2024 annual SEC document found: {ticker}")
@@ -110,14 +128,18 @@ def fetch_annual_documents(pilot):
         cached = cache_response(url, settings.sec_user_agent, json_response=False)
         index[ticker] = dict(chosen, **cached)
         print(f"Cached annual SEC document: {ticker}", flush=True)
-    (CACHE / "annual-index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
+    (CACHE / "annual-index.json").write_text(
+        json.dumps(index, indent=2) + "\n", encoding="utf-8"
+    )
     return index
 
 
 def reconcile_sec():
     _, pilot = load_pilot()
     index_path = CACHE / "annual-index.json"
-    index = read_json(index_path) if index_path.exists() else fetch_annual_documents(pilot)
+    index = (
+        read_json(index_path) if index_path.exists() else fetch_annual_documents(pilot)
+    )
     if set(index) != set(pilot):
         raise ValueError("Annual document cache must contain all ten pilot companies")
     report = {
@@ -140,7 +162,8 @@ def reconcile_sec():
         checks = {}
         for metric in ("revenue", "net_income"):
             eligible = [
-                fact for fact in facts
+                fact
+                for fact in facts
                 if fact["metric"] == metric
                 and fact["accession"] == document["accession"]
                 and fact["period_kind"] == "annual"
@@ -148,20 +171,29 @@ def reconcile_sec():
             ]
             checks[metric] = []
             for fact in eligible:
-                observed = parser.matching_values(fact["tag"], fact["period_start"], fact["period_end"])
+                observed = parser.matching_values(
+                    fact["tag"], fact["period_start"], fact["period_end"]
+                )
                 matched = fact["value"] in observed
-                checks[metric].append({
-                    "tag": fact["tag"],
-                    "value": str(fact["value"]),
-                    "unit": fact["unit"],
-                    "period_start": str(fact["period_start"]),
-                    "period_end": str(fact["period_end"]),
-                    "document_values": sorted(map(str, observed)),
-                    "matched": matched,
-                })
+                checks[metric].append(
+                    {
+                        "tag": fact["tag"],
+                        "value": str(fact["value"]),
+                        "unit": fact["unit"],
+                        "period_start": str(fact["period_start"]),
+                        "period_end": str(fact["period_end"]),
+                        "document_values": sorted(map(str, observed)),
+                        "matched": matched,
+                    }
+                )
             if not checks[metric] or not all(c["matched"] for c in checks[metric]):
                 complete = False
-        report["companies"][ticker] = {"url": document["url"], "sha256": document["sha256"], "accession": document["accession"], "checks": checks}
+        report["companies"][ticker] = {
+            "url": document["url"],
+            "sha256": document["sha256"],
+            "accession": document["accession"],
+            "checks": checks,
+        }
     report["status"] = "matched" if complete else "needs_review"
     output = ROOT / "data/processed/sec-annual-reconciliation.json"
     output.parent.mkdir(parents=True, exist_ok=True)

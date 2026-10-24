@@ -1,0 +1,201 @@
+Symbol,Longname,Exchange,Sector
+AAPL,Apple Inc.,NMS,Technology
+ABBV,AbbVie Inc.,NYQ,Healthcare
+ABT,Abbott Laboratories,NYQ,Healthcare
+ACN,Accenture plc,NYQ,Technology
+ADBE,Adobe Inc.,NMS,Technology
+ADI,"Analog Devices, Inc.",NMS,Technology
+ADP,"Automatic Data Processing, Inc.",NMS,Technology
+ADSK,"Autodesk, Inc.",NMS,Technology
+AEP,"American Electric Power Company, Inc.",NMS,Utilities
+AFL,Aflac Incorporated,NYQ,Financial Services
+AIG,"American International Group, Inc.",NYQ,Financial Services
+AJG,Arthur J. Gallagher & Co.,NYQ,Financial Services
+ALL,The Allstate Corporation,NYQ,Financial Services
+AMAT,"Applied Materials, Inc.",NMS,Technology
+AMD,"Advanced Micro Devices, Inc.",NMS,Technology
+AMGN,Amgen Inc.,NMS,Healthcare
+AMP,"Ameriprise Financial, Inc.",NYQ,Financial Services
+AMT,American Tower Corporation,NYQ,Real Estate
+AMZN,"Amazon.com, Inc.",NMS,Consumer Cyclical
+ANET,Arista Networks Inc,NYQ,Technology
+AON,Aon plc,NYQ,Financial Services
+APD,"Air Products and Chemicals, Inc.",NYQ,Basic Materials
+APH,Amphenol Corporation,NYQ,Technology
+AVGO,Broadcom Inc.,NMS,Technology
+AXON,"Axon Enterprise, Inc.",NMS,Industrials
+AXP,American Express Company,NYQ,Financial Services
+AZO,"AutoZone, Inc.",NYQ,Consumer Cyclical
+BA,The Boeing Company,NYQ,Industrials
+BAC,Bank of America Corporation,NYQ,Financial Services
+BDX,"Becton, Dickinson and Company",NYQ,Healthcare
+BK,The Bank of New York Mellon Corporation,NYQ,Financial Services
+BKNG,Booking Holdings Inc.,NMS,Consumer Cyclical
+BLK,"BlackRock, Inc.",NYQ,Financial Services
+BMY,Bristol-Myers Squibb Company,NYQ,Healthcare
+BRK-B,Berkshire Hathaway Inc.,NYQ,Financial Services
+BSX,Boston Scientific Corporation,NYQ,Healthcare
+BX,Blackstone Inc.,NYQ,Financial Services
+C,Citigroup Inc.,NYQ,Financial Services
+CAT,Caterpillar Inc.,NYQ,Industrials
+CB,Chubb Limited,NYQ,Financial Services
+CDNS,"Cadence Design Systems, Inc.",NMS,Technology
+CHTR,"Charter Communications, Inc.",NMS,Communication Services
+CI,The Cigna Group,NYQ,Healthcare
+CL,Colgate-Palmolive Company,NYQ,Consumer Defensive
+CMCSA,Comcast Corporation,NMS,Communication Services
+CME,CME Group Inc.,NMS,Financial Services
+CMG,"Chipotle Mexican Grill, Inc.",NYQ,Consumer Cyclical
+CMI,Cummins Inc.,NYQ,Industrials
+COF,Capital One Financial Corporation,NYQ,Financial Services
+COP,ConocoPhillips,NYQ,Energy
+COR,"Cencora, Inc.",NYQ,Healthcare
+COST,Costco Wholesale Corporation,NMS,Consumer Defensive
+CPRT,"Copart, Inc.",NMS,Industrials
+CRM,"Salesforce, Inc.",NYQ,Technology
+CSCO,"Cisco Systems, Inc.",NMS,Technology
+CSX,CSX Corporation,NMS,Industrials
+CTAS,Cintas Corporation,NMS,Industrials
+CVS,CVS Health Corporation,NYQ,Healthcare
+CVX,Chevron Corporation,NYQ,Energy
+D,"Dominion Energy, Inc.",NYQ,Utilities
+DE,Deere & Company,NYQ,Industrials
+DHI,"D.R. Horton, Inc.",NYQ,Consumer Cyclical
+DHR,Danaher Corporation,NYQ,Healthcare
+DIS,The Walt Disney Company,NYQ,Communication Services
+DLR,"Digital Realty Trust, Inc.",NYQ,Real Estate
+DUK,Duke Energy Corporation,NYQ,Utilities
+ECL,Ecolab Inc.,NYQ,Basic Materials
+ELV,"Elevance Health, Inc.",NYQ,Healthcare
+EMR,Emerson Electric Co.,NYQ,Industrials
+EOG,"EOG Resources, Inc.",NYQ,Energy
+EQIX,"Equinix, Inc.",NMS,Real Estate
+ETN,Eaton Corporation plc,NYQ,Industrials
+EW,Edwards Lifesciences Corporation,NYQ,Healthcare
+FANG,"Diamondback Energy, Inc.",NMS,Energy
+FCX,Freeport-McMoRan Inc.,NYQ,Basic Materials
+FDX,FedEx Corporation,NYQ,Industrials
+FI,"Fiserv, Inc.",NYQ,Technology
+FICO,Fair Isaac Corporation,NYQ,Technology
+FTNT,"Fortinet, Inc.",NMS,Technology
+GD,General Dynamics Corporation,NYQ,Industrials
+GE,GE Aerospace,NYQ,Industrials
+GILD,"Gilead Sciences, Inc.",NMS,Healthcare
+GM,General Motors Company,NYQ,Consumer Cyclical
+GOOGL,Alphabet Inc.,NMS,Communication Services
+GS,"The Goldman Sachs Group, Inc.",NYQ,Financial Services
+GWW,"W.W. Grainger, Inc.",NYQ,Industrials
+HCA,"HCA Healthcare, Inc.",NYQ,Healthcare
+HD,"The Home Depot, Inc.",NYQ,Consumer Cyclical
+HLT,Hilton Worldwide Holdings Inc.,NYQ,Consumer Cyclical
+HON,Honeywell International Inc.,NMS,Industrials
+IBM,International Business Machines Corporation,NYQ,Technology
+ICE,"Intercontinental Exchange, Inc.",NYQ,Financial Services
+INTC,Intel Corporation,NMS,Technology
+INTU,Intuit Inc.,NMS,Technology
+ISRG,"Intuitive Surgical, Inc.",NMS,Healthcare
+ITW,Illinois Tool Works Inc.,NYQ,Industrials
+JCI,Johnson Controls International plc,NYQ,Industrials
+JNJ,Johnson & Johnson,NYQ,Healthcare
+JPM,JPMorgan Chase & Co.,NYQ,Financial Services
+KKR,KKR & Co. Inc.,NYQ,Financial Services
+KLAC,KLA Corporation,NMS,Technology
+KMI,"Kinder Morgan, Inc.",NYQ,Energy
+KO,The Coca-Cola Company,NYQ,Consumer Defensive
+KR,The Kroger Co.,NYQ,Consumer Defensive
+LIN,Linde plc,NMS,Basic Materials
+LLY,Eli Lilly and Company,NYQ,Healthcare
+LMT,Lockheed Martin Corporation,NYQ,Industrials
+LOW,"Lowe's Companies, Inc.",NYQ,Consumer Cyclical
+LRCX,Lam Research Corporation,NMS,Technology
+LULU,Lululemon Athletica Inc.,NMS,Consumer Cyclical
+MA,Mastercard Incorporated,NYQ,Financial Services
+MAR,"Marriott International, Inc.",NMS,Consumer Cyclical
+MCD,McDonald's Corporation,NYQ,Consumer Cyclical
+MCK,McKesson Corporation,NYQ,Healthcare
+MCO,Moody's Corporation,NYQ,Financial Services
+MDLZ,"Mondelez International, Inc.",NMS,Consumer Defensive
+MDT,Medtronic plc,NYQ,Healthcare
+MET,"MetLife, Inc.",NYQ,Financial Services
+META,"Meta Platforms, Inc.",NMS,Communication Services
+MMC,"Marsh & McLennan Companies, Inc.",NYQ,Financial Services
+MMM,3M Company,NYQ,Industrials
+MNST,Monster Beverage Corporation,NMS,Consumer Defensive
+MO,"Altria Group, Inc.",NYQ,Consumer Defensive
+MRK,"Merck & Co., Inc.",NYQ,Healthcare
+MS,Morgan Stanley,NYQ,Financial Services
+MSCI,MSCI Inc.,NYQ,Financial Services
+MSFT,Microsoft Corporation,NMS,Technology
+MSI,"Motorola Solutions, Inc.",NYQ,Technology
+MU,"Micron Technology, Inc.",NMS,Technology
+NDAQ,"Nasdaq, Inc.",NMS,Financial Services
+NEE,"NextEra Energy, Inc.",NYQ,Utilities
+NFLX,"Netflix, Inc.",NMS,Communication Services
+NKE,"NIKE, Inc.",NYQ,Consumer Cyclical
+NOC,Northrop Grumman Corporation,NYQ,Industrials
+NOW,"ServiceNow, Inc.",NYQ,Technology
+NSC,Norfolk Southern Corporation,NYQ,Industrials
+NVDA,NVIDIA Corporation,NMS,Technology
+NXPI,NXP Semiconductors N.V.,NMS,Technology
+O,Realty Income Corporation,NYQ,Real Estate
+OKE,"ONEOK, Inc.",NYQ,Energy
+ORCL,Oracle Corporation,NYQ,Technology
+ORLY,"O'Reilly Automotive, Inc.",NMS,Consumer Cyclical
+OXY,Occidental Petroleum Corporation,NYQ,Energy
+PANW,"Palo Alto Networks, Inc.",NMS,Technology
+PAYX,"Paychex, Inc.",NMS,Technology
+PCAR,PACCAR Inc,NMS,Industrials
+PEP,"PepsiCo, Inc.",NMS,Consumer Defensive
+PFE,Pfizer Inc.,NYQ,Healthcare
+PG,The Procter & Gamble Company,NYQ,Consumer Defensive
+PGR,The Progressive Corporation,NYQ,Financial Services
+PH,Parker-Hannifin Corporation,NYQ,Industrials
+PLD,"Prologis, Inc.",NYQ,Real Estate
+PM,Philip Morris International Inc.,NYQ,Consumer Defensive
+PNC,"The PNC Financial Services Group, Inc.",NYQ,Financial Services
+PSA,Public Storage,NYQ,Real Estate
+PSX,Phillips 66,NYQ,Energy
+PWR,"Quanta Services, Inc.",NYQ,Industrials
+QCOM,QUALCOMM Incorporated,NMS,Technology
+RCL,Royal Caribbean Cruises Ltd.,NYQ,Consumer Cyclical
+REGN,"Regeneron Pharmaceuticals, Inc.",NMS,Healthcare
+ROP,"Roper Technologies, Inc.",NMS,Technology
+ROST,"Ross Stores, Inc.",NMS,Consumer Cyclical
+RSG,"Republic Services, Inc.",NYQ,Industrials
+RTX,RTX Corporation,NYQ,Industrials
+SBUX,Starbucks Corporation,NMS,Consumer Cyclical
+SCHW,The Charles Schwab Corporation,NYQ,Financial Services
+SHW,The Sherwin-Williams Company,NYQ,Basic Materials
+SLB,Schlumberger Limited,NYQ,Energy
+SNPS,"Synopsys, Inc.",NMS,Technology
+SO,The Southern Company,NYQ,Utilities
+SPG,"Simon Property Group, Inc.",NYQ,Real Estate
+SPGI,S&P Global Inc.,NYQ,Financial Services
+SRE,Sempra,NYQ,Utilities
+SYK,Stryker Corporation,NYQ,Healthcare
+T,AT&T Inc.,NYQ,Communication Services
+TDG,TransDigm Group Incorporated,NYQ,Industrials
+TFC,Truist Financial Corporation,NYQ,Financial Services
+TGT,Target Corporation,NYQ,Consumer Defensive
+TJX,"The TJX Companies, Inc.",NYQ,Consumer Cyclical
+TMO,Thermo Fisher Scientific Inc.,NYQ,Healthcare
+TMUS,"T-Mobile US, Inc.",NMS,Communication Services
+TRV,"The Travelers Companies, Inc.",NYQ,Financial Services
+TSLA,"Tesla, Inc.",NMS,Consumer Cyclical
+TT,Trane Technologies plc,NYQ,Industrials
+TXN,Texas Instruments Incorporated,NMS,Technology
+UNH,UnitedHealth Group Incorporated,NYQ,Healthcare
+UNP,Union Pacific Corporation,NYQ,Industrials
+UPS,"United Parcel Service, Inc.",NYQ,Industrials
+URI,"United Rentals, Inc.",NYQ,Industrials
+USB,U.S. Bancorp,NYQ,Financial Services
+V,Visa Inc.,NYQ,Financial Services
+VRTX,Vertex Pharmaceuticals Incorporated,NMS,Healthcare
+VZ,Verizon Communications Inc.,NYQ,Communication Services
+WELL,Welltower Inc.,NYQ,Real Estate
+WFC,Wells Fargo & Company,NYQ,Financial Services
+WM,"Waste Management, Inc.",NYQ,Industrials
+WMB,"The Williams Companies, Inc.",NYQ,Energy
+WMT,Walmart Inc.,NYQ,Consumer Defensive
+XOM,Exxon Mobil Corporation,NYQ,Energy
+ZTS,Zoetis Inc.,NYQ,Healthcare

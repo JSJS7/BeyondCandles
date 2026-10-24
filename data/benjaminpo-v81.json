@@ -1,0 +1,1584 @@
+{
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "period_start": "2015-01-02",
+  "period_end": "2024-12-20",
+  "company_count": 200,
+  "trading_dates": 2510,
+  "price_rows": 502000,
+  "calendar_sha256": "72a868cfb24ef97b691dff4b605d391b5d2f01bf8d1c54861a1d055163749a82",
+  "currency": "USD",
+  "selection": "200 largest eligible complete histories by archived market cap snapshot; deduplicated normalized company names",
+  "id": "kaggle-benjaminpo-v81",
+  "url": "https://www.kaggle.com/datasets/benjaminpo/finance-dataset/versions/81",
+  "version": 81,
+  "sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
+  "files": {
+    "AAPL": {
+      "file": "data/raw/benjaminpo-v81/AAPL.csv",
+      "source_name": "stocks_us/1d/AAPL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAAPL.csv?datasetVersionNumber=81",
+      "sha256": "52935acf14f8055eabb4711b4df98f9391e8320911cfdb8168c1266a82c1c5dd",
+      "bytes": 1180749
+    },
+    "ABBV": {
+      "file": "data/raw/benjaminpo-v81/ABBV.csv",
+      "source_name": "stocks_us/1d/ABBV.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FABBV.csv?datasetVersionNumber=81",
+      "sha256": "7c0e9470ba35b31f3313b5c771349892fa269d1fe95e79a472280c652ffacb6c",
+      "bytes": 364983
+    },
+    "ABT": {
+      "file": "data/raw/benjaminpo-v81/ABT.csv",
+      "source_name": "stocks_us/1d/ABT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FABT.csv?datasetVersionNumber=81",
+      "sha256": "961283eee69778231cea37a67899371221e89ed8bb7288adab7458c73d3d23ec",
+      "bytes": 1196858
+    },
+    "ACN": {
+      "file": "data/raw/benjaminpo-v81/ACN.csv",
+      "source_name": "stocks_us/1d/ACN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FACN.csv?datasetVersionNumber=81",
+      "sha256": "dd894d8c88ad733726af7494570e247da12faab56003d849f3c39f37883f2a38",
+      "bytes": 667153
+    },
+    "ADBE": {
+      "file": "data/raw/benjaminpo-v81/ADBE.csv",
+      "source_name": "stocks_us/1d/ADBE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FADBE.csv?datasetVersionNumber=81",
+      "sha256": "c0b7016e5a507ac6977515d995f42656b228f0f301e1e5b3f66afc67cc036b8f",
+      "bytes": 1039989
+    },
+    "ADI": {
+      "file": "data/raw/benjaminpo-v81/ADI.csv",
+      "source_name": "stocks_us/1d/ADI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FADI.csv?datasetVersionNumber=81",
+      "sha256": "a93be09a7845b1dd8e800500964cf753ca0c068ceb89b9f1747d97ffbf49f4bc",
+      "bytes": 1193226
+    },
+    "ADP": {
+      "file": "data/raw/benjaminpo-v81/ADP.csv",
+      "source_name": "stocks_us/1d/ADP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FADP.csv?datasetVersionNumber=81",
+      "sha256": "e3705086a79be780793f4fbdd349d8b329e2ff95ff75bf5be7b85ea241a47b29",
+      "bytes": 1201563
+    },
+    "ADSK": {
+      "file": "data/raw/benjaminpo-v81/ADSK.csv",
+      "source_name": "stocks_us/1d/ADSK.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FADSK.csv?datasetVersionNumber=81",
+      "sha256": "01b1a20595dda615a5466619e9a83f4823aaae1013ef419304f990f5ae2990ae",
+      "bytes": 1061317
+    },
+    "AEP": {
+      "file": "data/raw/benjaminpo-v81/AEP.csv",
+      "source_name": "stocks_us/1d/AEP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAEP.csv?datasetVersionNumber=81",
+      "sha256": "43913d1291f58a9f0dc6fa4e537e5f03003c51dd1b59a3a880632c66700f5eb4",
+      "bytes": 1657029
+    },
+    "AFL": {
+      "file": "data/raw/benjaminpo-v81/AFL.csv",
+      "source_name": "stocks_us/1d/AFL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAFL.csv?datasetVersionNumber=81",
+      "sha256": "e4503c7117432a67623a0bd8ec05eb7682915e51a407ff493edc2525a33f9c9a",
+      "bytes": 1185772
+    },
+    "AIG": {
+      "file": "data/raw/benjaminpo-v81/AIG.csv",
+      "source_name": "stocks_us/1d/AIG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAIG.csv?datasetVersionNumber=81",
+      "sha256": "4560e107e1dbb7d618cbe23ad90df8d1219f668964eda5a2e04cd29a81ffb916",
+      "bytes": 1413130
+    },
+    "AJG": {
+      "file": "data/raw/benjaminpo-v81/AJG.csv",
+      "source_name": "stocks_us/1d/AJG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAJG.csv?datasetVersionNumber=81",
+      "sha256": "b24d0957ce6dbb35049c7840fa0bde6af094869b4a37250073608bbe3a216449",
+      "bytes": 1074781
+    },
+    "ALL": {
+      "file": "data/raw/benjaminpo-v81/ALL.csv",
+      "source_name": "stocks_us/1d/ALL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FALL.csv?datasetVersionNumber=81",
+      "sha256": "eb02fcf32981b416a65e3d241ae56911f26b5dd17da16ba10cacc80c09da0870",
+      "bytes": 872138
+    },
+    "AMAT": {
+      "file": "data/raw/benjaminpo-v81/AMAT.csv",
+      "source_name": "stocks_us/1d/AMAT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAMAT.csv?datasetVersionNumber=81",
+      "sha256": "57f1d94788c209f932db6ea5c403ab5263fc458e5a558dbcea6af1c7affe94fd",
+      "bytes": 1198389
+    },
+    "AMD": {
+      "file": "data/raw/benjaminpo-v81/AMD.csv",
+      "source_name": "stocks_us/1d/AMD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAMD.csv?datasetVersionNumber=81",
+      "sha256": "55dee875e2bc445ea1c9517ada9a685b85bac11f6f6cdec78777a767b21faa58",
+      "bytes": 1189968
+    },
+    "AMGN": {
+      "file": "data/raw/benjaminpo-v81/AMGN.csv",
+      "source_name": "stocks_us/1d/AMGN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAMGN.csv?datasetVersionNumber=81",
+      "sha256": "51a810c7e35d12518dbaee914a5c624aa37a07cab3c05e3f133b983f903a7857",
+      "bytes": 1127277
+    },
+    "AMP": {
+      "file": "data/raw/benjaminpo-v81/AMP.csv",
+      "source_name": "stocks_us/1d/AMP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAMP.csv?datasetVersionNumber=81",
+      "sha256": "16808e6be4933b73df6bd4e4c2dc5c848102526dc67ab362f16f519266025663",
+      "bytes": 558189
+    },
+    "AMT": {
+      "file": "data/raw/benjaminpo-v81/AMT.csv",
+      "source_name": "stocks_us/1d/AMT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAMT.csv?datasetVersionNumber=81",
+      "sha256": "f41639af2ce1dd9c354a0d000c637bfe4eef3cb867485a96daca3e7e99ec3faf",
+      "bytes": 751463
+    },
+    "AMZN": {
+      "file": "data/raw/benjaminpo-v81/AMZN.csv",
+      "source_name": "stocks_us/1d/AMZN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAMZN.csv?datasetVersionNumber=81",
+      "sha256": "dadd6f49849d1e7ccc355c6710dc24ea61ea3cd4482b4321310204fc4cde6cad",
+      "bytes": 762669
+    },
+    "ANET": {
+      "file": "data/raw/benjaminpo-v81/ANET.csv",
+      "source_name": "stocks_us/1d/ANET.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FANET.csv?datasetVersionNumber=81",
+      "sha256": "fb2d4e0f0684ea5159a13e205a37b672ecd0b83ed1ba94163e2caa52abcd3d1b",
+      "bytes": 319340
+    },
+    "AON": {
+      "file": "data/raw/benjaminpo-v81/AON.csv",
+      "source_name": "stocks_us/1d/AON.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAON.csv?datasetVersionNumber=81",
+      "sha256": "ae7c6df896aa999378aafdd6d5a9a4b753fc90a1cfa5ca1488010f9c1c6376c9",
+      "bytes": 1196212
+    },
+    "APD": {
+      "file": "data/raw/benjaminpo-v81/APD.csv",
+      "source_name": "stocks_us/1d/APD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAPD.csv?datasetVersionNumber=81",
+      "sha256": "a33d71913d92ba559d6865c3773c85f5d717f3858ed9cfda38cd8fc6f4a7d86b",
+      "bytes": 1206356
+    },
+    "APH": {
+      "file": "data/raw/benjaminpo-v81/APH.csv",
+      "source_name": "stocks_us/1d/APH.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAPH.csv?datasetVersionNumber=81",
+      "sha256": "f4e108ac55e959ddb763b2d0c35769b6421de6afd938be5123d8de777ca68707",
+      "bytes": 880578
+    },
+    "AVGO": {
+      "file": "data/raw/benjaminpo-v81/AVGO.csv",
+      "source_name": "stocks_us/1d/AVGO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAVGO.csv?datasetVersionNumber=81",
+      "sha256": "f65350fb7ac5d83e6dc19fd05e3d1b5582afca956e153c8c52e928360b574693",
+      "bytes": 445890
+    },
+    "AXON": {
+      "file": "data/raw/benjaminpo-v81/AXON.csv",
+      "source_name": "stocks_us/1d/AXON.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAXON.csv?datasetVersionNumber=81",
+      "sha256": "f0415dd9e5e9948233377abf1db8f71b3bebb75faf677c8d3d2efc022b836a4b",
+      "bytes": 646884
+    },
+    "AXP": {
+      "file": "data/raw/benjaminpo-v81/AXP.csv",
+      "source_name": "stocks_us/1d/AXP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAXP.csv?datasetVersionNumber=81",
+      "sha256": "f2426211aa74663db4627f199c7f576a54e8903404ffff7a9ce3b6a133901525",
+      "bytes": 1391347
+    },
+    "AZO": {
+      "file": "data/raw/benjaminpo-v81/AZO.csv",
+      "source_name": "stocks_us/1d/AZO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FAZO.csv?datasetVersionNumber=81",
+      "sha256": "43d8346d52af7e7a0f4a3d2a9cc6afa69e705730c84dc38afd111e39987c94a3",
+      "bytes": 947467
+    },
+    "BA": {
+      "file": "data/raw/benjaminpo-v81/BA.csv",
+      "source_name": "stocks_us/1d/BA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBA.csv?datasetVersionNumber=81",
+      "sha256": "a1302e27543e2ff44a073544900994dfd8b72b86c56cd112972f5ff182b5b691",
+      "bytes": 1663281
+    },
+    "BAC": {
+      "file": "data/raw/benjaminpo-v81/BAC.csv",
+      "source_name": "stocks_us/1d/BAC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBAC.csv?datasetVersionNumber=81",
+      "sha256": "8ae09c5026ff762c3d9b3ebcc54c8a1b52b301c6f1a22152efff54680c776509",
+      "bytes": 1369149
+    },
+    "BDX": {
+      "file": "data/raw/benjaminpo-v81/BDX.csv",
+      "source_name": "stocks_us/1d/BDX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBDX.csv?datasetVersionNumber=81",
+      "sha256": "183277add8073e72a2515d8fe30d69b23093da4c66f784f335427b74ce3110b5",
+      "bytes": 1373549
+    },
+    "BK": {
+      "file": "data/raw/benjaminpo-v81/BK.csv",
+      "source_name": "stocks_us/1d/BNY.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBNY.csv?datasetVersionNumber=81",
+      "sha256": "7d337a8e3816a017dab31ed4c580d5c1c86f377e3fade62ba382e02e80190ee2",
+      "bytes": 1355756
+    },
+    "BKNG": {
+      "file": "data/raw/benjaminpo-v81/BKNG.csv",
+      "source_name": "stocks_us/1d/BKNG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBKNG.csv?datasetVersionNumber=81",
+      "sha256": "2ebe3de782f8fa1f0d89d2b929896a7d77bbf810af73b624cd4fc11eb5a4f64d",
+      "bytes": 709780
+    },
+    "BLK": {
+      "file": "data/raw/benjaminpo-v81/BLK.csv",
+      "source_name": "stocks_us/1d/BLK.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBLK.csv?datasetVersionNumber=81",
+      "sha256": "acdf04c037d174d628f919c2e01383430b13964c1d19eedc907556da260b93d2",
+      "bytes": 720142
+    },
+    "BMY": {
+      "file": "data/raw/benjaminpo-v81/BMY.csv",
+      "source_name": "stocks_us/1d/BMY.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBMY.csv?datasetVersionNumber=81",
+      "sha256": "076a823f8ceb9f4f093f288930c640f06d8f36227cc97c8f5070f038dadc3395",
+      "bytes": 1391136
+    },
+    "BRK-B": {
+      "file": "data/raw/benjaminpo-v81/BRK-B.csv",
+      "source_name": "stocks_us/1d/BRK-B.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBRK-B.csv?datasetVersionNumber=81",
+      "sha256": "f1a234da4126f3c304e0655b7de7612a04097e710019a80db140c4a31e6716c1",
+      "bytes": 803001
+    },
+    "BSX": {
+      "file": "data/raw/benjaminpo-v81/BSX.csv",
+      "source_name": "stocks_us/1d/BSX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBSX.csv?datasetVersionNumber=81",
+      "sha256": "51f2b0326ea76a44b4151d6fba5ab668c44c837a373fc37dce377480e90ae91a",
+      "bytes": 883047
+    },
+    "BX": {
+      "file": "data/raw/benjaminpo-v81/BX.csv",
+      "source_name": "stocks_us/1d/BX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FBX.csv?datasetVersionNumber=81",
+      "sha256": "a37f2695f2f355d797894e9e6335b3114c350487c57c9703d8fe68b344474aa7",
+      "bytes": 503502
+    },
+    "C": {
+      "file": "data/raw/benjaminpo-v81/C.csv",
+      "source_name": "stocks_us/1d/C.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FC.csv?datasetVersionNumber=81",
+      "sha256": "ef26fd1456b0893fcde784a9a6680dad379dd5940091af3a2eb1ecb6d3612cb4",
+      "bytes": 1303931
+    },
+    "CAT": {
+      "file": "data/raw/benjaminpo-v81/CAT.csv",
+      "source_name": "stocks_us/1d/CAT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCAT.csv?datasetVersionNumber=81",
+      "sha256": "03e78e2e71cadbbe711fdd957cf09fe57f2ed33ac7617ca3f1ebe5521f9fc056",
+      "bytes": 1646626
+    },
+    "CB": {
+      "file": "data/raw/benjaminpo-v81/CB.csv",
+      "source_name": "stocks_us/1d/CB.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCB.csv?datasetVersionNumber=81",
+      "sha256": "69926a13848b3de0f9520337b7915a1fe6e07c85564be5308b20b05597be9d2b",
+      "bytes": 879410
+    },
+    "CDNS": {
+      "file": "data/raw/benjaminpo-v81/CDNS.csv",
+      "source_name": "stocks_us/1d/CDNS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCDNS.csv?datasetVersionNumber=81",
+      "sha256": "cc861ba7a68e94db5bc2ed8b340cb3d59f61616b84a3fdc702591ae230a6d0ba",
+      "bytes": 1011554
+    },
+    "CHTR": {
+      "file": "data/raw/benjaminpo-v81/CHTR.csv",
+      "source_name": "stocks_us/1d/CHTR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCHTR.csv?datasetVersionNumber=81",
+      "sha256": "843463d6521a954a5a62516b425352ea5855dcd03773f81209dbc8725f1fbf56",
+      "bytes": 449322
+    },
+    "CI": {
+      "file": "data/raw/benjaminpo-v81/CI.csv",
+      "source_name": "stocks_us/1d/CI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCI.csv?datasetVersionNumber=81",
+      "sha256": "09c3e26de876cc85982613ebec53e673598b90f314765a5dcf8f6d3ffec914d2",
+      "bytes": 1152492
+    },
+    "CL": {
+      "file": "data/raw/benjaminpo-v81/CL.csv",
+      "source_name": "stocks_us/1d/CL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCL.csv?datasetVersionNumber=81",
+      "sha256": "0999e8a2167feee406d32044878bb124de98bfdecf3b6967184adcafbb927028",
+      "bytes": 1357749
+    },
+    "CMCSA": {
+      "file": "data/raw/benjaminpo-v81/CMCSA.csv",
+      "source_name": "stocks_us/1d/CMCSA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCMCSA.csv?datasetVersionNumber=81",
+      "sha256": "23b078521c65ef72e99fc4bfd4e687f4a31e41fc12f0ae4f33347a13f7a664a8",
+      "bytes": 1178854
+    },
+    "CME": {
+      "file": "data/raw/benjaminpo-v81/CME.csv",
+      "source_name": "stocks_us/1d/CME.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCME.csv?datasetVersionNumber=81",
+      "sha256": "fb10f399ed7f4cb0ed0f6f2981b9942432da1afc44acc7a2ab656d5c993a1a4f",
+      "bytes": 630758
+    },
+    "CMG": {
+      "file": "data/raw/benjaminpo-v81/CMG.csv",
+      "source_name": "stocks_us/1d/CMG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCMG.csv?datasetVersionNumber=81",
+      "sha256": "880b6250cc8543443ab358d8267a99150372ed0dd5f82380c02946d7d3de9159",
+      "bytes": 528152
+    },
+    "CMI": {
+      "file": "data/raw/benjaminpo-v81/CMI.csv",
+      "source_name": "stocks_us/1d/CMI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCMI.csv?datasetVersionNumber=81",
+      "sha256": "345f25a2ed36312c9723ad126b9aaeb7f3debd3d4ff1811086d8e2dab8cfe1ed",
+      "bytes": 1368590
+    },
+    "COF": {
+      "file": "data/raw/benjaminpo-v81/COF.csv",
+      "source_name": "stocks_us/1d/COF.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCOF.csv?datasetVersionNumber=81",
+      "sha256": "2de5d2a91b08d833da1ce3de54bb18569b14624d3d94195a8b3f3501f47f0229",
+      "bytes": 830710
+    },
+    "COP": {
+      "file": "data/raw/benjaminpo-v81/COP.csv",
+      "source_name": "stocks_us/1d/COP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCOP.csv?datasetVersionNumber=81",
+      "sha256": "e718d7f87d6d917702001b862b1c3f083ac284c6d633dbf5713a45e84160c330",
+      "bytes": 1152543
+    },
+    "COR": {
+      "file": "data/raw/benjaminpo-v81/COR.csv",
+      "source_name": "stocks_us/1d/COR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCOR.csv?datasetVersionNumber=81",
+      "sha256": "ecdae380bddfab66c7573f59ae1225ae0d2090475be32bb88b62574bb3a5231b",
+      "bytes": 815974
+    },
+    "COST": {
+      "file": "data/raw/benjaminpo-v81/COST.csv",
+      "source_name": "stocks_us/1d/COST.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCOST.csv?datasetVersionNumber=81",
+      "sha256": "631d7320aa2d8f5b27b10882d19f3bc0277717c9530be6173ef84ace40d4d28d",
+      "bytes": 1051638
+    },
+    "CPRT": {
+      "file": "data/raw/benjaminpo-v81/CPRT.csv",
+      "source_name": "stocks_us/1d/CPRT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCPRT.csv?datasetVersionNumber=81",
+      "sha256": "d111f594ff1ba686f5cb2143019adeee0e169578dff10967bf432fd429849cab",
+      "bytes": 815591
+    },
+    "CRM": {
+      "file": "data/raw/benjaminpo-v81/CRM.csv",
+      "source_name": "stocks_us/1d/CRM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCRM.csv?datasetVersionNumber=81",
+      "sha256": "1244a5cf522b12eb7ead49289ba2d959e913b53168a08ff1094474d7999d03b5",
+      "bytes": 586436
+    },
+    "CSCO": {
+      "file": "data/raw/benjaminpo-v81/CSCO.csv",
+      "source_name": "stocks_us/1d/CSCO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCSCO.csv?datasetVersionNumber=81",
+      "sha256": "741ba89e105bca140eb57bf9fd87478e5944e8076860dd609d5d5f3b0b142f22",
+      "bytes": 950579
+    },
+    "CSX": {
+      "file": "data/raw/benjaminpo-v81/CSX.csv",
+      "source_name": "stocks_us/1d/CSX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCSX.csv?datasetVersionNumber=81",
+      "sha256": "b9d5a4715a41847100b31dd46d2172687647940a227c3ea8b6000910d9213db5",
+      "bytes": 1156212
+    },
+    "CTAS": {
+      "file": "data/raw/benjaminpo-v81/CTAS.csv",
+      "source_name": "stocks_us/1d/CTAS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCTAS.csv?datasetVersionNumber=81",
+      "sha256": "61bd6590f3913e1c1410b413689d5880af9ac62de64b437f3253076bc4c1b0aa",
+      "bytes": 1091300
+    },
+    "CVS": {
+      "file": "data/raw/benjaminpo-v81/CVS.csv",
+      "source_name": "stocks_us/1d/CVS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCVS.csv?datasetVersionNumber=81",
+      "sha256": "3153722d6a05325689c870718a65f988c4a8a83acb0cef2c0be57a5c4e331c2e",
+      "bytes": 1365501
+    },
+    "CVX": {
+      "file": "data/raw/benjaminpo-v81/CVX.csv",
+      "source_name": "stocks_us/1d/CVX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FCVX.csv?datasetVersionNumber=81",
+      "sha256": "b72cc45ff9254a7d45a3b31ef8c347fd910e20a3e0486be2224ee981a5fd01b0",
+      "bytes": 1658001
+    },
+    "D": {
+      "file": "data/raw/benjaminpo-v81/D.csv",
+      "source_name": "stocks_us/1d/D.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FD.csv?datasetVersionNumber=81",
+      "sha256": "65b9023f679afbd53da21db72b9047e44adb567cebc70406c31134ba82abe737",
+      "bytes": 1194194
+    },
+    "DE": {
+      "file": "data/raw/benjaminpo-v81/DE.csv",
+      "source_name": "stocks_us/1d/DE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FDE.csv?datasetVersionNumber=81",
+      "sha256": "c62f2781766d002a5387ff0ddf97c9c054829bdf1e86f21a37751f9d4f8c97cf",
+      "bytes": 1393919
+    },
+    "DHI": {
+      "file": "data/raw/benjaminpo-v81/DHI.csv",
+      "source_name": "stocks_us/1d/DHI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FDHI.csv?datasetVersionNumber=81",
+      "sha256": "0a06e9418d60288eb63d6c37b77a88e8000df6fecfb83ea419fe9c13760c4c03",
+      "bytes": 878912
+    },
+    "DHR": {
+      "file": "data/raw/benjaminpo-v81/DHR.csv",
+      "source_name": "stocks_us/1d/DHR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FDHR.csv?datasetVersionNumber=81",
+      "sha256": "7cb3901b4c3b6a146cf84d30b9e9f5733d8a0cb1f4bd0a9d1682286997219ba0",
+      "bytes": 1217353
+    },
+    "DIS": {
+      "file": "data/raw/benjaminpo-v81/DIS.csv",
+      "source_name": "stocks_us/1d/DIS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FDIS.csv?datasetVersionNumber=81",
+      "sha256": "559c1f3e52ee0d14b331324bb9f6df191b71b005304316c3e3005e225c12b779",
+      "bytes": 1653504
+    },
+    "DLR": {
+      "file": "data/raw/benjaminpo-v81/DLR.csv",
+      "source_name": "stocks_us/1d/DLR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FDLR.csv?datasetVersionNumber=81",
+      "sha256": "75b3b8a6eb5f08ce28d34cfb9e36ea45052bf209561c0ea6f4ecdad9f6acaa30",
+      "bytes": 577737
+    },
+    "DUK": {
+      "file": "data/raw/benjaminpo-v81/DUK.csv",
+      "source_name": "stocks_us/1d/DUK.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FDUK.csv?datasetVersionNumber=81",
+      "sha256": "da46ee8505b6a6281d3d35ff5c592a7b1b9179381cc705c7ba64d97c0607c817",
+      "bytes": 1201497
+    },
+    "ECL": {
+      "file": "data/raw/benjaminpo-v81/ECL.csv",
+      "source_name": "stocks_us/1d/ECL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FECL.csv?datasetVersionNumber=81",
+      "sha256": "22a9bbdd10162d6d71047953ec33982541d7962a2f987216abd6b3402beec589",
+      "bytes": 1368496
+    },
+    "ELV": {
+      "file": "data/raw/benjaminpo-v81/ELV.csv",
+      "source_name": "stocks_us/1d/ELV.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FELV.csv?datasetVersionNumber=81",
+      "sha256": "b08a02c5dff7bdaaf10631c56b32901d090ec0af6d02f9235b8ee80dad88d4dc",
+      "bytes": 661467
+    },
+    "EMR": {
+      "file": "data/raw/benjaminpo-v81/EMR.csv",
+      "source_name": "stocks_us/1d/EMR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FEMR.csv?datasetVersionNumber=81",
+      "sha256": "4e03b32f16c3b2335bbd039851cb93f9e4f4b5617e4890a41ea11bf0c3891023",
+      "bytes": 1386843
+    },
+    "EOG": {
+      "file": "data/raw/benjaminpo-v81/EOG.csv",
+      "source_name": "stocks_us/1d/EOG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FEOG.csv?datasetVersionNumber=81",
+      "sha256": "e0841dbfb1340d75de85006af06f4de20b73e6be0919daa08b0ae0cce3254017",
+      "bytes": 949680
+    },
+    "EQIX": {
+      "file": "data/raw/benjaminpo-v81/EQIX.csv",
+      "source_name": "stocks_us/1d/EQIX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FEQIX.csv?datasetVersionNumber=81",
+      "sha256": "64e54ba78db929ea7a1199482022a58015ca0b8e6f04eb0e6d224b5d2b198cd9",
+      "bytes": 690344
+    },
+    "ETN": {
+      "file": "data/raw/benjaminpo-v81/ETN.csv",
+      "source_name": "stocks_us/1d/ETN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FETN.csv?datasetVersionNumber=81",
+      "sha256": "25a5a0e06c7c8192ba198659d8f4017cb1a5a63804220af59e638113a3a5c8df",
+      "bytes": 1384108
+    },
+    "EW": {
+      "file": "data/raw/benjaminpo-v81/EW.csv",
+      "source_name": "stocks_us/1d/EW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FEW.csv?datasetVersionNumber=81",
+      "sha256": "29b1c1c1e92ada48e8f7f33d40c98988d36611b0a08451508fe8b3a005f70703",
+      "bytes": 676226
+    },
+    "FANG": {
+      "file": "data/raw/benjaminpo-v81/FANG.csv",
+      "source_name": "stocks_us/1d/FANG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FFANG.csv?datasetVersionNumber=81",
+      "sha256": "e152af7bae77bbdf109df59e21f2ba3e9af4aabe6a82a614cff94098910905f4",
+      "bytes": 370098
+    },
+    "FCX": {
+      "file": "data/raw/benjaminpo-v81/FCX.csv",
+      "source_name": "stocks_us/1d/FCX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FFCX.csv?datasetVersionNumber=81",
+      "sha256": "a713c3221c48f0b5c5554c80b661effffe99abc1099e70755c60f116e0522c13",
+      "bytes": 805054
+    },
+    "FDX": {
+      "file": "data/raw/benjaminpo-v81/FDX.csv",
+      "source_name": "stocks_us/1d/FDX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FFDX.csv?datasetVersionNumber=81",
+      "sha256": "5d2d567a8ec13891388e77ddaa5694f5aab15b20d61074ccf01c2edcd61e09aa",
+      "bytes": 1256241
+    },
+    "FI": {
+      "file": "data/raw/benjaminpo-v81/FI.csv",
+      "source_name": "stocks_us/1d/FISV.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FFISV.csv?datasetVersionNumber=81",
+      "sha256": "065e07c2bc863ec5afbb7b79a82be6f8d31ba0d9ed976a476d528bc3e1cc0c33",
+      "bytes": 1021442
+    },
+    "FICO": {
+      "file": "data/raw/benjaminpo-v81/FICO.csv",
+      "source_name": "stocks_us/1d/FICO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FFICO.csv?datasetVersionNumber=81",
+      "sha256": "3f8c88853ccb74e31d647b5f68715c86d910c0e4dc7a6ec4f61a2227ee4806c4",
+      "bytes": 1007456
+    },
+    "FTNT": {
+      "file": "data/raw/benjaminpo-v81/FTNT.csv",
+      "source_name": "stocks_us/1d/FTNT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FFTNT.csv?datasetVersionNumber=81",
+      "sha256": "f658ad488e0247149a93cd9a84b7626d75f4ff14a5d822ebb87ecfc30bb86831",
+      "bytes": 429355
+    },
+    "GD": {
+      "file": "data/raw/benjaminpo-v81/GD.csv",
+      "source_name": "stocks_us/1d/GD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGD.csv?datasetVersionNumber=81",
+      "sha256": "8b69faf5e1df4c1facac26aee799c4acfebce6aedd1ab050b74a258075535393",
+      "bytes": 1647078
+    },
+    "GE": {
+      "file": "data/raw/benjaminpo-v81/GE.csv",
+      "source_name": "stocks_us/1d/GE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGE.csv?datasetVersionNumber=81",
+      "sha256": "8e56e842b11e4e633781729eccf7396d6f386d8ff27be39e3724d534b180cce7",
+      "bytes": 1671849
+    },
+    "GILD": {
+      "file": "data/raw/benjaminpo-v81/GILD.csv",
+      "source_name": "stocks_us/1d/GILD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGILD.csv?datasetVersionNumber=81",
+      "sha256": "f7cf455449cae55146f5f9482b34a4e9c31e977c92e881abce39ad2f77b0b6db",
+      "bytes": 891005
+    },
+    "GM": {
+      "file": "data/raw/benjaminpo-v81/GM.csv",
+      "source_name": "stocks_us/1d/GM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGM.csv?datasetVersionNumber=81",
+      "sha256": "4d235abba158e746ff5e5c9c2366be126ddf4a0159ef840a490ea7501bfadc17",
+      "bytes": 414505
+    },
+    "GOOGL": {
+      "file": "data/raw/benjaminpo-v81/GOOGL.csv",
+      "source_name": "stocks_us/1d/GOOGL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGOOGL.csv?datasetVersionNumber=81",
+      "sha256": "8736ea96f75612c66ac82d85aaf5d615aba9b73ad0737ea9f88c975cf53445a1",
+      "bytes": 585046
+    },
+    "GS": {
+      "file": "data/raw/benjaminpo-v81/GS.csv",
+      "source_name": "stocks_us/1d/GS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGS.csv?datasetVersionNumber=81",
+      "sha256": "476e9312ace7807754785b96f35297000d8ca0112cfcb4fea90349a1aa9ef7d2",
+      "bytes": 738538
+    },
+    "GWW": {
+      "file": "data/raw/benjaminpo-v81/GWW.csv",
+      "source_name": "stocks_us/1d/GWW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FGWW.csv?datasetVersionNumber=81",
+      "sha256": "7d6d0cd737a353d9cc120847468c84b020e2d2fde62bad4cb12d48cf6f90c526",
+      "bytes": 1381987
+    },
+    "HCA": {
+      "file": "data/raw/benjaminpo-v81/HCA.csv",
+      "source_name": "stocks_us/1d/HCA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FHCA.csv?datasetVersionNumber=81",
+      "sha256": "65588e9d08a66f5f6568c502eccd94013b2dbaf4c726738de3016f76838c85b9",
+      "bytes": 413980
+    },
+    "HD": {
+      "file": "data/raw/benjaminpo-v81/HD.csv",
+      "source_name": "stocks_us/1d/HD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FHD.csv?datasetVersionNumber=81",
+      "sha256": "5ea65cf891ed21318b16782179ca327f674d5086faec3fca14a741c45f833b96",
+      "bytes": 1168614
+    },
+    "HLT": {
+      "file": "data/raw/benjaminpo-v81/HLT.csv",
+      "source_name": "stocks_us/1d/HLT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FHLT.csv?datasetVersionNumber=81",
+      "sha256": "6be83ba879c8e0b32074471bd96d2c608bd7aedbdc38fc4723c9e6ef49f6f895",
+      "bytes": 340027
+    },
+    "HON": {
+      "file": "data/raw/benjaminpo-v81/HON.csv",
+      "source_name": "stocks_us/1d/HON.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FHON.csv?datasetVersionNumber=81",
+      "sha256": "ee6d38501e0a5c578cc671d3f766cb86e11556f869cd9b506e93c2428d3c127a",
+      "bytes": 1647051
+    },
+    "IBM": {
+      "file": "data/raw/benjaminpo-v81/IBM.csv",
+      "source_name": "stocks_us/1d/IBM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FIBM.csv?datasetVersionNumber=81",
+      "sha256": "23d2f842976d4ef84007983df8a2e4cd40df6372b4eafe43df968255d7d7ff07",
+      "bytes": 1689505
+    },
+    "ICE": {
+      "file": "data/raw/benjaminpo-v81/ICE.csv",
+      "source_name": "stocks_us/1d/ICE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FICE.csv?datasetVersionNumber=81",
+      "sha256": "47da849d3fd4ed1f00fb321a84e840dd02c228c9b3a7ee3ba2298c9d8fc13dae",
+      "bytes": 548662
+    },
+    "INTC": {
+      "file": "data/raw/benjaminpo-v81/INTC.csv",
+      "source_name": "stocks_us/1d/INTC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FINTC.csv?datasetVersionNumber=81",
+      "sha256": "0f598f3bedf162a224c673a57c55ea88e119ac2b251df87f3c37820e8b0769d9",
+      "bytes": 1200784
+    },
+    "INTU": {
+      "file": "data/raw/benjaminpo-v81/INTU.csv",
+      "source_name": "stocks_us/1d/INTU.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FINTU.csv?datasetVersionNumber=81",
+      "sha256": "3fd510daa92f5e567a9dad7f753ad021be432c0bbbf515f592b4da02d74e9156",
+      "bytes": 877037
+    },
+    "ISRG": {
+      "file": "data/raw/benjaminpo-v81/ISRG.csv",
+      "source_name": "stocks_us/1d/ISRG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FISRG.csv?datasetVersionNumber=81",
+      "sha256": "bb02e75a3a0618c49c8544d1db476c032c2fe6edb4214891dc3bd18da19aff52",
+      "bytes": 686413
+    },
+    "ITW": {
+      "file": "data/raw/benjaminpo-v81/ITW.csv",
+      "source_name": "stocks_us/1d/ITW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FITW.csv?datasetVersionNumber=81",
+      "sha256": "ec2a0c60a8b329a129d359a5b27826f29c97cc226ed74ad9e7cac6a56fc9ae47",
+      "bytes": 1367597
+    },
+    "JCI": {
+      "file": "data/raw/benjaminpo-v81/JCI.csv",
+      "source_name": "stocks_us/1d/JCI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FJCI.csv?datasetVersionNumber=81",
+      "sha256": "8dac7ba020b1cfd5fd840fde8672b451b64fa2310936ceec0cc75359d07eb644",
+      "bytes": 1009550
+    },
+    "JNJ": {
+      "file": "data/raw/benjaminpo-v81/JNJ.csv",
+      "source_name": "stocks_us/1d/JNJ.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FJNJ.csv?datasetVersionNumber=81",
+      "sha256": "8cb358c2b698f6e85153616340ae083a95e81a0259562e5fee6d1569c51195c9",
+      "bytes": 1654675
+    },
+    "JPM": {
+      "file": "data/raw/benjaminpo-v81/JPM.csv",
+      "source_name": "stocks_us/1d/JPM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FJPM.csv?datasetVersionNumber=81",
+      "sha256": "ae9dacdb68bc8b019a6ad31011894f2f6af0dbfe0779fbe415373e2facd38fcc",
+      "bytes": 1210581
+    },
+    "KKR": {
+      "file": "data/raw/benjaminpo-v81/KKR.csv",
+      "source_name": "stocks_us/1d/KKR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FKKR.csv?datasetVersionNumber=81",
+      "sha256": "09728cfcf2214c1d27c297677a86259b85e2a0b641e18b55f30cf91c09f744e8",
+      "bytes": 422685
+    },
+    "KLAC": {
+      "file": "data/raw/benjaminpo-v81/KLAC.csv",
+      "source_name": "stocks_us/1d/KLAC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FKLAC.csv?datasetVersionNumber=81",
+      "sha256": "29c86912c4a5c0382f5c86d7bbe3e4da5394e20983776f658023a6904aeb1ac2",
+      "bytes": 1155318
+    },
+    "KMI": {
+      "file": "data/raw/benjaminpo-v81/KMI.csv",
+      "source_name": "stocks_us/1d/KMI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FKMI.csv?datasetVersionNumber=81",
+      "sha256": "774df8cc02627bce462b185d2e1f8d438b32c6c23041e1c439081f9bc0e9d3bb",
+      "bytes": 408151
+    },
+    "KO": {
+      "file": "data/raw/benjaminpo-v81/KO.csv",
+      "source_name": "stocks_us/1d/KO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FKO.csv?datasetVersionNumber=81",
+      "sha256": "2734fd9a5a5c01c589fee93527945060c1ba41042faccff609e4d55686b724e3",
+      "bytes": 1645217
+    },
+    "KR": {
+      "file": "data/raw/benjaminpo-v81/KR.csv",
+      "source_name": "stocks_us/1d/KR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FKR.csv?datasetVersionNumber=81",
+      "sha256": "d598b20f38d05f3cf6181716324732eb1a56549517f9496b4407f4430a2bad0f",
+      "bytes": 1621782
+    },
+    "LIN": {
+      "file": "data/raw/benjaminpo-v81/LIN.csv",
+      "source_name": "stocks_us/1d/LIN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FLIN.csv?datasetVersionNumber=81",
+      "sha256": "cb74078cf3bbc77ddbd1fc8a0164fd20257db250391f5f82e17a806d7cf3de30",
+      "bytes": 902989
+    },
+    "LLY": {
+      "file": "data/raw/benjaminpo-v81/LLY.csv",
+      "source_name": "stocks_us/1d/LLY.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FLLY.csv?datasetVersionNumber=81",
+      "sha256": "e2a061553e5be42d4b84f1b46df64df8a2d3c31608a370fb0fb9ed32cf65d8b4",
+      "bytes": 1399880
+    },
+    "LMT": {
+      "file": "data/raw/benjaminpo-v81/LMT.csv",
+      "source_name": "stocks_us/1d/LMT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FLMT.csv?datasetVersionNumber=81",
+      "sha256": "52518779aa30ed2eee22712526c8a74a1ed7f8a1bf05b3bf5ebf47059567e973",
+      "bytes": 1656553
+    },
+    "LOW": {
+      "file": "data/raw/benjaminpo-v81/LOW.csv",
+      "source_name": "stocks_us/1d/LOW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FLOW.csv?datasetVersionNumber=81",
+      "sha256": "c93715bb8a15ebcfe2b1d814a29f9825186d712f2a10796f0d3c48f92e177596",
+      "bytes": 1195404
+    },
+    "LRCX": {
+      "file": "data/raw/benjaminpo-v81/LRCX.csv",
+      "source_name": "stocks_us/1d/LRCX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FLRCX.csv?datasetVersionNumber=81",
+      "sha256": "132d3cd683fabbbd4501b48be36b68d642e461288562b3d38e9caddc8dbc25bd",
+      "bytes": 1068964
+    },
+    "LULU": {
+      "file": "data/raw/benjaminpo-v81/LULU.csv",
+      "source_name": "stocks_us/1d/LULU.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FLULU.csv?datasetVersionNumber=81",
+      "sha256": "41c62607a184bf42644c19acddd262a8b7b70c4fff014f04c6b597f9befef723",
+      "bytes": 506690
+    },
+    "MA": {
+      "file": "data/raw/benjaminpo-v81/MA.csv",
+      "source_name": "stocks_us/1d/MA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMA.csv?datasetVersionNumber=81",
+      "sha256": "2157280705a664ae4f7e46393425d5eec4feb682cab5cefa738e74d1e3f9631e",
+      "bytes": 541272
+    },
+    "MAR": {
+      "file": "data/raw/benjaminpo-v81/MAR.csv",
+      "source_name": "stocks_us/1d/MAR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMAR.csv?datasetVersionNumber=81",
+      "sha256": "3b95d7d9f3d5bdaae48108acb2cab710c5e11b7af3ce8f3a032be30518625610",
+      "bytes": 750477
+    },
+    "MCD": {
+      "file": "data/raw/benjaminpo-v81/MCD.csv",
+      "source_name": "stocks_us/1d/MCD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMCD.csv?datasetVersionNumber=81",
+      "sha256": "ce1fba8fb95704f999c187a72cd4276a62ade4aeaa8b63a39a4c922ef45a26da",
+      "bytes": 1543139
+    },
+    "MCK": {
+      "file": "data/raw/benjaminpo-v81/MCK.csv",
+      "source_name": "stocks_us/1d/MCK.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMCK.csv?datasetVersionNumber=81",
+      "sha256": "7ac1c9cbd7d81176ca69b36fac003df4c3d928538063274d5cf80cfcfa0a91bc",
+      "bytes": 841521
+    },
+    "MCO": {
+      "file": "data/raw/benjaminpo-v81/MCO.csv",
+      "source_name": "stocks_us/1d/MCO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMCO.csv?datasetVersionNumber=81",
+      "sha256": "5fc635c462ab7bee4119d270f67add6b3acb24db0e34c94c7d032f4be51f4d0c",
+      "bytes": 833415
+    },
+    "MDLZ": {
+      "file": "data/raw/benjaminpo-v81/MDLZ.csv",
+      "source_name": "stocks_us/1d/MDLZ.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMDLZ.csv?datasetVersionNumber=81",
+      "sha256": "52848eee8740bd52f7b156b17993c2e3027a1e0ec7aae428caf4a088cd4c22ba",
+      "bytes": 657462
+    },
+    "MDT": {
+      "file": "data/raw/benjaminpo-v81/MDT.csv",
+      "source_name": "stocks_us/1d/MDT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMDT.csv?datasetVersionNumber=81",
+      "sha256": "e0d52542605e931f8b1be5794ab90fb6167c3750eebd789872b3286690bcdf88",
+      "bytes": 1361979
+    },
+    "MET": {
+      "file": "data/raw/benjaminpo-v81/MET.csv",
+      "source_name": "stocks_us/1d/MET.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMET.csv?datasetVersionNumber=81",
+      "sha256": "b82fde040441962b261071ede18339810c14b35a9f0c2ea09798750f21f98404",
+      "bytes": 687624
+    },
+    "META": {
+      "file": "data/raw/benjaminpo-v81/META.csv",
+      "source_name": "stocks_us/1d/META.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMETA.csv?datasetVersionNumber=81",
+      "sha256": "43f0fb96c7e363d7b7da38a191d28070be3e7bffd3cc6b8e4c5533edfa1492da",
+      "bytes": 390151
+    },
+    "MMC": {
+      "file": "data/raw/benjaminpo-v81/MMC.csv",
+      "source_name": "stocks_us/1d/MRSH.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMRSH.csv?datasetVersionNumber=81",
+      "sha256": "4ff0b33037c55e6db8cee7470e93b848a10e15f5fd990e24f97838da6c906c09",
+      "bytes": 1373804
+    },
+    "MMM": {
+      "file": "data/raw/benjaminpo-v81/MMM.csv",
+      "source_name": "stocks_us/1d/MMM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMMM.csv?datasetVersionNumber=81",
+      "sha256": "d635a5d879eb15623c4cc18f19a6120edf499fe56c2ae3d1c678d0c87770a6a4",
+      "bytes": 1655371
+    },
+    "MNST": {
+      "file": "data/raw/benjaminpo-v81/MNST.csv",
+      "source_name": "stocks_us/1d/MNST.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMNST.csv?datasetVersionNumber=81",
+      "sha256": "bb8297972f43a8d00e25a00854127d34ddbe7f3af98a4fbf1f74c2ddf8903617",
+      "bytes": 1022237
+    },
+    "MO": {
+      "file": "data/raw/benjaminpo-v81/MO.csv",
+      "source_name": "stocks_us/1d/MO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMO.csv?datasetVersionNumber=81",
+      "sha256": "ff569725bae8fb8f4d04c6d06647e60e1db1f454e6e8f4a28bbdf9e4208f4077",
+      "bytes": 1641268
+    },
+    "MRK": {
+      "file": "data/raw/benjaminpo-v81/MRK.csv",
+      "source_name": "stocks_us/1d/MRK.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMRK.csv?datasetVersionNumber=81",
+      "sha256": "193a56ca894432b4053efb0b182dc5fbef15fbd388a10475e457ca8eefe98aee",
+      "bytes": 1648833
+    },
+    "MS": {
+      "file": "data/raw/benjaminpo-v81/MS.csv",
+      "source_name": "stocks_us/1d/MS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMS.csv?datasetVersionNumber=81",
+      "sha256": "44ae4a005c825f37360731ba7ffd46debe5bcc0aecc11a424257726c56684457",
+      "bytes": 875025
+    },
+    "MSCI": {
+      "file": "data/raw/benjaminpo-v81/MSCI.csv",
+      "source_name": "stocks_us/1d/MSCI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMSCI.csv?datasetVersionNumber=81",
+      "sha256": "6e1a9eae48cfeb1ac81864d707429aa603b446f71d74d4b28065a13c510e5483",
+      "bytes": 497360
+    },
+    "MSFT": {
+      "file": "data/raw/benjaminpo-v81/MSFT.csv",
+      "source_name": "stocks_us/1d/MSFT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMSFT.csv?datasetVersionNumber=81",
+      "sha256": "1ea3d1c30b92e359bf1039581be80df93651c670a0b6eeab1bd65ab2a531cc5a",
+      "bytes": 1060821
+    },
+    "MSI": {
+      "file": "data/raw/benjaminpo-v81/MSI.csv",
+      "source_name": "stocks_us/1d/MSI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMSI.csv?datasetVersionNumber=81",
+      "sha256": "9de8aa18c9246db70525c503d652fdc6adf5ddb3914a90d1c33f36b1fd490a80",
+      "bytes": 1656041
+    },
+    "MU": {
+      "file": "data/raw/benjaminpo-v81/MU.csv",
+      "source_name": "stocks_us/1d/MU.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FMU.csv?datasetVersionNumber=81",
+      "sha256": "f7551624302fa0e1660fdd3af1693d70e892c2105e874b4c99a406c45642388a",
+      "bytes": 1087986
+    },
+    "NDAQ": {
+      "file": "data/raw/benjaminpo-v81/NDAQ.csv",
+      "source_name": "stocks_us/1d/NDAQ.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNDAQ.csv?datasetVersionNumber=81",
+      "sha256": "b62e0c31b2cdc3a0ce5292462ebba6556438c957d612be9eea0fe0fd2ff66994",
+      "bytes": 617416
+    },
+    "NEE": {
+      "file": "data/raw/benjaminpo-v81/NEE.csv",
+      "source_name": "stocks_us/1d/NEE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNEE.csv?datasetVersionNumber=81",
+      "sha256": "f8143ba13ddf2ba5513a4c787129f2b7102ac68292e471f43cffab2c41239e62",
+      "bytes": 1350220
+    },
+    "NFLX": {
+      "file": "data/raw/benjaminpo-v81/NFLX.csv",
+      "source_name": "stocks_us/1d/NFLX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNFLX.csv?datasetVersionNumber=81",
+      "sha256": "a1de2557c2f5efe3c688ce3a6ee5c1b541c864c8488d8feb4fdee5c1e0b72be3",
+      "bytes": 624606
+    },
+    "NKE": {
+      "file": "data/raw/benjaminpo-v81/NKE.csv",
+      "source_name": "stocks_us/1d/NKE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNKE.csv?datasetVersionNumber=81",
+      "sha256": "9f3b2d08ae428bf5b3651c6d41372a74ffc6735e39792f131b8993026e162848",
+      "bytes": 1168663
+    },
+    "NOC": {
+      "file": "data/raw/benjaminpo-v81/NOC.csv",
+      "source_name": "stocks_us/1d/NOC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNOC.csv?datasetVersionNumber=81",
+      "sha256": "078a947ab50dd8db8365706a18df08033e3811783aa08e7c553db39164a81ef9",
+      "bytes": 1165800
+    },
+    "NOW": {
+      "file": "data/raw/benjaminpo-v81/NOW.csv",
+      "source_name": "stocks_us/1d/NOW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNOW.csv?datasetVersionNumber=81",
+      "sha256": "ecd3f1702bdc2369f80a437b40b8100905ea0142add3be32acf9d516f7e88a70",
+      "bytes": 374988
+    },
+    "NSC": {
+      "file": "data/raw/benjaminpo-v81/NSC.csv",
+      "source_name": "stocks_us/1d/NSC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNSC.csv?datasetVersionNumber=81",
+      "sha256": "a33effa06f08b00323248659fa53525e58efefaa80e5a06085546ade2991e6ad",
+      "bytes": 1151646
+    },
+    "NVDA": {
+      "file": "data/raw/benjaminpo-v81/NVDA.csv",
+      "source_name": "stocks_us/1d/NVDA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNVDA.csv?datasetVersionNumber=81",
+      "sha256": "f715bb1958dd9568b343e2b7631e8c7cca4263492a353d125ab93881aa772d8c",
+      "bytes": 708947
+    },
+    "NXPI": {
+      "file": "data/raw/benjaminpo-v81/NXPI.csv",
+      "source_name": "stocks_us/1d/NXPI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FNXPI.csv?datasetVersionNumber=81",
+      "sha256": "b244c9a1691f02efc8789fa17b55a4fc6af4cf26c043488fd8ae41092689a9c2",
+      "bytes": 429813
+    },
+    "O": {
+      "file": "data/raw/benjaminpo-v81/O.csv",
+      "source_name": "stocks_us/1d/O.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FO.csv?datasetVersionNumber=81",
+      "sha256": "4cc773155554b00b943f760df6e2194ef0c553c67067d6bced92ac553f73994f",
+      "bytes": 819070
+    },
+    "OKE": {
+      "file": "data/raw/benjaminpo-v81/OKE.csv",
+      "source_name": "stocks_us/1d/OKE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FOKE.csv?datasetVersionNumber=81",
+      "sha256": "56e51fa1ef11eae616cbbde2e52ee9264b900ae10e447687ba599647bfa8a911",
+      "bytes": 1156135
+    },
+    "ORCL": {
+      "file": "data/raw/benjaminpo-v81/ORCL.csv",
+      "source_name": "stocks_us/1d/ORCL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FORCL.csv?datasetVersionNumber=81",
+      "sha256": "5698f2056d524997622e14dcd8d61d233faa7e7cdb38d5aacedc0edb546c397c",
+      "bytes": 1048409
+    },
+    "ORLY": {
+      "file": "data/raw/benjaminpo-v81/ORLY.csv",
+      "source_name": "stocks_us/1d/ORLY.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FORLY.csv?datasetVersionNumber=81",
+      "sha256": "dbee68e9107300dbbe7ee3c14ec4d2f5c53424cc19a99dd05e99cce020baee7e",
+      "bytes": 844216
+    },
+    "OXY": {
+      "file": "data/raw/benjaminpo-v81/OXY.csv",
+      "source_name": "stocks_us/1d/OXY.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FOXY.csv?datasetVersionNumber=81",
+      "sha256": "9601f9581c4d909e7e27ad7e636cd2b603004aab452d055a05742eb7e7b14bf4",
+      "bytes": 1150880
+    },
+    "PANW": {
+      "file": "data/raw/benjaminpo-v81/PANW.csv",
+      "source_name": "stocks_us/1d/PANW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPANW.csv?datasetVersionNumber=81",
+      "sha256": "50640e3ac8991f0685c897326353fbf659de7a9cc95fe9709fe1d6474aef2815",
+      "bytes": 372044
+    },
+    "PAYX": {
+      "file": "data/raw/benjaminpo-v81/PAYX.csv",
+      "source_name": "stocks_us/1d/PAYX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPAYX.csv?datasetVersionNumber=81",
+      "sha256": "65a7a777c5e3eb50f389eaed76fb9457aa36013cdbb3ba29b0f65f5f7bc21175",
+      "bytes": 1105763
+    },
+    "PCAR": {
+      "file": "data/raw/benjaminpo-v81/PCAR.csv",
+      "source_name": "stocks_us/1d/PCAR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPCAR.csv?datasetVersionNumber=81",
+      "sha256": "3895b427f7b7b58e40dc802dedcd1dd12f9128a884517900ef73d537c0ffed1c",
+      "bytes": 1179013
+    },
+    "PEP": {
+      "file": "data/raw/benjaminpo-v81/PEP.csv",
+      "source_name": "stocks_us/1d/PEP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPEP.csv?datasetVersionNumber=81",
+      "sha256": "170eab88893646801cdddb152891a3eb8520ad2075915ecf183e01f3c5da354b",
+      "bytes": 1400140
+    },
+    "PFE": {
+      "file": "data/raw/benjaminpo-v81/PFE.csv",
+      "source_name": "stocks_us/1d/PFE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPFE.csv?datasetVersionNumber=81",
+      "sha256": "cc3f3538d67392d40d3dcca1f37cb00c7154f953025d1140d13cefd29665b2ab",
+      "bytes": 1388937
+    },
+    "PG": {
+      "file": "data/raw/benjaminpo-v81/PG.csv",
+      "source_name": "stocks_us/1d/PG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPG.csv?datasetVersionNumber=81",
+      "sha256": "7d99858f126c047afa7c43a15ac76a826c31ed1239f3bcc5e46eae6cf910effe",
+      "bytes": 1649414
+    },
+    "PGR": {
+      "file": "data/raw/benjaminpo-v81/PGR.csv",
+      "source_name": "stocks_us/1d/PGR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPGR.csv?datasetVersionNumber=81",
+      "sha256": "6a276b7b594d97669031d2d07dbbd02441666e7f9094b0f6254373e014abc248",
+      "bytes": 1185756
+    },
+    "PH": {
+      "file": "data/raw/benjaminpo-v81/PH.csv",
+      "source_name": "stocks_us/1d/PH.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPH.csv?datasetVersionNumber=81",
+      "sha256": "34024f711c55ae8224df6941d95e651e66e1ad7616ddf43d0ddab248569317f7",
+      "bytes": 1199876
+    },
+    "PLD": {
+      "file": "data/raw/benjaminpo-v81/PLD.csv",
+      "source_name": "stocks_us/1d/PLD.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPLD.csv?datasetVersionNumber=81",
+      "sha256": "07505b20645ababe00352964e6f3b6f0d1b903994b3faae6a2d5ae74f2a8ec90",
+      "bytes": 751490
+    },
+    "PM": {
+      "file": "data/raw/benjaminpo-v81/PM.csv",
+      "source_name": "stocks_us/1d/PM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPM.csv?datasetVersionNumber=81",
+      "sha256": "4c30397ac15e3c69ea9bebd94b9f887176211db624167c04537ec996e0501017",
+      "bytes": 486877
+    },
+    "PNC": {
+      "file": "data/raw/benjaminpo-v81/PNC.csv",
+      "source_name": "stocks_us/1d/PNC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPNC.csv?datasetVersionNumber=81",
+      "sha256": "c75f4edebd21c3e136e33fc1d7cc615da08513feb3463c594453cf9e15e9ab9e",
+      "bytes": 1311414
+    },
+    "PSA": {
+      "file": "data/raw/benjaminpo-v81/PSA.csv",
+      "source_name": "stocks_us/1d/PSA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPSA.csv?datasetVersionNumber=81",
+      "sha256": "53611e0fbd576f791e0a04c8f65b34f8365d59cea2ebf9efea888a6805d6fc4d",
+      "bytes": 1186920
+    },
+    "PSX": {
+      "file": "data/raw/benjaminpo-v81/PSX.csv",
+      "source_name": "stocks_us/1d/PSX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPSX.csv?datasetVersionNumber=81",
+      "sha256": "40fc5a3aca628d21c0768e34382235b71b2eb6a5e02b3ff0ef2c5b9c75d96cc6",
+      "bytes": 381283
+    },
+    "PWR": {
+      "file": "data/raw/benjaminpo-v81/PWR.csv",
+      "source_name": "stocks_us/1d/PWR.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FPWR.csv?datasetVersionNumber=81",
+      "sha256": "5c332959d1025a9806704b2ca5321784dc2d9f86fa99e04b4f2e284765e0bd77",
+      "bytes": 741075
+    },
+    "QCOM": {
+      "file": "data/raw/benjaminpo-v81/QCOM.csv",
+      "source_name": "stocks_us/1d/QCOM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FQCOM.csv?datasetVersionNumber=81",
+      "sha256": "fc66a79dba49b1b42156fd40479d9e6f2ae463485c226985792f8f23ee505865",
+      "bytes": 907269
+    },
+    "RCL": {
+      "file": "data/raw/benjaminpo-v81/RCL.csv",
+      "source_name": "stocks_us/1d/RCL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FRCL.csv?datasetVersionNumber=81",
+      "sha256": "3f4610e4020ca93f278e90472f4b13bdfc8214504701b90bf1c9eb27e75f5616",
+      "bytes": 869634
+    },
+    "REGN": {
+      "file": "data/raw/benjaminpo-v81/REGN.csv",
+      "source_name": "stocks_us/1d/REGN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FREGN.csv?datasetVersionNumber=81",
+      "sha256": "8500e19272b19f9f61bd1c312e9056d07f56fbcf33f702382252721d283f3499",
+      "bytes": 924164
+    },
+    "ROP": {
+      "file": "data/raw/benjaminpo-v81/ROP.csv",
+      "source_name": "stocks_us/1d/ROP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FROP.csv?datasetVersionNumber=81",
+      "sha256": "577ff8e4e371a85bd748b8b184f418f9362a6a5bc0e1a31ee18c889ce2da6de8",
+      "bytes": 901554
+    },
+    "ROST": {
+      "file": "data/raw/benjaminpo-v81/ROST.csv",
+      "source_name": "stocks_us/1d/ROST.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FROST.csv?datasetVersionNumber=81",
+      "sha256": "90c7597b2e79560aada05f12fe14faf0934f33a844861aa8dfc1c6908a13ef7b",
+      "bytes": 1046745
+    },
+    "RSG": {
+      "file": "data/raw/benjaminpo-v81/RSG.csv",
+      "source_name": "stocks_us/1d/RSG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FRSG.csv?datasetVersionNumber=81",
+      "sha256": "52fe62b93205e37f7a07b340c22d67992ae76eda822031697ac94ae6de2aaf4c",
+      "bytes": 734772
+    },
+    "RTX": {
+      "file": "data/raw/benjaminpo-v81/RTX.csv",
+      "source_name": "stocks_us/1d/RTX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FRTX.csv?datasetVersionNumber=81",
+      "sha256": "b75645dfb7ed6609c96ca1947d1cdac18b883450ba8af36cfdc977a052ecebd4",
+      "bytes": 1630105
+    },
+    "SBUX": {
+      "file": "data/raw/benjaminpo-v81/SBUX.csv",
+      "source_name": "stocks_us/1d/SBUX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSBUX.csv?datasetVersionNumber=81",
+      "sha256": "47a2e0fe502d8341068cc5b972e66f4f8cc78137d61f81331151902cbc110b32",
+      "bytes": 878995
+    },
+    "SCHW": {
+      "file": "data/raw/benjaminpo-v81/SCHW.csv",
+      "source_name": "stocks_us/1d/SCHW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSCHW.csv?datasetVersionNumber=81",
+      "sha256": "4f2d4c24d3129e2ea1b57126de4d46f2cf23ef1bb1622ecdc0326c53824dae96",
+      "bytes": 999276
+    },
+    "SHW": {
+      "file": "data/raw/benjaminpo-v81/SHW.csv",
+      "source_name": "stocks_us/1d/SHW.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSHW.csv?datasetVersionNumber=81",
+      "sha256": "187d7faccfa73cd0b2ba69f4bcf9eb51ff35adb0f32ee6ed24b70d97fafe6695",
+      "bytes": 1189353
+    },
+    "SLB": {
+      "file": "data/raw/benjaminpo-v81/SLB.csv",
+      "source_name": "stocks_us/1d/SLB.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSLB.csv?datasetVersionNumber=81",
+      "sha256": "f22109ecdf10d361fbc8a1d9eeb6b5de33304737bf52d338fddcf55312e33829",
+      "bytes": 1157591
+    },
+    "SNPS": {
+      "file": "data/raw/benjaminpo-v81/SNPS.csv",
+      "source_name": "stocks_us/1d/SNPS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSNPS.csv?datasetVersionNumber=81",
+      "sha256": "b537a8610dd861e887ef6409d940e79431fecc6e2439aa8456c9ba6628228cad",
+      "bytes": 901348
+    },
+    "SO": {
+      "file": "data/raw/benjaminpo-v81/SO.csv",
+      "source_name": "stocks_us/1d/SO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSO.csv?datasetVersionNumber=81",
+      "sha256": "5c907a3a807ae7a82b86fcd96cc531881d76ef8b13b3f5e96b3ae0d8489bb74b",
+      "bytes": 1145322
+    },
+    "SPG": {
+      "file": "data/raw/benjaminpo-v81/SPG.csv",
+      "source_name": "stocks_us/1d/SPG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSPG.csv?datasetVersionNumber=81",
+      "sha256": "c117448c6f5d28078ef886b8504733d43dc1249f841d9195202e8cefaf69909d",
+      "bytes": 862587
+    },
+    "SPGI": {
+      "file": "data/raw/benjaminpo-v81/SPGI.csv",
+      "source_name": "stocks_us/1d/SPGI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSPGI.csv?datasetVersionNumber=81",
+      "sha256": "62441ffdc7e6277c403722243355b4861916900ecf9959647c6b501c3417aa17",
+      "bytes": 1370318
+    },
+    "SRE": {
+      "file": "data/raw/benjaminpo-v81/SRE.csv",
+      "source_name": "stocks_us/1d/SRE.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSRE.csv?datasetVersionNumber=81",
+      "sha256": "3a596aac871d67d3fce2585d356019a548eb18ed34e6d6e21567eea9d678d9c2",
+      "bytes": 729621
+    },
+    "SYK": {
+      "file": "data/raw/benjaminpo-v81/SYK.csv",
+      "source_name": "stocks_us/1d/SYK.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FSYK.csv?datasetVersionNumber=81",
+      "sha256": "e70fe7c6bf35d807ed1f29fdf459eb931f0a65e4f2aa072f460d41f305768c9b",
+      "bytes": 1194709
+    },
+    "T": {
+      "file": "data/raw/benjaminpo-v81/T.csv",
+      "source_name": "stocks_us/1d/T.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FT.csv?datasetVersionNumber=81",
+      "sha256": "36c8b557c488ecfefceed6dabf002c527f878a295c2d9e0c5f8ea9b3dc224649",
+      "bytes": 1105607
+    },
+    "TDG": {
+      "file": "data/raw/benjaminpo-v81/TDG.csv",
+      "source_name": "stocks_us/1d/TDG.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTDG.csv?datasetVersionNumber=81",
+      "sha256": "70f8782e1b1cdd864bd60551594f9872f1ed465c5e95ef6189fbcd9809532707",
+      "bytes": 549272
+    },
+    "TFC": {
+      "file": "data/raw/benjaminpo-v81/TFC.csv",
+      "source_name": "stocks_us/1d/TFC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTFC.csv?datasetVersionNumber=81",
+      "sha256": "6c7fcc8ef105d1fb897b0c1caa08e7c79d53e8732877f4c795a95338617d5cff",
+      "bytes": 1179537
+    },
+    "TGT": {
+      "file": "data/raw/benjaminpo-v81/TGT.csv",
+      "source_name": "stocks_us/1d/TGT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTGT.csv?datasetVersionNumber=81",
+      "sha256": "b2f3aadd5e686491e7e834077bb7198e4677a2d86415ba9f17f0db1cbe5de31f",
+      "bytes": 1369167
+    },
+    "TJX": {
+      "file": "data/raw/benjaminpo-v81/TJX.csv",
+      "source_name": "stocks_us/1d/TJX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTJX.csv?datasetVersionNumber=81",
+      "sha256": "9aa38ae7001206124b8ba06759fe24172707c6bb7af08d57a152dea5fb8c4704",
+      "bytes": 997197
+    },
+    "TMO": {
+      "file": "data/raw/benjaminpo-v81/TMO.csv",
+      "source_name": "stocks_us/1d/TMO.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTMO.csv?datasetVersionNumber=81",
+      "sha256": "28c089fef87495ee9a62bf4843f7027516f2f3cc3e9c2fde0876ae62b0f9aedb",
+      "bytes": 1203021
+    },
+    "TMUS": {
+      "file": "data/raw/benjaminpo-v81/TMUS.csv",
+      "source_name": "stocks_us/1d/TMUS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTMUS.csv?datasetVersionNumber=81",
+      "sha256": "393169817b0bd5571797f127b4c2f0f0fe920a78c103f75e3d4be76a5e893af4",
+      "bytes": 512841
+    },
+    "TRV": {
+      "file": "data/raw/benjaminpo-v81/TRV.csv",
+      "source_name": "stocks_us/1d/TRV.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTRV.csv?datasetVersionNumber=81",
+      "sha256": "2196bd9b8cd0f319beb1fe2c60dfed1f703e73d31f2678e763043581311f5d5b",
+      "bytes": 1317623
+    },
+    "TSLA": {
+      "file": "data/raw/benjaminpo-v81/TSLA.csv",
+      "source_name": "stocks_us/1d/TSLA.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTSLA.csv?datasetVersionNumber=81",
+      "sha256": "e43b9bcd7e235a55c8b3448bff27b567907bf5b024e1aa1a1e33586dd2fd45bc",
+      "bytes": 431208
+    },
+    "TT": {
+      "file": "data/raw/benjaminpo-v81/TT.csv",
+      "source_name": "stocks_us/1d/TT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTT.csv?datasetVersionNumber=81",
+      "sha256": "8fe9f4665c153b627838ae473dd696bd2a66d0d1e30c5ab98a958e8d33e8d7a5",
+      "bytes": 1191372
+    },
+    "TXN": {
+      "file": "data/raw/benjaminpo-v81/TXN.csv",
+      "source_name": "stocks_us/1d/TXN.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FTXN.csv?datasetVersionNumber=81",
+      "sha256": "0dee15fe2fb38c9e09ed98b7e312e41d27c0f19934856e8cccc25199e8bb4b01",
+      "bytes": 1393823
+    },
+    "UNH": {
+      "file": "data/raw/benjaminpo-v81/UNH.csv",
+      "source_name": "stocks_us/1d/UNH.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FUNH.csv?datasetVersionNumber=81",
+      "sha256": "e01aa50b2e14204f86891ec686c3dc8a99cc83ff4f751ed7550321115dd70111",
+      "bytes": 1085494
+    },
+    "UNP": {
+      "file": "data/raw/benjaminpo-v81/UNP.csv",
+      "source_name": "stocks_us/1d/UNP.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FUNP.csv?datasetVersionNumber=81",
+      "sha256": "7e81fb256639db619f37a2fb38fafd82567759f16cc267de4aab2a49c21c1837",
+      "bytes": 1206569
+    },
+    "UPS": {
+      "file": "data/raw/benjaminpo-v81/UPS.csv",
+      "source_name": "stocks_us/1d/UPS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FUPS.csv?datasetVersionNumber=81",
+      "sha256": "db424f259d9ff40c7e180aa3efff2f4886fc1b016a26445aaedbb5c2ec87ba89",
+      "bytes": 709201
+    },
+    "URI": {
+      "file": "data/raw/benjaminpo-v81/URI.csv",
+      "source_name": "stocks_us/1d/URI.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FURI.csv?datasetVersionNumber=81",
+      "sha256": "978fce2bcb5564b0ffc7bdd41b652e2d4887f9e7dd7dfd5be4751e1df72b2df8",
+      "bytes": 753413
+    },
+    "USB": {
+      "file": "data/raw/benjaminpo-v81/USB.csv",
+      "source_name": "stocks_us/1d/USB.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FUSB.csv?datasetVersionNumber=81",
+      "sha256": "bc252876ce92ebf9f14815792c4a285a9e98a574aeeb9c0f66441e54a16984d1",
+      "bytes": 1348104
+    },
+    "V": {
+      "file": "data/raw/benjaminpo-v81/V.csv",
+      "source_name": "stocks_us/1d/V.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FV.csv?datasetVersionNumber=81",
+      "sha256": "f5aa9122b71e7cd9909b7a17c825f5c3128628efe114f286eb38f371635cd02b",
+      "bytes": 494756
+    },
+    "VRTX": {
+      "file": "data/raw/benjaminpo-v81/VRTX.csv",
+      "source_name": "stocks_us/1d/VRTX.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FVRTX.csv?datasetVersionNumber=81",
+      "sha256": "a958ba5e48c7a07fa2134f4dbcf80898ed8e7755087a286f2529cb51283ce0db",
+      "bytes": 915960
+    },
+    "VZ": {
+      "file": "data/raw/benjaminpo-v81/VZ.csv",
+      "source_name": "stocks_us/1d/VZ.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FVZ.csv?datasetVersionNumber=81",
+      "sha256": "1bbe9489511737cb2c7e09284d60e1af47b4990bb95fd5e2630507512549d16f",
+      "bytes": 1110911
+    },
+    "WELL": {
+      "file": "data/raw/benjaminpo-v81/WELL.csv",
+      "source_name": "stocks_us/1d/WELL.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FWELL.csv?datasetVersionNumber=81",
+      "sha256": "1948a451699bb2ca6ce9f5c9233777c8519be48d9c626dbb35d33480a9c0c4d4",
+      "bytes": 1186745
+    },
+    "WFC": {
+      "file": "data/raw/benjaminpo-v81/WFC.csv",
+      "source_name": "stocks_us/1d/WFC.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FWFC.csv?datasetVersionNumber=81",
+      "sha256": "2a417fe645c8069a8ff101d5085cfb489400a31f7eb1f410abbbca3e6c2e1a31",
+      "bytes": 1381383
+    },
+    "WM": {
+      "file": "data/raw/benjaminpo-v81/WM.csv",
+      "source_name": "stocks_us/1d/WM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FWM.csv?datasetVersionNumber=81",
+      "sha256": "9e3038d204c3faf8ae221cec07601df9816e206b1327d78ec9f191f6cb611566",
+      "bytes": 992835
+    },
+    "WMB": {
+      "file": "data/raw/benjaminpo-v81/WMB.csv",
+      "source_name": "stocks_us/1d/WMB.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FWMB.csv?datasetVersionNumber=81",
+      "sha256": "6534d3155ff55a09e406840042aa5c96b74c593db3aa83b4005c0894ec5713f6",
+      "bytes": 1138576
+    },
+    "WMT": {
+      "file": "data/raw/benjaminpo-v81/WMT.csv",
+      "source_name": "stocks_us/1d/WMT.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FWMT.csv?datasetVersionNumber=81",
+      "sha256": "275c55a450d84fd516c48ca3e6515ea232c4b7df60b7567e60aa0d5626c3e1f7",
+      "bytes": 1384351
+    },
+    "XOM": {
+      "file": "data/raw/benjaminpo-v81/XOM.csv",
+      "source_name": "stocks_us/1d/XOM.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FXOM.csv?datasetVersionNumber=81",
+      "sha256": "f199cd6dc2b99413949f7e93e83de315ccb2ccdb8d000f5e5970f71f5e5425ed",
+      "bytes": 1654987
+    },
+    "ZTS": {
+      "file": "data/raw/benjaminpo-v81/ZTS.csv",
+      "source_name": "stocks_us/1d/ZTS.csv",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/stocks_us%2F1d%2FZTS.csv?datasetVersionNumber=81",
+      "sha256": "31818a4229982397387a79ab232e44ed5f6d8d4915183d645fc1abd8c49f134f",
+      "bytes": 363681
+    }
+  },
+  "company_metadata_source": {
+    "file": "data/company-metadata.csv",
+    "sha256": "b6cef41c40791c84404db01c3d857c4863c4304e031be6be803513a033420ff7",
+    "source": {
+      "id": "kaggle-andrew-v1022",
+      "url": "https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks/versions/1022",
+      "version": 1022,
+      "archive_sha256": "4fa441d4eedee4c53babdfe340ad6592d228aea21732b5af11db14d6230b61e5",
+      "member": "sp500_companies.csv",
+      "member_sha256": "58a4bbd983869c06f22d1ea40fde5f3a921866de685c68cfaf2c8556a2d117f9",
+      "license_declared": "CC0-1.0 (Kaggle publisher declaration)"
+    }
+  },
+  "license_declared": "GPL 3 (Kaggle publisher declaration)",
+  "public_display_rights": "Not independently confirmed for upstream Yahoo data; local migration does not approve public redistribution.",
+  "price_basis": "Vendor OHLC/volume basis at v81, including post-2024 actions. Preserve final vendor Adjusted Close anchor. Rebuild AVGO cash dividends; remove duplicate DHR/Fortive cash factor while retaining vendor equivalent conversion; value JCI/Adient distribution at first regular-way close (45.51/10). Price-index convention, not point-in-time raw prices or exact portfolio total return.",
+  "limitations": [
+    "Static end-of-period constituent selection; survivorship bias; not historical S&P 500 membership",
+    "Capitalization snapshot has no explicit per-company valuation date",
+    "Calendar checked against frozen source dates, not official exchange calendar",
+    "Do not combine source prices with SEC EPS without matching share basis.",
+    "Reviewed AVGO, DHR and JCI actions follow documented price-index conventions. This does not independently certify every corporate action or price in the catalogue."
+  ],
+  "reviews": {
+    "AVGO": {
+      "status": "reviewed",
+      "method": "cash_dividends_preserve_vendor_anchor",
+      "rules_file": "data/price-adjustments.json",
+      "rules_sha256": "4234ce8fc36fe7bfc5efb08d3867646b8c6011809fbeb9c231d94a5702308658",
+      "note": "Use 39 verified ordinary cash dividends; retain final source Adj Close to preserve later adjustments. Correct duplicated March/June 2018 distributions."
+    },
+    "DHR": {
+      "status": "reviewed",
+      "ex_date": "2016-07-05",
+      "note": "Price-index convention: preserve Yahoo OHLC conversion 1319:1000 already embedded in Close and remove the separately recorded 24.56 cash factor. Primary 2016 10-K corroborates an approximately 1.32 equity-award adjustment and the issuer confirms a 1-for-2 Fortive distribution. The vendor conversion is an equivalent price basis, not an actual increase in DHR shares. Not a portfolio total-return reconstruction.",
+      "evidence": [
+        "https://investors.danaher.com/2016-07-02-Danaher-Corporation-Completes-Separation-of-Fortive-Corporation",
+        "https://filecache.investorroom.com/mr5ir_danaher/330/download/Tax%20Basis%20Memo%20and%20Form%208937.pdf",
+        "https://www.sec.gov/Archives/edgar/data/313616/000031361617000066/dhr-20161231x10xk.htm",
+        "https://query1.finance.yahoo.com/v8/finance/chart/DHR?period1=1466380800&period2=1468022400&interval=1d&events=div%2Csplits%2CcapitalGains",
+        "https://www.annualreports.com/HostedData/AnnualReportArchive/d/NYSE_DHR_2016.pdf"
+      ],
+      "evidence_files": [
+        {
+          "url": "https://investors.danaher.com/2016-07-02-Danaher-Corporation-Completes-Separation-of-Fortive-Corporation",
+          "file": "data/raw/benjaminpo-v81/evidence/fortive-completion.html",
+          "sha256": "5d897cfab98ab196418fbf20f739949f3446236922beff26601a97cce7c9be17"
+        },
+        {
+          "url": "https://filecache.investorroom.com/mr5ir_danaher/330/download/Tax%20Basis%20Memo%20and%20Form%208937.pdf",
+          "file": "data/raw/benjaminpo-v81/evidence/fortive-tax-basis.pdf",
+          "sha256": "fd7f7b201552dc013b8f1f4342d424f361b9f521f4f9dfa5a5b0edbef1d474f7"
+        },
+        {
+          "role": "annual_report",
+          "url": "https://www.sec.gov/Archives/edgar/data/313616/000031361617000066/dhr-20161231x10xk.htm",
+          "file": "data/raw/benjaminpo-v81/evidence/danaher-2016-10k.html",
+          "sha256": "672d4a2a84bcf31e613a06da76ebe29acbf6cfd6e00d3b8d88b75e35d1990683"
+        },
+        {
+          "role": "vendor_actions",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/DHR?period1=1466380800&period2=1468022400&interval=1d&events=div%2Csplits%2CcapitalGains",
+          "file": "data/raw/benjaminpo-v81/evidence/dhr-2016-vendor-actions.json",
+          "sha256": "57be83cae9515767a8d2fde29a4700f35fc722e12653cdf011500131e4559b4e"
+        },
+        {
+          "role": "annual_performance",
+          "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/d/NYSE_DHR_2016.pdf",
+          "file": "data/raw/benjaminpo-v81/evidence/danaher-2016-annual-report.pdf",
+          "sha256": "98594b3acf1467e8f9c59ae05e0fbd825d8791fc4ac7f07eb5f00cbdbefc24a7"
+        }
+      ],
+      "ticker": "DHR",
+      "reviewed_on": "2026-10-22",
+      "method": "remove_duplicate_distribution",
+      "original_amount": "24.56",
+      "benchmark": {
+        "start_date": "2015-12-31",
+        "end_date": "2016-12-30",
+        "reported_start": "2.00",
+        "reported_end": "2.23",
+        "rounding_half_unit": "0.005",
+        "note": "Issuer-authored 2016 annual report, stock performance graph, year-end values rounded to two decimals. A rounded annual cross-check, not proof of every daily investor return."
+      }
+    },
+    "JCI": {
+      "status": "reviewed",
+      "ex_date": "2016-10-31",
+      "note": "Replace the unverified vendor 4.70 estimate with a documented convention: 45.51 first regular-way ADNT closing price (2016 10-K Item 5) times 1/10 distribution ratio = 4.551 per JCI share. Back-adjust strictly before ex-date using (previous Close - cash equivalent)/previous Close. This is a stock distribution valued for the price index, not cash received or a tax-basis allocation. Preserve source OHLC, all other factors and the final vendor anchor.",
+      "evidence": [
+        "https://www.sec.gov/Archives/edgar/data/833444/000110465916143835/a16-18104_1ex99d1.htm",
+        "https://adient.mediaroom.com/2016-10-31-Adient-Completes-Separation-from-Johnson-Controls-International-Begins-Trading-Today-on-NYSE",
+        "https://www.sec.gov/Archives/edgar/data/1670541/000167054116000016/a9302016adientform10-k.htm",
+        "https://query1.finance.yahoo.com/v8/finance/chart/JCI?period1=1477267200&period2=1478131200&interval=1d&events=div%2Csplits%2CcapitalGains"
+      ],
+      "evidence_files": [
+        {
+          "url": "https://adient.mediaroom.com/2016-10-31-Adient-Completes-Separation-from-Johnson-Controls-International-Begins-Trading-Today-on-NYSE",
+          "file": "data/raw/benjaminpo-v81/evidence/adient-completion.html",
+          "sha256": "8784a686ec8ecf68eed3309c22d677ecb375999237c696dcc9fae4abb7ac9fdb",
+          "role": "distribution"
+        },
+        {
+          "role": "annual_report",
+          "url": "https://www.sec.gov/Archives/edgar/data/1670541/000167054116000016/a9302016adientform10-k.htm",
+          "file": "data/raw/benjaminpo-v81/evidence/adient-2016-10k.html",
+          "sha256": "22be0a56290396b8ecbb4090bce2a9e124ba17117ef0b7a82036f3e206ce7043"
+        },
+        {
+          "role": "vendor_actions",
+          "url": "https://query1.finance.yahoo.com/v8/finance/chart/JCI?period1=1477267200&period2=1478131200&interval=1d&events=div%2Csplits%2CcapitalGains",
+          "file": "data/raw/benjaminpo-v81/evidence/jci-2016-vendor-actions.json",
+          "sha256": "1b1de791bd81bb6fd390d9cd191b0e499227f2f4bbb510b05ca6c711ccfe8104"
+        }
+      ],
+      "ticker": "JCI",
+      "reviewed_on": "2026-10-22",
+      "method": "replace_distribution_cash_equivalent",
+      "original_amount": "4.70",
+      "distributed_close": "45.51",
+      "distributed_shares": "1",
+      "parent_shares": "10"
+    },
+    "AMD": {
+      "status": "reviewed",
+      "ticker": "AMD",
+      "date": "2015-01-02",
+      "reviewed_on": "2026-10-23",
+      "method": "verified_quote_replacement",
+      "expected": {
+        "open": "2.670000076300000000",
+        "high": "2.670000076300000000",
+        "low": "2.670000076300000000",
+        "close": "2.670000076300000000",
+        "adjusted_close": "2.670000076300000000",
+        "volume": "0"
+      },
+      "replacement": {
+        "open": "2.70",
+        "high": "2.73",
+        "low": "2.64",
+        "close": "2.69",
+        "adjusted_close": "2.69",
+        "volume": "8330255"
+      },
+      "note": "Replace the missing vendor OHLCV bar from a pinned DoltHub revision. Close USD 2.69 is independently corroborated by Scotiabank Appendix C; OHLC and volume are the values reported by DoltHub. Adjusted Close equals Close on the unchanged AMD v81 basis; no correction propagates to other sessions.",
+      "evidence": [
+        {
+          "role": "ohlcv",
+          "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+%2A+FROM+ohlcv+AS+OF+%272n73ut8u52u5qhsc7k69dqlqlpm7jqoq%27+WHERE+act_symbol%3D%27AMD%27+AND+date%3D%272015-01-02%27+LIMIT+1",
+          "revision": "2n73ut8u52u5qhsc7k69dqlqlpm7jqoq",
+          "file": "data/raw/benjaminpo-v81/evidence/amd-2015-01-02-dolt.json",
+          "sha256": "005075fbd7153e9ceffcd1f3bbe4d88bb1859c370c29de49f608aa27a890a256",
+          "declared_license": "CC BY-SA 4.0",
+          "attribution": "post-no-preference/stocks, DoltHub",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        },
+        {
+          "role": "independent_close",
+          "url": "https://api.scotiabank.com/investorsolutions/issue/v1.0/download/document?docTypeCd=PRS&issueId=56262&langId=EN",
+          "file": "data/raw/benjaminpo-v81/evidence/amd-2015-01-02-scotiabank.pdf",
+          "sha256": "03c04101a7183cf1226c11dcd3bf2c9733becca016d5afd3a4463b30884f367d",
+          "position": "Appendix C, AMD: starting closing share price USD 2.69 on January 2, 2015"
+        }
+      ]
+    }
+  }
+}

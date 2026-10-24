@@ -1,0 +1,3950 @@
+{
+  "version": 1,
+  "basis_date": "2026-10-13",
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "price_manifest_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
+  "definition": "Latest-source net EPS, retaining basic/diluted basis, restated only for reviewed ordinary share-count changes through the frozen vendor price snapshot date. No cash dividends, spin-off valuation factors, or business-scope restatements. Not point-in-time data and not permission to calculate P/E from Adjusted Close.",
+  "source_basis_policy": "For these exact frozen selected EPS sources, actions after the source filing date remain to be applied. Sources on or after each action already incorporate it. This is a reviewed snapshot approval, not an automatic rule for new filings. Pre-split pro-forma tables in AFL, APH and CTAS are not the selected reported EPS.",
+  "vendor_index": {
+    "file": "index.json",
+    "sha256": "2052635bff0c4ffb1f2fe3dea852f8f2223c69ddfd3f8263ff71128cd16f2ebe"
+  },
+  "pre_split_filings": {
+    "file": "filings-index.json",
+    "sha256": "1dba8339ba3c32e5c86d954a73a3c9d449ea1cde1769ef7838f3d8ee7ae4c588"
+  },
+  "actions": [
+    {
+      "ticker": "AAPL",
+      "date": "2020-08-31",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+        "sha256": "73a86c6aedc31f77cac2ea4df5f80f0b3bd7e6eb58bb4e01444fbedf3afb9c43",
+        "file": "73a86c6aedc31f77cac2ea4df5f80f0b3bd7e6eb58bb4e01444fbedf3afb9c43.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2020-08-28",
+          "val": 4,
+          "accn": "0000320193-20-000096",
+          "fy": 2020,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2020-10-30"
+        }
+      },
+      "source_cik": "0000320193",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000320193",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "11.8900000000",
+          "period_start": "2018-09-30",
+          "period_end": "2019-09-28",
+          "filed": "2019-10-31",
+          "accession": "0000320193-19-000119",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000320193",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.9700000000",
+          "period_start": "2018-09-30",
+          "period_end": "2019-09-28",
+          "filed": "2020-10-30",
+          "accession": "0000320193-20-000096",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "AFL",
+      "date": "2018-03-19",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004977.json",
+        "sha256": "dacccab45a225cc1f9c4607c267ef07c055d45d701f129eca651a717ba3c6a39",
+        "file": "dacccab45a225cc1f9c4607c267ef07c055d45d701f129eca651a717ba3c6a39.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2018-02-13",
+          "val": 2,
+          "accn": "0000004977-18-000073",
+          "fy": 2018,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2018-05-04"
+        }
+      },
+      "source_cik": "0000004977",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000004977",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "11.5400000000",
+          "period_start": "2017-01-01",
+          "period_end": "2017-12-31",
+          "filed": "2018-02-23",
+          "accession": "0000004977-18-000054",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000004977",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "5.7700000000",
+          "period_start": "2017-01-01",
+          "period_end": "2017-12-31",
+          "filed": "2019-02-25",
+          "accession": "0000004977-19-000049",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004977.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "AMZN",
+      "date": "2022-06-06",
+      "new_shares": 20,
+      "old_shares": 1,
+      "vendor_new_shares": 20,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001018724.json",
+        "sha256": "7549fb68446eee40e1f50a166fa06b2d2ee6349e07c8553a4828757e032d3cd4",
+        "file": "7549fb68446eee40e1f50a166fa06b2d2ee6349e07c8553a4828757e032d3cd4.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-05-27",
+          "val": 20,
+          "accn": "0001018724-22-000019",
+          "fy": 2022,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2022-07-29"
+        }
+      },
+      "source_cik": "0001018724",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001018724",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "64.8100000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2022-02-04",
+          "accession": "0001018724-22-000005",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001018724",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.2400000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2023-02-03",
+          "accession": "0001018724-23-000004",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001018724.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "ANET",
+      "date": "2021-11-18",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001596532.json",
+        "sha256": "e548756a238d794e61322ba2d70b913b5d2f925c161fba73236f54a13df85c2f",
+        "file": "e548756a238d794e61322ba2d70b913b5d2f925c161fba73236f54a13df85c2f.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2021-11-01",
+          "val": 4,
+          "accn": "0001596532-22-000026",
+          "fy": 2021,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2022-02-15"
+        }
+      },
+      "source_cik": "0001596532",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001596532",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "7.9900000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2021-02-19",
+          "accession": "0001596532-21-000049",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001596532",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.0000000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-15",
+          "accession": "0001596532-22-000026",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001596532.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "ANET",
+      "date": "2024-12-04",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001596532.json",
+        "sha256": "e548756a238d794e61322ba2d70b913b5d2f925c161fba73236f54a13df85c2f",
+        "file": "e548756a238d794e61322ba2d70b913b5d2f925c161fba73236f54a13df85c2f.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-12-03",
+          "val": 4,
+          "accn": "0001596532-25-000028",
+          "fy": 2024,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2025-02-19"
+        }
+      },
+      "source_cik": "0001596532",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001596532",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "6.5800000000",
+          "period_start": "2023-01-01",
+          "period_end": "2023-12-31",
+          "filed": "2024-02-13",
+          "accession": "0001596532-24-000043",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001596532",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.6500000000",
+          "period_start": "2023-01-01",
+          "period_end": "2023-12-31",
+          "filed": "2025-02-19",
+          "accession": "0001596532-25-000028",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001596532.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "APH",
+      "date": "2021-03-05",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000820313.json",
+        "sha256": "eaa224da664e1fd6673c58a8b4dc3b4ca6bcf564591b967e057947f50bf46d23",
+        "file": "eaa224da664e1fd6673c58a8b4dc3b4ca6bcf564591b967e057947f50bf46d23.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2021-03-04",
+          "val": 2,
+          "accn": "0001558370-21-005338",
+          "fy": 2021,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2021-04-30"
+        }
+      },
+      "source_cik": "0000820313",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000820313",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.9100000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2021-02-10",
+          "accession": "0001558370-21-000881",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000820313",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.9600000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-09",
+          "accession": "0001558370-22-000961",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000820313.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "APH",
+      "date": "2024-06-12",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000820313.json",
+        "sha256": "eaa224da664e1fd6673c58a8b4dc3b4ca6bcf564591b967e057947f50bf46d23",
+        "file": "eaa224da664e1fd6673c58a8b4dc3b4ca6bcf564591b967e057947f50bf46d23.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-06-11",
+          "val": 2,
+          "accn": "0001558370-24-010246",
+          "fy": 2024,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2024-07-26"
+        }
+      },
+      "source_cik": "0000820313",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000820313",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.1100000000",
+          "period_start": "2023-01-01",
+          "period_end": "2023-12-31",
+          "filed": "2024-02-07",
+          "accession": "0001558370-24-000866",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000820313",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.5500000000",
+          "period_start": "2023-01-01",
+          "period_end": "2023-12-31",
+          "filed": "2025-02-07",
+          "accession": "0001558370-25-000714",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000820313.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "APH",
+      "date": "2026-09-03",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "source_cik": "0000820313",
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://investors.amphenol.com/news-and-events/news-details/2026/Amphenol-Announces-Two-for-One-Stock-Split-and-Third-Quarter-2026-Dividend/default.aspx",
+        "sha256": "6e43edc83f681d51fda17ccd040734e1063ae74ac626560a3d5ce7c982029552",
+        "file": "6e43edc83f681d51fda17ccd040734e1063ae74ac626560a3d5ce7c982029552.htm",
+        "bytes": 61527
+      },
+      "source_url": "https://investors.amphenol.com/news-and-events/news-details/2026/Amphenol-Announces-Two-for-One-Stock-Split-and-Third-Quarter-2026-Dividend/default.aspx",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "AVGO",
+      "date": "2024-07-15",
+      "new_shares": 10,
+      "old_shares": 1,
+      "vendor_new_shares": 10,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001730168.json",
+        "sha256": "3bdb6644c12addf1e63c4dc861008d7804fbf3d3f5aa6eb9b97f72c0e89a7adf",
+        "file": "3bdb6644c12addf1e63c4dc861008d7804fbf3d3f5aa6eb9b97f72c0e89a7adf.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-07-12",
+          "val": 10,
+          "accn": "0001730168-24-000099",
+          "fy": 2024,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2024-09-11"
+        }
+      },
+      "source_cik": "0001730168",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001730168",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "32.9800000000",
+          "period_start": "2022-10-31",
+          "period_end": "2023-10-29",
+          "filed": "2023-12-14",
+          "accession": "0001730168-23-000096",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001730168",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.3000000000",
+          "period_start": "2022-10-31",
+          "period_end": "2023-10-29",
+          "filed": "2024-12-20",
+          "accession": "0001730168-24-000139",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001730168.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "BKNG",
+      "date": "2026-04-06",
+      "new_shares": 25,
+      "old_shares": 1,
+      "vendor_new_shares": 25,
+      "vendor_old_shares": 1,
+      "source_cik": "0001075531",
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://www.sec.gov/Archives/edgar/data/1075531/000095015726000465/form8-k.htm",
+        "sha256": "ccf20524a53710a5ae18b31fa7aec53bea249d85adbc13f77e6e15b427de7a82",
+        "file": "ccf20524a53710a5ae18b31fa7aec53bea249d85adbc13f77e6e15b427de7a82.htm",
+        "bytes": 63134
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1075531/000095015726000465/form8-k.htm",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CMCSA",
+      "date": "2017-02-21",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001166691.json",
+        "sha256": "4931cbdeb5c78061844fd07853321766ae28733a65d5aab5b39175943ce45dfc",
+        "file": "4931cbdeb5c78061844fd07853321766ae28733a65d5aab5b39175943ce45dfc.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2017-01-24",
+          "val": 2,
+          "accn": "0001166691-17-000009",
+          "fy": 2017,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2017-04-27"
+        }
+      },
+      "source_cik": "0001166691",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001166691",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.5700000000",
+          "period_start": "2016-01-01",
+          "period_end": "2016-12-31",
+          "filed": "2017-02-03",
+          "accession": "0001193125-17-030512",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001166691",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.7800000000",
+          "period_start": "2016-01-01",
+          "period_end": "2016-12-31",
+          "filed": "2018-01-31",
+          "accession": "0001166691-18-000004",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001166691.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CMG",
+      "date": "2024-06-26",
+      "new_shares": 50,
+      "old_shares": 1,
+      "vendor_new_shares": 50,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001058090.json",
+        "sha256": "93c81e4ccae99f0420863a88e05765e0dc20f043cc7bb9ec03f3c0d4b75709e5",
+        "file": "93c81e4ccae99f0420863a88e05765e0dc20f043cc7bb9ec03f3c0d4b75709e5.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-06-26",
+          "val": 50,
+          "accn": "0001058090-24-000032",
+          "fy": 2024,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2024-07-25"
+        }
+      },
+      "source_cik": "0001058090",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001058090",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "44.3400000000",
+          "period_start": "2023-01-01",
+          "period_end": "2023-12-31",
+          "filed": "2024-02-08",
+          "accession": "0001562762-24-000023",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001058090",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "0.8900000000",
+          "period_start": "2023-01-01",
+          "period_end": "2023-12-31",
+          "filed": "2025-02-05",
+          "accession": "0001058090-25-000014",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001058090.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CPRT",
+      "date": "2017-04-11",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "source_cik": "0000900075",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000900075",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.2100000000",
+          "period_start": "2015-08-01",
+          "period_end": "2016-07-31",
+          "filed": "2016-09-28",
+          "accession": "0000900075-16-000081",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000900075",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.1100000000",
+          "period_start": "2015-08-01",
+          "period_end": "2016-07-31",
+          "filed": "2017-09-28",
+          "accession": "0000900075-17-000044",
+          "form": "10-K"
+        }
+      },
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://www.sec.gov/Archives/edgar/data/900075/000090007517000044/cprt07312017-10k.htm",
+        "sha256": "02677418014c8c3e07873c18f3cd3cfdcd438ff3d5ff3d10eda3f25731caf45e",
+        "file": "02677418014c8c3e07873c18f3cd3cfdcd438ff3d5ff3d10eda3f25731caf45e.htm",
+        "bytes": 2653443
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/900075/000090007517000044/cprt07312017-10k.htm",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CPRT",
+      "date": "2022-11-04",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json",
+        "sha256": "0405d39c528ef0ccf8112e1e59a9323dec59b828b553bba91e528aa6fa8771dd",
+        "file": "0405d39c528ef0ccf8112e1e59a9323dec59b828b553bba91e528aa6fa8771dd.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-10-03",
+          "val": 2,
+          "accn": "0000900075-22-000065",
+          "fy": 2023,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2022-11-18"
+        }
+      },
+      "source_cik": "0000900075",
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CPRT",
+      "date": "2023-08-22",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json",
+        "sha256": "0405d39c528ef0ccf8112e1e59a9323dec59b828b553bba91e528aa6fa8771dd",
+        "file": "0405d39c528ef0ccf8112e1e59a9323dec59b828b553bba91e528aa6fa8771dd.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2023-08-04",
+          "val": 2,
+          "accn": "0000900075-23-000043",
+          "fy": 2024,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2023-11-21"
+        }
+      },
+      "source_cik": "0000900075",
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CSX",
+      "date": "2021-06-29",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000277948.json",
+        "sha256": "85aa75ecd9ce76a5596f7973f2b41e953e022e056f9883bf9aec2190b7f43d0e",
+        "file": "85aa75ecd9ce76a5596f7973f2b41e953e022e056f9883bf9aec2190b7f43d0e.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2021-06-04",
+          "val": 3,
+          "accn": "0000277948-21-000041",
+          "fy": 2021,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2021-07-22"
+        }
+      },
+      "source_cik": "0000277948",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000277948",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.6000000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2021-02-10",
+          "accession": "0000277948-21-000014",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000277948",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.2000000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-16",
+          "accession": "0000277948-22-000009",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000277948.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "CTAS",
+      "date": "2024-09-12",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "source_cik": "0000723254",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000723254",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "15.1500000000",
+          "period_start": "2023-06-01",
+          "period_end": "2024-05-31",
+          "filed": "2024-07-25",
+          "accession": "0000723254-24-000036",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000723254",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.7900000000",
+          "period_start": "2023-06-01",
+          "period_end": "2024-05-31",
+          "filed": "2025-07-28",
+          "accession": "0000723254-25-000017",
+          "form": "10-K"
+        }
+      },
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://www.sec.gov/Archives/edgar/data/723254/000072325424000040/ctas-20240911.htm",
+        "sha256": "8a72a9bab58ac8651bac1405f819244293a1e67c6a0c1348c730841a43c16f57",
+        "file": "8a72a9bab58ac8651bac1405f819244293a1e67c6a0c1348c730841a43c16f57.htm",
+        "bytes": 28927
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723254/000072325424000040/ctas-20240911.htm",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "EW",
+      "date": "2015-12-14",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "source_cik": "0001099800",
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://www.sec.gov/Archives/edgar/data/1099800/000109980016000044/ew10-k2015.htm",
+        "sha256": "df5228f04207dca241d05ed56c57ec2f7612ff5486429300307c53051ee2dad2",
+        "file": "df5228f04207dca241d05ed56c57ec2f7612ff5486429300307c53051ee2dad2.htm",
+        "bytes": 2727449
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1099800/000109980016000044/ew10-k2015.htm",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "EW",
+      "date": "2020-06-01",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001099800.json",
+        "sha256": "5e8f751fbec9a0a1ff653c4d2070ea46d6cde3f7ccf35f9c1d7367a126bc76c1",
+        "file": "5e8f751fbec9a0a1ff653c4d2070ea46d6cde3f7ccf35f9c1d7367a126bc76c1.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2020-05-07",
+          "val": 3,
+          "accn": "0001099800-20-000019",
+          "fy": 2020,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2020-07-27"
+        }
+      },
+      "source_cik": "0001099800",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001099800",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.9300000000",
+          "period_start": "2019-01-01",
+          "period_end": "2019-12-31",
+          "filed": "2020-02-14",
+          "accession": "0001099800-20-000005",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001099800",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.6400000000",
+          "period_start": "2019-01-01",
+          "period_end": "2019-12-31",
+          "filed": "2021-02-12",
+          "accession": "0001099800-21-000007",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001099800.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "FI",
+      "date": "2018-03-20",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000798354.json",
+        "sha256": "c5f33c82ce37ea4ff09cdafffce137f485ca5bc10c699a086a4460c4520dea8d",
+        "file": "c5f33c82ce37ea4ff09cdafffce137f485ca5bc10c699a086a4460c4520dea8d.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2018-02-21",
+          "val": 2,
+          "accn": "0000798354-18-000009",
+          "fy": 2018,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2018-05-02"
+        }
+      },
+      "source_cik": "0000798354",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000798354",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "5.7800000000",
+          "period_start": "2017-01-01",
+          "period_end": "2017-12-31",
+          "filed": "2018-02-22",
+          "accession": "0000798354-18-000005",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000798354",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.8900000000",
+          "period_start": "2017-01-01",
+          "period_end": "2017-12-31",
+          "filed": "2019-02-21",
+          "accession": "0000798354-19-000005",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000798354.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "FTNT",
+      "date": "2022-06-23",
+      "new_shares": 5,
+      "old_shares": 1,
+      "vendor_new_shares": 5,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001262039.json",
+        "sha256": "59391fcf61ddfa58093873acd02d39b714d88ff78987ce7e749fcc6a62f4c7f8",
+        "file": "59391fcf61ddfa58093873acd02d39b714d88ff78987ce7e749fcc6a62f4c7f8.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-04-14",
+          "val": 5,
+          "accn": "0001262039-22-000029",
+          "fy": 2022,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2022-08-05"
+        }
+      },
+      "source_cik": "0001262039",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001262039",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.6300000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2022-02-25",
+          "accession": "0001262039-22-000008",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001262039",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "0.7300000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2023-02-24",
+          "accession": "0001262039-23-000010",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001262039.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "GE",
+      "date": "2021-08-02",
+      "new_shares": 1,
+      "old_shares": 8,
+      "vendor_new_shares": 1,
+      "vendor_old_shares": 8,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040545.json",
+        "sha256": "8c18acb17bbe0760fae6205c5df75b805480c58d4d1dbbabeba206d9ca36e1e3",
+        "file": "8c18acb17bbe0760fae6205c5df75b805480c58d4d1dbbabeba206d9ca36e1e3.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "start": "2021-04-01",
+          "end": "2021-06-30",
+          "val": 0.125,
+          "accn": "0000040545-21-000064",
+          "fy": 2021,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2021-10-26",
+          "frame": "CY2021Q2"
+        }
+      },
+      "source_cik": "0000040545",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000040545",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "0.5800000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2021-02-12",
+          "accession": "0000040545-21-000011",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000040545",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.6300000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-11",
+          "accession": "0000040545-22-000008",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040545.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "GOOGL",
+      "date": "2022-07-18",
+      "new_shares": 20,
+      "old_shares": 1,
+      "vendor_new_shares": 20,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+        "sha256": "a017f26ee88cb4a639d1c1ddb06d53b4afe22f0ac89cabec7cd67c88919fe1c5",
+        "file": "a017f26ee88cb4a639d1c1ddb06d53b4afe22f0ac89cabec7cd67c88919fe1c5.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-07-15",
+          "val": 20,
+          "accn": "0001652044-22-000090",
+          "fy": 2022,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2022-10-26"
+        }
+      },
+      "source_cik": "0001652044",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001652044",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "112.2000000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2022-02-02",
+          "accession": "0001652044-22-000019",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001652044",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "5.6100000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2023-02-03",
+          "accession": "0001652044-23-000016",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "HLT",
+      "date": "2017-01-04",
+      "new_shares": 1,
+      "old_shares": 3,
+      "vendor_new_shares": 1000,
+      "vendor_old_shares": 2052,
+      "source_cik": "0001585689",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001585689",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.4200000000",
+          "period_start": "2015-01-01",
+          "period_end": "2015-12-31",
+          "filed": "2016-02-26",
+          "accession": "0001585689-16-000161",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001585689",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.2600000000",
+          "period_start": "2015-01-01",
+          "period_end": "2015-12-31",
+          "filed": "2017-02-15",
+          "accession": "0001585689-17-000038",
+          "form": "10-K"
+        }
+      },
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://ir.hilton.com/sec-filings/all-sec-filings/content/0001193125-17-001901/d302894dex991.htm",
+        "sha256": "3ad0727dd0f99083e8452d2d6f3af05e4502c54211ac7d02423576ae4b05b926",
+        "file": "3ad0727dd0f99083e8452d2d6f3af05e4502c54211ac7d02423576ae4b05b926.htm",
+        "bytes": 29439
+      },
+      "source_url": "https://ir.hilton.com/sec-filings/all-sec-filings/content/0001193125-17-001901/d302894dex991.htm",
+      "note": "Actual 1-for-3 reverse split; the vendor 1000/2052 factor also includes spin-offs. All selected EPS already incorporates this reverse split."
+    },
+    {
+      "ticker": "HON",
+      "date": "2026-06-29",
+      "new_shares": 1,
+      "old_shares": 2,
+      "vendor_new_shares": 1907,
+      "vendor_old_shares": 2000,
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://www.honeywell.com/us/en/news/press-releases/2026/06/honeywell-board-of-directors-sets-record-date-and-announces-expected-timing-for-spin-off-of-honeywell-aerospace-and-honeywell-reverse-stock-split",
+        "sha256": "84cebc256026cfc66a5b5109d599a18f61eae37f60d32956dd56cd712fe60556",
+        "file": "84cebc256026cfc66a5b5109d599a18f61eae37f60d32956dd56cd712fe60556.htm",
+        "bytes": 136878
+      },
+      "source_cik": "0000773840",
+      "source_url": "https://www.honeywell.com/us/en/news/press-releases/2026/06/honeywell-board-of-directors-sets-record-date-and-announces-expected-timing-for-spin-off-of-honeywell-aerospace-and-honeywell-reverse-stock-split",
+      "note": "Actual 1-for-2 reverse split; the vendor 1907/2000 factor also includes the Aerospace separation and is not a share-count ratio."
+    },
+    {
+      "ticker": "ICE",
+      "date": "2016-11-04",
+      "new_shares": 5,
+      "old_shares": 1,
+      "vendor_new_shares": 5,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001571949.json",
+        "sha256": "08da1864170083e2020b61dfe2ac6ab760f923c436105fd8174cbdc99b01ea46",
+        "file": "08da1864170083e2020b61dfe2ac6ab760f923c436105fd8174cbdc99b01ea46.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2016-10-27",
+          "val": 5,
+          "accn": "0001571949-18-000003",
+          "fy": 2017,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2018-02-07"
+        }
+      },
+      "source_cik": "0001571949",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001571949",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "11.3900000000",
+          "period_start": "2015-01-01",
+          "period_end": "2015-12-31",
+          "filed": "2016-02-04",
+          "accession": "0001571949-16-000020",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001571949",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.2800000000",
+          "period_start": "2015-01-01",
+          "period_end": "2015-12-31",
+          "filed": "2017-02-07",
+          "accession": "0001571949-17-000003",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001571949.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "ISRG",
+      "date": "2017-10-06",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035267.json",
+        "sha256": "b386a39dc2989008a01e4be5e12444e330e3a98b86c714e3b063b246235db44b",
+        "file": "b386a39dc2989008a01e4be5e12444e330e3a98b86c714e3b063b246235db44b.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2017-09-29",
+          "val": 3,
+          "accn": "0001035267-17-000147",
+          "fy": 2017,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2017-10-20",
+          "frame": "CY2017Q3I"
+        }
+      },
+      "source_cik": "0001035267",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001035267",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "18.7300000000",
+          "period_start": "2016-01-01",
+          "period_end": "2016-12-31",
+          "filed": "2017-02-06",
+          "accession": "0001035267-17-000021",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001035267",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "6.2400000000",
+          "period_start": "2016-01-01",
+          "period_end": "2016-12-31",
+          "filed": "2018-02-02",
+          "accession": "0001035267-18-000013",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035267.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "ISRG",
+      "date": "2021-10-05",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035267.json",
+        "sha256": "b386a39dc2989008a01e4be5e12444e330e3a98b86c714e3b063b246235db44b",
+        "file": "b386a39dc2989008a01e4be5e12444e330e3a98b86c714e3b063b246235db44b.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2021-09-27",
+          "val": 3,
+          "accn": "0001035267-23-000019",
+          "fy": 2022,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2023-02-10"
+        }
+      },
+      "source_cik": "0001035267",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001035267",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "8.8200000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2021-02-10",
+          "accession": "0001035267-21-000028",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001035267",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.9400000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-03",
+          "accession": "0001035267-22-000014",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035267.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "KLAC",
+      "date": "2026-06-12",
+      "new_shares": 10,
+      "old_shares": 1,
+      "vendor_new_shares": 10,
+      "vendor_old_shares": 1,
+      "source_cik": "0000319201",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000319201",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "20.2800000000",
+          "period_start": "2023-07-01",
+          "period_end": "2024-06-30",
+          "filed": "2025-08-08",
+          "accession": "0000319201-25-000024",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000319201",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.0300000000",
+          "period_start": "2023-07-01",
+          "period_end": "2024-06-30",
+          "filed": "2026-08-06",
+          "accession": "0000319201-26-000027",
+          "form": "10-K"
+        }
+      },
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://ir.kla.com/sec-filings/all-sec-filings/content/0001193125-26-212093/d116682dex991.htm",
+        "sha256": "a7ba9ab030cf7fca339325d5214f3d5908eafa0f55acfa018ceefe985b201def",
+        "file": "a7ba9ab030cf7fca339325d5214f3d5908eafa0f55acfa018ceefe985b201def.htm",
+        "bytes": 12198
+      },
+      "source_url": "https://ir.kla.com/sec-filings/all-sec-filings/content/0001193125-26-212093/d116682dex991.htm",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "KR",
+      "date": "2015-07-14",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000056873.json",
+        "sha256": "f960cd5977a109fbba07f6fbb5da02280c3c4b71e4f89e01f7e46bd4610fe1a0",
+        "file": "f960cd5977a109fbba07f6fbb5da02280c3c4b71e4f89e01f7e46bd4610fe1a0.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2015-06-25",
+          "val": 2,
+          "accn": "0001104659-15-066444",
+          "fy": 2015,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2015-09-22"
+        }
+      },
+      "source_cik": "0000056873",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000056873",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.4400000000",
+          "period_start": "2014-02-02",
+          "period_end": "2015-01-31",
+          "filed": "2015-04-01",
+          "accession": "0001104659-15-025139",
+          "form": "10-K/A"
+        },
+        "after": {
+          "source_cik": "0000056873",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.7200000000",
+          "period_start": "2014-02-02",
+          "period_end": "2015-01-31",
+          "filed": "2016-03-29",
+          "accession": "0001104659-16-108277",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000056873.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "LRCX",
+      "date": "2024-10-03",
+      "new_shares": 10,
+      "old_shares": 1,
+      "vendor_new_shares": 10,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000707549.json",
+        "sha256": "7ba34e55ee4bb0512afd14805895a554951f4d948ee28e2db41b44f44ad0b1dc",
+        "file": "7ba34e55ee4bb0512afd14805895a554951f4d948ee28e2db41b44f44ad0b1dc.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-10-02",
+          "val": 10,
+          "accn": "0000707549-25-000014",
+          "fy": 2025,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2025-01-31"
+        }
+      },
+      "source_cik": "0000707549",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000707549",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "29.0000000000",
+          "period_start": "2023-06-26",
+          "period_end": "2024-06-30",
+          "filed": "2024-08-29",
+          "accession": "0000707549-24-000106",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000707549",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.9000000000",
+          "period_start": "2023-06-26",
+          "period_end": "2024-06-30",
+          "filed": "2025-08-11",
+          "accession": "0000707549-25-000075",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000707549.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "MNST",
+      "date": "2016-11-10",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2016-10-14",
+          "val": 3,
+          "accn": "0001104659-17-013048",
+          "fy": 2016,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2017-03-01",
+          "frame": "CY2016Q3I"
+        }
+      },
+      "source_cik": "0000865752",
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "MNST",
+      "date": "2023-03-28",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2023-02-28",
+          "val": 2,
+          "accn": "0001104659-23-056507",
+          "fy": 2023,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2023-05-05"
+        }
+      },
+      "source_cik": "0000865752",
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "MNST",
+      "date": "2026-08-11",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "source_cik": "0000865752",
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://investors.monsterbevcorp.com/news-releases/news-release-details/monster-beverage-declares-two-one-stock-split",
+        "sha256": "6481ee59054fa8f9b960a50c3e34296af52c8288f0e3004a73aa651d192bdfd8",
+        "file": "6481ee59054fa8f9b960a50c3e34296af52c8288f0e3004a73aa651d192bdfd8.htm",
+        "bytes": 41904
+      },
+      "source_url": "https://investors.monsterbevcorp.com/news-releases/news-release-details/monster-beverage-declares-two-one-stock-split",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NDAQ",
+      "date": "2022-08-29",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001120193.json",
+        "sha256": "8a17167a1595a8cdf776b40e6ef2e2e60d7b5107b1c045a32048981186eeaada",
+        "file": "8a17167a1595a8cdf776b40e6ef2e2e60d7b5107b1c045a32048981186eeaada.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-08-26",
+          "val": 3,
+          "accn": "0001120193-22-000020",
+          "fy": 2022,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2022-11-02"
+        }
+      },
+      "source_cik": "0001120193",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001120193",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "7.0500000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2022-02-23",
+          "accession": "0001120193-22-000007",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001120193",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.3500000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2023-02-23",
+          "accession": "0001120193-23-000014",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001120193.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NEE",
+      "date": "2020-10-27",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000753308.json",
+        "sha256": "99e84510f602363147dc6c83321aa76859e185d0807019d1efc9e0da60491954",
+        "file": "99e84510f602363147dc6c83321aa76859e185d0807019d1efc9e0da60491954.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2020-09-14",
+          "val": 4,
+          "accn": "0000753308-21-000014",
+          "fy": 2020,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2021-02-12"
+        }
+      },
+      "source_cik": "0000753308",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000753308",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "7.7600000000",
+          "period_start": "2019-01-01",
+          "period_end": "2019-12-31",
+          "filed": "2020-02-14",
+          "accession": "0000753308-20-000021",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000753308",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.9400000000",
+          "period_start": "2019-01-01",
+          "period_end": "2019-12-31",
+          "filed": "2021-02-12",
+          "accession": "0000753308-21-000014",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000753308.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NFLX",
+      "date": "2015-07-15",
+      "new_shares": 7,
+      "old_shares": 1,
+      "vendor_new_shares": 7,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json",
+        "sha256": "00f3449073d90dfa3aec4e384de24b70d92d897f90c67d6bca61f23e33d38634",
+        "file": "00f3449073d90dfa3aec4e384de24b70d92d897f90c67d6bca61f23e33d38634.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2015-06-23",
+          "val": 7,
+          "accn": "0001065280-15-000031",
+          "fy": 2015,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2015-07-17"
+        }
+      },
+      "source_cik": "0001065280",
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NFLX",
+      "date": "2025-11-17",
+      "new_shares": 10,
+      "old_shares": 1,
+      "vendor_new_shares": 10,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json",
+        "sha256": "00f3449073d90dfa3aec4e384de24b70d92d897f90c67d6bca61f23e33d38634",
+        "file": "00f3449073d90dfa3aec4e384de24b70d92d897f90c67d6bca61f23e33d38634.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2025-11-14",
+          "val": 10,
+          "accn": "0001065280-26-000034",
+          "fy": 2025,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2026-01-23"
+        }
+      },
+      "source_cik": "0001065280",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001065280",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "19.8300000000",
+          "period_start": "2024-01-01",
+          "period_end": "2024-12-31",
+          "filed": "2025-01-27",
+          "accession": "0001065280-25-000044",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001065280",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.9800000000",
+          "period_start": "2024-01-01",
+          "period_end": "2024-12-31",
+          "filed": "2026-01-23",
+          "accession": "0001065280-26-000034",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NKE",
+      "date": "2015-12-24",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320187.json",
+        "sha256": "d7aeceae21e6649e163d195729849349b27d909ab1a6eb4630a7c0c227acd890",
+        "file": "d7aeceae21e6649e163d195729849349b27d909ab1a6eb4630a7c0c227acd890.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2015-11-19",
+          "val": 2,
+          "accn": "0000320187-16-000242",
+          "fy": 2016,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2016-01-06"
+        }
+      },
+      "source_cik": "0000320187",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000320187",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.7000000000",
+          "period_start": "2014-06-01",
+          "period_end": "2015-05-31",
+          "filed": "2015-07-23",
+          "accession": "0000320187-15-000113",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000320187",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.8500000000",
+          "period_start": "2014-06-01",
+          "period_end": "2015-05-31",
+          "filed": "2016-07-21",
+          "accession": "0000320187-16-000336",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320187.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NOW",
+      "date": "2025-12-18",
+      "new_shares": 5,
+      "old_shares": 1,
+      "vendor_new_shares": 5,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+        "sha256": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c",
+        "file": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2025-12-05",
+          "val": 5,
+          "accn": "0001373715-26-000007",
+          "fy": 2025,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2026-01-29"
+        }
+      },
+      "source_cik": "0001373715",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001373715",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "6.8400000000",
+          "period_start": "2024-01-01",
+          "period_end": "2024-12-31",
+          "filed": "2025-01-30",
+          "accession": "0001373715-25-000010",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001373715",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.3700000000",
+          "period_start": "2024-01-01",
+          "period_end": "2024-12-31",
+          "filed": "2026-01-29",
+          "accession": "0001373715-26-000007",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2021-07-20",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+        "sha256": "19ef503a5770f5660964b3c3aea6937579d9b359da344afe6a9adf59c63d26ff",
+        "file": "19ef503a5770f5660964b3c3aea6937579d9b359da344afe6a9adf59c63d26ff.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2021-06-03",
+          "val": 4,
+          "accn": "0001045810-21-000131",
+          "fy": 2022,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2021-08-20"
+        }
+      },
+      "source_cik": "0001045810",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001045810",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "6.9000000000",
+          "period_start": "2020-01-27",
+          "period_end": "2021-01-31",
+          "filed": "2021-02-26",
+          "accession": "0001045810-21-000010",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001045810",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.7300000000",
+          "period_start": "2020-01-27",
+          "period_end": "2021-01-31",
+          "filed": "2022-03-18",
+          "accession": "0001045810-22-000036",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2024-06-10",
+      "new_shares": 10,
+      "old_shares": 1,
+      "vendor_new_shares": 10,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+        "sha256": "19ef503a5770f5660964b3c3aea6937579d9b359da344afe6a9adf59c63d26ff",
+        "file": "19ef503a5770f5660964b3c3aea6937579d9b359da344afe6a9adf59c63d26ff.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "start": "2024-05-01",
+          "end": "2024-05-31",
+          "val": 10,
+          "accn": "0001045810-24-000264",
+          "fy": 2025,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2024-08-28"
+        }
+      },
+      "source_cik": "0001045810",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001045810",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "11.9300000000",
+          "period_start": "2023-01-30",
+          "period_end": "2024-01-28",
+          "filed": "2024-02-21",
+          "accession": "0001045810-24-000029",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001045810",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.1900000000",
+          "period_start": "2023-01-30",
+          "period_end": "2024-01-28",
+          "filed": "2025-02-26",
+          "accession": "0001045810-25-000023",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "ORLY",
+      "date": "2025-06-10",
+      "new_shares": 15,
+      "old_shares": 1,
+      "vendor_new_shares": 15,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000898173.json",
+        "sha256": "29a5e7ccfb4acae0edb20b5c9f9bd6dd8c68ca08da883bb2ae34ad1c5e43ec77",
+        "file": "29a5e7ccfb4acae0edb20b5c9f9bd6dd8c68ca08da883bb2ae34ad1c5e43ec77.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2025-06-10",
+          "val": 15,
+          "accn": "0000898173-25-000057",
+          "fy": 2025,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2025-11-07"
+        }
+      },
+      "source_cik": "0000898173",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000898173",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "40.6600000000",
+          "period_start": "2024-01-01",
+          "period_end": "2024-12-31",
+          "filed": "2025-02-28",
+          "accession": "0000898173-25-000008",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000898173",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.7100000000",
+          "period_start": "2024-01-01",
+          "period_end": "2024-12-31",
+          "filed": "2026-02-27",
+          "accession": "0000898173-26-000009",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000898173.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "PANW",
+      "date": "2022-09-14",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+        "sha256": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f",
+        "file": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-09-13",
+          "val": 3,
+          "accn": "0001327567-22-000038",
+          "fy": 2023,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2022-11-18"
+        }
+      },
+      "source_cik": "0001327567",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001327567",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "-2.7100000000",
+          "period_start": "2021-08-01",
+          "period_end": "2022-07-31",
+          "filed": "2022-09-06",
+          "accession": "0001327567-22-000028",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001327567",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "-0.9000000000",
+          "period_start": "2021-08-01",
+          "period_end": "2022-07-31",
+          "filed": "2023-09-01",
+          "accession": "0001327567-23-000024",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "PANW",
+      "date": "2024-12-16",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+        "sha256": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f",
+        "file": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-12-12",
+          "val": 2,
+          "accn": "0001327567-25-000010",
+          "fy": 2025,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2025-02-14"
+        }
+      },
+      "source_cik": "0001327567",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001327567",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "7.2800000000",
+          "period_start": "2023-08-01",
+          "period_end": "2024-07-31",
+          "filed": "2024-09-06",
+          "accession": "0001327567-24-000029",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001327567",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.6400000000",
+          "period_start": "2023-08-01",
+          "period_end": "2024-07-31",
+          "filed": "2025-08-29",
+          "accession": "0001327567-25-000027",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "PCAR",
+      "date": "2023-02-08",
+      "new_shares": 3,
+      "old_shares": 2,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 2,
+      "source_cik": "0000075362",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000075362",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.7400000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-23",
+          "accession": "0001564590-22-006237",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000075362",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.5000000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2023-02-22",
+          "accession": "0001564590-23-002203",
+          "form": "10-K"
+        }
+      },
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://investors.paccar.com/financial-news/news-details/2022/PACCAR-Announces-50-Stock-Dividend-and-Increases-Quarterly-Cash-Dividend-12-06-2022/default.aspx",
+        "sha256": "b917339491c7859deef0b3ad3ddcd2cf20baee7d79c8421ad2b70f12c0b89a9e",
+        "file": "b917339491c7859deef0b3ad3ddcd2cf20baee7d79c8421ad2b70f12c0b89a9e.htm",
+        "bytes": 64582
+      },
+      "source_url": "https://investors.paccar.com/financial-news/news-details/2022/PACCAR-Announces-50-Stock-Dividend-and-Increases-Quarterly-Cash-Dividend-12-06-2022/default.aspx",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "ROST",
+      "date": "2015-06-12",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000745732.json",
+        "sha256": "6310bb034c7b7b228799f757b5117d1e6a173af3ff6304b656e851f492ccfaf9",
+        "file": "6310bb034c7b7b228799f757b5117d1e6a173af3ff6304b656e851f492ccfaf9.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2015-03-24",
+          "val": 2,
+          "accn": "0000745732-15-000022",
+          "fy": 2015,
+          "fp": "Q2",
+          "form": "10-Q",
+          "filed": "2015-09-09"
+        }
+      },
+      "source_cik": "0000745732",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000745732",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.4200000000",
+          "period_start": "2014-02-02",
+          "period_end": "2015-01-31",
+          "filed": "2015-03-31",
+          "accession": "0000745732-15-000009",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000745732",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.2100000000",
+          "period_start": "2014-02-02",
+          "period_end": "2015-01-31",
+          "filed": "2016-03-29",
+          "accession": "0000745732-16-000037",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000745732.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "SBUX",
+      "date": "2015-04-09",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000829224.json",
+        "sha256": "2488674b57020c5281665b0ff271a29da71da64a2c9fa66bec6a9118772970bb",
+        "file": "2488674b57020c5281665b0ff271a29da71da64a2c9fa66bec6a9118772970bb.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2015-04-09",
+          "val": 2,
+          "accn": "0000829224-15-000038",
+          "fy": 2015,
+          "fp": "FY",
+          "form": "10-K",
+          "filed": "2015-11-12",
+          "frame": "CY2015Q1I"
+        }
+      },
+      "source_cik": "0000829224",
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000829224.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "SHW",
+      "date": "2021-04-01",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000089800.json",
+        "sha256": "75ef555a24c3fad594f062ed70e1c36a9163efc4f86d0ae7b77281686593fad3",
+        "file": "75ef555a24c3fad594f062ed70e1c36a9163efc4f86d0ae7b77281686593fad3.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "start": "2021-01-01",
+          "end": "2021-03-31",
+          "val": 3,
+          "accn": "0000089800-21-000016",
+          "fy": 2021,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2021-04-28"
+        }
+      },
+      "source_cik": "0000089800",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000089800",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "22.0800000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2021-02-19",
+          "accession": "0000089800-21-000010",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000089800",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "7.3600000000",
+          "period_start": "2020-01-01",
+          "period_end": "2020-12-31",
+          "filed": "2022-02-17",
+          "accession": "0000089800-22-000007",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000089800.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "SRE",
+      "date": "2023-08-22",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001032208.json",
+        "sha256": "f7e87ebb996c534892ab4c214373b88cb828346e2a732371a209b3bec01b49af",
+        "file": "f7e87ebb996c534892ab4c214373b88cb828346e2a732371a209b3bec01b49af.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2023-08-02",
+          "val": 2,
+          "accn": "0001032208-23-000057",
+          "fy": 2023,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2023-11-03"
+        }
+      },
+      "source_cik": "0001032208",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001032208",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "6.6200000000",
+          "period_start": "2022-01-01",
+          "period_end": "2022-12-31",
+          "filed": "2023-02-28",
+          "accession": "0001032208-23-000008",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001032208",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "3.3100000000",
+          "period_start": "2022-01-01",
+          "period_end": "2022-12-31",
+          "filed": "2024-02-27",
+          "accession": "0001032208-24-000007",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001032208.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "TJX",
+      "date": "2018-11-07",
+      "new_shares": 2,
+      "old_shares": 1,
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000109198.json",
+        "sha256": "1b8f7be3fed954f682ae56ebe9c56a245f4df3640b92181a2d44d6e086a4905b",
+        "file": "1b8f7be3fed954f682ae56ebe9c56a245f4df3640b92181a2d44d6e086a4905b.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2018-10-22",
+          "val": 2,
+          "accn": "0001628280-18-014818",
+          "fy": 2019,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2018-12-04",
+          "frame": "CY2018Q3I"
+        }
+      },
+      "source_cik": "0000109198",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000109198",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.0400000000",
+          "period_start": "2017-01-29",
+          "period_end": "2018-02-03",
+          "filed": "2018-04-04",
+          "accession": "0001193125-18-107423",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000109198",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "2.0200000000",
+          "period_start": "2017-01-29",
+          "period_end": "2018-02-03",
+          "filed": "2019-04-03",
+          "accession": "0001628280-19-003834",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000109198.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "TSLA",
+      "date": "2020-08-31",
+      "new_shares": 5,
+      "old_shares": 1,
+      "vendor_new_shares": 5,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json",
+        "sha256": "ef141d68e9a08a33471b893951f02db833140692819942d3fa251b6126fc3aea",
+        "file": "ef141d68e9a08a33471b893951f02db833140692819942d3fa251b6126fc3aea.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2020-08-10",
+          "val": 5,
+          "accn": "0001564590-20-047486",
+          "fy": 2020,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2020-10-26"
+        }
+      },
+      "source_cik": "0001318605",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001318605",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "-4.9200000000",
+          "period_start": "2019-01-01",
+          "period_end": "2019-12-31",
+          "filed": "2020-02-13",
+          "accession": "0001564590-20-004475",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001318605",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "-0.9800000000",
+          "period_start": "2019-01-01",
+          "period_end": "2019-12-31",
+          "filed": "2021-02-08",
+          "accession": "0001564590-21-004599",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "TSLA",
+      "date": "2022-08-25",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json",
+        "sha256": "ef141d68e9a08a33471b893951f02db833140692819942d3fa251b6126fc3aea",
+        "file": "ef141d68e9a08a33471b893951f02db833140692819942d3fa251b6126fc3aea.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2022-08-05",
+          "val": 3,
+          "accn": "0000950170-22-019867",
+          "fy": 2022,
+          "fp": "Q3",
+          "form": "10-Q",
+          "filed": "2022-10-24",
+          "frame": "CY2022Q2I"
+        }
+      },
+      "source_cik": "0001318605",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0001318605",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.9000000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2022-02-07",
+          "accession": "0000950170-22-000796",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0001318605",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.6300000000",
+          "period_start": "2021-01-01",
+          "period_end": "2021-12-31",
+          "filed": "2023-01-31",
+          "accession": "0000950170-23-001409",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "V",
+      "date": "2015-03-19",
+      "new_shares": 4,
+      "old_shares": 1,
+      "vendor_new_shares": 4,
+      "vendor_old_shares": 1,
+      "source_cik": "0001403161",
+      "ratio_evidence": {
+        "cache": "eps-splits",
+        "url": "https://investor.visa.com/news/news-details/2015/Visa-Inc-Reports-Fiscal-First-Quarter-2015-Net-Income-of-16-billion-or-253-per-Diluted-Share-and-Announces-a-Four-for-One-Stock-Split/default.aspx",
+        "sha256": "ff99157532c1b6ae6ddd7a94cc2b45dd66f53ca207433042e54ebc6397f958f0",
+        "file": "ff99157532c1b6ae6ddd7a94cc2b45dd66f53ca207433042e54ebc6397f958f0.htm",
+        "bytes": 712938
+      },
+      "source_url": "https://investor.visa.com/news/news-details/2015/Visa-Inc-Reports-Fiscal-First-Quarter-2015-Net-Income-of-16-billion-or-253-per-Diluted-Share-and-Announces-a-Four-for-One-Stock-Split/default.aspx",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    },
+    {
+      "ticker": "WMT",
+      "date": "2024-02-26",
+      "new_shares": 3,
+      "old_shares": 1,
+      "vendor_new_shares": 3,
+      "vendor_old_shares": 1,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000104169.json",
+        "sha256": "54ec3fbf36dc203dd00a0333396b3df2b6695ecdf6cbb19b6ec41b053d86b517",
+        "file": "54ec3fbf36dc203dd00a0333396b3df2b6695ecdf6cbb19b6ec41b053d86b517.json",
+        "tag": "StockholdersEquityNoteStockSplitConversionRatio1",
+        "unit": "pure",
+        "fact": {
+          "end": "2024-02-23",
+          "val": 3,
+          "accn": "0000104169-24-000105",
+          "fy": 2025,
+          "fp": "Q1",
+          "form": "10-Q",
+          "filed": "2024-06-07"
+        }
+      },
+      "source_cik": "0000104169",
+      "retrospective_comparison": {
+        "before": {
+          "source_cik": "0000104169",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "4.2700000000",
+          "period_start": "2022-02-01",
+          "period_end": "2023-01-31",
+          "filed": "2023-03-17",
+          "accession": "0000104169-23-000020",
+          "form": "10-K"
+        },
+        "after": {
+          "source_cik": "0000104169",
+          "tag": "EarningsPerShareDiluted",
+          "unit": "USD/shares",
+          "value": "1.4200000000",
+          "period_start": "2022-02-01",
+          "period_end": "2023-01-31",
+          "filed": "2024-03-15",
+          "accession": "0000104169-24-000056",
+          "form": "10-K"
+        }
+      },
+      "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000104169.json",
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+    }
+  ],
+  "excluded_vendor_events": [
+    {
+      "ticker": "AAPL",
+      "date": "2014-06-09",
+      "vendor_new_shares": 7,
+      "vendor_old_shares": 1,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "ADP",
+      "date": "2014-10-01",
+      "vendor_new_shares": 1139,
+      "vendor_old_shares": 1000,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "APD",
+      "date": "2016-10-03",
+      "vendor_new_shares": 1081,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "APH",
+      "date": "2014-10-10",
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "BDX",
+      "date": "2022-04-01",
+      "vendor_new_shares": 1025,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "BDX",
+      "date": "2026-02-10",
+      "vendor_new_shares": 1272,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "CMCSA",
+      "date": "2026-01-05",
+      "vendor_new_shares": 1067,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "DHR",
+      "date": "2016-07-05",
+      "vendor_new_shares": 1319,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "DHR",
+      "date": "2023-10-02",
+      "vendor_new_shares": 1128,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "EOG",
+      "date": "2014-04-01",
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "FDX",
+      "date": "2026-06-01",
+      "vendor_new_shares": 1241,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "GE",
+      "date": "2019-02-26",
+      "vendor_new_shares": 104,
+      "vendor_old_shares": 100,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "GE",
+      "date": "2023-01-04",
+      "vendor_new_shares": 1281,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "GE",
+      "date": "2024-04-02",
+      "vendor_new_shares": 1253,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "GOOGL",
+      "date": "2014-04-03",
+      "vendor_new_shares": 1998,
+      "vendor_old_shares": 1000,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "HON",
+      "date": "2016-10-03",
+      "vendor_new_shares": 10000,
+      "vendor_old_shares": 9947,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "HON",
+      "date": "2018-10-01",
+      "vendor_new_shares": 1011,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "HON",
+      "date": "2018-10-29",
+      "vendor_new_shares": 1032,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "HON",
+      "date": "2025-10-30",
+      "vendor_new_shares": 1061,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "IBM",
+      "date": "2021-11-04",
+      "vendor_new_shares": 1046,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "JCI",
+      "date": "2016-09-06",
+      "vendor_new_shares": 955,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "MA",
+      "date": "2014-01-22",
+      "vendor_new_shares": 10,
+      "vendor_old_shares": 1,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "MET",
+      "date": "2017-08-07",
+      "vendor_new_shares": 1122,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "MMM",
+      "date": "2024-04-01",
+      "vendor_new_shares": 1196,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "MRK",
+      "date": "2021-06-03",
+      "vendor_new_shares": 1048,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "O",
+      "date": "2021-11-15",
+      "vendor_new_shares": 1032,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "OKE",
+      "date": "2014-02-03",
+      "vendor_new_shares": 11422,
+      "vendor_old_shares": 10000,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "OXY",
+      "date": "2014-12-01",
+      "vendor_new_shares": 1042,
+      "vendor_old_shares": 1000,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "OXY",
+      "date": "2016-02-25",
+      "vendor_new_shares": 10000,
+      "vendor_old_shares": 9983,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "PFE",
+      "date": "2020-11-17",
+      "vendor_new_shares": 1054,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "RTX",
+      "date": "2020-04-03",
+      "vendor_new_shares": 15890,
+      "vendor_old_shares": 10000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "SPG",
+      "date": "2014-05-29",
+      "vendor_new_shares": 1063,
+      "vendor_old_shares": 1000,
+      "reason": "precedes_all_selected_filings"
+    },
+    {
+      "ticker": "SPGI",
+      "date": "2026-07-01",
+      "vendor_new_shares": 1057,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "T",
+      "date": "2022-04-11",
+      "vendor_new_shares": 1324,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "TT",
+      "date": "2020-03-02",
+      "vendor_new_shares": 1289,
+      "vendor_old_shares": 1000,
+      "reason": "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+    },
+    {
+      "ticker": "UNP",
+      "date": "2014-06-09",
+      "vendor_new_shares": 2,
+      "vendor_old_shares": 1,
+      "reason": "precedes_all_selected_filings"
+    }
+  ],
+  "companies": {
+    "AAPL": {
+      "observed_sha256": "beb9649df20454cf96b3ae8044d5b564f00ac3a5c5e44ca08fc58f78a1e6b778",
+      "source_ciks": [
+        "0000320193"
+      ]
+    },
+    "ABBV": {
+      "observed_sha256": "bb2330a64aed5e248c532dedbe3deb8d6e1f5864832d67cca68aa96b5215ad0b",
+      "source_ciks": [
+        "0001551152"
+      ]
+    },
+    "ABT": {
+      "observed_sha256": "0a331b1f1723de977a8ca596233d69a30024d5134d0d2969cdd8ccb4d85657e1",
+      "source_ciks": [
+        "0000001800"
+      ]
+    },
+    "ACN": {
+      "observed_sha256": "24667d682198dba1c3504683313f693c727a3ef04821dc31a346d1ac02a3800c",
+      "source_ciks": [
+        "0001467373"
+      ]
+    },
+    "ADBE": {
+      "observed_sha256": "51f0fc0de4c28423e4ac6c140028b80ec9d5b28531fdc2ff30c25d898567b03d",
+      "source_ciks": [
+        "0000796343"
+      ]
+    },
+    "ADI": {
+      "observed_sha256": "f75c00f04249a9fb22e4571bdc8d33f1e505f7e3604488bca9a2eae8f6813464",
+      "source_ciks": [
+        "0000006281"
+      ]
+    },
+    "ADP": {
+      "observed_sha256": "31492fa1ca3c2469a1a7817c0fae9b874d47410cab9ab6b93954f2587d19cae1",
+      "source_ciks": [
+        "0000008670"
+      ]
+    },
+    "ADSK": {
+      "observed_sha256": "ffcf5e91b219d5fd1e6506c4384272add39e0995309990dd9175418588464082",
+      "source_ciks": [
+        "0000769397"
+      ]
+    },
+    "AEP": {
+      "observed_sha256": "f336afad7dee80ddec579e2bec2fe85dbbdf9f950604865de57e1987aa090103",
+      "source_ciks": [
+        "0000004904"
+      ]
+    },
+    "AFL": {
+      "observed_sha256": "1bd4d35b4e05af180b31c03a57adc49b5c41267a63403941aaaa5232f8a6aa21",
+      "source_ciks": [
+        "0000004977"
+      ]
+    },
+    "AIG": {
+      "observed_sha256": "42d87bddf15ee323f25f4651ac5b062a50caef84270f34d4cb46e3934259edda",
+      "source_ciks": [
+        "0000005272"
+      ]
+    },
+    "AJG": {
+      "observed_sha256": "7c1e5327ee5b170edf3ae14aa4c7c1573af69b908bb3a2115a2a4b4cec2215cc",
+      "source_ciks": [
+        "0000354190"
+      ]
+    },
+    "ALL": {
+      "observed_sha256": "26b78bbd2d05229d4f4555763b9565080f2e8ef38af8175698907fdc652fe538",
+      "source_ciks": [
+        "0000899051"
+      ]
+    },
+    "AMAT": {
+      "observed_sha256": "0bd89ff39328564780a1f74ea73ccdaae8c43fce95b3b00557ac1bcedd6883bd",
+      "source_ciks": [
+        "0000006951"
+      ]
+    },
+    "AMD": {
+      "observed_sha256": "462c06b6adfc333ac04d2b7b7b070343cb7a4728866737e8ca385305229fdabf",
+      "source_ciks": [
+        "0000002488"
+      ]
+    },
+    "AMGN": {
+      "observed_sha256": "69bbb9214b0e1fe49670073605f434c56aaebb28608341ba2eb984d2eb58813f",
+      "source_ciks": [
+        "0000318154"
+      ]
+    },
+    "AMP": {
+      "observed_sha256": "54d49059591ca51c7ae5c29d5a03ca4331a6865f09eeec8a7909b4f8e44c3c3c",
+      "source_ciks": [
+        "0000820027"
+      ]
+    },
+    "AMT": {
+      "observed_sha256": "92fe5ca27bf5f7fece495b29750979dc36f3cac8bdbb2eb5c576180276b4b9fa",
+      "source_ciks": [
+        "0001053507"
+      ]
+    },
+    "AMZN": {
+      "observed_sha256": "4d74cffaa0b91ea3206326ac794a34f066d9f2b0a4c0b6d18d214d1e77151e9f",
+      "source_ciks": [
+        "0001018724"
+      ]
+    },
+    "ANET": {
+      "observed_sha256": "da447b821682dd30718d39b52b8bb5493b854f50380987dc542ba9389861d02e",
+      "source_ciks": [
+        "0001596532"
+      ]
+    },
+    "AON": {
+      "observed_sha256": "34c2f771c6dab7a308a671952c239ff56b4b2d443f954319ac69ff47294b95e7",
+      "source_ciks": [
+        "0000315293"
+      ]
+    },
+    "APD": {
+      "observed_sha256": "ac1b68cafbf140b9c856f0c082972688af1459c19ffe8f20cb7385ef2ca25feb",
+      "source_ciks": [
+        "0000002969"
+      ]
+    },
+    "APH": {
+      "observed_sha256": "d18971c1f5fcdd6bcac391e007ffb42ccc2fde2459df10783c3374234299497c",
+      "source_ciks": [
+        "0000820313"
+      ]
+    },
+    "AVGO": {
+      "observed_sha256": "27c7a07cd71650a959b493e60db7779bb1d9afd87217110c5a947801fd03ff8a",
+      "source_ciks": [
+        "0001649338",
+        "0001730168"
+      ]
+    },
+    "AXON": {
+      "observed_sha256": "0a84c3f27b3550dc44ef2adbbe44f066c1b0a5ded1d9ca5ceefea314b890d579",
+      "source_ciks": [
+        "0001069183"
+      ]
+    },
+    "AXP": {
+      "observed_sha256": "9369d9f716cdf809bd8fdbf1ead0f874699f1d62f35d3eb496d1903ac9245923",
+      "source_ciks": [
+        "0000004962"
+      ]
+    },
+    "AZO": {
+      "observed_sha256": "fb7ff1e302a405822ade241af62b72f892c4a86b103669348c7e800ee0d28a99",
+      "source_ciks": [
+        "0000866787"
+      ]
+    },
+    "BA": {
+      "observed_sha256": "f87ca95902baa8bef1ba0c0081e164d6560cc6cbbb1501aefca5c197a4152ca5",
+      "source_ciks": [
+        "0000012927"
+      ]
+    },
+    "BAC": {
+      "observed_sha256": "e063464deca5f195b3ee1b0862439cb07fd48884b5a956cb0dac0dbd3de34312",
+      "source_ciks": [
+        "0000070858"
+      ]
+    },
+    "BDX": {
+      "observed_sha256": "89c052f0d61ad999f70de35f8708b90df97ac48211e6067db510b2b8d8b79892",
+      "source_ciks": [
+        "0000010795"
+      ]
+    },
+    "BK": {
+      "observed_sha256": "5460e3aefc2d3768016c3073300c77b9a6c5fb8ef5ecd06e2bb9984b15bf4ae8",
+      "source_ciks": [
+        "0001390777"
+      ]
+    },
+    "BKNG": {
+      "observed_sha256": "92b1c3561a399ff629dec3f997bff6b26c7288b98f1075417443b7ef205d9031",
+      "source_ciks": [
+        "0001075531"
+      ]
+    },
+    "BLK": {
+      "observed_sha256": "0ea439ad270416425918637afece77fc1f097dc124dc80cffb5b56afd416b243",
+      "source_ciks": [
+        "0001364742",
+        "0002012383"
+      ]
+    },
+    "BMY": {
+      "observed_sha256": "2a58de2b28c45dff63c9f8f9dfd33671237d35887be30aae3b518540157d687c",
+      "source_ciks": [
+        "0000014272"
+      ]
+    },
+    "BRK-B": {
+      "observed_sha256": "d5ab7ff4bde7b2e4a003e818d25bbab1ac7f97710fe55e4835f6aad24496860b",
+      "source_ciks": [
+        "0001067983"
+      ]
+    },
+    "BSX": {
+      "observed_sha256": "f65fd8d61826ed39e6d34b59934be139d25e1c01cb94729293d4187461b9f80c",
+      "source_ciks": [
+        "0000885725"
+      ]
+    },
+    "BX": {
+      "observed_sha256": "558f69f15fefeee1ff8a36ab453e8ec85251c1ebba74a417ecd789f9d766b090",
+      "source_ciks": [
+        "0001393818"
+      ]
+    },
+    "C": {
+      "observed_sha256": "93dbf4927d231250747da50781ea8be3eab78a01f9bcbed5d6b1b12f9725e4ec",
+      "source_ciks": [
+        "0000831001"
+      ]
+    },
+    "CAT": {
+      "observed_sha256": "a16db38cfde799d1355fafd2c0d9fef03225c11b9b700878700961335a45e0cd",
+      "source_ciks": [
+        "0000018230"
+      ]
+    },
+    "CB": {
+      "observed_sha256": "0a47a137d61606978eb4c33db599738db298e2b47e5a5a43800c19881b6cd05f",
+      "source_ciks": [
+        "0000896159"
+      ]
+    },
+    "CDNS": {
+      "observed_sha256": "43a192ce47ad1857ba1fa7ff9a521e2b0e31bd2dd43c1e62db3b2156de9ffa87",
+      "source_ciks": [
+        "0000813672"
+      ]
+    },
+    "CHTR": {
+      "observed_sha256": "f29563a2d785b0b8ca9198aeee4a6258ab96b240c6f2296c5a146ebca1b94c12",
+      "source_ciks": [
+        "0001091667"
+      ]
+    },
+    "CI": {
+      "observed_sha256": "7eca5537c26409f2cdbc4564a0bf7e5019c3818bfcad085236998413013bbb94",
+      "source_ciks": [
+        "0000701221",
+        "0001739940"
+      ]
+    },
+    "CL": {
+      "observed_sha256": "feb5f89fa7ee91dc8cee2fe284051e750d741a470d62aa53cdaaabfe8f3fb939",
+      "source_ciks": [
+        "0000021665"
+      ]
+    },
+    "CMCSA": {
+      "observed_sha256": "7a3367c634b2c451b3c4a9ba4423f898d8e1a1610903c3d9c67fe21d9304f1aa",
+      "source_ciks": [
+        "0001166691"
+      ]
+    },
+    "CME": {
+      "observed_sha256": "481c10bd128dfbfb16e0d7700736a7fb599a7a66883e8e33ca3e322c34ba41e3",
+      "source_ciks": [
+        "0001156375"
+      ]
+    },
+    "CMG": {
+      "observed_sha256": "8d6302e19299960852377baf1e5a9aecb081d700c3dfe412b6414bc78644a939",
+      "source_ciks": [
+        "0001058090"
+      ]
+    },
+    "CMI": {
+      "observed_sha256": "be53c5ea3d2265b25c8edd3d37f5ae7d3c6505efed3d6d64951a9435ac4a8f5f",
+      "source_ciks": [
+        "0000026172"
+      ]
+    },
+    "COF": {
+      "observed_sha256": "ee33669b14b2cfab2989389092dc760e0c1170d77b53a1c1fa64bcfa07b0a8ac",
+      "source_ciks": [
+        "0000927628"
+      ]
+    },
+    "COP": {
+      "observed_sha256": "d0518037af7e9e77b17a1039d8442d750d085cb7801063e39179551f23691beb",
+      "source_ciks": [
+        "0001163165"
+      ]
+    },
+    "COR": {
+      "observed_sha256": "4435aa95e5cd6bb5b5afd93eab7b5176c2f6a35a39746229306bcef5a2b08b8b",
+      "source_ciks": [
+        "0001140859"
+      ]
+    },
+    "COST": {
+      "observed_sha256": "d5194cc3389f0658397ab2f364c1aa4dcf38419e1b9c1b53420dfe35096cc98a",
+      "source_ciks": [
+        "0000909832"
+      ]
+    },
+    "CPRT": {
+      "observed_sha256": "93e74a22094ea0a8b2149fa9513a96cf53f3f8754dbfa47f8fbc32266c32d586",
+      "source_ciks": [
+        "0000900075"
+      ]
+    },
+    "CRM": {
+      "observed_sha256": "6cd02eee150b3310189efddd1d805d7ace656409d04cffc5a0412f4b3eea9184",
+      "source_ciks": [
+        "0001108524"
+      ]
+    },
+    "CSCO": {
+      "observed_sha256": "d567cb231eed549429baa1bb4472c56aba8799dd83e89237573db4992faed136",
+      "source_ciks": [
+        "0000858877"
+      ]
+    },
+    "CSX": {
+      "observed_sha256": "4412eec93815ceedfb35561b10ad9a5cf481af16db1596966cd874ca6ddc53ea",
+      "source_ciks": [
+        "0000277948"
+      ]
+    },
+    "CTAS": {
+      "observed_sha256": "6f1dde1e719671f583044832d0771c41b810f5fa0653ad1673a7a4bd25c3189c",
+      "source_ciks": [
+        "0000723254"
+      ]
+    },
+    "CVS": {
+      "observed_sha256": "434adf35431daeaa6fbde978a9749102a8da29762c7f9ad58b6213e2c969fba5",
+      "source_ciks": [
+        "0000064803"
+      ]
+    },
+    "CVX": {
+      "observed_sha256": "897ab84ce12d382525c05b08756124c8537d68cdbcbbf7438369296c766b074b",
+      "source_ciks": [
+        "0000093410"
+      ]
+    },
+    "D": {
+      "observed_sha256": "763823bf94ba54863c39b3345bfe09b1abb55a2b35f460a8c54a3c4f3d32b8ec",
+      "source_ciks": [
+        "0000715957"
+      ]
+    },
+    "DE": {
+      "observed_sha256": "a7187c7cc07261ce4a7c45f7a65cd56cf30ce1afc97d7a1887d4c43fdb3dbedd",
+      "source_ciks": [
+        "0000315189"
+      ]
+    },
+    "DHI": {
+      "observed_sha256": "c06939ea487439001abaa80f06e40e9d24863b1edf40b01e76e13d8b172527f2",
+      "source_ciks": [
+        "0000882184"
+      ]
+    },
+    "DHR": {
+      "observed_sha256": "9ffb82164dee0dc98e1b68c21e5e7ef9a6dff1dcbe2c635fc95b488ed4661634",
+      "source_ciks": [
+        "0000313616"
+      ]
+    },
+    "DIS": {
+      "observed_sha256": "d36a99b901c3c4fa0b055369f37d86abcbea13d04704658cf7f9bbaa71f0a874",
+      "source_ciks": [
+        "0001001039",
+        "0001744489"
+      ]
+    },
+    "DLR": {
+      "observed_sha256": "475a7f2a225b44d686ddcbfeee29ed722b225745c85598cebea3ab7c15b5cb96",
+      "source_ciks": [
+        "0001297996"
+      ]
+    },
+    "DUK": {
+      "observed_sha256": "c433e7fae468af10d8cefb641d56676be14d18cdafaa9d1f5a2f98ce061e21b2",
+      "source_ciks": [
+        "0001326160"
+      ]
+    },
+    "ECL": {
+      "observed_sha256": "972b55c6debd4398f142b8d19f6cdc5eece46d9a2aac77e8d234c69cf2aced99",
+      "source_ciks": [
+        "0000031462"
+      ]
+    },
+    "ELV": {
+      "observed_sha256": "cead40b637e60e2f7d285a094c6d97d021f1ac9347af5ca7a07804c62bcabdbc",
+      "source_ciks": [
+        "0001156039"
+      ]
+    },
+    "EMR": {
+      "observed_sha256": "0c59f86d516e43f2b53bbe7bfc7246551e17ece2eedb799edc03788f14fc0ab3",
+      "source_ciks": [
+        "0000032604"
+      ]
+    },
+    "EOG": {
+      "observed_sha256": "b9351c9ae92019d32fbc93deb9cf5f1c69500da5988f80dc396d31a91f9c95c2",
+      "source_ciks": [
+        "0000821189"
+      ]
+    },
+    "EQIX": {
+      "observed_sha256": "c097003dfd8e41e1f40960c30b125a685da344df28eaa2141b90376659195297",
+      "source_ciks": [
+        "0001101239"
+      ]
+    },
+    "ETN": {
+      "observed_sha256": "7ef63c31439b57034389ac56f7de6308a01cc215c046ee9bfbeb160275b4ebba",
+      "source_ciks": [
+        "0001551182"
+      ]
+    },
+    "EW": {
+      "observed_sha256": "4512127a58c23785b2e0800b3abb9737b68fdef142e853c4a4a2a3cd50732673",
+      "source_ciks": [
+        "0001099800"
+      ]
+    },
+    "FANG": {
+      "observed_sha256": "c2ff4d3175309360f0c878c321ced8022cfef09d8507917467e68a2ef3b24b4f",
+      "source_ciks": [
+        "0001539838"
+      ]
+    },
+    "FCX": {
+      "observed_sha256": "b892908ba1183beb66e71f58a1070fc2cfe81f59cecf29a14a5c67830311ab33",
+      "source_ciks": [
+        "0000831259"
+      ]
+    },
+    "FDX": {
+      "observed_sha256": "18727f88ed5ea9fcc486f3a44a4da17023804a911bc99b3ffdc1af6a37a5c56b",
+      "source_ciks": [
+        "0001048911"
+      ]
+    },
+    "FI": {
+      "observed_sha256": "4e96649668e70563e95bfecf6622c8f46d3db2c45ad7e9e55961bbf14286c0fe",
+      "source_ciks": [
+        "0000798354"
+      ]
+    },
+    "FICO": {
+      "observed_sha256": "fe7987366002a9e0f26625f2ae9c82f3f5327545df86183987d39ddbe4e5ba40",
+      "source_ciks": [
+        "0000814547"
+      ]
+    },
+    "FTNT": {
+      "observed_sha256": "b2b887afce217f4594e0b02e8ff21cb9cdf720ed7d65377e389d9533a64246c1",
+      "source_ciks": [
+        "0001262039"
+      ]
+    },
+    "GD": {
+      "observed_sha256": "e537a8b24079516d06049e927a8aaff25b616f7b16bb3ec55e5def8b04000f9c",
+      "source_ciks": [
+        "0000040533"
+      ]
+    },
+    "GE": {
+      "observed_sha256": "c967a1a6a7b8d0f4821d14cbb1bffe7d9a2a0f323117418fcc8a5b48c217006e",
+      "source_ciks": [
+        "0000040545"
+      ]
+    },
+    "GILD": {
+      "observed_sha256": "5c4ccef80bd45eebe8ea67b88add2545ee9597d0e9ad3224e37ced8589e48e1f",
+      "source_ciks": [
+        "0000882095"
+      ]
+    },
+    "GM": {
+      "observed_sha256": "9f0fa4ac9d3b90accdfc1d879aa89c07b650ae55eb60605670855177fecdb95f",
+      "source_ciks": [
+        "0001467858"
+      ]
+    },
+    "GOOGL": {
+      "observed_sha256": "a5a5cb2b6c886869b570a6d8c714b58fb0758541aa589065a3b82bedc5b1ac32",
+      "source_ciks": [
+        "0001652044"
+      ]
+    },
+    "GS": {
+      "observed_sha256": "a6698864ab12bf2be8c9ea6e504ad910bb6507acc981392c0e2ec3bac7c114d5",
+      "source_ciks": [
+        "0000886982"
+      ]
+    },
+    "GWW": {
+      "observed_sha256": "732dbdb7ae807a5c546cea1b7d2bddd551b2f589e8da2036664f8b4d577693ad",
+      "source_ciks": [
+        "0000277135"
+      ]
+    },
+    "HCA": {
+      "observed_sha256": "5887123818a01b400047fb23495ab363f78b22c20ba91c189fa179376eb62c36",
+      "source_ciks": [
+        "0000860730"
+      ]
+    },
+    "HD": {
+      "observed_sha256": "fff2c6c58def48e4118f26b94ace4e068f8fe26e694d5fb3372154bf5937bda3",
+      "source_ciks": [
+        "0000354950"
+      ]
+    },
+    "HLT": {
+      "observed_sha256": "3212bfd9e3f967cf17ffebe201ea904f7ff575f8871856ceec956e3ed196f52a",
+      "source_ciks": [
+        "0001585689"
+      ]
+    },
+    "HON": {
+      "observed_sha256": "9c1d72986bb72f0b7841a07b2fc6e61823a61a2d8d64643c442eec95b333653c",
+      "source_ciks": [
+        "0000773840"
+      ]
+    },
+    "IBM": {
+      "observed_sha256": "3c50ad823f227a8c1d6118ebc05f621aa24502f59ce722f0e6c54306df4ae912",
+      "source_ciks": [
+        "0000051143"
+      ]
+    },
+    "ICE": {
+      "observed_sha256": "943ccfa5799dac9c917d742bbb79c0f8641bd677db6655499a2ba48adb2f5915",
+      "source_ciks": [
+        "0001571949"
+      ]
+    },
+    "INTC": {
+      "observed_sha256": "d320c60fcd056b88d978b7800ede758b6dcb784b0cb3042118fbfc6bd8c3881f",
+      "source_ciks": [
+        "0000050863"
+      ]
+    },
+    "INTU": {
+      "observed_sha256": "b9444fea1b49af6cf3a50f032e39f7b8d4223da7610eb5fa4b06a56334be070f",
+      "source_ciks": [
+        "0000896878"
+      ]
+    },
+    "ISRG": {
+      "observed_sha256": "5a05a720306b54667eff6951779bf41c6fae4df92b0b6e63da78e688396e9a85",
+      "source_ciks": [
+        "0001035267"
+      ]
+    },
+    "ITW": {
+      "observed_sha256": "f0b5531f28e295d71005a47ae2278b31a7e623aafad209af6d9af28ea69906b7",
+      "source_ciks": [
+        "0000049826"
+      ]
+    },
+    "JCI": {
+      "observed_sha256": "cc74ed6a426bd256124965140aa86e366a6916a58f5d330dda4a29a1deb77b6b",
+      "source_ciks": [
+        "0000833444"
+      ]
+    },
+    "JNJ": {
+      "observed_sha256": "ea7ec1fc90bdea7214233ce11658a9cca9c674d27a19170ff59c9419c2f940f8",
+      "source_ciks": [
+        "0000200406"
+      ]
+    },
+    "JPM": {
+      "observed_sha256": "b6d73a10f64cfbff9fb6d45e8b0b8468af6502f3e145f6b3dd82002d9c6565ed",
+      "source_ciks": [
+        "0000019617"
+      ]
+    },
+    "KKR": {
+      "observed_sha256": "5b0fe2238040bf6b521319b8b2cce178b9b8c0000cb0af6f5d357a5568fb2d46",
+      "source_ciks": [
+        "0001404912"
+      ]
+    },
+    "KLAC": {
+      "observed_sha256": "71809d79c8cae8dd4d0f3b75340abd05e601b25d2e8d7a9e5be04605a63bb3d7",
+      "source_ciks": [
+        "0000319201"
+      ]
+    },
+    "KMI": {
+      "observed_sha256": "e1279dac009454d50a460292b78d62e819700e6299b58c7b15fcbcab1bd92a78",
+      "source_ciks": [
+        "0001506307"
+      ]
+    },
+    "KO": {
+      "observed_sha256": "0fd018512bcf4fcd43371b772b967c6935b870b1a6fc4a0a945228026f79cb08",
+      "source_ciks": [
+        "0000021344"
+      ]
+    },
+    "KR": {
+      "observed_sha256": "2203f53600ebc3d6dc5af680e753e3610c6110ee65014d19758c1945b4bf4730",
+      "source_ciks": [
+        "0000056873"
+      ]
+    },
+    "LIN": {
+      "observed_sha256": "1649ab62e25310dc9324a9a9c7a88f9671a022ff5848e4a0c4f8cca9a308648e",
+      "source_ciks": [
+        "0000884905",
+        "0001707925"
+      ]
+    },
+    "LLY": {
+      "observed_sha256": "74171a184898d165313f8bb706a7f3b0f3e1e0cd7e8dd0fe7ad912129aeed931",
+      "source_ciks": [
+        "0000059478"
+      ]
+    },
+    "LMT": {
+      "observed_sha256": "c32c61cbae0aa3c0d3fe36beb9d2cff3ad80fed46d6c75ba65a8a8161bee7f7a",
+      "source_ciks": [
+        "0000936468"
+      ]
+    },
+    "LOW": {
+      "observed_sha256": "c7e3dd6f59d60be6a6a17f1079e330615762007ca691cd61fe71db1f85f25881",
+      "source_ciks": [
+        "0000060667"
+      ]
+    },
+    "LRCX": {
+      "observed_sha256": "8447a26cb95b6827a575d217b32d71af4eb9c134a42fac0457a37e15455f5f39",
+      "source_ciks": [
+        "0000707549"
+      ]
+    },
+    "LULU": {
+      "observed_sha256": "e983d1f046b8984c274b5ec89ecedc1e68a63cb7fd00affad5bc95f3bf5fc504",
+      "source_ciks": [
+        "0001397187"
+      ]
+    },
+    "MA": {
+      "observed_sha256": "851a56f9aec57d5c19a48962fe6ef1e438fd9311bb8fc772206c49eff99014c5",
+      "source_ciks": [
+        "0001141391"
+      ]
+    },
+    "MAR": {
+      "observed_sha256": "c3be47567f45c776812ce53b1b934a62649701cb6072477d16222a4622248a7b",
+      "source_ciks": [
+        "0001048286"
+      ]
+    },
+    "MCD": {
+      "observed_sha256": "70221f8e7c844dd7bb25299e0b707f46f1887e6666ea8be3da5e26fc9f109a8f",
+      "source_ciks": [
+        "0000063908"
+      ]
+    },
+    "MCK": {
+      "observed_sha256": "896a192e09118a665cf0cbe2ec0f30c7105c4d2174d2c37739822be8331ae61a",
+      "source_ciks": [
+        "0000927653"
+      ]
+    },
+    "MCO": {
+      "observed_sha256": "2bd0730beb9d9805f2f58370cba9a13f16396dd1fb98abf367bc1c1cdb27957c",
+      "source_ciks": [
+        "0001059556"
+      ]
+    },
+    "MDLZ": {
+      "observed_sha256": "649123ce186c58e4a9b6ca50470215d5b9dece32758f292bcf14d45b2622ae48",
+      "source_ciks": [
+        "0001103982"
+      ]
+    },
+    "MDT": {
+      "observed_sha256": "49f4a9f8057358e7a13fc6a8325f9c0836a056bcf35e668bb81fe606e97de6ee",
+      "source_ciks": [
+        "0001613103"
+      ]
+    },
+    "MET": {
+      "observed_sha256": "66f45e8b8cccc56aff6e424cfacc886c3e2697d3505cbddfc92b466445b33c56",
+      "source_ciks": [
+        "0001099219"
+      ]
+    },
+    "META": {
+      "observed_sha256": "54416f9759fe5272bec8f480631a49e2263f352f55cf878b4ba123bb17252b12",
+      "source_ciks": [
+        "0001326801"
+      ]
+    },
+    "MMC": {
+      "observed_sha256": "a71ecb3c03534748938219bf96cea6669ba7c423c8a587faba9da890e8176f08",
+      "source_ciks": [
+        "0000062709"
+      ]
+    },
+    "MMM": {
+      "observed_sha256": "469d6d61ed9e093070556339400c83d12665140bb7ea689483db58516f28878b",
+      "source_ciks": [
+        "0000066740"
+      ]
+    },
+    "MNST": {
+      "observed_sha256": "309a6e03500c9b797639de093c34cbef0feee3a0b145071c54840809798f3cf3",
+      "source_ciks": [
+        "0000865752"
+      ]
+    },
+    "MO": {
+      "observed_sha256": "2e6ecd798324e05692c04c606100ffee00eddbe2fc4abfad3a71bf550143a7e6",
+      "source_ciks": [
+        "0000764180"
+      ]
+    },
+    "MRK": {
+      "observed_sha256": "1f7e2c976df8fef35be410acdf4a1279ea378b94b8eda19ccaa693586c15f0cf",
+      "source_ciks": [
+        "0000310158"
+      ]
+    },
+    "MS": {
+      "observed_sha256": "79ed6b7352278c3252663f5978d8cf3f19961ae2dba800bcd2d03cbe3b9ff8d1",
+      "source_ciks": [
+        "0000895421"
+      ]
+    },
+    "MSCI": {
+      "observed_sha256": "adbb69caf2deebe8e6d556bd2eb140c78d53868109fd835ba3976b6137c14c67",
+      "source_ciks": [
+        "0001408198"
+      ]
+    },
+    "MSFT": {
+      "observed_sha256": "e6d38e7fcb96994061ccf1fa725276948d8389a84594631d7323ff5bb1d9ccdd",
+      "source_ciks": [
+        "0000789019"
+      ]
+    },
+    "MSI": {
+      "observed_sha256": "d135b1c77f1e722a993c75d1a3aa04a3f0afcb581cfb0d34ff78f65debec4ecf",
+      "source_ciks": [
+        "0000068505"
+      ]
+    },
+    "MU": {
+      "observed_sha256": "9fe091cf43a16d2c62de4f336ba98cefdb31bce3c6cdb066ab45e9ca6b41a868",
+      "source_ciks": [
+        "0000723125"
+      ]
+    },
+    "NDAQ": {
+      "observed_sha256": "04aa2015bc9582a6f00eab4b36274bdf82baf173b308ca33c478f874281bb8b9",
+      "source_ciks": [
+        "0001120193"
+      ]
+    },
+    "NEE": {
+      "observed_sha256": "6b31e5f096646cb0f0cd1f799069ddfbe403b0ab436eb0521c8aa42ddac7fbd1",
+      "source_ciks": [
+        "0000753308"
+      ]
+    },
+    "NFLX": {
+      "observed_sha256": "934c55ddbd2ea70846f726b735c7b5ec8ceda3f3747a73555b056c6fe9b19eb5",
+      "source_ciks": [
+        "0001065280"
+      ]
+    },
+    "NKE": {
+      "observed_sha256": "22cf3c5b607d2b54ddedc59d38fe034d01cdb8619ccc98dd01aca02a14fdc175",
+      "source_ciks": [
+        "0000320187"
+      ]
+    },
+    "NOC": {
+      "observed_sha256": "b250f3e88df434cbc05f2e115c79993d1d6bf8bb0288218b8aa8002b47383a68",
+      "source_ciks": [
+        "0001133421"
+      ]
+    },
+    "NOW": {
+      "observed_sha256": "c26ad3368941cebf33a504120cbe77c1537f6ec675377dfe21bd6dda8b60c358",
+      "source_ciks": [
+        "0001373715"
+      ]
+    },
+    "NSC": {
+      "observed_sha256": "1ab1a44fd419f7571f6478eec0756bf58c6a3ef20c7ee574ffb84f32982f7f96",
+      "source_ciks": [
+        "0000702165"
+      ]
+    },
+    "NVDA": {
+      "observed_sha256": "0706333bcd1ff3bf42961a42a1909a1c59ca0b7e0ddbfc9de3c6502962edccee",
+      "source_ciks": [
+        "0001045810"
+      ]
+    },
+    "NXPI": {
+      "observed_sha256": "d7df967cdd53487db10c1166a232e144b54922be58a2ea53d5441e8c8f2ef462",
+      "source_ciks": [
+        "0001413447"
+      ]
+    },
+    "O": {
+      "observed_sha256": "0f3d59ce6b0fc2ba3e39379dc5cd070ccb0a85fdb1ee852ca1c8206c03a70bde",
+      "source_ciks": [
+        "0000726728"
+      ]
+    },
+    "OKE": {
+      "observed_sha256": "146097ee1e585992a1f8897af5b9255e6a4e6d8dc451d97b9e83c418623d686d",
+      "source_ciks": [
+        "0001039684"
+      ]
+    },
+    "ORCL": {
+      "observed_sha256": "fff73d1fbcf2638e4c69be0a59ca354d26e1f08d538646476da24ecdb1fc8ec1",
+      "source_ciks": [
+        "0001341439"
+      ]
+    },
+    "ORLY": {
+      "observed_sha256": "2f097ba6b894f5b7cb622afaeb750f83087cd9bcd1d6761b8a71e629b943a518",
+      "source_ciks": [
+        "0000898173"
+      ]
+    },
+    "OXY": {
+      "observed_sha256": "4111f268388ef8cbe3b4b80f106b1ee89a0d6cdc6f39584d79ea12a2b356b701",
+      "source_ciks": [
+        "0000797468"
+      ]
+    },
+    "PANW": {
+      "observed_sha256": "9c04a1bf4e6a621b561aee8e8142179ed1dd7595e147b0a3f7ece1e2a4ee1562",
+      "source_ciks": [
+        "0001327567"
+      ]
+    },
+    "PAYX": {
+      "observed_sha256": "2cd9ff69da0c1d14a877ea031d28f5375e384e49756053ba7458f954cfb0aac2",
+      "source_ciks": [
+        "0000723531"
+      ]
+    },
+    "PCAR": {
+      "observed_sha256": "5c85f3ca3bfbc4c8c96d810363e3ba74dfa5e561063548305013a5809ad94a5f",
+      "source_ciks": [
+        "0000075362"
+      ]
+    },
+    "PEP": {
+      "observed_sha256": "38fed8d631ed82bb0cd6f9879fdd71c4bf7e735d0dd9e05f9f60bc16434acf6e",
+      "source_ciks": [
+        "0000077476"
+      ]
+    },
+    "PFE": {
+      "observed_sha256": "ac6ba8da5bb9d820112b8234bb74168b522c26466a7a3ca21cbff75418347078",
+      "source_ciks": [
+        "0000078003"
+      ]
+    },
+    "PG": {
+      "observed_sha256": "cae8148f36bd395472db238c46f9d72913b54c4ab4750b7885ff8b9189667ef9",
+      "source_ciks": [
+        "0000080424"
+      ]
+    },
+    "PGR": {
+      "observed_sha256": "f13aaac307ab16143a737d04b31ffde38e2eca79acb0f93b4b50c7d6b310de08",
+      "source_ciks": [
+        "0000080661"
+      ]
+    },
+    "PH": {
+      "observed_sha256": "563780bccafbad693b214c313ad691db3e8a7b288fe910a313b0e6af5a296be6",
+      "source_ciks": [
+        "0000076334"
+      ]
+    },
+    "PLD": {
+      "observed_sha256": "86b631e5bbd30abb46f36adcd08238aba3cf92ff6c319924439cfdd33a42d32d",
+      "source_ciks": [
+        "0001045609"
+      ]
+    },
+    "PM": {
+      "observed_sha256": "baf8ea1208525c3db14e158f1a5718d5506bf8276520df78e2bcd5b9cca0337a",
+      "source_ciks": [
+        "0001413329"
+      ]
+    },
+    "PNC": {
+      "observed_sha256": "fd30d5e59aba299ae0d2066d33daf8dae95cc69ccd2d0f4e60e9b6a7a3e43047",
+      "source_ciks": [
+        "0000713676"
+      ]
+    },
+    "PSA": {
+      "observed_sha256": "c86a62538711ae8bcb1616bfb49a57e7e7d17ae2592485b67bc7c3f6d44220f6",
+      "source_ciks": [
+        "0001393311"
+      ]
+    },
+    "PSX": {
+      "observed_sha256": "ac10cfa1e6c6c3b0021f5b484937cc7b2b206cbfdab0360f54a4e84854dbd8bf",
+      "source_ciks": [
+        "0001534701"
+      ]
+    },
+    "PWR": {
+      "observed_sha256": "b08a0e90add758de517fa1983ed86910836f9a54df8afdae5942dcd6ee32b53e",
+      "source_ciks": [
+        "0001050915"
+      ]
+    },
+    "QCOM": {
+      "observed_sha256": "d895b529dddbc8b03df5a895c6601b75b9a58196c95c37be96121d03c4ee5505",
+      "source_ciks": [
+        "0000804328"
+      ]
+    },
+    "RCL": {
+      "observed_sha256": "59f279636eeb8aa6e98288a18d7e7db957cde7c76d82383cd3ae0bd262716d6e",
+      "source_ciks": [
+        "0000884887"
+      ]
+    },
+    "REGN": {
+      "observed_sha256": "c307fe73f1796bf398aa933f2d3931a58932c539b3674ed7ad86306277118b24",
+      "source_ciks": [
+        "0000872589"
+      ]
+    },
+    "ROP": {
+      "observed_sha256": "78c1dac6a0cd0cd62aea6aabc04251f903cea441c80729226a633d8ace1e577a",
+      "source_ciks": [
+        "0000882835"
+      ]
+    },
+    "ROST": {
+      "observed_sha256": "0cc4344f8fcacf10d34c0ea6e41eb3851239a6ecd7bd7c9d167f36828e24dcee",
+      "source_ciks": [
+        "0000745732"
+      ]
+    },
+    "RSG": {
+      "observed_sha256": "48eb07cb4a68ba5edb97f49083ddae5836ddee0f3f52fb2c1d6bba0cf8394bd7",
+      "source_ciks": [
+        "0001060391"
+      ]
+    },
+    "RTX": {
+      "observed_sha256": "3f12a74a7b047d1cd7d29706c3f4e38aa1dfb29e14c1cb0c161051be519d3fef",
+      "source_ciks": [
+        "0000101829"
+      ]
+    },
+    "SBUX": {
+      "observed_sha256": "17d617838a304fbc0a84fab8dcebba0006a241bd11fa5d0d98d4455d130dd2fd",
+      "source_ciks": [
+        "0000829224"
+      ]
+    },
+    "SCHW": {
+      "observed_sha256": "b0d662fe061d954722efe5b6261337b37ac0f7ddf7fe43d876f0f3965ad99d92",
+      "source_ciks": [
+        "0000316709"
+      ]
+    },
+    "SHW": {
+      "observed_sha256": "4594c2e74e0aa71defc938c7faa8a76199ff062392d49e0ce18e15129b06f022",
+      "source_ciks": [
+        "0000089800"
+      ]
+    },
+    "SLB": {
+      "observed_sha256": "fbfe212d2a10a80492fe4f02af128c4c5908a8ea1dc73198983d8bbf66e461ab",
+      "source_ciks": [
+        "0000087347"
+      ]
+    },
+    "SNPS": {
+      "observed_sha256": "b187281c7712e9ad99494d7a6056d18bc40fd6c768249a0ee3317350db9a6abb",
+      "source_ciks": [
+        "0000883241"
+      ]
+    },
+    "SO": {
+      "observed_sha256": "69a1c95195f9b4039cc695c03f3b02118f8875c80b4ed2aadb396e422d7c9a47",
+      "source_ciks": [
+        "0000092122"
+      ]
+    },
+    "SPG": {
+      "observed_sha256": "7cf51426b2aba817583a20f93ac8137863eab46d01684079892230d98f099e3d",
+      "source_ciks": [
+        "0001063761"
+      ]
+    },
+    "SPGI": {
+      "observed_sha256": "364bf0aad7c2e139d016a02aa7ad3568253674a3c3191dd478889b3da1a07b2d",
+      "source_ciks": [
+        "0000064040"
+      ]
+    },
+    "SRE": {
+      "observed_sha256": "e52bdd837f3bfd1e44b185093105d10ec322132d6754452e934f90a96e86f641",
+      "source_ciks": [
+        "0001032208"
+      ]
+    },
+    "SYK": {
+      "observed_sha256": "6a838e2e4be32843ecb3500c2e4d8b16c2dcf770bce6f52e772e690bc8d88eb9",
+      "source_ciks": [
+        "0000310764"
+      ]
+    },
+    "T": {
+      "observed_sha256": "7eefe007ccd744c2afd642c7ff2cb5b41ea5a207d6a21970482c8ef6a95e5536",
+      "source_ciks": [
+        "0000732717"
+      ]
+    },
+    "TDG": {
+      "observed_sha256": "fd1b93d8b1bf08c932711e95aca7e876ec8fea993dbcd78e350219827c9bc508",
+      "source_ciks": [
+        "0001260221"
+      ]
+    },
+    "TFC": {
+      "observed_sha256": "ac9435df09b4f631d6e43ffd6d0e4f455fb2373b52504829da1a3cad921c3482",
+      "source_ciks": [
+        "0000092230"
+      ]
+    },
+    "TGT": {
+      "observed_sha256": "7079730f3729f8d3b7a5c5c7b3150f66c0e9554bfd38a9b212826aedd3347f54",
+      "source_ciks": [
+        "0000027419"
+      ]
+    },
+    "TJX": {
+      "observed_sha256": "81c35a50e349a2c42fd8cfd77bd6da665d7608deb88dd53245f04e9f73ef35e0",
+      "source_ciks": [
+        "0000109198"
+      ]
+    },
+    "TMO": {
+      "observed_sha256": "8190203317cec05dec07dc7decc348452a0828f243c0c1e4b69ae912f8e68444",
+      "source_ciks": [
+        "0000097745"
+      ]
+    },
+    "TMUS": {
+      "observed_sha256": "1a57fe6beb693bebec50469e961988d46c922dfee9bb0b2287a931113a042798",
+      "source_ciks": [
+        "0001283699"
+      ]
+    },
+    "TRV": {
+      "observed_sha256": "250cfef045cf42acbe2f3c018bed77d634c303067b47f3885a139ec32676fe22",
+      "source_ciks": [
+        "0000086312"
+      ]
+    },
+    "TSLA": {
+      "observed_sha256": "0fca40927b3965523c3b241334178f90efe05817eaeb199647c812e21c5c0397",
+      "source_ciks": [
+        "0001318605"
+      ]
+    },
+    "TT": {
+      "observed_sha256": "dab18688cb7256ee8e016e68d4a7c36da547218712bd158a02a59bcf3cb93163",
+      "source_ciks": [
+        "0001466258"
+      ]
+    },
+    "TXN": {
+      "observed_sha256": "395780d17570478da719dce98c11a3492bde663c5b0cbef54e695a23c26b2c6f",
+      "source_ciks": [
+        "0000097476"
+      ]
+    },
+    "UNH": {
+      "observed_sha256": "ac7fcac53374165f7ce4e6d93d27bc24759b104cb1a6445eb9fb29b5f2621215",
+      "source_ciks": [
+        "0000731766"
+      ]
+    },
+    "UNP": {
+      "observed_sha256": "e5dccef3b59f8e5d5ce7e856c4da4f413c15ec88c158c1caf1068dfaee62e0fc",
+      "source_ciks": [
+        "0000100885"
+      ]
+    },
+    "UPS": {
+      "observed_sha256": "a4646323fbcc8b6a6f9d4ae4112ddd91522855e23b9c3af11ca32d09953e8cd7",
+      "source_ciks": [
+        "0001090727"
+      ]
+    },
+    "URI": {
+      "observed_sha256": "7e914ea17242e29fe484d7d18ea348ed044ea4310adc99adccb7dfaa0edc4317",
+      "source_ciks": [
+        "0001067701"
+      ]
+    },
+    "USB": {
+      "observed_sha256": "aa969cc907553e3ea4e2db806a4c6c3f23dd3d395ad064fc33fd482df69b6caa",
+      "source_ciks": [
+        "0000036104"
+      ]
+    },
+    "V": {
+      "observed_sha256": "dfc123276bebd49e8522d37b226a955d507ef016a5b2aeeac310587338c2d4ec",
+      "source_ciks": [
+        "0001403161"
+      ]
+    },
+    "VRTX": {
+      "observed_sha256": "55fc2a27bd0e376b5eabfbfff24e7f41beac3a4b833e98bcace295470bb8636c",
+      "source_ciks": [
+        "0000875320"
+      ]
+    },
+    "VZ": {
+      "observed_sha256": "da13edc76d7cabb031e6ff4b1d4b7775873a5317b2bad1e53ff936a2dbc5853d",
+      "source_ciks": [
+        "0000732712"
+      ]
+    },
+    "WELL": {
+      "observed_sha256": "4548b7df9340bec355a5a05df68782dd38587e5427442263b8aba36e2d620201",
+      "source_ciks": [
+        "0000766704"
+      ]
+    },
+    "WFC": {
+      "observed_sha256": "0f8419b59544d594c1f8049f53970f2249ccf197e3ddfa677f8784117359776c",
+      "source_ciks": [
+        "0000072971"
+      ]
+    },
+    "WM": {
+      "observed_sha256": "6ce69d33c5803a3f1b768ab5c7003c6e20f1c8a6b43261f985712b3bde5c95cd",
+      "source_ciks": [
+        "0000823768"
+      ]
+    },
+    "WMB": {
+      "observed_sha256": "84615873975ecdd2c3ce1031d74b8fda4a55161c6fc4cba96eda149292d0642b",
+      "source_ciks": [
+        "0000107263"
+      ]
+    },
+    "WMT": {
+      "observed_sha256": "fde446a2c724200b662b79212de0cf4f3933dccbc2b72d7f6b3654fbf3c2861a",
+      "source_ciks": [
+        "0000104169"
+      ]
+    },
+    "XOM": {
+      "observed_sha256": "dc657653c8e56427a39d03a3df4277372668a19507c8591017ccb3d12bde3e33",
+      "source_ciks": [
+        "0000034088"
+      ]
+    },
+    "ZTS": {
+      "observed_sha256": "c323a31eb6e9797ae01928ce86827f7c88780b8106a2cbe820711c40f6ca87b8",
+      "source_ciks": [
+        "0001555280"
+      ]
+    }
+  }
+}

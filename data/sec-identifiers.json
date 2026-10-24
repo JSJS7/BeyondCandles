@@ -1,0 +1,2405 @@
+{
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "verified_at": "2026-10-20T10:19:30.844351+00:00",
+  "registry": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "sha256": "bbffa40adbea620bba590da9a193ea14b21bfc04992f102549a2688d4e7d32df",
+    "file": "bbffa40adbea620bba590da9a193ea14b21bfc04992f102549a2688d4e7d32df.json"
+  },
+  "companies": {
+    "AAPL": {
+      "cik": "0000320193",
+      "name": "Apple Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000320193.json",
+        "sha256": "aad00f6aa75ba1405e0a34c788bdba9042281b2724fe1db3ff26f434b9a92e44",
+        "file": "aad00f6aa75ba1405e0a34c788bdba9042281b2724fe1db3ff26f434b9a92e44.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NVDA": {
+      "cik": "0001045810",
+      "name": "NVIDIA CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+        "sha256": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4",
+        "file": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MSFT": {
+      "cik": "0000789019",
+      "name": "MICROSOFT CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000789019.json",
+        "sha256": "a5848ba348a3d3ae08c3c40bf4599379014be077911e6550ed3a8182a34a6a7b",
+        "file": "a5848ba348a3d3ae08c3c40bf4599379014be077911e6550ed3a8182a34a6a7b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AMZN": {
+      "cik": "0001018724",
+      "name": "AMAZON COM INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001018724.json",
+        "sha256": "1f5bb6be4033e2378bfa0d14e0d9276a08d8dfb070b263f59ca0e77d68ced058",
+        "file": "1f5bb6be4033e2378bfa0d14e0d9276a08d8dfb070b263f59ca0e77d68ced058.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "GOOGL": {
+      "cik": "0001652044",
+      "name": "Alphabet Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001652044.json",
+        "sha256": "648cea84d824309b518807fd7e7fdb72d6855e12e8afa221d2caa047d5c9f2ca",
+        "file": "648cea84d824309b518807fd7e7fdb72d6855e12e8afa221d2caa047d5c9f2ca.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "META": {
+      "cik": "0001326801",
+      "name": "Meta Platforms, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001326801.json",
+        "sha256": "bdf2ccd67c9ad38eefeec7f5ff15d591afb96a8b7c6e491c41d3abc94a839f1a",
+        "file": "bdf2ccd67c9ad38eefeec7f5ff15d591afb96a8b7c6e491c41d3abc94a839f1a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TSLA": {
+      "cik": "0001318605",
+      "name": "Tesla, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001318605.json",
+        "sha256": "9005bae55ae3da60eb6cf68ade179ab9dbb92ee8ad36a31c0b0a8d50b6a9cf8b",
+        "file": "9005bae55ae3da60eb6cf68ade179ab9dbb92ee8ad36a31c0b0a8d50b6a9cf8b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AVGO": {
+      "cik": "0001730168",
+      "name": "Broadcom Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001730168.json",
+        "sha256": "b3bb8094e6809c7b3c7d2d7f419363b213bfa5071b40adb2bc2534317637f061",
+        "file": "b3bb8094e6809c7b3c7d2d7f419363b213bfa5071b40adb2bc2534317637f061.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "2018 redomiciliation follows Broadcom Limited. The 2015 financials follow its accounting predecessor Avago, before the 2016 Broadcom Corporation acquisition.",
+        "primary": {
+          "filed_from": "2018-04-04",
+          "period_end_from": "2016-01-01"
+        },
+        "predecessors": [
+          {
+            "cik": "0001649338",
+            "name": "Broadcom Pte. Ltd.",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0001649338.json",
+              "sha256": "70fbb0b04602fa46842f80dd706f880ba23d5b8922284560912109a079571bb1",
+              "file": "70fbb0b04602fa46842f80dd706f880ba23d5b8922284560912109a079571bb1.json"
+            },
+            "eligibility": {
+              "filed_to": "2018-04-04",
+              "period_end_to": "2015-12-31"
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312518186769/d589424dex991.htm",
+            "sha256": "fe91de93a17ef25700872c551c649b586ed2ac2b4828059b090dfe8cb81f6e03",
+            "file": "fe91de93a17ef25700872c551c649b586ed2ac2b4828059b090dfe8cb81f6e03.htm"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1649338/000119312516489195/d130836dex994.htm",
+            "sha256": "6d3b804a8eaa4b301016478f07a3278ba5b7df61edc2427545bcabc268042909",
+            "file": "6d3b804a8eaa4b301016478f07a3278ba5b7df61edc2427545bcabc268042909.htm"
+          }
+        ]
+      }
+    },
+    "BRK-B": {
+      "cik": "0001067983",
+      "name": "BERKSHIRE HATHAWAY INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001067983.json",
+        "sha256": "ab313de3258a0251e6f41c0398573a0c5a94618fd2f67b9cf1d136f3eaad9da2",
+        "file": "ab313de3258a0251e6f41c0398573a0c5a94618fd2f67b9cf1d136f3eaad9da2.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "WMT": {
+      "cik": "0000104169",
+      "name": "Walmart Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000104169.json",
+        "sha256": "0bca641a57ea709c35dedc40564d9f70240af653712b883514c19ca888608c53",
+        "file": "0bca641a57ea709c35dedc40564d9f70240af653712b883514c19ca888608c53.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "LLY": {
+      "cik": "0000059478",
+      "name": "ELI LILLY & Co",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000059478.json",
+        "sha256": "2c79854e6afae9138c3fcc64b27fc8f92291f6c6a28dbfa3416d2413adb64beb",
+        "file": "2c79854e6afae9138c3fcc64b27fc8f92291f6c6a28dbfa3416d2413adb64beb.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "JPM": {
+      "cik": "0000019617",
+      "name": "JPMORGAN CHASE & CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000019617.json",
+        "sha256": "e6ce85d6514b0aad1c581a38320e4863721a0c7e34c3e20fd4435ea488cc463b",
+        "file": "e6ce85d6514b0aad1c581a38320e4863721a0c7e34c3e20fd4435ea488cc463b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "V": {
+      "cik": "0001403161",
+      "name": "VISA INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001403161.json",
+        "sha256": "7f985aa8d9b9b7171d7784aa41af99770be5bc86afc2b1d508aa977f5aa0dc18",
+        "file": "7f985aa8d9b9b7171d7784aa41af99770be5bc86afc2b1d508aa977f5aa0dc18.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MA": {
+      "cik": "0001141391",
+      "name": "Mastercard Inc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001141391.json",
+        "sha256": "fd28e8d5947b63cc4ddf5adfc60dbddec0f500133af8a3459161eae6a8dfbd11",
+        "file": "fd28e8d5947b63cc4ddf5adfc60dbddec0f500133af8a3459161eae6a8dfbd11.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ORCL": {
+      "cik": "0001341439",
+      "name": "ORACLE CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001341439.json",
+        "sha256": "c41260def74f2052a1bfc9088a063688e772e5f1e4a7007ecb46c30312c84719",
+        "file": "c41260def74f2052a1bfc9088a063688e772e5f1e4a7007ecb46c30312c84719.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "XOM": {
+      "cik": "0000034088",
+      "name": "EXXON MOBIL CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000034088.json",
+        "sha256": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df",
+        "file": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df.json"
+      },
+      "verification": "historical_filing",
+      "evidence": {
+        "report_date": "2024-12-31",
+        "accession": "0000034088-25-000010",
+        "document": "xom-20241231.htm",
+        "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408825000010/xom-20241231.htm",
+        "sha256": "e35e37663b5a5fcef190708fd9d6b97218d8575313db4e9265b3839b5c34573b",
+        "file": "e35e37663b5a5fcef190708fd9d6b97218d8575313db4e9265b3839b5c34573b.htm"
+      }
+    },
+    "UNH": {
+      "cik": "0000731766",
+      "name": "UNITEDHEALTH GROUP INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000731766.json",
+        "sha256": "2e2d1c6568c68189db5b3d38cb47eb733acfffc9d666406f8652f5c79401a481",
+        "file": "2e2d1c6568c68189db5b3d38cb47eb733acfffc9d666406f8652f5c79401a481.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "COST": {
+      "cik": "0000909832",
+      "name": "COSTCO WHOLESALE CORP /NEW",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000909832.json",
+        "sha256": "ddbc474ee1b766ecc36ba39759b1e2910135401dc12c08e93f034c65fc9c15d1",
+        "file": "ddbc474ee1b766ecc36ba39759b1e2910135401dc12c08e93f034c65fc9c15d1.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PG": {
+      "cik": "0000080424",
+      "name": "PROCTER & GAMBLE Co",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000080424.json",
+        "sha256": "5d70210737631bf11d61d617f4b10578ba48c45fc678e43daa35323486281e73",
+        "file": "5d70210737631bf11d61d617f4b10578ba48c45fc678e43daa35323486281e73.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "HD": {
+      "cik": "0000354950",
+      "name": "HOME DEPOT, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000354950.json",
+        "sha256": "672ac7e954322732f26d909249186bfb4fef4157085d1f61634d447b2ccf0fba",
+        "file": "672ac7e954322732f26d909249186bfb4fef4157085d1f61634d447b2ccf0fba.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NFLX": {
+      "cik": "0001065280",
+      "name": "NETFLIX INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001065280.json",
+        "sha256": "8eaef3227f6a13b687027cc684cf1f1dfae7dcba0ed8c091af2bcb2e9f50823d",
+        "file": "8eaef3227f6a13b687027cc684cf1f1dfae7dcba0ed8c091af2bcb2e9f50823d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "JNJ": {
+      "cik": "0000200406",
+      "name": "JOHNSON & JOHNSON",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000200406.json",
+        "sha256": "f0e519276f2ef9e9e820e3187f1f9136192b45d381f4302f943c8ec51390ff30",
+        "file": "f0e519276f2ef9e9e820e3187f1f9136192b45d381f4302f943c8ec51390ff30.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BAC": {
+      "cik": "0000070858",
+      "name": "BANK OF AMERICA CORP /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000070858.json",
+        "sha256": "d8737ce606f76aab90e56f63be0362f5e96e29c21fe3e1f0aa562a280817cf89",
+        "file": "d8737ce606f76aab90e56f63be0362f5e96e29c21fe3e1f0aa562a280817cf89.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CRM": {
+      "cik": "0001108524",
+      "name": "Salesforce, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001108524.json",
+        "sha256": "a17395341045ab4f90af3c9a631da7a393704f21c22074ffc5d64b6d1c73f719",
+        "file": "a17395341045ab4f90af3c9a631da7a393704f21c22074ffc5d64b6d1c73f719.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ABBV": {
+      "cik": "0001551152",
+      "name": "AbbVie Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001551152.json",
+        "sha256": "b81e195b84d44aa6aef709b6a69f3a4bad91491287b0292c91f4c28c8039af87",
+        "file": "b81e195b84d44aa6aef709b6a69f3a4bad91491287b0292c91f4c28c8039af87.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "KO": {
+      "cik": "0000021344",
+      "name": "COCA COLA CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000021344.json",
+        "sha256": "8591f2d5a02913481a2bc76458ab5c905f94e72f0856a18b6fa57e3f46235e39",
+        "file": "8591f2d5a02913481a2bc76458ab5c905f94e72f0856a18b6fa57e3f46235e39.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TMUS": {
+      "cik": "0001283699",
+      "name": "T-Mobile US, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001283699.json",
+        "sha256": "073a00f3f617c4a6fc07cea7658c550b3303b2ae8373b7efc8b27743334452cd",
+        "file": "073a00f3f617c4a6fc07cea7658c550b3303b2ae8373b7efc8b27743334452cd.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CVX": {
+      "cik": "0000093410",
+      "name": "CHEVRON CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000093410.json",
+        "sha256": "66f15b8aecbb05d9be0f6c5ce179fd975d23b3a43f86864f3d111b5a76efc64c",
+        "file": "66f15b8aecbb05d9be0f6c5ce179fd975d23b3a43f86864f3d111b5a76efc64c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MRK": {
+      "cik": "0000310158",
+      "name": "Merck & Co., Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000310158.json",
+        "sha256": "16124d112cdab9214918ee22ecac3f16d9fe2ad697e02424c1216231d5fa2344",
+        "file": "16124d112cdab9214918ee22ecac3f16d9fe2ad697e02424c1216231d5fa2344.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "WFC": {
+      "cik": "0000072971",
+      "name": "WELLS FARGO & COMPANY/MN",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000072971.json",
+        "sha256": "716f3adfd88450459dc3a5ba25228f5bdef7cbeb728fee7224aa0f23af441d3c",
+        "file": "716f3adfd88450459dc3a5ba25228f5bdef7cbeb728fee7224aa0f23af441d3c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CSCO": {
+      "cik": "0000858877",
+      "name": "CISCO SYSTEMS, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000858877.json",
+        "sha256": "af29bf8ffa25fbe34c81ac9ae15d4541bba7b6855eccd94b0bcaa92f92cbb717",
+        "file": "af29bf8ffa25fbe34c81ac9ae15d4541bba7b6855eccd94b0bcaa92f92cbb717.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ACN": {
+      "cik": "0001467373",
+      "name": "Accenture plc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001467373.json",
+        "sha256": "a498b805d774c7b0c2a8482f1078a86b5a21865a1f594cae4bfc39871f9505b8",
+        "file": "a498b805d774c7b0c2a8482f1078a86b5a21865a1f594cae4bfc39871f9505b8.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NOW": {
+      "cik": "0001373715",
+      "name": "ServiceNow, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001373715.json",
+        "sha256": "d99f6e49b9beae1ead75a7534e0a70cb7d5acca5c521ff6039b32fb1f396cf08",
+        "file": "d99f6e49b9beae1ead75a7534e0a70cb7d5acca5c521ff6039b32fb1f396cf08.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AXP": {
+      "cik": "0000004962",
+      "name": "AMERICAN EXPRESS CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000004962.json",
+        "sha256": "d8c938a069d2f4aaa7e4c7d31fafa9b031284cef711777cf4e8c2e33cc7cb703",
+        "file": "d8c938a069d2f4aaa7e4c7d31fafa9b031284cef711777cf4e8c2e33cc7cb703.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MCD": {
+      "cik": "0000063908",
+      "name": "MCDONALDS CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000063908.json",
+        "sha256": "5ca5bd9a4dbc4878d898899a2ae41a8da1a0a42e24fc280a7f84e47f126f454e",
+        "file": "5ca5bd9a4dbc4878d898899a2ae41a8da1a0a42e24fc280a7f84e47f126f454e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PEP": {
+      "cik": "0000077476",
+      "name": "PEPSICO INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000077476.json",
+        "sha256": "8e8d5f55ae577ac7e03998848a449c478d61e9a9094b8ae2c6a5db780a6a6a31",
+        "file": "8e8d5f55ae577ac7e03998848a449c478d61e9a9094b8ae2c6a5db780a6a6a31.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BX": {
+      "cik": "0001393818",
+      "name": "Blackstone Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001393818.json",
+        "sha256": "ade9dd78ac0995d33bacc76c007e1031c07edad1dd91cb8c7bf60e2e62772959",
+        "file": "ade9dd78ac0995d33bacc76c007e1031c07edad1dd91cb8c7bf60e2e62772959.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "IBM": {
+      "cik": "0000051143",
+      "name": "INTERNATIONAL BUSINESS MACHINES CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000051143.json",
+        "sha256": "48b6180e7fe331232ccbdda20c012f61b5b1ed42251c4d74c05c6db2f07326f8",
+        "file": "48b6180e7fe331232ccbdda20c012f61b5b1ed42251c4d74c05c6db2f07326f8.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "DIS": {
+      "cik": "0001744489",
+      "name": "Walt Disney Co",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001744489.json",
+        "sha256": "75b6715b3e2d2d9c8af55b3b71920357e3ae2422665dda8b6cecd21e8e4fcf40",
+        "file": "75b6715b3e2d2d9c8af55b3b71920357e3ae2422665dda8b6cecd21e8e4fcf40.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "2019 holding-company reorganization and Fox acquisition. Earlier financials follow legacy Disney; the acquisition changes comparability across years.",
+        "primary": {
+          "filed_from": "2019-03-20",
+          "period_end_from": "2017-01-01"
+        },
+        "predecessors": [
+          {
+            "cik": "0001001039",
+            "name": "TWDC Enterprises 18 Corp.",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0001001039.json",
+              "sha256": "cb8fa63d9ad983260af13dc19220d3492bac2ca6f4bab962c4c91547f5a12881",
+              "file": "cb8fa63d9ad983260af13dc19220d3492bac2ca6f4bab962c4c91547f5a12881.json"
+            },
+            "eligibility": {
+              "filed_to": "2019-03-20",
+              "period_end_to": "2016-12-31"
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448919000225/fy2019q410k.htm",
+            "sha256": "4114bfa741d1ea0078d247fc39f5bfb403e8c0b9845bb958ce72cf13e1fe52c5",
+            "file": "4114bfa741d1ea0078d247fc39f5bfb403e8c0b9845bb958ce72cf13e1fe52c5.htm"
+          }
+        ]
+      }
+    },
+    "LIN": {
+      "cik": "0001707925",
+      "name": "LINDE PLC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001707925.json",
+        "sha256": "3303b713cb3d4b08a0ca704dfb316ede48b14fb6a93821ed8fa03ae134e37027",
+        "file": "3303b713cb3d4b08a0ca704dfb316ede48b14fb6a93821ed8fa03ae134e37027.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "2018 combination of Praxair and Linde AG. Earlier financials follow Praxair, the accounting predecessor; they do not combine both former businesses.",
+        "primary": {
+          "filed_from": "2018-10-31",
+          "period_end_from": "2016-01-01"
+        },
+        "predecessors": [
+          {
+            "cik": "0000884905",
+            "name": "LINDE INC",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0000884905.json",
+              "sha256": "35901438c1b05b8941812f19d690368c46aec0cac789c5143756fee7d1c6c7cd",
+              "file": "35901438c1b05b8941812f19d690368c46aec0cac789c5143756fee7d1c6c7cd.json"
+            },
+            "eligibility": {
+              "filed_to": "2018-10-31",
+              "period_end_to": "2015-12-31"
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1707925/000162828019003050/plc201810-k.htm",
+            "sha256": "e253d335fb27da8e3c52f9ddddeda759c7f500b210bf5f4fcde5a67e1821e893",
+            "file": "e253d335fb27da8e3c52f9ddddeda759c7f500b210bf5f4fcde5a67e1821e893.htm"
+          }
+        ]
+      }
+    },
+    "TMO": {
+      "cik": "0000097745",
+      "name": "THERMO FISHER SCIENTIFIC INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000097745.json",
+        "sha256": "016c598138e04dd2fadacb910ac35df7fa5a91b1d4dc366ed5eb23e0e97d561f",
+        "file": "016c598138e04dd2fadacb910ac35df7fa5a91b1d4dc366ed5eb23e0e97d561f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MS": {
+      "cik": "0000895421",
+      "name": "MORGAN STANLEY",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000895421.json",
+        "sha256": "437e8ea22c6795627b75713bb9660cd19ac54b9d7c4e38e12d9147bd9f4e3542",
+        "file": "437e8ea22c6795627b75713bb9660cd19ac54b9d7c4e38e12d9147bd9f4e3542.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ABT": {
+      "cik": "0000001800",
+      "name": "ABBOTT LABORATORIES",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000001800.json",
+        "sha256": "8da48bc65e54f44663c363a738a9ba4d07029b95067cd9cd7ba84dc64a9dbe0f",
+        "file": "8da48bc65e54f44663c363a738a9ba4d07029b95067cd9cd7ba84dc64a9dbe0f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ADBE": {
+      "cik": "0000796343",
+      "name": "ADOBE INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000796343.json",
+        "sha256": "6000ab8cebb0c0fa7a8065741eddcc736d007739dffa337dcd4c8082d5ecfe25",
+        "file": "6000ab8cebb0c0fa7a8065741eddcc736d007739dffa337dcd4c8082d5ecfe25.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AMD": {
+      "cik": "0000002488",
+      "name": "ADVANCED MICRO DEVICES INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000002488.json",
+        "sha256": "ab1f62c1fc1c04ff4022ac902f0184e2bc8d6f5c23d18f9538ab6cf39bc64420",
+        "file": "ab1f62c1fc1c04ff4022ac902f0184e2bc8d6f5c23d18f9538ab6cf39bc64420.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PM": {
+      "cik": "0001413329",
+      "name": "Philip Morris International Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001413329.json",
+        "sha256": "574f96454891d9c659412d46c1f7b5584130814f3fee67d07c3609602a88034d",
+        "file": "574f96454891d9c659412d46c1f7b5584130814f3fee67d07c3609602a88034d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ISRG": {
+      "cik": "0001035267",
+      "name": "INTUITIVE SURGICAL INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001035267.json",
+        "sha256": "dbb57e42a5d7de5f6ea15f0fbb2183a97373b22d654363bec4309a1f4651aa20",
+        "file": "dbb57e42a5d7de5f6ea15f0fbb2183a97373b22d654363bec4309a1f4651aa20.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "GE": {
+      "cik": "0000040545",
+      "name": "GENERAL ELECTRIC CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000040545.json",
+        "sha256": "ef3b1c78870ba9b87b5b7e92f92a4a34eceea3c11f8f5c1e5b076d2a59aab718",
+        "file": "ef3b1c78870ba9b87b5b7e92f92a4a34eceea3c11f8f5c1e5b076d2a59aab718.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "INTU": {
+      "cik": "0000896878",
+      "name": "INTUIT INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000896878.json",
+        "sha256": "d501549242660e84f72991fb63dbd7e72e825e091414543f31d75b85eb481e6e",
+        "file": "d501549242660e84f72991fb63dbd7e72e825e091414543f31d75b85eb481e6e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "GS": {
+      "cik": "0000886982",
+      "name": "GOLDMAN SACHS GROUP INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000886982.json",
+        "sha256": "f6d51dbeafb5c54ea6bebdc54a1eae920be94986c377f51728137ad3b4804909",
+        "file": "f6d51dbeafb5c54ea6bebdc54a1eae920be94986c377f51728137ad3b4804909.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CAT": {
+      "cik": "0000018230",
+      "name": "CATERPILLAR INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000018230.json",
+        "sha256": "0acab15fde27b3fb5194c6c0330cd027677037c546ba688f82d0f98c2697543a",
+        "file": "0acab15fde27b3fb5194c6c0330cd027677037c546ba688f82d0f98c2697543a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TXN": {
+      "cik": "0000097476",
+      "name": "TEXAS INSTRUMENTS INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000097476.json",
+        "sha256": "f41410833c3b1fe551ac1dd38a696782c430e8a71a4b8b780fd38e0f13b7beb3",
+        "file": "f41410833c3b1fe551ac1dd38a696782c430e8a71a4b8b780fd38e0f13b7beb3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "QCOM": {
+      "cik": "0000804328",
+      "name": "QUALCOMM INC/DE",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000804328.json",
+        "sha256": "44d2d8a523ec0814e7c9a0b2676533c536473c5f75f7b7412716da139169437c",
+        "file": "44d2d8a523ec0814e7c9a0b2676533c536473c5f75f7b7412716da139169437c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "VZ": {
+      "cik": "0000732712",
+      "name": "VERIZON COMMUNICATIONS INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000732712.json",
+        "sha256": "bc3e988a8d8391e27f5d6519b2de85590fc34ff3e73eadc02e0675080e7f9ae8",
+        "file": "bc3e988a8d8391e27f5d6519b2de85590fc34ff3e73eadc02e0675080e7f9ae8.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BKNG": {
+      "cik": "0001075531",
+      "name": "Booking Holdings Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001075531.json",
+        "sha256": "f509a62666f0a52d2fd1b403e39a682c3496869da35c5bd995ff295490f9cdec",
+        "file": "f509a62666f0a52d2fd1b403e39a682c3496869da35c5bd995ff295490f9cdec.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "DHR": {
+      "cik": "0000313616",
+      "name": "DANAHER CORP /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000313616.json",
+        "sha256": "a217d6baa2bd28257fee6287f6b3c6fba818f3163a50570bd1d42b147394b8df",
+        "file": "a217d6baa2bd28257fee6287f6b3c6fba818f3163a50570bd1d42b147394b8df.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "T": {
+      "cik": "0000732717",
+      "name": "AT&T INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000732717.json",
+        "sha256": "6850fc7997a8d5b99dfef21cc2fa4938270d36d59a95a54545ac1ac13eabe5fe",
+        "file": "6850fc7997a8d5b99dfef21cc2fa4938270d36d59a95a54545ac1ac13eabe5fe.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BLK": {
+      "cik": "0002012383",
+      "name": "BlackRock, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0002012383.json",
+        "sha256": "b3f288c2cfee88360817f8cab77ee5c6cdf5e995c83401d28885bac79acfa45f",
+        "file": "b3f288c2cfee88360817f8cab77ee5c6cdf5e995c83401d28885bac79acfa45f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "2024 holding-company reorganization. Earlier financials include the predecessor BlackRock; the 2024 acquisition changes the group being reported.",
+        "primary": {
+          "filed_from": "2024-10-01",
+          "period_end_from": "2022-01-01"
+        },
+        "predecessors": [
+          {
+            "cik": "0001364742",
+            "name": "BlackRock Finance, Inc.",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0001364742.json",
+              "sha256": "86e7a9cef80695045c996c3df157bb31acface084c307d338538f2ad1d7ae68c",
+              "file": "86e7a9cef80695045c996c3df157bb31acface084c307d338538f2ad1d7ae68c.json"
+            },
+            "eligibility": {
+              "filed_to": "2024-10-01",
+              "period_end_to": "2021-12-31"
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/2012383/000095017025026584/blk-20241231.htm",
+            "sha256": "a75fe1758731667a0d38c1607fa46958b60774fd53b1ba6d8b626a020d6d1e45",
+            "file": "a75fe1758731667a0d38c1607fa46958b60774fd53b1ba6d8b626a020d6d1e45.htm"
+          }
+        ]
+      }
+    },
+    "RTX": {
+      "cik": "0000101829",
+      "name": "RTX Corp",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000101829.json",
+        "sha256": "1021b7084faacdfd54cb7caa44068804e1b9f0c167ca2644c04af9798cd2c9ac",
+        "file": "1021b7084faacdfd54cb7caa44068804e1b9f0c167ca2644c04af9798cd2c9ac.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SPGI": {
+      "cik": "0000064040",
+      "name": "S&P Global Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000064040.json",
+        "sha256": "efe34bbb12562c6c837317df69ade6ea4e16a4ca012050b47be13777794f6f6a",
+        "file": "efe34bbb12562c6c837317df69ade6ea4e16a4ca012050b47be13777794f6f6a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PFE": {
+      "cik": "0000078003",
+      "name": "PFIZER INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000078003.json",
+        "sha256": "d845e4946784a2e70d0e657074e286a6e2c9baa901b29f723d1b487b9c28cf31",
+        "file": "d845e4946784a2e70d0e657074e286a6e2c9baa901b29f723d1b487b9c28cf31.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "HON": {
+      "cik": "0000773840",
+      "name": "HONEYWELL INTERNATIONAL INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000773840.json",
+        "sha256": "4230b15ed3f245e947f48f8a51f7c8eac7aace0444b7f87f65662b63938bb41a",
+        "file": "4230b15ed3f245e947f48f8a51f7c8eac7aace0444b7f87f65662b63938bb41a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NEE": {
+      "cik": "0000753308",
+      "name": "NEXTERA ENERGY INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000753308.json",
+        "sha256": "615173595b0ea6b92ffa36116cb674299f3ac7182c762ca475ec4dfb87e6fdef",
+        "file": "615173595b0ea6b92ffa36116cb674299f3ac7182c762ca475ec4dfb87e6fdef.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CMCSA": {
+      "cik": "0001166691",
+      "name": "COMCAST CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001166691.json",
+        "sha256": "1c9ee5c84527542fa21885a4d741a7610ab8d0e5f98774adb63d427c10415d52",
+        "file": "1c9ee5c84527542fa21885a4d741a7610ab8d0e5f98774adb63d427c10415d52.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ANET": {
+      "cik": "0001596532",
+      "name": "Arista Networks, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001596532.json",
+        "sha256": "475cda980cc93f355b4b336b4cb4d8ed79f46e858ec6dc9cd160a1a2d46a7af5",
+        "file": "475cda980cc93f355b4b336b4cb4d8ed79f46e858ec6dc9cd160a1a2d46a7af5.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AMGN": {
+      "cik": "0000318154",
+      "name": "AMGEN INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000318154.json",
+        "sha256": "d5fdc99c6d7c7fbe409f15e837164367159ed34bb5d76b31b36b8a79ccdc7dd6",
+        "file": "d5fdc99c6d7c7fbe409f15e837164367159ed34bb5d76b31b36b8a79ccdc7dd6.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PGR": {
+      "cik": "0000080661",
+      "name": "PROGRESSIVE CORP/OH/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000080661.json",
+        "sha256": "b68501867b82f70f3f706ef8199084e36cf456d5ffa9f04a6d30f459fd53f14c",
+        "file": "b68501867b82f70f3f706ef8199084e36cf456d5ffa9f04a6d30f459fd53f14c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "LOW": {
+      "cik": "0000060667",
+      "name": "LOWES COMPANIES INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000060667.json",
+        "sha256": "7a1e817a50cb89773ee6b01bc2e67c6688c1d8142ccae065169e4fd476815755",
+        "file": "7a1e817a50cb89773ee6b01bc2e67c6688c1d8142ccae065169e4fd476815755.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SYK": {
+      "cik": "0000310764",
+      "name": "STRYKER CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000310764.json",
+        "sha256": "d18f13b2dc991b709597bfe4142001a6fd898721aec0fe83b889362e78b964f6",
+        "file": "d18f13b2dc991b709597bfe4142001a6fd898721aec0fe83b889362e78b964f6.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "UNP": {
+      "cik": "0000100885",
+      "name": "UNION PACIFIC CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000100885.json",
+        "sha256": "37f9bad411128e5b38d13e1d48d2bcc92d0ae3d81ebad47dfb4044c5f8777591",
+        "file": "37f9bad411128e5b38d13e1d48d2bcc92d0ae3d81ebad47dfb4044c5f8777591.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TJX": {
+      "cik": "0000109198",
+      "name": "TJX COMPANIES INC /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000109198.json",
+        "sha256": "00515a465f71b88ce8c2c387a2422feeec7b9adedad9d73b64077b2da2ad4f6f",
+        "file": "00515a465f71b88ce8c2c387a2422feeec7b9adedad9d73b64077b2da2ad4f6f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "KKR": {
+      "cik": "0001404912",
+      "name": "KKR & Co. Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001404912.json",
+        "sha256": "130723dac662b7ee216ea0edf16a51dde76a1b363ff3c59a1109c11cd5bd70ef",
+        "file": "130723dac662b7ee216ea0edf16a51dde76a1b363ff3c59a1109c11cd5bd70ef.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SCHW": {
+      "cik": "0000316709",
+      "name": "SCHWAB CHARLES CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000316709.json",
+        "sha256": "b887b9310c4120a0ece4e5811d2ba2c327aeedfefb1b8707981d4d683df1ed26",
+        "file": "b887b9310c4120a0ece4e5811d2ba2c327aeedfefb1b8707981d4d683df1ed26.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ETN": {
+      "cik": "0001551182",
+      "name": "Eaton Corp plc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001551182.json",
+        "sha256": "bc3d55b2bcd39a79933f9b2ab80cd6c48f4b57f6b6505b25a021dc2bcaa7f80b",
+        "file": "bc3d55b2bcd39a79933f9b2ab80cd6c48f4b57f6b6505b25a021dc2bcaa7f80b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AMAT": {
+      "cik": "0000006951",
+      "name": "APPLIED MATERIALS INC /DE",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000006951.json",
+        "sha256": "ed5b9d52c5c29ddb0129461fa79283054574cfd690a298070e93b40ed077d074",
+        "file": "ed5b9d52c5c29ddb0129461fa79283054574cfd690a298070e93b40ed077d074.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BA": {
+      "cik": "0000012927",
+      "name": "BOEING CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000012927.json",
+        "sha256": "6772e8d08a03911e0079a2f480d7520686ba8ad2e53651efc76f4cfc6c0a0f57",
+        "file": "6772e8d08a03911e0079a2f480d7520686ba8ad2e53651efc76f4cfc6c0a0f57.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BSX": {
+      "cik": "0000885725",
+      "name": "BOSTON SCIENTIFIC CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000885725.json",
+        "sha256": "5d348b260162f0ff9e72f1cdb4251338fb0cc11b7fe04da110e518e93c91f9af",
+        "file": "5d348b260162f0ff9e72f1cdb4251338fb0cc11b7fe04da110e518e93c91f9af.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "C": {
+      "cik": "0000831001",
+      "name": "CITIGROUP INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000831001.json",
+        "sha256": "c9bca0f938fae23eba2977c4565a1c21b2d0fcc1c3354e71cd583ec812fd245f",
+        "file": "c9bca0f938fae23eba2977c4565a1c21b2d0fcc1c3354e71cd583ec812fd245f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "COP": {
+      "cik": "0001163165",
+      "name": "CONOCOPHILLIPS",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001163165.json",
+        "sha256": "4e16ff59a54a8891979d2c701e729c198d308ff3be7f3005833c8ad5de671f66",
+        "file": "4e16ff59a54a8891979d2c701e729c198d308ff3be7f3005833c8ad5de671f66.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PANW": {
+      "cik": "0001327567",
+      "name": "Palo Alto Networks Inc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001327567.json",
+        "sha256": "54acd6c26e8bfcdf5e0f0dea30dabef27123525133df99729bb4ccd8f000c402",
+        "file": "54acd6c26e8bfcdf5e0f0dea30dabef27123525133df99729bb4ccd8f000c402.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ADP": {
+      "cik": "0000008670",
+      "name": "AUTOMATIC DATA PROCESSING INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000008670.json",
+        "sha256": "ba43851293f7de5c8ed1718064b44173838ec049b9b95cdcf9a774801f3466e8",
+        "file": "ba43851293f7de5c8ed1718064b44173838ec049b9b95cdcf9a774801f3466e8.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "DE": {
+      "cik": "0000315189",
+      "name": "DEERE & CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000315189.json",
+        "sha256": "b035010d3d0a5c22f98002e91be2241008711647d8f4d78c2e8a533f341c0469",
+        "file": "b035010d3d0a5c22f98002e91be2241008711647d8f4d78c2e8a533f341c0469.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "FI": {
+      "cik": "0000798354",
+      "name": "FISERV INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000798354.json",
+        "sha256": "b84d17afe3f55cd2130c412903584532f1bfc5453720f89242530dc9207765e0",
+        "file": "b84d17afe3f55cd2130c412903584532f1bfc5453720f89242530dc9207765e0.json"
+      },
+      "verification": "historical_filing",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/798354/000079835425000047/fi-20241231.htm",
+        "sha256": "32a7233704bd19cb0f7755ca5e3349bbd347a0deee2fdfc8dcafb92a88579854",
+        "file": "32a7233704bd19cb0f7755ca5e3349bbd347a0deee2fdfc8dcafb92a88579854.htm"
+      }
+    },
+    "BMY": {
+      "cik": "0000014272",
+      "name": "BRISTOL MYERS SQUIBB CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000014272.json",
+        "sha256": "f7a3bed1f7eac63bb5a22cd3793ab024701dbbc2618007b3fd108d6996301d71",
+        "file": "f7a3bed1f7eac63bb5a22cd3793ab024701dbbc2618007b3fd108d6996301d71.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "LMT": {
+      "cik": "0000936468",
+      "name": "LOCKHEED MARTIN CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000936468.json",
+        "sha256": "1239eb3139490eb2e498f793380e150a5805844ec549f1ee1966129ac61e24d4",
+        "file": "1239eb3139490eb2e498f793380e150a5805844ec549f1ee1966129ac61e24d4.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "GILD": {
+      "cik": "0000882095",
+      "name": "GILEAD SCIENCES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000882095.json",
+        "sha256": "1710326c731e4bbc1f872334a686857a3fc7401d39ebfb8dce936e4ae98f3c01",
+        "file": "1710326c731e4bbc1f872334a686857a3fc7401d39ebfb8dce936e4ae98f3c01.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NKE": {
+      "cik": "0000320187",
+      "name": "NIKE, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000320187.json",
+        "sha256": "9cd2909f8f9a68c63b4acdf2636d4a4b25ab05069a86b1972de871fd4b91eb5c",
+        "file": "9cd2909f8f9a68c63b4acdf2636d4a4b25ab05069a86b1972de871fd4b91eb5c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CB": {
+      "cik": "0000896159",
+      "name": "Chubb Ltd",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000896159.json",
+        "sha256": "bb9b086c3c2c15653466fdb0305473750713b99384e28572763391dde4794c84",
+        "file": "bb9b086c3c2c15653466fdb0305473750713b99384e28572763391dde4794c84.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "UPS": {
+      "cik": "0001090727",
+      "name": "UNITED PARCEL SERVICE INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001090727.json",
+        "sha256": "b5540a0075af93743150183f79308f7e86f35855b7ecaeda705cd483c7fd2a40",
+        "file": "b5540a0075af93743150183f79308f7e86f35855b7ecaeda705cd483c7fd2a40.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ADI": {
+      "cik": "0000006281",
+      "name": "ANALOG DEVICES INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000006281.json",
+        "sha256": "a3235f00f5d18b58d15e5edd086eed3d8388a3f8a5559f154c2da426a03fa85c",
+        "file": "a3235f00f5d18b58d15e5edd086eed3d8388a3f8a5559f154c2da426a03fa85c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MMC": {
+      "cik": "0000062709",
+      "name": "MARSH & MCLENNAN COMPANIES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000062709.json",
+        "sha256": "60806bee3f2e329bd2840d77db79e551b29bd37b3b6aadcb47f4c486f5ea2361",
+        "file": "60806bee3f2e329bd2840d77db79e551b29bd37b3b6aadcb47f4c486f5ea2361.json"
+      },
+      "verification": "historical_filing",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/62709/000006270925000015/mmc-20241231.htm",
+        "sha256": "cfaea71fd1210debf0be7c91616dcdd59d399999e2ee91e8b64dfc0d7870787b",
+        "file": "cfaea71fd1210debf0be7c91616dcdd59d399999e2ee91e8b64dfc0d7870787b.htm"
+      }
+    },
+    "MDT": {
+      "cik": "0001613103",
+      "name": "Medtronic plc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001613103.json",
+        "sha256": "b2bc082c511e45fbc3a690fcdc1a75d0fc1b76275211da5ff1cafbd5f8fd2ac5",
+        "file": "b2bc082c511e45fbc3a690fcdc1a75d0fc1b76275211da5ff1cafbd5f8fd2ac5.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "VRTX": {
+      "cik": "0000875320",
+      "name": "VERTEX PHARMACEUTICALS INC / MA",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000875320.json",
+        "sha256": "5797143261a96d6e2d6241608005941ccfb19ae09de78743695af502be677987",
+        "file": "5797143261a96d6e2d6241608005941ccfb19ae09de78743695af502be677987.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MU": {
+      "cik": "0000723125",
+      "name": "MICRON TECHNOLOGY INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "sha256": "3589a20c1fb2596bfa403acf48faa779f3b6c494dc59fb07d2a44d92b54e2877",
+        "file": "3589a20c1fb2596bfa403acf48faa779f3b6c494dc59fb07d2a44d92b54e2877.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SBUX": {
+      "cik": "0000829224",
+      "name": "STARBUCKS CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000829224.json",
+        "sha256": "3ba41ee11892aa52eec55ead1a66849985e11b32f2d22f9feda0214f08507c7a",
+        "file": "3ba41ee11892aa52eec55ead1a66849985e11b32f2d22f9feda0214f08507c7a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PLD": {
+      "cik": "0001045609",
+      "name": "Prologis, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001045609.json",
+        "sha256": "98461aeb6a0f6f1e5d3ae7ad3239245a189e5ad47e376f3742122990c755e7f4",
+        "file": "98461aeb6a0f6f1e5d3ae7ad3239245a189e5ad47e376f3742122990c755e7f4.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "LRCX": {
+      "cik": "0000707549",
+      "name": "LAM RESEARCH CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000707549.json",
+        "sha256": "6fceded57bafb04f3a75bd0f9f49a3820281ed0681744a8163b29b75851ab9a2",
+        "file": "6fceded57bafb04f3a75bd0f9f49a3820281ed0681744a8163b29b75851ab9a2.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MO": {
+      "cik": "0000764180",
+      "name": "ALTRIA GROUP, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000764180.json",
+        "sha256": "65bb662191f9cd0ea1d1228d4bbdf1eb8bb1ea42f95bf30547e4f4f5835a696a",
+        "file": "65bb662191f9cd0ea1d1228d4bbdf1eb8bb1ea42f95bf30547e4f4f5835a696a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SO": {
+      "cik": "0000092122",
+      "name": "SOUTHERN CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000092122.json",
+        "sha256": "1e0d276201f01e099d4488073ae9dcc9ac61e1a2fa9d156310e7ed4596eca01f",
+        "file": "1e0d276201f01e099d4488073ae9dcc9ac61e1a2fa9d156310e7ed4596eca01f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "EQIX": {
+      "cik": "0001101239",
+      "name": "EQUINIX INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001101239.json",
+        "sha256": "9dc56659e0c735bd4c50b22ad97ea5bb34254f1f9f1686b7b95619700d9c5fb1",
+        "file": "9dc56659e0c735bd4c50b22ad97ea5bb34254f1f9f1686b7b95619700d9c5fb1.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SHW": {
+      "cik": "0000089800",
+      "name": "SHERWIN WILLIAMS CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000089800.json",
+        "sha256": "17a91a1ed8b6b510385eacdb1d1f4e3a22dbe11759ef26ee8360f9fbeeaca3b3",
+        "file": "17a91a1ed8b6b510385eacdb1d1f4e3a22dbe11759ef26ee8360f9fbeeaca3b3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ICE": {
+      "cik": "0001571949",
+      "name": "Intercontinental Exchange, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001571949.json",
+        "sha256": "f48f736909e1e02f414c11dc840dd80ee5285713258c6db6c1595f24bdb5d7eb",
+        "file": "f48f736909e1e02f414c11dc840dd80ee5285713258c6db6c1595f24bdb5d7eb.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CME": {
+      "cik": "0001156375",
+      "name": "CME GROUP INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001156375.json",
+        "sha256": "fb8b7c19a808dc54dd14097c491a0d7aec9f2f05de5640739dd50d94efc4b2f2",
+        "file": "fb8b7c19a808dc54dd14097c491a0d7aec9f2f05de5640739dd50d94efc4b2f2.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AMT": {
+      "cik": "0001053507",
+      "name": "AMERICAN TOWER CORP /MA/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001053507.json",
+        "sha256": "f57566944b74d717fb0c42aa710966d93027b9aece81b1613b25374972caad02",
+        "file": "f57566944b74d717fb0c42aa710966d93027b9aece81b1613b25374972caad02.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "APH": {
+      "cik": "0000820313",
+      "name": "AMPHENOL CORP /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000820313.json",
+        "sha256": "8291714ed6ca58fca680f5c57ed13e9102efa526b51aed84945ee70899a6560a",
+        "file": "8291714ed6ca58fca680f5c57ed13e9102efa526b51aed84945ee70899a6560a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ELV": {
+      "cik": "0001156039",
+      "name": "Elevance Health, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001156039.json",
+        "sha256": "f1aeafe2992be8ded1eba08207d29345123805467772865f1b94c707b48e54db",
+        "file": "f1aeafe2992be8ded1eba08207d29345123805467772865f1b94c707b48e54db.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TT": {
+      "cik": "0001466258",
+      "name": "Trane Technologies plc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001466258.json",
+        "sha256": "613eb0e614dc65a55c711b771ef46bacdcdc1bd32f7357f5d6422795eaf5def6",
+        "file": "613eb0e614dc65a55c711b771ef46bacdcdc1bd32f7357f5d6422795eaf5def6.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MCO": {
+      "cik": "0001059556",
+      "name": "MOODYS CORP /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001059556.json",
+        "sha256": "945a1eb02b4fc5828fc5a793f28f7d61cad7f2dec3d23ad20b4929e38e6103a3",
+        "file": "945a1eb02b4fc5828fc5a793f28f7d61cad7f2dec3d23ad20b4929e38e6103a3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CMG": {
+      "cik": "0001058090",
+      "name": "CHIPOTLE MEXICAN GRILL INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001058090.json",
+        "sha256": "b13956aa9e12a29527ecbec4832dcfd1e1e21c8c7b8ce3ebd98b01533a8bc2f2",
+        "file": "b13956aa9e12a29527ecbec4832dcfd1e1e21c8c7b8ce3ebd98b01533a8bc2f2.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "INTC": {
+      "cik": "0000050863",
+      "name": "INTEL CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000050863.json",
+        "sha256": "f04f1a2215ca448e8661d5dd6fea91c878168cf6f8edef08c7cab602659c4111",
+        "file": "f04f1a2215ca448e8661d5dd6fea91c878168cf6f8edef08c7cab602659c4111.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "KLAC": {
+      "cik": "0000319201",
+      "name": "KLA CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000319201.json",
+        "sha256": "8c04a72fc29c2ed1177f333d34682f200faec4d7add34d38692d0b0362f2a652",
+        "file": "8c04a72fc29c2ed1177f333d34682f200faec4d7add34d38692d0b0362f2a652.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "DUK": {
+      "cik": "0001326160",
+      "name": "Duke Energy CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001326160.json",
+        "sha256": "e46091b41bc2465f03b07c98bfab4ca53efef069d0d583c2f713f4a97574cad1",
+        "file": "e46091b41bc2465f03b07c98bfab4ca53efef069d0d583c2f713f4a97574cad1.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PH": {
+      "cik": "0000076334",
+      "name": "Parker-Hannifin Corp",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000076334.json",
+        "sha256": "43514f28345568ee03436104ec71761ae003d22f8dc2f2afd35c3f8ca01a775a",
+        "file": "43514f28345568ee03436104ec71761ae003d22f8dc2f2afd35c3f8ca01a775a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CDNS": {
+      "cik": "0000813672",
+      "name": "CADENCE DESIGN SYSTEMS INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000813672.json",
+        "sha256": "fb5a4fa8b1cc2bf08890563bafca3e2924edadda05d4ee59e39900f3493a0bdb",
+        "file": "fb5a4fa8b1cc2bf08890563bafca3e2924edadda05d4ee59e39900f3493a0bdb.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "WM": {
+      "cik": "0000823768",
+      "name": "WASTE MANAGEMENT INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000823768.json",
+        "sha256": "93b71a8292860cd4cccc44de2c8e355a91f2e4b06090d94d314dd5036a326f71",
+        "file": "93b71a8292860cd4cccc44de2c8e355a91f2e4b06090d94d314dd5036a326f71.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MDLZ": {
+      "cik": "0001103982",
+      "name": "Mondelez International, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001103982.json",
+        "sha256": "53cae3bdf3f918a060843a4dc5182580e75bee78678cafc5559649589bdfc39e",
+        "file": "53cae3bdf3f918a060843a4dc5182580e75bee78678cafc5559649589bdfc39e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MAR": {
+      "cik": "0001048286",
+      "name": "MARRIOTT INTERNATIONAL INC /MD/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001048286.json",
+        "sha256": "2be44c9ebec82f76c6620bb685926ada2649776bbeb6f42d99db44f3b693d708",
+        "file": "2be44c9ebec82f76c6620bb685926ada2649776bbeb6f42d99db44f3b693d708.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MSI": {
+      "cik": "0000068505",
+      "name": "Motorola Solutions, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000068505.json",
+        "sha256": "cc84200f1814c58badd7db6d9266f443c27afe3bc02d93f8f46bc84ea6fb82be",
+        "file": "cc84200f1814c58badd7db6d9266f443c27afe3bc02d93f8f46bc84ea6fb82be.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "WELL": {
+      "cik": "0000766704",
+      "name": "WELLTOWER INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000766704.json",
+        "sha256": "cf46778c7a7e2d85ab8d71f069785a83e5f9defccd50acae23db525a1123be04",
+        "file": "cf46778c7a7e2d85ab8d71f069785a83e5f9defccd50acae23db525a1123be04.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AON": {
+      "cik": "0000315293",
+      "name": "Aon plc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000315293.json",
+        "sha256": "25936d335a76c040434ad71246093a801c1b21bbdac7c062884b91d5eff84793",
+        "file": "25936d335a76c040434ad71246093a801c1b21bbdac7c062884b91d5eff84793.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "REGN": {
+      "cik": "0000872589",
+      "name": "REGENERON PHARMACEUTICALS, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000872589.json",
+        "sha256": "290e3a5347d5b1ecd6d7bca161fafbb8f28c88e61599256afb9100594ec81cf3",
+        "file": "290e3a5347d5b1ecd6d7bca161fafbb8f28c88e61599256afb9100594ec81cf3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CI": {
+      "cik": "0001739940",
+      "name": "Cigna Group",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001739940.json",
+        "sha256": "b869aca3ec2d02fae90f311b8eb2141139767674058e01e514fc8cec35a9b08b",
+        "file": "b869aca3ec2d02fae90f311b8eb2141139767674058e01e514fc8cec35a9b08b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "2018 combination with Express Scripts. Earlier financials follow predecessor Cigna; the acquisition changes comparability across years.",
+        "primary": {
+          "filed_from": "2018-12-20",
+          "period_end_from": "2016-01-01"
+        },
+        "predecessors": [
+          {
+            "cik": "0000701221",
+            "name": "Cigna Holding Co",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0000701221.json",
+              "sha256": "faa1c3d7a6bae880fa90894adf3b349fb326662e41734e189afca7e85a7b27b0",
+              "file": "faa1c3d7a6bae880fa90894adf3b349fb326662e41734e189afca7e85a7b27b0.json"
+            },
+            "eligibility": {
+              "filed_to": "2018-12-20",
+              "period_end_to": "2015-12-31"
+            }
+          }
+        ],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1739940/000104746919000792/a2237767z10-k.htm",
+            "sha256": "1f0c880554cc6aa8cae1e289f35ae8d26fa830a4a898e7d2a64b1ebd821b100e",
+            "file": "1f0c880554cc6aa8cae1e289f35ae8d26fa830a4a898e7d2a64b1ebd821b100e.htm"
+          }
+        ]
+      }
+    },
+    "HCA": {
+      "cik": "0000860730",
+      "name": "HCA Healthcare, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000860730.json",
+        "sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+        "file": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PNC": {
+      "cik": "0000713676",
+      "name": "PNC FINANCIAL SERVICES GROUP, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000713676.json",
+        "sha256": "e88c3a303e8b2b1a9b8526e9ece944270b8d615983777d0f16aa6237f068c271",
+        "file": "e88c3a303e8b2b1a9b8526e9ece944270b8d615983777d0f16aa6237f068c271.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ITW": {
+      "cik": "0000049826",
+      "name": "ILLINOIS TOOL WORKS INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000049826.json",
+        "sha256": "7d6ede6f27348fa8bb0e96367c7520917d009af9252b083284e1a6375e448326",
+        "file": "7d6ede6f27348fa8bb0e96367c7520917d009af9252b083284e1a6375e448326.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SNPS": {
+      "cik": "0000883241",
+      "name": "SYNOPSYS INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000883241.json",
+        "sha256": "fc837dca8b5fc7ff3657c776a2b1c201c1e460ce6a0f0f4aaa456872aca42720",
+        "file": "fc837dca8b5fc7ff3657c776a2b1c201c1e460ce6a0f0f4aaa456872aca42720.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CTAS": {
+      "cik": "0000723254",
+      "name": "CINTAS CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000723254.json",
+        "sha256": "dcf172df039a9fa7c13f5789d6ee2ae400c9acb62b5f04f45d4b807f76154daa",
+        "file": "dcf172df039a9fa7c13f5789d6ee2ae400c9acb62b5f04f45d4b807f76154daa.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CL": {
+      "cik": "0000021665",
+      "name": "COLGATE PALMOLIVE CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000021665.json",
+        "sha256": "ec08514c31d65fa388335db1242539621d23ba447da1be334a7a3374afe8bbc0",
+        "file": "ec08514c31d65fa388335db1242539621d23ba447da1be334a7a3374afe8bbc0.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "USB": {
+      "cik": "0000036104",
+      "name": "US BANCORP \\DE\\",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000036104.json",
+        "sha256": "757282105ec7959ed8040436cd07ceaff71e35ffbc25ae32edcf713429277fd3",
+        "file": "757282105ec7959ed8040436cd07ceaff71e35ffbc25ae32edcf713429277fd3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "FTNT": {
+      "cik": "0001262039",
+      "name": "Fortinet, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001262039.json",
+        "sha256": "5ab4113b0ba5630a1220098e234b319dc4fb92b2b25fc4701efb03dcad0abc74",
+        "file": "5ab4113b0ba5630a1220098e234b319dc4fb92b2b25fc4701efb03dcad0abc74.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ZTS": {
+      "cik": "0001555280",
+      "name": "Zoetis Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001555280.json",
+        "sha256": "5427a43d1d929bc0a774f070850324f856646e86d15ce86da830b01c7bf0a8c6",
+        "file": "5427a43d1d929bc0a774f070850324f856646e86d15ce86da830b01c7bf0a8c6.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MCK": {
+      "cik": "0000927653",
+      "name": "MCKESSON CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000927653.json",
+        "sha256": "350a01f75d72dfcb651abd55e68769e4bbb1b4fb978c6d82b551d53ed6dd3e20",
+        "file": "350a01f75d72dfcb651abd55e68769e4bbb1b4fb978c6d82b551d53ed6dd3e20.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "GD": {
+      "cik": "0000040533",
+      "name": "GENERAL DYNAMICS CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000040533.json",
+        "sha256": "00ecded6b8d2a0823e66efcbf5b0c210663f961557b9e3f017598964aff17613",
+        "file": "00ecded6b8d2a0823e66efcbf5b0c210663f961557b9e3f017598964aff17613.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TDG": {
+      "cik": "0001260221",
+      "name": "TransDigm Group INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001260221.json",
+        "sha256": "f5c47ca02d0fbf6b5a7599d926f2fb2b02433e1d57762436811707424e3c7e6e",
+        "file": "f5c47ca02d0fbf6b5a7599d926f2fb2b02433e1d57762436811707424e3c7e6e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AJG": {
+      "cik": "0000354190",
+      "name": "Arthur J. Gallagher & Co.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000354190.json",
+        "sha256": "bdc5a93154b20e87b2c48487a5f32a6e051c6e42879a3b69ff1ffeb3dfe09816",
+        "file": "bdc5a93154b20e87b2c48487a5f32a6e051c6e42879a3b69ff1ffeb3dfe09816.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "EMR": {
+      "cik": "0000032604",
+      "name": "EMERSON ELECTRIC CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000032604.json",
+        "sha256": "b55665069daecbc3f4c683e519679538fe6f2c50a08a7fa82a1be6a13ea7044b",
+        "file": "b55665069daecbc3f4c683e519679538fe6f2c50a08a7fa82a1be6a13ea7044b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MMM": {
+      "cik": "0000066740",
+      "name": "3M CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000066740.json",
+        "sha256": "bde829de92f07d0f92359a2d38b1e7d7cab5050bb71611c974a4fa075a6f033c",
+        "file": "bde829de92f07d0f92359a2d38b1e7d7cab5050bb71611c974a4fa075a6f033c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ORLY": {
+      "cik": "0000898173",
+      "name": "O REILLY AUTOMOTIVE INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000898173.json",
+        "sha256": "37178daf6b59aaf3927e63c2beb41191f733ebeaa2cc99f4a308c563d79430af",
+        "file": "37178daf6b59aaf3927e63c2beb41191f733ebeaa2cc99f4a308c563d79430af.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NOC": {
+      "cik": "0001133421",
+      "name": "NORTHROP GRUMMAN CORP /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001133421.json",
+        "sha256": "1fd77edcd0147a1ccbe49bc0587a718e5329d35323563abde5045a3c9857612b",
+        "file": "1fd77edcd0147a1ccbe49bc0587a718e5329d35323563abde5045a3c9857612b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "COF": {
+      "cik": "0000927628",
+      "name": "CAPITAL ONE FINANCIAL CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000927628.json",
+        "sha256": "135cdee30f9d9ec4d016f927075d6a3279aadd5db9de52b308ea0daf7023d677",
+        "file": "135cdee30f9d9ec4d016f927075d6a3279aadd5db9de52b308ea0daf7023d677.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ECL": {
+      "cik": "0000031462",
+      "name": "ECOLAB INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000031462.json",
+        "sha256": "02e73583077d3dd9f3136347882a37c927b48765473ee5c51e79604325fa7644",
+        "file": "02e73583077d3dd9f3136347882a37c927b48765473ee5c51e79604325fa7644.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "EOG": {
+      "cik": "0000821189",
+      "name": "EOG RESOURCES INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000821189.json",
+        "sha256": "e1bb80cb03180a8b924cb65c327d926a394ef8c57ea3a5718c5e7acbeb2a4554",
+        "file": "e1bb80cb03180a8b924cb65c327d926a394ef8c57ea3a5718c5e7acbeb2a4554.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "FDX": {
+      "cik": "0001048911",
+      "name": "FEDEX CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001048911.json",
+        "sha256": "3683085f8dd30c90d6ed212881fbee08c809e2d54921acb1942e2fc4c6a2f60a",
+        "file": "3683085f8dd30c90d6ed212881fbee08c809e2d54921acb1942e2fc4c6a2f60a.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BDX": {
+      "cik": "0000010795",
+      "name": "BECTON DICKINSON & CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000010795.json",
+        "sha256": "dcde58662fbe82ef7b9e532683f27d13746de7a0c99a6a1d0926b5631555b4dd",
+        "file": "dcde58662fbe82ef7b9e532683f27d13746de7a0c99a6a1d0926b5631555b4dd.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "APD": {
+      "cik": "0000002969",
+      "name": "Air Products & Chemicals, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000002969.json",
+        "sha256": "5b48ab91146eddc7b298a18eaafb50a8ad43f9ec9bb616e90c62c4f665c94b34",
+        "file": "5b48ab91146eddc7b298a18eaafb50a8ad43f9ec9bb616e90c62c4f665c94b34.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "WMB": {
+      "cik": "0000107263",
+      "name": "WILLIAMS COMPANIES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000107263.json",
+        "sha256": "ff1ee714576bebacb723937dc8cfb6e51cf42215ae70603fbc718b61d49c3327",
+        "file": "ff1ee714576bebacb723937dc8cfb6e51cf42215ae70603fbc718b61d49c3327.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SPG": {
+      "cik": "0001063761",
+      "name": "SIMON PROPERTY GROUP INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001063761.json",
+        "sha256": "4622dd625ccd4f0b2328005c2a970e285a81a6ccfb52318f0ab3d64745502925",
+        "file": "4622dd625ccd4f0b2328005c2a970e285a81a6ccfb52318f0ab3d64745502925.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ADSK": {
+      "cik": "0000769397",
+      "name": "Autodesk, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000769397.json",
+        "sha256": "6be434af989da69a6c129231b9f768f4c18ef0c9e93c27b71c98237b253fc596",
+        "file": "6be434af989da69a6c129231b9f768f4c18ef0c9e93c27b71c98237b253fc596.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "RCL": {
+      "cik": "0000884887",
+      "name": "ROYAL CARIBBEAN CRUISES LTD",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000884887.json",
+        "sha256": "3d97453cb971ccef0b24b12dede5f43f85130ee520fe76c810521bb9f69614d2",
+        "file": "3d97453cb971ccef0b24b12dede5f43f85130ee520fe76c810521bb9f69614d2.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "RSG": {
+      "cik": "0001060391",
+      "name": "REPUBLIC SERVICES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001060391.json",
+        "sha256": "87aa53a16d0da670b343fe0f7737eb468638d38a526b657f5953acae75ac2ae4",
+        "file": "87aa53a16d0da670b343fe0f7737eb468638d38a526b657f5953acae75ac2ae4.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CSX": {
+      "cik": "0000277948",
+      "name": "CSX CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000277948.json",
+        "sha256": "90be53ad1c0254dd3c44cfed66b6d4af76e5d1d63b6f9f39a23aba3e71b5d12b",
+        "file": "90be53ad1c0254dd3c44cfed66b6d4af76e5d1d63b6f9f39a23aba3e71b5d12b.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "HLT": {
+      "cik": "0001585689",
+      "name": "Hilton Worldwide Holdings Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001585689.json",
+        "sha256": "1e54c38cff142303ce7d105de697547300b55613e4db3c055b13aaf1729fd3ab",
+        "file": "1e54c38cff142303ce7d105de697547300b55613e4db3c055b13aaf1729fd3ab.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "DLR": {
+      "cik": "0001297996",
+      "name": "DIGITAL REALTY TRUST, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001297996.json",
+        "sha256": "edcf1e281db854f00284d3645a7665c0c47ed6bb78922256405f1056a93cee2e",
+        "file": "edcf1e281db854f00284d3645a7665c0c47ed6bb78922256405f1056a93cee2e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TGT": {
+      "cik": "0000027419",
+      "name": "TARGET CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000027419.json",
+        "sha256": "3d133aa9e678fcf843c4ed95e51dd6c5f298df3a21cc6b6e2b84429a8b506975",
+        "file": "3d133aa9e678fcf843c4ed95e51dd6c5f298df3a21cc6b6e2b84429a8b506975.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "KMI": {
+      "cik": "0001506307",
+      "name": "KINDER MORGAN, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001506307.json",
+        "sha256": "fb27266cf5b7aaf85dd6430135e36260f92c2e5818418cf5862dc501b86aa3fb",
+        "file": "fb27266cf5b7aaf85dd6430135e36260f92c2e5818418cf5862dc501b86aa3fb.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "OKE": {
+      "cik": "0001039684",
+      "name": "ONEOK INC /NEW/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001039684.json",
+        "sha256": "ad07b8a2fa23b1ed358c4c14f807af409d203e22366cdcf58242f6323a905b3c",
+        "file": "ad07b8a2fa23b1ed358c4c14f807af409d203e22366cdcf58242f6323a905b3c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TFC": {
+      "cik": "0000092230",
+      "name": "TRUIST FINANCIAL CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000092230.json",
+        "sha256": "2e287105eb12301ab3304bbeb8f951ec005a26d908456734e43eeee6bb3199d6",
+        "file": "2e287105eb12301ab3304bbeb8f951ec005a26d908456734e43eeee6bb3199d6.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AFL": {
+      "cik": "0000004977",
+      "name": "AFLAC INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000004977.json",
+        "sha256": "67ff365ac0df471c8c54b5525c2c915267b19a4abd7c261c773510b3007cb7a1",
+        "file": "67ff365ac0df471c8c54b5525c2c915267b19a4abd7c261c773510b3007cb7a1.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "GM": {
+      "cik": "0001467858",
+      "name": "General Motors Co",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001467858.json",
+        "sha256": "8d1a3899555991bd95882883f964893201d49a726dce93d06bd652516f01e02f",
+        "file": "8d1a3899555991bd95882883f964893201d49a726dce93d06bd652516f01e02f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ROP": {
+      "cik": "0000882835",
+      "name": "ROPER TECHNOLOGIES INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000882835.json",
+        "sha256": "b299a96072eab4fb93291eceac8d16b6819b9d9f31a8497a5e71b2b200028a1d",
+        "file": "b299a96072eab4fb93291eceac8d16b6819b9d9f31a8497a5e71b2b200028a1d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MET": {
+      "cik": "0001099219",
+      "name": "METLIFE INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001099219.json",
+        "sha256": "2d655091d5c88a57c0d3ff217829b401d7d9cf2254b7feb3f0ecf1414b132233",
+        "file": "2d655091d5c88a57c0d3ff217829b401d7d9cf2254b7feb3f0ecf1414b132233.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CPRT": {
+      "cik": "0000900075",
+      "name": "COPART INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000900075.json",
+        "sha256": "ee334e6e97692317a284935c4ea40cdb2835c61bcaa71aa07a8ede230c4e573e",
+        "file": "ee334e6e97692317a284935c4ea40cdb2835c61bcaa71aa07a8ede230c4e573e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "FCX": {
+      "cik": "0000831259",
+      "name": "FREEPORT-MCMORAN INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000831259.json",
+        "sha256": "8a2e8a67a77d1f69e24727d8f9ae177fc532ac6fbc14558d73ea95f24456f8ec",
+        "file": "8a2e8a67a77d1f69e24727d8f9ae177fc532ac6fbc14558d73ea95f24456f8ec.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CVS": {
+      "cik": "0000064803",
+      "name": "CVS HEALTH Corp",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000064803.json",
+        "sha256": "b5a7da7d9adb7d8309467f7d3bdb15938d52afcd0d7197d5667980cfe0c56c0e",
+        "file": "b5a7da7d9adb7d8309467f7d3bdb15938d52afcd0d7197d5667980cfe0c56c0e.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PCAR": {
+      "cik": "0000075362",
+      "name": "PACCAR INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000075362.json",
+        "sha256": "cd5d238ed093644e2bf61ae35b22c23503d91c3b0ed1dc5a6c2ea948bb3ec952",
+        "file": "cd5d238ed093644e2bf61ae35b22c23503d91c3b0ed1dc5a6c2ea948bb3ec952.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SRE": {
+      "cik": "0001032208",
+      "name": "SEMPRA",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001032208.json",
+        "sha256": "d3e5f4db20fbf98fe792fa9a60048a823006ca2b186cf5ac21712d64f6869f15",
+        "file": "d3e5f4db20fbf98fe792fa9a60048a823006ca2b186cf5ac21712d64f6869f15.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AZO": {
+      "cik": "0000866787",
+      "name": "AUTOZONE INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000866787.json",
+        "sha256": "ab8d3c0b34b66116a5b9f42ad553f1435b829a1021cc0d810261807dd83f936c",
+        "file": "ab8d3c0b34b66116a5b9f42ad553f1435b829a1021cc0d810261807dd83f936c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "TRV": {
+      "cik": "0000086312",
+      "name": "TRAVELERS COMPANIES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000086312.json",
+        "sha256": "d477778a6e14a19a9ef01d8e31fcb94990b224b10c829bad4bbd1f7de33047f0",
+        "file": "d477778a6e14a19a9ef01d8e31fcb94990b224b10c829bad4bbd1f7de33047f0.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NXPI": {
+      "cik": "0001413447",
+      "name": "NXP Semiconductors N.V.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001413447.json",
+        "sha256": "75150da19e4969c301d5e9bd6af79eb2d1b6c1bc6bad695d3a93d33332636be5",
+        "file": "75150da19e4969c301d5e9bd6af79eb2d1b6c1bc6bad695d3a93d33332636be5.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "JCI": {
+      "cik": "0000833444",
+      "name": "Johnson Controls International plc",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000833444.json",
+        "sha256": "b2dfcb53a5ad28d04c8b908a3578838ab029260a8072fdc4cda4bd61b7b70f44",
+        "file": "b2dfcb53a5ad28d04c8b908a3578838ab029260a8072fdc4cda4bd61b7b70f44.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "2016 business combination with Tyco. Earlier financial periods follow Johnson Controls as the accounting predecessor; standalone Tyco results are excluded.",
+        "primary": {
+          "filed_from": "2016-09-02"
+        },
+        "predecessors": [],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/833444/000083344417000007/q1fy1710-q.htm",
+            "sha256": "d98eedd015839f22b2430d6a33917588faeda9e4d44ead52f98dea8ff8d5b5cd",
+            "file": "d98eedd015839f22b2430d6a33917588faeda9e4d44ead52f98dea8ff8d5b5cd.htm"
+          }
+        ]
+      }
+    },
+    "GWW": {
+      "cik": "0000277135",
+      "name": "W.W. GRAINGER, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000277135.json",
+        "sha256": "52c571b2662092cfc9835301d829b6197e0803cf226f0600f477810431a80322",
+        "file": "52c571b2662092cfc9835301d829b6197e0803cf226f0600f477810431a80322.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NSC": {
+      "cik": "0000702165",
+      "name": "NORFOLK SOUTHERN CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000702165.json",
+        "sha256": "8ba0ba9ac6179a16a44178e03ad599101db12543ac7babf9fad30ec261565c33",
+        "file": "8ba0ba9ac6179a16a44178e03ad599101db12543ac7babf9fad30ec261565c33.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PSA": {
+      "cik": "0001393311",
+      "name": "Public Storage",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001393311.json",
+        "sha256": "2acba708b883d2ee8eaa330cfac1b0c42af751cf8688d2ace610c29b432aec17",
+        "file": "2acba708b883d2ee8eaa330cfac1b0c42af751cf8688d2ace610c29b432aec17.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "SLB": {
+      "cik": "0000087347",
+      "name": "SLB LIMITED/NV",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000087347.json",
+        "sha256": "f94ef0a3451ebcd23b0d64b5781264af08c09703fafaaff5b72e5c2a77ca8ad6",
+        "file": "f94ef0a3451ebcd23b0d64b5781264af08c09703fafaaff5b72e5c2a77ca8ad6.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AMP": {
+      "cik": "0000820027",
+      "name": "AMERIPRISE FINANCIAL INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000820027.json",
+        "sha256": "210c20b63050989cc28aa8b5f9d9a5d55bae6fbb940c4755ab8369e9ac20360c",
+        "file": "210c20b63050989cc28aa8b5f9d9a5d55bae6fbb940c4755ab8369e9ac20360c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ALL": {
+      "cik": "0000899051",
+      "name": "ALLSTATE CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000899051.json",
+        "sha256": "45e6956da7f9fe8b4991d7af082494da56c99450b2d248f3d098b6ca62665d9d",
+        "file": "45e6956da7f9fe8b4991d7af082494da56c99450b2d248f3d098b6ca62665d9d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "FICO": {
+      "cik": "0000814547",
+      "name": "FAIR ISAAC CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000814547.json",
+        "sha256": "5d9abb1b0cfea4aca0a090df6e44f0b9d78cb73df0169c1364185d455e9c0ea1",
+        "file": "5d9abb1b0cfea4aca0a090df6e44f0b9d78cb73df0169c1364185d455e9c0ea1.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MNST": {
+      "cik": "0000865752",
+      "name": "Monster Beverage Corp",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000865752.json",
+        "sha256": "9fe76ac8f6e938b6c034c4bc97006389b5d3cdd216d99c4231ea280ab361778d",
+        "file": "9fe76ac8f6e938b6c034c4bc97006389b5d3cdd216d99c4231ea280ab361778d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PAYX": {
+      "cik": "0000723531",
+      "name": "PAYCHEX INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000723531.json",
+        "sha256": "10abe431d64e8f32e3221e79bddb2e57becdcbb1d4ac691acd1544e31ee8ab33",
+        "file": "10abe431d64e8f32e3221e79bddb2e57becdcbb1d4ac691acd1544e31ee8ab33.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CHTR": {
+      "cik": "0001091667",
+      "name": "CHARTER COMMUNICATIONS, INC. /MO/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001091667.json",
+        "sha256": "8b8dab9df8a9abfbaf7329c5637e84c853d5fa0014750e2e88e032437b46991c",
+        "file": "8b8dab9df8a9abfbaf7329c5637e84c853d5fa0014750e2e88e032437b46991c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AEP": {
+      "cik": "0000004904",
+      "name": "AMERICAN ELECTRIC POWER CO INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000004904.json",
+        "sha256": "7a15703202c0fd04a4dfb14898d1034a6ddf067cfa2ff3484e8f8a8725701f36",
+        "file": "7a15703202c0fd04a4dfb14898d1034a6ddf067cfa2ff3484e8f8a8725701f36.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "ROST": {
+      "cik": "0000745732",
+      "name": "ROSS STORES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000745732.json",
+        "sha256": "dac30041ce331a0ed131df95bd4ad8fff7206bb8d24ee8ab53acd43d4b8cdc3c",
+        "file": "dac30041ce331a0ed131df95bd4ad8fff7206bb8d24ee8ab53acd43d4b8cdc3c.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PWR": {
+      "cik": "0001050915",
+      "name": "QUANTA SERVICES, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001050915.json",
+        "sha256": "6b65a0ccfcbf82073845a3dad6b126eb79dea35d12092837c53c263c3a014a71",
+        "file": "6b65a0ccfcbf82073845a3dad6b126eb79dea35d12092837c53c263c3a014a71.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "CMI": {
+      "cik": "0000026172",
+      "name": "CUMMINS INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000026172.json",
+        "sha256": "9ca0c93a912f7eed6ab64b929788391c0bf5ff94088626f6105736eabb4a2a21",
+        "file": "9ca0c93a912f7eed6ab64b929788391c0bf5ff94088626f6105736eabb4a2a21.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AXON": {
+      "cik": "0001069183",
+      "name": "AXON ENTERPRISE, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001069183.json",
+        "sha256": "490bd448cff890b19679ff7a0f74292e3075d275e4c526d5fba72ba6beaf4298",
+        "file": "490bd448cff890b19679ff7a0f74292e3075d275e4c526d5fba72ba6beaf4298.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "URI": {
+      "cik": "0001067701",
+      "name": "UNITED RENTALS, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001067701.json",
+        "sha256": "ba46ae2bb050c400c7a77cb3382f9d34979fc311fc46a30508bf9fbe9e3fed0f",
+        "file": "ba46ae2bb050c400c7a77cb3382f9d34979fc311fc46a30508bf9fbe9e3fed0f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "MSCI": {
+      "cik": "0001408198",
+      "name": "MSCI Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001408198.json",
+        "sha256": "b4e6e1349ace2d8450e608c4c9d5383747e0c5d4510041fdc6b85234d1b79fad",
+        "file": "b4e6e1349ace2d8450e608c4c9d5383747e0c5d4510041fdc6b85234d1b79fad.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "LULU": {
+      "cik": "0001397187",
+      "name": "lululemon athletica inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001397187.json",
+        "sha256": "e243693d61286f2b928d805ecfadd23496ad0171dd76f72523af5955f8aab810",
+        "file": "e243693d61286f2b928d805ecfadd23496ad0171dd76f72523af5955f8aab810.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "O": {
+      "cik": "0000726728",
+      "name": "REALTY INCOME CORP",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000726728.json",
+        "sha256": "d764d15247fde35412c69d73905b22fbd34c7ae6bce0e5a02d2950e043157500",
+        "file": "d764d15247fde35412c69d73905b22fbd34c7ae6bce0e5a02d2950e043157500.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "PSX": {
+      "cik": "0001534701",
+      "name": "Phillips 66",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001534701.json",
+        "sha256": "95343a971c499f784f70db421e4304e8cd1c6bcca5d8f2cbef2b914ab6a78bb3",
+        "file": "95343a971c499f784f70db421e4304e8cd1c6bcca5d8f2cbef2b914ab6a78bb3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "AIG": {
+      "cik": "0000005272",
+      "name": "AMERICAN INTERNATIONAL GROUP, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000005272.json",
+        "sha256": "bbed6d7b78a83aff10ebcc956cc016859cab2ba14a42cbde3dd57453fd373df3",
+        "file": "bbed6d7b78a83aff10ebcc956cc016859cab2ba14a42cbde3dd57453fd373df3.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "FANG": {
+      "cik": "0001539838",
+      "name": "Diamondback Energy, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001539838.json",
+        "sha256": "da46a19c3a2614303e37f54df988543a3437990538a0c5e822115ed314330eae",
+        "file": "da46a19c3a2614303e37f54df988543a3437990538a0c5e822115ed314330eae.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "D": {
+      "cik": "0000715957",
+      "name": "DOMINION ENERGY, INC",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000715957.json",
+        "sha256": "b9e811f4b26697220082c6227161fa88644dd4ba5c5d379e9dcd1e471c36a7d4",
+        "file": "b9e811f4b26697220082c6227161fa88644dd4ba5c5d379e9dcd1e471c36a7d4.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "DHI": {
+      "cik": "0000882184",
+      "name": "HORTON D R INC /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000882184.json",
+        "sha256": "c9a8128bf8f7d76fd90d0243253cfa4b845ed17858430aa40b4cbd98f8ace44f",
+        "file": "c9a8128bf8f7d76fd90d0243253cfa4b845ed17858430aa40b4cbd98f8ace44f.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "KR": {
+      "cik": "0000056873",
+      "name": "KROGER CO",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000056873.json",
+        "sha256": "dcf139d759922dcb555b726ed5ae071cb0854eeb56197e28ea093ff84076cf5d",
+        "file": "dcf139d759922dcb555b726ed5ae071cb0854eeb56197e28ea093ff84076cf5d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "NDAQ": {
+      "cik": "0001120193",
+      "name": "NASDAQ, INC.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001120193.json",
+        "sha256": "222acffd8a04fe0e4d15780694ad68d418df639ca8ed6805dc314fa1acac8c0d",
+        "file": "222acffd8a04fe0e4d15780694ad68d418df639ca8ed6805dc314fa1acac8c0d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "OXY": {
+      "cik": "0000797468",
+      "name": "OCCIDENTAL PETROLEUM CORP /DE/",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0000797468.json",
+        "sha256": "21acf486d4c99ee1b1f1468612a0bb12fad4c5dde7bd0ba59d8ff9e12a603478",
+        "file": "21acf486d4c99ee1b1f1468612a0bb12fad4c5dde7bd0ba59d8ff9e12a603478.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "EW": {
+      "cik": "0001099800",
+      "name": "Edwards Lifesciences Corp",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001099800.json",
+        "sha256": "cfa8aff7eea6dd67cf59b5692b9b2218235ee1ccb636aba06ae0db1c98ef3f09",
+        "file": "cfa8aff7eea6dd67cf59b5692b9b2218235ee1ccb636aba06ae0db1c98ef3f09.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "COR": {
+      "cik": "0001140859",
+      "name": "Cencora, Inc.",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001140859.json",
+        "sha256": "2a6d92fe3130ecf77bc297c36175a4ad40a7ed0068ca2162eeb53bef5044f96d",
+        "file": "2a6d92fe3130ecf77bc297c36175a4ad40a7ed0068ca2162eeb53bef5044f96d.json"
+      },
+      "verification": "verified_submission",
+      "evidence": null
+    },
+    "BK": {
+      "cik": "0001390777",
+      "name": "Bank of New York Mellon Corp",
+      "submissions": {
+        "url": "https://data.sec.gov/submissions/CIK0001390777.json",
+        "sha256": "5b9a1e59568849b82942d40a2c7d0f948f6d81b83f133d508af3b4c34002182d",
+        "file": "5b9a1e59568849b82942d40a2c7d0f948f6d81b83f133d508af3b4c34002182d.json"
+      },
+      "verification": "historical_filing",
+      "evidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1390777/000139077725000046/bk-20241231.htm",
+        "sha256": "bf72064ade28ecc285fa12b0e14538fec769b04ffdc83ee1016234f7953b5b02",
+        "file": "bf72064ade28ecc285fa12b0e14538fec769b04ffdc83ee1016234f7953b5b02.htm"
+      }
+    }
+  },
+  "history_review": {
+    "reviewed_at": "2026-10-21",
+    "scope": "Screen all 200 cached SEC issuers for name changes, annual gaps and overlapping periods. Verify six issuer-history exceptions against SEC documents. This does not certify all historical corporate actions or financial comparability.",
+    "deferred": {}
+  }
+}

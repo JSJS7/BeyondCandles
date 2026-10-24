@@ -2,7 +2,6 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 
@@ -10,7 +9,7 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_user: str
     postgres_password: str
-    postgres_host: str = "localhost"
+    postgres_host: str = "127.0.0.1"
     postgres_port: int = 5432
     sec_user_agent: str | None = None
 
@@ -21,4 +20,5 @@ class Settings(BaseSettings):
     )
 
 
-settings = Settings()
+# Required values are supplied by BaseSettings from the environment and .env.
+settings = Settings()  # pyright: ignore[reportCallIssue]

@@ -1,12 +1,79 @@
-/* Global layout reset to keep app scroll inside routed content area. */
+/* Shared palette. Components use these roles instead of literal colors. */
+:root {
+  color-scheme: light;
+  --bc-page: #eef0f3;
+  --bc-surface: #f8f9fa;
+  --bc-subtle: #e6e9ed;
+  --bc-text: #252a33;
+  --bc-muted: #626975;
+  --bc-border: #d1d6de;
+  --bc-control-border: #7c8491;
+  --bc-primary: #6b4aa5;
+  --bc-secondary: #286b70;
+  --bc-warning: #855715;
+  --bc-shadow: 0 12px 30px rgba(25, 30, 40, 0.12);
+  --bc-focus-ring: 0 0 0 3px rgba(107, 74, 165, 0.2);
+  --bc-selection: rgba(107, 74, 165, 0.18);
+  --bc-backdrop: rgba(25, 30, 40, 0.5);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bc-page: #222426;
+  --bc-surface: #292c30;
+  --bc-subtle: #34383e;
+  --bc-text: #e5e8ed;
+  --bc-muted: #b0b4bd;
+  --bc-border: #4a5059;
+  --bc-control-border: #808895;
+  --bc-primary: #baa6ee;
+  --bc-secondary: #8ac5c8;
+  --bc-warning: #e4be77;
+  --bc-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  --bc-focus-ring: 0 0 0 3px rgba(186, 166, 238, 0.25);
+  --bc-selection: rgba(186, 166, 238, 0.2);
+  --bc-backdrop: rgba(0, 0, 0, 0.6);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
-	height: 100%;
-	margin: 0;
-	overflow: hidden;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bc-page);
+  color: var(--bc-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--bc-primary);
+  outline-offset: 3px;
 }
 
 app-root {
-	display: block;
-	height: 100%;
+  display: block;
+  height: 100%;
 }

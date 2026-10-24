@@ -15,14 +15,15 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
     this.healthService.getHealth().subscribe({
       next: (response) => {
-        this.backendStatus.set(response.status === 'ok'
-          ? 'Backend is running'
-          : 'Backend returned an unexpected response'
+        this.backendStatus.set(
+          response.status === 'ok'
+            ? 'Backend is running'
+            : 'Backend returned an unexpected response',
         );
       },
       error: () => {
         this.backendStatus.set('Backend is unavailable');
-      }
+      },
     });
   }
 }

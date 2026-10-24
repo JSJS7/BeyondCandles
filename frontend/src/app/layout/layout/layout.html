@@ -1,8 +1,22 @@
-<app-sidebar />
+<app-sidebar class="desktop-sidebar" />
 
 <div class="main-content">
-  <app-topbar />
+  <app-topbar [menuOpen]="menuOpen()" (menuRequested)="openMenu($event)" />
   <main>
     <router-outlet />
   </main>
 </div>
+
+<dialog
+  #mobileMenu
+  id="mobile-navigation"
+  class="mobile-menu"
+  aria-label="Navigation menu"
+  (click)="onBackdropClick($event)"
+  (cancel)="closeMenu()"
+  (close)="onMenuClosed()"
+  (keydown)="trapMenuFocus($event)"
+>
+  <button class="menu-close" type="button" autofocus (click)="closeMenu()">Close menu ×</button>
+  <app-sidebar />
+</dialog>

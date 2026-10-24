@@ -17,7 +17,7 @@
 
 .dashboard-header p {
   margin: 7px 0 0;
-  color: #77788b;
+  color: var(--bc-muted);
   font-size: 14px;
 }
 
@@ -30,8 +30,8 @@
 
 .quick-card {
   min-height: 120px;
-  background: #ffffff;
-  border: 1px solid #e5e6ed;
+  background: var(--bc-surface);
+  border: 1px solid var(--bc-border);
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -46,8 +46,8 @@
 
 .quick-card:hover {
   transform: translateY(-2px);
-  border-color: #d5d1ff;
-  box-shadow: 0 6px 20px rgba(35, 32, 70, 0.07);
+  border-color: var(--bc-primary);
+  box-shadow: var(--bc-shadow);
 }
 
 .card-icon {
@@ -55,8 +55,8 @@
   height: 40px;
   flex-shrink: 0;
   border-radius: 9px;
-  background: #efedff;
-  color: #6650e8;
+  background: var(--bc-subtle);
+  color: var(--bc-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,22 +71,22 @@
 
 .quick-card p {
   margin: 0;
-  color: #858698;
+  color: var(--bc-muted);
   font-size: 12px;
   line-height: 1.5;
 }
 
 .dashboard-panel {
   min-height: 430px;
-  background: #ffffff;
-  border: 1px solid #e5e6ed;
+  background: var(--bc-surface);
+  border: 1px solid var(--bc-border);
   border-radius: 14px;
   overflow: hidden;
 }
 
 .panel-header {
   padding: 22px 24px;
-  border-bottom: 1px solid #ececf1;
+  border-bottom: 1px solid var(--bc-border);
 }
 
 .panel-header h2 {
@@ -97,7 +97,7 @@
 
 .panel-header p {
   margin: 5px 0 0;
-  color: #858698;
+  color: var(--bc-muted);
   font-size: 13px;
 }
 
@@ -115,8 +115,8 @@
   width: 54px;
   height: 54px;
   border-radius: 14px;
-  background: #f0efff;
-  color: #6650e8;
+  background: var(--bc-subtle);
+  color: var(--bc-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,7 +132,7 @@
 .panel-placeholder p {
   max-width: 420px;
   margin: 0;
-  color: #858698;
+  color: var(--bc-muted);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -152,5 +152,14 @@
 @media (max-width: 550px) {
   .quick-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quick-card {
+    transition: none;
+  }
+  .quick-card:hover {
+    transform: none;
   }
 }

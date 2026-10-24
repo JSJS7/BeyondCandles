@@ -1,4 +1,4 @@
-from sqlalchemy import String
+from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -14,3 +14,4 @@ class Company(Base):
     sector: Mapped[str | None] = mapped_column(String(128))
     currency: Mapped[str] = mapped_column(String(3), nullable=False)
     cik: Mapped[str | None] = mapped_column(String(10), unique=True)
+    financial_history_note: Mapped[str | None] = mapped_column(Text)

@@ -1,0 +1,3 @@
+# Preserve exact bytes of source metadata and policies verified by SHA-256.
+*.json -text
+*.csv -text

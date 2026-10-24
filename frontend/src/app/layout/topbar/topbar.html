@@ -1,28 +1,47 @@
 <header class="topbar">
-  <div class="global-search">
+  <button
+    #menuButton
+    class="menu-button"
+    type="button"
+    aria-label="Open navigation menu"
+    aria-controls="mobile-navigation"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="menuRequested.emit(menuButton)"
+  >
+    <span aria-hidden="true">☰</span>
+  </button>
+  <div class="global-search" (keydown.escape)="dismissSearchResults()">
     <span class="search-icon">⌕</span>
 
     <input
       #searchInput
       type="text"
+      aria-label="Search companies"
       placeholder="Search companies..."
       [value]="searchQuery()"
+      (focus)="onSearchFocus()"
       (input)="onSearchInput(searchInput.value)"
     />
 
     @let loadState = stocksLoadState();
 
-    @if (searchQuery()) {
+    @if (searchQuery() && searchResultsOpen()) {
       @switch (loadState.status) {
         @case ('loading') {
           <div class="search-results">
-            <div class="no-results">Loading companies...</div>
+            <div class="no-results search-loading" role="status">
+              <span>Loading companies</span
+              ><span class="loading-dots" aria-hidden="true"
+                ><span>.</span><span>.</span><span>.</span></span
+              >
+            </div>
           </div>
         }
 
         @case ('error') {
-          <div class="search-results">
-            <div class="no-results">{{ loadState.message }}</div>
+          <div class="search-results search-error">
+            <p role="alert">{{ loadState.message }}</p>
+            <button class="retry-button" type="button" (click)="loadStocks()">Try again</button>
           </div>
         }
 
@@ -30,11 +49,7 @@
           @if (filteredStocks().length > 0) {
             <div class="search-results">
               @for (stock of filteredStocks(); track stock.ticker) {
-                <button
-                  class="search-result"
-                  type="button"
-                  (click)="selectStock(stock)"
-                >
+                <button class="search-result" type="button" (click)="selectStock(stock)">
                   <div class="result-main">
                     <strong>{{ stock.ticker }}</strong>
                     <span>{{ stock.name }}</span>
@@ -57,7 +72,15 @@
   </div>
 
   <div class="topbar-actions">
-    <button class="icon-button" type="button">☼</button>
+    <button
+      class="icon-button"
+      type="button"
+      [attr.aria-label]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      [title]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      (click)="theme.toggle()"
+    >
+      <span aria-hidden="true">{{ theme.mode() === 'dark' ? '☀' : '☾' }}</span>
+    </button>
 
     <div class="user-avatar">U</div>
   </div>

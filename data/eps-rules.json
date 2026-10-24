@@ -1,0 +1,2779 @@
+{
+  "version": 1,
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "periods": {
+    "0001652044:2015-01-01:2015-12-31": {
+      "ticker": "GOOGL",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "d44bb40de19e79b254def546dc67d0bf3aa7a0ce94794d7c083cd62328c97070",
+      "fact": {
+        "source_cik": "0001652044",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "22.84",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-06",
+        "accession": "0001652044-18-000007",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204418000007/R4.htm",
+        "sha256": "6bab08a8506698d99bf92f54456fcef30da85e6e25debab83b86a1851355a286",
+        "file": "6bab08a8506698d99bf92f54456fcef30da85e6e25debab83b86a1851355a286.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204418000007/FilingSummary.xml",
+        "sha256": "fa46633008c5d1d8df6ab8c64e683f544b13d880ce25a705152edce0c3c5a0dc",
+        "file": "fa46633008c5d1d8df6ab8c64e683f544b13d880ce25a705152edce0c3c5a0dc.htm"
+      },
+      "label": "Diluted net income per share (in dollars per share)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204418000007/goog-20171231.xml",
+        "sha256": "98f67589506d27e46621abd4fd032d66e21918b69e63f1ae5ff4ebe27c4a5639",
+        "file": "98f67589506d27e46621abd4fd032d66e21918b69e63f1ae5ff4ebe27c4a5639.htm"
+      }
+    },
+    "0001067983:2024-01-01:2024-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "eeb14641f73ba512bdc1c5aaf7548751836c519d4e13a717a9e8c03aa22bf67f",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "41.27",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "filed": "2026-03-02",
+        "accession": "0001193125-26-083899",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/R4.htm",
+        "sha256": "5afd32282ae7fdd1a01418db38ae82378f48066e1fa851949f14417d6458f200",
+        "file": "5afd32282ae7fdd1a01418db38ae82378f48066e1fa851949f14417d6458f200.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/FilingSummary.xml",
+        "sha256": "eb4b5b59069c9772abf003b557856a62f17ee42b2523508c5bd78e25f586bd95",
+        "file": "eb4b5b59069c9772abf003b557856a62f17ee42b2523508c5bd78e25f586bd95.htm"
+      },
+      "label": "Net earnings per average equivalent",
+      "column": "12 months ended 2024-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231_htm.xml",
+        "sha256": "85cdfd4f4c3ffd4a6332a135215abda946f320ab41dac4a1946cc339546fa1b5",
+        "file": "85cdfd4f4c3ffd4a6332a135215abda946f320ab41dac4a1946cc339546fa1b5.htm"
+      }
+    },
+    "0001067983:2023-01-01:2023-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "58a09b3ea560a97ad6d2a2035d6bdd66491892aa54aaea45d01782a7ee7f7983",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "44.27",
+        "period_start": "2023-01-01",
+        "period_end": "2023-12-31",
+        "filed": "2026-03-02",
+        "accession": "0001193125-26-083899",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/R4.htm",
+        "sha256": "5afd32282ae7fdd1a01418db38ae82378f48066e1fa851949f14417d6458f200",
+        "file": "5afd32282ae7fdd1a01418db38ae82378f48066e1fa851949f14417d6458f200.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/FilingSummary.xml",
+        "sha256": "eb4b5b59069c9772abf003b557856a62f17ee42b2523508c5bd78e25f586bd95",
+        "file": "eb4b5b59069c9772abf003b557856a62f17ee42b2523508c5bd78e25f586bd95.htm"
+      },
+      "label": "Net earnings per average equivalent",
+      "column": "12 months ended 2023-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231_htm.xml",
+        "sha256": "85cdfd4f4c3ffd4a6332a135215abda946f320ab41dac4a1946cc339546fa1b5",
+        "file": "85cdfd4f4c3ffd4a6332a135215abda946f320ab41dac4a1946cc339546fa1b5.htm"
+      }
+    },
+    "0001067983:2022-01-01:2022-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "38f8338cac7fbf663a8702ca3123b07b3cb64a15cbc3f96e27b33bb35e4651f7",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "-10.33",
+        "period_start": "2022-01-01",
+        "period_end": "2022-12-31",
+        "filed": "2025-02-24",
+        "accession": "0000950170-25-025210",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017025025210/R4.htm",
+        "sha256": "47beadbfdf21b326dae9ef28eede9ff50aa0948d8026973b14eca00442e1339d",
+        "file": "47beadbfdf21b326dae9ef28eede9ff50aa0948d8026973b14eca00442e1339d.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017025025210/FilingSummary.xml",
+        "sha256": "710259669e2a525d0d196e9dc8ea89d13921094a2e2a6f6e49e4c929a1efc09f",
+        "file": "710259669e2a525d0d196e9dc8ea89d13921094a2e2a6f6e49e4c929a1efc09f.htm"
+      },
+      "label": "Net earnings (loss) per average equivalent",
+      "column": "12 months ended 2022-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017025025210/brka-20241231_htm.xml",
+        "sha256": "67171ab679ccc55734b6c4f2e048a312d996ad478f4007783ee7df76f0ab73ca",
+        "file": "67171ab679ccc55734b6c4f2e048a312d996ad478f4007783ee7df76f0ab73ca.htm"
+      }
+    },
+    "0001067983:2021-01-01:2021-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "57173b41e79b0a60ee15c3068e5501a129d10e53da64d603cf823be2687878d8",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "39.7",
+        "period_start": "2021-01-01",
+        "period_end": "2021-12-31",
+        "filed": "2024-02-26",
+        "accession": "0000950170-24-019719",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017024019719/R4.htm",
+        "sha256": "da40c254fd5f6bcf075743f174a761dc1e224cecc5c11f881b7c371ed92d7e7f",
+        "file": "da40c254fd5f6bcf075743f174a761dc1e224cecc5c11f881b7c371ed92d7e7f.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017024019719/FilingSummary.xml",
+        "sha256": "e7739d64d0a515f4612ecb33b64b29969970d865768586bfcdf58fe05bdc8f54",
+        "file": "e7739d64d0a515f4612ecb33b64b29969970d865768586bfcdf58fe05bdc8f54.htm"
+      },
+      "label": "Net earnings (loss) per average equivalent",
+      "column": "12 months ended 2021-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017024019719/brka-20231231_htm.xml",
+        "sha256": "dff3b894ab0541cda2e466675b6580f3d5271e6fffcb8214a8b992a3ef4e020a",
+        "file": "dff3b894ab0541cda2e466675b6580f3d5271e6fffcb8214a8b992a3ef4e020a.htm"
+      }
+    },
+    "0001067983:2020-01-01:2020-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "aa411be800d0bddb61218a0e008b5e586c226772082523daa8fe9c00ada737ac",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "17.78",
+        "period_start": "2020-01-01",
+        "period_end": "2020-12-31",
+        "filed": "2023-02-27",
+        "accession": "0000950170-23-004451",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017023004451/R4.htm",
+        "sha256": "5c88fcf5059be689b414b59bb397821f669b3badbfe84eb9c034e3d651b8fb98",
+        "file": "5c88fcf5059be689b414b59bb397821f669b3badbfe84eb9c034e3d651b8fb98.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017023004451/FilingSummary.xml",
+        "sha256": "90f5c7ebe77fd5fd7bfc121255915669f2d9fb905c0533d339b9369413ac7f4b",
+        "file": "90f5c7ebe77fd5fd7bfc121255915669f2d9fb905c0533d339b9369413ac7f4b.htm"
+      },
+      "label": "Net earnings (loss) per average equivalent",
+      "column": "12 months ended 2020-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000095017023004451/brka-20221231_htm.xml",
+        "sha256": "1c5f14d22c41df24b5ff1ce93eca35ecdb06ecc6a43b8acd27e6d97a8b935666",
+        "file": "1c5f14d22c41df24b5ff1ce93eca35ecdb06ecc6a43b8acd27e6d97a8b935666.htm"
+      }
+    },
+    "0001067983:2019-01-01:2019-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "9a39375d220323114c370153277b94b0496913720d5bfe5132f49b6355517d2c",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "33.22",
+        "period_start": "2019-01-01",
+        "period_end": "2019-12-31",
+        "filed": "2022-02-28",
+        "accession": "0001564590-22-007322",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459022007322/R4.htm",
+        "sha256": "299628f5a69d07c83d68551dd8bebddb99ce943d1c4fc57deb6a27cbfcc57b45",
+        "file": "299628f5a69d07c83d68551dd8bebddb99ce943d1c4fc57deb6a27cbfcc57b45.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459022007322/FilingSummary.xml",
+        "sha256": "792a3cca4975a21b3dc4f4e8f2f714c77ba4644e404e0e3d30581d5c8ee0a42c",
+        "file": "792a3cca4975a21b3dc4f4e8f2f714c77ba4644e404e0e3d30581d5c8ee0a42c.htm"
+      },
+      "label": "Net earnings per average equivalent share",
+      "column": "12 months ended 2019-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459022007322/brka-10k_20211231_htm.xml",
+        "sha256": "d6b949337b9ca91557fa9e78c39fa15fba0425a3abd5dbcb41a42a4788f141ca",
+        "file": "d6b949337b9ca91557fa9e78c39fa15fba0425a3abd5dbcb41a42a4788f141ca.htm"
+      }
+    },
+    "0001067983:2018-01-01:2018-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "d47616f19ea3d243c4a98196a47962f633789219967e4ba3d64e2a5ae253a5d4",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "1.63",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-03-01",
+        "accession": "0001564590-21-009611",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459021009611/R4.htm",
+        "sha256": "dd861be43727d8d2582f6c8212a306e54a0353c27c9a3cfefb25e5cec61dddfb",
+        "file": "dd861be43727d8d2582f6c8212a306e54a0353c27c9a3cfefb25e5cec61dddfb.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459021009611/FilingSummary.xml",
+        "sha256": "ba810d64a52943c94a408bf4d3a201f680e08b6153ab72b83537da22723c9e44",
+        "file": "ba810d64a52943c94a408bf4d3a201f680e08b6153ab72b83537da22723c9e44.htm"
+      },
+      "label": "Net earnings per average equivalent share",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459021009611/brka-10k_20201231_htm.xml",
+        "sha256": "a6b38642bb0dc1ccf072baad7c36bd561fc550364507b489f8c36e3e9978c552",
+        "file": "a6b38642bb0dc1ccf072baad7c36bd561fc550364507b489f8c36e3e9978c552.htm"
+      }
+    },
+    "0001067983:2017-01-01:2017-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "ba12f64cc54926d196827ed816ffec3fce102103047163adfeac34e9e693074c",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "18.22",
+        "period_start": "2017-01-01",
+        "period_end": "2017-12-31",
+        "filed": "2020-02-24",
+        "accession": "0001564590-20-005874",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459020005874/R4.htm",
+        "sha256": "ba694c30675ffdff3093aa58744780dcd0b70ca311fee07f2ee5b4232e1afde5",
+        "file": "ba694c30675ffdff3093aa58744780dcd0b70ca311fee07f2ee5b4232e1afde5.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459020005874/FilingSummary.xml",
+        "sha256": "3cbd7961d5c507d359b3f953a9ae10cf33ac43c2d1caa715d0e37c681b22d513",
+        "file": "3cbd7961d5c507d359b3f953a9ae10cf33ac43c2d1caa715d0e37c681b22d513.htm"
+      },
+      "label": "Net earnings per average equivalent share",
+      "column": "12 months ended 2017-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000156459020005874/brka-10k_20191231_htm.xml",
+        "sha256": "f274a017ce9fa09da5e741731feb01c8ef1878c5269b73e42e3780418a0fb2d4",
+        "file": "f274a017ce9fa09da5e741731feb01c8ef1878c5269b73e42e3780418a0fb2d4.htm"
+      }
+    },
+    "0001067983:2016-01-01:2016-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "016f3ec3c41a74ab75f2d28e3bebbbe24e0be0e81ec276500c530a1a77428a3a",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "9.76",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-02-25",
+        "accession": "0001193125-19-048926",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312519048926/R4.htm",
+        "sha256": "178f75b56fc23abc56bad3c47338f5c62768116142c18618c0dc88f2a34dd2ef",
+        "file": "178f75b56fc23abc56bad3c47338f5c62768116142c18618c0dc88f2a34dd2ef.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312519048926/FilingSummary.xml",
+        "sha256": "51eaf5f4fc0e218f7b44293ff1211fd7f0b03f477fb33394d317634f2970032b",
+        "file": "51eaf5f4fc0e218f7b44293ff1211fd7f0b03f477fb33394d317634f2970032b.htm"
+      },
+      "label": "Net earnings per average equivalent share",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312519048926/brka-20181231.xml",
+        "sha256": "55cb19bdddefa515cf2ecd0ed51594246d55d65c1c15b84dcca7bc92bca096ec",
+        "file": "55cb19bdddefa515cf2ecd0ed51594246d55d65c1c15b84dcca7bc92bca096ec.htm"
+      }
+    },
+    "0001067983:2015-01-01:2015-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "974296913acdfd127abcabf1824fa9b2bea228762c488b9f4d418baf08523979",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "9.77",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-26",
+        "accession": "0001193125-18-057033",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312518057033/R4.htm",
+        "sha256": "6d67acc1017322d44a145f21ffa0f7c6e81d278b4fa8c1e56f1ca72009884457",
+        "file": "6d67acc1017322d44a145f21ffa0f7c6e81d278b4fa8c1e56f1ca72009884457.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312518057033/FilingSummary.xml",
+        "sha256": "a75d6d9cebe3d12eaa366b6874b7d6b5964a1ea1d59d4fd719a5f26b0cdf3ebe",
+        "file": "a75d6d9cebe3d12eaa366b6874b7d6b5964a1ea1d59d4fd719a5f26b0cdf3ebe.htm"
+      },
+      "label": "Net earnings per share attributable to Berkshire Hathaway shareholders",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312518057033/brka-20171231.xml",
+        "sha256": "ca54bf4b99666b5c3e6f7fd5e1aab56c74d25bc20125968adf20044e70a8fb09",
+        "file": "ca54bf4b99666b5c3e6f7fd5e1aab56c74d25bc20125968adf20044e70a8fb09.htm"
+      }
+    },
+    "0001403161:2023-10-01:2024-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "6b7c78a6e1c5c34f59cc0d24b283d7cc08b6479f47a5c3f2256aea43e9eb366b",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "9.73",
+        "period_start": "2023-10-01",
+        "period_end": "2024-09-30",
+        "filed": "2025-11-06",
+        "accession": "0001403161-25-000089",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/R5.htm",
+        "sha256": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab",
+        "file": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/FilingSummary.xml",
+        "sha256": "bde20fb194036e7e173adcc7c9246b3be41087222d739a9fa62becdcb85c04c4",
+        "file": "bde20fb194036e7e173adcc7c9246b3be41087222d739a9fa62becdcb85c04c4.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2024-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/v-20250930_htm.xml",
+        "sha256": "6656d5527225918d78f619ff716affcdea38d7526f60a07a6d0e1c3999227d8b",
+        "file": "6656d5527225918d78f619ff716affcdea38d7526f60a07a6d0e1c3999227d8b.htm"
+      }
+    },
+    "0001403161:2022-10-01:2023-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "6d433e4510167fcf222fdea1e19f376c7faab1bd813bd14fca11f6c54a43d6ac",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "8.28",
+        "period_start": "2022-10-01",
+        "period_end": "2023-09-30",
+        "filed": "2025-11-06",
+        "accession": "0001403161-25-000089",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/R5.htm",
+        "sha256": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab",
+        "file": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/FilingSummary.xml",
+        "sha256": "bde20fb194036e7e173adcc7c9246b3be41087222d739a9fa62becdcb85c04c4",
+        "file": "bde20fb194036e7e173adcc7c9246b3be41087222d739a9fa62becdcb85c04c4.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2023-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/v-20250930_htm.xml",
+        "sha256": "6656d5527225918d78f619ff716affcdea38d7526f60a07a6d0e1c3999227d8b",
+        "file": "6656d5527225918d78f619ff716affcdea38d7526f60a07a6d0e1c3999227d8b.htm"
+      }
+    },
+    "0001403161:2021-10-01:2022-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "eb1ea13af8b31451fecccb43d33fb6e0f3a67b6cbbee6442283b7f1b2b00ae0e",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "7",
+        "period_start": "2021-10-01",
+        "period_end": "2022-09-30",
+        "filed": "2024-11-13",
+        "accession": "0001403161-24-000058",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316124000058/R5.htm",
+        "sha256": "ed679df906cdd9885247508bfa79a48a8c23896c21c2eec606b93563f241c305",
+        "file": "ed679df906cdd9885247508bfa79a48a8c23896c21c2eec606b93563f241c305.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316124000058/FilingSummary.xml",
+        "sha256": "8f4c17adff7d948eefaf13a8d06b0f42e228fcb2fc71a56a1aed90866cf69fb2",
+        "file": "8f4c17adff7d948eefaf13a8d06b0f42e228fcb2fc71a56a1aed90866cf69fb2.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2022-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316124000058/v-20240930_htm.xml",
+        "sha256": "fb0696d8534c11aa099895642f5521002823278deb8572483ef0fee1d58866d5",
+        "file": "fb0696d8534c11aa099895642f5521002823278deb8572483ef0fee1d58866d5.htm"
+      }
+    },
+    "0001403161:2020-10-01:2021-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "92d3f52b2e9271e518640f28114de5629a11c938ba41137b21fd7a83941ef291",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "5.63",
+        "period_start": "2020-10-01",
+        "period_end": "2021-09-30",
+        "filed": "2023-11-15",
+        "accession": "0001403161-23-000099",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316123000099/R5.htm",
+        "sha256": "7aa3a8bdc94e065f67f909b52c72494fd598feef806b429bb908bec02a978f87",
+        "file": "7aa3a8bdc94e065f67f909b52c72494fd598feef806b429bb908bec02a978f87.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316123000099/FilingSummary.xml",
+        "sha256": "3839d7643df7289d9877addc1b4c90ea9c08c730d29ac4d7103fb1d55a792caf",
+        "file": "3839d7643df7289d9877addc1b4c90ea9c08c730d29ac4d7103fb1d55a792caf.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2021-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316123000099/v-20230930_htm.xml",
+        "sha256": "51bfa73767db58657ac9cfd3a27c3ac15789d093e7158b2a5b1d5b830cdf5ce8",
+        "file": "51bfa73767db58657ac9cfd3a27c3ac15789d093e7158b2a5b1d5b830cdf5ce8.htm"
+      }
+    },
+    "0001403161:2019-10-01:2020-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "c7cc19f832035538c99b8e0688f408ed1da2983c555642f85cdd0dc7a786d730",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "4.89",
+        "period_start": "2019-10-01",
+        "period_end": "2020-09-30",
+        "filed": "2022-11-16",
+        "accession": "0001403161-22-000081",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316122000081/R5.htm",
+        "sha256": "914b9b3f3bd7867cd23ed61b6d46a9b68cf6a4689dcf4c6833070007d707f550",
+        "file": "914b9b3f3bd7867cd23ed61b6d46a9b68cf6a4689dcf4c6833070007d707f550.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316122000081/FilingSummary.xml",
+        "sha256": "9658cd4682958211f567cc64f97e293a9dae086faac6d3ab3bd7c0ba09e6ea00",
+        "file": "9658cd4682958211f567cc64f97e293a9dae086faac6d3ab3bd7c0ba09e6ea00.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2020-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316122000081/v-20220930_htm.xml",
+        "sha256": "46480fb12c4da2a0f6f2173941d6b89d5741981e6b8731696b624698e1866569",
+        "file": "46480fb12c4da2a0f6f2173941d6b89d5741981e6b8731696b624698e1866569.htm"
+      }
+    },
+    "0001403161:2018-10-01:2019-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "db62b897229551834753aceee6c8e154e368c26c02b2bab5174634c5fff06e21",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "5.32",
+        "period_start": "2018-10-01",
+        "period_end": "2019-09-30",
+        "filed": "2021-11-18",
+        "accession": "0001403161-21-000060",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316121000060/R4.htm",
+        "sha256": "b8c9e7095a5e5eacea1a90590925b0f0e1152070f91c9841695f7a0955d4ec3a",
+        "file": "b8c9e7095a5e5eacea1a90590925b0f0e1152070f91c9841695f7a0955d4ec3a.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316121000060/FilingSummary.xml",
+        "sha256": "831f9d09106d21bcf30616b94b48291df09a1ae3e4f85cb971247859975862fe",
+        "file": "831f9d09106d21bcf30616b94b48291df09a1ae3e4f85cb971247859975862fe.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2019-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316121000060/v-20210930_htm.xml",
+        "sha256": "b1e94ff40fe7bfeab76db91eb318e7773e5d9a72b4061c1a47d53db67a915ed1",
+        "file": "b1e94ff40fe7bfeab76db91eb318e7773e5d9a72b4061c1a47d53db67a915ed1.htm"
+      }
+    },
+    "0001403161:2017-10-01:2018-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "1b6992bf6d46be5bad1b72e7b0ac21b66a010faeedbbaf7eee611dd8868a4e05",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "4.42",
+        "period_start": "2017-10-01",
+        "period_end": "2018-09-30",
+        "filed": "2020-11-19",
+        "accession": "0001403161-20-000070",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316120000070/R4.htm",
+        "sha256": "a5c8b105950b4492e50821b8d500a192120019d71c6af86c8a13df595905e083",
+        "file": "a5c8b105950b4492e50821b8d500a192120019d71c6af86c8a13df595905e083.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316120000070/FilingSummary.xml",
+        "sha256": "a67cd39941c8c55ed88c8357caa0a54dfe51119f81f87e7a655d3728acf1167b",
+        "file": "a67cd39941c8c55ed88c8357caa0a54dfe51119f81f87e7a655d3728acf1167b.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2018-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316120000070/v-20200930_htm.xml",
+        "sha256": "78ef6c3c326a78aa430a79bd0746da533df63ba536ab2babb79b0f035b8e33ed",
+        "file": "78ef6c3c326a78aa430a79bd0746da533df63ba536ab2babb79b0f035b8e33ed.htm"
+      }
+    },
+    "0001403161:2016-10-01:2017-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "a318f97993a637e128fac608c9e7e9d8bf6c7b1d952aa934bb21e7d81714a047",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "2.8",
+        "period_start": "2016-10-01",
+        "period_end": "2017-09-30",
+        "filed": "2019-11-14",
+        "accession": "0001403161-19-000050",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316119000050/R4.htm",
+        "sha256": "4d21b69cff6a0c1eb341f47c7bf4114102d72e55cbc1235686a603d62315c0d6",
+        "file": "4d21b69cff6a0c1eb341f47c7bf4114102d72e55cbc1235686a603d62315c0d6.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316119000050/FilingSummary.xml",
+        "sha256": "aaaea84e1dfe425d0dfc20a5d60386501a4ba8f85b5598ee1df6dbce55dd4b45",
+        "file": "aaaea84e1dfe425d0dfc20a5d60386501a4ba8f85b5598ee1df6dbce55dd4b45.htm"
+      },
+      "label": "Diluted earnings per share (Note 15) (in dollars per share)",
+      "column": "12 months ended 2017-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316119000050/v093019form10k_htm.xml",
+        "sha256": "6410ef7ec375040886ca34f1b0cc53b5388743141723dd77194e9de5d111fe13",
+        "file": "6410ef7ec375040886ca34f1b0cc53b5388743141723dd77194e9de5d111fe13.htm"
+      }
+    },
+    "0001403161:2015-10-01:2016-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "0fc0c26938862e3d26003329683eed2f28385236dd6f0303a3fd500bb8945bf0",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "2.48",
+        "period_start": "2015-10-01",
+        "period_end": "2016-09-30",
+        "filed": "2018-11-16",
+        "accession": "0001403161-18-000055",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316118000055/R4.htm",
+        "sha256": "692025caa2c1060235d93cfdf71f89da65f3fa812e1b52d0619728236cc662b1",
+        "file": "692025caa2c1060235d93cfdf71f89da65f3fa812e1b52d0619728236cc662b1.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316118000055/FilingSummary.xml",
+        "sha256": "180ddcb64915a0028919e43ed107b1ddb813970a2e6a05ae6df2c18d46fae4c7",
+        "file": "180ddcb64915a0028919e43ed107b1ddb813970a2e6a05ae6df2c18d46fae4c7.htm"
+      },
+      "label": "Diluted earnings per share (Note 12) (in dollars per share)",
+      "column": "12 months ended 2016-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316118000055/v-20180930.xml",
+        "sha256": "008fba50194b7f50d3c56db15d2f7deae9218be64ce9f96a68833f184b74cfea",
+        "file": "008fba50194b7f50d3c56db15d2f7deae9218be64ce9f96a68833f184b74cfea.htm"
+      }
+    },
+    "0001403161:2014-10-01:2015-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "ff7e7edd13d7b6bed49e4a95c0e0d9b6abd05ee44e85a936e5c14840f5be837c",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "2.58",
+        "period_start": "2014-10-01",
+        "period_end": "2015-09-30",
+        "filed": "2017-11-17",
+        "accession": "0001403161-17-000044",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316117000044/R4.htm",
+        "sha256": "f9c2c539de9804c46b9896d68ae694795cd45ff718a96cac35266d44ceb5363d",
+        "file": "f9c2c539de9804c46b9896d68ae694795cd45ff718a96cac35266d44ceb5363d.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316117000044/FilingSummary.xml",
+        "sha256": "eeb9c60495aa0f3261725033b9f4c8d3e767e468641d0f9f9f16333e1e22b733",
+        "file": "eeb9c60495aa0f3261725033b9f4c8d3e767e468641d0f9f9f16333e1e22b733.htm"
+      },
+      "label": "Diluted earnings per share (Note 15)",
+      "column": "12 months ended 2015-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316117000044/v-20170930.xml",
+        "sha256": "f27e8ca9452d9cb7b7b3a5589a8016278800441e9a6935589e2b9a3bd54cd68e",
+        "file": "f27e8ca9452d9cb7b7b3a5589a8016278800441e9a6935589e2b9a3bd54cd68e.htm"
+      }
+    },
+    "0001373715:2016-01-01:2016-12-31": {
+      "ticker": "NOW",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "23661da1ba3f629f73ce032581c670d02bbcbcc2a4bab27bb2b003d5121a71d4",
+      "fact": {
+        "source_cik": "0001373715",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "-2.52",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-02-27",
+        "accession": "0001373715-19-000070",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371519000070/R4.htm",
+        "sha256": "0c44af5dda11b614d1189a8d28a0a8c4a3ba7b2605aa42d493e06b5624b3ad18",
+        "file": "0c44af5dda11b614d1189a8d28a0a8c4a3ba7b2605aa42d493e06b5624b3ad18.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371519000070/FilingSummary.xml",
+        "sha256": "3d26bfe33cd943ca1bb36d56cd861f19757b4a19014031670db4cfd7dbad11d0",
+        "file": "3d26bfe33cd943ca1bb36d56cd861f19757b4a19014031670db4cfd7dbad11d0.htm"
+      },
+      "label": "Net loss per share - basic and diluted (in USD per share)",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+        "sha256": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c",
+        "file": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c.json"
+      }
+    },
+    "0001373715:2015-01-01:2015-12-31": {
+      "ticker": "NOW",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "7ab1858212d379790d6de8f4badef92d79534e83fd3a42546e60438355187276",
+      "fact": {
+        "source_cik": "0001373715",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "-1.27",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-28",
+        "accession": "0001373715-18-000058",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371518000058/R4.htm",
+        "sha256": "f0e8f873cfe7dcacbe3de3edeb1153b58fc89009ec332a9b0b4eb3f45070b306",
+        "file": "f0e8f873cfe7dcacbe3de3edeb1153b58fc89009ec332a9b0b4eb3f45070b306.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371518000058/FilingSummary.xml",
+        "sha256": "320adc952c09a7d38e6826c6673ab5778ce42f80dc9841f71f075710573d4909",
+        "file": "320adc952c09a7d38e6826c6673ab5778ce42f80dc9841f71f075710573d4909.htm"
+      },
+      "label": "Net loss per share - basic and diluted (in USD per share)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+        "sha256": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c",
+        "file": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c.json"
+      }
+    },
+    "0000004962:2018-01-01:2018-12-31": {
+      "ticker": "AXP",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "932a7497647e4f9cdc99ed5612e84a0c842e8d3f007a9a1bd606f6d88ab4d89e",
+      "fact": {
+        "source_cik": "0000004962",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "7.91",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-02-12",
+        "accession": "0000004962-21-000013",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496221000013/R2.htm",
+        "sha256": "fb5e6bf09d90b9b21bd9e691d7746511e762689689b8250f91a94a530cef1ef8",
+        "file": "fb5e6bf09d90b9b21bd9e691d7746511e762689689b8250f91a94a530cef1ef8.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496221000013/FilingSummary.xml",
+        "sha256": "6eb400f5479c5442508bc27ea4da4cd32edc16c316e43dfbfd0468244ea015cb",
+        "file": "6eb400f5479c5442508bc27ea4da4cd32edc16c316e43dfbfd0468244ea015cb.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004962.json",
+        "sha256": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f",
+        "file": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f.json"
+      }
+    },
+    "0000004962:2017-01-01:2017-12-31": {
+      "ticker": "AXP",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "da6a6b6d4d2f6ab71450690306870e427f8fa479ab43a4acaa2562e54d34e937",
+      "fact": {
+        "source_cik": "0000004962",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.99",
+        "period_start": "2017-01-01",
+        "period_end": "2017-12-31",
+        "filed": "2020-02-13",
+        "accession": "0000004962-20-000030",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496220000030/R2.htm",
+        "sha256": "c41b77f9f6e898f654387fb0b438de62190c8cfccae5d242e8cd396aae66a373",
+        "file": "c41b77f9f6e898f654387fb0b438de62190c8cfccae5d242e8cd396aae66a373.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496220000030/FilingSummary.xml",
+        "sha256": "6d46a1671c8bf6f4c5f713e71a31ce55297374889d61bb5e87c75c3948db738f",
+        "file": "6d46a1671c8bf6f4c5f713e71a31ce55297374889d61bb5e87c75c3948db738f.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2017-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004962.json",
+        "sha256": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f",
+        "file": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f.json"
+      }
+    },
+    "0000004962:2016-01-01:2016-12-31": {
+      "ticker": "AXP",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "84c63d8eaeab8fb143c1bc3a6a38aa98115132e610d2ff810b3e201a1aed8c2c",
+      "fact": {
+        "source_cik": "0000004962",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "5.61",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-02-13",
+        "accession": "0000004962-19-000018",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496219000018/R2.htm",
+        "sha256": "dec429184bd1a2f1a6971bbc8e4081a3a72c3cc2c9049d0b316a1edcf5097d46",
+        "file": "dec429184bd1a2f1a6971bbc8e4081a3a72c3cc2c9049d0b316a1edcf5097d46.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496219000018/FilingSummary.xml",
+        "sha256": "08c04ccefd08d361bb53eb16dea012279bc660dd6a7244110bf1e416f39d32dc",
+        "file": "08c04ccefd08d361bb53eb16dea012279bc660dd6a7244110bf1e416f39d32dc.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004962.json",
+        "sha256": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f",
+        "file": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f.json"
+      }
+    },
+    "0000004962:2015-01-01:2015-12-31": {
+      "ticker": "AXP",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "c109e83f8816cd8c250dcb416ce8998839d955cf7c8fef67004170cf43653b17",
+      "fact": {
+        "source_cik": "0000004962",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "5.05",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-16",
+        "accession": "0000004962-18-000032",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496218000032/R2.htm",
+        "sha256": "9c5106c4539f697077a5bd8f4483618c510583b9c57fab0e17ab205d8d6da36d",
+        "file": "9c5106c4539f697077a5bd8f4483618c510583b9c57fab0e17ab205d8d6da36d.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496218000032/FilingSummary.xml",
+        "sha256": "c75c268d3b1fd43c59327c300c7da4ae1ef470c74dede93ffb346db24b2cb767",
+        "file": "c75c268d3b1fd43c59327c300c7da4ae1ef470c74dede93ffb346db24b2cb767.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004962.json",
+        "sha256": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f",
+        "file": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f.json"
+      }
+    },
+    "0001404912:2024-01-01:2024-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "1e65bb1022588a70f71f89711088a7ca5fe6dc75ec7e279a0557eed8b8dce8a0",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "3.28",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "filed": "2026-02-27",
+        "accession": "0001404912-26-000007",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/R6.htm",
+        "sha256": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4",
+        "file": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/FilingSummary.xml",
+        "sha256": "66df9699393a94b3d6348263895b1345d0645c1a8d4ff856a3c2f83d29380f0e",
+        "file": "66df9699393a94b3d6348263895b1345d0645c1a8d4ff856a3c2f83d29380f0e.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2024-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/kkr-20251231_htm.xml",
+        "sha256": "1377dee03286cebb367302de8cda7e05473089fa7af4d2a51ac3270f2f291b75",
+        "file": "1377dee03286cebb367302de8cda7e05473089fa7af4d2a51ac3270f2f291b75.htm"
+      }
+    },
+    "0001404912:2023-01-01:2023-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "ed5c07534ee9faa13e86f53d5621cd361eba730e7900263f036d47fc2d6c044c",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "4.09",
+        "period_start": "2023-01-01",
+        "period_end": "2023-12-31",
+        "filed": "2026-02-27",
+        "accession": "0001404912-26-000007",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/R6.htm",
+        "sha256": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4",
+        "file": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/FilingSummary.xml",
+        "sha256": "66df9699393a94b3d6348263895b1345d0645c1a8d4ff856a3c2f83d29380f0e",
+        "file": "66df9699393a94b3d6348263895b1345d0645c1a8d4ff856a3c2f83d29380f0e.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2023-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/kkr-20251231_htm.xml",
+        "sha256": "1377dee03286cebb367302de8cda7e05473089fa7af4d2a51ac3270f2f291b75",
+        "file": "1377dee03286cebb367302de8cda7e05473089fa7af4d2a51ac3270f2f291b75.htm"
+      }
+    },
+    "0001404912:2022-01-01:2022-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "332cee7ad398156729f777a0d3f5881bfc40e1001d1e0b937b7cc43a424d17d6",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "-0.79",
+        "period_start": "2022-01-01",
+        "period_end": "2022-12-31",
+        "filed": "2025-02-28",
+        "accession": "0001404912-25-000015",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491225000015/R6.htm",
+        "sha256": "b4be46cc117c0c652a4b2b15b751accd0f95eb0301a2a818bb29bb7f4f3f3e62",
+        "file": "b4be46cc117c0c652a4b2b15b751accd0f95eb0301a2a818bb29bb7f4f3f3e62.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491225000015/FilingSummary.xml",
+        "sha256": "a91b007255e67900fd8dd64aed35c7ee648b0e0162c42bb0e7360b89cd9045f1",
+        "file": "a91b007255e67900fd8dd64aed35c7ee648b0e0162c42bb0e7360b89cd9045f1.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2022-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491225000015/kkr-20241231_htm.xml",
+        "sha256": "e5925a434ae5dbdda36a200d44280704cfa6b436fb2216028433f59c5840b2c6",
+        "file": "e5925a434ae5dbdda36a200d44280704cfa6b436fb2216028433f59c5840b2c6.htm"
+      }
+    },
+    "0001404912:2021-01-01:2021-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "d6cecc36b60a95317693ffa10ba2df5bc2333bec8b9a72b926dae805ee111a1a",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "7.42",
+        "period_start": "2021-01-01",
+        "period_end": "2021-12-31",
+        "filed": "2024-02-29",
+        "accession": "0001404912-24-000005",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491224000005/R6.htm",
+        "sha256": "8e1fafc8c25d20cc0d6be4f6632a6fac597edbe7f78f21ea4adfbe8057c3423c",
+        "file": "8e1fafc8c25d20cc0d6be4f6632a6fac597edbe7f78f21ea4adfbe8057c3423c.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491224000005/FilingSummary.xml",
+        "sha256": "261533465b991bdcd516db8a18140956bc4c969262eb2ffca5c622b09468b96e",
+        "file": "261533465b991bdcd516db8a18140956bc4c969262eb2ffca5c622b09468b96e.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2021-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491224000005/kkr-20231231_htm.xml",
+        "sha256": "9e133a62b04ad29ae083828badba42252fef29327b1620bdf71eb96dea35c0db",
+        "file": "9e133a62b04ad29ae083828badba42252fef29327b1620bdf71eb96dea35c0db.htm"
+      }
+    },
+    "0001404912:2020-01-01:2020-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "70cbf6a80cbcf0dbd17f971222b2aa3258941571ef196aac09b7352102a50fb2",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "3.37",
+        "period_start": "2020-01-01",
+        "period_end": "2020-12-31",
+        "filed": "2023-02-27",
+        "accession": "0001404912-23-000005",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491223000005/R6.htm",
+        "sha256": "440c01adce96cf7d56be32e5c0575dfb87e945218a45591c59a499adb057be13",
+        "file": "440c01adce96cf7d56be32e5c0575dfb87e945218a45591c59a499adb057be13.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491223000005/FilingSummary.xml",
+        "sha256": "ae9feb5f683d653230df6ad1a2616b4cd6ece442a9a4fe5e03de8cf096c808b7",
+        "file": "ae9feb5f683d653230df6ad1a2616b4cd6ece442a9a4fe5e03de8cf096c808b7.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2020-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491223000005/kkr-20221231_htm.xml",
+        "sha256": "9af66a2f77bdb98beddd04f624fe628a1d65cc8cb2135875ae1e7974f05ebe01",
+        "file": "9af66a2f77bdb98beddd04f624fe628a1d65cc8cb2135875ae1e7974f05ebe01.htm"
+      }
+    },
+    "0001404912:2019-01-01:2019-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "9c5960860fc40df549b4f9c6fdfb4dfaf0ad0046a6b597d47fc3b5269a0b0fa2",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "3.54",
+        "period_start": "2019-01-01",
+        "period_end": "2019-12-31",
+        "filed": "2022-02-28",
+        "accession": "0001404912-22-000004",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491222000004/R5.htm",
+        "sha256": "a349857fb5c2f33d304e3a4f03105db4ad25ee7f45932c824392f11abc4f74d5",
+        "file": "a349857fb5c2f33d304e3a4f03105db4ad25ee7f45932c824392f11abc4f74d5.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491222000004/FilingSummary.xml",
+        "sha256": "b5b7e9f818ace5b319a2483659d252a20ec1a52923f892ffd6297fa5f1749889",
+        "file": "b5b7e9f818ace5b319a2483659d252a20ec1a52923f892ffd6297fa5f1749889.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2019-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491222000004/kkr-20211231_htm.xml",
+        "sha256": "eefbc1561bc2421fa8d9584633422cd51eb4e4b4f54f327c7b3f3e4510f8a5d6",
+        "file": "eefbc1561bc2421fa8d9584633422cd51eb4e4b4f54f327c7b3f3e4510f8a5d6.htm"
+      }
+    },
+    "0001404912:2018-01-01:2018-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "d81ebda68f4837ad8eb229b2630adb7fd7e7954b7bc0f7cfec5ef3fd38e96a5b",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "2.06",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-02-19",
+        "accession": "0001404912-21-000008",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491221000008/R4.htm",
+        "sha256": "1ae6b462f994d6bae85910f72f9b40ed58ccf6de68c6e78b58553af3dc937746",
+        "file": "1ae6b462f994d6bae85910f72f9b40ed58ccf6de68c6e78b58553af3dc937746.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491221000008/FilingSummary.xml",
+        "sha256": "dda42b431c706c1d33d1f6adc24ac192e2b688e4fa18c8acf85c2444a94126d7",
+        "file": "dda42b431c706c1d33d1f6adc24ac192e2b688e4fa18c8acf85c2444a94126d7.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491221000008/kkr-20201231_htm.xml",
+        "sha256": "68940fe9e37e5c2036d4f3d981773e8827b1618ee857ad817bf48ac8c141361c",
+        "file": "68940fe9e37e5c2036d4f3d981773e8827b1618ee857ad817bf48ac8c141361c.htm"
+      }
+    },
+    "0001404912:2017-01-01:2017-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "80402b818fd382269f8a18d946a1cf276b88d49e30677fbc784450192795bbea",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "1.95",
+        "period_start": "2017-01-01",
+        "period_end": "2017-12-31",
+        "filed": "2020-02-18",
+        "accession": "0001404912-20-000006",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491220000006/R4.htm",
+        "sha256": "0b9df69223c93b34bd614b5cec8dc1a3ae5957c356dddbe504ead3b754cc1fca",
+        "file": "0b9df69223c93b34bd614b5cec8dc1a3ae5957c356dddbe504ead3b754cc1fca.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491220000006/FilingSummary.xml",
+        "sha256": "957d7a52768ee7c6e9b61ee04f8f2ece9d6f445fc3707ee4cd48e471194dc525",
+        "file": "957d7a52768ee7c6e9b61ee04f8f2ece9d6f445fc3707ee4cd48e471194dc525.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2017-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491220000006/kkr-2019123110xk_htm.xml",
+        "sha256": "828ce00185765bb146befd4e24fb15b75473fbec28fbf15bc6fa0a52f8ea6cf5",
+        "file": "828ce00185765bb146befd4e24fb15b75473fbec28fbf15bc6fa0a52f8ea6cf5.htm"
+      }
+    },
+    "0001404912:2016-01-01:2016-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "e085eb479d46615abd074df161fffb4ec28dcd84f6c85924a5107883387e9b8e",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "0.59",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-02-15",
+        "accession": "0001404912-19-000006",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491219000006/R4.htm",
+        "sha256": "c3d77d05d4d62fc878fcd49f44ad14913e780b81f8c1fa38cd3fff0636e7e998",
+        "file": "c3d77d05d4d62fc878fcd49f44ad14913e780b81f8c1fa38cd3fff0636e7e998.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491219000006/FilingSummary.xml",
+        "sha256": "38956a422be9507249301a93f5d60073a6c7d18371154b737ad45fe16016818d",
+        "file": "38956a422be9507249301a93f5d60073a6c7d18371154b737ad45fe16016818d.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491219000006/kkr-20181231.xml",
+        "sha256": "4e35e7c5a8f4f6216b60144699a9a990c865b0f796d9940c3a351fdf568d2d56",
+        "file": "4e35e7c5a8f4f6216b60144699a9a990c865b0f796d9940c3a351fdf568d2d56.htm"
+      }
+    },
+    "0001404912:2015-01-01:2015-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "591dcb2232f1c6807d0fc901374283c86ec8f1cb892814c4f2ed11c021e8ddd4",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "NetIncomeLossNetOfTaxPerOutstandingLimitedPartnershipUnitDiluted",
+        "unit": "USD/shares",
+        "value": "1.01",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-23",
+        "accession": "0001404912-18-000005",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class. KKR's historical figure is per common partnership unit, before its corporate conversion.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491218000005/R4.htm",
+        "sha256": "57de60d9a24a6349894ba21b73af448f203134eb2709090068d97c305e348d03",
+        "file": "57de60d9a24a6349894ba21b73af448f203134eb2709090068d97c305e348d03.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491218000005/FilingSummary.xml",
+        "sha256": "be5494657e757e2adc14f291763d3830a1dc63d307689e5d9af45a8da774307a",
+        "file": "be5494657e757e2adc14f291763d3830a1dc63d307689e5d9af45a8da774307a.htm"
+      },
+      "label": "Diluted (in dollars per unit)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491218000005/kkr-20171231.xml",
+        "sha256": "7a5501957de20afd3c9143a3d5e4f9520d8d012bb10d907165f4b5f92a4dd227",
+        "file": "7a5501957de20afd3c9143a3d5e4f9520d8d012bb10d907165f4b5f92a4dd227.htm"
+      }
+    },
+    "0001163165:2018-01-01:2018-12-31": {
+      "ticker": "COP",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "73fe50c9ce3a2cbceef7f0bde2fcc563c4accf4e7ae59019ad1708c1424441be",
+      "fact": {
+        "source_cik": "0001163165",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "5.32",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-02-16",
+        "accession": "0001562762-21-000027",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1163165/000156276221000027/R2.htm",
+        "sha256": "90d0e124a2173b61c03a08c4075876dfff29cf5119a783fc0ceaf3051763f235",
+        "file": "90d0e124a2173b61c03a08c4075876dfff29cf5119a783fc0ceaf3051763f235.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1163165/000156276221000027/FilingSummary.xml",
+        "sha256": "c384250b1e55f4be46bfe065152b877fca504904528b1fdc1f9c4b5abdb3d334",
+        "file": "c384250b1e55f4be46bfe065152b877fca504904528b1fdc1f9c4b5abdb3d334.htm"
+      },
+      "label": "Earnings per Share, Diluted",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001163165.json",
+        "sha256": "cccc8afe3602880e8f2909266e778aa195b42e745da669a801925c593720d2fc",
+        "file": "cccc8afe3602880e8f2909266e778aa195b42e745da669a801925c593720d2fc.json"
+      }
+    },
+    "0001327567:2017-08-01:2018-07-31": {
+      "ticker": "PANW",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "953df8a7809ded5888749ef5fcc68984b0dcc7f86860a4f228118a803a493853",
+      "fact": {
+        "source_cik": "0001327567",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "-1.33",
+        "period_start": "2017-08-01",
+        "period_end": "2018-07-31",
+        "filed": "2020-09-04",
+        "accession": "0001327567-20-000032",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756720000032/R4.htm",
+        "sha256": "e4409172ece635dc489f542885b6f88f231f857e451209a253510700fbf533ec",
+        "file": "e4409172ece635dc489f542885b6f88f231f857e451209a253510700fbf533ec.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756720000032/FilingSummary.xml",
+        "sha256": "9ecf7403a1d4c810ddf158e83b105392c32119a9fc45449f202de68db6169b70",
+        "file": "9ecf7403a1d4c810ddf158e83b105392c32119a9fc45449f202de68db6169b70.htm"
+      },
+      "label": "Net loss per share, basic and diluted",
+      "column": "12 months ended 2018-07-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+        "sha256": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f",
+        "file": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f.json"
+      }
+    },
+    "0001327567:2016-08-01:2017-07-31": {
+      "ticker": "PANW",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "4bb94f782b51050c5c2dde49f9187dd8fdaa10995900f10a0439302363670dd9",
+      "fact": {
+        "source_cik": "0001327567",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "-2.24",
+        "period_start": "2016-08-01",
+        "period_end": "2017-07-31",
+        "filed": "2019-09-09",
+        "accession": "0001327567-19-000032",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756719000032/R4.htm",
+        "sha256": "13ea71efa6a90cdd9abb037b2e06844536a9bc64eacb276b7b6890a3ee52f484",
+        "file": "13ea71efa6a90cdd9abb037b2e06844536a9bc64eacb276b7b6890a3ee52f484.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756719000032/FilingSummary.xml",
+        "sha256": "87ab80b1e46d93fd9992c2fbd17a87ccc7de769ad0bacd1ba55c04bb037201f2",
+        "file": "87ab80b1e46d93fd9992c2fbd17a87ccc7de769ad0bacd1ba55c04bb037201f2.htm"
+      },
+      "label": "Net loss per share, basic and diluted",
+      "column": "12 months ended 2017-07-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+        "sha256": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f",
+        "file": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f.json"
+      }
+    },
+    "0001327567:2015-08-01:2016-07-31": {
+      "ticker": "PANW",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "fa20288c41c0b43eb2f62425761eef75fed9031f078aa3964cb79e9a56005bf1",
+      "fact": {
+        "source_cik": "0001327567",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "-2.21",
+        "period_start": "2015-08-01",
+        "period_end": "2016-07-31",
+        "filed": "2018-09-13",
+        "accession": "0001327567-18-000024",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756718000024/R4.htm",
+        "sha256": "8293f6353966bb64fa4c47a4bab25b8a610ebdbb1572918434dd48063eba2d02",
+        "file": "8293f6353966bb64fa4c47a4bab25b8a610ebdbb1572918434dd48063eba2d02.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756718000024/FilingSummary.xml",
+        "sha256": "075653d5703507407dafe2325928376a910fafe8c0ae1b38b94195038723ab8c",
+        "file": "075653d5703507407dafe2325928376a910fafe8c0ae1b38b94195038723ab8c.htm"
+      },
+      "label": "Net loss per share, basic and diluted",
+      "column": "12 months ended 2016-07-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+        "sha256": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f",
+        "file": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f.json"
+      }
+    },
+    "0001327567:2014-08-01:2015-07-31": {
+      "ticker": "PANW",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "9d67553fb7b35047b3a5a2ff29c3aeafe1607a0d543db8e4b279d6ca2500cbfb",
+      "fact": {
+        "source_cik": "0001327567",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "-1.61",
+        "period_start": "2014-08-01",
+        "period_end": "2015-07-31",
+        "filed": "2017-09-07",
+        "accession": "0001327567-17-000027",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756717000027/R4.htm",
+        "sha256": "213064f41686ded733761e9f30636d4dc74d0e68c4fb49d95de2f03ed135bff4",
+        "file": "213064f41686ded733761e9f30636d4dc74d0e68c4fb49d95de2f03ed135bff4.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756717000027/FilingSummary.xml",
+        "sha256": "5c4f58c552dba08c4827fa3e2a168226f8d30eba337946d109d64ed9f10d6dbe",
+        "file": "5c4f58c552dba08c4827fa3e2a168226f8d30eba337946d109d64ed9f10d6dbe.htm"
+      },
+      "label": "Net loss per share, basic and diluted",
+      "column": "12 months ended 2015-07-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+        "sha256": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f",
+        "file": "0fce8129e237331262a97979fde517a19797896a44f4d4eeab2a0767aaa6029f.json"
+      }
+    },
+    "0000006281:2018-11-04:2019-11-02": {
+      "ticker": "ADI",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "4b40707c12e3e5812fb2db2b1b40e396832081d6980684527d47e0588d47b9d3",
+      "fact": {
+        "source_cik": "0000006281",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "3.65",
+        "period_start": "2018-11-04",
+        "period_end": "2019-11-02",
+        "filed": "2021-12-03",
+        "accession": "0000006281-21-000294",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628121000294/R2.htm",
+        "sha256": "a18433cff1d6c5c43f7b9c3c4ce9fb6ca826fe5db462357c4b3ea357420ac5b6",
+        "file": "a18433cff1d6c5c43f7b9c3c4ce9fb6ca826fe5db462357c4b3ea357420ac5b6.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628121000294/FilingSummary.xml",
+        "sha256": "a286f99102ce690c2a378c4e7fdd6b67544ea5d6ceaeaddfc9c634993daf9221",
+        "file": "a286f99102ce690c2a378c4e7fdd6b67544ea5d6ceaeaddfc9c634993daf9221.htm"
+      },
+      "label": "Earnings per common share diluted (USD per share)",
+      "column": "12 months ended 2019-11-02; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006281.json",
+        "sha256": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c",
+        "file": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c.json"
+      }
+    },
+    "0000006281:2017-10-29:2018-11-03": {
+      "ticker": "ADI",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "8f5becfa1155b1474693777aee5dbdffee97c88018f1bb0524100c80efdf73d4",
+      "fact": {
+        "source_cik": "0000006281",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "4",
+        "period_start": "2017-10-29",
+        "period_end": "2018-11-03",
+        "filed": "2020-11-24",
+        "accession": "0000006281-20-000156",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628120000156/R2.htm",
+        "sha256": "5f8048cbafde1046ddbf299af0709f65ab6aa05c7b9b749bbf950a96aee3c800",
+        "file": "5f8048cbafde1046ddbf299af0709f65ab6aa05c7b9b749bbf950a96aee3c800.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628120000156/FilingSummary.xml",
+        "sha256": "5c5d0805a52df8c7276c1688b808583ddc8eedc2957624511fca6db7864e9e0d",
+        "file": "5c5d0805a52df8c7276c1688b808583ddc8eedc2957624511fca6db7864e9e0d.htm"
+      },
+      "label": "Diluted earnings per common share (in dollars per share)",
+      "column": "12 months ended 2018-11-03; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006281.json",
+        "sha256": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c",
+        "file": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c.json"
+      }
+    },
+    "0000006281:2016-10-30:2017-10-28": {
+      "ticker": "ADI",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "7f475c86ca3dbd3804853b9f66e6fb5ccf27b706a6cb08c73b243c36bb596424",
+      "fact": {
+        "source_cik": "0000006281",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.29",
+        "period_start": "2016-10-30",
+        "period_end": "2017-10-28",
+        "filed": "2019-11-26",
+        "accession": "0000006281-19-000144",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628119000144/R2.htm",
+        "sha256": "93dd721793e19a183a10a01827406dcdd13fbb83b8fdd87e1525c0e262df9b48",
+        "file": "93dd721793e19a183a10a01827406dcdd13fbb83b8fdd87e1525c0e262df9b48.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628119000144/FilingSummary.xml",
+        "sha256": "268b608b2c95670d4032bd521b24af8ea36c17105d3884a95b815f8e32b98954",
+        "file": "268b608b2c95670d4032bd521b24af8ea36c17105d3884a95b815f8e32b98954.htm"
+      },
+      "label": "Diluted earnings per common share (in dollars per share)",
+      "column": "12 months ended 2017-10-28; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006281.json",
+        "sha256": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c",
+        "file": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c.json"
+      }
+    },
+    "0000006281:2015-11-01:2016-10-29": {
+      "ticker": "ADI",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "95cd349845853158bca53b2ba10352a38d33c20622f11e1192d2ec2e5221c79e",
+      "fact": {
+        "source_cik": "0000006281",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.76",
+        "period_start": "2015-11-01",
+        "period_end": "2016-10-29",
+        "filed": "2018-11-27",
+        "accession": "0000006281-18-000126",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628118000126/R2.htm",
+        "sha256": "8b5273974c697573462097e39cccffece9b4f721b3540eb3872446530e7ed672",
+        "file": "8b5273974c697573462097e39cccffece9b4f721b3540eb3872446530e7ed672.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628118000126/FilingSummary.xml",
+        "sha256": "d7df002ca2b5aed8d02618ddd457d3d8205717a872ace1e233decb452a19fac4",
+        "file": "d7df002ca2b5aed8d02618ddd457d3d8205717a872ace1e233decb452a19fac4.htm"
+      },
+      "label": "Diluted earnings per common share (in dollars per share)",
+      "column": "12 months ended 2016-10-29; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006281.json",
+        "sha256": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c",
+        "file": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c.json"
+      }
+    },
+    "0000006281:2014-11-02:2015-10-31": {
+      "ticker": "ADI",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "eb6a6b916597dd5c29b51f6a65b767af8bf3864a305697164f5fdca4d0397eda",
+      "fact": {
+        "source_cik": "0000006281",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.2",
+        "period_start": "2014-11-02",
+        "period_end": "2015-10-31",
+        "filed": "2017-11-22",
+        "accession": "0000006281-17-000144",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628117000144/R2.htm",
+        "sha256": "e6a96e746f340357c261c13197edbb34136825032c653af742d3dfa5310a7656",
+        "file": "e6a96e746f340357c261c13197edbb34136825032c653af742d3dfa5310a7656.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628117000144/FilingSummary.xml",
+        "sha256": "bb97efd6f066f376c982df4cd618e14756803c683987d1a68a1e3e3aff529ed8",
+        "file": "bb97efd6f066f376c982df4cd618e14756803c683987d1a68a1e3e3aff529ed8.htm"
+      },
+      "label": "Diluted earnings per common share (in dollars per share)",
+      "column": "12 months ended 2015-10-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006281.json",
+        "sha256": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c",
+        "file": "f468425da29412efbec29798ecd0f9cc719edd5766d734c5c3fc1092a3fe237c.json"
+      }
+    },
+    "0000764180:2015-01-01:2015-12-31": {
+      "ticker": "MO",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "7529ab1aaa82d022300bea3607cf3ce9a89048e74d25fe0262be6bb6a4ce882e",
+      "fact": {
+        "source_cik": "0000764180",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "2.67",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-27",
+        "accession": "0000764180-18-000028",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/764180/000076418018000028/R4.htm",
+        "sha256": "d0badeb3e1662c85e1bdcd54a5577ca921853d0df320cdc428d2645a5531aa33",
+        "file": "d0badeb3e1662c85e1bdcd54a5577ca921853d0df320cdc428d2645a5531aa33.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/764180/000076418018000028/FilingSummary.xml",
+        "sha256": "7afe34c25f649502272880978ca04646e36d615e99295dc14d211f8c125b04b2",
+        "file": "7afe34c25f649502272880978ca04646e36d615e99295dc14d211f8c125b04b2.htm"
+      },
+      "label": "Basic and diluted earnings per share attributable to Altria Group, Inc. (usd per share)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000764180.json",
+        "sha256": "582b5eb5dbbe9b567af2d187a19d9a7d59f7d7dda6a37a5037ac7b6972262c3d",
+        "file": "582b5eb5dbbe9b567af2d187a19d9a7d59f7d7dda6a37a5037ac7b6972262c3d.json"
+      }
+    },
+    "0001260221:2018-10-01:2019-09-30": {
+      "ticker": "TDG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "01211deead4f7651beeedaa6c4400a5be12c03ed20ecbbda86afeca003261f9b",
+      "fact": {
+        "source_cik": "0001260221",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "13.84",
+        "period_start": "2018-10-01",
+        "period_end": "2019-09-30",
+        "filed": "2021-11-16",
+        "accession": "0001260221-21-000134",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022121000134/R4.htm",
+        "sha256": "72886370e8b42f460cdee0765f6803d9147f772f3f59a7e55c1f2a65b83e04d7",
+        "file": "72886370e8b42f460cdee0765f6803d9147f772f3f59a7e55c1f2a65b83e04d7.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022121000134/FilingSummary.xml",
+        "sha256": "3e2da666aa869193aac29a8e109f033eced24eccf9fe8b0a5b73c75752b27be0",
+        "file": "3e2da666aa869193aac29a8e109f033eced24eccf9fe8b0a5b73c75752b27be0.htm"
+      },
+      "label": "Earnings per share",
+      "column": "12 months ended 2019-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001260221.json",
+        "sha256": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9",
+        "file": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9.json"
+      }
+    },
+    "0001260221:2017-10-01:2018-09-30": {
+      "ticker": "TDG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "3157374b8ede898c7b336596a0f29bda510a7ea75f5cc4243cb309727d6802e5",
+      "fact": {
+        "source_cik": "0001260221",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "16.2",
+        "period_start": "2017-10-01",
+        "period_end": "2018-09-30",
+        "filed": "2020-11-12",
+        "accession": "0001260221-20-000099",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022120000099/R4.htm",
+        "sha256": "58e3ea73fdd6acac61ce076553133bfb9f4f8abf7834a0c167239d5ab3833ce4",
+        "file": "58e3ea73fdd6acac61ce076553133bfb9f4f8abf7834a0c167239d5ab3833ce4.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022120000099/FilingSummary.xml",
+        "sha256": "405effa00402e94576665f23b7fd8ec8c1936b8fc23a0f100682be7b2b69118b",
+        "file": "405effa00402e94576665f23b7fd8ec8c1936b8fc23a0f100682be7b2b69118b.htm"
+      },
+      "label": "Earnings per share",
+      "column": "12 months ended 2018-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001260221.json",
+        "sha256": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9",
+        "file": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9.json"
+      }
+    },
+    "0001260221:2016-10-01:2017-09-30": {
+      "ticker": "TDG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "f08a4c675c1c16cfd68d3c6ae845ebd0e84c62b61471fd15db6495878c891a6a",
+      "fact": {
+        "source_cik": "0001260221",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "7.88",
+        "period_start": "2016-10-01",
+        "period_end": "2017-09-30",
+        "filed": "2019-11-19",
+        "accession": "0001260221-19-000043",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022119000043/R4.htm",
+        "sha256": "979592303023c039b81d3a46295da60921c4d4bf105107990b994585c5010bae",
+        "file": "979592303023c039b81d3a46295da60921c4d4bf105107990b994585c5010bae.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022119000043/FilingSummary.xml",
+        "sha256": "e24064d3c1216f3f34a7b2781443ba0f64807cfc413592fe3c74af2331039b0e",
+        "file": "e24064d3c1216f3f34a7b2781443ba0f64807cfc413592fe3c74af2331039b0e.htm"
+      },
+      "label": "Net earnings per share",
+      "column": "12 months ended 2017-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001260221.json",
+        "sha256": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9",
+        "file": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9.json"
+      }
+    },
+    "0001260221:2015-10-01:2016-09-30": {
+      "ticker": "TDG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "61158ba6b61226c0825e458c663d0bed44441fcff66088b53c4f7db409fdba86",
+      "fact": {
+        "source_cik": "0001260221",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "10.39",
+        "period_start": "2015-10-01",
+        "period_end": "2016-09-30",
+        "filed": "2018-11-09",
+        "accession": "0001260221-18-000070",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022118000070/R4.htm",
+        "sha256": "5d07565bebbd2281a7da4de1d076286e313392ce3b691b507dc3de9c79cd05c9",
+        "file": "5d07565bebbd2281a7da4de1d076286e313392ce3b691b507dc3de9c79cd05c9.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022118000070/FilingSummary.xml",
+        "sha256": "064f24e4f3f9394a77efbd71af60e9fe53f84c7dcec4eaed4d80baf28aaf3ac5",
+        "file": "064f24e4f3f9394a77efbd71af60e9fe53f84c7dcec4eaed4d80baf28aaf3ac5.htm"
+      },
+      "label": "Net earnings per share",
+      "column": "12 months ended 2016-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001260221.json",
+        "sha256": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9",
+        "file": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9.json"
+      }
+    },
+    "0001260221:2014-10-01:2015-09-30": {
+      "ticker": "TDG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "424e08090dfb71fa2e3084a472eeb2bd615e0c7cf9da941a91ad4ec050f3c268",
+      "fact": {
+        "source_cik": "0001260221",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "7.84",
+        "period_start": "2014-10-01",
+        "period_end": "2015-09-30",
+        "filed": "2017-11-13",
+        "accession": "0001260221-17-000060",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022117000060/R4.htm",
+        "sha256": "44c7dd5f78669a549e7162238cfab1b9c216677c0614a492f4b1a21f12347004",
+        "file": "44c7dd5f78669a549e7162238cfab1b9c216677c0614a492f4b1a21f12347004.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022117000060/FilingSummary.xml",
+        "sha256": "a7b0ea1f01d2bd2e2f6d5b699d3c92be83c8398acbdebef8d754c6be4972adee",
+        "file": "a7b0ea1f01d2bd2e2f6d5b699d3c92be83c8398acbdebef8d754c6be4972adee.htm"
+      },
+      "label": "Basic and diluted (in dollars per share)",
+      "column": "12 months ended 2015-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001260221.json",
+        "sha256": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9",
+        "file": "74a8d46bf913c5464b41d705af26fc749725d4375dec095885d3053603bdd9d9.json"
+      }
+    },
+    "0001063761:2020-01-01:2020-12-31": {
+      "ticker": "SPG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "76571c08e4aab80deffbee5b5456278f1771c2d0642ed389b032fa3b30cc8875",
+      "fact": {
+        "source_cik": "0001063761",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "3.59",
+        "period_start": "2020-01-01",
+        "period_end": "2020-12-31",
+        "filed": "2023-02-23",
+        "accession": "0001558370-23-001840",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837023001840/R4.htm",
+        "sha256": "f3f314ca4f6521b62d50e4058f76b4d70f0348cbf629576f5fa0b493cf7e5ae1",
+        "file": "f3f314ca4f6521b62d50e4058f76b4d70f0348cbf629576f5fa0b493cf7e5ae1.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837023001840/FilingSummary.xml",
+        "sha256": "3088a9617d69294a5f099fe4426dcf6f955a9581edb8ee2bd390e2bc64cd12c4",
+        "file": "3088a9617d69294a5f099fe4426dcf6f955a9581edb8ee2bd390e2bc64cd12c4.htm"
+      },
+      "label": "Net income attributable to common stockholders - basic (in dollars per share)",
+      "column": "12 months ended 2020-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+        "sha256": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2",
+        "file": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2.json"
+      }
+    },
+    "0001063761:2019-01-01:2019-12-31": {
+      "ticker": "SPG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "7ce45c468a73f32be68ddcd12be13e695d6428cb7eda39567cab0c5e66c849a4",
+      "fact": {
+        "source_cik": "0001063761",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "6.81",
+        "period_start": "2019-01-01",
+        "period_end": "2019-12-31",
+        "filed": "2022-02-24",
+        "accession": "0001558370-22-001845",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837022001845/R4.htm",
+        "sha256": "53b8c4561188c6741b7e4934ac94ca03c86b043c8e4b19713b4c617779f1a849",
+        "file": "53b8c4561188c6741b7e4934ac94ca03c86b043c8e4b19713b4c617779f1a849.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837022001845/FilingSummary.xml",
+        "sha256": "60e6f8831cd502c987490c97d17b9ce8944f4ae261acdd8c776bd32976c097c3",
+        "file": "60e6f8831cd502c987490c97d17b9ce8944f4ae261acdd8c776bd32976c097c3.htm"
+      },
+      "label": "Net income attributable to common stockholders - basic (in dollars per share)",
+      "column": "12 months ended 2019-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+        "sha256": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2",
+        "file": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2.json"
+      }
+    },
+    "0001063761:2018-01-01:2018-12-31": {
+      "ticker": "SPG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "bfc807e56caeae3a0a798fababf3661daa2b25ffd6a68ab7de7e97e2ee7824bb",
+      "fact": {
+        "source_cik": "0001063761",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "7.87",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-02-25",
+        "accession": "0001558370-21-001700",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837021001700/R4.htm",
+        "sha256": "094417ae009312c97d0942e748306dd4d1cd5e205402be33f01b0a707e2329d0",
+        "file": "094417ae009312c97d0942e748306dd4d1cd5e205402be33f01b0a707e2329d0.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837021001700/FilingSummary.xml",
+        "sha256": "ade5c19f7d532298c7de75950e22b749f92745095293d1cef3ecff346b4f1b47",
+        "file": "ade5c19f7d532298c7de75950e22b749f92745095293d1cef3ecff346b4f1b47.htm"
+      },
+      "label": "Net income attributable to common stockholders (in dollars per share or unit)",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+        "sha256": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2",
+        "file": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2.json"
+      }
+    },
+    "0001063761:2017-01-01:2017-12-31": {
+      "ticker": "SPG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "2609055c468afe92bd99be31b74ac2e4b1221cdd06b5212a8b3ce5fb9bf71d66",
+      "fact": {
+        "source_cik": "0001063761",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "6.24",
+        "period_start": "2017-01-01",
+        "period_end": "2017-12-31",
+        "filed": "2020-02-21",
+        "accession": "0001558370-20-001135",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837020001135/R4.htm",
+        "sha256": "5ad2ee45e539ecebf80610491833515f1b9a148687854f850ed52bff8fca7422",
+        "file": "5ad2ee45e539ecebf80610491833515f1b9a148687854f850ed52bff8fca7422.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837020001135/FilingSummary.xml",
+        "sha256": "105aff6ea1aee1b8f7c402f18bc71fc0dc84ccc00ce8358dadc09e5c10ffd289",
+        "file": "105aff6ea1aee1b8f7c402f18bc71fc0dc84ccc00ce8358dadc09e5c10ffd289.htm"
+      },
+      "label": "Net income attributable to common stockholders or unitholders (in dollars per share or unit)",
+      "column": "12 months ended 2017-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+        "sha256": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2",
+        "file": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2.json"
+      }
+    },
+    "0001063761:2016-01-01:2016-12-31": {
+      "ticker": "SPG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "a98f3fcb1b97c439bd29bc9a04b9a2dbe0374173828160fef22e1ac9acb0d477",
+      "fact": {
+        "source_cik": "0001063761",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "5.87",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-02-22",
+        "accession": "0001558370-19-000875",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837019000875/R4.htm",
+        "sha256": "15182370d919e71788a1a80bba887df01dcf056d002c28c429e034a6aa78d977",
+        "file": "15182370d919e71788a1a80bba887df01dcf056d002c28c429e034a6aa78d977.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837019000875/FilingSummary.xml",
+        "sha256": "ee840b60bb3b0d23e2c60f9699bd30780af5429f17ee31c1fa29fbd395692075",
+        "file": "ee840b60bb3b0d23e2c60f9699bd30780af5429f17ee31c1fa29fbd395692075.htm"
+      },
+      "label": "Net income attributable to common stockholders or unitholders (in dollars per share or unit)",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+        "sha256": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2",
+        "file": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2.json"
+      }
+    },
+    "0001063761:2015-01-01:2015-12-31": {
+      "ticker": "SPG",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "ec91bbbe7ea2a8c0f3b6d7c5c6d6b8ad70427d5f04686c2ba8ff71baa77f5687",
+      "fact": {
+        "source_cik": "0001063761",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "5.88",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-23",
+        "accession": "0001558370-18-000981",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837018000981/R4.htm",
+        "sha256": "c91928509e7be98875e5c328fb4f792c60d94e64204bf673448875ecd39e823a",
+        "file": "c91928509e7be98875e5c328fb4f792c60d94e64204bf673448875ecd39e823a.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837018000981/FilingSummary.xml",
+        "sha256": "1a05123a14603b8266973b145b6346ef4edd03be13fb6865fd5bcd8d091572c9",
+        "file": "1a05123a14603b8266973b145b6346ef4edd03be13fb6865fd5bcd8d091572c9.htm"
+      },
+      "label": "Net income attributable to common stockholders or unitholders (in dollars per share or unit)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+        "sha256": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2",
+        "file": "37cdd1240de5e7962809168b0360723dc199cbbb299a4939e78296862cedb4a2.json"
+      }
+    },
+    "0001506307:2018-01-01:2018-12-31": {
+      "ticker": "KMI",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "3cf285810814ebcb393c4c29a157442757ef2b11689d738afd0fb3b74c9b17f4",
+      "fact": {
+        "source_cik": "0001506307",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "0.66",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-02-05",
+        "accession": "0001506307-21-000022",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630721000022/R2.htm",
+        "sha256": "5619cba2e1548156a38f02fbd52cea221edcf601b40d1d1e2f77ac25022a6938",
+        "file": "5619cba2e1548156a38f02fbd52cea221edcf601b40d1d1e2f77ac25022a6938.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630721000022/FilingSummary.xml",
+        "sha256": "db401337255a30c40f04a753bf68dc4351004eb8f31b86f31cb208da3a6a4e43",
+        "file": "db401337255a30c40f04a753bf68dc4351004eb8f31b86f31cb208da3a6a4e43.htm"
+      },
+      "label": "Basic and Diluted Earnings Per Common Share",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001506307.json",
+        "sha256": "1a60fc0f9776bfc713f1569c0d588be4a28901044e47de75c24e1a6a9b4369c7",
+        "file": "1a60fc0f9776bfc713f1569c0d588be4a28901044e47de75c24e1a6a9b4369c7.json"
+      }
+    },
+    "0000831259:2024-01-01:2024-12-31": {
+      "ticker": "FCX",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "34438aed1824b8a8a990b8edf711742d66efeb2909d2457b88364b4a9733c0f4",
+      "fact": {
+        "source_cik": "0000831259",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.3",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "filed": "2026-02-13",
+        "accession": "0000831259-26-000012",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/R3.htm",
+        "sha256": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689",
+        "file": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/FilingSummary.xml",
+        "sha256": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688",
+        "file": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2024-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831259.json",
+        "sha256": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11",
+        "file": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11.json"
+      }
+    },
+    "0000831259:2023-01-01:2023-12-31": {
+      "ticker": "FCX",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "d52dfb7578c9ff5e004724186f8385f7673e379578f450a76ba2ef6797520988",
+      "fact": {
+        "source_cik": "0000831259",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.28",
+        "period_start": "2023-01-01",
+        "period_end": "2023-12-31",
+        "filed": "2026-02-13",
+        "accession": "0000831259-26-000012",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/R3.htm",
+        "sha256": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689",
+        "file": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/FilingSummary.xml",
+        "sha256": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688",
+        "file": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2023-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831259.json",
+        "sha256": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11",
+        "file": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11.json"
+      }
+    },
+    "0000831259:2022-01-01:2022-12-31": {
+      "ticker": "FCX",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "24cddf591c28197ad00dc46dc703d10af4537448a2011ffeadfa913b0e0a12c8",
+      "fact": {
+        "source_cik": "0000831259",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.39",
+        "period_start": "2022-01-01",
+        "period_end": "2022-12-31",
+        "filed": "2025-02-14",
+        "accession": "0000831259-25-000006",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125925000006/R3.htm",
+        "sha256": "92b4291cfa7db3278e694107ae4b9e82088d99098363371874fe6a83f443392c",
+        "file": "92b4291cfa7db3278e694107ae4b9e82088d99098363371874fe6a83f443392c.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125925000006/FilingSummary.xml",
+        "sha256": "47a4c17ce34f63229fe7d2514b43268b64ebf0b4943f7034045697be3c95b796",
+        "file": "47a4c17ce34f63229fe7d2514b43268b64ebf0b4943f7034045697be3c95b796.htm"
+      },
+      "label": "Income (Loss) from Continuing Operations, Per Diluted Share",
+      "column": "12 months ended 2022-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831259.json",
+        "sha256": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11",
+        "file": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11.json"
+      }
+    },
+    "0000865752:2024-01-01:2024-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "2f0d13f2d807099a9e0e7ed29cc99a9952206e735a1dea533ee9593b1fe02f9e",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.49",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "filed": "2026-02-27",
+        "accession": "0001104659-26-020831",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/R4.htm",
+        "sha256": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37",
+        "file": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/FilingSummary.xml",
+        "sha256": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa",
+        "file": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa.htm"
+      },
+      "label": "Diluted (in dollar per share)",
+      "column": "12 months ended 2024-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2023-01-01:2023-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "874cd9c31968294892adf800144b08b2c308ae3860d33bb175a5e2f53e9c0aa3",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.54",
+        "period_start": "2023-01-01",
+        "period_end": "2023-12-31",
+        "filed": "2026-02-27",
+        "accession": "0001104659-26-020831",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/R4.htm",
+        "sha256": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37",
+        "file": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/FilingSummary.xml",
+        "sha256": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa",
+        "file": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa.htm"
+      },
+      "label": "Diluted (in dollar per share)",
+      "column": "12 months ended 2023-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2022-01-01:2022-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "087d23c96be768f90db69111cc3839af22107289de99589bc7d141698e429304",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.12",
+        "period_start": "2022-01-01",
+        "period_end": "2022-12-31",
+        "filed": "2025-02-28",
+        "accession": "0001410578-25-000248",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000141057825000248/R4.htm",
+        "sha256": "09320bafc4c78c88f6e5439071b5e138754b96cf570639ef2fad59d02964e533",
+        "file": "09320bafc4c78c88f6e5439071b5e138754b96cf570639ef2fad59d02964e533.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000141057825000248/FilingSummary.xml",
+        "sha256": "0d368e148a023911e0db2c0836801c1d06939be7e4d4a608289dd14041fd5444",
+        "file": "0d368e148a023911e0db2c0836801c1d06939be7e4d4a608289dd14041fd5444.htm"
+      },
+      "label": "Diluted (in dollar per share)",
+      "column": "12 months ended 2022-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2021-01-01:2021-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "b8960863ff8b3509882be3beb25355c250b07551e145ebd23405fec787f1beb2",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.29",
+        "period_start": "2021-01-01",
+        "period_end": "2021-12-31",
+        "filed": "2024-02-29",
+        "accession": "0001104659-24-029425",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465924029425/R4.htm",
+        "sha256": "ed8025e63a35b8c1e31130a242d7e45fd5cb678f51b751000acd93fd739a52b9",
+        "file": "ed8025e63a35b8c1e31130a242d7e45fd5cb678f51b751000acd93fd739a52b9.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465924029425/FilingSummary.xml",
+        "sha256": "7307f2fd3cf4cf1f63ddfa3189fbc7a4b88a584bd2f1ccc17961dc22b7a0c756",
+        "file": "7307f2fd3cf4cf1f63ddfa3189fbc7a4b88a584bd2f1ccc17961dc22b7a0c756.htm"
+      },
+      "label": "Diluted (in dollar per share)",
+      "column": "12 months ended 2021-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2020-01-01:2020-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "265b7cf98f96a2c1388db5c49846ba86c35b6549871689809ed84ab51fc656f6",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.64",
+        "period_start": "2020-01-01",
+        "period_end": "2020-12-31",
+        "filed": "2023-03-01",
+        "accession": "0001104659-23-027245",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465923027245/R4.htm",
+        "sha256": "3ce747a989efc033e66b2f6d22a5771d62dac4afc32036e1e95df18122ac2619",
+        "file": "3ce747a989efc033e66b2f6d22a5771d62dac4afc32036e1e95df18122ac2619.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465923027245/FilingSummary.xml",
+        "sha256": "d47d3e692030193b834752f61696fad2f4d079efd6f344686d9dde158f9abacf",
+        "file": "d47d3e692030193b834752f61696fad2f4d079efd6f344686d9dde158f9abacf.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2020-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2019-01-01:2019-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "8e9bc5d906267a8b3ab9a6e9cd70ef5223130170dd0a1168710e70c11706f20c",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "2.03",
+        "period_start": "2019-01-01",
+        "period_end": "2019-12-31",
+        "filed": "2022-02-28",
+        "accession": "0001104659-22-028182",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465922028182/R4.htm",
+        "sha256": "413bb0bd6d2b291c38390b272491b2120581b28a0646af29e157c8f6288adf6b",
+        "file": "413bb0bd6d2b291c38390b272491b2120581b28a0646af29e157c8f6288adf6b.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465922028182/FilingSummary.xml",
+        "sha256": "8e0715fa0fc6183e628c84790eb020d0c5c4321a18fd35c5fd601be98c4f0ca9",
+        "file": "8e0715fa0fc6183e628c84790eb020d0c5c4321a18fd35c5fd601be98c4f0ca9.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2019-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2018-01-01:2018-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "c658525488bd1b688ebd13e258f2db1dadef88f5b9bf2acf5529187c023f0745",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.76",
+        "period_start": "2018-01-01",
+        "period_end": "2018-12-31",
+        "filed": "2021-03-01",
+        "accession": "0001104659-21-029943",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465921029943/R4.htm",
+        "sha256": "939124f8885a00e68d38c4a46c93bce5830935030ba6fc2dfe52d73e47ef6f16",
+        "file": "939124f8885a00e68d38c4a46c93bce5830935030ba6fc2dfe52d73e47ef6f16.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465921029943/FilingSummary.xml",
+        "sha256": "d5e3272b5514c3bfca8d8abcae94c88c533c91dd304779ca22d69add5416fdb5",
+        "file": "d5e3272b5514c3bfca8d8abcae94c88c533c91dd304779ca22d69add5416fdb5.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2018-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2017-01-01:2017-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "d78ddf6f136152f587187c0e4501e2425ab054fbcafccfa0b72e7b386036a08e",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.42",
+        "period_start": "2017-01-01",
+        "period_end": "2017-12-31",
+        "filed": "2020-02-28",
+        "accession": "0001104659-20-027209",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465920027209/R4.htm",
+        "sha256": "0995ae5ae74caf675b75abc71a087f34aa3e9e9191b9780771a4d5af7b5ff727",
+        "file": "0995ae5ae74caf675b75abc71a087f34aa3e9e9191b9780771a4d5af7b5ff727.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465920027209/FilingSummary.xml",
+        "sha256": "158aeb519153072bd6b566150e8a296a2dd7fe27395b4042c21068080c4fbb65",
+        "file": "158aeb519153072bd6b566150e8a296a2dd7fe27395b4042c21068080c4fbb65.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2017-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2016-01-01:2016-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "c63b32cbc3a4c8e532c763c232ce8e8c7f64bc484e4b3a3cb0f3db132814303b",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.19",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-02-28",
+        "accession": "0001104659-19-011581",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465919011581/R4.htm",
+        "sha256": "0716be9ec330bdd353c29bd1bf257208eff5c14b959bee92478581ce2877b8ab",
+        "file": "0716be9ec330bdd353c29bd1bf257208eff5c14b959bee92478581ce2877b8ab.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465919011581/FilingSummary.xml",
+        "sha256": "a2388cf2aa9be3596a05ad254d0315743bba61bd0ad7e6aaf581375c0ad213af",
+        "file": "a2388cf2aa9be3596a05ad254d0315743bba61bd0ad7e6aaf581375c0ad213af.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0000865752:2015-01-01:2015-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "3d62e5788df16e7cd166bd4b15d2c1e1e4a8c4763fd678fa641ff94e6ebc9442",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "0.95",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-03-01",
+        "accession": "0001104659-18-014057",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465918014057/R4.htm",
+        "sha256": "b7af242f7cf8797fd307ef9ab4b64139f589e9fef60b643250e2d71e09890c38",
+        "file": "b7af242f7cf8797fd307ef9ab4b64139f589e9fef60b643250e2d71e09890c38.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465918014057/FilingSummary.xml",
+        "sha256": "74e34cc76a6c82525c09b763a818bf3fe50d8914bb9d4aa87c6a505265db1aec",
+        "file": "74e34cc76a6c82525c09b763a818bf3fe50d8914bb9d4aa87c6a505265db1aec.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
+      }
+    },
+    "0001069183:2021-01-01:2021-12-31": {
+      "ticker": "AXON",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "fdfd89f73fa175da45d8fc342963ef56f86ff7e945625ec51b4af18d35b3159d",
+      "fact": {
+        "source_cik": "0001069183",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "-0.85",
+        "period_start": "2021-01-01",
+        "period_end": "2021-12-31",
+        "filed": "2024-11-08",
+        "accession": "0001069183-24-000061",
+        "form": "10-Q"
+      },
+      "note": "Full-year diluted EPS revised from -0.91 to -0.85 in the 2024 Q3 note. The original revision column and XBRL context are verified; this is consolidated net EPS despite the misleading product dimension.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1069183/000106918324000061/R26.htm",
+        "sha256": "d984f4fb94e9e71585256effa7a5a482e82aec735b4c0c18e845bb97e4c80ec0",
+        "file": "d984f4fb94e9e71585256effa7a5a482e82aec735b4c0c18e845bb97e4c80ec0.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1069183/000106918324000061/FilingSummary.xml",
+        "sha256": "097be38aaabee67e747f45d47fc8dcb158111335a57a671e71ff22f37721c511",
+        "file": "097be38aaabee67e747f45d47fc8dcb158111335a57a671e71ff22f37721c511.htm"
+      },
+      "label": "Net income per common and common equivalent shares - Diluted",
+      "column": "Year ended 2021-12-31; As Revised; USD per share",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1069183/000106918324000061/axon-20240930_htm.xml",
+        "sha256": "5009cf3c94668017a8495f79255a90d2991ab3b8d6c3e356b9c4d4868df8ab58",
+        "file": "5009cf3c94668017a8495f79255a90d2991ab3b8d6c3e356b9c4d4868df8ab58.htm"
+      }
+    },
+    "0000726728:2017-01-01:2017-12-31": {
+      "ticker": "O",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "815178005ce8ce4465a78137ca01f67df1ce88deee4981c70104944823ae1098",
+      "fact": {
+        "source_cik": "0000726728",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "1.1",
+        "period_start": "2017-01-01",
+        "period_end": "2017-12-31",
+        "filed": "2020-02-24",
+        "accession": "0000726728-20-000033",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672820000033/R4.htm",
+        "sha256": "a591217e73ee12facaca95a4fd317942d6020dd8b98d01b07f1562ad74ab6455",
+        "file": "a591217e73ee12facaca95a4fd317942d6020dd8b98d01b07f1562ad74ab6455.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672820000033/FilingSummary.xml",
+        "sha256": "6da81ff85a70b01bd74d79ebbd81ddce03adf6f5d549f5539263f4fbe72447a1",
+        "file": "6da81ff85a70b01bd74d79ebbd81ddce03adf6f5d549f5539263f4fbe72447a1.htm"
+      },
+      "label": "Net income, basic and diluted (in dollars per share)",
+      "column": "12 months ended 2017-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000726728.json",
+        "sha256": "676caac36e22f0d1087ec209f80728d2ab38536a1851d1f226daf27aaef44acb",
+        "file": "676caac36e22f0d1087ec209f80728d2ab38536a1851d1f226daf27aaef44acb.json"
+      }
+    },
+    "0000726728:2016-01-01:2016-12-31": {
+      "ticker": "O",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "fd2d18956572015d0d605552a0ece6a94c6c9b1388d9ae0953d75e849bc0cded",
+      "fact": {
+        "source_cik": "0000726728",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "1.13",
+        "period_start": "2016-01-01",
+        "period_end": "2016-12-31",
+        "filed": "2019-03-01",
+        "accession": "0000726728-19-000041",
+        "form": "10-K/A"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672819000041/R4.htm",
+        "sha256": "f7e322f75d6888495e69789c04b855754fbc5f89db8fe68e753b913b814737c5",
+        "file": "f7e322f75d6888495e69789c04b855754fbc5f89db8fe68e753b913b814737c5.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672819000041/FilingSummary.xml",
+        "sha256": "2de44ea4ea5eae08c7b12c444d58acbc6fd817d5d8f3c89543456e8be4611615",
+        "file": "2de44ea4ea5eae08c7b12c444d58acbc6fd817d5d8f3c89543456e8be4611615.htm"
+      },
+      "label": "Net income, basic and diluted (in dollars per share)",
+      "column": "12 months ended 2016-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000726728.json",
+        "sha256": "676caac36e22f0d1087ec209f80728d2ab38536a1851d1f226daf27aaef44acb",
+        "file": "676caac36e22f0d1087ec209f80728d2ab38536a1851d1f226daf27aaef44acb.json"
+      }
+    },
+    "0000726728:2015-01-01:2015-12-31": {
+      "ticker": "O",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "2b468a1ada10eb250e57d1ec6a757af945d405e203beb35c07c5bc55c4c52446",
+      "fact": {
+        "source_cik": "0000726728",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasicAndDiluted",
+        "unit": "USD/shares",
+        "value": "1.09",
+        "period_start": "2015-01-01",
+        "period_end": "2015-12-31",
+        "filed": "2018-02-22",
+        "accession": "0001104659-18-011376",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/726728/000110465918011376/R4.htm",
+        "sha256": "ceaf7727707dbf3883e93632891cef546213c32e74f09c69ff874c3f2e2f0a0d",
+        "file": "ceaf7727707dbf3883e93632891cef546213c32e74f09c69ff874c3f2e2f0a0d.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/726728/000110465918011376/FilingSummary.xml",
+        "sha256": "7ebdb0482d1681ae0849b9b7c2f2039b5d9f1bb75fdbfd71c3e8b6fc2fcd2b21",
+        "file": "7ebdb0482d1681ae0849b9b7c2f2039b5d9f1bb75fdbfd71c3e8b6fc2fcd2b21.htm"
+      },
+      "label": "Net income, basic and diluted (in dollars per share)",
+      "column": "12 months ended 2015-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000726728.json",
+        "sha256": "676caac36e22f0d1087ec209f80728d2ab38536a1851d1f226daf27aaef44acb",
+        "file": "676caac36e22f0d1087ec209f80728d2ab38536a1851d1f226daf27aaef44acb.json"
+      }
+    }
+  },
+  "unresolved": {}
+}

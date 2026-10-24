@@ -1,37 +1,254 @@
 <section class="stock-details">
-  @let loadState = stockLoadState();
+  @let stockState = stockLoadState();
+  @if (stockState.status === 'loading') {
+    <p role="status">Loading stock details...</p>
+  } @else if (stockState.status === 'error') {
+    <div class="panel" role="alert">
+      <p class="eyebrow">Unable to load stock</p>
+      <h1>{{ ticker() }}</h1>
+      <p>{{ stockState.message }}</p>
+      <button class="retry-button" type="button" (click)="retryStock()">Try again</button>
+      <a routerLink="/">Go to dashboard</a>
+    </div>
+  } @else if (stock(); as company) {
+    <header class="company-header">
+      <h1>{{ company.name }}</h1>
+      <p class="company-meta">
+        <strong>{{ company.ticker }}</strong>
+        <span aria-hidden="true">·</span>
+        <span>{{ exchangeName() }}</span>
+        @if (company.sector) {
+          <span aria-hidden="true">·</span>
+          <span>{{ company.sector }}</span>
+        }
+      </p>
+      <p class="muted">
+        Historical dataset: 2015–2024. Prices and financials may use different period end dates.
+      </p>
+    </header>
 
-  @switch (loadState.status) {
-    @case ('loading') {
-      <p class="status-message">Loading stock details...</p>
-    }
+    <section class="panel" aria-labelledby="price-heading">
+      @let priceState = pricesLoadState();
+      @if (priceState.status !== 'ready' || prices().length === 0) {
+        <h2 id="price-heading">Adjusted closing price</h2>
+        <p class="muted">
+          USD · Vendor-adjusted history, including split and dividend adjustments.
+        </p>
+      }
+      @if (priceState.status === 'loading') {
+        <p role="status">Loading price history...</p>
+      } @else if (priceState.status === 'error') {
+        <p role="alert">{{ priceState.message }}</p>
+        <button class="retry-button" type="button" (click)="retryPrices()">Try again</button>
+      } @else if (prices().length === 0) {
+        <p>No price history is available.</p>
+      } @else {
+        <app-price-chart [prices]="prices()" />
+      }
+    </section>
 
-    @case ('error') {
-      <div class="status-message">
-        <p class="eyebrow">Unable to load stock</p>
-        <h1>{{ ticker() }}</h1>
-        <p class="description">{{ loadState.message }}</p>
-        <a class="home-link" routerLink="/">Go to dashboard</a>
-      </div>
-    }
-
-    @case ('ready') {
-      @if (stock(); as stock) {
-        <div class="overview-card">
-          <p class="eyebrow">Stock overview</p>
-          <h1>{{ stock.ticker }}</h1>
-          <dl class="stock-data">
-            <div>
-              <dt>Company</dt>
-              <dd>{{ stock.name }}</dd>
-            </div>
-            <div>
-              <dt>Exchange</dt>
-              <dd>{{ stock.exchange }}</dd>
-            </div>
-          </dl>
+    <section class="panel" aria-labelledby="financial-heading">
+      <h2 id="financial-heading">Annual financials</h2>
+      @if (company.financial_history_note) {
+        <p class="muted">{{ company.financial_history_note }}</p>
+      }
+      <p class="muted">
+        Amounts in USD; EPS in USD/share. Latest available filing versions, including later
+        revisions.
+      </p>
+      <p class="muted">
+        Fiscal year labels follow company reports. Equity belongs to the parent's owners at period
+        end, including preferred equity and excluding noncontrolling interests. Net income is
+        attributable to the parent, before preferred-shareholder and other per-share adjustments.
+        EPS uses diluted values where available; values marked Basic use basic EPS. EPS is
+        normalized for reviewed stock splits; Sources shows its share-count basis and original
+        value. Operating cash flow values marked Continuing operations exclude discontinued
+        operations.
+      </p>
+      <p class="muted">
+        Not available means no matching value was imported. Needs review means an unverified
+        definition or conflicting values; expand Sources to inspect them.
+      </p>
+      @let financialState = financialsLoadState();
+      @if (financialState.status === 'loading') {
+        <p role="status">Loading annual financials...</p>
+      } @else if (financialState.status === 'error') {
+        <p role="alert">{{ financialState.message }}</p>
+        <button class="retry-button" type="button" (click)="retryFinancials()">Try again</button>
+      } @else if (annualFinancials().length === 0) {
+        <p>No annual financials are available in the imported dataset.</p>
+      } @else {
+        @if (missingAnnualYears().length > 0) {
+          <p>
+            Not available in the imported date range: fiscal years
+            {{ missingAnnualYears().join(', ') }}. A fiscal year may end in the following calendar
+            year.
+          </p>
+        }
+        @if (hasUnverifiedFiscalYears()) {
+          <p class="review">
+            Some fiscal year labels need review. Missing-year coverage cannot be determined.
+          </p>
+        }
+        <div class="table-scroll" tabindex="0" aria-label="Annual financial statements">
+          <table>
+            <caption>
+              Annual values for periods ending in 2015–2024; EPS adjusted for stock splits
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Period</th>
+                @for (metric of metrics; track metric.key) {
+                  <th scope="col">{{ metric.label }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (period of annualFinancials(); track period.period_start + period.period_end) {
+                <tr>
+                  <th scope="row">
+                    @if (period.fiscal_year != null) {
+                      <strong>FY {{ period.fiscal_year }}</strong
+                      ><br />
+                    } @else {
+                      <span class="review">Fiscal year needs review</span><br />
+                    }
+                    {{ period.period_start }}<br />to {{ period.period_end }}
+                    @if (period.period_note) {
+                      <details class="period-details">
+                        <summary>Period details</summary>
+                        <p class="muted">{{ period.period_note }}</p>
+                      </details>
+                    }
+                  </th>
+                  @for (metric of metrics; track metric.key) {
+                    @let cell = period.metrics[metric.key];
+                    <td>
+                      @if (cell.status === 'ready') {
+                        <span>{{ formatValue(cell.value) }}</span>
+                        @if (metric.key === 'eps_diluted' && cell.eps_basis === 'basic') {
+                          <span class="metric-scope">Basic</span>
+                        }
+                        @if (metric.key === 'operating_cash_flow' && cell.scope === 'continuing') {
+                          <span class="metric-scope">Continuing operations</span>
+                        }
+                        @if (cell.eps_share_basis?.applied_splits?.length) {
+                          <span class="metric-scope">Split-adjusted</span>
+                        } @else if (cell.calculation) {
+                          <br /><span class="muted">Calculated</span>
+                        }
+                      } @else if (cell.status === 'needs_review') {
+                        <span class="review">Needs review</span>
+                      } @else {
+                        <span class="muted">Not available</span>
+                      }
+                      @if (cell.variants.length > 0) {
+                        <details [class.eps-share-details]="cell.eps_share_basis != null">
+                          <summary>Sources ({{ cell.variants.length }})</summary>
+                          @if (metric.key === 'operating_cash_flow' && cell.scope) {
+                            <p class="muted">
+                              Scope:
+                              {{
+                                cell.scope === 'continuing'
+                                  ? 'Continuing operations'
+                                  : 'Whole company'
+                              }}
+                            </p>
+                          }
+                          @if (metric.key === 'eps_diluted' && cell.eps_basis) {
+                            <p class="muted">
+                              EPS basis: {{ cell.eps_basis === 'basic' ? 'Basic' : 'Diluted' }}
+                            </p>
+                          }
+                          @if (cell.eps_share_basis; as shareBasis) {
+                            <p class="muted">Share-count basis: {{ shareBasis.as_of }}</p>
+                            <p>
+                              Original EPS: {{ formatValue(shareBasis.reported_value) }} USD/share.
+                              {{
+                                shareBasis.applied_splits.length
+                                  ? 'Additional splits applied:'
+                                  : 'All reviewed splits already included in the source.'
+                              }}
+                            </p>
+                            @for (split of shareBasis.applied_splits; track split.date) {
+                              <p>
+                                <a
+                                  [href]="split.source_url"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  >{{ split.date }}</a
+                                >: {{ split.new_shares }} new shares for {{ split.old_shares }} old
+                                shares
+                              </p>
+                            }
+                          }
+                          @if (cell.selection_note) {
+                            <p class="muted">{{ cell.selection_note }}</p>
+                          }
+                          @if (cell.calculation) {
+                            <p>{{ cell.calculation }}</p>
+                          }
+                          @for (
+                            variant of cell.variants;
+                            track variant.tag +
+                              variant.accession +
+                              variant.unit +
+                              variant.source_cik +
+                              variant.statement_column +
+                              variant.statement_label
+                          ) {
+                            <dl>
+                              @if (cell.status === 'ready' && isSelectedSource(cell, variant)) {
+                                <dt>Selection</dt>
+                                <dd>
+                                  {{
+                                    cell.calculation ? 'Calculation component' : 'Selected value'
+                                  }}
+                                </dd>
+                              }
+                              <dt>Reported value</dt>
+                              <dd>{{ formatValue(variant.value) }} {{ variant.unit }}</dd>
+                              <dt>Definition</dt>
+                              <dd>{{ variant.taxonomy }}:{{ variant.tag }}</dd>
+                              @if (variant.statement_column) {
+                                <dt>Statement position</dt>
+                                <dd>{{ variant.statement_label }}</dd>
+                                <dt>Statement column</dt>
+                                <dd>{{ variant.statement_column }}</dd>
+                              }
+                              @if (variant.statement_url) {
+                                <dt>Original statement</dt>
+                                <dd>
+                                  <a
+                                    [href]="variant.statement_url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Open SEC statement</a
+                                  >
+                                </dd>
+                              }
+                              <dt>Period</dt>
+                              <dd>{{ variant.period_start }} to {{ variant.period_end }}</dd>
+                              <dt>Filed</dt>
+                              <dd>{{ variant.filed }} · {{ variant.form }}</dd>
+                              <dt>Accession</dt>
+                              <dd>{{ variant.accession }}</dd>
+                              @if (variant.source_cik) {
+                                <dt>SEC issuer (CIK)</dt>
+                                <dd>{{ variant.source_cik }}</dd>
+                              }
+                            </dl>
+                          }
+                        </details>
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
       }
-    }
+    </section>
   }
 </section>

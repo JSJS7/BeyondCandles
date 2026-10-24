@@ -1,9 +1,10 @@
 from logging.config import fileConfig
 
-from app.database import Base, database_url, engine
-import app.models  # Register all tables before Alembic inspects metadata.
-
 from alembic import context
+
+# Register all tables before Alembic inspects metadata.
+import app.models  # noqa: F401
+from app.database import Base, database_url, engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

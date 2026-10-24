@@ -10,46 +10,130 @@ def main():
     parser.add_argument(
         "command",
         choices=(
+            "fetch-prices",
+            "prepare-prices",
+            "replace-prices",
+            "restore-prices",
             "validate-prices",
             "import-prices",
+            "audit-prices",
             "fetch-sec",
+            "resolve-sec",
             "audit-sec",
+            "audit-sec-history",
+            "review-revenue",
+            "review-net-income",
+            "review-eps",
+            "review-eps-splits",
+            "review-equity",
+            "review-operating-cash-flow",
+            "review-sec-periods",
             "import-sec",
             "reconcile-sec",
             "inspect-db",
             "verify-db",
         ),
     )
-    parser.add_argument("--archive", help="Optional path to the pinned Kaggle ZIP")
+    parser.add_argument(
+        "--fetch",
+        action="store_true",
+        help="Download missing SEC review evidence; otherwise use the local cache",
+    )
+    parser.add_argument(
+        "--scope",
+        choices=("pilot", "all"),
+        default="pilot",
+        help="SEC company selection",
+    )
     parser.add_argument(
         "--refresh",
         action="store_true",
         help="Fetch a new SEC cache index; retain old response files",
     )
+    parser.add_argument(
+        "--expected-price-fingerprint",
+        help="Verified fingerprint of the stored prices before replacement or restore",
+    )
+    parser.add_argument("--backup", help="Full CSV backup created by replace-prices")
     args = parser.parse_args()
 
     try:
-        if args.command == "validate-prices":
+        if args.command == "fetch-prices":
+            from .benjaminpo import fetch_prices
+
+            result = fetch_prices()
+        elif args.command == "prepare-prices":
+            from .benjaminpo import prepare_prices
+
+            _, _, result = prepare_prices()
+        elif args.command == "replace-prices":
+            from .price_replacement import replace_prices
+
+            result = replace_prices(args.expected_price_fingerprint)
+        elif args.command == "restore-prices":
+            from .price_replacement import restore_prices
+
+            result = restore_prices(args.backup, args.expected_price_fingerprint)
+        elif args.command == "validate-prices":
             from .prices import validate_prices
 
-            processed_path, companies, validation_summary = validate_prices(args.archive)
-            result = validation_summary
+            _, _, result = validate_prices()
         elif args.command == "import-prices":
             from .prices import import_prices
 
-            result = import_prices(args.archive)
+            result = import_prices()
+        elif args.command == "audit-prices":
+            from .price_adjustments import audit_prices
+
+            result = audit_prices()
         elif args.command == "fetch-sec":
             from .sec import fetch_sec
 
-            result = fetch_sec(args.refresh)
+            result = fetch_sec(args.refresh, args.scope)
+        elif args.command == "resolve-sec":
+            from .identifiers import resolve_sec
+
+            result = resolve_sec()
         elif args.command == "audit-sec":
             from .sec import audit_sec
 
-            result = audit_sec()
+            result = audit_sec(args.scope)
+        elif args.command == "audit-sec-history":
+            from .sec_history import audit_history
+
+            result = audit_history()
         elif args.command == "import-sec":
             from .sec import import_sec
 
-            result = import_sec()
+            result = import_sec(args.scope)
+        elif args.command == "review-equity":
+            from .equity import review_equity
+
+            result = review_equity(fetch=args.fetch)
+        elif args.command == "review-operating-cash-flow":
+            from .operating_cash_flow import review_cash_flow
+
+            result = review_cash_flow(fetch=args.fetch)
+        elif args.command == "review-eps-splits":
+            from .eps_splits import review_eps_splits
+
+            result = review_eps_splits()
+        elif args.command == "review-eps":
+            from .eps import review_eps
+
+            result = review_eps(fetch=args.fetch)
+        elif args.command == "review-net-income":
+            from .net_income import review_net_income
+
+            result = review_net_income(fetch=args.fetch)
+        elif args.command == "review-revenue":
+            from .revenue import review_revenue
+
+            result = review_revenue(fetch=args.fetch)
+        elif args.command == "review-sec-periods":
+            from .fiscal_periods import review_fiscal_periods
+
+            result = review_fiscal_periods(fetch=args.fetch)
         elif args.command == "reconcile-sec":
             from .reconciliation import reconcile_sec
 
@@ -63,19 +147,45 @@ def main():
 
             result = verify_db()
 
-        if args.command in ("audit-sec", "reconcile-sec"):
+        if args.command == "import-sec":
+            facts = sum(company["facts"] for company in result.values())
+            inserted = sum(company["inserted"] for company in result.values())
+            output = {
+                "status": "completed",
+                "companies": len(result),
+                "facts": facts,
+                "inserted": inserted,
+                "unchanged": facts - inserted,
+                "history_updated": sum(
+                    company["history_updated"] for company in result.values()
+                ),
+            }
+            formatted_result = json.dumps(output, indent=2)
+        elif args.command in (
+            "audit-sec",
+            "audit-sec-history",
+            "reconcile-sec",
+            "review-revenue",
+        ):
             output = {
                 "status": result["status"],
                 "companies": len(result["companies"]),
                 "reports": "data/processed/",
             }
+            if args.command == "review-revenue":
+                output["approved_periods"] = result["totals"]["approved_periods"]
+                output["unresolved_cases"] = result["totals"]["issues"]
+            formatted_result = json.dumps(output, indent=2)
+        elif args.command == "review-equity":
+            output = {key: value for key, value in result.items() if key != "issues"}
+            output["report"] = "data/processed/sec-equity-report.json"
             formatted_result = json.dumps(output, indent=2)
         else:
             formatted_result = json.dumps(result, indent=2, default=str)
 
         print(formatted_result)
 
-        if result.get("status") == "needs_review":
+        if result.get("status") in ("needs_review", "completed_with_gaps"):
             return 1
         return 0
     except (ValueError, OSError, KeyError) as exc:

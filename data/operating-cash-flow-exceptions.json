@@ -1,0 +1,492 @@
+{
+  "version": 1,
+  "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
+  "periods": {
+    "0000101829:2022-01-01:2022-12-31": {
+      "ticker": "RTX",
+      "fiscal_year": 2022,
+      "observed_sha256": "21bcc7b88b386dd48224db795ee60f902252a21d06b6a1f9662433067b89ae6c",
+      "latest_accession": "0000101829-25-000005",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182925000005/R5.htm",
+        "sha256": "d8ccfcaf720325fa5557d42ddf9485168bdf4680f813551172b00a5a72e678a2",
+        "file": "d8ccfcaf720325fa5557d42ddf9485168bdf4680f813551172b00a5a72e678a2.htm"
+      },
+      "resolution": "reported_zero",
+      "previous_accession": "0000101829-24-000008",
+      "previous_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182924000008/R5.htm",
+        "sha256": "4a850bb6377f198e69081e77d526051c43d3e28ee4b6c630c3162eaa4aa521d0",
+        "file": "4a850bb6377f198e69081e77d526051c43d3e28ee4b6c630c3162eaa4aa521d0.htm"
+      },
+      "note": "The newest complete operating breakdown explicitly reports zero for discontinued operations. Its continuing amount is identical to the latest imported continuing amount. Both calculation components retain the earlier filing date; they are not relabelled as facts from the newer filing."
+    },
+    "0000101829:2017-01-01:2017-12-31": {
+      "ticker": "RTX",
+      "fiscal_year": 2017,
+      "observed_sha256": "35933227414856d26e79324046517953ca49d7df852c408e3db3f906814a109b",
+      "latest_accession": "0000101829-20-000013",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182920000013/R6.htm",
+        "sha256": "8049875ffb66f7d611e1e7021a548a75cedea96ff59ab320e0affeaa00019248",
+        "file": "8049875ffb66f7d611e1e7021a548a75cedea96ff59ab320e0affeaa00019248.htm"
+      },
+      "resolution": "reported_zero",
+      "previous_accession": "0000101829-18-000005",
+      "previous_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/R6.htm",
+        "sha256": "028ac723f324e8f30b35609d7d26e3db929cbce79a2c148d0157f9ee7a966248",
+        "file": "028ac723f324e8f30b35609d7d26e3db929cbce79a2c148d0157f9ee7a966248.htm"
+      },
+      "note": "The newest complete operating breakdown explicitly reports zero for discontinued operations. Its continuing amount is identical to the latest imported continuing amount. Both calculation components retain the earlier filing date; they are not relabelled as facts from the newer filing."
+    },
+    "0000831001:2024-01-01:2024-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2024,
+      "observed_sha256": "ae3ba45e5147030ecc50c67b4a706d3870baae3cb3b84b03c69afd5eb83be24f",
+      "latest_accession": "0000831001-26-000011",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/R9.htm",
+        "sha256": "16e79b72ff4355dec33a17e96a9088019b1769fa93a74dbadf70564d42d459a4",
+        "file": "16e79b72ff4355dec33a17e96a9088019b1769fa93a74dbadf70564d42d459a4.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/R12.htm",
+        "sha256": "5b7e232bfedd0303bdf88cc3727e28e85d5584b8cb72023d17120ca0d0ccff73",
+        "file": "5b7e232bfedd0303bdf88cc3727e28e85d5584b8cb72023d17120ca0d0ccff73.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2023-01-01:2023-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2023,
+      "observed_sha256": "d0cc5e00fdcb1cc62f64a2c29e5db6fb21efcb8514601eaec47d4799698ecde4",
+      "latest_accession": "0000831001-26-000011",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/R9.htm",
+        "sha256": "16e79b72ff4355dec33a17e96a9088019b1769fa93a74dbadf70564d42d459a4",
+        "file": "16e79b72ff4355dec33a17e96a9088019b1769fa93a74dbadf70564d42d459a4.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/R12.htm",
+        "sha256": "5b7e232bfedd0303bdf88cc3727e28e85d5584b8cb72023d17120ca0d0ccff73",
+        "file": "5b7e232bfedd0303bdf88cc3727e28e85d5584b8cb72023d17120ca0d0ccff73.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2022-01-01:2022-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2022,
+      "observed_sha256": "4c12638cac36e23a120bbfd69b794f6ba57c8c77a12552608cd9a60f9028b6a1",
+      "latest_accession": "0000831001-25-000067",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100125000067/R9.htm",
+        "sha256": "3bb0e55bf0ce710b8e51a7754b25bed4b777ffbfd59bbea1430533a5fde18fe0",
+        "file": "3bb0e55bf0ce710b8e51a7754b25bed4b777ffbfd59bbea1430533a5fde18fe0.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100125000067/R12.htm",
+        "sha256": "6c7fc0d1e001f79b2d789ca2e99f700068140079a62955598affdd11c81458d9",
+        "file": "6c7fc0d1e001f79b2d789ca2e99f700068140079a62955598affdd11c81458d9.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2021-01-01:2021-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2021,
+      "observed_sha256": "da12cc2c366701fbc19d5f0c1011a2ffb150f7458bbacc2a476abfbab888a535",
+      "latest_accession": "0000831001-24-000033",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100124000033/R9.htm",
+        "sha256": "f35a2b3fe8f9f0a32f2b3ac62a5be323204b9b634886fd61bbe9e6dfe80ab885",
+        "file": "f35a2b3fe8f9f0a32f2b3ac62a5be323204b9b634886fd61bbe9e6dfe80ab885.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100124000033/R12.htm",
+        "sha256": "82b177bd2c82ebd2afd10b347ab1aabf908c451ef5582bc58ee4e7821c81eb84",
+        "file": "82b177bd2c82ebd2afd10b347ab1aabf908c451ef5582bc58ee4e7821c81eb84.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2020-01-01:2020-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2020,
+      "observed_sha256": "3dbee3f5301c539f0d1f9f7691e1de0fc5d8ee81e380a0530d52227d7cce1533",
+      "latest_accession": "0000831001-23-000037",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100123000037/R9.htm",
+        "sha256": "53c7052a9f988a935332c5b5049656e51a01c0870ea75a5ccd15b256ee475202",
+        "file": "53c7052a9f988a935332c5b5049656e51a01c0870ea75a5ccd15b256ee475202.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100123000037/R11.htm",
+        "sha256": "3d8f4168580dd9fce6b90cae164f98fb48030fa37ec8e399bbeb85e60761fc51",
+        "file": "3d8f4168580dd9fce6b90cae164f98fb48030fa37ec8e399bbeb85e60761fc51.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2019-01-01:2019-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2019,
+      "observed_sha256": "6803571b331474464bd25589cfb7f247254ab5fd0d3421a2282907008d3c2444",
+      "latest_accession": "0000831001-22-000036",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100122000036/R9.htm",
+        "sha256": "c72e2f389bc9cfbebb4482ab8cfbc4a40681325293c22f350e9f5294e1c9eb94",
+        "file": "c72e2f389bc9cfbebb4482ab8cfbc4a40681325293c22f350e9f5294e1c9eb94.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100122000036/R11.htm",
+        "sha256": "1beef709ccec0857a67892fdc98e5bb8e91893efcc81166dee155ddc0a6ba8e9",
+        "file": "1beef709ccec0857a67892fdc98e5bb8e91893efcc81166dee155ddc0a6ba8e9.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2018-01-01:2018-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2018,
+      "observed_sha256": "c79ac621c452ff5befe7a066950083f298a70565f24d4bbdba15c064cdf7d6c0",
+      "latest_accession": "0000831001-21-000042",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100121000042/R8.htm",
+        "sha256": "c61b8b4f0b68295bd107d4d165d23ae0dd8dcb9b669c7d8fd1574104b16d1dd1",
+        "file": "c61b8b4f0b68295bd107d4d165d23ae0dd8dcb9b669c7d8fd1574104b16d1dd1.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100121000042/R10.htm",
+        "sha256": "30f337de2fe3badc553a1c6839339a883b2bc5ae8fdc96662a844dad7eda076e",
+        "file": "30f337de2fe3badc553a1c6839339a883b2bc5ae8fdc96662a844dad7eda076e.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2017-01-01:2017-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2017,
+      "observed_sha256": "46a0c9cc94bb8ad095da9e671c02cdbae5e508c582209dc1d770fc7438f3da5e",
+      "latest_accession": "0000831001-20-000031",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100120000031/R8.htm",
+        "sha256": "15f0e1f201a2de8ecc9523d4ecba73751fb02b5331d26bea0f11e8b4694c2648",
+        "file": "15f0e1f201a2de8ecc9523d4ecba73751fb02b5331d26bea0f11e8b4694c2648.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100120000031/R11.htm",
+        "sha256": "2861bc3af55729598cbc3232dfa430b3866cb43dc3bedbb1c27717ae5cbecad1",
+        "file": "2861bc3af55729598cbc3232dfa430b3866cb43dc3bedbb1c27717ae5cbecad1.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2016-01-01:2016-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2016,
+      "observed_sha256": "f0958215e2edac8569e5e805c139f8f50898a1bef3e2403777224a1c8ef76a51",
+      "latest_accession": "0000831001-19-000027",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100119000027/R8.htm",
+        "sha256": "6450e8de063e2f473f35c59b25fea67feb4fc953efd4b38d199f892cf1cb2f65",
+        "file": "6450e8de063e2f473f35c59b25fea67feb4fc953efd4b38d199f892cf1cb2f65.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100119000027/R11.htm",
+        "sha256": "e455fb583b15006720da62821c953c6650ff8e876a02256efef90d504bfbcd6c",
+        "file": "e455fb583b15006720da62821c953c6650ff8e876a02256efef90d504bfbcd6c.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000831001:2015-01-01:2015-12-31": {
+      "ticker": "C",
+      "fiscal_year": 2015,
+      "observed_sha256": "55e146364f09ee576ee30c701896e2c6e251c9e5d46cda3601bc61049f5cb56f",
+      "latest_accession": "0000831001-18-000040",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100118000040/R8.htm",
+        "sha256": "a676610489a6dad3191c51def93c749bfd9e97f2baeb954fa64616bdc375c1a8",
+        "file": "a676610489a6dad3191c51def93c749bfd9e97f2baeb954fa64616bdc375c1a8.htm"
+      },
+      "resolution": "continuing_only",
+      "scope_disclosure": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100118000040/R11.htm",
+        "sha256": "fc308005b1828948dcbfa11e06eea33e139de918090f792751a8fa48079bf21d",
+        "file": "fc308005b1828948dcbfa11e06eea33e139de918090f792751a8fa48079bf21d.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount. A whole-company total cannot be established; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations."
+    },
+    "0000798354:2019-01-01:2019-12-31": {
+      "ticker": "FI",
+      "fiscal_year": 2019,
+      "observed_sha256": "44ad536387d1b854a11aee2393f3706f9616467de6ac9a6f380d03ba409a0997",
+      "latest_accession": "0000798354-22-000004",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/798354/000079835422000004/R11.htm",
+        "sha256": "c522a9fedc57d716cf8da7f2a25d333bca039a1ed08d8378edffe568874de5ab",
+        "file": "c522a9fedc57d716cf8da7f2a25d333bca039a1ed08d8378edffe568874de5ab.htm"
+      },
+      "resolution": "reported_zero",
+      "previous_accession": "0000798354-21-000004",
+      "previous_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/798354/000079835421000004/R10.htm",
+        "sha256": "b17a21b8a9ada1652a26687b0f314278c6c3a7e72da2506d8de6ccded6b96ed1",
+        "file": "b17a21b8a9ada1652a26687b0f314278c6c3a7e72da2506d8de6ccded6b96ed1.htm"
+      },
+      "note": "The newest complete operating breakdown explicitly reports zero for discontinued operations. Its continuing amount is identical to the latest imported continuing amount. Both calculation components retain the earlier filing date; they are not relabelled as facts from the newer filing."
+    },
+    "0000068505:2015-01-01:2015-12-31": {
+      "ticker": "MSI",
+      "fiscal_year": 2015,
+      "observed_sha256": "0c720ffbb922c27c6c2f9aec01fc35024a201fca1bbbe99c37ba19ba24f9684f",
+      "latest_accession": "0000068505-18-000009",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/68505/000006850518000009/R7.htm",
+        "sha256": "cf9a9f4f800ce3d335a6fc18ea1bae43fe257570fce798ebdb828b30d738fbab",
+        "file": "cf9a9f4f800ce3d335a6fc18ea1bae43fe257570fce798ebdb828b30d738fbab.htm"
+      },
+      "resolution": "reported_zero",
+      "previous_accession": "0000068505-17-000002",
+      "previous_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/68505/000006850517000002/R7.htm",
+        "sha256": "ef6e79fb6f45712df2505c7c3036cac6b12a8653189d1d776835a185c068a846",
+        "file": "ef6e79fb6f45712df2505c7c3036cac6b12a8653189d1d776835a185c068a846.htm"
+      },
+      "note": "The newest complete operating breakdown explicitly reports zero for discontinued operations. Its continuing amount is identical to the latest imported continuing amount. Both calculation components retain the earlier filing date; they are not relabelled as facts from the newer filing."
+    },
+    "0000040533:2024-01-01:2024-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2024,
+      "observed_sha256": "28872815f5412468bd1f9d6f180c555f8d917d682679f2a72c275999f920aa7b",
+      "latest_accession": "0000040533-26-000006",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000006/R6.htm",
+        "sha256": "cdb04b6a8bb65150a82c6d2a5ae8fdeca10b5e872b7324e2b3dbea9881e075c1",
+        "file": "cdb04b6a8bb65150a82c6d2a5ae8fdeca10b5e872b7324e2b3dbea9881e075c1.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000006/gd-20251231.htm",
+        "sha256": "e0df06e6c00b3b10451eb6caa84dab767f50b1a5a8ae05a650fc5810049378cf",
+        "file": "e0df06e6c00b3b10451eb6caa84dab767f50b1a5a8ae05a650fc5810049378cf.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000006/gd-20251231_htm.xml",
+        "sha256": "02a2ddb75413b31e1eaab4960e512c1b29f007a95d27f42d72583233db36f8dd",
+        "file": "02a2ddb75413b31e1eaab4960e512c1b29f007a95d27f42d72583233db36f8dd.htm"
+      }
+    },
+    "0000040533:2023-01-01:2023-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2023,
+      "observed_sha256": "75b9a517126c3e3d70968ca5e5d70704130951030700dc38333b1745e5cd766e",
+      "latest_accession": "0000040533-26-000006",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000006/R6.htm",
+        "sha256": "cdb04b6a8bb65150a82c6d2a5ae8fdeca10b5e872b7324e2b3dbea9881e075c1",
+        "file": "cdb04b6a8bb65150a82c6d2a5ae8fdeca10b5e872b7324e2b3dbea9881e075c1.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000006/gd-20251231.htm",
+        "sha256": "e0df06e6c00b3b10451eb6caa84dab767f50b1a5a8ae05a650fc5810049378cf",
+        "file": "e0df06e6c00b3b10451eb6caa84dab767f50b1a5a8ae05a650fc5810049378cf.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000006/gd-20251231_htm.xml",
+        "sha256": "02a2ddb75413b31e1eaab4960e512c1b29f007a95d27f42d72583233db36f8dd",
+        "file": "02a2ddb75413b31e1eaab4960e512c1b29f007a95d27f42d72583233db36f8dd.htm"
+      }
+    },
+    "0000040533:2022-01-01:2022-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2022,
+      "observed_sha256": "6e1f6a893f54959b1c942cc5ab1c600e656ea33b3f7bc0dd18372db8b5d9297a",
+      "latest_accession": "0000040533-25-000008",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053325000008/R6.htm",
+        "sha256": "8c3e3c18ffc92bab2982fcb283901a9857212d860d2c89d5135dfdd05c370c56",
+        "file": "8c3e3c18ffc92bab2982fcb283901a9857212d860d2c89d5135dfdd05c370c56.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053325000008/gd-20241231.htm",
+        "sha256": "5b813e3f209bb497893b5263a4df3de83767f9daa527e16e644732286aa9dee4",
+        "file": "5b813e3f209bb497893b5263a4df3de83767f9daa527e16e644732286aa9dee4.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053325000008/gd-20241231_htm.xml",
+        "sha256": "bbd7685fb75d08dc26a6e03d2d93f456958f93789aa6aba23a591fe308470113",
+        "file": "bbd7685fb75d08dc26a6e03d2d93f456958f93789aa6aba23a591fe308470113.htm"
+      }
+    },
+    "0000040533:2021-01-01:2021-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2021,
+      "observed_sha256": "bcc2b33068118fed54416995184d243ed999f03bd6e4dcbc3340f1aa3b808c6e",
+      "latest_accession": "0000040533-24-000007",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053324000007/R6.htm",
+        "sha256": "0334d47a355d0738f77ce744c9b556b675487fa34d1321c9e2de951a85b0c64c",
+        "file": "0334d47a355d0738f77ce744c9b556b675487fa34d1321c9e2de951a85b0c64c.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053324000007/gd-20231231.htm",
+        "sha256": "fc02251e7f606886850091812789693325c90dc9d0d4e9442be2a04458ced596",
+        "file": "fc02251e7f606886850091812789693325c90dc9d0d4e9442be2a04458ced596.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053324000007/gd-20231231_htm.xml",
+        "sha256": "a594465116504770ca38cee331c53385e10a1e6608fc540934a2c96996eaa5fa",
+        "file": "a594465116504770ca38cee331c53385e10a1e6608fc540934a2c96996eaa5fa.htm"
+      }
+    },
+    "0000040533:2020-01-01:2020-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2020,
+      "observed_sha256": "7f7d85fae3eac243d93d97fbc2e651695c01a4a6553ae09d3c271847edbe0054",
+      "latest_accession": "0000040533-23-000014",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053323000014/R6.htm",
+        "sha256": "bfe140e8b5b0ddb4f4a663a56be1db350c24285075a4fde2c61bcef5ecdf0a62",
+        "file": "bfe140e8b5b0ddb4f4a663a56be1db350c24285075a4fde2c61bcef5ecdf0a62.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053323000014/gd-20221231.htm",
+        "sha256": "af23ce38b1cb33d091e628a72a9f8209d22801179577ba3dd6fe5c8338edac71",
+        "file": "af23ce38b1cb33d091e628a72a9f8209d22801179577ba3dd6fe5c8338edac71.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053323000014/gd-20221231_htm.xml",
+        "sha256": "c4a1e95a652f8b1488f9297e1f7016aac618cbd567a7cefec320127dc02d764d",
+        "file": "c4a1e95a652f8b1488f9297e1f7016aac618cbd567a7cefec320127dc02d764d.htm"
+      }
+    },
+    "0000040533:2019-01-01:2019-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2019,
+      "observed_sha256": "e6f33b5361d2f604ecbb977130dc15092bd1edcb895870d48133bcdf06634f50",
+      "latest_accession": "0000040533-22-000007",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053322000007/R6.htm",
+        "sha256": "8d55482b367d41a4bd72ace654dc5be36d7081f06634098d27468d73d9bc535a",
+        "file": "8d55482b367d41a4bd72ace654dc5be36d7081f06634098d27468d73d9bc535a.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053322000007/gd-20211231.htm",
+        "sha256": "1bf82025a1a6aea2e04ef20ab11cc4a1df13defaaf0dac9f0aed77814fb94bfe",
+        "file": "1bf82025a1a6aea2e04ef20ab11cc4a1df13defaaf0dac9f0aed77814fb94bfe.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053322000007/gd-20211231_htm.xml",
+        "sha256": "75a8d8a90dca80deff793b52bf626aaa8061245fe27482be6a50a6f4a608c2bd",
+        "file": "75a8d8a90dca80deff793b52bf626aaa8061245fe27482be6a50a6f4a608c2bd.htm"
+      }
+    },
+    "0000040533:2018-01-01:2018-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2018,
+      "observed_sha256": "2de0d000447e3124783c1ec922e1d20a79b266fe75148a8e8724af5935f34084",
+      "latest_accession": "0000040533-21-000010",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053321000010/R6.htm",
+        "sha256": "26379020d44e0921e9e0914db34a78b0400faa1d115d228e644bf9c16cedb194",
+        "file": "26379020d44e0921e9e0914db34a78b0400faa1d115d228e644bf9c16cedb194.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053321000010/gd-20201231.htm",
+        "sha256": "09e1d6922fcadb43d81ee6f2f8d981e0da62fde85e3417163f2eaacb666e8c86",
+        "file": "09e1d6922fcadb43d81ee6f2f8d981e0da62fde85e3417163f2eaacb666e8c86.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053321000010/gd-20201231_htm.xml",
+        "sha256": "4e1f88cb6a82ec87ef95aef13e8e1dd6e29104a206f24fb311b0d9be062ba94f",
+        "file": "4e1f88cb6a82ec87ef95aef13e8e1dd6e29104a206f24fb311b0d9be062ba94f.htm"
+      }
+    },
+    "0000040533:2017-01-01:2017-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2017,
+      "observed_sha256": "680b54c3238195baee6f244ab4fa7b6ea2b8364e12b21ebd5a919d2c3d5045ba",
+      "latest_accession": "0000040533-20-000015",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053320000015/R6.htm",
+        "sha256": "d2c10c7b5ab5145dbe473534135f6c9b979378f397258867b4d4c2c92709860c",
+        "file": "d2c10c7b5ab5145dbe473534135f6c9b979378f397258867b4d4c2c92709860c.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053320000015/gd-2019123110k.htm",
+        "sha256": "e89066b91f8e3bb01285ba664934b94feb9d2dc668068b5f7c626e6fad598ac8",
+        "file": "e89066b91f8e3bb01285ba664934b94feb9d2dc668068b5f7c626e6fad598ac8.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053320000015/gd-2019123110k_htm.xml",
+        "sha256": "d658f9ab353088958ec935f05ad19e55c881538dc8eb9dc05d36a417df507d97",
+        "file": "d658f9ab353088958ec935f05ad19e55c881538dc8eb9dc05d36a417df507d97.htm"
+      }
+    },
+    "0000040533:2016-01-01:2016-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2016,
+      "observed_sha256": "e6ed35304f125482463afa4eb917a91198ace0c1944c34812a4de9d70eb7af78",
+      "latest_accession": "0000040533-19-000010",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053319000010/R6.htm",
+        "sha256": "e3c5dd850ddb0e6edbe687fe6834ba30a5095ebd7a3419a8969d1ba31378deca",
+        "file": "e3c5dd850ddb0e6edbe687fe6834ba30a5095ebd7a3419a8969d1ba31378deca.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053319000010/gd-2018123110k.htm",
+        "sha256": "32307c6d304850640fe0d54337428ce7d4735fe7299e9cd62a5e7e4cdec58b6f",
+        "file": "32307c6d304850640fe0d54337428ce7d4735fe7299e9cd62a5e7e4cdec58b6f.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053319000010/gd-20181231.xml",
+        "sha256": "4475c7e29e918b15331f9e266f06b7e0cbf4aca51b84fdaea7c02c49f5cc6cf7",
+        "file": "4475c7e29e918b15331f9e266f06b7e0cbf4aca51b84fdaea7c02c49f5cc6cf7.htm"
+      }
+    },
+    "0000040533:2015-01-01:2015-12-31": {
+      "ticker": "GD",
+      "fiscal_year": 2015,
+      "observed_sha256": "30957d50cb05b7adef59fd32ad370a141db2683ddbef65f2c903228c94c8088a",
+      "latest_accession": "0000040533-18-000008",
+      "latest_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053318000008/R6.htm",
+        "sha256": "6f37a62b11c423439a505f94be2c2a469196fe596d1ec3070b3778fa40c272d8",
+        "file": "6f37a62b11c423439a505f94be2c2a469196fe596d1ec3070b3778fa40c272d8.htm"
+      },
+      "resolution": "continuing_only",
+      "complete_filing": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053318000008/gd-2017123110k.htm",
+        "sha256": "1abb95ef93124726a9e9af5ebd6c87291a193e1e8cdb15d3b3063c8af7e1a18e",
+        "file": "1abb95ef93124726a9e9af5ebd6c87291a193e1e8cdb15d3b3063c8af7e1a18e.htm"
+      },
+      "note": "The reported continuing operating cash flow is shown. The complete filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. A whole-company total cannot be established. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053318000008/gd-20171231.xml",
+        "sha256": "3d5d967efd2ea708d209dac451dcdb5549e0a31aa63202215d2ce4b0aac53ba1",
+        "file": "3d5d967efd2ea708d209dac451dcdb5549e0a31aa63202215d2ce4b0aac53ba1.htm"
+      }
+    }
+  }
+}
