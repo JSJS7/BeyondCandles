@@ -25,3 +25,7 @@ build/
 
 # Local AI instructions
 /AGENTS.md
+
+# Local AI tooling
+/CLAUDE.md
+/.claude/
