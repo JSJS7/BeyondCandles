@@ -133,7 +133,9 @@ companies comparable with each other.
 
 ## Known limitations
 
-- Survivorship bias; only 200 companies; US-listed, USD only.
+- Survivorship bias: the 200 companies were large at the end of the period, so
+  backtests on this fixed universe overstate absolute returns and are best used for
+  relative comparisons. Only 200 companies; US-listed, USD only.
 - Annual data only; latest-version values; no point-in-time view yet.
 - Sector differences (banks, insurers, utilities) make cross-sector ratios unreliable.
 - GAAP figures without adjustments; preferred equity and dividends affect per-share
