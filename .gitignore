@@ -29,3 +29,6 @@ build/
 # Local AI tooling
 /CLAUDE.md
 /.claude/
+
+# Files waiting for manual deletion (moved here instead of being deleted)
+/_trash/
