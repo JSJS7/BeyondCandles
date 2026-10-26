@@ -29,7 +29,6 @@ def main():
             "review-operating-cash-flow",
             "review-sec-periods",
             "import-sec",
-            "reconcile-sec",
             "inspect-db",
             "verify-db",
         ),
@@ -38,12 +37,6 @@ def main():
         "--fetch",
         action="store_true",
         help="Download missing SEC review evidence; otherwise use the local cache",
-    )
-    parser.add_argument(
-        "--scope",
-        choices=("pilot", "all"),
-        default="pilot",
-        help="SEC company selection",
     )
     parser.add_argument(
         "--refresh",
@@ -87,9 +80,9 @@ def main():
 
             result = audit_prices()
         elif args.command == "fetch-sec":
-            from .sec import fetch_sec
+            from .sec_catalogue import fetch_all_sec
 
-            result = fetch_sec(args.refresh, args.scope)
+            result = fetch_all_sec(args.refresh)
         elif args.command == "resolve-sec":
             from .identifiers import resolve_sec
 
@@ -97,7 +90,7 @@ def main():
         elif args.command == "audit-sec":
             from .sec import audit_sec
 
-            result = audit_sec(args.scope)
+            result = audit_sec()
         elif args.command == "audit-sec-history":
             from .sec_history import audit_history
 
@@ -105,7 +98,7 @@ def main():
         elif args.command == "import-sec":
             from .sec import import_sec
 
-            result = import_sec(args.scope)
+            result = import_sec()
         elif args.command == "review-equity":
             from .equity import review_equity
 
@@ -134,10 +127,6 @@ def main():
             from .fiscal_periods import review_fiscal_periods
 
             result = review_fiscal_periods(fetch=args.fetch)
-        elif args.command == "reconcile-sec":
-            from .reconciliation import reconcile_sec
-
-            result = reconcile_sec()
         elif args.command == "inspect-db":
             from .verification import inspect_db
 
@@ -164,7 +153,6 @@ def main():
         elif args.command in (
             "audit-sec",
             "audit-sec-history",
-            "reconcile-sec",
             "review-revenue",
         ):
             output = {

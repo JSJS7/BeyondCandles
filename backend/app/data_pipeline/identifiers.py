@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from typing import Any
 
-from app.data_pipeline.sec import CACHE, INDEX, PILOT, cache_response, verify_identity
+from app.data_pipeline.sec import CACHE, cache_response, verify_identity
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
 
 IDENTIFIERS = ROOT / "data/sec-identifiers.json"
@@ -68,9 +68,24 @@ class IssuerIdentifiers(HTMLParser):
             self.current = None
 
 
-def historical_evidence(ticker, cik, submission):
-    from app.data_pipeline.reconciliation import annual_candidate
+def annual_candidate(submission):
+    """List the 2024 annual reports (10-K) in one block of SEC submission history."""
+    candidates = []
+    for index, form in enumerate(submission["form"]):
+        report_date = submission["reportDate"][index]
+        if form != "10-K" or not "2024-01-01" <= report_date <= "2024-12-31":
+            continue
+        candidates.append(
+            {
+                "report_date": report_date,
+                "accession": submission["accessionNumber"][index],
+                "document": submission["primaryDocument"][index],
+            }
+        )
+    return candidates
 
+
+def historical_evidence(ticker, cik, submission):
     candidates = annual_candidate(submission["filings"]["recent"])
     for older in submission["filings"]["files"]:
         if candidates:
@@ -84,9 +99,7 @@ def historical_evidence(ticker, cik, submission):
         )
     chosen = max(candidates, key=lambda item: (item["report_date"], item["accession"]))
     url = f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{chosen['accession'].replace('-', '')}/{chosen['document']}"
-    annual_index_path = CACHE / "annual-index.json"
-    annual_index = read_json(annual_index_path) if annual_index_path.exists() else {}
-    reference = cached(url, annual_index.get(ticker), json_response=False)
+    reference = cached(url, json_response=False)
     parser = IssuerIdentifiers()
     parser.feed((CACHE / reference["file"]).read_text(encoding="utf-8"))
     reported_ciks = {
@@ -122,7 +135,6 @@ def resolve_sec():
     )
     progress["registry"] = registry_reference
     registry = list(read_json(CACHE / registry_reference["file"]).values())
-    pilot = read_json(INDEX)["companies"] if INDEX.exists() else {}
     unresolved = {}
     for company in selection["companies"]:
         ticker = company["Symbol"]
@@ -148,8 +160,6 @@ def resolve_sec():
         ]
         if ticker in HISTORICAL_CANDIDATES:
             cik = HISTORICAL_CANDIDATES[ticker]
-        elif ticker in PILOT:
-            cik = PILOT[ticker]
         elif len(candidates) == 1:
             cik = str(candidates[0]["cik_str"]).zfill(10)
         else:
@@ -163,10 +173,7 @@ def resolve_sec():
                 unresolved[ticker] = "No unique SEC registry match"
                 continue
             cik = str(candidates[0]["cik_str"]).zfill(10)
-        reference = cached(
-            f"https://data.sec.gov/submissions/CIK{cik}.json",
-            pilot.get(ticker, {}).get("submissions"),
-        )
+        reference = cached(f"https://data.sec.gov/submissions/CIK{cik}.json")
         submission = read_json(CACHE / reference["file"])
         if str(submission["cik"]).zfill(10) != cik:
             raise ValueError(f"Submission CIK mismatch: {ticker}")

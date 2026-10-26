@@ -214,8 +214,11 @@ class DatabaseImportTests(unittest.TestCase):
             with (
                 patch("app.database.engine", self.db),
                 patch(
-                    "app.data_pipeline.sec.load_pilot",
-                    return_value=({}, {"AAPL": (entry, SecTests().body())}),
+                    "app.data_pipeline.sec_catalogue.load_all_sec",
+                    side_effect=lambda: (
+                        {},
+                        iter([("AAPL", (entry, SecTests().body()))]),
+                    ),
                 ),
             ):
                 # Both filing versions are retained, and repeating the import adds no copies.
@@ -226,8 +229,11 @@ class DatabaseImportTests(unittest.TestCase):
             with (
                 patch("app.database.engine", self.db),
                 patch(
-                    "app.data_pipeline.sec.load_pilot",
-                    return_value=({}, {"AAPL": (refreshed, SecTests().body())}),
+                    "app.data_pipeline.sec_catalogue.load_all_sec",
+                    side_effect=lambda: (
+                        {},
+                        iter([("AAPL", (refreshed, SecTests().body()))]),
+                    ),
                 ),
             ):
                 self.assertEqual(import_sec()["AAPL"]["inserted"], 0)
@@ -240,8 +246,8 @@ class DatabaseImportTests(unittest.TestCase):
             with (
                 patch("app.database.engine", self.db),
                 patch(
-                    "app.data_pipeline.sec.load_pilot",
-                    return_value=({}, {"AAPL": (entry, changed_facts)}),
+                    "app.data_pipeline.sec_catalogue.load_all_sec",
+                    side_effect=lambda: ({}, iter([("AAPL", (entry, changed_facts))])),
                 ),
             ):
                 with self.assertRaisesRegex(ValueError, "Conflicting stored SEC fact"):
@@ -254,7 +260,7 @@ class DatabaseImportTests(unittest.TestCase):
                     return_value=({}, iter([("AAPL", (entry, SecTests().body()))])),
                 ),
             ):
-                self.assertEqual(import_sec("all")["AAPL"]["inserted"], 0)
+                self.assertEqual(import_sec()["AAPL"]["inserted"], 0)
             additional_facts = SecTests().body()
             for fact in additional_facts["facts"]["us-gaap"]["NetIncomeLoss"]["units"][
                 "USD"
@@ -275,7 +281,7 @@ class DatabaseImportTests(unittest.TestCase):
                 with self.assertRaisesRegex(
                     ValueError, "Import the price catalogue first: MISSING"
                 ):
-                    import_sec("all")
+                    import_sec()
             with self.db.connect() as c:
                 # Verify actual stored data as well as the counts returned by the importers.
                 self.assertEqual(
@@ -331,8 +337,11 @@ class DatabaseImportTests(unittest.TestCase):
             with (
                 patch("app.database.engine", self.db),
                 patch(
-                    "app.data_pipeline.sec.load_pilot",
-                    return_value=({}, {"AAPL": (entry, SecTests().body())}),
+                    "app.data_pipeline.sec_catalogue.load_all_sec",
+                    side_effect=lambda: (
+                        {},
+                        iter([("AAPL", (entry, SecTests().body()))]),
+                    ),
                 ),
                 patch(
                     "app.data_pipeline.sec_catalogue.identifiers", return_value=approved
@@ -385,7 +394,7 @@ class DatabaseImportTests(unittest.TestCase):
                     with self.assertRaisesRegex(
                         ValueError, "Import the price catalogue first: MISSING"
                     ):
-                        import_sec("all")
+                        import_sec()
                 with self.db.connect() as c:
                     after_failure = (
                         c.execute(

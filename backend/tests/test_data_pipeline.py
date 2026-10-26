@@ -1,5 +1,4 @@
 import hashlib
-import json
 import unittest
 from datetime import date
 from decimal import Decimal
@@ -8,14 +7,12 @@ from tempfile import TemporaryDirectory
 from typing import Any
 from unittest.mock import patch
 
-from app.data_pipeline.reconciliation import InlineFacts, reconcile_sec
 from app.data_pipeline.sec import (
     cache_response,
     extract_facts,
     period_kind,
     verify_identity,
 )
-from app.data_pipeline.source_files import sha256
 from app.data_pipeline.validation import validate_price
 from app.data_pipeline.verification import fingerprint
 
@@ -151,46 +148,6 @@ class SecTests(unittest.TestCase):
         self.assertEqual(reported_values, expected_values)
         self.assertEqual(filing_dates, expected_filing_dates)
 
-    def test_reconciliation_creates_output_directory_for_cached_documents(self):
-        """Write a review report from cached SEC files even before other commands run."""
-        with TemporaryDirectory(
-            prefix="beyondcandles-reconciliation-test-"
-        ) as directory:
-            root = Path(directory)
-            cache = root / "data/raw/sec"
-            cache.mkdir(parents=True)
-            document = cache / "annual.htm"
-            document.write_text("<html></html>", encoding="utf-8")
-            annual_index = {
-                "AAPL": {
-                    "file": document.name,
-                    "sha256": sha256(document),
-                    "accession": "original",
-                    "report_date": "2024-12-31",
-                    "url": "https://example.com/annual.htm",
-                },
-            }
-            (cache / "annual-index.json").write_text(
-                json.dumps(annual_index), encoding="utf-8"
-            )
-            pilot = {"AAPL": ({}, {"facts": {}})}
-
-            with (
-                patch("app.data_pipeline.reconciliation.ROOT", root),
-                patch("app.data_pipeline.reconciliation.CACHE", cache),
-                patch(
-                    "app.data_pipeline.reconciliation.load_pilot",
-                    return_value=({}, pilot),
-                ),
-            ):
-                report = reconcile_sec()
-
-            # Missing financial facts require review, but must not prevent saving the report.
-            self.assertEqual(report["status"], "needs_review")
-            self.assertTrue(
-                (root / "data/processed/sec-annual-reconciliation.json").is_file()
-            )
-
     def test_conflicting_values_in_same_filing_stop_import(self):
         """Reject two different values for the same fact in the same filing."""
         body = self.body()
@@ -227,43 +184,6 @@ class SecTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             verify_identity("AAPL", "0000320193", unconfirmed_company)
-
-    def test_annual_document_scale_sign_and_dimensions(self):
-        """Apply scale and minus sign to the company total, excluding segment values."""
-        document = """
-        <xbrli:context id="total">
-            <xbrli:period>
-                <xbrli:startDate>2020-01-01</xbrli:startDate>
-                <xbrli:endDate>2020-12-31</xbrli:endDate>
-            </xbrli:period>
-        </xbrli:context>
-        <xbrli:context id="segment">
-            <xbrli:entity>
-                <xbrli:segment>
-                    <xbrldi:explicitMember>Product</xbrldi:explicitMember>
-                </xbrli:segment>
-            </xbrli:entity>
-            <xbrli:period>
-                <xbrli:startDate>2020-01-01</xbrli:startDate>
-                <xbrli:endDate>2020-12-31</xbrli:endDate>
-            </xbrli:period>
-        </xbrli:context>
-        <ix:nonFraction name="us-gaap:NetIncomeLoss" contextRef="total"
-            scale="6" sign="-" format="ixt:num-dot-decimal">1,234</ix:nonFraction>
-        <ix:nonFraction name="us-gaap:NetIncomeLoss" contextRef="segment"
-            scale="6">999</ix:nonFraction>
-        """
-        parser = InlineFacts()
-        parser.feed(document)
-
-        reported_values = parser.matching_values(
-            "NetIncomeLoss",
-            date(2020, 1, 1),
-            date(2020, 12, 31),
-        )
-        expected_values = {Decimal("-1234000000")}
-
-        self.assertEqual(reported_values, expected_values)
 
 
 if __name__ == "__main__":

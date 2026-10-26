@@ -84,9 +84,7 @@ def read_predecessor(source, index):
 
     entry = index.get("issuers", {}).get(source["cik"])
     if entry is None:
-        raise ValueError(
-            f"Missing predecessor cache: {source['cik']}; run fetch-sec --scope all"
-        )
+        raise ValueError(f"Missing predecessor cache: {source['cik']}; run fetch-sec")
     submission = read_json(verify_reference(entry["submissions"]))
     if (
         str(submission["cik"]).zfill(10) != source["cik"]

@@ -195,8 +195,8 @@ class HistoryCacheTests(unittest.TestCase):
         with (
             patch("app.data_pipeline.sec.ROOT", self.cache),
             patch(
-                "app.data_pipeline.sec.sec_companies",
-                return_value=({"retrieved_at": "fixture"}, companies),
+                "app.data_pipeline.sec_catalogue.load_all_sec",
+                return_value=({"retrieved_at": "fixture"}, iter(companies)),
             ),
             patch(
                 "app.data_pipeline.sec_catalogue.identifiers",
@@ -204,7 +204,7 @@ class HistoryCacheTests(unittest.TestCase):
             ),
             patch("app.data_pipeline.sec_history.HISTORY_INDEX", index_path),
         ):
-            report = audit_sec("all")["companies"]["TEST"]
+            report = audit_sec()["companies"]["TEST"]
 
         self.assertEqual(report["raw_facts"], 4)
         self.assertEqual(report["history_facts"], 3)

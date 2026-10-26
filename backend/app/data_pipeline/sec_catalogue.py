@@ -11,7 +11,7 @@ from app.data_pipeline.identifiers import (
     cached,
     write_json,
 )
-from app.data_pipeline.sec import CACHE, INDEX
+from app.data_pipeline.sec import CACHE
 from app.data_pipeline.source_files import SELECTION, read_json, sha256
 
 ALL_INDEX = CACHE / "all-index.json"
@@ -79,11 +79,9 @@ def fetch_all_sec(refresh=False):
             "companies": len(index["companies"]),
             "predecessors": predecessors,
         }
-    pilot_index = read_json(INDEX) if INDEX.exists() else {"companies": {}}
-    pilot = pilot_index["companies"]
     for ticker, issuer in issuers.items():
         completed = ticker in progress["companies"]
-        old = progress["companies"].get(ticker, pilot.get(ticker, {}))
+        old = progress["companies"].get(ticker, {})
         if issuer.get("evidence"):
             cached(issuer["evidence"]["url"], issuer["evidence"], json_response=False)
         previous_submission = issuer["submissions"]
@@ -105,9 +103,6 @@ def fetch_all_sec(refresh=False):
         retrieved_at = datetime.now(timezone.utc).isoformat()
         if previous_facts and previous_facts["sha256"] == facts_ref["sha256"]:
             retrieved_at = old.get("retrieved_at", retrieved_at)
-            pilot_facts = pilot.get(ticker, {}).get("facts")
-            if pilot_facts and previous_facts["sha256"] == pilot_facts["sha256"]:
-                retrieved_at = pilot_index.get("retrieved_at", retrieved_at)
         progress["companies"][ticker] = {
             **issuer,
             "submissions": submission_ref,

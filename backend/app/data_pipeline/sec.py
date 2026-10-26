@@ -1,11 +1,10 @@
-"""Import reported SEC facts for the pilot or the frozen company catalogue."""
+"""Extract, audit and import reported SEC facts for the frozen company catalogue."""
 
 import hashlib
 import json
-import os
 import time
 from collections import Counter, defaultdict
-from datetime import date, datetime, timezone
+from datetime import date
 from decimal import Decimal
 from typing import cast
 from urllib.error import HTTPError, URLError
@@ -14,18 +13,6 @@ from urllib.request import Request, urlopen
 from app.data_pipeline.source_files import ROOT, read_json, sha256
 from app.data_pipeline.validation import number
 
-PILOT = {
-    "AAPL": "0000320193",
-    "MSFT": "0000789019",
-    "NVDA": "0001045810",
-    "AMZN": "0001018724",
-    "JPM": "0000019617",
-    "JNJ": "0000200406",
-    "XOM": "0000034088",
-    "PG": "0000080424",
-    "CAT": "0000018230",
-    "NEE": "0000753308",
-}
 METRICS = {
     "revenue": (
         "RevenueFromContractWithCustomerExcludingAssessedTax",
@@ -66,7 +53,6 @@ REVENUE_SOURCE_TAGS = {
     "0001404912": ("InvestmentAdvisoryFees",),
 }
 CACHE = ROOT / "data/raw/sec"
-INDEX = CACHE / "index.json"
 HISTORICAL_IDENTITIES = {
     "XOM": {
         "cik": "0000034088",
@@ -127,73 +113,6 @@ def cache_response(url, user_agent, json_response=True):
     if not path.exists() or sha256(path) != digest:
         path.write_bytes(body)
     return {"url": url, "sha256": digest, "file": path.name}
-
-
-def fetch_sec(refresh=False, scope="pilot"):
-    if scope == "all":
-        from .sec_catalogue import fetch_all_sec
-
-        return fetch_all_sec(refresh)
-    if INDEX.exists() and not refresh:
-        load_pilot()  # Also verifies cached file hashes and identities.
-        return {"status": "cached", "companies": len(PILOT)}
-    user_agent = os.environ.get("SEC_USER_AGENT")
-    if not user_agent:
-        from app.core.config import settings
-
-        user_agent = settings.sec_user_agent
-    if not user_agent or "@" not in user_agent:
-        raise ValueError(
-            "Set SEC_USER_AGENT to 'BeyondCandles contact@example.com' in local .env"
-        )
-    CACHE.mkdir(parents=True, exist_ok=True)
-    index = {"retrieved_at": datetime.now(timezone.utc).isoformat(), "companies": {}}
-    for ticker, cik in PILOT.items():
-        submissions = cache_response(
-            f"https://data.sec.gov/submissions/CIK{cik}.json", user_agent
-        )
-        document = read_json(CACHE / submissions["file"])
-        verify_identity(ticker, cik, document)
-        facts = cache_response(
-            f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json", user_agent
-        )
-        index["companies"][ticker] = {
-            "cik": cik,
-            "name": document["name"],
-            "submissions": submissions,
-            "facts": facts,
-            "historical_identity": HISTORICAL_IDENTITIES.get(ticker),
-        }
-        print(f"Cached SEC facts: {ticker}", flush=True)
-    # Commit the index only when all ten companies have downloaded successfully.
-    pending = CACHE / "index.pending.json"
-    pending.write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
-    pending.replace(INDEX)
-    return {"status": "downloaded", "companies": len(PILOT)}
-
-
-def load_pilot():
-    index = read_json(INDEX)
-    if set(index["companies"]) != set(PILOT):
-        raise ValueError("SEC cache must cover exactly the ten pilot companies")
-    result = {}
-    for ticker, entry in index["companies"].items():
-        if entry["cik"] != PILOT[ticker]:
-            raise ValueError(f"CIK mismatch: {ticker}")
-        for key in ("submissions", "facts"):
-            path = CACHE / entry[key]["file"]
-            if path.parent != CACHE or sha256(path) != entry[key]["sha256"]:
-                raise ValueError(f"SEC cache checksum mismatch: {ticker} {key}")
-        submission = read_json(CACHE / entry["submissions"]["file"])
-        verify_identity(ticker, entry["cik"], submission)
-        body = json.loads(
-            (CACHE / entry["facts"]["file"]).read_text(encoding="utf-8"),
-            parse_float=Decimal,
-        )
-        if str(body["cik"]).zfill(10) != entry["cik"]:
-            raise ValueError(f"SEC facts identity mismatch: {ticker}")
-        result[ticker] = (entry, body)
-    return index, result
 
 
 def period_kind(start, end, instant=False):
@@ -286,27 +205,18 @@ def extract_facts(body, metrics=None):
     return facts, sorted(set(warnings))
 
 
-def sec_companies(scope):
-    if scope == "all":
-        from .sec_catalogue import load_all_sec
-
-        return load_all_sec()
-    index, pilot = load_pilot()
-    return index, pilot.items()
-
-
-def audit_sec(scope="pilot"):
-    from .sec_catalogue import identifiers
+def audit_sec():
+    from .sec_catalogue import identifiers, load_all_sec
     from .sec_history import HISTORY_INDEX, prepare_company_facts
 
     issuers = identifiers()
     history_index = (
         read_json(HISTORY_INDEX) if HISTORY_INDEX.exists() else {"issuers": {}}
     )
-    index, companies = sec_companies(scope)
+    index, companies = load_all_sec()
     report = {
         "retrieved_at": index["retrieved_at"],
-        "status": "catalogue_audit" if scope == "all" else "pilot_audit",
+        "status": "catalogue_audit",
         "limitations": [
             "Coverage means reported facts exist, not complete comparable quarterly financial statements.",
             "Alternative revenue/net-income tags are retained separately; no automatic summing or mixing definitions.",
@@ -398,10 +308,7 @@ def audit_sec(scope="pilot"):
             "metrics": metrics,
             "warnings": warnings,
         }
-    filename = (
-        "sec-catalogue-report.json" if scope == "all" else "sec-pilot-report.json"
-    )
-    output = ROOT / "data/processed" / filename
+    output = ROOT / "data/processed/sec-catalogue-report.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     return report
@@ -420,21 +327,21 @@ def fact_key(fact):
     )
 
 
-def import_sec(scope="pilot"):
+def import_sec():
     from sqlalchemy import bindparam, select, text
     from sqlalchemy.dialects.postgresql import insert
 
     from app.database import engine
     from app.models import Company, FinancialFact
 
-    from .sec_catalogue import identifiers
+    from .sec_catalogue import identifiers, load_all_sec
     from .sec_history import HISTORY_INDEX, history_eligible, prepare_company_facts
 
     issuers = identifiers()
     history_index = (
         read_json(HISTORY_INDEX) if HISTORY_INDEX.exists() else {"issuers": {}}
     )
-    _, companies = sec_companies(scope)
+    _, companies = load_all_sec()
     prepared = {}
     for ticker, (entry, body) in companies:
         try:

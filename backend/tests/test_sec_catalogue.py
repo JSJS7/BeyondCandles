@@ -43,9 +43,6 @@ class CatalogueCacheTests(unittest.TestCase):
                 self.cache / "progress.json",
             ),
             patch(
-                "app.data_pipeline.sec_catalogue.INDEX", self.cache / "pilot-index.json"
-            ),
-            patch(
                 "app.data_pipeline.sec_catalogue.identifiers", return_value=self.issuers
             ),
         ]
