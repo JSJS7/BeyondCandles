@@ -71,6 +71,24 @@ are not yet suitable for point-in-time backtests. Adjusted Close includes divide
 and spin-off conventions and must not be used directly for P/E. Price corrections
 do not certify every corporate action in the dataset.
 
+## What the numbers mean
+
+The app shows five annual metrics per company. [METHODOLOGY.md](METHODOLOGY.md) explains
+each choice, the exceptions and how the data was checked. In short:
+
+- **Revenue:** total consolidated revenue as reported; banks use net interest income
+  plus noninterest income.
+- **Net income:** attributable to the parent's shareholders, before preferred dividends.
+- **EPS:** diluted (basic only where nothing else is reported, and labelled), restated
+  to a common share count so years are comparable.
+- **Equity:** the parent's equity at period end, including preferred and excluding
+  non-controlling interests.
+- **Operating cash flow:** whole-company total; continuing operations only where
+  that is all a company reports, and labelled.
+
+Values come from the latest filed report versions, are annual only, and are not
+comparable across sectors without care.
+
 The Kaggle publisher declares GPL 3; the AMD supplement records DoltHub's
 CC BY-SA 4.0 declaration. Rights to publicly display the underlying Yahoo data
 remain unconfirmed. Publishing this code does not establish permission to
