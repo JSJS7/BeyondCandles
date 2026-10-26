@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import logging
 from datetime import date
 from decimal import Decimal, localcontext
 from fractions import Fraction
@@ -13,6 +14,7 @@ from app.schemas.stock import EpsShareBasis, EpsSplit
 
 DATA = Path(__file__).resolve().parents[2] / "data"
 RULES_PATH = DATA / "eps-split-rules.json"
+logger = logging.getLogger(__name__)
 
 
 def sources_fingerprint(periods):
@@ -145,7 +147,9 @@ def normalize_eps(ticker, periods, rules=None):
         return result
     try:
         policy = split_rules() if rules is None else rules
-    except (OSError, ValueError, KeyError):
+    except (OSError, ValueError, KeyError) as error:
+        # Fail closed for the API, but keep the cause visible to the operator.
+        logger.warning("EPS split rules are unusable; EPS needs review: %r", error)
         policy = {}
     approval = policy.get("companies", {}).get(ticker)
     approved = approval and approval["observed_sha256"] == sources_fingerprint(periods)

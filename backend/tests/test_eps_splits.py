@@ -242,13 +242,20 @@ class EpsSplitTests(unittest.TestCase):
         self.assertEqual(payload["eps_share_basis"]["as_of"], "2026-10-13")
 
     def test_missing_policy_fails_closed(self):
-        """An unreadable policy cannot silently publish unnormalized EPS as comparable data."""
-        with patch(
-            "app.eps_splits.split_rules", side_effect=ValueError("changed prices")
+        """An unreadable policy cannot silently publish unnormalized EPS as comparable data.
+
+        The API response stays generic, so the cause must be logged for the operator.
+        """
+        with (
+            patch(
+                "app.eps_splits.split_rules", side_effect=ValueError("changed prices")
+            ),
+            self.assertLogs("app.eps_splits", level="WARNING") as logs,
         ):
             metric = normalize_eps("AAPL", eps_period())[0].metrics["eps_diluted"]
         self.assertEqual(metric.status, "needs_review")
         self.assertIsNone(metric.value)
+        self.assertIn("changed prices", logs.output[0])
 
     def test_invalid_share_counts_are_rejected(self):
         """Zero, negative and fractional counts cannot enter exact share-count arithmetic."""
