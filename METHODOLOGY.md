@@ -8,9 +8,10 @@ the engineering details of the import are kept with the code.
 ## Scope
 
 - **Companies:** a fixed set of 200 large US-listed companies taken from an archived
-  S&P 500 snapshot, chosen by market capitalisation among companies with a complete
-  price history, one share class per company. The list is frozen; it does not follow
-  index membership over time, so it has **survivorship bias**.
+  S&P 500 snapshot (late December 2024), chosen by market capitalisation at that
+  snapshot among companies with a complete price history, one share class per company.
+  The list is frozen; it does not follow index membership over time, so it has
+  **survivorship bias**: these are companies that were large at the end of the period.
 - **Prices:** daily, 2 Jan 2015 to 20 Dec 2024 (2,510 sessions per company), from
   Benjaminpo's Finance Dataset v81 (Yahoo Finance data). Open, High, Low and Close are
   as provided by the vendor, whose history is adjusted for splits. *Adjusted Close*
@@ -23,6 +24,13 @@ the engineering details of the import are kept with the code.
 - **Company changes:** where an issuer changed through a reorganisation or merger
   (JCI, BLK, AVGO, DIS, LIN, CI), earlier periods follow the reviewed accounting
   predecessor. We never add up separate companies.
+- **External inputs:** all financial values come from SEC filings. Besides the price
+  dataset and SEC, the only outside inputs are: one AMD price session (2 Jan 2015) from
+  DoltHub; company names, sectors, exchanges and the market-capitalisation ranking used
+  to choose the 200 companies, from an archived Kaggle S&P 500 dataset
+  (`andrewmvd/sp-500-stocks`, version 1022); and corporate-action evidence (company
+  press releases and filings, vendor split data) behind the price adjustments and the
+  EPS split restatement.
 
 ## The five metrics
 
