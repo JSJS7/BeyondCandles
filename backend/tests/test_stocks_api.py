@@ -304,7 +304,8 @@ class StockApiTests(unittest.TestCase):
                     )
                     periods = annual_periods(facts)
                     policy["companies"][company["ticker"]] = {
-                        "observed_sha256": sources_fingerprint(periods)
+                        "observed_sha256": sources_fingerprint(periods),
+                        "source_ciks": sorted({fact["source_cik"] for fact in facts}),
                     }
             return policy
 

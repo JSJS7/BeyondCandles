@@ -47,6 +47,42 @@ def sources_fingerprint(periods):
     return hashlib.sha256(encoded).hexdigest()
 
 
+def validate_share_exchanges(ticker, approval):
+    """Several issuers share one EPS basis only through reviewed one-for-one exchanges.
+
+    Each predecessor must lead, exchange by exchange, to the single current issuer. Another
+    exchange ratio would change the per-share scale and is not supported.
+    """
+    issuers = set(approval.get("source_ciks", []))
+    successor_of = {}
+    for exchange in approval.get("share_exchanges", []):
+        from_cik = exchange["from_cik"]
+        to_cik = exchange["to_cik"]
+        if from_cik not in issuers or to_cik not in issuers or from_cik == to_cik:
+            raise ValueError(f"Share exchange issuer is not approved: {ticker}")
+        if from_cik in successor_of:
+            raise ValueError(f"Predecessor has several share exchanges: {ticker}")
+        if (exchange["new_shares"], exchange["old_shares"]) != (1, 1):
+            raise ValueError(
+                f"Only one-for-one share exchanges are supported: {ticker}"
+            )
+        if not exchange.get("evidence", {}).get("url"):
+            raise ValueError(f"Share exchange requires source evidence: {ticker}")
+        successor_of[from_cik] = to_cik
+    current_issuers = issuers - set(successor_of)
+    if issuers and len(current_issuers) != 1:
+        raise ValueError(
+            f"Every predecessor requires a reviewed share exchange: {ticker}"
+        )
+    for cik in successor_of:
+        visited = set()
+        while cik in successor_of:
+            if cik in visited:
+                raise ValueError(f"Share exchanges form a cycle: {ticker}")
+            visited.add(cik)
+            cik = successor_of[cik]
+
+
 @lru_cache(maxsize=1)
 def load_rules(stamps):
     document = json.loads(RULES_PATH.read_text(encoding="utf-8"))
@@ -74,6 +110,8 @@ def load_rules(stamps):
         approval = document["companies"].get(action["ticker"], {})
         if action["source_cik"] not in approval.get("source_ciks", []):
             raise ValueError("Split issuer does not match its reviewed EPS sources")
+    for ticker, approval in document["companies"].items():
+        validate_share_exchanges(ticker, approval)
     return document
 
 
@@ -111,24 +149,31 @@ def normalize_eps(ticker, periods, rules=None):
         policy = {}
     approval = policy.get("companies", {}).get(ticker)
     approved = approval and approval["observed_sha256"] == sources_fingerprint(periods)
+    # Approved issuers are linked by reviewed one-for-one share exchanges, so they share
+    # one share basis and every later split of the ticker also restates predecessor filings.
+    shared_basis_issuers = approval.get("source_ciks", []) if approval else []
     for period in result:
         metric = period.metrics["eps_diluted"]
         if metric.status != "ready":
             continue
-        if not approved or len(metric.selected_sources) != 1:
+        single_source = len(metric.selected_sources) == 1
+        source = metric.selected_sources[0] if single_source else None
+        if (
+            not approved
+            or not single_source
+            or source.source_cik not in shared_basis_issuers
+        ):
             metric.status = "needs_review"
             metric.value = None
             metric.selection_note = (
                 "EPS share basis requires review after a source or price change."
             )
             continue
-        source = metric.selected_sources[0]
         # This rule is approved for the exact frozen sources above, not arbitrary future filings.
         pending = [
             EpsSplit.model_validate(action)
             for action in policy["actions"]
             if action["ticker"] == ticker
-            and action["source_cik"] == source.source_cik
             and source.filed < date.fromisoformat(action["date"])
         ]
         ratio = share_count_ratio(pending)

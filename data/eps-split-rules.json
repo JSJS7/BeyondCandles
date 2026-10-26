@@ -4,7 +4,7 @@
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "price_manifest_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
   "definition": "Latest-source net EPS, retaining basic/diluted basis, restated only for reviewed ordinary share-count changes through the frozen vendor price snapshot date. No cash dividends, spin-off valuation factors, or business-scope restatements. Not point-in-time data and not permission to calculate P/E from Adjusted Close.",
-  "source_basis_policy": "For these exact frozen selected EPS sources, actions after the source filing date remain to be applied. Sources on or after each action already incorporate it. This is a reviewed snapshot approval, not an automatic rule for new filings. Pre-split pro-forma tables in AFL, APH and CTAS are not the selected reported EPS.",
+  "source_basis_policy": "For these exact frozen selected EPS sources, actions after the source filing date remain to be applied. Sources on or after each action already incorporate it. This is a reviewed snapshot approval, not an automatic rule for new filings. Pre-split pro-forma tables in AFL, APH and CTAS are not the selected reported EPS. Predecessor issuers share the current issuer's share basis only through the reviewed one-for-one share_exchanges of each company, so their filings receive the same later actions.",
   "vendor_index": {
     "file": "index.json",
     "sha256": "2052635bff0c4ffb1f2fe3dea852f8f2223c69ddfd3f8263ff71128cd16f2ebe"
@@ -2884,6 +2884,22 @@
       "source_ciks": [
         "0001649338",
         "0001730168"
+      ],
+      "share_exchanges": [
+        {
+          "from_cik": "0001649338",
+          "to_cik": "0001730168",
+          "date": "2018-04-04",
+          "new_shares": 1,
+          "old_shares": 1,
+          "note": "Broadcom Limited redomiciled as Broadcom Inc. Avago ordinary shares had already been exchanged one-for-one into Broadcom Limited in 2016.",
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312518186769/d589424dex991.htm",
+            "sha256": "fe91de93a17ef25700872c551c649b586ed2ac2b4828059b090dfe8cb81f6e03",
+            "file": "fe91de93a17ef25700872c551c649b586ed2ac2b4828059b090dfe8cb81f6e03.htm",
+            "quote": "all issued ordinary shares of Broadcom Limited were exchanged on a one-for-one basis for common stock of Broadcom Inc."
+          }
+        }
       ]
     },
     "AXON": {
@@ -2939,6 +2955,22 @@
       "source_ciks": [
         "0001364742",
         "0002012383"
+      ],
+      "share_exchanges": [
+        {
+          "from_cik": "0001364742",
+          "to_cik": "0002012383",
+          "date": "2024-10-01",
+          "new_shares": 1,
+          "old_shares": 1,
+          "note": "Holding-company reorganization at the closing of the GIP transaction.",
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/2012383/000095017025026584/blk-20241231.htm",
+            "sha256": "a75fe1758731667a0d38c1607fa46958b60774fd53b1ba6d8b626a020d6d1e45",
+            "file": "a75fe1758731667a0d38c1607fa46958b60774fd53b1ba6d8b626a020d6d1e45.htm",
+            "quote": "of Old BlackRock issued and outstanding immediately prior to the closing of the GIP Transaction was converted automatically into one share of common stock, $ 0.01 par value, of New BlackRock"
+          }
+        }
       ]
     },
     "BMY": {
@@ -3000,6 +3032,22 @@
       "source_ciks": [
         "0000701221",
         "0001739940"
+      ],
+      "share_exchanges": [
+        {
+          "from_cik": "0000701221",
+          "to_cik": "0001739940",
+          "date": "2018-12-20",
+          "new_shares": 1,
+          "old_shares": 1,
+          "note": "Old Cigna holders received new Cigna shares one-for-one in the Express Scripts combination.",
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1739940/000104746919000792/a2237767z10-k.htm",
+            "sha256": "1f0c880554cc6aa8cae1e289f35ae8d26fa830a4a898e7d2a64b1ebd821b100e",
+            "file": "1f0c880554cc6aa8cae1e289f35ae8d26fa830a4a898e7d2a64b1ebd821b100e.htm",
+            "quote": "Old Cigna shareholders received one share of Cigna common stock in exchange for each share of Old Cigna common stock held immediately prior to the Merger."
+          }
+        }
       ]
     },
     "CL": {
@@ -3127,6 +3175,22 @@
       "source_ciks": [
         "0001001039",
         "0001744489"
+      ],
+      "share_exchanges": [
+        {
+          "from_cik": "0001001039",
+          "to_cik": "0001744489",
+          "date": "2019-03-20",
+          "new_shares": 1,
+          "old_shares": 1,
+          "note": "Legacy Disney shares were converted one-for-one into the new holding company at the 21CF acquisition.",
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448919000225/fy2019q410k.htm",
+            "sha256": "4114bfa741d1ea0078d247fc39f5bfb403e8c0b9845bb958ce72cf13e1fe52c5",
+            "file": "4114bfa741d1ea0078d247fc39f5bfb403e8c0b9845bb958ce72cf13e1fe52c5.htm",
+            "quote": "were converted on a one-for-one basis into new publicly traded shares of TWDC"
+          }
+        }
       ]
     },
     "DLR": {
@@ -3374,6 +3438,22 @@
       "source_ciks": [
         "0000884905",
         "0001707925"
+      ],
+      "share_exchanges": [
+        {
+          "from_cik": "0000884905",
+          "to_cik": "0001707925",
+          "date": "2018-10-31",
+          "new_shares": 1,
+          "old_shares": 1,
+          "note": "Each Praxair share became one Linde plc share; Linde AG shares used a separate 1.54 ratio and are not EPS sources.",
+          "evidence": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1707925/000162828019003050/plc201810-k.htm",
+            "sha256": "e253d335fb27da8e3c52f9ddddeda759c7f500b210bf5f4fcde5a67e1821e893",
+            "file": "e253d335fb27da8e3c52f9ddddeda759c7f500b210bf5f4fcde5a67e1821e893.htm",
+            "quote": "which were automatically canceled and retired for no consideration) was converted into one ordinary share"
+          }
+        }
       ]
     },
     "LLY": {

@@ -41,15 +41,20 @@ def eps_period(value="8.31", filed=date(2018, 11, 5), cik="0000320193"):
     )
 
 
-def approved_policy(periods, actions=(), ticker="AAPL"):
+def approved_policy(periods, actions=(), ticker="AAPL", cik="0000320193"):
     return {
         "version": 1,
         "basis_date": "2026-10-13",
-        "companies": {ticker: {"observed_sha256": sources_fingerprint(periods)}},
+        "companies": {
+            ticker: {
+                "observed_sha256": sources_fingerprint(periods),
+                "source_ciks": [cik],
+            }
+        },
         "actions": [
             dict(
                 ticker=ticker,
-                source_cik="0000320193",
+                source_cik=cik,
                 date=day,
                 new_shares=new,
                 old_shares=old,
@@ -57,6 +62,16 @@ def approved_policy(periods, actions=(), ticker="AAPL"):
             )
             for day, new, old in actions
         ],
+    }
+
+
+def one_for_one(from_cik, to_cik):
+    return {
+        "from_cik": from_cik,
+        "to_cik": to_cik,
+        "new_shares": 1,
+        "old_shares": 1,
+        "evidence": {"url": "https://www.sec.gov/Archives/reviewed-exchange.htm"},
     }
 
 
@@ -110,6 +125,44 @@ class EpsSplitTests(unittest.TestCase):
         self.assertEqual(
             [str(a.date) for a in metric.eps_share_basis.applied_splits], ["2024-06-10"]
         )
+
+    def test_predecessor_source_receives_successor_split_after_one_for_one_exchange(
+        self,
+    ):
+        """AVGO FY2015 regression: a predecessor filing must share the successor's split basis.
+
+        Broadcom Ltd. (predecessor CIK) reported FY2015 diluted EPS of 4.85. Its shares were
+        exchanged one-for-one into Broadcom Inc. in 2018, so the 2024 10-for-1 split of the
+        successor must also restate that value to 0.485.
+        """
+        predecessor, successor = "0001649338", "0001730168"
+        periods = eps_period("4.85", filed=date(2017, 12, 21), cik=predecessor)
+        policy = approved_policy(
+            periods, (("2024-07-15", 10, 1),), ticker="AVGO", cik=successor
+        )
+        approval = policy["companies"]["AVGO"]
+        approval["source_ciks"] = [predecessor, successor]
+        approval["share_exchanges"] = [one_for_one(predecessor, successor)]
+
+        metric = normalize_eps("AVGO", periods, policy)[0].metrics["eps_diluted"]
+
+        self.assertEqual(metric.status, "ready")
+        self.assertEqual(metric.value, Decimal("0.485"))
+        self.assertEqual(metric.eps_share_basis.reported_value, Decimal("4.85"))
+        self.assertEqual(
+            [str(split.date) for split in metric.eps_share_basis.applied_splits],
+            ["2024-07-15"],
+        )
+
+    def test_source_from_unapproved_issuer_requires_review(self):
+        """An issuer outside the approved share basis must not be published without its splits."""
+        periods = eps_period("8.31", cik="0000000001")
+        policy = approved_policy(periods, (("2020-08-31", 4, 1),))
+
+        metric = normalize_eps("AAPL", periods, policy)[0].metrics["eps_diluted"]
+
+        self.assertEqual(metric.status, "needs_review")
+        self.assertIsNone(metric.value)
 
     def test_no_pending_split_preserves_reported_decimal_and_basic_basis(self):
         """An unchanged share count keeps source precision and never relabels basic EPS as diluted."""
@@ -262,6 +315,62 @@ class EpsSplitTests(unittest.TestCase):
                     split_rules()
             load_rules.cache_clear()
 
+    def test_policy_requires_reviewed_one_for_one_exchange_between_issuers(self):
+        """Several issuers may share one EPS basis only through a documented 1:1 exchange chain.
+
+        A different exchange ratio would change the per-share scale and is not supported, so it
+        must stop the policy instead of silently mixing share bases.
+        """
+        predecessor, successor, other = "0001649338", "0001730168", "0000000009"
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "companies-200.json").write_text("{}")
+            (root / "manifest.json").write_text(json.dumps({"sha256": "frozen-prices"}))
+            path = root / "eps-split-rules.json"
+            policy = approved_policy(
+                eps_period(), (("2024-07-15", 10, 1),), ticker="AVGO", cik=successor
+            )
+            policy.update(
+                {
+                    "selection_sha256": hashlib.sha256(b"{}").hexdigest(),
+                    "price_manifest_sha256": "frozen-prices",
+                }
+            )
+            approval = policy["companies"]["AVGO"]
+            approval["source_ciks"] = [predecessor, successor]
+            approval["share_exchanges"] = [one_for_one(predecessor, successor)]
+
+            def load(document):
+                path.write_text(json.dumps(document))
+                load_rules.cache_clear()
+                with (
+                    patch("app.eps_splits.DATA", root),
+                    patch("app.eps_splits.RULES_PATH", path),
+                ):
+                    return split_rules()
+
+            self.assertEqual(
+                load(policy)["companies"]["AVGO"]["share_exchanges"][0]["to_cik"],
+                successor,
+            )
+            for change in ("missing", "ratio", "unapproved", "evidence", "cycle"):
+                altered = copy.deepcopy(policy)
+                exchanges = altered["companies"]["AVGO"]["share_exchanges"]
+                if change == "missing":
+                    exchanges.clear()
+                elif change == "ratio":
+                    exchanges[0]["new_shares"] = 2
+                elif change == "unapproved":
+                    exchanges[0]["from_cik"] = other
+                elif change == "evidence":
+                    del exchanges[0]["evidence"]
+                else:
+                    altered["companies"]["AVGO"]["source_ciks"].append(other)
+                    exchanges.append(one_for_one(successor, predecessor))
+                with self.subTest(change=change), self.assertRaises(ValueError):
+                    load(altered)
+            load_rules.cache_clear()
+
     def test_reported_eps_controls_allow_rounding_but_reject_wrong_values_or_sources(
         self,
     ):
@@ -299,6 +408,21 @@ class EpsSplitTests(unittest.TestCase):
             ] = "9.99" if change == "value" else "unseen"
             with self.subTest(change=change), self.assertRaises(ValueError):
                 verify_comparisons([broken], [before, after])
+
+    def test_frozen_issuer_changes_are_documented_one_for_one_exchanges(self):
+        """Each reviewed predecessor in the frozen catalogue keeps the current EPS share basis."""
+        policy = split_rules()
+        multi_issuer = {
+            ticker: approval
+            for ticker, approval in policy["companies"].items()
+            if len(approval["source_ciks"]) > 1
+        }
+        self.assertEqual(sorted(multi_issuer), ["AVGO", "BLK", "CI", "DIS", "LIN"])
+        for ticker, approval in multi_issuer.items():
+            with self.subTest(ticker=ticker):
+                self.assertEqual(
+                    len(approval["share_exchanges"]), len(approval["source_ciks"]) - 1
+                )
 
     def test_frozen_honeywell_and_hilton_use_actual_reverse_splits(self):
         """Vendor separation factors must never replace the primary documented physical share ratios."""

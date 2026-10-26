@@ -9,6 +9,7 @@ from sqlalchemy import select
 
 from app.annual_financials import annual_periods
 from app.data_pipeline.sec import CACHE as SEC_CACHE
+from app.data_pipeline.sec_statements import DocumentText
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
 from app.database import engine
 from app.eps_splits import normalize_eps, sources_fingerprint, split_rules
@@ -80,6 +81,17 @@ def verify_evidence(policy):
             raise ValueError(
                 "Primary SEC split ratio does not match the approved action"
             )
+    for ticker, approval in policy["companies"].items():
+        for exchange in approval.get("share_exchanges", []):
+            evidence = exchange["evidence"]
+            path = checked_reference(evidence, SEC_CACHE, verified)
+            parser = DocumentText()
+            parser.feed(path.read_text(encoding="utf-8"))
+            text = " ".join(" ".join(parser.parts).split())
+            if evidence["quote"] not in text:
+                raise ValueError(
+                    f"Share exchange evidence does not state the reviewed ratio: {ticker}"
+                )
     filing_index = checked_reference(policy["pre_split_filings"], CACHE, verified)
     for filing in read_json(filing_index).values():
         for reference in filing.values():
