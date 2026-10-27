@@ -335,6 +335,14 @@ def correct_avgo(rows, manifest):
     return changed
 
 
+def adjustment_rules_sha256(manifest):
+    """Hash the reviewed cash-adjustment rules file, not the manifest that pins it."""
+    review = manifest["reviews"].get("AVGO")
+    if review is None:
+        return None
+    return sha256(ROOT / review["rules_file"])
+
+
 def prepare_prices(*, require_reviewed=False):
     """Validate all candidate bytes first; unresolved economic cases block replacement."""
     manifest = candidate_manifest()
@@ -406,7 +414,7 @@ def prepare_prices(*, require_reviewed=False):
         "sha256": manifest["sha256"],
         "manifest_sha256": sha256(CANDIDATE),
         "processed_sha256": sha256(output),
-        "adjustment_rules_sha256": sha256(CANDIDATE),
+        "adjustment_rules_sha256": adjustment_rules_sha256(manifest),
         "adjusted_prices_changed": changed,
         "unresolved": unresolved,
         "events": events,

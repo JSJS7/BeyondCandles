@@ -15,7 +15,7 @@ from app.data_pipeline.identifiers import cached, write_json
 from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
-from app.data_pipeline.sec import CACHE
+from app.data_pipeline.sec import CACHE, SecAccessDenied
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
     HISTORY_INDEX,
@@ -118,9 +118,8 @@ def cache_evidence(jobs, evidence):
             last_request[0] = monotonic()
         try:
             return cached(url, json_response=False)
-        except ValueError as exc:
-            if "HTTP 403" in str(exc):
-                stopped.set()
+        except SecAccessDenied:
+            stopped.set()
             raise
 
     def filing(job):
@@ -153,7 +152,7 @@ def cache_evidence(jobs, evidence):
                 )
             entry.pop("download_issue", None)
         except (ValueError, ET.ParseError) as exc:
-            if "HTTP 403" in str(exc):
+            if isinstance(exc, SecAccessDenied):
                 stopped.set()
             if stopped.is_set():
                 raise
@@ -826,10 +825,10 @@ def review_equity(fetch=False):
                         path = verify_reference(entry[filename])
                         if kind == "instance":
                             nci_controls = []
-                            statement_files = entry.get("equity_files", []) + entry.get(
-                                "scope_files", []
-                            )
-                            for statement_file in statement_files:
+                            nci_statement_files = entry.get(
+                                "equity_files", []
+                            ) + entry.get("scope_files", [])
+                            for statement_file in nci_statement_files:
                                 if statement_file not in entry:
                                     continue
                                 reference = entry[statement_file]

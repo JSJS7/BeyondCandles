@@ -16,6 +16,7 @@ from app.data_pipeline.sec import CACHE
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
+    NoUniqueStatementRow,
     StatementRows,
     matches_rendered_value,
     normalized_label,
@@ -169,11 +170,9 @@ def cash_positions(html, end):
             )
             try:
                 parsed = statement_total(table, end, concept=tag, stop_at_costs=False)
-            except ValueError as exc:
-                if "has no unique" in str(exc):
-                    # A concept may occur only in another comparison year.
-                    continue
-                raise
+            except NoUniqueStatementRow:
+                # A concept may occur only in another comparison year.
+                continue
             values = []
             for day, annual, cell in zip(
                 parsed["dates"], parsed["annual_columns"], parsed["values"]

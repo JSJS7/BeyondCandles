@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from typing import Any
 
-from app.data_pipeline.sec import CACHE, cache_response, verify_identity
+from app.data_pipeline.sec import CACHE, cache_response
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
 
 IDENTIFIERS = ROOT / "data/sec-identifiers.json"
@@ -178,11 +178,9 @@ def resolve_sec():
         if str(submission["cik"]).zfill(10) != cik:
             raise ValueError(f"Submission CIK mismatch: {ticker}")
         evidence = None
-        try:
-            verify_identity(ticker, cik, submission)
-        except ValueError:
-            evidence = historical_evidence(ticker, cik, submission)
-        if ticker not in submission.get("tickers", []) and evidence is None:
+        if ticker not in submission.get("tickers", []):
+            # Current submissions no longer list this ticker (e.g. XOM after its 2026
+            # reorganization); a historical annual filing must confirm ticker and CIK.
             evidence = historical_evidence(ticker, cik, submission)
         progress["companies"][ticker] = {
             "cik": cik,

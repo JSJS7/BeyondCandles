@@ -34,7 +34,6 @@ def select_revenue(variants, start, end, rules=None, facts=None):
         return AnnualMetric(status="not_available", variants=[])
     rules = revenue_rules() if rules is None else rules
     ciks = {variant.source_cik for variant in variants}
-    note = "Total revenue has not been verified against the income statement for this period."
     if len(ciks) != 1:
         return AnnualMetric(
             status="needs_review",
@@ -53,36 +52,38 @@ def select_revenue(variants, start, end, rules=None, facts=None):
             selection_note="Total revenue has not been verified for the latest filing. An older tag approval is not reused.",
         )
 
-    if rule and rule.get("components"):
+    if rule.get("components"):
         return calculated_bank_revenue(variants, start, end, rule, facts or [])
-    if rule:
-        selected = [
-            variant
-            for variant in variants
-            if variant.taxonomy == rule.get("taxonomy", "us-gaap")
-            and variant.tag == rule["tag"]
-            and variant.unit == "USD"
-        ]
-        # annual_periods already retains conflicting same-day reports as separate variants.
-        if (
-            len(selected) == 1
-            and str(selected[0].filed) == rule["filed"]
-            and selected[0].accession == rule["accession"]
-            and selected[0].value == Decimal(rule["value"])
-        ):
-            return AnnualMetric(
-                status="ready",
-                value=selected[0].value,
-                variants=variants,
-                selected_tag=rule["tag"],
-                selected_sources=selected,
-                selection_note=rule.get(
-                    "note",
-                    f"Reported total: {rule['label']}. Other candidates are retained separately; values are not summed.",
-                ),
-            )
-        note = "The verified total-revenue definition is missing or has conflicting filing values."
-    return AnnualMetric(status="needs_review", variants=variants, selection_note=note)
+    selected = [
+        variant
+        for variant in variants
+        if variant.taxonomy == rule.get("taxonomy", "us-gaap")
+        and variant.tag == rule["tag"]
+        and variant.unit == "USD"
+    ]
+    # annual_periods already retains conflicting same-day reports as separate variants.
+    if (
+        len(selected) == 1
+        and str(selected[0].filed) == rule["filed"]
+        and selected[0].accession == rule["accession"]
+        and selected[0].value == Decimal(rule["value"])
+    ):
+        return AnnualMetric(
+            status="ready",
+            value=selected[0].value,
+            variants=variants,
+            selected_tag=rule["tag"],
+            selected_sources=selected,
+            selection_note=rule.get(
+                "note",
+                f"Reported total: {rule['label']}. Other candidates are retained separately; values are not summed.",
+            ),
+        )
+    return AnnualMetric(
+        status="needs_review",
+        variants=variants,
+        selection_note="The verified total-revenue definition is missing or has conflicting filing values.",
+    )
 
 
 def sum_reported_values(facts):

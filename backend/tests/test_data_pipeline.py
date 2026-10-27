@@ -2,16 +2,19 @@ import hashlib
 import unittest
 from datetime import date
 from decimal import Decimal
+from email.message import Message
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 from app.data_pipeline.sec import (
+    SecAccessDenied,
     cache_response,
     extract_facts,
+    fetch,
     period_kind,
-    verify_identity,
 )
 from app.data_pipeline.validation import validate_price
 from app.data_pipeline.verification import fingerprint
@@ -176,6 +179,9 @@ class SecTests(unittest.TestCase):
 
     def test_unknown_identity_is_not_accepted_by_name_guessing(self):
         """Reject an Apple name match when SEC does not confirm the AAPL ticker."""
+        from app.data_pipeline.sec_catalogue import verify_submission
+
+        approved_entry = {"cik": "0000320193", "evidence": None}
         unconfirmed_company = {
             "cik": 320193,
             "name": "Apple",
@@ -183,7 +189,78 @@ class SecTests(unittest.TestCase):
         }
 
         with self.assertRaises(ValueError):
-            verify_identity("AAPL", "0000320193", unconfirmed_company)
+            verify_submission("AAPL", approved_entry, unconfirmed_company)
+
+    def test_access_denial_is_a_distinct_error_without_retries(self):
+        """HTTP 403 raises SecAccessDenied at once, so concurrent downloads can stop.
+
+        Download workers used to detect a denial by searching the message text;
+        a reworded message would then have let the remaining workers continue.
+        """
+        denied = HTTPError("https://www.sec.gov/x", 403, "Forbidden", Message(), None)
+
+        with (
+            patch("app.data_pipeline.sec.urlopen", side_effect=denied) as request,
+            patch("app.data_pipeline.sec.time.sleep"),
+        ):
+            with self.assertRaises(SecAccessDenied):
+                fetch("https://www.sec.gov/x", "Test agent test@example.com")
+
+        self.assertEqual(request.call_count, 1)
+
+    def test_temporary_server_error_is_not_an_access_denial(self):
+        """A repeated HTTP 503 fails as an ordinary error, not as SEC blocking access."""
+        unavailable = HTTPError(
+            "https://www.sec.gov/x", 503, "Unavailable", Message(), None
+        )
+
+        with (
+            patch("app.data_pipeline.sec.urlopen", side_effect=unavailable) as request,
+            patch("app.data_pipeline.sec.time.sleep"),
+        ):
+            with self.assertRaises(ValueError) as raised:
+                fetch("https://www.sec.gov/x", "Test agent test@example.com")
+
+        self.assertNotIsInstance(raised.exception, SecAccessDenied)
+        self.assertEqual(request.call_count, 3)
+
+
+class CommandLineErrorTests(unittest.TestCase):
+    def run_failing_command(self, error):
+        from contextlib import redirect_stderr
+        from io import StringIO
+
+        from app.data_pipeline.__main__ import main
+
+        stderr = StringIO()
+        with (
+            patch("sys.argv", ["data_pipeline", "inspect-db"]),
+            patch("app.data_pipeline.verification.inspect_db", side_effect=error),
+            redirect_stderr(stderr),
+        ):
+            exit_code = main()
+        return exit_code, stderr.getvalue()
+
+    def test_database_error_hides_driver_details(self):
+        """A database failure exits with 1 and never prints the driver message."""
+        from sqlalchemy.exc import OperationalError
+
+        error = OperationalError("SELECT 1", {}, Exception("password=secret"))
+
+        exit_code, message = self.run_failing_command(error)
+
+        self.assertEqual(exit_code, 1)
+        self.assertIn("OperationalError", message)
+        self.assertNotIn("secret", message)
+
+    def test_programming_error_keeps_its_traceback(self):
+        """An unexpected bug propagates instead of being reduced to its class name.
+
+        Previously every exception was printed only as its type, which hid the
+        failing line of a programming error.
+        """
+        with self.assertRaises(TypeError):
+            self.run_failing_command(TypeError("unexpected argument"))
 
 
 if __name__ == "__main__":

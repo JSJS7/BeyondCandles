@@ -1,6 +1,11 @@
+"""Command-line entry point for reproducible price and SEC data preparation."""
+
 import argparse
 import json
 import sys
+
+import psycopg
+from sqlalchemy.exc import SQLAlchemyError
 
 
 def main():
@@ -176,11 +181,12 @@ def main():
         if result.get("status") in ("needs_review", "completed_with_gaps"):
             return 1
         return 0
-    except (ValueError, OSError, KeyError) as exc:
+    except (ValueError, OSError) as exc:
         print(f"Data preparation failed: {exc}", file=sys.stderr)
         return 1
-    except Exception as exc:
+    except (SQLAlchemyError, psycopg.Error) as exc:
         # Driver messages can embed connection configuration; do not print them.
+        # Other unexpected errors propagate with a traceback for diagnosis.
         error_message = (
             f"Data preparation failed ({type(exc).__name__}). "
             "Check local database availability and migrations."

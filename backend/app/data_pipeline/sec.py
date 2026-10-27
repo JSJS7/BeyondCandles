@@ -53,6 +53,16 @@ REVENUE_SOURCE_TAGS = {
     "0001404912": ("InvestmentAdvisoryFees",),
 }
 CACHE = ROOT / "data/raw/sec"
+
+
+class SecAccessDenied(ValueError):
+    """SEC refused the request (HTTP 403); every concurrent download must stop."""
+
+
+class CacheIntegrityError(ValueError):
+    """A cached SEC file is missing from the cache folder or its bytes changed."""
+
+
 HISTORICAL_IDENTITIES = {
     "XOM": {
         "cik": "0000034088",
@@ -61,20 +71,6 @@ HISTORICAL_IDENTITIES = {
         "note": "2024 10-K identifies XOM. Current submissions tickers are empty after 2026 successor reorganization; keep historical issuer for 2015-2024.",
     }
 }
-
-
-def verify_identity(ticker, cik, document):
-    if str(document["cik"]).zfill(10) != cik:
-        raise ValueError(f"SEC CIK mismatch: {ticker}")
-    if ticker in document.get("tickers", []):
-        return
-    historical = HISTORICAL_IDENTITIES.get(ticker)
-    if (
-        not historical
-        or historical["cik"] != cik
-        or historical["name"] != document.get("name")
-    ):
-        raise ValueError(f"SEC identity mismatch: {ticker}")
 
 
 def fetch(url, user_agent, json_response=True):
@@ -95,6 +91,10 @@ def fetch(url, user_agent, json_response=True):
                     json.loads(body)  # Never cache an HTML error response as JSON.
                 return body
         except HTTPError as exc:
+            if exc.code == 403:
+                raise SecAccessDenied(
+                    "SEC HTTP 403; request stopped, no bypass attempted"
+                ) from None
             if exc.code not in (429, 500, 502, 503, 504) or attempt == 2:
                 raise ValueError(
                     f"SEC HTTP {exc.code}; request stopped, no bypass attempted"

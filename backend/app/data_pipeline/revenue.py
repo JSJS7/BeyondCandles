@@ -10,7 +10,7 @@ from threading import Event, Lock
 from time import monotonic, sleep
 
 from app.data_pipeline.identifiers import cached, write_json
-from app.data_pipeline.sec import CACHE
+from app.data_pipeline.sec import CACHE, CacheIntegrityError, SecAccessDenied
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
@@ -176,9 +176,8 @@ def download_evidence(
             last_request[0] = monotonic()
         try:
             return cached(url, json_response=False)
-        except ValueError as exc:
-            if "HTTP 403" in str(exc):
-                stopped.set()
+        except SecAccessDenied:
+            stopped.set()
             raise
 
     def download_filing(source):
@@ -433,7 +432,7 @@ def verify_filing_period(
                     )
                     group = group + original
             except ValueError as exc:
-                if "HTTP 403" in str(exc) or "checksum" in str(exc):
+                if isinstance(exc, (SecAccessDenied, CacheIntegrityError)):
                     raise
                 attempts.append({"url": reference["url"], "reason": str(exc)})
                 continue
@@ -497,7 +496,7 @@ def verify_filing_period(
             )
         return rule, attempts
     except (ValueError, KeyError, ET.ParseError) as exc:
-        if "HTTP 403" in str(exc) or "checksum" in str(exc):
+        if isinstance(exc, (SecAccessDenied, CacheIntegrityError)):
             raise
         attempts.append({"source": cik + ":" + accession, "reason": str(exc)})
     return None, attempts

@@ -54,6 +54,10 @@ TOTAL_LABELS = {
 }
 
 
+class NoUniqueStatementRow(ValueError):
+    """The statement has no single recognized row for the requested total or concept."""
+
+
 class StatementRows(HTMLParser):
     """Read only the visible statement table, excluding hidden concept-definition tables."""
 
@@ -265,10 +269,10 @@ def statement_total(
         candidates = explicit_totals
     if len(candidates) != 1:
         if concept is None:
-            raise ValueError(
+            raise NoUniqueStatementRow(
                 "Income statement has no unique recognized total-revenue row"
             )
-        raise ValueError(f"Income statement has no unique {concept} row")
+        raise NoUniqueStatementRow(f"Income statement has no unique {concept} row")
     total = candidates[0]
     if (
         total["taxonomy"] != "us-gaap"

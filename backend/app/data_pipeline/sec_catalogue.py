@@ -11,7 +11,7 @@ from app.data_pipeline.identifiers import (
     cached,
     write_json,
 )
-from app.data_pipeline.sec import CACHE
+from app.data_pipeline.sec import CACHE, CacheIntegrityError
 from app.data_pipeline.source_files import SELECTION, read_json, sha256
 
 ALL_INDEX = CACHE / "all-index.json"
@@ -37,7 +37,7 @@ def identifiers():
 def verify_reference(reference):
     path = CACHE / reference["file"]
     if path.parent != CACHE or sha256(path) != reference["sha256"]:
-        raise ValueError("SEC cache checksum mismatch")
+        raise CacheIntegrityError("SEC cache checksum mismatch")
     return path
 
 
@@ -69,6 +69,7 @@ def fetch_all_sec(refresh=False):
     refreshing = progress.get("pending_refresh", False)
     if ALL_INDEX.exists() and not refreshing:
         index, companies = load_all_sec()
+        # Reading every cached company checks its hashes and identity before reuse.
         for _ in companies:
             pass
         from .sec_history import fetch_history_sources

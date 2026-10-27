@@ -1,3 +1,5 @@
+"""Inspect the database and verify stored prices against the prepared snapshot."""
+
 import csv
 import hashlib
 import json

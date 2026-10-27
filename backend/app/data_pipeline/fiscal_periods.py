@@ -11,7 +11,7 @@ from time import monotonic, sleep
 from app.data_pipeline.identifiers import cached, write_json
 from app.data_pipeline.revenue import ANNUAL_FORMS, EVIDENCE_INDEX
 from app.data_pipeline.revenue_facts import cache_instance
-from app.data_pipeline.sec import CACHE, METRICS, period_kind
+from app.data_pipeline.sec import CACHE, METRICS, SecAccessDenied, period_kind
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
     HISTORY_INDEX,
@@ -23,6 +23,10 @@ from app.data_pipeline.source_files import SELECTION, read_json, sha256
 from app.fiscal_periods import RULES_PATH, period_key
 
 COVER_INDEX = CACHE / "fiscal-evidence-index.json"
+
+
+class NoUniqueCoverReport(ValueError):
+    """A filing summary lists no single cover page; the original DEI facts are used instead."""
 
 
 def cover_filename(summary):
@@ -46,7 +50,7 @@ def cover_filename(summary):
         ):
             files.append(filename)
     if len(files) != 1:
-        raise ValueError("No unique SEC cover report")
+        raise NoUniqueCoverReport("No unique SEC cover report")
     return files[0]
 
 
@@ -126,11 +130,7 @@ def fetch_covers(evidence, previous):
             return source, None
         try:
             name = cover_filename(verify_reference(summary).read_bytes())
-        except ValueError as exc:
-            if "checksum" in str(exc):
-                raise
-            if "No unique" not in str(exc):
-                raise
+        except NoUniqueCoverReport:
             old = dict(result.get(source, {}))
             if old.get("instance"):
                 verify_reference(old["instance"])
@@ -159,10 +159,10 @@ def fetch_covers(evidence, previous):
             last_request[0] = monotonic()
         try:
             cover = cached(url, json_response=False)
+        except SecAccessDenied:
+            stopped.set()
+            raise
         except ValueError as exc:
-            if "HTTP 403" in str(exc):
-                stopped.set()
-                raise
             return source, {"summary": summary, "issue": str(exc)}
         return source, {**result.get(source, {}), "summary": summary, "cover": cover}
 

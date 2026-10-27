@@ -439,6 +439,30 @@ class BenjaminpoTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "blocked.*DHR"):
                 source.prepare_prices(require_reviewed=True)
 
+    def test_summary_reports_the_adjustment_rules_hash(self):
+        """The rules hash identifies price-adjustments.json, not the manifest.
+
+        The summary previously repeated the manifest hash under this name, so an
+        audit report could not show which rules file had been applied.
+        """
+        self.write_history()
+        policy = self.root / "rules.json"
+        policy.write_text('{"version": 1}\n', encoding="utf-8")
+        self.manifest["reviews"]["AVGO"] = {
+            "status": "reviewed",
+            "rules_file": policy.name,
+            "rules_sha256": sha256(policy),
+        }
+        source.atomic_json(self.candidate, self.manifest)
+
+        with patch.object(source, "load_company_rows", return_value={}):
+            _, _, summary = source.prepare_prices()
+
+        self.assertEqual(summary["adjustment_rules_sha256"], sha256(policy))
+        self.assertNotEqual(
+            summary["adjustment_rules_sha256"], summary["manifest_sha256"]
+        )
+
     def test_invalid_catalogue_preserves_previous_prepared_file(self):
         """A metadata error must not publish new prices when preparation as a whole failed."""
         self.write_history()
