@@ -183,7 +183,7 @@ def cache_evidence(jobs, evidence):
 
 def expand(cells, spans):
     result = []
-    for cell, span in zip(cells, spans):
+    for cell, span in zip(cells, spans, strict=True):
         result.extend([cell] + [""] * (span - 1))
     return result
 
@@ -397,7 +397,7 @@ def statement_positions(html, end, kind):
             if row["cells"] and parse_date(row["cells"][0])
             else 0
         )
-        for cell, span in zip(row["cells"], row["spans"]):
+        for cell, span in zip(row["cells"], row["spans"], strict=True):
             parsed = parse_date(cell)
             if parsed:
                 for column in range(offset, offset + span):
@@ -906,7 +906,9 @@ def review_equity(fetch=False):
                                             else {}
                                         ),
                                     }
-                                    for fact, coefficient in zip(selected, coefficients)
+                                    for fact, coefficient in zip(
+                                        selected, coefficients, strict=True
+                                    )
                                 ],
                                 "calculation": calculation,
                                 "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",

@@ -234,7 +234,7 @@ def read_history(ticker, manifest):
             except ValueError as exc:
                 raise ValueError(f"{ticker} {day} line {line}: {exc}") from exc
             dates.add(day)
-            rows.append(dict(zip(FIELDS, [ticker, day, *values])))
+            rows.append(dict(zip(FIELDS, [ticker, day, *values], strict=True)))
     rows.sort(key=lambda row: row["date"])
     calendar = "\n".join(row["date"] for row in rows).encode("utf-8")
     calendar_matches = (
@@ -293,7 +293,11 @@ def correct_amd(rows, manifest):
     ) or Decimal(replacement["adjusted_close"]) != Decimal(replacement["close"]):
         raise ValueError("AMD adjustment basis differs from the reviewed snapshot")
     numeric_prices = dict(
-        zip(PRICE_COLUMNS, [replacement[field] for field in FIELDS[2:7]])
+        zip(
+            PRICE_COLUMNS,
+            [replacement[field] for field in FIELDS[2:7]],
+            strict=True,
+        )
     )
     validate_price({**numeric_prices, "Volume": replacement["volume"]})
     row.update(replacement)
@@ -388,7 +392,11 @@ def prepare_prices(*, require_reviewed=False):
                     }
                 for row in rows:
                     prices = dict(
-                        zip(PRICE_COLUMNS, [row[field] for field in FIELDS[2:7]])
+                        zip(
+                            PRICE_COLUMNS,
+                            [row[field] for field in FIELDS[2:7]],
+                            strict=True,
+                        )
                     )
                     validate_price({**prices, "Volume": row["volume"]})
                 writer.writerows(rows)

@@ -261,7 +261,7 @@ def eps_position(html, cik, end):
             cell_tag = "th" if source_row["header"] else "td"
             rendered = []
             for index, (cell, span) in enumerate(
-                zip(source_row["cells"], source_row["spans"])
+                zip(source_row["cells"], source_row["spans"], strict=True)
             ):
                 text = escape(cell)
                 if source_row is row and index == 0:

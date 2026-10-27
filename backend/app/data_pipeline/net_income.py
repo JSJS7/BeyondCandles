@@ -84,7 +84,7 @@ def position(html, tag, end, expected=None, allocation=False):
                 "<tr>"
                 + "".join(
                     f'<th colspan="{span}">{escape(cell)}</th>'
-                    for cell, span in zip(row["cells"], row["spans"])
+                    for cell, span in zip(row["cells"], row["spans"], strict=True)
                 )
                 + "</tr>"
             )
@@ -94,7 +94,7 @@ def position(html, tag, end, expected=None, allocation=False):
         if row["tags"] != {("us-gaap", tag)}:
             continue
         expanded = []
-        for cell, span in zip(row["cells"][1:], row["spans"][1:]):
+        for cell, span in zip(row["cells"][1:], row["spans"][1:], strict=True):
             expanded.extend([cell] + [""] * (span - 1))
         body = f'<tr><td><a onclick="defref_us-gaap_{tag}">{escape(row["cells"][0])}</a></td>'
         body += "".join("<td>" + escape(cell) + "</td>" for cell in expanded) + "</tr>"
@@ -110,7 +110,7 @@ def position(html, tag, end, expected=None, allocation=False):
             if not correct:
                 continue
         for column_end, annual, cell in zip(
-            parsed["dates"], parsed["annual_columns"], parsed["values"]
+            parsed["dates"], parsed["annual_columns"], parsed["values"], strict=True
         ):
             if column_end != end or not annual:
                 continue
@@ -544,7 +544,7 @@ def review_net_income(fetch=False):
                         value = calculated_value(
                             [
                                 (v.value, Decimal(c))
-                                for v, c in zip(selected, coefficients)
+                                for v, c in zip(selected, coefficients, strict=True)
                             ]
                         )
                         choices.append(
@@ -553,7 +553,7 @@ def review_net_income(fetch=False):
                                 "accession": accession,
                                 "components": [
                                     {"tag": v.tag, "coefficient": c}
-                                    for v, c in zip(selected, coefficients)
+                                    for v, c in zip(selected, coefficients, strict=True)
                                 ],
                                 "value": format(value, "f"),
                                 "calculation": calculation,

@@ -192,7 +192,7 @@ class NetIncomeEvidenceTests(unittest.TestCase):
         result = calculated_value(
             [
                 (fact.value, Decimal(coefficient))
-                for fact, coefficient in zip(selected, coefficients)
+                for fact, coefficient in zip(selected, coefficients, strict=True)
             ]
         )
         self.assertEqual(coefficients, [1, -1])
@@ -232,7 +232,7 @@ class NetIncomeEvidenceTests(unittest.TestCase):
         result = calculated_value(
             [
                 (fact.value, Decimal(coefficient))
-                for fact, coefficient in zip(selected, coefficients)
+                for fact, coefficient in zip(selected, coefficients, strict=True)
             ]
         )
         self.assertEqual(result, Decimal("79000000"))
@@ -273,7 +273,7 @@ class NetIncomeEvidenceTests(unittest.TestCase):
         result = calculated_value(
             [
                 (fact.value, Decimal(coefficient))
-                for fact, coefficient in zip(selected, coefficients)
+                for fact, coefficient in zip(selected, coefficients, strict=True)
             ]
         )
         self.assertEqual(result, Decimal("-4315000000"))

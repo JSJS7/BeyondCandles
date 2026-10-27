@@ -152,14 +152,14 @@ def statement_total(
             headers.extend(cells)
             if any("months ended" in cell.lower() for cell in cells):
                 duration_headers = []
-                for cell, span in zip(cells[1:], row["spans"][1:]):
+                for cell, span in zip(cells[1:], row["spans"][1:], strict=True):
                     duration_headers.extend(
                         [cell.lower().startswith("12 months")] * span
                     )
                 stub_columns = row["spans"][0] - 1
             dates = []
             recognized_header = True
-            for cell, span in zip(cells, row["spans"]):
+            for cell, span in zip(cells, row["spans"], strict=True):
                 parsed = None
                 match = re.match(r"^([A-Za-z]+\.? \d{1,2}, \d{4})", cell)
                 for pattern in ("%b %d, %Y", "%B %d, %Y"):
@@ -220,7 +220,7 @@ def statement_total(
         if len(tags) == 1 and any(re.search(r"\d", cell) for cell in cells[1:]):
             taxonomy, tag = next(iter(tags))
             values = []
-            for cell, span in zip(cells[1:], row["spans"][1:]):
+            for cell, span in zip(cells[1:], row["spans"][1:], strict=True):
                 values.extend([cell] + [""] * (span - 1))
             candidates.append(
                 {
@@ -231,12 +231,15 @@ def statement_total(
                 }
             )
     if end is not None:
+        # Values may still contain a footnote column here; lengths are checked after trimming.
         candidates = [
             candidate
             for candidate in candidates
             if any(
                 column_end == end and re.search(r"\d", value)
-                for column_end, value in zip(date_headers, candidate["values"])
+                for column_end, value in zip(
+                    date_headers, candidate["values"], strict=False
+                )
             )
         ]
     # Banks present their GAAP revenue after interest expense. Preserve the gross
@@ -326,7 +329,7 @@ def statement_total(
 def matches_rendered_value(total, value, end):
     """Allow displayed rounding to the statement scale, never an arbitrary percentage tolerance."""
     for column_end, annual, cell in zip(
-        total["dates"], total["annual_columns"], total["values"]
+        total["dates"], total["annual_columns"], total["values"], strict=True
     ):
         if column_end != end or not annual:
             continue

@@ -785,11 +785,18 @@ class EquityReviewedNoteTests(unittest.TestCase):
             "header_terms": ["millions", "Noncontrolling interests", "2020"],
             "column_label": "Noncontrolling interests",
         }
-        document = {"version": 1, "nci_controls": {KEY: control}}
+        document = {
+            "version": 1,
+            "selection_sha256": "selection",
+            "nci_controls": {KEY: control},
+        }
         source = SimpleNamespace(read_text=lambda **kwargs: html)
         with (
             patch(
                 "app.data_pipeline.equity_exceptions.read_json", return_value=document
+            ),
+            patch(
+                "app.data_pipeline.equity_exceptions.sha256", return_value="selection"
             ),
             patch(
                 "app.data_pipeline.equity_exceptions.verify_reference",
@@ -810,6 +817,30 @@ class EquityReviewedNoteTests(unittest.TestCase):
             self.assertEqual(
                 reviewed_nci_controls(task, group["source_cik"], group["accession"]), []
             )
+
+    def test_manual_exceptions_require_the_reviewed_company_selection(self):
+        """Manual equity decisions made for one 200-company list must not be reused for another."""
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        from app.data_pipeline.equity_exceptions import reviewed_nci_controls
+
+        # Arrange: the exceptions file was reviewed for a different company selection.
+        document = {"version": 1, "selection_sha256": "old-selection"}
+        task = {"primary": "0000320193", "period": SimpleNamespace(period_end=END)}
+
+        # Act and assert: reading it stops instead of returning no exception.
+        with (
+            patch(
+                "app.data_pipeline.equity_exceptions.read_json", return_value=document
+            ),
+            patch(
+                "app.data_pipeline.equity_exceptions.sha256",
+                return_value="current-selection",
+            ),
+        ):
+            with self.assertRaisesRegex(ValueError, "frozen selection"):
+                reviewed_nci_controls(task, "0000320193", "accession")
 
     def test_boston_scientific_reported_total_is_not_a_sum_of_rounded_accounts(self):
         """The 2020 report states 15,326 million even though displayed parent components sum to 15,327."""

@@ -56,7 +56,7 @@ class CorporateActionTests(unittest.TestCase):
             splits = {}
             report = "<p>The October 31, 2016 closing share price was $45.51.</p>"
         rows = []
-        for day, close, value in zip(dates, closes, adjusted):
+        for day, close, value in zip(dates, closes, adjusted, strict=True):
             rows.append(
                 {"date": day, "close": close, "adjusted_close": value, "volume": "100"}
             )
@@ -112,7 +112,7 @@ class CorporateActionTests(unittest.TestCase):
         self.assertEqual(
             Decimal(rows[1]["adjusted_close"]), Decimal(original[1]["adjusted_close"])
         )
-        for before, after in zip(original, rows):
+        for before, after in zip(original, rows, strict=True):
             self.assertEqual(before["close"], after["close"])
             self.assertEqual(before["volume"], after["volume"])
 

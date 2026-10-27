@@ -128,7 +128,7 @@ def cash_positions(html, end):
         if row["header"]:
             cells = "".join(
                 f'<th colspan="{span}">{escape(cell)}</th>'
-                for cell, span in zip(row["cells"], row["spans"])
+                for cell, span in zip(row["cells"], row["spans"], strict=True)
             )
             headers.append("<tr>" + cells + "</tr>")
             continue
@@ -155,7 +155,7 @@ def cash_positions(html, end):
             if row["tags"] != {("us-gaap", tag)}:
                 continue
             cells = []
-            for cell, span in zip(row["cells"][1:], row["spans"][1:]):
+            for cell, span in zip(row["cells"][1:], row["spans"][1:], strict=True):
                 # A displayed dash is an explicit monetary zero; a blank stays missing.
                 if cell.strip() in ("-", "\u2014", "\u2013"):
                     cell = "0"
@@ -175,7 +175,7 @@ def cash_positions(html, end):
                 continue
             values = []
             for day, annual, cell in zip(
-                parsed["dates"], parsed["annual_columns"], parsed["values"]
+                parsed["dates"], parsed["annual_columns"], parsed["values"], strict=True
             ):
                 if day != end or not annual:
                     continue
@@ -356,11 +356,13 @@ def reviewed_exceptions(fetch=False):
         for reference in references.values():
             try:
                 verify_reference(reference)
-            except (OSError, ValueError):
+            except (OSError, ValueError) as error:
                 sleep(0.25)
                 actual = cached(reference["url"], reference, json_response=False)
                 if actual["sha256"] != reference["sha256"]:
-                    raise ValueError("A reviewed operating-cash-flow source changed")
+                    raise ValueError(
+                        "A reviewed operating-cash-flow source changed"
+                    ) from error
     return document["periods"]
 
 
@@ -538,7 +540,7 @@ def review_cash_flow(fetch=False):
         issuer = period_issuer(task["facts"], start, end, calendar)
         key = f"{issuer}:{start}:{end}"
         choices, issues = [], []
-        for cik, accession, filed in sorted(task["sources"]):
+        for cik, accession, _ in sorted(task["sources"]):
             entry = evidence.get(cik + ":" + accession, {})
             if "summary" not in entry:
                 issues.append(
@@ -633,7 +635,7 @@ def review_cash_flow(fetch=False):
             references = {}
             for cik, accession, _ in sorted(task["sources"]):
                 entry = evidence.get(cik + ":" + accession, {})
-                for name, reference in entry.items():
+                for reference in entry.values():
                     if isinstance(reference, dict) and "url" in reference:
                         references[reference["url"]] = reference
             issue["evidence"] = sorted(

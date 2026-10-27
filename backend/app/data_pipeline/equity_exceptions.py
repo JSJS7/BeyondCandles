@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 
 from app.data_pipeline.sec_catalogue import verify_reference
 from app.data_pipeline.sec_statements import normalized_label
-from app.data_pipeline.source_files import ROOT, read_json
+from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
 from app.equity import fact_identity, variants_fingerprint
 from app.fiscal_periods import canonical_period
 
@@ -79,12 +79,20 @@ def verify_original_position(body, exception):
     return matches[0]
 
 
-def manual_choice(task, calendar, fetch=False):
-    """Never transfer a manual decision to another period, issuer or refreshed snapshot."""
-    end = task["period"].period_end
+def exceptions_document():
+    """Read manual equity decisions only for the frozen company selection they reviewed."""
     document = read_json(EXCEPTIONS)
     if document["version"] != 1:
         raise ValueError("Unsupported primary equity exception version")
+    if document.get("selection_sha256") != sha256(SELECTION):
+        raise ValueError("Equity exceptions do not match the frozen selection")
+    return document
+
+
+def manual_choice(task, calendar, fetch=False):
+    """Never transfer a manual decision to another period, issuer or refreshed snapshot."""
+    end = task["period"].period_end
+    document = exceptions_document()
     exception = document["positions"].get(f"{task['primary']}:{end}")
     if not exception or exception["observed_sha256"] != variants_fingerprint(
         task["variants"]
@@ -181,9 +189,7 @@ def manual_choice(task, calendar, fetch=False):
 def reviewed_nci_controls(task, cik, accession):
     """Verify four nested note-table columns against exact dates, rows and source hashes."""
     end = task["period"].period_end
-    document = read_json(EXCEPTIONS)
-    if document["version"] != 1:
-        raise ValueError("Unsupported primary equity exception version")
+    document = exceptions_document()
     control = document.get("nci_controls", {}).get(f"{task['primary']}:{end}")
     if not control or control["source_cik"] != cik or control["accession"] != accession:
         return []

@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
+from itertools import pairwise
 from threading import Event, Lock
 from time import monotonic, sleep
 
@@ -450,9 +451,7 @@ def review_fiscal_periods(fetch=False):
         by_issuer[cik].append((date.fromisoformat(dates[1]), year))
     for cik, periods in by_issuer.items():
         ordered = sorted(periods)
-        for (earlier_end, earlier_year), (later_end, later_year) in zip(
-            ordered, ordered[1:]
-        ):
+        for (earlier_end, earlier_year), (later_end, later_year) in pairwise(ordered):
             years_apart = round((later_end - earlier_end).days / 365.2425)
             if later_year - earlier_year != years_apart:
                 raise ValueError(f"Fiscal-year sequence requires review: {cik}")

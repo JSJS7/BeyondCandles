@@ -4,6 +4,7 @@ import json
 from collections import Counter
 from datetime import date, datetime, timezone
 from decimal import Decimal
+from itertools import pairwise
 
 from app.data_pipeline.sec import CACHE, extract_facts
 from app.data_pipeline.source_files import ROOT, read_json
@@ -203,7 +204,7 @@ def audit_history():
         missing = None if unverified else sorted(set(range(2015, 2025)) - fiscal_years)
         chronological = sorted(periods, key=lambda period: period.period_end)
         overlaps = []
-        for earlier, later in zip(chronological, chronological[1:]):
+        for earlier, later in pairwise(chronological):
             if later.period_start <= earlier.period_end:
                 overlaps.append(
                     [

@@ -9,6 +9,8 @@ from pathlib import Path
 from unittest.mock import patch
 from uuid import uuid4
 
+import psycopg
+
 
 @unittest.skipUnless(
     os.environ.get("BC_RUN_DB_TESTS") == "1",
@@ -201,7 +203,7 @@ class DatabaseImportTests(unittest.TestCase):
                 invalid = [list(row) for row in rows]
                 invalid[1][2] = "-1"
                 write(invalid)
-                with self.assertRaises(Exception):
+                with self.assertRaises(psycopg.errors.CheckViolation):
                     import_prices()
             entry = {
                 "cik": "0000320193",

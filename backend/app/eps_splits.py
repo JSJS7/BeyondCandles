@@ -76,13 +76,14 @@ def validate_share_exchanges(ticker, approval):
         raise ValueError(
             f"Every predecessor requires a reviewed share exchange: {ticker}"
         )
-    for cik in successor_of:
+    for predecessor in successor_of:
         visited = set()
-        while cik in successor_of:
-            if cik in visited:
+        issuer = predecessor
+        while issuer in successor_of:
+            if issuer in visited:
                 raise ValueError(f"Share exchanges form a cycle: {ticker}")
-            visited.add(cik)
-            cik = successor_of[cik]
+            visited.add(issuer)
+            issuer = successor_of[issuer]
 
 
 @lru_cache(maxsize=1)
