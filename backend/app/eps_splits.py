@@ -141,6 +141,14 @@ def adjusted_eps(reported, ratio):
         return result.quantize(Decimal("0.0000000001"))
 
 
+def mark_eps_for_review(metric):
+    metric.status = "needs_review"
+    metric.value = None
+    metric.selection_note = (
+        "EPS share basis requires review after a source or price change."
+    )
+
+
 def normalize_eps(ticker, periods, rules=None):
     """Return copies; raw facts and the reported annual aggregator remain unchanged."""
     result = [period.model_copy(deep=True) for period in periods]
@@ -162,17 +170,12 @@ def normalize_eps(ticker, periods, rules=None):
         if metric.status != "ready":
             continue
         single_source = len(metric.selected_sources) == 1
-        source = metric.selected_sources[0] if single_source else None
-        if (
-            not approved
-            or not single_source
-            or source.source_cik not in shared_basis_issuers
-        ):
-            metric.status = "needs_review"
-            metric.value = None
-            metric.selection_note = (
-                "EPS share basis requires review after a source or price change."
-            )
+        if not approved or not single_source:
+            mark_eps_for_review(metric)
+            continue
+        source = metric.selected_sources[0]
+        if source.source_cik not in shared_basis_issuers:
+            mark_eps_for_review(metric)
             continue
         # This rule is approved for the exact frozen sources above, not arbitrary future filings.
         pending = [

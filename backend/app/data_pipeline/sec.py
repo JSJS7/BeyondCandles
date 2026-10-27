@@ -223,7 +223,7 @@ def audit_sec():
             "Later filings may restate earlier periods. Historical queries must filter filed date and select an explicit filing version.",
             "SEC filing date is not necessarily the earlier earnings announcement date; intraday availability is not modeled.",
             "Annual source-document reconciliation must be completed separately; it is not certified by this automatic audit.",
-            "No automatic Q4 subtraction, P/E calculation or split normalization is performed.",
+            "This audit performs no Q4 subtraction, P/E calculation or split normalization; the API normalizes EPS separately with data/eps-split-rules.json.",
         ],
         "companies": {},
     }

@@ -103,10 +103,36 @@ class FrozenSnapshotReferenceTests(unittest.TestCase):
         vendor_average = (vendor_high + vendor_low) / 2
 
         converted = share_basis_price("DHR", date(2016, 7, 5), vendor_average)
+        assert converted is not None
 
         self.assertAlmostEqual(converted / Decimal("78.94"), 1, delta=Decimal("0.001"))
         # Without the conversion the vendor price is about 11% too low.
         self.assertLess(vendor_average / Decimal("78.94"), Decimal("0.9"))
+
+    def test_events_after_the_price_window_match_closes_stated_in_sec_filings(self):
+        """Each issuer has vendor events in 2025-2026, after the price window, so the data
+        itself cannot show them. Each stated close comes from a proxy statement or merger
+        prospectus. HON's EPS basis also reflects its 2026 1-for-2 share
+        change, so its converted price is twice the historical quote."""
+        references = [
+            # ticker, day, vendor close, stated close, share-count factor after the day
+            ("BDX", date(2017, 4, 21), "142.1153564453", "185.29", 1),  # S-4 Bard
+            ("CMCSA", date(2023, 12, 29), "41.0965309143", "43.85", 1),  # 2024 proxy
+            ("FDX", date(2019, 5, 31), "124.3190994263", "154.28", 1),  # 2019 proxy
+            ("SPGI", date(2020, 11, 27), "323.1504211426", "341.57", 1),  # S-4 IHS
+            ("HON", date(2023, 12, 29), "207.2922515869", "209.71", 2),  # 2024 proxy
+        ]
+        policy = split_rules()
+
+        for ticker, day, vendor_close, stated_close, share_factor in references:
+            with self.subTest(ticker=ticker):
+                converted = share_basis_price(
+                    ticker, day, Decimal(vendor_close), policy
+                )
+                assert converted is not None
+                expected = Decimal(stated_close) * share_factor
+
+                self.assertEqual(round(converted, 2), expected)
 
     def test_company_without_vendor_events_keeps_its_reported_close(self):
         """ExxonMobil's 2024 10-K cover states a $115.12 close on 28 June 2024, the same
@@ -114,6 +140,7 @@ class FrozenSnapshotReferenceTests(unittest.TestCase):
         vendor_close = Decimal("115.1200027466")
 
         converted = share_basis_price("XOM", date(2024, 6, 28), vendor_close)
+        assert converted is not None
 
         self.assertEqual(converted, vendor_close)
         self.assertEqual(round(converted, 2), Decimal("115.12"))
