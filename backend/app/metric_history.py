@@ -5,16 +5,20 @@ that reported it becomes a version known from that filing date. Rule C: an earli
 version is confirmed when every source of today's value has the identical value in
 the same issuer, taxonomy, tag, unit and period. A single-source value that differs
 only by coarser rounding, or for EPS only by a later stock split, is also confirmed.
-Every other annual-report version needs review; an unconfirmed quarterly (10-Q)
-version is not recorded, so the previous version stays in force until the next 10-K.
+An annual-report version that rule C cannot confirm is confirmed when a review of
+that exact filing's statement table (data/version-reviews.json) still matches the
+stored facts. Every other annual-report version needs review; an unconfirmed
+quarterly (10-Q) version is not recorded, so the previous version stays in force
+until the next 10-K.
 """
 
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, localcontext
 from fractions import Fraction
 from functools import partial
+from pathlib import Path
 
 from app.annual_financials import (
     ANNUAL_REPORT_FORMS,
@@ -28,12 +32,16 @@ from app.eps_splits import (
     share_count_ratio,
     split_rules,
 )
+from app.fact_identity import fact_identity
 from app.fiscal_periods import canonical_period, fiscal_rules, period_metadata
+from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, AnnualPeriod, EpsSplit, FilingValue
 
+VERSION_REVIEWS_PATH = Path(__file__).resolve().parents[2] / "data/version-reviews.json"
 CONFIRMED_IDENTICAL = "identical"
 CONFIRMED_ROUNDING = "rounding"
 CONFIRMED_SPLIT = "split"
+CONFIRMED_REVIEWED = "reviewed"
 CONFIRMED_APPROVED = "approved"
 # Amounts in SEC statements are rounded at most to millions; a coarser apparent
 # rounding (e.g. 21 000 000 000) must not widen the tolerance further.
@@ -62,6 +70,15 @@ class ReportDate:
     accession: str
     form: str
     annual: bool
+
+
+def version_reviews():
+    """Statement reviews of earlier filings, keyed by review_key."""
+    return load_policy(VERSION_REVIEWS_PATH, "version-reviews")["versions"]
+
+
+def review_key(ticker, metric, start, end, accession):
+    return f"{ticker}:{metric}:{start}:{end}:{accession}"
 
 
 def source_key(source):
@@ -221,6 +238,59 @@ def confirmed_metric(raw, sources, value, report, confirmation, eps_context):
     return metric
 
 
+def reviewed_metric(review, facts_by_key, report, eps_context):
+    """Return the value of a reviewed version, or None when its sources changed.
+
+    Every component must still be a stored fact with the identical value and must
+    have been filed by this version's date; a statement position (e.g. a
+    noncontrolling interest read from the table) or an EPS fact read from the
+    filing's original instance is pinned by the review itself.
+    """
+    sources = []
+    weighted = []
+    for component in review["components"]:
+        source = FilingValue.model_validate(component["fact"])
+        if source.filed > report.filed:
+            return None
+        # A position read from the statement or the original instance is pinned by
+        # the review itself; every other component must be a stored fact.
+        pinned = component.get("statement_position") or component.get(
+            "instance_position"
+        )
+        if not pinned:
+            stored = facts_by_key.get(source_key(source), [])
+            if not any(fact_identity(fact) == component["fact"] for fact in stored):
+                return None
+        sources.append(source)
+        weighted.append(source.value * Decimal(component["coefficient"]))
+    with localcontext() as context:
+        context.prec = 50
+        total = sum(weighted, Decimal(0))
+    if total != Decimal(review["value"]):
+        return None
+
+    metric = AnnualMetric(
+        status="ready",
+        value=total,
+        variants=[],
+        selected_tag=review.get("selected_tag"),
+        selected_sources=sources,
+        calculation=review.get("calculation"),
+        selection_note=(
+            f"{review['note']} Point-in-time version from the {report.form} filed "
+            f"{report.filed} (confirmed: reviewed against its statement table)."
+        ),
+        eps_basis=review.get("eps_basis"),
+        scope=review.get("scope"),
+    )
+    if eps_context is not None:
+        ticker, policy = eps_context
+        apply_share_basis(
+            metric, ticker, policy, "This is a point-in-time version of the value."
+        )
+    return metric
+
+
 def review_metric(report, reason):
     return AnnualMetric(
         status="needs_review",
@@ -250,12 +320,17 @@ def cell_versions(
     facts_by_key,
     first_report,
     eps_context=None,
+    reviews=None,
+    keep_repeats=False,
 ):
     """List the versions of one cell, oldest first; the last one equals today's value.
 
     raw is today's selection before EPS normalization and final the served value.
     eps_context is (ticker, split policy) when today's EPS has a verified share basis.
+    reviews maps an accession to the statement review of this cell in that filing.
+    keep_repeats lists every report date, also one repeating the previous version.
     """
+    reviews = {} if reviews is None else reviews
 
     def version(report, confirmation, value):
         return MetricVersion(
@@ -298,7 +373,15 @@ def cell_versions(
             if not report.annual:
                 # Decision 28.10.2026: an unconfirmed 10-Q version is not recorded.
                 continue
-            candidate = version(report, None, review_metric(report, reason))
+            review = reviews.get(report.accession)
+            reviewed = None
+            if review is not None:
+                reviewed = reviewed_metric(review, facts_by_key, report, eps_context)
+                reason = "its statement review no longer matches the stored facts"
+            if reviewed is None:
+                candidate = version(report, None, review_metric(report, reason))
+            else:
+                candidate = version(report, CONFIRMED_REVIEWED, reviewed)
         else:
             confirmation, sources, value = decision
             metric_value = confirmed_metric(
@@ -306,7 +389,10 @@ def cell_versions(
             )
             candidate = version(report, confirmation, metric_value)
         previous = versions[-1] if versions else None
-        if previous and version_signature(previous) == version_signature(candidate):
+        repeated = previous and version_signature(previous) == version_signature(
+            candidate
+        )
+        if repeated and not keep_repeats:
             continue
         versions.append(candidate)
 
@@ -385,10 +471,22 @@ def periods_as_of(facts, stored_versions, as_of, period_rules=None):
     return result
 
 
-def company_versions(ticker, facts, split_policy=None, period_rules=None):
-    """Build every cell history of one company from its stored facts."""
+def company_versions(
+    ticker,
+    facts,
+    split_policy=None,
+    period_rules=None,
+    reviews=None,
+    keep_repeats=False,
+):
+    """Build every cell history of one company from its stored facts.
+
+    reviews are the version reviews of all companies (review_key → review); an
+    empty dict lists the versions as rule C alone leaves them.
+    """
     rules = fiscal_rules() if period_rules is None else period_rules
     split_policy = split_rules() if split_policy is None else split_policy
+    reviews = version_reviews() if reviews is None else reviews
     eligible = [fact for fact in facts if fact.get("history_eligible", True)]
     raw_periods = annual_periods(facts, period_rules=rules)
     final_periods = normalize_eps(ticker, raw_periods, rules=split_policy)
@@ -422,6 +520,12 @@ def company_versions(ticker, facts, split_policy=None, period_rules=None):
             eps_context = None
             if metric == "eps_diluted" and final.eps_share_basis is not None:
                 eps_context = (ticker, split_policy)
+            prefix = review_key(ticker, metric, start, end, "")
+            cell_reviews = {
+                key.removeprefix(prefix): review
+                for key, review in reviews.items()
+                if key.startswith(prefix)
+            }
             versions.extend(
                 cell_versions(
                     metric,
@@ -433,6 +537,8 @@ def company_versions(ticker, facts, split_policy=None, period_rules=None):
                     facts_by_key,
                     reports[(start, end)],
                     eps_context,
+                    cell_reviews,
+                    keep_repeats,
                 )
             )
     return versions

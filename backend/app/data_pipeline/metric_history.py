@@ -6,7 +6,7 @@ from sqlalchemy import delete, insert, select, text
 
 from app import eps_splits
 from app.fiscal_periods import fiscal_rules
-from app.metric_history import company_versions
+from app.metric_history import company_versions, version_reviews
 from app.models import AnnualMetricVersion, Company, FinancialFact
 
 # details keeps every AnnualMetric field except variants (attached from facts at
@@ -62,11 +62,13 @@ def rebuild_history(connection):
     period_rules = fiscal_rules()
     # Read through the module so the API and the build always use the same policy.
     split_policy = eps_splits.split_rules()
+    reviews = version_reviews()
     companies = connection.execute(
         select(Company.id, Company.ticker).where(Company.cik.is_not(None))
     ).all()
     connection.execute(delete(AnnualMetricVersion))
     statuses = {}
+    confirmations = {}
     for company_id, ticker in sorted(companies, key=lambda company: company.ticker):
         facts = (
             connection.execute(
@@ -77,10 +79,12 @@ def rebuild_history(connection):
             .mappings()
             .all()
         )
-        versions = company_versions(ticker, facts, split_policy, period_rules)
+        versions = company_versions(ticker, facts, split_policy, period_rules, reviews)
         rows = [version_row(company_id, version) for version in versions]
         for row in rows:
             statuses[row["status"]] = statuses.get(row["status"], 0) + 1
+            confirmation = row["confirmation"] or "none"
+            confirmations[confirmation] = confirmations.get(confirmation, 0) + 1
         for offset in range(0, len(rows), 1000):
             connection.execute(
                 insert(AnnualMetricVersion), rows[offset : offset + 1000]
@@ -90,16 +94,17 @@ def rebuild_history(connection):
         "companies": len(companies),
         "versions": count,
         "statuses": statuses,
+        "confirmations": confirmations,
         "fingerprint": fingerprint,
     }
 
 
 def build_history():
     """Standalone rebuild, e.g. after reviewed rules change without new SEC facts."""
-    from app.database import engine
+    from app.database import engine, lock_data_imports
 
     with engine.begin() as connection:
         # The same lock as import-sec: a rebuild never interleaves with an import.
-        connection.execute(text("SELECT pg_advisory_xact_lock(204812, 1)"))
+        lock_data_imports(connection)
         result = rebuild_history(connection)
     return {"status": "completed", **result}

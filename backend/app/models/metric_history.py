@@ -34,7 +34,8 @@ class AnnualMetricVersion(Base):
             name="ck_version_status",
         ),
         CheckConstraint(
-            "confirmation IN ('approved', 'identical', 'rounding', 'split')",
+            "confirmation IN ('approved', 'identical', 'rounding', 'split', "
+            "'reviewed')",
             name="ck_version_confirmation",
         ),
         # A value is served only when it is confirmed, and every ready cell has one.

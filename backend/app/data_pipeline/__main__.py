@@ -33,6 +33,7 @@ def main():
             "review-equity",
             "review-operating-cash-flow",
             "review-sec-periods",
+            "review-versions",
             "import-sec",
             "build-history",
             "inspect-db",
@@ -137,6 +138,10 @@ def main():
             from .fiscal_periods import review_fiscal_periods
 
             result = review_fiscal_periods(fetch=args.fetch)
+        elif args.command == "review-versions":
+            from .version_reviews import review_versions
+
+            result = review_versions(fetch=args.fetch)
         elif args.command == "inspect-db":
             from .verification import inspect_db
 

@@ -12,6 +12,7 @@ from decimal import Decimal
 from test_stocks_api import reported_fact
 
 from app.eps_splits import LATEST_VIEW_NOTE, apply_share_basis
+from app.fact_identity import fact_identity
 from app.metric_history import (
     ReportDate,
     cell_versions,
@@ -56,7 +57,9 @@ def approved_metric(*sources, value=None, calculation=None):
     )
 
 
-def build(facts, raw, metric, final=None, eps_context=None):
+def build(
+    facts, raw, metric, final=None, eps_context=None, reviews=None, keep_repeats=False
+):
     """Run the cell history for facts of one cell; the first 10-K opens the period."""
     first = min(
         (fact for fact in facts if fact["form"] == "10-K"),
@@ -75,6 +78,8 @@ def build(facts, raw, metric, final=None, eps_context=None):
         facts_by_key,
         ReportDate(first["filed"], first["accession"], first["form"], annual=True),
         eps_context,
+        reviews,
+        keep_repeats,
     )
 
 
@@ -131,6 +136,115 @@ class AmdRevisionTests(unittest.TestCase):
         self.assertEqual(versions[1].value.value, Decimal("-33000000"))
         self.assertEqual(
             versions[1].value.selected_sources[0].accession, "0000002488-19-000011"
+        )
+
+    def statement_review(self, value):
+        """A version review of the first 10-K, as review-versions pins it."""
+        return {
+            self.first["accession"]: {
+                "value": value,
+                "components": [{"fact": fact_identity(self.first), "coefficient": 1}],
+                "selected_tag": "NetIncomeLoss",
+                "calculation": None,
+                "note": "Checked.",
+            }
+        }
+
+    def test_reviewed_first_version_serves_its_own_value(self):
+        """After a table check of the 2018 10-K, 43 mln is served until the restatement."""
+        facts = [self.first, self.restated, self.latest]
+        reviews = self.statement_review("43000000")
+
+        versions = build(
+            facts, approved_metric(self.latest), "net_income", reviews=reviews
+        )
+
+        self.assertEqual(
+            timeline(versions)[0], (date(2018, 2, 27), "ready", "reviewed")
+        )
+        self.assertEqual(versions[0].value.value, Decimal("43000000"))
+        self.assertEqual(
+            versions[0].value.selected_sources[0].accession, "0000002488-18-000042"
+        )
+
+    def test_review_from_the_original_instance_needs_no_stored_fact(self):
+        """A value read from the filing's original XBRL is pinned by the review.
+
+        Without the flag the same untagged value would be rejected as unknown.
+        """
+        # The 2018 10-K opens the period but has no stored fact for this cell.
+        facts = [self.restated, self.latest]
+        facts_by_key = defaultdict(list)
+        for fact in facts:
+            facts_by_key[source_key(fact)].append(fact)
+        first_report = ReportDate(
+            self.first["filed"], self.first["accession"], "10-K", annual=True
+        )
+        reviews = self.statement_review("43000000")
+        component = reviews[self.first["accession"]]["components"][0]
+
+        def versions():
+            raw = approved_metric(self.latest)
+            return cell_versions(
+                "net_income",
+                self.first["period_start"],
+                self.first["period_end"],
+                raw,
+                raw,
+                facts,
+                facts_by_key,
+                first_report,
+                reviews=reviews,
+            )
+
+        rejected = versions()
+        component["instance_position"] = True
+        accepted = versions()
+
+        self.assertEqual(timeline(rejected)[0][1], "needs_review")
+        self.assertEqual(
+            timeline(accepted)[0], (date(2018, 2, 27), "ready", "reviewed")
+        )
+
+    def test_review_of_changed_fact_is_not_used(self):
+        """A review pinned to another value no longer describes the stored fact."""
+        facts = [self.first, self.restated, self.latest]
+        reviews = self.statement_review("42000000")
+        reviews[self.first["accession"]]["components"][0]["fact"]["value"] = "42000000"
+
+        versions = build(
+            facts, approved_metric(self.latest), "net_income", reviews=reviews
+        )
+
+        self.assertEqual(
+            timeline(versions)[0], (date(2018, 2, 27), "needs_review", None)
+        )
+        self.assertIn("no longer matches", versions[0].value.selection_note)
+
+    def test_every_unchecked_report_is_listed_for_review(self):
+        """A repeated old value in the next 10-K is a separate report to check.
+
+        Merged, only the first report would be reviewed, and after its approval
+        the repeat would reappear as an unchecked version.
+        """
+        repeat = dict(
+            self.first, filed=date(2018, 10, 1), accession="0000002488-18-000099"
+        )
+        facts = [self.first, repeat, self.restated, self.latest]
+
+        merged = build(facts, approved_metric(self.latest), "net_income")
+        listed = build(
+            facts, approved_metric(self.latest), "net_income", keep_repeats=True
+        )
+
+        self.assertEqual(timeline(merged)[0], (date(2018, 2, 27), "needs_review", None))
+        self.assertEqual(timeline(merged)[1][0], date(2019, 2, 8))
+        self.assertEqual(
+            [entry[:2] for entry in timeline(listed)[:2]],
+            [
+                (date(2018, 2, 27), "needs_review"),
+                (date(2018, 10, 1), "needs_review"),
+            ],
         )
 
 

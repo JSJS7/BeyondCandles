@@ -145,16 +145,22 @@ session). An earlier version is served only when it is confirmed:
   concept, unit, issuer and period in that earlier filing;
 - **rounding:** a single reported amount differs only by coarser rounding (e.g. reported
   in thousands, later in millions); two values of equal precision must be equal;
-- **split:** EPS differs only by a later stock split (and cent rounding).
+- **split:** EPS differs only by a later stock split (and cent rounding);
+- **reviewed:** the earlier annual report was checked against its own face statement
+  with the same rules as the latest one, as if its filing date were today. The value
+  must appear in that filing's annual column (within displayed rounding) and match the
+  filing's tagged facts; a value read from the table itself (e.g. noncontrolling
+  interests deducted from group equity), or an EPS figure read from the filing's
+  original XBRL when it was not among the imported facts, is pinned to that source. Such a version
+  may differ from today's value: it is what the company reported at the time.
 
-Any other earlier annual-report version is marked *needs review* and has no value: it
-may be a real restatement, a value read from a statement table rather than a tagged
-fact, or a concept not yet tagged that way. A quarterly (10-Q) version that is not
-confirmed is ignored, so the previous annual version stays in force until the next
-annual report. EPS keeps the same share basis (13 Oct 2026) as the latest view. With
-D = today the result is identical to the latest view. Checking the earlier versions
-that need review against the original statements is still to be done, so for now part
-of the history is unavailable rather than possibly wrong.
+Any other earlier annual-report version is marked *needs review* and has no value: for
+example, the statement could not be matched unambiguously, or a fact needed to explain
+it (such as the noncontrolling share of income) is missing. A quarterly (10-Q) version that is not confirmed is ignored, so the
+previous annual version stays in force until the next annual report. EPS keeps the same
+share basis (13 Oct 2026) as the latest view. With D = today the result is identical to
+the latest view. Part of the history therefore remains unavailable rather than possibly
+wrong.
 
 ## How the data was checked
 
