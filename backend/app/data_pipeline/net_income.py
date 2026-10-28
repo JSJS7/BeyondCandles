@@ -5,6 +5,7 @@ from collections import Counter, defaultdict
 from decimal import Decimal, InvalidOperation
 
 from app.data_pipeline.sec import extract_facts
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.source_files import SELECTION, read_json, sha256
 from app.net_income import PARENT_TAG, RULES_PATH, calculated_value
 
@@ -395,7 +396,6 @@ def cache_parent_controls(sources, evidence):
     """Cache only the extra Mastercard statements needed to confirm the parent column."""
     import xml.etree.ElementTree as ET
 
-    from .identifiers import cached
     from .sec_catalogue import verify_reference
 
     for cik, accession in sorted(sources):
@@ -452,7 +452,6 @@ def review_net_income(fetch=False):
     from app.fiscal_periods import canonical_period, fiscal_rules
     from app.schemas.stock import FilingValue
 
-    from .identifiers import write_json
     from .revenue import EVIDENCE_INDEX, download_evidence
     from .sec_catalogue import identifiers, load_all_sec, verify_reference
     from .sec_history import HISTORY_INDEX, prepare_company_facts

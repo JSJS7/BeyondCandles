@@ -403,7 +403,7 @@ class StockApiTests(unittest.TestCase):
         self,
     ):
         """HTTP returns total OCF 80 as a decimal string, retaining continuing 100 and discontinued -20."""
-        from app.equity import fact_identity, variants_fingerprint
+        from app.fact_identity import fact_identity, variants_fingerprint
         from app.operating_cash_flow import CONTINUING_TAG, DISCONTINUED_TAG
 
         continuing = reported_fact(metric="operating_cash_flow", tag=CONTINUING_TAG)
@@ -443,7 +443,7 @@ class StockApiTests(unittest.TestCase):
 
     def test_operating_cash_flow_known_gap_is_unavailable_with_reported_variant(self):
         """An audited disclosure gap returns null while preserving the available continuing amount and reason."""
-        from app.equity import variants_fingerprint
+        from app.fact_identity import variants_fingerprint
         from app.operating_cash_flow import CONTINUING_TAG
 
         fact = reported_fact(metric="operating_cash_flow", tag=CONTINUING_TAG)
@@ -470,7 +470,7 @@ class StockApiTests(unittest.TestCase):
 
     def test_reported_continuing_cash_flow_is_ready_with_machine_readable_scope(self):
         """Publish a negative reported subtotal with its source and scope, without claiming a whole-company total."""
-        from app.equity import fact_identity, variants_fingerprint
+        from app.fact_identity import fact_identity, variants_fingerprint
         from app.operating_cash_flow import TOTAL_TAG
 
         fact = reported_fact(
@@ -507,7 +507,7 @@ class StockApiTests(unittest.TestCase):
 
     def test_reviewed_eps_keeps_decimal_source_and_explains_basic_only_gap(self):
         """Expose one EPS field with exact sources; an unchanged legacy unavailable approval stays unavailable."""
-        from app.equity import fact_identity, variants_fingerprint
+        from app.fact_identity import fact_identity, variants_fingerprint
         from app.schemas.stock import FilingValue
 
         for tag, status in (
@@ -565,7 +565,7 @@ class StockApiTests(unittest.TestCase):
         self,
     ):
         """Publish reviewed Class B EPS in the existing metric, keeping its basic basis machine-readable."""
-        from app.equity import fact_identity, variants_fingerprint
+        from app.fact_identity import fact_identity, variants_fingerprint
         from app.schemas.stock import FilingValue
 
         fact = reported_fact(
@@ -754,7 +754,7 @@ class StockApiTests(unittest.TestCase):
 
     def test_equity_endpoint_preserves_an_original_report_column(self):
         """Expose a verified parent column without inventing a Companyfacts record or GAAP tag."""
-        from app.equity import fact_identity, variants_fingerprint
+        from app.fact_identity import fact_identity, variants_fingerprint
 
         annual = reported_fact()
         group = reported_fact(

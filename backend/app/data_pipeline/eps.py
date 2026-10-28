@@ -10,9 +10,9 @@ from decimal import Decimal
 from html import escape
 from typing import cast
 
-from app.data_pipeline.identifiers import write_json
 from app.data_pipeline.revenue_facts import cache_instance
 from app.data_pipeline.sec import CACHE, extract_facts, period_kind
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.sec_catalogue import verify_reference
 from app.data_pipeline.sec_statements import (
     StatementRows,
@@ -28,7 +28,7 @@ from app.eps import (
     RULES_PATH,
     UNIT_TAG,
 )
-from app.equity import fact_identity, variants_fingerprint
+from app.fact_identity import fact_identity, variants_fingerprint
 from app.fiscal_periods import canonical_period, fiscal_rules
 
 EVIDENCE_INDEX = CACHE / "eps-evidence-index.json"
@@ -386,7 +386,6 @@ def review_axon_revision(facts, evidence, fetch=False):
     """Reproduce the revised full-year EPS from its original note and exact XBRL context."""
     from app.annual_financials import annual_periods
     from app.data_pipeline.equity_exceptions import verify_original_position
-    from app.data_pipeline.identifiers import cached
 
     cik, accession = "0001069183", "0001069183-24-000061"
     source_key = cik + ":" + accession
@@ -505,7 +504,8 @@ def review_eps(fetch=False):
     history = read_json(HISTORY_INDEX) if HISTORY_INDEX.exists() else {"issuers": {}}
     revenue = revenue_rules()
     evidence = read_json(EVIDENCE_INDEX) if EVIDENCE_INDEX.exists() else {}
-    existing = eps_rules()
+    # A first review starts without approvals; the application itself requires the file.
+    existing = eps_rules() if RULES_PATH.exists() else {}
     calendar = fiscal_rules()
     policy = {
         "version": 1,

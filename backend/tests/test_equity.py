@@ -11,7 +11,8 @@ from app.data_pipeline.equity import (
     statement_files,
     statement_positions,
 )
-from app.equity import fact_identity, select_equity, variants_fingerprint
+from app.equity import select_equity
+from app.fact_identity import fact_identity, variants_fingerprint
 from app.schemas.stock import FilingValue
 
 START = date(2020, 1, 1)

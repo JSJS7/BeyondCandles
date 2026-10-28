@@ -1,10 +1,9 @@
 """Select net income attributable to the parent, preserving other reported definitions."""
 
-import json
 from decimal import Decimal, localcontext
-from functools import lru_cache
 from pathlib import Path
 
+from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/net-income-rules.json"
@@ -12,16 +11,8 @@ PARENT_TAG = "NetIncomeLoss"
 DEFINITION = "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments."
 
 
-@lru_cache(maxsize=1)
-def load_rules(path, modified):
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if document["version"] != 1:
-        raise ValueError("Unsupported net-income policy version")
-    return document["periods"]
-
-
 def net_income_rules():
-    return load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns)
+    return load_policy(RULES_PATH, "net-income")["periods"]
 
 
 def calculated_value(components):

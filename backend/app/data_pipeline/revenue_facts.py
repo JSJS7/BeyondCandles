@@ -9,6 +9,7 @@ from decimal import Decimal
 from typing import cast
 
 from app.data_pipeline.sec import CACHE, period_kind
+from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.source_files import read_json
 
 SUPPLEMENT_INDEX = CACHE / "revenue-facts-index.json"
@@ -136,7 +137,6 @@ def supplemental_facts(ciks):
 
 def cache_instance(cik, accession, evidence):
     """Discover the original instance in the SEC filing directory; never guess its contents."""
-    from app.data_pipeline.identifiers import cached
     from app.data_pipeline.sec_catalogue import verify_reference
 
     base = f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accession.replace('-', '')}/"

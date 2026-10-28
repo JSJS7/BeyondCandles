@@ -1,10 +1,9 @@
 """Select reported total revenue using reviewed issuer/period mappings, never tag order."""
 
-import json
 from decimal import Decimal, localcontext
-from functools import lru_cache
 from pathlib import Path
 
+from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, FilingValue
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/revenue-rules.json"
@@ -14,18 +13,9 @@ def period_key(cik, start, end):
     return f"{cik}:{start}:{end}"
 
 
-@lru_cache(maxsize=1)
-def load_rules(path, modified):
-    """Cache a policy version; the modification timestamp invalidates a replaced file."""
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if document["version"] not in (1, 2):
-        raise ValueError("Unsupported revenue policy version")
-    return document["periods"]
-
-
 def revenue_rules():
     """Read tracked mappings; raw SEC documents are not required by HTTP requests."""
-    return load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns)
+    return load_policy(RULES_PATH, "revenue", versions=(1, 2))["periods"]
 
 
 def select_revenue(variants, start, end, rules=None, facts=None):

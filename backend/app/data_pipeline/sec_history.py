@@ -7,6 +7,7 @@ from decimal import Decimal
 from itertools import pairwise
 
 from app.data_pipeline.sec import CACHE, extract_facts
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.source_files import ROOT, read_json
 
 HISTORY_INDEX = CACHE / "history-index.json"
@@ -134,7 +135,6 @@ def prepare_company_facts(entry, body, history, index):
 
 def fetch_history_sources(issuers, refresh=False):
     """Cache only configured predecessor issuers; preserve the published index on failure."""
-    from .identifiers import cached, write_json
     from .sec_catalogue import verify_reference
 
     previous = read_json(HISTORY_INDEX) if HISTORY_INDEX.exists() else {"issuers": {}}
@@ -176,7 +176,7 @@ def audit_history():
     """Screen the frozen catalogue; report scope limits and unresolved period issues."""
     from app.annual_financials import annual_periods
 
-    from .identifiers import IDENTIFIERS, write_json
+    from .identifiers import IDENTIFIERS
     from .sec_catalogue import identifiers, load_all_sec
 
     issuers = identifiers()

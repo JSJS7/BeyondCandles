@@ -9,7 +9,7 @@ from fractions import Fraction
 from functools import lru_cache
 from pathlib import Path
 
-from app.equity import fact_identity
+from app.fact_identity import fact_identity
 from app.schemas.stock import EpsShareBasis, EpsSplit
 
 DATA = Path(__file__).resolve().parents[2] / "data"

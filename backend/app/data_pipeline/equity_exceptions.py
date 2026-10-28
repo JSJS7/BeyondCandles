@@ -4,10 +4,11 @@ import re
 from decimal import Decimal
 from html.parser import HTMLParser
 
+from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.sec_catalogue import verify_reference
 from app.data_pipeline.sec_statements import normalized_label
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
-from app.equity import fact_identity, variants_fingerprint
+from app.fact_identity import fact_identity, variants_fingerprint
 from app.fiscal_periods import canonical_period
 
 EXCEPTIONS = ROOT / "data/equity-exceptions.json"
@@ -100,8 +101,6 @@ def manual_choice(task, calendar, fetch=False):
         return None
     reference = exception["evidence"]
     if fetch:
-        from app.data_pipeline.identifiers import cached
-
         actual = cached(reference["url"], reference, json_response=False)
         if actual["sha256"] != reference["sha256"]:
             raise ValueError("A manually reviewed primary source changed")
@@ -111,8 +110,6 @@ def manual_choice(task, calendar, fetch=False):
     for control in exception.get("corroborating_positions", []):
         evidence = control["evidence"]
         if fetch:
-            from app.data_pipeline.identifiers import cached
-
             actual = cached(evidence["url"], evidence, json_response=False)
             if actual["sha256"] != evidence["sha256"]:
                 raise ValueError("A corroborating primary equity source changed")

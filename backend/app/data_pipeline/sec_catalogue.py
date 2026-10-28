@@ -5,13 +5,9 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any
 
-from app.data_pipeline.identifiers import (
-    IDENTIFIERS,
-    IssuerIdentifiers,
-    cached,
-    write_json,
-)
+from app.data_pipeline.identifiers import IDENTIFIERS, IssuerIdentifiers
 from app.data_pipeline.sec import CACHE, CacheIntegrityError
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.source_files import SELECTION, read_json, sha256
 
 ALL_INDEX = CACHE / "all-index.json"

@@ -9,10 +9,10 @@ from itertools import pairwise
 from threading import Event, Lock
 from time import monotonic, sleep
 
-from app.data_pipeline.identifiers import cached, write_json
 from app.data_pipeline.revenue import ANNUAL_FORMS, EVIDENCE_INDEX
 from app.data_pipeline.revenue_facts import cache_instance
 from app.data_pipeline.sec import CACHE, METRICS, SecAccessDenied, period_kind
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
     HISTORY_INDEX,

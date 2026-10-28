@@ -17,7 +17,7 @@ from app.data_pipeline.operating_cash_flow import (
     resolve_reviewed_period,
     reviewed_exceptions,
 )
-from app.equity import fact_identity, variants_fingerprint
+from app.fact_identity import fact_identity, variants_fingerprint
 from app.operating_cash_flow import (
     CONTINUING_TAG,
     DISCONTINUED_CASH_TAG,

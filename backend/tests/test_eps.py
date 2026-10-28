@@ -18,7 +18,7 @@ from app.data_pipeline.eps import (
 )
 from app.data_pipeline.sec_statements import matches_rendered_value
 from app.eps import BASIC_TAG, COMBINED_TAG, CONTINUING_TAG, DILUTED_TAG, select_eps
-from app.equity import fact_identity, variants_fingerprint
+from app.fact_identity import fact_identity, variants_fingerprint
 from app.schemas.stock import FilingValue
 
 START = date(2020, 1, 1)

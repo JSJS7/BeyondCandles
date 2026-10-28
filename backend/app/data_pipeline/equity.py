@@ -11,11 +11,11 @@ from typing import Any
 
 from app.data_pipeline.equity_exceptions import manual_choice, reviewed_nci_controls
 from app.data_pipeline.equity_facts import instant_equity_positions
-from app.data_pipeline.identifiers import cached, write_json
 from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
 from app.data_pipeline.sec import CACHE, SecAccessDenied
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
     HISTORY_INDEX,
@@ -23,13 +23,8 @@ from app.data_pipeline.sec_history import (
 )
 from app.data_pipeline.sec_statements import StatementRows, normalized_label
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
-from app.equity import (
-    HISTORY_FALLBACKS,
-    RULES_PATH,
-    fact_identity,
-    period_issuer,
-    variants_fingerprint,
-)
+from app.equity import HISTORY_FALLBACKS, RULES_PATH
+from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
 from app.fiscal_periods import canonical_period, fiscal_rules
 
 EVIDENCE_INDEX = CACHE / "equity-evidence-index.json"

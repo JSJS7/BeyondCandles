@@ -1,12 +1,12 @@
 """Resolve the frozen company selection to SEC issuers, retaining identity evidence."""
 
-import json
 import re
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from typing import Any
 
-from app.data_pipeline.sec import CACHE, cache_response
+from app.data_pipeline.sec import CACHE
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
 
 IDENTIFIERS = ROOT / "data/sec-identifiers.json"
@@ -14,35 +14,6 @@ PROGRESS = CACHE / "identity-progress.json"
 # Confirmed by the 2024 10-K: /1390777/000139077725000046/bk-20241231.htm.
 # The current SEC registry lists the same issuer as BNY.
 HISTORICAL_CANDIDATES = {"BK": "0001390777"}
-
-
-def write_json(path, value):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    pending = path.with_suffix(".pending.json")
-    pending.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
-    pending.replace(path)
-
-
-def user_agent():
-    from app.core.config import settings
-
-    if not settings.sec_user_agent or "@" not in settings.sec_user_agent:
-        raise ValueError(
-            "Set SEC_USER_AGENT with an application name and contact address"
-        )
-    return settings.sec_user_agent
-
-
-def cached(url, previous=None, json_response=True):
-    if previous and previous["url"] == url:
-        path = CACHE / previous["file"]
-        if (
-            path.is_file()
-            and path.parent == CACHE
-            and sha256(path) == previous["sha256"]
-        ):
-            return previous
-    return cache_response(url, user_agent(), json_response)
 
 
 class IssuerIdentifiers(HTMLParser):

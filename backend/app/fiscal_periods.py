@@ -1,9 +1,9 @@
 """Read reviewed fiscal-year labels and exact, source-backed period aliases."""
 
-import json
 from datetime import date
-from functools import lru_cache
 from pathlib import Path
+
+from app.policy_files import load_policy
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/fiscal-periods.json"
 
@@ -12,16 +12,8 @@ def period_key(cik, start, end):
     return f"{cik}:{start}:{end}"
 
 
-@lru_cache(maxsize=1)
-def load_rules(path, modified):
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if document["version"] != 1:
-        raise ValueError("Unsupported fiscal-period rules version")
-    return document
-
-
 def fiscal_rules():
-    return load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns)
+    return load_policy(RULES_PATH, "fiscal-period")
 
 
 def canonical_period(fact, rules):

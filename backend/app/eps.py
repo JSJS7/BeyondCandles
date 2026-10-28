@@ -1,10 +1,9 @@
 """Select reported net EPS, retaining its basis, exact source and share-class approvals."""
 
-import json
-from functools import lru_cache
 from pathlib import Path
 
-from app.equity import fact_identity, variants_fingerprint
+from app.fact_identity import fact_identity, variants_fingerprint
+from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/eps-rules.json"
@@ -19,18 +18,8 @@ DEFINITION = (
 )
 
 
-@lru_cache(maxsize=1)
-def load_rules(path, modified):
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if document["version"] != 1:
-        raise ValueError("Unsupported EPS policy version")
-    return document["periods"]
-
-
 def eps_rules():
-    if not RULES_PATH.exists():
-        return {}
-    return load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns)
+    return load_policy(RULES_PATH, "EPS")["periods"]
 
 
 def select_eps(variants, start, end, rules=None):

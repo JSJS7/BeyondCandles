@@ -1,12 +1,11 @@
 """Select source-verified equity attributable to the parent's owners."""
 
-import hashlib
-import json
 from decimal import Decimal, localcontext
-from functools import lru_cache
 from pathlib import Path
 
+from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
 from app.fiscal_periods import canonical_period
+from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, FilingValue
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/equity-rules.json"
@@ -20,53 +19,12 @@ HISTORY_FALLBACKS = {
 }
 
 
-@lru_cache(maxsize=1)
-def load_rules(path, modified):
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if document["version"] != 1:
-        raise ValueError("Unsupported equity policy version")
-    return document
-
-
 def equity_rules():
-    if not RULES_PATH.exists():
-        return {}
-    return load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns)["periods"]
+    return load_policy(RULES_PATH, "equity")["periods"]
 
 
 def equity_issues():
-    if not RULES_PATH.exists():
-        return {}
-    return load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns).get("unresolved", {})
-
-
-def fact_identity(value):
-    """Use source dates and exact decimals, independently of JSON number formatting."""
-    fact = FilingValue.model_validate(value)
-    record = fact.model_dump(mode="json", exclude_none=True)
-    number = format(fact.value, "f")
-    if "." in number:
-        number = number.rstrip("0").rstrip(".")
-    record["value"] = "0" if fact.value == 0 else number
-    return record
-
-
-def variants_fingerprint(variants):
-    records = [fact_identity(variant) for variant in variants]
-    records.sort(key=lambda record: json.dumps(record, sort_keys=True))
-    encoded = json.dumps(records, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
-def period_issuer(facts, start, end, calendar):
-    ciks = {
-        fact.get("source_cik")
-        for fact in facts
-        if fact.get("history_eligible", True)
-        and fact["period_kind"] == "annual"
-        and canonical_period(fact, calendar) == (start, end)
-    }
-    return next(iter(ciks)) if len(ciks) == 1 else None
+    return load_policy(RULES_PATH, "equity").get("unresolved", {})
 
 
 def select_equity(variants, start, end, *, facts, calendar, rules=None):

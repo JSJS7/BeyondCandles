@@ -1,12 +1,11 @@
 """Select verified operating cash flow and retain its economic scope."""
 
-import json
 from decimal import Decimal, localcontext
-from functools import lru_cache
 from pathlib import Path
 
-from app.equity import fact_identity, period_issuer, variants_fingerprint
+from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
 from app.fiscal_periods import canonical_period
+from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, FilingValue
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/operating-cash-flow-rules.json"
@@ -18,18 +17,8 @@ DEFINITION = "Net cash from operating activities of the whole company, including
 CONTINUING_DEFINITION = "Net cash from operating activities of continuing operations, excluding discontinued operations."
 
 
-@lru_cache(maxsize=1)
-def load_rules(path, modified):
-    document = json.loads(path.read_text(encoding="utf-8"))
-    if document["version"] != 1:
-        raise ValueError("Unsupported operating-cash-flow policy version")
-    return document
-
-
 def cash_flow_rules():
-    if not RULES_PATH.exists():
-        return {}
-    document = load_rules(RULES_PATH, RULES_PATH.stat().st_mtime_ns)
+    document = load_policy(RULES_PATH, "operating-cash-flow")
     return {
         **document.get("unresolved", {}),
         **document.get("unavailable", {}),

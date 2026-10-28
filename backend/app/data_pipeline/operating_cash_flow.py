@@ -7,12 +7,12 @@ from decimal import Decimal, InvalidOperation, localcontext
 from html import escape
 from time import sleep
 
-from app.data_pipeline.identifiers import cached, write_json
 from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
 from app.data_pipeline.revenue import download_evidence
 from app.data_pipeline.sec import CACHE
+from app.data_pipeline.sec_cache import cached, write_json
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
@@ -23,7 +23,7 @@ from app.data_pipeline.sec_statements import (
     statement_total,
 )
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
-from app.equity import fact_identity, period_issuer, variants_fingerprint
+from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
 from app.fiscal_periods import canonical_period, fiscal_rules
 from app.operating_cash_flow import (
     CONTINUING_TAG,
