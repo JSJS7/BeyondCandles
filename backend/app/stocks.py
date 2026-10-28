@@ -10,7 +10,8 @@ from sqlalchemy.engine import Connection
 from app.annual_financials import annual_periods
 from app.database import get_connection
 from app.eps_splits import normalize_eps
-from app.models import Company, DailyPrice, FinancialFact
+from app.metric_history import periods_as_of
+from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
 from app.schemas.stock import AnnualPeriod, Price, Stock
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
@@ -61,10 +62,25 @@ def get_prices(
 
 
 @router.get("/{ticker}/financials/annual", response_model=list[AnnualPeriod])
-def get_annual_financials(ticker: str, connection: DatabaseConnection):
+def get_annual_financials(
+    ticker: str, connection: DatabaseConnection, as_of: date | None = None
+):
+    """Latest values by default; with as_of, the values known on that filing date."""
+    if as_of is not None and as_of > date.today():
+        raise HTTPException(422, detail="as_of must not be a future date.")
     company = find_company(connection, ticker)
     query = select(FinancialFact.__table__).where(
         FinancialFact.company_id == company["id"]
     )
     facts = connection.execute(query).mappings().all()
-    return normalize_eps(company["ticker"], annual_periods(facts))
+    if as_of is None:
+        return normalize_eps(company["ticker"], annual_periods(facts))
+
+    versions_query = select(AnnualMetricVersion.__table__).where(
+        AnnualMetricVersion.company_id == company["id"]
+    )
+    stored_versions = connection.execute(versions_query).mappings().all()
+    if facts and not stored_versions:
+        # An empty history would silently look like "nothing was reported yet".
+        raise HTTPException(503, detail="Point-in-time history has not been built.")
+    return periods_as_of(facts, stored_versions, as_of)

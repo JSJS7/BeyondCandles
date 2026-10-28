@@ -130,7 +130,13 @@ class DatabaseImportTests(unittest.TestCase):
         with self.db.begin() as c:
             self.assertEqual(
                 set(inspect(c).get_table_names()),
-                {"alembic_version", "companies", "daily_prices", "financial_facts"},
+                {
+                    "alembic_version",
+                    "annual_metric_versions",
+                    "companies",
+                    "daily_prices",
+                    "financial_facts",
+                },
             )
             after = {
                 table: c.execute(
@@ -224,8 +230,8 @@ class DatabaseImportTests(unittest.TestCase):
                 ),
             ):
                 # Both filing versions are retained, and repeating the import adds no copies.
-                self.assertEqual(import_sec()["AAPL"]["inserted"], 2)
-                self.assertEqual(import_sec()["AAPL"]["inserted"], 0)
+                self.assertEqual(import_sec()["companies"]["AAPL"]["inserted"], 2)
+                self.assertEqual(import_sec()["companies"]["AAPL"]["inserted"], 0)
             # A different cache file must not duplicate facts from the same SEC filing.
             refreshed = dict(entry, facts={"sha256": "c" * 64})
             with (
@@ -238,7 +244,7 @@ class DatabaseImportTests(unittest.TestCase):
                     ),
                 ),
             ):
-                self.assertEqual(import_sec()["AAPL"]["inserted"], 0)
+                self.assertEqual(import_sec()["companies"]["AAPL"]["inserted"], 0)
             changed_facts = SecTests().body()
             # An existing filing's value must never be silently replaced.
             for fact in changed_facts["facts"]["us-gaap"]["NetIncomeLoss"]["units"][
@@ -262,7 +268,7 @@ class DatabaseImportTests(unittest.TestCase):
                     return_value=({}, iter([("AAPL", (entry, SecTests().body()))])),
                 ),
             ):
-                self.assertEqual(import_sec()["AAPL"]["inserted"], 0)
+                self.assertEqual(import_sec()["companies"]["AAPL"]["inserted"], 0)
             additional_facts = SecTests().body()
             for fact in additional_facts["facts"]["us-gaap"]["NetIncomeLoss"]["units"][
                 "USD"
@@ -352,8 +358,8 @@ class DatabaseImportTests(unittest.TestCase):
                 patch("app.data_pipeline.sec_history.CACHE", cache),
                 patch("app.data_pipeline.sec_catalogue.CACHE", cache),
             ):
-                self.assertEqual(import_sec()["AAPL"]["inserted"], 2)
-                repeated = import_sec()["AAPL"]
+                self.assertEqual(import_sec()["companies"]["AAPL"]["inserted"], 2)
+                repeated = import_sec()["companies"]["AAPL"]
                 self.assertEqual(repeated["inserted"], 0)
                 self.assertEqual(repeated["history_updated"], 0)
                 with self.db.connect() as c:

@@ -34,6 +34,7 @@ def main():
             "review-operating-cash-flow",
             "review-sec-periods",
             "import-sec",
+            "build-history",
             "inspect-db",
             "verify-db",
         ),
@@ -104,6 +105,10 @@ def main():
             from .sec import import_sec
 
             result = import_sec()
+        elif args.command == "build-history":
+            from .metric_history import build_history
+
+            result = build_history()
         elif args.command == "review-equity":
             from .equity import review_equity
 
@@ -142,17 +147,20 @@ def main():
             result = verify_db()
 
         if args.command == "import-sec":
-            facts = sum(company["facts"] for company in result.values())
-            inserted = sum(company["inserted"] for company in result.values())
+            companies = result["companies"].values()
+            facts = sum(company["facts"] for company in companies)
+            inserted = sum(company["inserted"] for company in companies)
             output = {
                 "status": "completed",
-                "companies": len(result),
+                "companies": len(result["companies"]),
                 "facts": facts,
                 "inserted": inserted,
                 "unchanged": facts - inserted,
                 "history_updated": sum(
-                    company["history_updated"] for company in result.values()
+                    company["history_updated"] for company in companies
                 ),
+                "metric_versions": result["history"]["versions"],
+                "metric_history_fingerprint": result["history"]["fingerprint"],
             }
             formatted_result = json.dumps(output, indent=2)
         elif args.command in (

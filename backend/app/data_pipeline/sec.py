@@ -334,6 +334,7 @@ def import_sec():
     from app.database import engine
     from app.models import Company, FinancialFact
 
+    from .metric_history import rebuild_history
     from .sec_catalogue import identifiers, load_all_sec
     from .sec_history import HISTORY_INDEX, history_eligible, prepare_company_facts
 
@@ -426,4 +427,6 @@ def import_sec():
                 "status": "completed",
             }
             summary[ticker] = result
-    return summary
+        # The derived point-in-time history must never describe other facts.
+        history = rebuild_history(connection)
+    return {"companies": summary, "history": history}

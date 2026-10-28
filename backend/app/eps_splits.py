@@ -14,6 +14,7 @@ from app.schemas.stock import EpsShareBasis, EpsSplit
 
 DATA = Path(__file__).resolve().parents[2] / "data"
 RULES_PATH = DATA / "eps-split-rules.json"
+LATEST_VIEW_NOTE = "This is a latest-source view, not point-in-time data."
 logger = logging.getLogger(__name__)
 
 
@@ -178,29 +179,36 @@ def normalize_eps(ticker, periods, rules=None):
             mark_eps_for_review(metric)
             continue
         # This rule is approved for the exact frozen sources above, not arbitrary future filings.
-        pending = [
-            EpsSplit.model_validate(action)
-            for action in policy["actions"]
-            if action["ticker"] == ticker
-            and source.filed < date.fromisoformat(action["date"])
-        ]
-        ratio = share_count_ratio(pending)
-        reported = metric.value
-        metric.value = adjusted_eps(reported, ratio)
-        metric.eps_share_basis = EpsShareBasis(
-            as_of=policy["basis_date"],
-            reported_value=reported,
-            new_shares=ratio.numerator,
-            old_shares=ratio.denominator,
-            applied_splits=pending,
-        )
-        metric.selection_note = (metric.selection_note or "") + (
-            f" Normalized share-count basis: {policy['basis_date']}. "
-            "Cash dividends and spin-off price conversions are excluded. "
-            "This is a latest-source view, not point-in-time data."
-        )
-        if pending:
-            metric.calculation = (
-                f"Reported EPS × {ratio.denominator} / {ratio.numerator}"
-            )
+        apply_share_basis(metric, ticker, policy, LATEST_VIEW_NOTE)
     return result
+
+
+def apply_share_basis(metric, ticker, policy, view_note):
+    """Convert one single-source EPS value in place to the policy basis date.
+
+    Only splits after the source filing date apply: earlier ones are already
+    reflected in the reported value.
+    """
+    source = metric.selected_sources[0]
+    pending = [
+        EpsSplit.model_validate(action)
+        for action in policy["actions"]
+        if action["ticker"] == ticker
+        and source.filed < date.fromisoformat(action["date"])
+    ]
+    ratio = share_count_ratio(pending)
+    reported = metric.value
+    metric.value = adjusted_eps(reported, ratio)
+    metric.eps_share_basis = EpsShareBasis(
+        as_of=policy["basis_date"],
+        reported_value=reported,
+        new_shares=ratio.numerator,
+        old_shares=ratio.denominator,
+        applied_splits=pending,
+    )
+    metric.selection_note = (metric.selection_note or "") + (
+        f" Normalized share-count basis: {policy['basis_date']}. "
+        "Cash dividends and spin-off price conversions are excluded. " + view_note
+    )
+    if pending:
+        metric.calculation = f"Reported EPS × {ratio.denominator} / {ratio.numerator}"

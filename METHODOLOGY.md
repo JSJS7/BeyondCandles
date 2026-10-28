@@ -131,10 +131,30 @@ factors, because the number of shares did not change in that way.
 
 The app shows the **latest filed version** of every value. Companies restate earlier
 years (new accounting standards, divestitures, corrected errors), so a value may differ
-from what was known when the year was first reported. All versions are stored, but the
-data is **not point-in-time**: it is suitable for looking at companies today, not yet for
-backtests. First publication of an annual figure is typically about seven weeks after
-the period ends. Financials are annual only; there are no quarterly or trailing values.
+from what was known when the year was first reported. First publication of an annual
+figure is typically about seven weeks after the period ends. Financials are annual
+only; there are no quarterly or trailing values.
+
+The API can also return the table **as known on a date D** (`as_of`), for analyses of
+the past. A year appears from the filing date of its first annual report, and each
+value is the latest version filed on or before D (the SEC filing date counts as known
+on that day; filings carry no time of day, so a backtest should act on the next
+session). An earlier version is served only when it is confirmed:
+
+- **identical:** every source of today's verified value has the same value in the same
+  concept, unit, issuer and period in that earlier filing;
+- **rounding:** a single reported amount differs only by coarser rounding (e.g. reported
+  in thousands, later in millions); two values of equal precision must be equal;
+- **split:** EPS differs only by a later stock split (and cent rounding).
+
+Any other earlier annual-report version is marked *needs review* and has no value: it
+may be a real restatement, a value read from a statement table rather than a tagged
+fact, or a concept not yet tagged that way. A quarterly (10-Q) version that is not
+confirmed is ignored, so the previous annual version stays in force until the next
+annual report. EPS keeps the same share basis (13 Oct 2026) as the latest view. With
+D = today the result is identical to the latest view. Checking the earlier versions
+that need review against the original statements is still to be done, so for now part
+of the history is unavailable rather than possibly wrong.
 
 ## How the data was checked
 
@@ -161,7 +181,8 @@ companies comparable with each other.
 - Survivorship bias: the 200 companies were large at the end of the period, so
   backtests on this fixed universe overstate absolute returns and are best used for
   relative comparisons. Only 200 companies; US-listed, USD only.
-- Annual data only; latest-version values; no point-in-time view yet.
+- Annual data only. The point-in-time view (`as_of`) leaves earlier versions that
+  differ from today's verified value without a value until they are checked.
 - Sector differences (banks, insurers, utilities) make cross-sector ratios unreliable.
 - GAAP figures without adjustments; preferred equity and dividends affect per-share
   and return ratios.

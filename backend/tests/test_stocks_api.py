@@ -369,6 +369,76 @@ class StockApiTests(unittest.TestCase):
         )
         self.assertEqual(self.client.get("/stocks/AAPL/financials/annual").json(), [])
 
+    def insert_restated_income(self):
+        """AMD-like history: 43 first, restated to -33 a year later and repeated."""
+        period = {"period_start": date(2017, 1, 1), "period_end": date(2017, 12, 30)}
+        facts = [
+            reported_fact(
+                **period, value=Decimal("43"), filed=date(2018, 2, 27), accession="a"
+            ),
+            reported_fact(
+                **period, value=Decimal("-33"), filed=date(2019, 2, 8), accession="b"
+            ),
+            reported_fact(
+                **period, value=Decimal("-33"), filed=date(2020, 2, 4), accession="c"
+            ),
+        ]
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                [dict(fact, company_id=1) for fact in facts],
+            )
+
+    def build_history(self):
+        from app.data_pipeline.metric_history import rebuild_history
+
+        with self.database.begin() as connection:
+            rebuild_history(connection)
+
+    def annual_as_of(self, as_of):
+        return self.client.get(f"/stocks/AAPL/financials/annual?as_of={as_of}")
+
+    def test_as_of_serves_the_version_known_on_each_day(self):
+        """A period appears with its first report; a changed value is never served unchecked."""
+        self.insert_restated_income()
+        self.build_history()
+
+        before_report = self.annual_as_of("2018-02-26").json()
+        first_report = self.annual_as_of("2018-02-27").json()[0]["metrics"]
+        restated = self.annual_as_of("2019-02-08").json()[0]["metrics"]
+
+        self.assertEqual(before_report, [])
+        first_income = first_report["net_income"]
+        self.assertEqual(first_income["status"], "needs_review")
+        self.assertIsNone(first_income["value"])
+        # The unchecked candidate stays visible as a variant known on that day.
+        self.assertEqual(
+            [Decimal(variant["value"]) for variant in first_income["variants"]],
+            [Decimal("43")],
+        )
+        self.assertEqual(Decimal(restated["net_income"]["value"]), Decimal("-33"))
+        self.assertEqual(
+            restated["net_income"]["selected_sources"][0]["accession"], "b"
+        )
+
+    def test_as_of_today_equals_the_latest_view(self):
+        """For today's date the point-in-time view must be identical to the page."""
+        self.insert_restated_income()
+        self.build_history()
+
+        latest = self.client.get("/stocks/AAPL/financials/annual").json()
+        today = self.annual_as_of(date.today().isoformat()).json()
+
+        self.assertEqual(today, latest)
+
+    def test_as_of_rejects_future_dates_and_missing_history(self):
+        """A future date is invalid; an unbuilt history must not look like no data."""
+        self.insert_restated_income()
+
+        self.assertEqual(self.annual_as_of("2999-01-01").status_code, 422)
+        self.assertEqual(self.annual_as_of("bad").status_code, 422)
+        self.assertEqual(self.annual_as_of("2020-01-01").status_code, 503)
+
     def test_annual_endpoint_returns_a_quarterly_revision_as_a_decimal_string(self):
         """Read the revised full-year fact through HTTP with its original filing details."""
         original = reported_fact()

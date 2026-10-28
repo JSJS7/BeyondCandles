@@ -43,6 +43,7 @@ def inspect_db():
 def verify_db():
     from sqlalchemy import text
 
+    from app.data_pipeline.metric_history import history_fingerprint
     from app.database import engine
 
     path, _, validated = validate_prices()
@@ -76,12 +77,15 @@ def verify_db():
         financial = connection.execute(
             text("SELECT count(*) FROM financial_facts")
         ).scalar_one()
+        versions, history = history_fingerprint(connection)
     result = {
         "status": "verified",
         "companies": db_companies,
         "prices": count,
         "price_fingerprint": f"{observed:064x}",
         "financial_facts": financial,
+        "metric_versions": versions,
+        "metric_history_fingerprint": history,
         "period_start": validated["period_start"],
         "period_end": validated["period_end"],
     }
