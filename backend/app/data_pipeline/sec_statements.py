@@ -54,8 +54,55 @@ TOTAL_LABELS = {
 }
 
 
+SCALES = {"thousands": 1000, "millions": 1000000, "billions": 1000000000}
+# A rendered header date, e.g. "Dec. 31, 2024" or "December 31, 2024".
+HEADER_DATE = r"[A-Za-z]+[.]? \d{1,2}, \d{4}"
+
+
 class NoUniqueStatementRow(ValueError):
     """The statement has no single recognized row for the requested total or concept."""
+
+
+def expand_columns(cells, spans):
+    """Repeat a spanned cell as blanks, so every value lines up with its header column."""
+    result = []
+    for cell, span in zip(cells, spans, strict=True):
+        result.extend([cell] + [""] * (span - 1))
+    return result
+
+
+def header_date(text):
+    """Read the first header date in the text, or None if there is none."""
+    match = re.search(f"({HEADER_DATE})", text)
+    if not match:
+        return None
+    for pattern in ("%b %d, %Y", "%B %d, %Y"):
+        try:
+            return datetime.strptime(match.group(1).replace(".", ""), pattern).date()
+        except ValueError:
+            continue
+    return None
+
+
+def displayed_amount(text):
+    """Read a displayed amount; None when the text is not a number.
+
+    "$", thousands separators and spaces are ignored, and parentheses mean a
+    negative amount. The scale of the statement is applied by the caller.
+    """
+    compact = re.sub(r"[$,\s]", "", text).replace("(", "-").replace(")", "")
+    try:
+        return Decimal(compact)
+    except InvalidOperation:
+        return None
+
+
+def stated_dollar_scale(header_text):
+    """The scale of an explicit "$ in thousands/millions/billions", or None."""
+    match = re.search(r"\$\s+in\s+(thousands|millions|billions)", header_text)
+    if not match:
+        return None
+    return SCALES[match.group(1)]
 
 
 class StatementRows(HTMLParser):
@@ -160,17 +207,8 @@ def statement_total(
             dates = []
             recognized_header = True
             for cell, span in zip(cells, row["spans"], strict=True):
-                parsed = None
-                match = re.match(r"^([A-Za-z]+\.? \d{1,2}, \d{4})", cell)
-                for pattern in ("%b %d, %Y", "%B %d, %Y"):
-                    try:
-                        if match:
-                            parsed = datetime.strptime(
-                                match.group(1).replace(".", ""), pattern
-                            ).date()
-                        break
-                    except ValueError:
-                        pass
+                # Only a cell starting with a date names a date column.
+                parsed = header_date(cell) if re.match(HEADER_DATE, cell) else None
                 if parsed is None and cell and not re.fullmatch(r"\[\d+\]", cell):
                     recognized_header = False
                 dates.extend([parsed] * span)
@@ -219,9 +257,7 @@ def statement_total(
         tags = row["tags"]
         if len(tags) == 1 and any(re.search(r"\d", cell) for cell in cells[1:]):
             taxonomy, tag = next(iter(tags))
-            values = []
-            for cell, span in zip(cells[1:], row["spans"][1:], strict=True):
-                values.extend([cell] + [""] * (span - 1))
+            values = expand_columns(cells[1:], row["spans"][1:])
             candidates.append(
                 {
                     "taxonomy": taxonomy,
@@ -285,27 +321,18 @@ def statement_total(
     header = " ".join(headers).lower()
     if "usd" not in header:
         raise ValueError("Income statement currency is not explicitly USD")
-    monetary_scale = re.search(r"\$\s+in\s+(thousands|millions|billions)", header)
-    if monetary_scale:
-        scales = {monetary_scale.group(1)}
-    else:
+    scale = stated_dollar_scale(header)
+    if scale is None:
         # A share-count scale does not scale currency amounts (e.g. COR reports
         # dollar amounts in full and only its share counts in thousands).
         currency_header = re.sub(
             r"shares\s+in\s+(?:thousands|millions|billions)", "", header
         )
-        scales = {
-            name
-            for name in ("thousands", "millions", "billions")
-            if "in " + name in currency_header
-        }
-    if len(scales) > 1:
-        raise ValueError("Ambiguous income statement scale")
-    total["scale"] = {
-        "thousands": 1000,
-        "millions": 1000000,
-        "billions": 1000000000,
-    }.get(next(iter(scales), ""), 1)
+        scales = {name for name in SCALES if "in " + name in currency_header}
+        if len(scales) > 1:
+            raise ValueError("Ambiguous income statement scale")
+        scale = SCALES[next(iter(scales))] if scales else 1
+    total["scale"] = scale
     if per_share:
         # Statement totals may be in millions; EPS is already reported per share.
         total["scale"] = 1
@@ -333,12 +360,10 @@ def matches_rendered_value(total, value, end):
     ):
         if column_end != end or not annual:
             continue
-        text = re.sub(r"[$,\s]", "", cell).replace("(", "-").replace(")", "")
-        try:
-            number = Decimal(text)
-            displayed = number * total["scale"]
-        except InvalidOperation:
+        number = displayed_amount(cell)
+        if number is None:
             continue
+        displayed = number * total["scale"]
         rounding_unit = Decimal(total["scale"]) * Decimal(10) ** cast(
             int, number.as_tuple().exponent
         )

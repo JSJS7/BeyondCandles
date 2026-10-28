@@ -6,13 +6,11 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
 from itertools import pairwise
-from threading import Event, Lock
-from time import monotonic, sleep
 
 from app.data_pipeline.revenue import ANNUAL_FORMS, EVIDENCE_INDEX
 from app.data_pipeline.revenue_facts import cache_instance
 from app.data_pipeline.sec import CACHE, METRICS, SecAccessDenied, period_kind
-from app.data_pipeline.sec_cache import cached, write_json
+from app.data_pipeline.sec_cache import RequestGate, cached
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
     HISTORY_INDEX,
@@ -20,7 +18,7 @@ from app.data_pipeline.sec_history import (
     read_predecessor,
 )
 from app.data_pipeline.sec_statements import DocumentText, StatementRows
-from app.data_pipeline.source_files import SELECTION, read_json, sha256
+from app.data_pipeline.source_files import SELECTION, read_json, sha256, write_json
 from app.fiscal_periods import RULES_PATH, period_key
 
 COVER_INDEX = CACHE / "fiscal-evidence-index.json"
@@ -120,9 +118,7 @@ def parse_instance_cover(body, expected_cik):
 def fetch_covers(evidence, previous):
     """Cache compact cover pages at at most four requests per second, stopping on 403."""
     result = dict(previous)
-    gate = Lock()
-    stopped = Event()
-    last_request = [0.0]
+    gate = RequestGate("Fiscal cover downloads stopped")
 
     def fetch_one(item):
         source, filing = item
@@ -151,17 +147,12 @@ def fetch_covers(evidence, previous):
                     "summary": summary,
                     "cover": old,
                 }
-        with gate:
-            if stopped.is_set():
-                raise ValueError("Fiscal cover downloads stopped")
-            sleep(max(0, last_request[0] + 0.25 - monotonic()))
-            if stopped.is_set():
-                raise ValueError("Fiscal cover downloads stopped")
-            last_request[0] = monotonic()
+        # A stopped gate raises here, outside the per-cover error handling below.
+        gate.wait_turn()
         try:
             cover = cached(url, json_response=False)
         except SecAccessDenied:
-            stopped.set()
+            gate.stopped.set()
             raise
         except ValueError as exc:
             return source, {"summary": summary, "issue": str(exc)}
@@ -178,7 +169,7 @@ def fetch_covers(evidence, previous):
                     write_json(COVER_INDEX, result)
                     print(f"Fiscal covers: {count}/{len(futures)}", flush=True)
         except BaseException:
-            stopped.set()
+            gate.stopped.set()
             for future in futures:
                 future.cancel()
             raise

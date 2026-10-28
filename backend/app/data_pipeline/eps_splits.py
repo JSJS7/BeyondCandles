@@ -8,6 +8,7 @@ from decimal import Decimal
 from sqlalchemy import select
 
 from app.annual_financials import annual_periods
+from app.data_pipeline.benjaminpo import ALIASES
 from app.data_pipeline.sec import CACHE as SEC_CACHE
 from app.data_pipeline.sec_statements import DocumentText
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
@@ -16,7 +17,6 @@ from app.eps_splits import normalize_eps, sources_fingerprint, split_rules
 from app.models import Company, FinancialFact
 
 CACHE = ROOT / "data/raw/eps-splits"
-ALIASES = {"FI": "FISV", "MMC": "MRSH", "BK": "BNY"}
 
 
 def checked_reference(reference, directory, verified):

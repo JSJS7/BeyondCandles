@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 
 from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.sec_catalogue import verify_reference
-from app.data_pipeline.sec_statements import normalized_label
+from app.data_pipeline.sec_statements import displayed_amount, normalized_label
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
 from app.fact_identity import fact_identity, variants_fingerprint
 from app.fiscal_periods import canonical_period
@@ -67,10 +67,8 @@ def verify_original_position(body, exception):
                 continue
             text = " ".join(row[1:])
             numbers = re.findall(r"\(?\s*\d[\d,]*(?:[.]\d+)?\s*\)?", text)
-            values = [
-                Decimal(re.sub(r"[,\s]", "", number).replace("(", "-").replace(")", ""))
-                for number in numbers
-            ]
+            # The pattern above admits only well-formed numbers, so none is None.
+            values = [displayed_amount(number) for number in numbers]
             if values == expected:
                 matches.append(
                     values[exception["value_column"]] * Decimal(exception["scale"])

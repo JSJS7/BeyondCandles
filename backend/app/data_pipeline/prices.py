@@ -24,11 +24,11 @@ def import_prices():
     from sqlalchemy import select, text
     from sqlalchemy.dialects.postgresql import insert
 
-    from app.database import engine
+    from app.database import engine, lock_data_imports
     from app.models import Company
 
     with engine.begin() as connection:
-        connection.execute(text("SELECT pg_advisory_xact_lock(204812, 1)"))
+        lock_data_imports(connection)
         for ticker, row in companies.items():
             metadata = {
                 "ticker": ticker,

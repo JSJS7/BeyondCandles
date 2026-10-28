@@ -7,8 +7,8 @@ from typing import Any
 
 from app.data_pipeline.identifiers import IDENTIFIERS, IssuerIdentifiers
 from app.data_pipeline.sec import CACHE, CacheIntegrityError
-from app.data_pipeline.sec_cache import cached, write_json
-from app.data_pipeline.source_files import SELECTION, read_json, sha256
+from app.data_pipeline.sec_cache import cached
+from app.data_pipeline.source_files import SELECTION, read_json, sha256, write_json
 
 ALL_INDEX = CACHE / "all-index.json"
 DOWNLOAD_PROGRESS = CACHE / "all-progress.json"

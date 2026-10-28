@@ -11,8 +11,7 @@ from unittest.mock import patch
 from uuid import uuid4
 
 from app.data_pipeline import price_replacement as replacement
-from app.data_pipeline.benjaminpo import atomic_json
-from app.data_pipeline.source_files import read_json, sha256
+from app.data_pipeline.source_files import read_json, sha256, write_json
 from app.data_pipeline.validation import FIELDS
 
 
@@ -78,8 +77,8 @@ class PriceReplacementTests(unittest.TestCase):
         self.candidate = self.root / "candidate.json"
         self.path = self.root / "prices.csv"
         self.old_manifest = {"id": "old-source", "sha256": "a" * 64}
-        atomic_json(self.active, self.old_manifest)
-        atomic_json(self.candidate, {"id": "candidate-source", "sha256": "b" * 64})
+        write_json(self.active, self.old_manifest)
+        write_json(self.candidate, {"id": "candidate-source", "sha256": "b" * 64})
         with self.db.begin() as connection:
             connection.execute(text("DELETE FROM financial_facts"))
             connection.execute(text("DELETE FROM daily_prices"))

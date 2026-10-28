@@ -3,7 +3,7 @@
 import re
 import xml.etree.ElementTree as ET
 from collections import Counter
-from decimal import Decimal, InvalidOperation, localcontext
+from decimal import Decimal, localcontext
 from html import escape
 from time import sleep
 
@@ -11,18 +11,25 @@ from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
 from app.data_pipeline.revenue import download_evidence
-from app.data_pipeline.sec import CACHE
-from app.data_pipeline.sec_cache import cached, write_json
+from app.data_pipeline.sec import CACHE, XSI
+from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
     NoUniqueStatementRow,
     StatementRows,
+    displayed_amount,
     matches_rendered_value,
     normalized_label,
     statement_total,
 )
-from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
+from app.data_pipeline.source_files import (
+    ROOT,
+    SELECTION,
+    read_json,
+    sha256,
+    write_json,
+)
 from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
 from app.fiscal_periods import canonical_period, fiscal_rules
 from app.operating_cash_flow import (
@@ -179,11 +186,10 @@ def cash_positions(html, end):
             ):
                 if day != end or not annual:
                     continue
-                number = re.sub(r"[$,\s]", "", cell).replace("(", "-").replace(")", "")
-                try:
-                    value = Decimal(number) * parsed["scale"]
-                except InvalidOperation:
+                number = displayed_amount(cell)
+                if number is None:
                     continue
+                value = number * parsed["scale"]
                 if not value.is_finite():
                     raise ValueError("Invalid operating-cash-flow number")
                 values.append(value)
@@ -413,10 +419,7 @@ def resolve_reviewed_period(task, calendar, reference, positions, current, excep
                             and "operating" in name
                             and "discontinued" in name
                             and node.get("contextRef")
-                            and node.get(
-                                "{http://www.w3.org/2001/XMLSchema-instance}nil"
-                            )
-                            != "true"
+                            and node.get(XSI + "nil") != "true"
                         ):
                             raise ValueError(
                                 "A discontinued operating fact requires a new scope review"

@@ -6,9 +6,8 @@ import xml.etree.ElementTree as ET
 from decimal import Decimal, InvalidOperation
 from typing import cast
 
-XBRLI = "{http://www.xbrl.org/2003/instance}"
-XBRLDI = "{http://xbrl.org/2006/xbrldi}"
-XSI = "{http://www.w3.org/2001/XMLSchema-instance}"
+from app.data_pipeline.sec import XBRLDI, XBRLI, XSI, usd_unit_ids
+
 ACCOUNT_ROLES = {
     "CommonStockMember": {"common"},
     "AdditionalPaidInCapitalMember": {"paid_in"},
@@ -73,18 +72,7 @@ def instant_equity_positions(body, cik, end, *, nci_controls=()):
         if period.findtext(XBRLI + "instant") == str(end):
             contexts[context.attrib["id"]] = member
 
-    usd_units = set()
-    for unit in root.findall(XBRLI + "unit"):
-        measures = unit.findall(XBRLI + "measure")
-        if len(unit) != 1 or len(measures) != 1:
-            continue
-        measure = (measures[0].text or "").strip()
-        prefix, _, name = measure.partition(":")
-        if (
-            name == "USD"
-            and namespaces.get(prefix) == "http://www.xbrl.org/2003/iso4217"
-        ):
-            usd_units.add(unit.attrib["id"])
+    usd_units = usd_unit_ids(root, namespaces)
 
     positions = {}
     dimensional_nci = []

@@ -6,8 +6,14 @@ from html.parser import HTMLParser
 from typing import Any
 
 from app.data_pipeline.sec import CACHE
-from app.data_pipeline.sec_cache import cached, write_json
-from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
+from app.data_pipeline.sec_cache import cached
+from app.data_pipeline.source_files import (
+    ROOT,
+    SELECTION,
+    read_json,
+    sha256,
+    write_json,
+)
 
 IDENTIFIERS = ROOT / "data/sec-identifiers.json"
 PROGRESS = CACHE / "identity-progress.json"

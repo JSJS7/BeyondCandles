@@ -14,7 +14,13 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
-from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
+from app.data_pipeline.source_files import (
+    ROOT,
+    SELECTION,
+    read_json,
+    sha256,
+    write_json,
+)
 from app.data_pipeline.validation import FIELDS, PRICE_COLUMNS, validate_price
 
 CANDIDATE = ROOT / "data/benjaminpo-v81.json"
@@ -23,24 +29,6 @@ OUTPUT = ROOT / "data/processed/benjaminpo-v81/prices-200.csv"
 ALIASES = {"FI": "FISV", "MMC": "MRSH", "BK": "BNY"}
 SOURCE = "https://www.kaggle.com/api/v1/datasets/download/benjaminpo/finance-dataset/"
 MAX_FILE_BYTES = 5_000_000
-
-
-def atomic_json(path, document):
-    """Publish complete JSON only; an interrupted write leaves the old file intact."""
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = None
-    try:
-        with NamedTemporaryFile(
-            mode="w", encoding="utf-8", dir=path.parent, delete=False
-        ) as handle:
-            temporary = Path(handle.name)
-            json.dump(document, handle, indent=2, ensure_ascii=False)
-            handle.write("\n")
-        temporary.replace(path)
-    finally:
-        if temporary and temporary.exists():
-            temporary.unlink()
 
 
 def candidate_manifest():
@@ -115,7 +103,7 @@ def fetch_prices():
             downloaded += 1
         if progress.get(ticker) != entry:
             progress[ticker] = entry
-            atomic_json(progress_path, progress)
+            write_json(progress_path, progress, ensure_ascii=False)
         if index % 20 == 0:
             print(f"Cached {index}/{len(tickers)} Benjaminpo daily files", flush=True)
 
@@ -127,7 +115,7 @@ def fetch_prices():
         )
     manifest["files"] = files
     manifest["sha256"] = digest
-    atomic_json(CANDIDATE, manifest)
+    write_json(CANDIDATE, manifest, ensure_ascii=False)
     return {
         "status": "cached",
         "files": len(files),
@@ -427,7 +415,7 @@ def prepare_prices(*, require_reviewed=False):
         "unresolved": unresolved,
         "events": events,
     }
-    atomic_json(output.parent / "validation.json", result)
+    write_json(output.parent / "validation.json", result, ensure_ascii=False)
     if require_reviewed and unresolved:
         raise ValueError(
             "Price replacement blocked by unresolved corporate actions: "

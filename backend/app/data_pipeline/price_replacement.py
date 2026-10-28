@@ -7,10 +7,10 @@ from tempfile import NamedTemporaryFile
 
 from sqlalchemy import text
 
-from app.data_pipeline.source_files import MANIFEST, ROOT, read_json, sha256
+from app.data_pipeline.source_files import MANIFEST, ROOT, read_json, sha256, write_json
 from app.data_pipeline.validation import FIELDS
 
-from .benjaminpo import CANDIDATE, atomic_json, prepare_prices
+from .benjaminpo import CANDIDATE, prepare_prices
 from .verification import fingerprint
 
 BACKUPS = ROOT / "data/raw/backups"
@@ -45,8 +45,10 @@ def database_fingerprint(connection):
 
 def protect_tables(connection):
     """Serialize price imports and hold other data stable while replacing prices."""
+    from app.database import lock_data_imports
+
     connection.execute(text("SET LOCAL lock_timeout='5s'"))
-    connection.execute(text("SELECT pg_advisory_xact_lock(204812, 1)"))
+    lock_data_imports(connection)
     connection.execute(text("LOCK TABLE companies, financial_facts IN SHARE MODE"))
     connection.execute(text("LOCK TABLE daily_prices IN SHARE ROW EXCLUSIVE MODE"))
 
@@ -158,7 +160,7 @@ def save_backup(connection, observed, manifest):
                     "Existing backup metadata differs; preserve it for review"
                 )
         else:
-            atomic_json(info_path, info)
+            write_json(info_path, info, ensure_ascii=False)
     finally:
         if temporary and temporary.exists():
             temporary.unlink()
@@ -178,7 +180,7 @@ def require_expected_fingerprint(value):
 
 
 def activate_manifest(document):
-    atomic_json(MANIFEST, document)
+    write_json(MANIFEST, document, ensure_ascii=False)
 
 
 def replace_prices(expected_fingerprint):

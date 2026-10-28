@@ -3,10 +3,8 @@
 import re
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
-from decimal import Decimal, InvalidOperation
-from threading import Event, Lock
-from time import monotonic, sleep
+from decimal import Decimal
+from threading import Lock
 from typing import Any
 
 from app.data_pipeline.equity_exceptions import manual_choice, reviewed_nci_controls
@@ -15,14 +13,27 @@ from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
 from app.data_pipeline.sec import CACHE, SecAccessDenied
-from app.data_pipeline.sec_cache import cached, write_json
+from app.data_pipeline.sec_cache import RequestGate
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
     HISTORY_INDEX,
     prepare_company_facts,
 )
-from app.data_pipeline.sec_statements import StatementRows, normalized_label
-from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
+from app.data_pipeline.sec_statements import (
+    StatementRows,
+    displayed_amount,
+    expand_columns,
+    header_date,
+    normalized_label,
+    stated_dollar_scale,
+)
+from app.data_pipeline.source_files import (
+    ROOT,
+    SELECTION,
+    read_json,
+    sha256,
+    write_json,
+)
 from app.equity import HISTORY_FALLBACKS, RULES_PATH
 from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
 from app.fiscal_periods import canonical_period, fiscal_rules
@@ -96,8 +107,8 @@ def statement_files(summary, kind):
 def cache_evidence(jobs, evidence):
     """Fetch four filings concurrently, with a shared four-requests/second limit."""
     previous_income = read_json(INCOME_EVIDENCE) if INCOME_EVIDENCE.exists() else {}
-    gate, checkpoint, stopped = Lock(), Lock(), Event()
-    last_request = [0.0]
+    gate = RequestGate("SEC downloads stopped after an access denial")
+    checkpoint = Lock()
 
     def download(url, previous):
         if previous and previous.get("url") == url:
@@ -106,16 +117,7 @@ def cache_evidence(jobs, evidence):
                 return previous
             except (OSError, ValueError):
                 pass
-        with gate:
-            if stopped.is_set():
-                raise ValueError("SEC downloads stopped after an access denial")
-            sleep(max(0, last_request[0] + 0.25 - monotonic()))
-            last_request[0] = monotonic()
-        try:
-            return cached(url, json_response=False)
-        except SecAccessDenied:
-            stopped.set()
-            raise
+        return gate.fetch(url)
 
     def filing(job):
         source, kind = job
@@ -131,12 +133,9 @@ def cache_evidence(jobs, evidence):
             if kind == "instance":
                 from app.data_pipeline.revenue_facts import cache_instance
 
-                with gate:
-                    if stopped.is_set():
-                        raise ValueError("SEC downloads stopped after an access denial")
-                    sleep(max(0, last_request[0] + 0.5 - monotonic()))
-                    cache_instance(cik, accession, entry)
-                    last_request[0] = monotonic()
+                gate.run_alone(
+                    lambda: cache_instance(cik, accession, entry), interval=0.5
+                )
                 files = []
             else:
                 files = statement_files(summary, kind)
@@ -148,8 +147,8 @@ def cache_evidence(jobs, evidence):
             entry.pop("download_issue", None)
         except (ValueError, ET.ParseError) as exc:
             if isinstance(exc, SecAccessDenied):
-                stopped.set()
-            if stopped.is_set():
+                gate.stopped.set()
+            if gate.stopped.is_set():
                 raise
             entry["download_issue"] = str(exc)
         with checkpoint:
@@ -169,44 +168,20 @@ def cache_evidence(jobs, evidence):
                         write_json(EVIDENCE_INDEX, {"version": 1, "filings": evidence})
                     print(f"Equity evidence: {done}/{len(jobs)}", flush=True)
         except Exception:
-            stopped.set()
+            gate.stopped.set()
             for future in futures:
                 future.cancel()
             write_json(EVIDENCE_INDEX, {"version": 1, "filings": evidence})
             raise
 
 
-def expand(cells, spans):
-    result = []
-    for cell, span in zip(cells, spans, strict=True):
-        result.extend([cell] + [""] * (span - 1))
-    return result
-
-
-def parse_date(text):
-    match = re.search(r"([A-Za-z]+[.]? \d{1,2}, \d{4})", text)
-    if not match:
-        return None
-    for pattern in ("%b %d, %Y", "%B %d, %Y"):
-        try:
-            return datetime.strptime(match.group(1).replace(".", ""), pattern).date()
-        except ValueError:
-            continue
-    return None
-
-
 def numeric(text, scale):
+    """A scaled cell amount; a lone dash is an explicit zero and a blank is missing."""
     text = re.sub(r"\[[^]]*\]", "", text)
-    text = re.sub(r"[$,\s]", "", text).replace("(", "-").replace(")", "")
-    if text == "":
-        return None
-    if text in ("-", "\u2014", "\u2013"):
+    if re.sub(r"[$,\s]", "", text) in ("-", "\u2014", "\u2013"):
         return Decimal(0)
-    try:
-        number = Decimal(text)
-    except InvalidOperation:
-        return None
-    if not number.is_finite():
+    number = displayed_amount(text)
+    if number is None or not number.is_finite():
         return None
     return number * scale
 
@@ -346,18 +321,15 @@ def statement_nci_controls(html, reference):
     text = " ".join(cell for row in headers for cell in row["cells"]).lower()
     if "usd" not in text:
         return []
-    match = re.search(r"\$\s+in\s+(thousands|millions|billions)", text)
-    scale = {"thousands": 1000, "millions": 1000000, "billions": 1000000000}.get(
-        match.group(1) if match else "", 1
-    )
+    scale = stated_dollar_scale(text) or 1
     controls = []
     for header in headers:
-        columns = expand(header["cells"], header["spans"])
+        columns = expand_columns(header["cells"], header["spans"])
         for column in nci_column_indices(columns):
             for row in parser.rows:
                 if row["header"] or row["tags"] != {("us-gaap", GROUP_TAG)}:
                     continue
-                values = expand(row["cells"], row["spans"])
+                values = expand_columns(row["cells"], row["spans"])
                 if column >= len(values):
                     continue
                 value = numeric(values[column], scale)
@@ -380,26 +352,23 @@ def statement_positions(html, end, kind):
     text = " ".join(cell for row in headers for cell in row["cells"]).lower()
     if "usd" not in text:
         raise ValueError("Statement currency is not explicitly USD")
-    match = re.search(r"\$\s+in\s+(thousands|millions|billions)", text)
-    scale = {"thousands": 1000, "millions": 1000000, "billions": 1000000000}.get(
-        match.group(1) if match else "", 1
-    )
+    scale = stated_dollar_scale(text) or 1
     date_columns = {}
     owner_columns = []
     for row in headers:
         offset = (
             headers[0]["spans"][0]
-            if row["cells"] and parse_date(row["cells"][0])
+            if row["cells"] and header_date(row["cells"][0])
             else 0
         )
         for cell, span in zip(row["cells"], row["spans"], strict=True):
-            parsed = parse_date(cell)
+            parsed = header_date(cell)
             if parsed:
                 for column in range(offset, offset + span):
                     date_columns[column] = parsed
             offset += span
-        if kind == "equity" and not any(parse_date(cell) for cell in row["cells"]):
-            owner_columns = expand(row["cells"], row["spans"])
+        if kind == "equity" and not any(header_date(cell) for cell in row["cells"]):
+            owner_columns = expand_columns(row["cells"], row["spans"])
     nci_columns = nci_column_indices(owner_columns)
     positions = []
     current_date = None
@@ -417,7 +386,7 @@ def statement_positions(html, end, kind):
             # Later blocks describe individual equity accounts or subsidiaries.
             break
         label = row["cells"][0]
-        row_date = parse_date(label)
+        row_date = header_date(label)
         if row_date:
             current_date = row_date
         elif any(
@@ -436,7 +405,7 @@ def statement_positions(html, end, kind):
             or tag not in PARENT_TAGS + (GROUP_TAG,) + COMPONENT_TAGS
         ):
             continue
-        values = expand(row["cells"], row["spans"])
+        values = expand_columns(row["cells"], row["spans"])
         owners = any(
             normalized_label(title) in ("total", "total equity") or parent_column(title)
             for title in owner_columns[1:]
@@ -709,6 +678,122 @@ def select_components(positions, facts, cik, accession, end, calendar, primary_c
     )
 
 
+def source_choices(task, cik, accession, filed, entry, calendar):
+    """Review one filing of a period against its cached statements and instance.
+
+    Returns (choices, issues, found, visible parent amounts). Choices from the
+    original XBRL instance take precedence over rendered statements: it retains
+    exact dates omitted by some SEC HTML renders, and an explicit parent fact
+    takes precedence over rounded group-minus-NCI.
+    """
+    end = task["period"].period_end
+    issues = []
+    visible_parents = set()
+    found = False
+    statement_choices, instance_choices = [], []
+    for kind in ("balance", "equity", "instance"):
+        filenames = (
+            ["instance"]
+            if kind == "instance" and "instance" in entry
+            else entry.get(kind + "_files", [])
+        )
+        for filename in filenames:
+            if filename not in entry:
+                continue
+            try:
+                path = verify_reference(entry[filename])
+                if kind == "instance":
+                    nci_controls = []
+                    nci_statement_files = entry.get("equity_files", []) + entry.get(
+                        "scope_files", []
+                    )
+                    for statement_file in nci_statement_files:
+                        if statement_file not in entry:
+                            continue
+                        reference = entry[statement_file]
+                        body = verify_reference(reference).read_text(encoding="utf-8")
+                        nci_controls.extend(statement_nci_controls(body, reference))
+                    nci_controls.extend(reviewed_nci_controls(task, cik, accession))
+                    positions = instant_equity_positions(
+                        path.read_bytes(), cik, end, nci_controls=nci_controls
+                    )
+                else:
+                    positions = statement_positions(
+                        path.read_text(encoding="utf-8"), end, kind
+                    )
+                visible_parents.update(
+                    position["value"]
+                    for position in positions
+                    if position["scope"] == "parent"
+                )
+                selected, coefficients, value, calculation = select_components(
+                    positions,
+                    task["facts"],
+                    cik,
+                    accession,
+                    end,
+                    calendar,
+                    task["primary"],
+                )
+                for fact in selected:
+                    if fact.get("_statement_position"):
+                        fact["statement_url"] = entry[filename]["url"]
+                anchor = next(
+                    fact
+                    for fact in task["facts"]
+                    if fact["metric"] == "equity"
+                    and fact["source_cik"] == cik
+                    and fact["accession"] == accession
+                    and canonical_period(fact, calendar)[1] == end
+                    and not rejected(fact)
+                )
+                destination = (
+                    instance_choices if kind == "instance" else statement_choices
+                )
+                destination.append(
+                    {
+                        "anchor": fact_identity(anchor),
+                        "scope_controls": [
+                            fact["_scope_control"]
+                            for fact in selected
+                            if fact.get("_scope_control")
+                        ],
+                        "observed_sha256": variants_fingerprint(task["variants"]),
+                        "value": format(value, "f"),
+                        "filed": str(filed),
+                        "accession": accession,
+                        "components": [
+                            {
+                                "fact": fact_identity(fact),
+                                "coefficient": coefficient,
+                                **(
+                                    {"statement_position": True}
+                                    if fact.get("_statement_position")
+                                    else {}
+                                ),
+                                **(
+                                    {"history_fallback": True}
+                                    if not fact["history_eligible"]
+                                    else {}
+                                ),
+                            }
+                            for fact, coefficient in zip(
+                                selected, coefficients, strict=True
+                            )
+                        ],
+                        "calculation": calculation,
+                        "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+                        "summary": entry["summary"],
+                        "statement": entry[filename],
+                    }
+                )
+                found = True
+            except (OSError, ValueError, ET.ParseError) as exc:
+                issues.append(str(exc))
+    choices = instance_choices or statement_choices
+    return choices, issues, found, visible_parents
+
+
 def equity_tasks():
     """Build review periods from the frozen source cache without using prior approvals."""
     from app.annual_financials import annual_periods
@@ -805,121 +890,12 @@ def review_equity(fetch=False):
         for cik, accession, filed in sorted(task["sources"]):
             source = cik + ":" + accession
             entry = evidence.get(source, {})
-            found = False
-            source_choices, instance_choices = [], []
-            for kind in ("balance", "equity", "instance"):
-                filenames = (
-                    ["instance"]
-                    if kind == "instance" and "instance" in entry
-                    else entry.get(kind + "_files", [])
-                )
-                for filename in filenames:
-                    if filename not in entry:
-                        continue
-                    try:
-                        path = verify_reference(entry[filename])
-                        if kind == "instance":
-                            nci_controls = []
-                            nci_statement_files = entry.get(
-                                "equity_files", []
-                            ) + entry.get("scope_files", [])
-                            for statement_file in nci_statement_files:
-                                if statement_file not in entry:
-                                    continue
-                                reference = entry[statement_file]
-                                body = verify_reference(reference).read_text(
-                                    encoding="utf-8"
-                                )
-                                nci_controls.extend(
-                                    statement_nci_controls(body, reference)
-                                )
-                            nci_controls.extend(
-                                reviewed_nci_controls(task, cik, accession)
-                            )
-                            positions = instant_equity_positions(
-                                path.read_bytes(), cik, end, nci_controls=nci_controls
-                            )
-                        else:
-                            positions = statement_positions(
-                                path.read_text(encoding="utf-8"), end, kind
-                            )
-                        visible_parents.update(
-                            position["value"]
-                            for position in positions
-                            if position["scope"] == "parent"
-                        )
-                        selected, coefficients, value, calculation = select_components(
-                            positions,
-                            task["facts"],
-                            cik,
-                            accession,
-                            end,
-                            calendar,
-                            task["primary"],
-                        )
-                        for fact in selected:
-                            if fact.get("_statement_position"):
-                                fact["statement_url"] = entry[filename]["url"]
-                        anchor = next(
-                            fact
-                            for fact in task["facts"]
-                            if fact["metric"] == "equity"
-                            and fact["source_cik"] == cik
-                            and fact["accession"] == accession
-                            and canonical_period(fact, calendar)[1] == end
-                            and not rejected(fact)
-                        )
-                        destination = (
-                            instance_choices if kind == "instance" else source_choices
-                        )
-                        destination.append(
-                            {
-                                "anchor": fact_identity(anchor),
-                                "scope_controls": [
-                                    fact["_scope_control"]
-                                    for fact in selected
-                                    if fact.get("_scope_control")
-                                ],
-                                "observed_sha256": variants_fingerprint(
-                                    task["variants"]
-                                ),
-                                "value": format(value, "f"),
-                                "filed": str(filed),
-                                "accession": accession,
-                                "components": [
-                                    {
-                                        "fact": fact_identity(fact),
-                                        "coefficient": coefficient,
-                                        **(
-                                            {"statement_position": True}
-                                            if fact.get("_statement_position")
-                                            else {}
-                                        ),
-                                        **(
-                                            {"history_fallback": True}
-                                            if not fact["history_eligible"]
-                                            else {}
-                                        ),
-                                    }
-                                    for fact, coefficient in zip(
-                                        selected, coefficients, strict=True
-                                    )
-                                ],
-                                "calculation": calculation,
-                                "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
-                                "summary": entry["summary"],
-                                "statement": entry[filename],
-                            }
-                        )
-                        found = True
-                    except (OSError, ValueError, ET.ParseError) as exc:
-                        issues.append(str(exc))
-            if instance_choices:
-                # The original XBRL retains exact dates omitted by some SEC HTML renders.
-                # An explicit parent fact also takes precedence over rounded group-minus-NCI.
-                choices.extend(instance_choices)
-            else:
-                choices.extend(source_choices)
+            found_choices, found_issues, found, parents = source_choices(
+                task, cik, accession, filed, entry, calendar
+            )
+            choices.extend(found_choices)
+            issues.extend(found_issues)
+            visible_parents.update(parents)
             if not found:
                 for kind in ("balance", "equity"):
                     if kind + "_files" not in entry:

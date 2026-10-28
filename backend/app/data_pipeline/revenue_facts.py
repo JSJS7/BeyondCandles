@@ -8,13 +8,20 @@ from datetime import date
 from decimal import Decimal
 from typing import cast
 
-from app.data_pipeline.sec import CACHE, period_kind
+from app.data_pipeline.sec import (
+    CACHE,
+    WINDOW_END,
+    WINDOW_START,
+    XBRLDI,
+    XBRLI,
+    XSI,
+    period_kind,
+    usd_unit_ids,
+)
 from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.source_files import read_json
 
 SUPPLEMENT_INDEX = CACHE / "revenue-facts-index.json"
-XBRLI = "{http://www.xbrl.org/2003/instance}"
-XBRLDI = "{http://xbrl.org/2006/xbrldi}"
 CUSTOM_REVENUE_TAGS = {
     ("bac", "RevenuesNetOfInterestExpenseBeforeProvisionForLoanLoss"),
     ("xom", "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes"),
@@ -48,13 +55,7 @@ def instance_facts(body, cik, metadata, concepts):
                 date.fromisoformat(start),
                 date.fromisoformat(end),
             )
-    usd_units = set()
-    for unit in root.findall(XBRLI + "unit"):
-        measures = unit.findall(XBRLI + "measure")
-        if len(measures) == 1 and (measures[0].text or "").split(":")[-1] == "USD":
-            prefix = (measures[0].text or "").split(":")[0]
-            if namespaces.get(prefix) == "http://www.xbrl.org/2003/iso4217":
-                usd_units.add(unit.attrib["id"])
+    usd_units = usd_unit_ids(root, namespaces)
     names = {}
     for taxonomy, tag in concepts:
         namespace = namespaces.get(taxonomy)
@@ -68,13 +69,10 @@ def instance_facts(body, cik, metadata, concepts):
             or element.get("unitRef") not in usd_units
         ):
             continue
-        if element.get("{http://www.w3.org/2001/XMLSchema-instance}nil") == "true":
+        if element.get(XSI + "nil") == "true":
             continue
         start, end = contexts[element.get("contextRef")]
-        if (
-            not date(2015, 1, 1) <= end <= date(2024, 12, 31)
-            or period_kind(start, end) != "annual"
-        ):
+        if not WINDOW_START <= end <= WINDOW_END or period_kind(start, end) != "annual":
             continue
         value = Decimal((element.text or "").strip())
         if (

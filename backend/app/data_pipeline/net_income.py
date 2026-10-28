@@ -2,11 +2,11 @@
 
 import re
 from collections import Counter, defaultdict
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 
 from app.data_pipeline.sec import extract_facts
-from app.data_pipeline.sec_cache import cached, write_json
-from app.data_pipeline.source_files import SELECTION, read_json, sha256
+from app.data_pipeline.sec_cache import cached
+from app.data_pipeline.source_files import SELECTION, read_json, sha256, write_json
 from app.net_income import PARENT_TAG, RULES_PATH, calculated_value
 
 COMMON_TAG = "NetIncomeLossAvailableToCommonStockholdersBasic"
@@ -68,6 +68,8 @@ def position(html, tag, end, expected=None, allocation=False):
 
     from app.data_pipeline.sec_statements import (
         StatementRows,
+        displayed_amount,
+        expand_columns,
         matches_rendered_value,
         statement_total,
     )
@@ -94,9 +96,7 @@ def position(html, tag, end, expected=None, allocation=False):
             break
         if row["tags"] != {("us-gaap", tag)}:
             continue
-        expanded = []
-        for cell, span in zip(row["cells"][1:], row["spans"][1:], strict=True):
-            expanded.extend([cell] + [""] * (span - 1))
+        expanded = expand_columns(row["cells"][1:], row["spans"][1:])
         body = f'<tr><td><a onclick="defref_us-gaap_{tag}">{escape(row["cells"][0])}</a></td>'
         body += "".join("<td>" + escape(cell) + "</td>" for cell in expanded) + "</tr>"
         table = '<table class="report">' + "".join(headers) + body + "</table>"
@@ -115,12 +115,10 @@ def position(html, tag, end, expected=None, allocation=False):
         ):
             if column_end != end or not annual:
                 continue
-            text = re.sub(r"[$,\s]", "", cell).replace("(", "-").replace(")", "")
-            try:
-                shown = Decimal(text) * parsed["scale"]
-            except InvalidOperation:
+            number = displayed_amount(cell)
+            if number is None:
                 continue
-            matches.append((parsed, shown))
+            matches.append((parsed, number * parsed["scale"]))
     if not matches or len({shown for _, shown in matches}) != 1:
         raise ValueError(f"No unique source-matching annual {tag} position")
     return matches[0]
@@ -332,7 +330,7 @@ def verify_exception(html, current, end, parent_control=False):
 
 def mastercard_control(entry, period, variants):
     """Verify the issuer-specific ProfitLoss meaning in the dated parent-equity column."""
-    from app.data_pipeline.sec_statements import StatementRows
+    from app.data_pipeline.sec_statements import StatementRows, displayed_amount
 
     from .sec_catalogue import verify_reference
 
@@ -384,11 +382,10 @@ def mastercard_control(entry, period, variants):
             raise ValueError("Unverified Mastercard equity currency/scale")
         if minority_column is None or cells[minority_column] not in ("", "0", "$ 0"):
             continue
-        text = re.sub(r"[$,\s]", "", cells[column]).replace("(", "-").replace(")", "")
-        try:
-            matches.append(Decimal(text) * 1000000)
-        except InvalidOperation:
+        number = displayed_amount(cells[column])
+        if number is None:
             continue
+        matches.append(number * 1000000)
     return len(matches) == 1 and set(matches) == expected
 
 

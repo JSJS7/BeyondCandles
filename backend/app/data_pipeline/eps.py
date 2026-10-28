@@ -11,15 +11,25 @@ from html import escape
 from typing import cast
 
 from app.data_pipeline.revenue_facts import cache_instance
-from app.data_pipeline.sec import CACHE, extract_facts, period_kind
-from app.data_pipeline.sec_cache import cached, write_json
+from app.data_pipeline.sec import (
+    CACHE,
+    ISO4217,
+    WINDOW_END,
+    WINDOW_START,
+    XBRLDI,
+    XBRLI,
+    XSI,
+    extract_facts,
+    period_kind,
+)
+from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.sec_catalogue import verify_reference
 from app.data_pipeline.sec_statements import (
     StatementRows,
     matches_rendered_value,
     statement_total,
 )
-from app.data_pipeline.source_files import SELECTION, read_json, sha256
+from app.data_pipeline.source_files import SELECTION, read_json, sha256, write_json
 from app.eps import (
     BASIC_TAG,
     COMBINED_TAG,
@@ -34,8 +44,6 @@ from app.fiscal_periods import canonical_period, fiscal_rules
 EVIDENCE_INDEX = CACHE / "eps-evidence-index.json"
 FACTS_INDEX = CACHE / "eps-facts-index.json"
 TAGS = (DILUTED_TAG, COMBINED_TAG, CONTINUING_TAG, UNIT_TAG, BASIC_TAG)
-XBRLI = "{http://www.xbrl.org/2003/instance}"
-XBRLDI = "{http://xbrl.org/2006/xbrldi}"
 # These are identities of the selected security, not a preference for a numeric EPS value.
 CLASS_MEMBERS = {
     "0001652044": {
@@ -114,10 +122,7 @@ def instance_eps(body, cik, metadata, *, reviewed_revision=False):
         start, end = date.fromisoformat(start), date.fromisoformat(end)
         if revision_context and (start, end) != (date(2021, 1, 1), date(2021, 12, 31)):
             continue
-        if (
-            date(2015, 1, 1) <= end <= date(2024, 12, 31)
-            and period_kind(start, end) == "annual"
-        ):
+        if WINDOW_START <= end <= WINDOW_END and period_kind(start, end) == "annual":
             contexts[context.attrib["id"]] = (start, end)
 
     units = set()
@@ -140,7 +145,7 @@ def instance_eps(body, cik, metadata, *, reviewed_revision=False):
             continue
         if (
             top[1] == "USD"
-            and namespaces.get(top[0]) == "http://www.xbrl.org/2003/iso4217"
+            and namespaces.get(top[0]) == ISO4217
             and bottom[1] == "shares"
             and namespaces.get(bottom[0]) == XBRLI[1:-1]
         ):
@@ -155,8 +160,7 @@ def instance_eps(body, cik, metadata, *, reviewed_revision=False):
         if (
             context is None
             or element.get("unitRef") not in units
-            or element.get("{http://www.w3.org/2001/XMLSchema-instance}nil")
-            in ("true", "1")
+            or element.get(XSI + "nil") in ("true", "1")
         ):
             continue
         value = Decimal((element.text or "").strip())

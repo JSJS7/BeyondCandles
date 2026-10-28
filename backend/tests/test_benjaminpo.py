@@ -69,7 +69,7 @@ class BenjaminpoTests(unittest.TestCase):
             "url": source.download_url("AAPL"),
         }
         self.manifest["sha256"] = source.files_digest(self.manifest["files"])
-        source.atomic_json(self.candidate, self.manifest)
+        source.write_json(self.candidate, self.manifest)
         return path
 
     def write_catalogue(self, rows=None):
@@ -156,7 +156,7 @@ class BenjaminpoTests(unittest.TestCase):
         active = self.root / "active.json"
         for change in ({"id": "kaggle-andrew-v1022"}, {"currency": "EUR"}):
             with self.subTest(change=change):
-                source.atomic_json(active, {**self.manifest, **change})
+                source.write_json(active, {**self.manifest, **change})
                 with patch.object(prices, "MANIFEST", active):
                     with self.assertRaises(ValueError):
                         prices.validate_prices()
@@ -275,7 +275,7 @@ class BenjaminpoTests(unittest.TestCase):
             }
         )
         evidence = self.root / "amd-quote.json"
-        source.atomic_json(
+        source.write_json(
             evidence, {"query_execution_status": "Success", "rows": [quote]}
         )
         document = self.root / "close-proof.pdf"
@@ -347,7 +347,7 @@ class BenjaminpoTests(unittest.TestCase):
                 else:
                     document = source.read_json(evidence)
                     document["rows"][0]["act_symbol"] = "AAPL"
-                    source.atomic_json(evidence, document)
+                    source.write_json(evidence, document)
                     review["evidence"][0]["sha256"] = sha256(evidence)
 
                 with self.assertRaises(ValueError):
@@ -408,7 +408,7 @@ class BenjaminpoTests(unittest.TestCase):
         """Correct evidence bytes still require matching source, company selection and anchor metadata."""
         self.write_history()
         policy = self.root / "rules.json"
-        source.atomic_json(
+        source.write_json(
             policy,
             {
                 "version": 1,
@@ -432,7 +432,7 @@ class BenjaminpoTests(unittest.TestCase):
         self.manifest["reviews"] = {
             "DHR": {"status": "needs_review", "note": "Unresolved spin-off"}
         }
-        source.atomic_json(self.candidate, self.manifest)
+        source.write_json(self.candidate, self.manifest)
         with patch.object(source, "load_company_rows", return_value={}):
             _, _, summary = source.prepare_prices()
             self.assertEqual(summary["status"], "needs_review")
@@ -453,7 +453,7 @@ class BenjaminpoTests(unittest.TestCase):
             "rules_file": policy.name,
             "rules_sha256": sha256(policy),
         }
-        source.atomic_json(self.candidate, self.manifest)
+        source.write_json(self.candidate, self.manifest)
 
         with patch.object(source, "load_company_rows", return_value={}):
             _, _, summary = source.prepare_prices()
@@ -506,7 +506,7 @@ class BenjaminpoTests(unittest.TestCase):
         )
         self.manifest["company_count"] = 2
         self.manifest["selection_sha256"] = sha256(self.selection)
-        source.atomic_json(self.candidate, self.manifest)
+        source.write_json(self.candidate, self.manifest)
         body = b"Datetime,Open,High,Low,Close,Adj Close,Volume\n"
         with patch.object(
             source, "download_file", side_effect=[body, OSError("Interrupted")]
@@ -524,7 +524,7 @@ class BenjaminpoTests(unittest.TestCase):
     def test_unpinned_version_is_rejected_before_network_access(self):
         """Changing manifest version cannot silently fetch a differently labelled source."""
         self.manifest["version"] = 82
-        source.atomic_json(self.candidate, self.manifest)
+        source.write_json(self.candidate, self.manifest)
         with patch.object(source, "download_file") as download:
             with self.assertRaisesRegex(ValueError, "version 81"):
                 source.fetch_prices()

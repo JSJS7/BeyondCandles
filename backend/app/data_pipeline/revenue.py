@@ -6,11 +6,11 @@ from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from decimal import Decimal
-from threading import Event, Lock
-from time import monotonic, sleep
+from threading import Lock
+from time import sleep
 
 from app.data_pipeline.sec import CACHE, CacheIntegrityError, SecAccessDenied
-from app.data_pipeline.sec_cache import cached, write_json
+from app.data_pipeline.sec_cache import RequestGate, cached
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
@@ -18,7 +18,13 @@ from app.data_pipeline.sec_statements import (
     normalized_label,
     statement_total,
 )
-from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
+from app.data_pipeline.source_files import (
+    ROOT,
+    SELECTION,
+    read_json,
+    sha256,
+    write_json,
+)
 from app.revenue import RULES_PATH, period_key, sum_reported_values
 
 from .revenue_facts import (
@@ -151,10 +157,8 @@ def download_evidence(
         )
         if extra_jobs is None:
             jobs.update(source for source, _, _ in review_jobs(facts))
-    gate = Lock()
+    gate = RequestGate("SEC statement downloads stopped after SEC denied access")
     checkpoint = Lock()
-    stopped = Event()
-    last_request = [0.0]
 
     def download(url, previous):
         if previous and previous["url"] == url:
@@ -163,22 +167,7 @@ def download_evidence(
                 return previous
             except (OSError, ValueError):
                 pass
-        with gate:
-            if stopped.is_set():
-                raise ValueError(
-                    "SEC statement downloads stopped after SEC denied access"
-                )
-            sleep(max(0, last_request[0] + 0.25 - monotonic()))
-            if stopped.is_set():
-                raise ValueError(
-                    "SEC statement downloads stopped after SEC denied access"
-                )
-            last_request[0] = monotonic()
-        try:
-            return cached(url, json_response=False)
-        except SecAccessDenied:
-            stopped.set()
-            raise
+        return gate.fetch(url)
 
     def download_filing(source):
         cik, accession = source
@@ -195,7 +184,7 @@ def download_evidence(
             for filename in files:
                 old[filename] = download(base + filename, old.get(filename))
         except (ValueError, ET.ParseError) as exc:
-            if stopped.is_set():
+            if gate.stopped.is_set():
                 raise
             old["download_issue"] = str(exc)
         with checkpoint:
@@ -225,7 +214,7 @@ def download_evidence(
                         flush=True,
                     )
         except Exception:
-            stopped.set()
+            gate.stopped.set()
             for future in futures:
                 future.cancel()
             raise

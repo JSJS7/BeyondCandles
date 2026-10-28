@@ -53,6 +53,14 @@ REVENUE_SOURCE_TAGS = {
     "0001404912": ("InvestmentAdvisoryFees",),
 }
 CACHE = ROOT / "data/raw/sec"
+# Annual periods ending in this window match the Benjaminpo price window.
+WINDOW_START = date(2015, 1, 1)
+WINDOW_END = date(2024, 12, 31)
+WINDOW_YEARS = range(WINDOW_START.year, WINDOW_END.year + 1)
+XBRLI = "{http://www.xbrl.org/2003/instance}"
+XBRLDI = "{http://xbrl.org/2006/xbrldi}"
+XSI = "{http://www.w3.org/2001/XMLSchema-instance}"
+ISO4217 = "http://www.xbrl.org/2003/iso4217"
 
 
 class SecAccessDenied(ValueError):
@@ -115,6 +123,19 @@ def cache_response(url, user_agent, json_response=True):
     return {"url": url, "sha256": digest, "file": path.name}
 
 
+def usd_unit_ids(root, namespaces):
+    """IDs of the instance units that are exactly iso4217:USD (not per share)."""
+    units = set()
+    for unit in root.findall(XBRLI + "unit"):
+        measures = unit.findall(XBRLI + "measure")
+        if len(unit) != 1 or len(measures) != 1:
+            continue
+        prefix, _, name = (measures[0].text or "").strip().partition(":")
+        if name == "USD" and namespaces.get(prefix) == ISO4217:
+            units.add(unit.attrib["id"])
+    return units
+
+
 def period_kind(start, end, instant=False):
     if instant:
         return "instant"
@@ -148,9 +169,9 @@ def extract_facts(body, metrics=None):
                     warnings.append(f"Skipped non-target unit {tag}: {unit}")
                     continue
                 for fact in items:
-                    if not "2015-01-01" <= fact["end"] <= "2024-12-31" or fact.get(
-                        "form"
-                    ) not in (
+                    if not str(WINDOW_START) <= fact["end"] <= str(
+                        WINDOW_END
+                    ) or fact.get("form") not in (
                         "10-K",
                         "10-K/A",
                         "10-Q",
@@ -270,7 +291,7 @@ def audit_sec():
                 "facts": len(selected),
                 "calendar_end_years": sorted(reported_years),
                 "missing_calendar_end_years": sorted(
-                    set(range(2015, 2025)) - reported_years
+                    set(WINDOW_YEARS) - reported_years
                 ),
                 "tags": sorted({fact["tag"] for fact in selected}),
                 "period_kinds": dict(Counter(fact["period_kind"] for fact in selected)),
@@ -328,10 +349,10 @@ def fact_key(fact):
 
 
 def import_sec():
-    from sqlalchemy import bindparam, select, text
+    from sqlalchemy import bindparam, select
     from sqlalchemy.dialects.postgresql import insert
 
-    from app.database import engine
+    from app.database import engine, lock_data_imports
     from app.models import Company, FinancialFact
 
     from .metric_history import rebuild_history
@@ -356,7 +377,7 @@ def import_sec():
         prepared[ticker] = (entry, facts, history)
     summary = {}
     with engine.begin() as connection:
-        connection.execute(text("SELECT pg_advisory_xact_lock(204812, 1)"))
+        lock_data_imports(connection)
         for ticker, (entry, facts, history) in prepared.items():
             company = (
                 connection.execute(

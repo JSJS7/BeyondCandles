@@ -6,9 +6,9 @@ from datetime import date, datetime, timezone
 from decimal import Decimal
 from itertools import pairwise
 
-from app.data_pipeline.sec import CACHE, extract_facts
-from app.data_pipeline.sec_cache import cached, write_json
-from app.data_pipeline.source_files import ROOT, read_json
+from app.data_pipeline.sec import CACHE, WINDOW_YEARS, extract_facts
+from app.data_pipeline.sec_cache import cached
+from app.data_pipeline.source_files import ROOT, read_json, write_json
 
 HISTORY_INDEX = CACHE / "history-index.json"
 RULE_FIELDS = ("filed_from", "filed_to", "period_end_from", "period_end_to")
@@ -201,7 +201,7 @@ def audit_history():
         fiscal_years = {
             period.fiscal_year for period in periods if period.fiscal_year is not None
         }
-        missing = None if unverified else sorted(set(range(2015, 2025)) - fiscal_years)
+        missing = None if unverified else sorted(set(WINDOW_YEARS) - fiscal_years)
         chronological = sorted(periods, key=lambda period: period.period_end)
         overlaps = []
         for earlier, later in pairwise(chronological):
