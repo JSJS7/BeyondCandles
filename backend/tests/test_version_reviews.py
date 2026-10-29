@@ -157,6 +157,29 @@ class SupportingFactTests(unittest.TestCase):
         self.assertTrue(attached["history_eligible"])
 
 
+class AlternativeEquityJobTests(unittest.TestCase):
+    def test_missing_statements_and_instance_of_the_filing_are_requested(self):
+        """As review-equity escalates: an unresolved version filed soon after the year
+        end has only its balance sheet cached; its equity statement and instance are
+        requested, while a filing with everything cached needs no download."""
+        partial = SimpleNamespace(source="0000702165:0000702165-17-000018")
+        complete = SimpleNamespace(source="0000702165:0000702165-18-000011")
+        evidence = {
+            partial.source: {"balance_files": ["R4.htm"]},
+            complete.source: {
+                "balance_files": ["R4.htm"],
+                "equity_files": ["R7.htm"],
+                "instance": {"url": "https://www.sec.gov/nsc.xml"},
+            },
+        }
+
+        jobs = version_reviews.alternative_equity_jobs([partial, complete], evidence)
+
+        self.assertEqual(
+            jobs, {(partial.source, "equity"), (partial.source, "instance")}
+        )
+
+
 class ReviewedCashFlowScopeTests(unittest.TestCase):
     """Reviewed filings whose cash-flow statement shows only a continuing subtotal."""
 

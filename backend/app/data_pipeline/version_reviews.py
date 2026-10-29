@@ -739,6 +739,38 @@ def fetch_evidence(tasks, issuers, history, indexes):
             write_json(EPS_EVIDENCE, indexes["eps"])
 
 
+def alternative_equity_jobs(tasks, evidence):
+    """As review-equity escalates: the filing's other face statements and its instance.
+
+    A version filed soon after the year end is first reviewed on the balance sheet;
+    when that cannot separate parent from group equity, the same filing's statement
+    of changes in equity or its original XBRL instance may.
+    """
+    jobs = set()
+    for task in tasks:
+        entry = evidence.get(task.source, {})
+        for kind in ("balance", "equity"):
+            if kind + "_files" not in entry:
+                jobs.add((task.source, kind))
+        if "instance" not in entry:
+            jobs.add((task.source, "instance"))
+    return jobs
+
+
+def review_task(task, evidence_for):
+    """Return (review, None) for an approved version, or (None, reason)."""
+    try:
+        if not task.cell_facts and task.metric != "eps_diluted":
+            raise ValueError("The filing has no stored fact for this cell")
+        if task.cik is None:
+            raise ValueError("The filing has no single issuer for this cell")
+        return review_with_statement_end(task, evidence_for[task.metric]), None
+    except (SecAccessDenied, CacheIntegrityError):
+        raise
+    except (ValueError, KeyError, ET.ParseError) as exc:
+        return None, str(exc)
+
+
 def review_versions(fetch=False):
     """Review every unchecked version and publish data/version-reviews.json."""
     tasks, issuers, history = pending_tasks()
@@ -752,6 +784,24 @@ def review_versions(fetch=False):
         "operating_cash_flow": indexes["cash_flow"],
         "equity": indexes["equity"],
     }
+    outcomes = {task.key: review_task(task, evidence_for) for task in tasks}
+    if fetch:
+        unresolved_equity = [
+            task
+            for task in tasks
+            if task.metric == "equity"
+            and task.cik is not None
+            and outcomes[task.key][0] is None
+        ]
+        jobs = alternative_equity_jobs(unresolved_equity, indexes["equity"])
+        if jobs:
+            equity_review.cache_evidence(jobs, indexes["equity"])
+            # New evidence of a filing serves all its versions, so the result does
+            # not depend on whether it was downloaded in this run or an earlier one.
+            refreshed = {source for source, _ in jobs}
+            for task in tasks:
+                if task.metric == "equity" and task.source in refreshed:
+                    outcomes[task.key] = review_task(task, evidence_for)
     policy = {
         "version": 1,
         "selection_sha256": sha256(SELECTION),
@@ -761,18 +811,11 @@ def review_versions(fetch=False):
     }
     counts = Counter()
     for task in tasks:
-        try:
-            if not task.cell_facts and task.metric != "eps_diluted":
-                raise ValueError("The filing has no stored fact for this cell")
-            if task.cik is None:
-                raise ValueError("The filing has no single issuer for this cell")
-            review = review_with_statement_end(task, evidence_for[task.metric])
-        except (SecAccessDenied, CacheIntegrityError):
-            raise
-        except (ValueError, KeyError, ET.ParseError) as exc:
+        review, reason = outcomes[task.key]
+        if review is None:
             policy["unresolved"][task.key] = {
                 "filed": str(task.filed),
-                "reason": str(exc),
+                "reason": reason,
             }
             counts[task.metric + ":unresolved"] += 1
             continue
