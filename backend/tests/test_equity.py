@@ -342,6 +342,34 @@ class EquityStatementTests(unittest.TestCase):
             closed_parent_accounts(columns, ["", "1000", "100", "900"], 1, 1)
         )
 
+    def test_parent_accounts_add_up_within_displayed_rounding(self):
+        """Boston Scientific's 2021 statement in millions: the accounts add up to 16,623
+        against a total of 16,622, which six rounded amounts can explain (at most 3);
+        a residual larger than rounding still rejects the closure."""
+        from app.data_pipeline.equity import closed_parent_accounts
+
+        columns = [
+            "Statement",
+            "Total",
+            "Common Stock [Member]",
+            "Treasury Stock [Member]",
+            "Additional Paid-in Capital [Member]",
+            "Retained Earnings [Member]",
+            "Accumulated Other Comprehensive Income (Loss) [Member]",
+        ]
+        millions = Decimal(1000000)
+        accounts = ["17", "(2,251)", "19,986", "(1,392)", "263"]
+
+        controls = closed_parent_accounts(
+            columns, ["", "16,622", *accounts], 1, millions
+        )
+        too_far = closed_parent_accounts(
+            columns, ["", "16,619", *accounts], 1, millions
+        )
+
+        self.assertIsNotNone(controls)
+        self.assertIsNone(too_far)
+
     def test_date_only_header_keeps_the_row_label_offset(self):
         """A separate date-header row must not shift a 2020 balance into the 2019 column."""
         html = '<table class="report"><tr><th>USD ($) $ in Millions</th><th colspan="2">Balances</th></tr><tr><th>Dec. 31, 2020</th><th>Dec. 31, 2019</th></tr>'

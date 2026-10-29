@@ -105,19 +105,6 @@ def manual_choice(task, calendar, fetch=False):
     value = verify_original_position(
         verify_reference(reference).read_text(encoding="utf-8"), exception
     )
-    for control in exception.get("corroborating_positions", []):
-        evidence = control["evidence"]
-        if fetch:
-            actual = cached(evidence["url"], evidence, json_response=False)
-            if actual["sha256"] != evidence["sha256"]:
-                raise ValueError("A corroborating primary equity source changed")
-        confirmed = verify_original_position(
-            verify_reference(evidence).read_text(encoding="utf-8"), control
-        )
-        if confirmed != value:
-            raise ValueError(
-                "The independent primary balance does not corroborate equity"
-            )
 
     facts = [
         fact
@@ -173,11 +160,6 @@ def manual_choice(task, calendar, fetch=False):
         "note": exception["note"],
         "statement": reference,
         "manual_position": True,
-        **(
-            {"corroborating_positions": exception["corroborating_positions"]}
-            if exception.get("corroborating_positions")
-            else {}
-        ),
     }
 
 

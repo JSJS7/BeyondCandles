@@ -9052,7 +9052,19 @@
         "accession": "0000731766-22-000008",
         "form": "10-K"
       },
-      "scope_controls": [],
+      "scope_controls": [
+        [
+          {
+            "column": "Noncontrolling Interest",
+            "value": "2623000000",
+            "statement": {
+              "url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/R7.htm",
+              "sha256": "f1e6a7e5d7c796d6bafab7bb98774cd30fe2e79a1cfa299d4e5a440a2efa01c0",
+              "file": "f1e6a7e5d7c796d6bafab7bb98774cd30fe2e79a1cfa299d4e5a440a2efa01c0.htm"
+            }
+          }
+        ]
+      ],
       "observed_sha256": "622a1384b6506043dc0e17fe532c03b0613586b55787cbc36a455031ec635af7",
       "value": "51696000000",
       "filed": "2022-02-15",
@@ -9085,9 +9097,9 @@
             "filed": "2022-02-15",
             "accession": "0000731766-22-000008",
             "form": "10-K",
-            "statement_url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/R7.htm",
-            "statement_label": "Balance at Dec. 31, 2018",
-            "statement_column": "Noncontrolling Interest"
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/unh-20211231_htm.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2018-12-31; consolidated instant context i3bca26759d4145299e751f4f22f5f1fd_I20181231; NoncontrollingInterestMember"
           },
           "coefficient": -1,
           "statement_position": true
@@ -9101,9 +9113,9 @@
         "file": "8cc9f2e5f1d61f74ef10b63dbc42f7406a7e6fcc24ca502f4ba79182e73cc60f.htm"
       },
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/R7.htm",
-        "sha256": "f1e6a7e5d7c796d6bafab7bb98774cd30fe2e79a1cfa299d4e5a440a2efa01c0",
-        "file": "f1e6a7e5d7c796d6bafab7bb98774cd30fe2e79a1cfa299d4e5a440a2efa01c0.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/unh-20211231_htm.xml",
+        "sha256": "4d4a9f24172a278591e1e2d6de830c6af36bb55dc81ba40be933b285f8762a83",
+        "file": "4d4a9f24172a278591e1e2d6de830c6af36bb55dc81ba40be933b285f8762a83.htm"
       }
     },
     "0000731766:2017-12-31": {
@@ -41724,20 +41736,48 @@
       }
     },
     "0000885725:2020-12-31": {
-      "observed_sha256": "38e0cbaf65066ea1e0c815017e4ebcaa4a226dee34f749b770c166732e1489d1",
-      "value": "15326000000",
       "anchor": {
         "source_cik": "0000885725",
         "taxonomy": "us-gaap",
-        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
         "unit": "USD",
-        "value": "9913000000",
-        "period_start": "2020-01-01",
+        "value": "15326000000",
+        "period_start": "2020-12-31",
         "period_end": "2020-12-31",
         "filed": "2023-02-23",
         "accession": "0000885725-23-000008",
         "form": "10-K"
       },
+      "scope_controls": [
+        [
+          {
+            "column": "Preferred Stock [Member]",
+            "value": "0"
+          },
+          {
+            "column": "Common Stock [Member]",
+            "value": "17000000"
+          },
+          {
+            "column": "Treasury Stock [Member]",
+            "value": "-2251000000"
+          },
+          {
+            "column": "Additional Paid-in Capital [Member]",
+            "value": "19732000000"
+          },
+          {
+            "column": "Retained Earnings [Member]",
+            "value": "-2378000000"
+          },
+          {
+            "column": "Accumulated Other Comprehensive Income (Loss) [Member]",
+            "value": "207000000"
+          }
+        ]
+      ],
+      "observed_sha256": "38e0cbaf65066ea1e0c815017e4ebcaa4a226dee34f749b770c166732e1489d1",
+      "value": "15326000000",
       "filed": "2023-02-23",
       "accession": "0000885725-23-000008",
       "components": [
@@ -41754,43 +41794,25 @@
             "accession": "0000885725-23-000008",
             "form": "10-K",
             "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
-            "statement_label": "stockholders equity including portion attributable to noncontrolling interest at dec",
-            "statement_column": "FY2020 (reviewed primary table)"
+            "statement_label": "Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest at Dec. 31, 2020",
+            "statement_column": "Total"
           },
           "coefficient": 1,
           "statement_position": true
         }
       ],
       "calculation": null,
-      "note": "The complete primary equity statement identifies parent capital accounts only; the original annual balance sheet independently reports the same total stockholders equity. Displayed component sums differ by one million at the reported million-dollar precision. Preserve the reported total, do not recompute it or infer an NCI balance from the rounding residual.",
+      "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/FilingSummary.xml",
+        "sha256": "8979aafd1cc0cd0a6a326967ab0a606c132ce1dc21c915d123bfc8608b9e2e69",
+        "file": "8979aafd1cc0cd0a6a326967ab0a606c132ce1dc21c915d123bfc8608b9e2e69.htm"
+      },
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
         "sha256": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c",
         "file": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c.htm"
-      },
-      "manual_position": true,
-      "corroborating_positions": [
-        {
-          "evidence": {
-            "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572521000008/R4.htm",
-            "sha256": "f9b35cdd6d29b5cebed061c48020d959ed0608f7def7323485f9952e3c271545",
-            "file": "f9b35cdd6d29b5cebed061c48020d959ed0608f7def7323485f9952e3c271545.htm"
-          },
-          "row_label": "total stockholders equity",
-          "row_numbers": [
-            "15326",
-            "13877"
-          ],
-          "value_column": 0,
-          "scale": "1000000",
-          "value": "15326000000",
-          "header_terms": [
-            "Consolidated Balance Sheets",
-            "Millions",
-            "Dec. 31, 2020"
-          ]
-        }
-      ]
+      }
     },
     "0000885725:2019-12-31": {
       "anchor": {
@@ -41808,28 +41830,28 @@
       "scope_controls": [
         [
           {
-            "column": "Preferred Stock [Member]",
-            "value": "0"
+            "column": "AccumulatedOtherComprehensiveIncomeMember",
+            "value": "270000000"
           },
           {
-            "column": "Common Stock [Member]",
-            "value": "16000000"
-          },
-          {
-            "column": "Treasury Stock [Member]",
-            "value": "-1717000000"
-          },
-          {
-            "column": "Additional Paid-in Capital [Member]",
+            "column": "AdditionalPaidInCapitalMember",
             "value": "17561000000"
           },
           {
-            "column": "Retained Earnings [Member]",
+            "column": "CommonStockMember",
+            "value": "16000000"
+          },
+          {
+            "column": "PreferredStockMember",
+            "value": "0"
+          },
+          {
+            "column": "RetainedEarningsMember",
             "value": "-2253000000"
           },
           {
-            "column": "Accumulated Other Comprehensive Income (Loss) [Member]",
-            "value": "270000000"
+            "column": "TreasuryStockMember",
+            "value": "-1717000000"
           }
         ]
       ],
@@ -41850,9 +41872,9 @@
             "filed": "2022-02-23",
             "accession": "0000885725-22-000006",
             "form": "10-K",
-            "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/R7.htm",
-            "statement_label": "Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest at Dec. 31, 2019",
-            "statement_column": "Total"
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/bsx-20211231_htm.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2019-12-31; consolidated instant context icea25cb690174465b8215ce1c263a42a_I20191231"
           },
           "coefficient": 1,
           "statement_position": true
@@ -41866,26 +41888,50 @@
         "file": "46529c547ae9017065e777c46f5a95a7d1fb337ba3e61d4f35a25afb25ee852a.htm"
       },
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/R7.htm",
-        "sha256": "cb76166a8726c0e4b82bc1bcee4c98b5c82ed91ea5e4479239edda16f1092bc1",
-        "file": "cb76166a8726c0e4b82bc1bcee4c98b5c82ed91ea5e4479239edda16f1092bc1.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/bsx-20211231_htm.xml",
+        "sha256": "859599699d631fb2677144be60f116ee7f8689ccde193421aa9dadf8f6eb7935",
+        "file": "859599699d631fb2677144be60f116ee7f8689ccde193421aa9dadf8f6eb7935.htm"
       }
     },
     "0000885725:2018-12-31": {
-      "observed_sha256": "9084f946f64690529662310e842a29d0c3f0d3c1a39e6a3065850a1892ea56a6",
-      "value": "8726000000",
       "anchor": {
         "source_cik": "0000885725",
         "taxonomy": "us-gaap",
-        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
         "unit": "USD",
-        "value": "9823000000",
-        "period_start": "2018-01-01",
+        "value": "8726000000",
+        "period_start": "2018-12-31",
         "period_end": "2018-12-31",
         "filed": "2020-02-25",
         "accession": "0000885725-20-000012",
         "form": "10-K"
       },
+      "scope_controls": [
+        [
+          {
+            "column": "Common Stock [Member]",
+            "value": "16000000"
+          },
+          {
+            "column": "Treasury Stock [Member]",
+            "value": "-1717000000"
+          },
+          {
+            "column": "Additional Paid-in Capital [Member]",
+            "value": "17346000000"
+          },
+          {
+            "column": "Retained Earnings [Member]",
+            "value": "-6953000000"
+          },
+          {
+            "column": "Accumulated Other Comprehensive Income (Loss) [Member]",
+            "value": "33000000"
+          }
+        ]
+      ],
+      "observed_sha256": "9084f946f64690529662310e842a29d0c3f0d3c1a39e6a3065850a1892ea56a6",
+      "value": "8726000000",
       "filed": "2020-02-25",
       "accession": "0000885725-20-000012",
       "components": [
@@ -41902,59 +41948,65 @@
             "accession": "0000885725-20-000012",
             "form": "10-K",
             "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572520000012/R6.htm",
-            "statement_label": "balance at dec",
-            "statement_column": "FY2018 (reviewed primary table)"
+            "statement_label": "Balance at Dec. 31, 2018",
+            "statement_column": "Total"
           },
           "coefficient": 1,
           "statement_position": true
         }
       ],
       "calculation": null,
-      "note": "The complete primary equity statement identifies parent capital accounts only; the original annual balance sheet independently reports the same total stockholders equity. Displayed component sums differ by one million at the reported million-dollar precision. Preserve the reported total, do not recompute it or infer an NCI balance from the rounding residual.",
+      "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572520000012/FilingSummary.xml",
+        "sha256": "96be85b59c4e5470960ee841b98b03475574bf5109f5c38a65ee2c9e960963ee",
+        "file": "96be85b59c4e5470960ee841b98b03475574bf5109f5c38a65ee2c9e960963ee.htm"
+      },
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572520000012/R6.htm",
         "sha256": "c368fc3e356aeeadaf0df4b060dc1358597a2c93bcd0fde9876885bad5eda3a9",
         "file": "c368fc3e356aeeadaf0df4b060dc1358597a2c93bcd0fde9876885bad5eda3a9.htm"
-      },
-      "manual_position": true,
-      "corroborating_positions": [
-        {
-          "evidence": {
-            "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572519000011/R4.htm",
-            "sha256": "4dc625088e167d1e9680c6f9c478964fdd1540372280d77067e4e27f8ade4258",
-            "file": "4dc625088e167d1e9680c6f9c478964fdd1540372280d77067e4e27f8ade4258.htm"
-          },
-          "row_label": "total stockholders equity",
-          "row_numbers": [
-            "8726",
-            "7012"
-          ],
-          "value_column": 0,
-          "scale": "1000000",
-          "value": "8726000000",
-          "header_terms": [
-            "Consolidated Balance Sheets",
-            "Millions",
-            "Dec. 31, 2018"
-          ]
-        }
-      ]
+      }
     },
     "0000885725:2017-12-31": {
-      "observed_sha256": "4ff94d62ef7a22aaab16c9fa4a593a9561ec5fa7f4f27df1c96132584c775e6d",
-      "value": "7012000000",
       "anchor": {
         "source_cik": "0000885725",
         "taxonomy": "us-gaap",
-        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
         "unit": "USD",
-        "value": "9048000000",
-        "period_start": "2017-01-01",
+        "value": "7012000000",
+        "period_start": "2017-12-31",
         "period_end": "2017-12-31",
         "filed": "2019-02-19",
         "accession": "0000885725-19-000011",
         "form": "10-K"
       },
+      "scope_controls": [
+        [
+          {
+            "column": "Common Stock [Member]",
+            "value": "16000000"
+          },
+          {
+            "column": "Treasury Stock [Member]",
+            "value": "-1717000000"
+          },
+          {
+            "column": "Additional Paid-in Capital [Member]",
+            "value": "17161000000"
+          },
+          {
+            "column": "Retained Earnings [Member]",
+            "value": "-8390000000"
+          },
+          {
+            "column": "Accumulated Other Comprehensive Income (Loss) [Member]",
+            "value": "-59000000"
+          }
+        ]
+      ],
+      "observed_sha256": "4ff94d62ef7a22aaab16c9fa4a593a9561ec5fa7f4f27df1c96132584c775e6d",
+      "value": "7012000000",
       "filed": "2019-02-19",
       "accession": "0000885725-19-000011",
       "components": [
@@ -41971,43 +42023,25 @@
             "accession": "0000885725-19-000011",
             "form": "10-K",
             "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572519000011/R6.htm",
-            "statement_label": "balance at dec",
-            "statement_column": "FY2017 (reviewed primary table)"
+            "statement_label": "Balance at Dec. 31, 2017",
+            "statement_column": "Total"
           },
           "coefficient": 1,
           "statement_position": true
         }
       ],
       "calculation": null,
-      "note": "The complete primary equity statement identifies parent capital accounts only; the original annual balance sheet independently reports the same total stockholders equity. Displayed component sums differ by one million at the reported million-dollar precision. Preserve the reported total, do not recompute it or infer an NCI balance from the rounding residual.",
+      "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572519000011/FilingSummary.xml",
+        "sha256": "d78f7ce28c7144281c71d1de401fb5f08bbdc846bdd64a68a0907ea9c0cd1653",
+        "file": "d78f7ce28c7144281c71d1de401fb5f08bbdc846bdd64a68a0907ea9c0cd1653.htm"
+      },
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572519000011/R6.htm",
         "sha256": "92f583838dbad37644682de975f0cc5c0e4e94db9b41fec590f802faca0de240",
         "file": "92f583838dbad37644682de975f0cc5c0e4e94db9b41fec590f802faca0de240.htm"
-      },
-      "manual_position": true,
-      "corroborating_positions": [
-        {
-          "evidence": {
-            "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572518000010/R4.htm",
-            "sha256": "5cf284b3627e3ae9d0f842330097af5fd6aea3ea7867a4c8cb1ad2c0ef88402d",
-            "file": "5cf284b3627e3ae9d0f842330097af5fd6aea3ea7867a4c8cb1ad2c0ef88402d.htm"
-          },
-          "row_label": "total stockholders equity",
-          "row_numbers": [
-            "7012",
-            "6733"
-          ],
-          "value_column": 0,
-          "scale": "1000000",
-          "value": "7012000000",
-          "header_terms": [
-            "Consolidated Balance Sheets",
-            "Millions",
-            "Dec. 31, 2017"
-          ]
-        }
-      ]
+      }
     },
     "0000885725:2016-12-31": {
       "anchor": {
@@ -96975,9 +97009,9 @@
         "file": "609858676ce33dc4eec4ac7f68c3be93ee92573db22a8c789f5a26ba2efc403c.htm"
       },
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/820027/000082002720000010/R6.htm",
-        "sha256": "2350c116dddf83314f2ccb5641d5c1d75cc6be535892ede9800895eaacbc23e7",
-        "file": "2350c116dddf83314f2ccb5641d5c1d75cc6be535892ede9800895eaacbc23e7.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/820027/000082002720000010/amp12312019_htm.xml",
+        "sha256": "41556242e9a34d6257de28e21681f169d1f5c256e6ebd5c055aac25464d948e0",
+        "file": "41556242e9a34d6257de28e21681f169d1f5c256e6ebd5c055aac25464d948e0.htm"
       }
     },
     "0000820027:2015-12-31": {
@@ -109949,38 +109983,19 @@
           "fact": {
             "source_cik": "0001140859",
             "taxonomy": "us-gaap",
-            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "tag": "StockholdersEquity",
             "unit": "USD",
             "value": "2064461000",
             "period_start": "2017-09-30",
             "period_end": "2017-09-30",
-            "filed": "2020-11-19",
-            "accession": "0001140859-20-000050",
+            "filed": "2018-11-20",
+            "accession": "0001140859-18-000053",
             "form": "10-K"
           },
           "coefficient": 1
-        },
-        {
-          "fact": {
-            "source_cik": "0001140859",
-            "taxonomy": "us-gaap",
-            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
-            "unit": "USD",
-            "value": "0",
-            "period_start": "2017-09-30",
-            "period_end": "2017-09-30",
-            "filed": "2020-11-19",
-            "accession": "0001140859-20-000050",
-            "form": "10-K",
-            "statement_url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/R6.htm",
-            "statement_label": "Balance, beginning of period at Sep. 30, 2017",
-            "statement_column": "Non-controlling Interest"
-          },
-          "coefficient": -1,
-          "statement_position": true
         }
       ],
-      "calculation": "Group equity - noncontrolling interests",
+      "calculation": null,
       "note": "Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "summary": {
         "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/FilingSummary.xml",
@@ -109988,9 +110003,9 @@
         "file": "89b747cee97a302804f8603cbac863bf41cabaed272779da242b8a69a745d40d.htm"
       },
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/R6.htm",
-        "sha256": "56c6a99ca8c169edb7be490ba24060c89f2cea56a0cd67da9caf8672a51ad579",
-        "file": "56c6a99ca8c169edb7be490ba24060c89f2cea56a0cd67da9caf8672a51ad579.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/abc-20200930_htm.xml",
+        "sha256": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea",
+        "file": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea.htm"
       }
     },
     "0001140859:2016-09-30": {

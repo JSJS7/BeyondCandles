@@ -250,7 +250,12 @@ PARENT_ACCOUNTS = {
 
 
 def closed_parent_accounts(columns, values, total_column, scale):
-    """Prove a total equals disjoint parent accounts; an absent NCI is never filled with zero."""
+    """Prove a total equals disjoint parent accounts; an absent NCI is never filled with zero.
+
+    Every displayed amount is rounded to the statement's unit, so the accounts may add
+    up to the total only within half a unit per rounded amount (the accounts and the
+    total). Every column must still be a recognized parent account.
+    """
     roles = set()
     controls = []
     for column, title in enumerate(columns):
@@ -274,10 +279,11 @@ def closed_parent_accounts(columns, values, total_column, scale):
         roles.update(account_roles)
         controls.append({"column": title, "value": format(amount, "f")})
     total = numeric(values[total_column], scale)
-    if (
-        len(roles) < 2
-        or sum((Decimal(item["value"]) for item in controls), Decimal(0)) != total
-    ):
+    if len(roles) < 2 or total is None:
+        return None
+    accounts = sum((Decimal(item["value"]) for item in controls), Decimal(0))
+    rounding_tolerance = Decimal(scale) / 2 * (len(controls) + 1)
+    if abs(accounts - total) > rounding_tolerance:
         return None
     return controls
 

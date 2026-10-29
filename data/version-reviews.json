@@ -9620,6 +9620,36 @@
         "file": "8c194905bd6bfed8efed51a4fc3ace26b71f28ac55be44c5aa85bdec72fa36a5.htm"
       }
     },
+    "AMP:equity:2016-01-01:2016-12-31:0000820027-18-000008": {
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "value": "6292000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000820027",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "6292000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0000820027-17-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/820027/000082002718000008/amp-20171231.xml",
+        "sha256": "46bd60b26767e03963bd60ba439e84aebd755f3b95c4ef24b82d7e6c573e0d2a",
+        "file": "46bd60b26767e03963bd60ba439e84aebd755f3b95c4ef24b82d7e6c573e0d2a.htm"
+      }
+    },
     "AMP:equity:2016-01-01:2016-12-31:0000820027-19-000010": {
       "filed": "2019-02-27",
       "form": "10-K",
@@ -9654,6 +9684,55 @@
         "file": "fd3ee62a47df2374a3aeeb546a11c2a197bb223dc33e76a0b1bbf7acf721cdce.htm"
       }
     },
+    "AMP:equity:2017-01-01:2017-12-31:0000820027-18-000008": {
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "value": "5998000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000820027",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "5998000000",
+            "period_start": "2017-12-31",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-23",
+            "accession": "0000820027-18-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000820027",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2017-12-31",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-23",
+            "accession": "0000820027-18-000008",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/820027/000082002718000008/amp-20171231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2017-12-31; consolidated instant context FI2017Q4_us-gaap_StatementEquityComponentsAxis_us-gaap_NoncontrollingInterestMember; NoncontrollingInterestMember"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group equity - noncontrolling interests",
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/820027/000082002718000008/amp-20171231.xml",
+        "sha256": "46bd60b26767e03963bd60ba439e84aebd755f3b95c4ef24b82d7e6c573e0d2a",
+        "file": "46bd60b26767e03963bd60ba439e84aebd755f3b95c4ef24b82d7e6c573e0d2a.htm"
+      }
+    },
     "AMP:equity:2018-01-01:2018-12-31:0000820027-19-000010": {
       "filed": "2019-02-27",
       "form": "10-K",
@@ -9686,6 +9765,36 @@
         "url": "https://www.sec.gov/Archives/edgar/data/820027/000082002719000010/R6.htm",
         "sha256": "fd3ee62a47df2374a3aeeb546a11c2a197bb223dc33e76a0b1bbf7acf721cdce",
         "file": "fd3ee62a47df2374a3aeeb546a11c2a197bb223dc33e76a0b1bbf7acf721cdce.htm"
+      }
+    },
+    "AMP:equity:2019-01-01:2019-12-31:0000820027-20-000010": {
+      "filed": "2020-02-26",
+      "form": "10-K",
+      "value": "5729000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000820027",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "5729000000",
+            "period_start": "2019-12-31",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-26",
+            "accession": "0000820027-20-000010",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/820027/000082002720000010/amp12312019_htm.xml",
+        "sha256": "41556242e9a34d6257de28e21681f169d1f5c256e6ebd5c055aac25464d948e0",
+        "file": "41556242e9a34d6257de28e21681f169d1f5c256e6ebd5c055aac25464d948e0.htm"
       }
     },
     "AMP:equity:2019-01-01:2019-12-31:0000820027-21-000012": {
@@ -24634,6 +24743,108 @@
         "file": "5c88fcf5059be689b414b59bb397821f669b3badbfe84eb9c034e3d651b8fb98.htm"
       }
     },
+    "BSX:equity:2021-01-01:2021-12-31:0000885725-22-000006": {
+      "filed": "2022-02-23",
+      "form": "10-K",
+      "value": "16622000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000885725",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "16622000000",
+            "period_start": "2021-12-31",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-23",
+            "accession": "0000885725-22-000006",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/R7.htm",
+            "statement_label": "Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest at Dec. 31, 2021",
+            "statement_column": "Total"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/R7.htm",
+        "sha256": "cb76166a8726c0e4b82bc1bcee4c98b5c82ed91ea5e4479239edda16f1092bc1",
+        "file": "cb76166a8726c0e4b82bc1bcee4c98b5c82ed91ea5e4479239edda16f1092bc1.htm"
+      }
+    },
+    "BSX:equity:2021-01-01:2021-12-31:0000885725-23-000008": {
+      "filed": "2023-02-23",
+      "form": "10-K",
+      "value": "16622000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000885725",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "16622000000",
+            "period_start": "2021-12-31",
+            "period_end": "2021-12-31",
+            "filed": "2023-02-23",
+            "accession": "0000885725-23-000008",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
+            "statement_label": "Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest at Dec. 31, 2021",
+            "statement_column": "Total"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
+        "sha256": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c",
+        "file": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c.htm"
+      }
+    },
+    "BSX:equity:2022-01-01:2022-12-31:0000885725-23-000008": {
+      "filed": "2023-02-23",
+      "form": "10-K",
+      "value": "17573000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000885725",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "17573000000",
+            "period_start": "2022-12-31",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-23",
+            "accession": "0000885725-23-000008",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
+            "statement_label": "Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest at Dec. 31, 2022",
+            "statement_column": "Total"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/R7.htm",
+        "sha256": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c",
+        "file": "324baf9d4047a0e71aad8539cb588a4b47c0d8adf2fffe3b61b0538c02338a9c.htm"
+      }
+    },
     "BSX:net_income:2021-01-01:2021-12-31:0000885725-22-000006": {
       "filed": "2022-02-23",
       "form": "10-K",
@@ -27592,6 +27803,40 @@
         "file": "6f50ac4ffbbeb9c9ba362e1fa47b304bdcb54885931041cc446542b9a3f2864d.htm"
       }
     },
+    "CB:equity:2015-01-01:2015-12-31:0000896159-16-000027": {
+      "filed": "2016-02-26",
+      "form": "10-K",
+      "value": "29135000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000896159",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "29135000000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-26",
+            "accession": "0000896159-16-000027",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/896159/000089615916000027/cb-20151231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2015-12-31; consolidated instant context FI2015Q4"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/896159/000089615916000027/cb-20151231.xml",
+        "sha256": "41e253442dfb97b016d6b104db4b9e753581d9b9b84486f0fe626f9d56975da0",
+        "file": "41e253442dfb97b016d6b104db4b9e753581d9b9b84486f0fe626f9d56975da0.htm"
+      }
+    },
     "CB:equity:2021-01-01:2021-12-31:0000896159-22-000005": {
       "filed": "2022-02-24",
       "form": "10-K",
@@ -28204,6 +28449,40 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166716000396/R4.htm",
         "sha256": "68173fdb84cc0ebcf932f1f6cfef5a89a1b00047ee2981472350d6703679fc68",
         "file": "68173fdb84cc0ebcf932f1f6cfef5a89a1b00047ee2981472350d6703679fc68.htm"
+      }
+    },
+    "CHTR:equity:2015-01-01:2015-12-31:0001091667-16-000396": {
+      "filed": "2016-02-10",
+      "form": "10-K",
+      "value": "-46000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001091667",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-46000000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-10",
+            "accession": "0001091667-16-000396",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166716000396/chtr-20151231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2015-12-31; consolidated instant context FI2015Q4"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166716000396/chtr-20151231.xml",
+        "sha256": "9fc295773efed811991929306be5ab8a77d36c2ddc2d467c6f82cdd5143c60b1",
+        "file": "9fc295773efed811991929306be5ab8a77d36c2ddc2d467c6f82cdd5143c60b1.htm"
       }
     },
     "CI:eps_diluted:2021-01-01:2021-12-31:0001739940-22-000007": {
@@ -32553,115 +32832,6 @@
         "file": "6a0e0fa24dc8e94bbd76241bce9e40aaa8abf64394f04c0abc69e8bf89da6b51.htm"
       }
     },
-    "COR:equity:2016-10-01:2017-09-30:0001140859-17-000047": {
-      "filed": "2017-11-21",
-      "form": "10-K",
-      "value": "2064461000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001140859",
-            "taxonomy": "us-gaap",
-            "tag": "StockholdersEquity",
-            "unit": "USD",
-            "value": "2064461000",
-            "period_start": "2017-09-30",
-            "period_end": "2017-09-30",
-            "filed": "2017-11-21",
-            "accession": "0001140859-17-000047",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "StockholdersEquity",
-      "calculation": null,
-      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085917000047/R2.htm",
-        "sha256": "cd4703c4ec7f6a6ed4b57892aed4ed7f837343c14ab9e0e40aae04ef50f108a5",
-        "file": "cd4703c4ec7f6a6ed4b57892aed4ed7f837343c14ab9e0e40aae04ef50f108a5.htm"
-      }
-    },
-    "COR:equity:2016-10-01:2017-09-30:0001140859-18-000053": {
-      "filed": "2018-11-20",
-      "form": "10-K",
-      "value": "2064461000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001140859",
-            "taxonomy": "us-gaap",
-            "tag": "StockholdersEquity",
-            "unit": "USD",
-            "value": "2064461000",
-            "period_start": "2017-09-30",
-            "period_end": "2017-09-30",
-            "filed": "2018-11-20",
-            "accession": "0001140859-18-000053",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "StockholdersEquity",
-      "calculation": null,
-      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085918000053/R2.htm",
-        "sha256": "a62b6f00c12d109f55d68d1e0fb0d1885a15c52bd7b18011e2efed64ed80b87b",
-        "file": "a62b6f00c12d109f55d68d1e0fb0d1885a15c52bd7b18011e2efed64ed80b87b.htm"
-      }
-    },
-    "COR:equity:2016-10-01:2017-09-30:0001140859-19-000040": {
-      "filed": "2019-11-19",
-      "form": "10-K",
-      "value": "2064461000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001140859",
-            "taxonomy": "us-gaap",
-            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
-            "unit": "USD",
-            "value": "2064461000",
-            "period_start": "2017-09-30",
-            "period_end": "2017-09-30",
-            "filed": "2019-11-19",
-            "accession": "0001140859-19-000040",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        },
-        {
-          "fact": {
-            "source_cik": "0001140859",
-            "taxonomy": "us-gaap",
-            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
-            "unit": "USD",
-            "value": "0",
-            "period_start": "2017-09-30",
-            "period_end": "2017-09-30",
-            "filed": "2019-11-19",
-            "accession": "0001140859-19-000040",
-            "form": "10-K",
-            "statement_url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085919000040/R6.htm",
-            "statement_label": "Balance, end of period at Sep. 30, 2017",
-            "statement_column": "Noncontrolling Interest [Member]"
-          },
-          "coefficient": -1,
-          "statement_position": true
-        }
-      ],
-      "selected_tag": null,
-      "calculation": "Group equity - noncontrolling interests",
-      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085919000040/R6.htm",
-        "sha256": "f3688ad5b5c6dd553d133df07a508bdd0b4623327e3021abae45eaf9af59f492",
-        "file": "f3688ad5b5c6dd553d133df07a508bdd0b4623327e3021abae45eaf9af59f492.htm"
-      }
-    },
     "COR:equity:2017-10-01:2018-09-30:0001140859-18-000053": {
       "filed": "2018-11-20",
       "form": "10-K",
@@ -32722,6 +32892,55 @@
         "file": "2e73fe4f04a54768000ba1097ccfe49cfacdc323efbaba99d3087babc82b939d.htm"
       }
     },
+    "COR:equity:2017-10-01:2018-09-30:0001140859-20-000050": {
+      "filed": "2020-11-19",
+      "form": "10-K",
+      "value": "2932824000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001140859",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "3049961000",
+            "period_start": "2018-09-30",
+            "period_end": "2018-09-30",
+            "filed": "2020-11-19",
+            "accession": "0001140859-20-000050",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001140859",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "117137000",
+            "period_start": "2018-09-30",
+            "period_end": "2018-09-30",
+            "filed": "2020-11-19",
+            "accession": "0001140859-20-000050",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/abc-20200930_htm.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2018-09-30; consolidated instant context i2188c6574269410383829c2392c913d1_I20180930; NoncontrollingInterestMember"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group equity - noncontrolling interests",
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/abc-20200930_htm.xml",
+        "sha256": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea",
+        "file": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea.htm"
+      }
+    },
     "COR:equity:2018-10-01:2019-09-30:0001140859-19-000040": {
       "filed": "2019-11-19",
       "form": "10-K",
@@ -32777,9 +32996,9 @@
       "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/R2.htm",
-        "sha256": "d7ec6a270ad796be07d2ecaa43ba393c4fa65be8d47953481362fe49d8a9d359",
-        "file": "d7ec6a270ad796be07d2ecaa43ba393c4fa65be8d47953481362fe49d8a9d359.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/abc-20200930_htm.xml",
+        "sha256": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea",
+        "file": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea.htm"
       }
     },
     "COR:equity:2018-10-01:2019-09-30:0001140859-21-000058": {
@@ -32856,9 +33075,9 @@
       "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/R2.htm",
-        "sha256": "d7ec6a270ad796be07d2ecaa43ba393c4fa65be8d47953481362fe49d8a9d359",
-        "file": "d7ec6a270ad796be07d2ecaa43ba393c4fa65be8d47953481362fe49d8a9d359.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085920000050/abc-20200930_htm.xml",
+        "sha256": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea",
+        "file": "e5a055c8790ecb58a42382b639e41eaf72a5c96447b5c0bb43ee585347da49ea.htm"
       }
     },
     "COR:equity:2019-10-01:2020-09-30:0001140859-21-000058": {
@@ -46308,37 +46527,22 @@
             "period_end": "2019-12-31",
             "filed": "2023-02-15",
             "accession": "0001156039-23-000007",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        },
-        {
-          "fact": {
-            "source_cik": "0001156039",
-            "taxonomy": "us-gaap",
-            "tag": "MinorityInterest",
-            "unit": "USD",
-            "value": "0",
-            "period_start": "2019-12-31",
-            "period_end": "2019-12-31",
-            "filed": "2023-02-15",
-            "accession": "0001156039-23-000007",
             "form": "10-K",
-            "statement_url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/R8.htm",
-            "statement_label": "Noncontrolling Interest, Beginning Balance at Dec. 31, 2019",
-            "statement_column": "Noncontrolling Interest [Member]"
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/elv-20221231_htm.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2019-12-31; consolidated instant context i6715d3ccc7ea4563a72cd62894c7df53_I20191231"
           },
-          "coefficient": -1,
+          "coefficient": 1,
           "statement_position": true
         }
       ],
-      "selected_tag": null,
-      "calculation": "Group equity - noncontrolling interests",
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/R8.htm",
-        "sha256": "0bd7175dc68771842770b551fd94c7fa582d91bbae995b2e3a0d2969251f1a20",
-        "file": "0bd7175dc68771842770b551fd94c7fa582d91bbae995b2e3a0d2969251f1a20.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/elv-20221231_htm.xml",
+        "sha256": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070",
+        "file": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070.htm"
       }
     },
     "ELV:equity:2020-01-01:2020-12-31:0001156039-21-000012": {
@@ -46401,6 +46605,36 @@
         "file": "2e37cd96095231bf338091d38ac563777c019669ba90f0dba8c16564f69df651.htm"
       }
     },
+    "ELV:equity:2020-01-01:2020-12-31:0001156039-23-000007": {
+      "filed": "2023-02-15",
+      "form": "10-K",
+      "value": "33199000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001156039",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "33199000000",
+            "period_start": "2020-12-31",
+            "period_end": "2020-12-31",
+            "filed": "2022-02-16",
+            "accession": "0001156039-22-000009",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/elv-20221231_htm.xml",
+        "sha256": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070",
+        "file": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070.htm"
+      }
+    },
     "ELV:equity:2021-01-01:2021-12-31:0001156039-22-000009": {
       "filed": "2022-02-16",
       "form": "10-K",
@@ -46456,9 +46690,9 @@
       "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/R3.htm",
-        "sha256": "dc186a6b1c808522fe7680482ed4cf47e31579b6afbd89cdb1190ddf68a369c4",
-        "file": "dc186a6b1c808522fe7680482ed4cf47e31579b6afbd89cdb1190ddf68a369c4.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/elv-20221231_htm.xml",
+        "sha256": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070",
+        "file": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070.htm"
       }
     },
     "ELV:equity:2021-01-01:2021-12-31:0001156039-24-000015": {
@@ -46535,9 +46769,9 @@
       "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/R3.htm",
-        "sha256": "dc186a6b1c808522fe7680482ed4cf47e31579b6afbd89cdb1190ddf68a369c4",
-        "file": "dc186a6b1c808522fe7680482ed4cf47e31579b6afbd89cdb1190ddf68a369c4.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/1156039/000115603923000007/elv-20221231_htm.xml",
+        "sha256": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070",
+        "file": "d2c11b949fdd1a6edbecb2b406db81e4af41cc4232b7495d931ada027d0e4070.htm"
       }
     },
     "ELV:equity:2022-01-01:2022-12-31:0001156039-24-000015": {
@@ -73317,6 +73551,66 @@
         "file": "10932163537247ecd88fd49aada362ca2c431cc03683d0539301e4bdd7964b02.htm"
       }
     },
+    "KR:equity:2014-02-02:2015-01-31:0001104659-15-024557": {
+      "filed": "2015-03-31",
+      "form": "10-K",
+      "value": "5412000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000056873",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "5412000000",
+            "period_start": "2015-01-31",
+            "period_end": "2015-01-31",
+            "filed": "2015-03-31",
+            "accession": "0001104659-15-024557",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/56873/000110465915024557/kr-20150131.xml",
+        "sha256": "7bb02c64657551493f54186f1c48546ac00858efec1611a5a0b9fe372e056eaf",
+        "file": "7bb02c64657551493f54186f1c48546ac00858efec1611a5a0b9fe372e056eaf.htm"
+      }
+    },
+    "KR:equity:2014-02-02:2015-01-31:0001104659-15-025139": {
+      "filed": "2015-04-01",
+      "form": "10-K/A",
+      "value": "5412000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000056873",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "5412000000",
+            "period_start": "2015-01-31",
+            "period_end": "2015-01-31",
+            "filed": "2015-04-01",
+            "accession": "0001104659-15-025139",
+            "form": "10-K/A"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/56873/000110465915025139/kr-20150131.xml",
+        "sha256": "a9975ab6924392c5968779cbf92803407f9de90841717bfb5e2b4969e874a6a5",
+        "file": "a9975ab6924392c5968779cbf92803407f9de90841717bfb5e2b4969e874a6a5.htm"
+      }
+    },
     "KR:equity:2014-02-02:2015-01-31:0001104659-16-108277": {
       "filed": "2016-03-29",
       "form": "10-K",
@@ -77936,6 +78230,36 @@
         "url": "https://www.sec.gov/Archives/edgar/data/927653/000092765317000007/R6.htm",
         "sha256": "d96134c8072f4e77899a26e0481178ea14bb677e60b1ee80438694958c9f4384",
         "file": "d96134c8072f4e77899a26e0481178ea14bb677e60b1ee80438694958c9f4384.htm"
+      }
+    },
+    "MCK:equity:2014-04-01:2015-03-31:0001628280-15-004098": {
+      "filed": "2015-05-12",
+      "form": "10-K",
+      "value": "8001000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000927653",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "8001000000",
+            "period_start": "2015-03-31",
+            "period_end": "2015-03-31",
+            "filed": "2015-05-12",
+            "accession": "0001628280-15-004098",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/927653/000162828015004098/mck-20150331.xml",
+        "sha256": "486e55df6c50325eb96e9a08e61a5e8ff146e68a130bec090ce49b11219350aa",
+        "file": "486e55df6c50325eb96e9a08e61a5e8ff146e68a130bec090ce49b11219350aa.htm"
       }
     },
     "MCK:equity:2015-04-01:2016-03-31:0000927653-16-000020": {
@@ -93087,6 +93411,74 @@
         "file": "f0e8f873cfe7dcacbe3de3edeb1153b58fc89009ec332a9b0b4eb3f45070b306.htm"
       }
     },
+    "NSC:equity:2016-01-01:2016-12-31:0000702165-17-000018": {
+      "filed": "2017-02-06",
+      "form": "10-K",
+      "value": "12409000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000702165",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "12409000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-06",
+            "accession": "0000702165-17-000018",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/702165/000070216517000018/nsc-20161231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2016-12-31; consolidated instant context FI2016Q4"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/702165/000070216517000018/nsc-20161231.xml",
+        "sha256": "3b06c5a40e8da869cf8b58ada60bf333efbe407d9c007b6d1d161070704787db",
+        "file": "3b06c5a40e8da869cf8b58ada60bf333efbe407d9c007b6d1d161070704787db.htm"
+      }
+    },
+    "NSC:equity:2017-01-01:2017-12-31:0000702165-18-000011": {
+      "filed": "2018-02-05",
+      "form": "10-K",
+      "value": "16359000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000702165",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "16359000000",
+            "period_start": "2017-12-31",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-05",
+            "accession": "0000702165-18-000011",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/702165/000070216518000011/nsc-20171231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2017-12-31; consolidated instant context FI2017Q4"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/702165/000070216518000011/nsc-20171231.xml",
+        "sha256": "80d3462ca85ec417f11bda1eef00a1daf65d6832b4bf33d88d1379670b9870d4",
+        "file": "80d3462ca85ec417f11bda1eef00a1daf65d6832b4bf33d88d1379670b9870d4.htm"
+      }
+    },
     "NSC:equity:2018-01-01:2018-12-31:0000702165-19-000012": {
       "filed": "2019-02-08",
       "form": "10-K",
@@ -96400,6 +96792,74 @@
         "file": "2efd43c3f19d3e0454b9f0b04b3afa3bac4734316ef3237d4aa15b03570fbea1.htm"
       }
     },
+    "OXY:equity:2016-01-01:2016-12-31:0000797468-17-000003": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "21497000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "21497000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0000797468-17-000003",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/797468/000079746817000003/oxy-20161231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2016-12-31; consolidated instant context As_Of_12_31_2016"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746817000003/oxy-20161231.xml",
+        "sha256": "fc309c084ad672ee31ef0cdff4b1d4e247d60578ef7421aa9ca5cb00cb6f9b4c",
+        "file": "fc309c084ad672ee31ef0cdff4b1d4e247d60578ef7421aa9ca5cb00cb6f9b4c.htm"
+      }
+    },
+    "OXY:equity:2016-01-01:2016-12-31:0000797468-18-000005": {
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "value": "21497000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "21497000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-23",
+            "accession": "0000797468-18-000005",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/797468/000079746818000005/oxy-20171231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2016-12-31; consolidated instant context As_Of_12_31_2016"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746818000005/oxy-20171231.xml",
+        "sha256": "23c3a235f845622f0cca78cac72c498292d7d69f154c4916f3bcd6084fcb887d",
+        "file": "23c3a235f845622f0cca78cac72c498292d7d69f154c4916f3bcd6084fcb887d.htm"
+      }
+    },
     "OXY:equity:2016-01-01:2016-12-31:0000797468-19-000004": {
       "filed": "2019-02-21",
       "form": "10-K",
@@ -96432,6 +96892,40 @@
         "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746819000004/R8.htm",
         "sha256": "00fa1b762bad20e5cc98b57a22237255fe7c7afc1c7c6b5106a47ecbb6b0503d",
         "file": "00fa1b762bad20e5cc98b57a22237255fe7c7afc1c7c6b5106a47ecbb6b0503d.htm"
+      }
+    },
+    "OXY:equity:2017-01-01:2017-12-31:0000797468-18-000005": {
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "value": "20572000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "20572000000",
+            "period_start": "2017-12-31",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-23",
+            "accession": "0000797468-18-000005",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/797468/000079746818000005/oxy-20171231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2017-12-31; consolidated instant context As_Of_12_31_2017"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746818000005/oxy-20171231.xml",
+        "sha256": "23c3a235f845622f0cca78cac72c498292d7d69f154c4916f3bcd6084fcb887d",
+        "file": "23c3a235f845622f0cca78cac72c498292d7d69f154c4916f3bcd6084fcb887d.htm"
       }
     },
     "OXY:equity:2017-01-01:2017-12-31:0000797468-19-000004": {
@@ -104886,6 +105380,55 @@
         "file": "59b4db33f2c7e16a2121594781212da1b220bdb3d23463cebc10d33a25a2ae2d.htm"
       }
     },
+    "PLD:equity:2015-01-01:2015-12-31:0001564590-16-012933": {
+      "filed": "2016-02-19",
+      "form": "10-K",
+      "value": "14667935000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001045609",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "18420836000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-19",
+            "accession": "0001564590-16-012933",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001045609",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "3752901000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-19",
+            "accession": "0001564590-16-012933",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/1045609/000156459016012933/R6.htm",
+            "statement_label": "Balance at Dec. 31, 2015",
+            "statement_column": "Non-controlling Interests [Member]"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group equity - noncontrolling interests",
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1045609/000156459016012933/R6.htm",
+        "sha256": "a28f36c2fceaf14b02908731ea39228e452b846be964bbc7e0eb84ccd1cf671f",
+        "file": "a28f36c2fceaf14b02908731ea39228e452b846be964bbc7e0eb84ccd1cf671f.htm"
+      }
+    },
     "PLD:equity:2015-01-01:2015-12-31:0001564590-17-001559": {
       "filed": "2017-02-15",
       "form": "10-K",
@@ -112079,6 +112622,40 @@
         "file": "c5ff3ecb47827369c32642d4e5ba7bd1bdd61b5f67f83f7ac6cffbae5c5512ce.htm"
       }
     },
+    "ROP:equity:2015-01-01:2015-12-31:0000882835-16-000035": {
+      "filed": "2016-02-26",
+      "form": "10-K",
+      "value": "5298947000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000882835",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "5298947000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-26",
+            "accession": "0000882835-16-000035",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/882835/000088283516000035/rop-20151231.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2015-12-31; consolidated instant context c20151231"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/882835/000088283516000035/rop-20151231.xml",
+        "sha256": "80cbaaebaf3fb2b8b9456667b3c3d12e98b79c341c37452282cfc7daaad8d29b",
+        "file": "80cbaaebaf3fb2b8b9456667b3c3d12e98b79c341c37452282cfc7daaad8d29b.htm"
+      }
+    },
     "ROP:operating_cash_flow:2016-01-01:2016-12-31:0000882835-17-000006": {
       "filed": "2017-02-27",
       "form": "10-K",
@@ -113737,6 +114314,55 @@
         "file": "30b6c655d02d7d0dfa900234d4fe4ea7f88ac8434bc0be283cfbd76d3467ac16.htm"
       }
     },
+    "RTX:equity:2015-01-01:2015-12-31:0000101829-18-000005": {
+      "filed": "2018-02-09",
+      "form": "10-K",
+      "value": "27358000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000101829",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "28844000000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2018-02-09",
+            "accession": "0000101829-18-000005",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000101829",
+            "taxonomy": "us-gaap",
+            "tag": "MinorityInterest",
+            "unit": "USD",
+            "value": "1486000000",
+            "period_start": "2015-12-31",
+            "period_end": "2015-12-31",
+            "filed": "2018-02-09",
+            "accession": "0000101829-18-000005",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/utx-20171231.xml",
+            "statement_label": "us-gaap:MinorityInterest",
+            "statement_column": "2015-12-31; consolidated instant context FI2015Q4_us-gaap_StatementEquityComponentsAxis_us-gaap_NoncontrollingInterestMember; NoncontrollingInterestMember"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group equity - noncontrolling interests",
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/utx-20171231.xml",
+        "sha256": "2ee14b46126c284164189b42c88b0046afcb3dec0da0ed9ee58ec3e9b3e36133",
+        "file": "2ee14b46126c284164189b42c88b0046afcb3dec0da0ed9ee58ec3e9b3e36133.htm"
+      }
+    },
     "RTX:equity:2016-01-01:2016-12-31:0000101829-17-000007": {
       "filed": "2017-02-09",
       "form": "10-K",
@@ -113792,9 +114418,9 @@
       "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/R4.htm",
-        "sha256": "fa143fec500a404fcc7989e3ab18050a8500b33a5e88617365e69f4bb5e4d2e6",
-        "file": "fa143fec500a404fcc7989e3ab18050a8500b33a5e88617365e69f4bb5e4d2e6.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/utx-20171231.xml",
+        "sha256": "2ee14b46126c284164189b42c88b0046afcb3dec0da0ed9ee58ec3e9b3e36133",
+        "file": "2ee14b46126c284164189b42c88b0046afcb3dec0da0ed9ee58ec3e9b3e36133.htm"
       }
     },
     "RTX:equity:2016-01-01:2016-12-31:0000101829-19-000007": {
@@ -113871,9 +114497,9 @@
       "calculation": null,
       "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
       "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/R4.htm",
-        "sha256": "fa143fec500a404fcc7989e3ab18050a8500b33a5e88617365e69f4bb5e4d2e6",
-        "file": "fa143fec500a404fcc7989e3ab18050a8500b33a5e88617365e69f4bb5e4d2e6.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182918000005/utx-20171231.xml",
+        "sha256": "2ee14b46126c284164189b42c88b0046afcb3dec0da0ed9ee58ec3e9b3e36133",
+        "file": "2ee14b46126c284164189b42c88b0046afcb3dec0da0ed9ee58ec3e9b3e36133.htm"
       }
     },
     "RTX:equity:2017-01-01:2017-12-31:0000101829-19-000007": {
@@ -131651,6 +132277,55 @@
         "file": "eb8da147a684342fdac7b0874c0469eea4df9ff89e3451010049c029fff80d2b.htm"
       }
     },
+    "UNH:equity:2019-01-01:2019-12-31:0000731766-22-000008": {
+      "filed": "2022-02-15",
+      "form": "10-K",
+      "value": "57616000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000731766",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "60436000000",
+            "period_start": "2019-12-31",
+            "period_end": "2019-12-31",
+            "filed": "2022-02-15",
+            "accession": "0000731766-22-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000731766",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "2820000000",
+            "period_start": "2019-12-31",
+            "period_end": "2019-12-31",
+            "filed": "2022-02-15",
+            "accession": "0000731766-22-000008",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/unh-20211231_htm.xml",
+            "statement_label": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "statement_column": "2019-12-31; consolidated instant context i9d57e9b440f94b42ade5424c81274932_I20191231; NoncontrollingInterestMember"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group equity - noncontrolling interests",
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/731766/000073176622000008/unh-20211231_htm.xml",
+        "sha256": "4d4a9f24172a278591e1e2d6de830c6af36bb55dc81ba40be933b285f8762a83",
+        "file": "4d4a9f24172a278591e1e2d6de830c6af36bb55dc81ba40be933b285f8762a83.htm"
+      }
+    },
     "UNH:equity:2020-01-01:2020-12-31:0000731766-21-000013": {
       "filed": "2021-03-01",
       "form": "10-K",
@@ -142212,18 +142887,6 @@
       "filed": "2015-03-18",
       "reason": "No unique annual operating position for NetCashProvidedByUsedInOperatingActivities"
     },
-    "AMP:equity:2016-01-01:2016-12-31:0000820027-18-000008": {
-      "filed": "2018-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "AMP:equity:2017-01-01:2017-12-31:0000820027-18-000008": {
-      "filed": "2018-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "AMP:equity:2019-01-01:2019-12-31:0000820027-20-000010": {
-      "filed": "2020-02-26",
-      "reason": "Conflicting parent-equity scopes in the same statement; No unique explicitly reported total noncontrolling interest"
-    },
     "AMP:revenue:2015-01-01:2015-12-31:0000820027-16-000168": {
       "filed": "2016-02-25",
       "reason": "No unique same-issuer fact matches this annual column; Original custom-tag XBRL instance has not been cached"
@@ -142248,37 +142911,9 @@
       "filed": "2017-02-27",
       "reason": "No unique net diluted EPS row for the selected share class"
     },
-    "BSX:equity:2021-01-01:2021-12-31:0000885725-22-000006": {
-      "filed": "2022-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest; Statement currency is not explicitly USD"
-    },
-    "BSX:equity:2021-01-01:2021-12-31:0000885725-23-000008": {
-      "filed": "2023-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest; Statement currency is not explicitly USD"
-    },
-    "BSX:equity:2022-01-01:2022-12-31:0000885725-23-000008": {
-      "filed": "2023-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest; Statement currency is not explicitly USD"
-    },
-    "CB:equity:2015-01-01:2015-12-31:0000896159-16-000027": {
-      "filed": "2016-02-26",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "CHTR:equity:2015-01-01:2015-12-31:0001091667-16-000396": {
-      "filed": "2016-02-10",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "COR:equity:2017-10-01:2018-09-30:0001140859-20-000050": {
-      "filed": "2020-11-19",
-      "reason": "No unique explicitly reported total noncontrolling interest; No unique group-equity position for this date"
-    },
     "CRM:operating_cash_flow:2014-02-01:2015-01-31:0001108524-15-000008": {
       "filed": "2015-03-06",
       "reason": "No unique annual operating position for NetCashProvidedByUsedInOperatingActivities"
-    },
-    "ELV:equity:2020-01-01:2020-12-31:0001156039-23-000007": {
-      "filed": "2023-02-15",
-      "reason": "No unique explicitly reported total noncontrolling interest; No unique group-equity position for this date"
     },
     "EW:net_income:2021-01-01:2021-12-31:0001099800-22-000005": {
       "filed": "2022-02-14",
@@ -142296,14 +142931,6 @@
       "filed": "2017-02-06",
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
     },
-    "KR:equity:2014-02-02:2015-01-31:0001104659-15-024557": {
-      "filed": "2015-03-31",
-      "reason": "No unique group-equity position for this date"
-    },
-    "KR:equity:2014-02-02:2015-01-31:0001104659-15-025139": {
-      "filed": "2015-04-01",
-      "reason": "No unique group-equity position for this date"
-    },
     "KR:operating_cash_flow:2014-02-02:2015-01-31:0001104659-15-024557": {
       "filed": "2015-03-31",
       "reason": "No unique annual operating position for NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"
@@ -142312,45 +142939,9 @@
       "filed": "2015-04-01",
       "reason": "No unique annual operating position for NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"
     },
-    "MCK:equity:2014-04-01:2015-03-31:0001628280-15-004098": {
-      "filed": "2015-05-12",
-      "reason": "No unique group-equity position for this date"
-    },
-    "NSC:equity:2016-01-01:2016-12-31:0000702165-17-000018": {
-      "filed": "2017-02-06",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "NSC:equity:2017-01-01:2017-12-31:0000702165-18-000011": {
-      "filed": "2018-02-05",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "OXY:equity:2016-01-01:2016-12-31:0000797468-17-000003": {
-      "filed": "2017-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "OXY:equity:2016-01-01:2016-12-31:0000797468-18-000005": {
-      "filed": "2018-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "OXY:equity:2017-01-01:2017-12-31:0000797468-18-000005": {
-      "filed": "2018-02-23",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
     "OXY:net_income:2018-01-01:2018-12-31:0000797468-19-000004": {
       "filed": "2019-02-21",
       "reason": "No unique source-matching annual NetIncomeLoss position"
-    },
-    "PLD:equity:2015-01-01:2015-12-31:0001564590-16-012933": {
-      "filed": "2016-02-19",
-      "reason": "Conflicting parent-equity scopes in the same statement"
-    },
-    "ROP:equity:2015-01-01:2015-12-31:0000882835-16-000035": {
-      "filed": "2016-02-26",
-      "reason": "No unique explicitly reported total noncontrolling interest"
-    },
-    "RTX:equity:2015-01-01:2015-12-31:0000101829-18-000005": {
-      "filed": "2018-02-09",
-      "reason": "No unique group-equity position for this date"
     },
     "T:net_income:2016-01-01:2016-12-31:0000732717-17-000021": {
       "filed": "2017-02-17",
@@ -142376,14 +142967,10 @@
       "filed": "2018-02-23",
       "reason": "No unique source-matching annual NetIncomeLoss position"
     },
-    "UNH:equity:2019-01-01:2019-12-31:0000731766-22-000008": {
-      "filed": "2022-02-15",
-      "reason": "No unique group-equity position for this date"
-    },
     "XOM:revenue:2015-01-01:2015-12-31:0000034088-16-000065": {
       "filed": "2016-02-24",
       "reason": "No unique same-issuer fact matches this annual column; Original custom-tag XBRL instance has not been cached"
     }
   },
-  "reviewed_at": "2026-10-29T11:28:47.780820+00:00"
+  "reviewed_at": "2026-10-29T13:01:17.350555+00:00"
 }
