@@ -7,7 +7,7 @@ from decimal import Decimal
 from threading import Lock
 from typing import Any
 
-from app.data_pipeline.equity_exceptions import manual_choice, reviewed_nci_controls
+from app.data_pipeline.equity_exceptions import reviewed_nci_controls
 from app.data_pipeline.equity_facts import instant_equity_positions
 from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
@@ -999,13 +999,6 @@ def review_equity(fetch=False):
                                     "statement": entry[filename],
                                 }
                             )
-        if not choices:
-            try:
-                manual = manual_choice(task, calendar, fetch=fetch)
-                if manual:
-                    choices.append(manual)
-            except (OSError, ValueError) as exc:
-                issues.append(str(exc))
         if choices and len({Decimal(choice["value"]) for choice in choices}) == 1:
             policy["periods"][key] = min(
                 choices, key=lambda choice: len(choice["components"])

@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "method": "Material Adjusted Close factor changes flagged by audit-prices and reviewed against SEC dividend facts or a reviewed price correction. An entry accepts only the exact ticker, date and factor change; a new or changed event still needs review. Amounts are per share on the vendor's price basis, implied by the factor change and the previous Close.",
+  "events": [
+    {
+      "ticker": "CME",
+      "date": "2015-12-23",
+      "factor_change_percent": "3.159370988460031187652953200",
+      "kind": "cash_dividend",
+      "per_share": "2.90",
+      "note": "Annual variable dividend 2.40 plus regular 0.50; SEC FY2015 declared 4.90 = 4 x 0.50 + 2.90."
+    },
+    {
+      "ticker": "COST",
+      "date": "2015-02-05",
+      "factor_change_percent": "3.313016188961786626855696800",
+      "kind": "cash_dividend",
+      "per_share": "5.00",
+      "note": "Special dividend; SEC declared 5.355 in fiscal Q2 2015 including the 0.355 regular dividend."
+    },
+    {
+      "ticker": "COST",
+      "date": "2017-05-08",
+      "factor_change_percent": "4.041601176492405889090428000",
+      "kind": "cash_dividend",
+      "per_share": "7.00",
+      "note": "Special dividend; SEC declared 7.50 in fiscal Q3 2017 including the 0.50 regular dividend."
+    },
+    {
+      "ticker": "EQIX",
+      "date": "2015-10-06",
+      "factor_change_percent": "4.018516574214836183448921600",
+      "kind": "cash_dividend",
+      "per_share": "10.95",
+      "note": "Special REIT distribution; SEC FY2015 declared 17.71 = 4 x 1.69 + 10.95."
+    },
+    {
+      "ticker": "JCI",
+      "date": "2016-10-31",
+      "factor_change_percent": "11.60702004751349086938912410",
+      "kind": "spin_off",
+      "per_share": "4.551",
+      "note": "Adient distribution valued as in the reviewed JCI correction (Adient first close, 1:10 ratio)."
+    },
+    {
+      "ticker": "OKE",
+      "date": "2020-04-24",
+      "factor_change_percent": "3.307995413855908910293447300",
+      "kind": "cash_dividend",
+      "per_share": "0.935",
+      "note": "Regular quarterly dividend at a depressed price; SEC paid 0.935 per quarter in 2020."
+    },
+    {
+      "ticker": "OKE",
+      "date": "2020-07-31",
+      "factor_change_percent": "3.326832513655299823236275600",
+      "kind": "cash_dividend",
+      "per_share": "0.935",
+      "note": "Regular quarterly dividend at a depressed price; SEC paid 0.935 per quarter in 2020."
+    },
+    {
+      "ticker": "OKE",
+      "date": "2020-10-30",
+      "factor_change_percent": "3.173242816885893590425538400",
+      "kind": "cash_dividend",
+      "per_share": "0.935",
+      "note": "Regular quarterly dividend at a depressed price; SEC paid 0.935 per quarter in 2020."
+    },
+    {
+      "ticker": "OXY",
+      "date": "2020-03-09",
+      "factor_change_percent": "3.030314458813602523026502600",
+      "kind": "cash_dividend",
+      "per_share": "0.79",
+      "note": "Regular quarterly dividend on the day of the oil price crash; SEC declared 0.79 in Q1 2020."
+    },
+    {
+      "ticker": "PCAR",
+      "date": "2015-12-16",
+      "factor_change_percent": "3.012045101446187635114996300",
+      "kind": "cash_dividend",
+      "per_share": "0.933",
+      "note": "Year-end extra dividend on the vendor's split-adjusted basis (1.40 before the 2024 3:2 split); SEC Q1 2016 payments 576.9 mln / 351.3 mln shares = 0.24 regular + 1.40."
+    },
+    {
+      "ticker": "PCAR",
+      "date": "2018-12-13",
+      "factor_change_percent": "3.545443280181671536805523600",
+      "kind": "cash_dividend",
+      "per_share": "1.333",
+      "note": "Year-end extra dividend on the vendor's split-adjusted basis (2.00 before the 2024 3:2 split); SEC Q1 2019 payments 806.1 mln / 347.8 mln shares = 0.32 regular + 2.00."
+    },
+    {
+      "ticker": "PCAR",
+      "date": "2023-12-14",
+      "factor_change_percent": "3.373404949193334067124828600",
+      "kind": "cash_dividend",
+      "per_share": "3.20",
+      "note": "Year-end extra dividend on the split-adjusted basis; SEC FY2023 declared 4.24 = four regular dividends plus 3.20."
+    },
+    {
+      "ticker": "PGR",
+      "date": "2019-02-01",
+      "factor_change_percent": "3.881044641329856217601262300",
+      "kind": "cash_dividend",
+      "per_share": "2.514",
+      "note": "Annual variable dividend; SEC FY2018 declared 2.514."
+    },
+    {
+      "ticker": "PGR",
+      "date": "2020-01-07",
+      "factor_change_percent": "3.205146521702790540409612400",
+      "kind": "cash_dividend",
+      "per_share": "2.35",
+      "note": "Annual variable dividend; SEC FY2019 declared 2.65 = 3 x 0.10 + 2.35."
+    },
+    {
+      "ticker": "PGR",
+      "date": "2021-01-07",
+      "factor_change_percent": "4.883762798844197709264000500",
+      "kind": "cash_dividend",
+      "per_share": "4.60",
+      "note": "Annual variable dividend; SEC FY2020 declared 4.90 = 3 x 0.10 + 4.60."
+    },
+    {
+      "ticker": "PSA",
+      "date": "2022-07-29",
+      "factor_change_percent": "4.059312130235684795591846400",
+      "kind": "cash_dividend",
+      "per_share": "13.15",
+      "note": "Special dividend; SEC Q3 2022 declared 15.15 = 2.00 regular + 13.15."
+    },
+    {
+      "ticker": "TDG",
+      "date": "2016-10-20",
+      "factor_change_percent": "9.314581378096577822267170500",
+      "kind": "cash_dividend",
+      "per_share": "24.00",
+      "note": "Special dividend; SEC cash paid 24 in fiscal Q1 2017."
+    },
+    {
+      "ticker": "TDG",
+      "date": "2017-08-31",
+      "factor_change_percent": "8.644079185165012807503681900",
+      "kind": "cash_dividend",
+      "per_share": "22.00",
+      "note": "Special dividend; SEC FY2017 cash paid 46 = 24 + 22."
+    },
+    {
+      "ticker": "TDG",
+      "date": "2019-08-15",
+      "factor_change_percent": "5.893317152488481703458186000",
+      "kind": "cash_dividend",
+      "per_share": "30.00",
+      "note": "Special dividend; SEC FY2019 cash paid 30."
+    },
+    {
+      "ticker": "TDG",
+      "date": "2019-12-27",
+      "factor_change_percent": "5.749367064857170784650012900",
+      "kind": "cash_dividend",
+      "per_share": "32.50",
+      "note": "Special dividend; SEC declared 32.50 in fiscal Q1 2020."
+    },
+    {
+      "ticker": "TDG",
+      "date": "2023-11-17",
+      "factor_change_percent": "3.676657648121206988349360900",
+      "kind": "cash_dividend",
+      "per_share": "35.00",
+      "note": "Special dividend; SEC declared and paid 35 in fiscal Q1 2024."
+    },
+    {
+      "ticker": "TDG",
+      "date": "2024-10-04",
+      "factor_change_percent": "5.579979145374113553147826900",
+      "kind": "cash_dividend",
+      "per_share": "75.00",
+      "note": "Special dividend; SEC fiscal Q1 2025 dividend payments 4 396 mln / 58.3 mln diluted shares = 75.4."
+    },
+    {
+      "ticker": "WMB",
+      "date": "2016-03-10",
+      "factor_change_percent": "3.695184480378473829332488900",
+      "kind": "cash_dividend",
+      "per_share": "0.64",
+      "note": "Regular quarterly dividend at a depressed price; SEC declared 0.64 in Q1 2016."
+    },
+    {
+      "ticker": "WMB",
+      "date": "2016-06-16",
+      "factor_change_percent": "3.028839532552913671951668500",
+      "kind": "cash_dividend",
+      "per_share": "0.64",
+      "note": "Regular quarterly dividend at a depressed price; SEC declared 0.64 in Q2 2016."
+    }
+  ]
+}

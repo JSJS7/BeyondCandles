@@ -2,9 +2,11 @@
 
 from decimal import Decimal, localcontext
 
+from app.data_pipeline.source_files import ROOT, read_json
 from app.data_pipeline.validation import number
 
 PRICE_QUANTUM = Decimal("1e-18")
+REVIEWED_EVENTS = ROOT / "data/price-audit-reviews.json"
 
 
 def cash_adjustment(close, amount):
@@ -181,6 +183,37 @@ def find_dividend_coverage_gap(statistics, body, period_end):
     }
 
 
+def reviewed_price_events():
+    """Hand-reviewed material factor changes, by (ticker, date)."""
+    document = read_json(REVIEWED_EVENTS)
+    if document["version"] != 1:
+        raise ValueError("Unsupported reviewed price events version")
+    return {(event["ticker"], event["date"]): event for event in document["events"]}
+
+
+def separate_reviewed_events(material_events, reviewed):
+    """Split the screen's events into reviewed and still unreviewed ones.
+
+    A review covers only the exact factor change it saw: if the prepared prices
+    change, the event is unreviewed again. Reviewed events the screen no longer
+    finds are returned too, because their disappearance is also a data change.
+    """
+    unreviewed = []
+    matched = set()
+    for event in material_events:
+        key = (event["ticker"], event["date"])
+        review = reviewed.get(key)
+        if review and review["factor_change_percent"] == event["factor_change_percent"]:
+            matched.add(key)
+        else:
+            unreviewed.append(event)
+    missing = [
+        {"ticker": ticker, "date": day}
+        for ticker, day in sorted(set(reviewed) - matched)
+    ]
+    return unreviewed, len(matched), missing
+
+
 def audit_prices():
     """Run an offline screen of all 200 prepared histories and cached SEC dividends."""
     import csv
@@ -199,13 +232,19 @@ def audit_prices():
         if gap:
             gaps[ticker] = {**gap, "source": entry["facts"]}
 
+    unreviewed, reviewed_count, missing = separate_reviewed_events(
+        material_events, reviewed_price_events()
+    )
+    needs_review = gaps or unreviewed or missing
     return {
-        "status": "needs_review" if gaps or material_events else "screen_passed",
+        "status": "needs_review" if needs_review else "screen_passed",
         "companies": len(companies),
         "prices": summary["prices"],
         "adjustment_rules_sha256": summary["adjustment_rules_sha256"],
         "dividend_coverage_candidates": gaps,
-        "material_factor_changes": material_events,
+        "material_factor_changes": unreviewed,
+        "reviewed_factor_changes": reviewed_count,
+        "reviewed_events_not_found": missing,
         "limitations": [
             "A screen is not an independent verification of every corporate action",
             "Material changes can be valid special dividends or spin-offs; no automatic correction is inferred",

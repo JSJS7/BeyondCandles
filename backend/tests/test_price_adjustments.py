@@ -7,6 +7,7 @@ from app.data_pipeline.price_adjustments import (
     apply_adjustments,
     find_dividend_coverage_gap,
     scan_adjustment_factors,
+    separate_reviewed_events,
 )
 
 
@@ -143,6 +144,32 @@ class PriceAdjustmentTests(unittest.TestCase):
 
 
 class PriceAuditTests(unittest.TestCase):
+    def test_only_the_exact_reviewed_factor_change_passes(self):
+        """A reviewed special dividend is accepted; a new or changed event is not.
+
+        COST 5.00 special dividend (5 Feb 2015) was reviewed with a 3.313% factor
+        change. The same date with another change means the prices changed, and
+        a reviewed event the screen no longer finds is reported as well.
+        """
+        reviewed = {
+            ("COST", "2015-02-05"): {"factor_change_percent": "3.313"},
+            ("TDG", "2016-10-20"): {"factor_change_percent": "9.315"},
+        }
+        events = [
+            {"ticker": "COST", "date": "2015-02-05", "factor_change_percent": "3.313"},
+            {"ticker": "PGR", "date": "2019-02-01", "factor_change_percent": "3.881"},
+        ]
+
+        unreviewed, matched, missing = separate_reviewed_events(events, reviewed)
+
+        self.assertEqual(matched, 1)
+        self.assertEqual([event["ticker"] for event in unreviewed], ["PGR"])
+        self.assertEqual(missing, [{"ticker": "TDG", "date": "2016-10-20"}])
+
+        changed = [dict(events[0], factor_change_percent="3.4")]
+        unreviewed, matched, _ = separate_reviewed_events(changed, reviewed)
+        self.assertEqual((len(unreviewed), matched), (1, 0))
+
     def test_large_market_move_is_not_a_distribution(self):
         """Flag a change in adjustment factor, not an actual large market-price return."""
         rows = [

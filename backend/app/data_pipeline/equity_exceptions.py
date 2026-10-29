@@ -1,15 +1,13 @@
-"""Reproduce reviewed primary-report exceptions using pinned rows and scope evidence."""
+"""Reproduce reviewed primary-report NCI controls using pinned rows and scope evidence."""
 
 import re
 from decimal import Decimal
 from html.parser import HTMLParser
 
-from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.sec_catalogue import verify_reference
 from app.data_pipeline.sec_statements import displayed_amount, normalized_label
 from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
-from app.fact_identity import fact_identity, variants_fingerprint
-from app.fiscal_periods import canonical_period
+from app.fact_identity import variants_fingerprint
 
 EXCEPTIONS = ROOT / "data/equity-exceptions.json"
 
@@ -86,81 +84,6 @@ def exceptions_document():
     if document.get("selection_sha256") != sha256(SELECTION):
         raise ValueError("Equity exceptions do not match the frozen selection")
     return document
-
-
-def manual_choice(task, calendar, fetch=False):
-    """Never transfer a manual decision to another period, issuer or refreshed snapshot."""
-    end = task["period"].period_end
-    document = exceptions_document()
-    exception = document["positions"].get(f"{task['primary']}:{end}")
-    if not exception or exception["observed_sha256"] != variants_fingerprint(
-        task["variants"]
-    ):
-        return None
-    reference = exception["evidence"]
-    if fetch:
-        actual = cached(reference["url"], reference, json_response=False)
-        if actual["sha256"] != reference["sha256"]:
-            raise ValueError("A manually reviewed primary source changed")
-    value = verify_original_position(
-        verify_reference(reference).read_text(encoding="utf-8"), exception
-    )
-
-    facts = [
-        fact
-        for fact in task["facts"]
-        if fact.get("history_eligible", True)
-        and fact["source_cik"] == exception["source_cik"]
-        and canonical_period(fact, calendar)[1] == end
-    ]
-    direct = [
-        fact
-        for fact in facts
-        if fact["metric"] == "equity"
-        and fact["tag"] in ("StockholdersEquity", "PartnersCapital")
-        and fact["value"] == value
-    ]
-    if direct:
-        selected = max(direct, key=lambda fact: (fact["filed"], fact["accession"]))
-        anchor = selected
-        component = {"fact": fact_identity(selected), "coefficient": 1}
-    else:
-        anchors = [
-            fact
-            for fact in facts
-            if fact["accession"] == exception["accession"] and fact["unit"] == "USD"
-        ]
-        if not anchors:
-            raise ValueError(
-                "No stored filing anchor for the reviewed primary statement"
-            )
-        anchor = anchors[0]
-        selected = dict(
-            anchor,
-            tag=exception["tag"],
-            value=value,
-            period_start=anchor["period_end"],
-            statement_url=reference["url"],
-            statement_label=exception["row_label"],
-            statement_column=f"FY{end.year} (reviewed primary table)",
-        )
-        component = {
-            "fact": fact_identity(selected),
-            "coefficient": 1,
-            "statement_position": True,
-        }
-    return {
-        "observed_sha256": exception["observed_sha256"],
-        "value": format(value, "f"),
-        "anchor": fact_identity(anchor),
-        "filed": str(selected["filed"]),
-        "accession": selected["accession"],
-        "components": [component],
-        "calculation": None,
-        "note": exception["note"],
-        "statement": reference,
-        "manual_position": True,
-    }
 
 
 def reviewed_nci_controls(task, cik, accession):
