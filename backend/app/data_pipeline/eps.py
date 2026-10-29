@@ -374,7 +374,7 @@ def eps_position(html, cik, end, class_labels=None):
         raise ValueError(
             "Continuing EPS has no confirmed net-income face-statement context"
         )
-    note = "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments."
+    note = "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately."
     status = "ready"
     parsed["eps_basis"] = "diluted"
     if tag == CONTINUING_TAG:

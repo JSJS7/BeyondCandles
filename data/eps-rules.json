@@ -19,7 +19,7 @@
         "accession": "0001652044-18-000007",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204418000007/R4.htm",
         "sha256": "6bab08a8506698d99bf92f54456fcef30da85e6e25debab83b86a1851355a286",
@@ -415,7 +415,7 @@
         "accession": "0001403161-25-000089",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/R5.htm",
         "sha256": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab",
@@ -451,7 +451,7 @@
         "accession": "0001403161-25-000089",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/R5.htm",
         "sha256": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab",
@@ -487,7 +487,7 @@
         "accession": "0001403161-24-000058",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316124000058/R5.htm",
         "sha256": "ed679df906cdd9885247508bfa79a48a8c23896c21c2eec606b93563f241c305",
@@ -523,7 +523,7 @@
         "accession": "0001403161-23-000099",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316123000099/R5.htm",
         "sha256": "7aa3a8bdc94e065f67f909b52c72494fd598feef806b429bb908bec02a978f87",
@@ -559,7 +559,7 @@
         "accession": "0001403161-22-000081",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316122000081/R5.htm",
         "sha256": "914b9b3f3bd7867cd23ed61b6d46a9b68cf6a4689dcf4c6833070007d707f550",
@@ -595,7 +595,7 @@
         "accession": "0001403161-21-000060",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316121000060/R4.htm",
         "sha256": "b8c9e7095a5e5eacea1a90590925b0f0e1152070f91c9841695f7a0955d4ec3a",
@@ -631,7 +631,7 @@
         "accession": "0001403161-20-000070",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316120000070/R4.htm",
         "sha256": "a5c8b105950b4492e50821b8d500a192120019d71c6af86c8a13df595905e083",
@@ -667,7 +667,7 @@
         "accession": "0001403161-19-000050",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316119000050/R4.htm",
         "sha256": "4d21b69cff6a0c1eb341f47c7bf4114102d72e55cbc1235686a603d62315c0d6",
@@ -703,7 +703,7 @@
         "accession": "0001403161-18-000055",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316118000055/R4.htm",
         "sha256": "692025caa2c1060235d93cfdf71f89da65f3fa812e1b52d0619728236cc662b1",
@@ -739,7 +739,7 @@
         "accession": "0001403161-17-000044",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316117000044/R4.htm",
         "sha256": "f9c2c539de9804c46b9896d68ae694795cd45ff718a96cac35266d44ceb5363d",
@@ -775,7 +775,7 @@
         "accession": "0001373715-19-000070",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371519000070/R4.htm",
         "sha256": "0c44af5dda11b614d1189a8d28a0a8c4a3ba7b2605aa42d493e06b5624b3ad18",
@@ -811,7 +811,7 @@
         "accession": "0001373715-18-000058",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371518000058/R4.htm",
         "sha256": "f0e8f873cfe7dcacbe3de3edeb1153b58fc89009ec332a9b0b4eb3f45070b306",
@@ -847,7 +847,7 @@
         "accession": "0000004962-21-000013",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496221000013/R2.htm",
         "sha256": "fb5e6bf09d90b9b21bd9e691d7746511e762689689b8250f91a94a530cef1ef8",
@@ -883,7 +883,7 @@
         "accession": "0000004962-20-000030",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496220000030/R2.htm",
         "sha256": "c41b77f9f6e898f654387fb0b438de62190c8cfccae5d242e8cd396aae66a373",
@@ -919,7 +919,7 @@
         "accession": "0000004962-19-000018",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496219000018/R2.htm",
         "sha256": "dec429184bd1a2f1a6971bbc8e4081a3a72c3cc2c9049d0b316a1edcf5097d46",
@@ -955,7 +955,7 @@
         "accession": "0000004962-18-000032",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496218000032/R2.htm",
         "sha256": "9c5106c4539f697077a5bd8f4483618c510583b9c57fab0e17ab205d8d6da36d",
@@ -991,7 +991,7 @@
         "accession": "0001404912-26-000007",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/R6.htm",
         "sha256": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4",
@@ -1027,7 +1027,7 @@
         "accession": "0001404912-26-000007",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/R6.htm",
         "sha256": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4",
@@ -1063,7 +1063,7 @@
         "accession": "0001404912-25-000015",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491225000015/R6.htm",
         "sha256": "b4be46cc117c0c652a4b2b15b751accd0f95eb0301a2a818bb29bb7f4f3f3e62",
@@ -1099,7 +1099,7 @@
         "accession": "0001404912-24-000005",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491224000005/R6.htm",
         "sha256": "8e1fafc8c25d20cc0d6be4f6632a6fac597edbe7f78f21ea4adfbe8057c3423c",
@@ -1135,7 +1135,7 @@
         "accession": "0001404912-23-000005",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491223000005/R6.htm",
         "sha256": "440c01adce96cf7d56be32e5c0575dfb87e945218a45591c59a499adb057be13",
@@ -1171,7 +1171,7 @@
         "accession": "0001404912-22-000004",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491222000004/R5.htm",
         "sha256": "a349857fb5c2f33d304e3a4f03105db4ad25ee7f45932c824392f11abc4f74d5",
@@ -1207,7 +1207,7 @@
         "accession": "0001404912-21-000008",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491221000008/R4.htm",
         "sha256": "1ae6b462f994d6bae85910f72f9b40ed58ccf6de68c6e78b58553af3dc937746",
@@ -1243,7 +1243,7 @@
         "accession": "0001404912-20-000006",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491220000006/R4.htm",
         "sha256": "0b9df69223c93b34bd614b5cec8dc1a3ae5957c356dddbe504ead3b754cc1fca",
@@ -1279,7 +1279,7 @@
         "accession": "0001404912-19-000006",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491219000006/R4.htm",
         "sha256": "c3d77d05d4d62fc878fcd49f44ad14913e780b81f8c1fa38cd3fff0636e7e998",
@@ -1315,7 +1315,7 @@
         "accession": "0001404912-18-000005",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class. KKR's historical figure is per common partnership unit, before its corporate conversion.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class. KKR's historical figure is per common partnership unit, before its corporate conversion.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491218000005/R4.htm",
         "sha256": "57de60d9a24a6349894ba21b73af448f203134eb2709090068d97c305e348d03",
@@ -1351,7 +1351,7 @@
         "accession": "0001562762-21-000027",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1163165/000156276221000027/R2.htm",
         "sha256": "90d0e124a2173b61c03a08c4075876dfff29cf5119a783fc0ceaf3051763f235",
@@ -1387,7 +1387,7 @@
         "accession": "0001327567-20-000032",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756720000032/R4.htm",
         "sha256": "e4409172ece635dc489f542885b6f88f231f857e451209a253510700fbf533ec",
@@ -1423,7 +1423,7 @@
         "accession": "0001327567-19-000032",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756719000032/R4.htm",
         "sha256": "13ea71efa6a90cdd9abb037b2e06844536a9bc64eacb276b7b6890a3ee52f484",
@@ -1459,7 +1459,7 @@
         "accession": "0001327567-18-000024",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756718000024/R4.htm",
         "sha256": "8293f6353966bb64fa4c47a4bab25b8a610ebdbb1572918434dd48063eba2d02",
@@ -1495,7 +1495,7 @@
         "accession": "0001327567-17-000027",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756717000027/R4.htm",
         "sha256": "213064f41686ded733761e9f30636d4dc74d0e68c4fb49d95de2f03ed135bff4",
@@ -1531,7 +1531,7 @@
         "accession": "0000006281-21-000294",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628121000294/R2.htm",
         "sha256": "a18433cff1d6c5c43f7b9c3c4ce9fb6ca826fe5db462357c4b3ea357420ac5b6",
@@ -1567,7 +1567,7 @@
         "accession": "0000006281-20-000156",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628120000156/R2.htm",
         "sha256": "5f8048cbafde1046ddbf299af0709f65ab6aa05c7b9b749bbf950a96aee3c800",
@@ -1603,7 +1603,7 @@
         "accession": "0000006281-19-000144",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628119000144/R2.htm",
         "sha256": "93dd721793e19a183a10a01827406dcdd13fbb83b8fdd87e1525c0e262df9b48",
@@ -1639,7 +1639,7 @@
         "accession": "0000006281-18-000126",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628118000126/R2.htm",
         "sha256": "8b5273974c697573462097e39cccffece9b4f721b3540eb3872446530e7ed672",
@@ -1675,7 +1675,7 @@
         "accession": "0000006281-17-000144",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628117000144/R2.htm",
         "sha256": "e6a96e746f340357c261c13197edbb34136825032c653af742d3dfa5310a7656",
@@ -1711,7 +1711,7 @@
         "accession": "0000764180-18-000028",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/764180/000076418018000028/R4.htm",
         "sha256": "d0badeb3e1662c85e1bdcd54a5577ca921853d0df320cdc428d2645a5531aa33",
@@ -1747,7 +1747,7 @@
         "accession": "0001260221-21-000134",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022121000134/R4.htm",
         "sha256": "72886370e8b42f460cdee0765f6803d9147f772f3f59a7e55c1f2a65b83e04d7",
@@ -1783,7 +1783,7 @@
         "accession": "0001260221-20-000099",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022120000099/R4.htm",
         "sha256": "58e3ea73fdd6acac61ce076553133bfb9f4f8abf7834a0c167239d5ab3833ce4",
@@ -1819,7 +1819,7 @@
         "accession": "0001260221-19-000043",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022119000043/R4.htm",
         "sha256": "979592303023c039b81d3a46295da60921c4d4bf105107990b994585c5010bae",
@@ -1855,7 +1855,7 @@
         "accession": "0001260221-18-000070",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022118000070/R4.htm",
         "sha256": "5d07565bebbd2281a7da4de1d076286e313392ce3b691b507dc3de9c79cd05c9",
@@ -1891,7 +1891,7 @@
         "accession": "0001260221-17-000060",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022117000060/R4.htm",
         "sha256": "44c7dd5f78669a549e7162238cfab1b9c216677c0614a492f4b1a21f12347004",
@@ -1927,7 +1927,7 @@
         "accession": "0001558370-23-001840",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837023001840/R4.htm",
         "sha256": "f3f314ca4f6521b62d50e4058f76b4d70f0348cbf629576f5fa0b493cf7e5ae1",
@@ -1963,7 +1963,7 @@
         "accession": "0001558370-22-001845",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837022001845/R4.htm",
         "sha256": "53b8c4561188c6741b7e4934ac94ca03c86b043c8e4b19713b4c617779f1a849",
@@ -1999,7 +1999,7 @@
         "accession": "0001558370-21-001700",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837021001700/R4.htm",
         "sha256": "094417ae009312c97d0942e748306dd4d1cd5e205402be33f01b0a707e2329d0",
@@ -2035,7 +2035,7 @@
         "accession": "0001558370-20-001135",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837020001135/R4.htm",
         "sha256": "5ad2ee45e539ecebf80610491833515f1b9a148687854f850ed52bff8fca7422",
@@ -2071,7 +2071,7 @@
         "accession": "0001558370-19-000875",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837019000875/R4.htm",
         "sha256": "15182370d919e71788a1a80bba887df01dcf056d002c28c429e034a6aa78d977",
@@ -2107,7 +2107,7 @@
         "accession": "0001558370-18-000981",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1063761/000155837018000981/R4.htm",
         "sha256": "c91928509e7be98875e5c328fb4f792c60d94e64204bf673448875ecd39e823a",
@@ -2143,7 +2143,7 @@
         "accession": "0001506307-21-000022",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630721000022/R2.htm",
         "sha256": "5619cba2e1548156a38f02fbd52cea221edcf601b40d1d1e2f77ac25022a6938",
@@ -2179,7 +2179,7 @@
         "accession": "0000831259-26-000012",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/R3.htm",
         "sha256": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689",
@@ -2215,7 +2215,7 @@
         "accession": "0000831259-26-000012",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/R3.htm",
         "sha256": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689",
@@ -2251,7 +2251,7 @@
         "accession": "0000831259-25-000006",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125925000006/R3.htm",
         "sha256": "92b4291cfa7db3278e694107ae4b9e82088d99098363371874fe6a83f443392c",
@@ -2287,7 +2287,7 @@
         "accession": "0001104659-26-020831",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/R4.htm",
         "sha256": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37",
@@ -2323,7 +2323,7 @@
         "accession": "0001104659-26-020831",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/R4.htm",
         "sha256": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37",
@@ -2359,7 +2359,7 @@
         "accession": "0001410578-25-000248",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000141057825000248/R4.htm",
         "sha256": "09320bafc4c78c88f6e5439071b5e138754b96cf570639ef2fad59d02964e533",
@@ -2395,7 +2395,7 @@
         "accession": "0001104659-24-029425",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465924029425/R4.htm",
         "sha256": "ed8025e63a35b8c1e31130a242d7e45fd5cb678f51b751000acd93fd739a52b9",
@@ -2431,7 +2431,7 @@
         "accession": "0001104659-23-027245",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465923027245/R4.htm",
         "sha256": "3ce747a989efc033e66b2f6d22a5771d62dac4afc32036e1e95df18122ac2619",
@@ -2467,7 +2467,7 @@
         "accession": "0001104659-22-028182",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465922028182/R4.htm",
         "sha256": "413bb0bd6d2b291c38390b272491b2120581b28a0646af29e157c8f6288adf6b",
@@ -2503,7 +2503,7 @@
         "accession": "0001104659-21-029943",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465921029943/R4.htm",
         "sha256": "939124f8885a00e68d38c4a46c93bce5830935030ba6fc2dfe52d73e47ef6f16",
@@ -2539,7 +2539,7 @@
         "accession": "0001104659-20-027209",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465920027209/R4.htm",
         "sha256": "0995ae5ae74caf675b75abc71a087f34aa3e9e9191b9780771a4d5af7b5ff727",
@@ -2575,7 +2575,7 @@
         "accession": "0001104659-19-011581",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465919011581/R4.htm",
         "sha256": "0716be9ec330bdd353c29bd1bf257208eff5c14b959bee92478581ce2877b8ab",
@@ -2611,7 +2611,7 @@
         "accession": "0001104659-18-014057",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465918014057/R4.htm",
         "sha256": "b7af242f7cf8797fd307ef9ab4b64139f589e9fef60b643250e2d71e09890c38",
@@ -2683,7 +2683,7 @@
         "accession": "0000726728-20-000033",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672820000033/R4.htm",
         "sha256": "a591217e73ee12facaca95a4fd317942d6020dd8b98d01b07f1562ad74ab6455",
@@ -2719,7 +2719,7 @@
         "accession": "0000726728-19-000041",
         "form": "10-K/A"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672819000041/R4.htm",
         "sha256": "f7e322f75d6888495e69789c04b855754fbc5f89db8fe68e753b913b814737c5",
@@ -2755,7 +2755,7 @@
         "accession": "0001104659-18-011376",
         "form": "10-K"
       },
-      "note": "Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The statement explicitly identifies the amount as both basic and diluted.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/726728/000110465918011376/R4.htm",
         "sha256": "ceaf7727707dbf3883e93632891cef546213c32e74f09c69ff874c3f2e2f0a0d",
