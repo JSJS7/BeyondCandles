@@ -7,6 +7,118 @@ import sys
 import psycopg
 from sqlalchemy.exc import SQLAlchemyError
 
+# Commands that only read sources and publish JSON files, so a --check run can hold
+# their writes and compare them with the files on disk.
+CHECKABLE_COMMANDS = (
+    "audit-sec",
+    "audit-sec-history",
+    "review-revenue",
+    "review-net-income",
+    "review-eps",
+    "review-eps-splits",
+    "review-equity",
+    "review-operating-cash-flow",
+    "review-sec-periods",
+    "review-versions",
+)
+
+
+def run_command(args):
+    """Run one pipeline command and return its result document."""
+    if args.command == "fetch-prices":
+        from .benjaminpo import fetch_prices
+
+        result = fetch_prices()
+    elif args.command == "prepare-prices":
+        from .benjaminpo import prepare_prices
+
+        _, _, result = prepare_prices()
+    elif args.command == "replace-prices":
+        from .price_replacement import replace_prices
+
+        result = replace_prices(args.expected_price_fingerprint)
+    elif args.command == "restore-prices":
+        from .price_replacement import restore_prices
+
+        result = restore_prices(args.backup, args.expected_price_fingerprint)
+    elif args.command == "validate-prices":
+        from .prices import validate_prices
+
+        _, _, result = validate_prices()
+    elif args.command == "import-prices":
+        from .prices import import_prices
+
+        result = import_prices()
+    elif args.command == "audit-prices":
+        from .price_adjustments import audit_prices
+
+        result = audit_prices()
+    elif args.command == "fetch-sec":
+        from .sec_catalogue import fetch_all_sec
+
+        result = fetch_all_sec(args.refresh)
+    elif args.command == "resolve-sec":
+        from .identifiers import resolve_sec
+
+        result = resolve_sec()
+    elif args.command == "audit-sec":
+        from .sec import audit_sec
+
+        result = audit_sec()
+    elif args.command == "audit-sec-history":
+        from .sec_history import audit_history
+
+        result = audit_history()
+    elif args.command == "import-sec":
+        from .sec import import_sec
+
+        result = import_sec()
+    elif args.command == "build-history":
+        from .metric_history import build_history
+
+        result = build_history()
+    elif args.command == "review-equity":
+        from .equity import review_equity
+
+        result = review_equity(fetch=args.fetch)
+    elif args.command == "review-operating-cash-flow":
+        from .operating_cash_flow import review_cash_flow
+
+        result = review_cash_flow(fetch=args.fetch)
+    elif args.command == "review-eps-splits":
+        from .eps_splits import review_eps_splits
+
+        result = review_eps_splits()
+    elif args.command == "review-eps":
+        from .eps import review_eps
+
+        result = review_eps(fetch=args.fetch)
+    elif args.command == "review-net-income":
+        from .net_income import review_net_income
+
+        result = review_net_income(fetch=args.fetch)
+    elif args.command == "review-revenue":
+        from .revenue import review_revenue
+
+        result = review_revenue(fetch=args.fetch)
+    elif args.command == "review-sec-periods":
+        from .fiscal_periods import review_fiscal_periods
+
+        result = review_fiscal_periods(fetch=args.fetch)
+    elif args.command == "review-versions":
+        from .version_reviews import review_versions
+
+        result = review_versions(fetch=args.fetch)
+    elif args.command == "inspect-db":
+        from .verification import inspect_db
+
+        result = inspect_db()
+    else:
+        from .verification import verify_db
+
+        result = verify_db()
+    return result
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -55,101 +167,29 @@ def main():
         help="Verified fingerprint of the stored prices before replacement or restore",
     )
     parser.add_argument("--backup", help="Full CSV backup created by replace-prices")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help=(
+            "Write nothing; compare the files a review or audit would publish with "
+            "the files on disk and fail if any differs beyond its run timestamp"
+        ),
+    )
     args = parser.parse_args()
+    if args.check and args.command not in CHECKABLE_COMMANDS:
+        parser.error("--check works only with: " + ", ".join(CHECKABLE_COMMANDS))
+    if args.check and (args.fetch or args.refresh):
+        parser.error("--check reads the local cache only; omit --fetch and --refresh")
 
     try:
-        if args.command == "fetch-prices":
-            from .benjaminpo import fetch_prices
+        comparison = None
+        if args.check:
+            from .source_files import held_writes
 
-            result = fetch_prices()
-        elif args.command == "prepare-prices":
-            from .benjaminpo import prepare_prices
-
-            _, _, result = prepare_prices()
-        elif args.command == "replace-prices":
-            from .price_replacement import replace_prices
-
-            result = replace_prices(args.expected_price_fingerprint)
-        elif args.command == "restore-prices":
-            from .price_replacement import restore_prices
-
-            result = restore_prices(args.backup, args.expected_price_fingerprint)
-        elif args.command == "validate-prices":
-            from .prices import validate_prices
-
-            _, _, result = validate_prices()
-        elif args.command == "import-prices":
-            from .prices import import_prices
-
-            result = import_prices()
-        elif args.command == "audit-prices":
-            from .price_adjustments import audit_prices
-
-            result = audit_prices()
-        elif args.command == "fetch-sec":
-            from .sec_catalogue import fetch_all_sec
-
-            result = fetch_all_sec(args.refresh)
-        elif args.command == "resolve-sec":
-            from .identifiers import resolve_sec
-
-            result = resolve_sec()
-        elif args.command == "audit-sec":
-            from .sec import audit_sec
-
-            result = audit_sec()
-        elif args.command == "audit-sec-history":
-            from .sec_history import audit_history
-
-            result = audit_history()
-        elif args.command == "import-sec":
-            from .sec import import_sec
-
-            result = import_sec()
-        elif args.command == "build-history":
-            from .metric_history import build_history
-
-            result = build_history()
-        elif args.command == "review-equity":
-            from .equity import review_equity
-
-            result = review_equity(fetch=args.fetch)
-        elif args.command == "review-operating-cash-flow":
-            from .operating_cash_flow import review_cash_flow
-
-            result = review_cash_flow(fetch=args.fetch)
-        elif args.command == "review-eps-splits":
-            from .eps_splits import review_eps_splits
-
-            result = review_eps_splits()
-        elif args.command == "review-eps":
-            from .eps import review_eps
-
-            result = review_eps(fetch=args.fetch)
-        elif args.command == "review-net-income":
-            from .net_income import review_net_income
-
-            result = review_net_income(fetch=args.fetch)
-        elif args.command == "review-revenue":
-            from .revenue import review_revenue
-
-            result = review_revenue(fetch=args.fetch)
-        elif args.command == "review-sec-periods":
-            from .fiscal_periods import review_fiscal_periods
-
-            result = review_fiscal_periods(fetch=args.fetch)
-        elif args.command == "review-versions":
-            from .version_reviews import review_versions
-
-            result = review_versions(fetch=args.fetch)
-        elif args.command == "inspect-db":
-            from .verification import inspect_db
-
-            result = inspect_db()
+            with held_writes() as comparison:
+                result = run_command(args)
         else:
-            from .verification import verify_db
-
-            result = verify_db()
+            result = run_command(args)
 
         if args.command == "import-sec":
             companies = result["companies"].values()
@@ -167,7 +207,6 @@ def main():
                 "metric_versions": result["history"]["versions"],
                 "metric_history_fingerprint": result["history"]["fingerprint"],
             }
-            formatted_result = json.dumps(output, indent=2)
         elif args.command in (
             "audit-sec",
             "audit-sec-history",
@@ -181,17 +220,20 @@ def main():
             if args.command == "review-revenue":
                 output["approved_periods"] = result["totals"]["approved_periods"]
                 output["unresolved_cases"] = result["totals"]["issues"]
-            formatted_result = json.dumps(output, indent=2)
         elif args.command == "review-equity":
             output = {key: value for key, value in result.items() if key != "issues"}
             output["report"] = "data/processed/sec-equity-report.json"
-            formatted_result = json.dumps(output, indent=2)
         else:
-            formatted_result = json.dumps(result, indent=2, default=str)
+            output = dict(result)
+        if comparison is not None:
+            output["check"] = comparison
+        formatted_result = json.dumps(output, indent=2, default=str)
 
         print(formatted_result)
 
         if result.get("status") in ("needs_review", "completed_with_gaps"):
+            return 1
+        if comparison is not None and comparison["changed"]:
             return 1
         return 0
     except (ValueError, OSError) as exc:

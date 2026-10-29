@@ -99,6 +99,32 @@ def rebuild_history(connection):
     }
 
 
+def verify_history(engine):
+    """Compare the stored history with a rebuild from current facts, code and rules.
+
+    The rebuild runs in a transaction that is always rolled back, so the stored table
+    and the API stay unchanged. A difference means build-history was not run after a
+    change, e.g. of a rules file or of the served number format.
+    """
+    from app.database import lock_data_imports
+
+    with engine.connect() as connection:
+        transaction = connection.begin()
+        try:
+            # The same lock as import-sec: no import may change the facts meanwhile.
+            lock_data_imports(connection)
+            stored = history_fingerprint(connection)
+            rebuilt = rebuild_history(connection)
+        finally:
+            transaction.rollback()
+    if (rebuilt["versions"], rebuilt["fingerprint"]) != stored:
+        raise ValueError(
+            "Stored metric history differs from a rebuild with the current code and "
+            "rules; run build-history"
+        )
+    return stored
+
+
 def build_history():
     """Standalone rebuild, e.g. after reviewed rules change without new SEC facts."""
     from app.database import engine, lock_data_imports

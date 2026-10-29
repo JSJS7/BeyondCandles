@@ -126,6 +126,27 @@ class EpsSplitTests(unittest.TestCase):
             [str(a.date) for a in metric.eps_share_basis.applied_splits], ["2024-06-10"]
         )
 
+    def test_filing_on_the_split_date_already_uses_the_new_share_count(self):
+        """A filing issued on or after the effective date is not split again.
+
+        Under ASC 260 a split effective before the statements are issued is applied
+        retroactively in them, so only a filing from before that date still reports
+        the old share count. No stored fact lies exactly on this boundary today.
+        """
+        split = (("2020-08-31", 4, 1),)
+        cases = (
+            (date(2020, 8, 28), Decimal("2.0775")),
+            (date(2020, 8, 31), Decimal("8.31")),
+        )
+        for filed, expected in cases:
+            with self.subTest(filed=filed):
+                periods = eps_period("8.31", filed=filed)
+                policy = approved_policy(periods, split)
+
+                result = normalize_eps("AAPL", periods, policy)
+
+                self.assertEqual(result[0].metrics["eps_diluted"].value, expected)
+
     def test_predecessor_source_receives_successor_split_after_one_for_one_exchange(
         self,
     ):

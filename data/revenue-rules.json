@@ -20524,16 +20524,15 @@
       "filed": "2020-11-20",
       "value": "16068000000",
       "evidence": {
-        "url": "https://www.sec.gov/Archives/edgar/data/882184/000088218420000143/R41.htm",
-        "sha256": "9ae8850315a34396dde458b36a6879aaa3f69bd54a7493bb26a69dfe6b6e010d",
-        "file": "9ae8850315a34396dde458b36a6879aaa3f69bd54a7493bb26a69dfe6b6e010d.htm"
+        "url": "https://www.sec.gov/Archives/edgar/data/882184/000088218420000143/R3.htm",
+        "sha256": "2af1724145f4c3c24639941b36c52f025d326e3e86ae74173c3367d3b546394d",
+        "file": "2af1724145f4c3c24639941b36c52f025d326e3e86ae74173c3367d3b546394d.htm"
       },
       "summary": {
         "url": "https://www.sec.gov/Archives/edgar/data/882184/000088218420000143/FilingSummary.xml",
         "sha256": "c07cdced63039fc6469cf054a21fb1cb2310c8d159d7cafd649c82bea5ac9138",
         "file": "c07cdced63039fc6469cf054a21fb1cb2310c8d159d7cafd649c82bea5ac9138.htm"
-      },
-      "note": "Consolidated annual total verified in the same filing's revenue/segment reconciliation, before segment breakdowns. Quarterly and segment amounts are not substituted."
+      }
     },
     "0000882184:2018-10-01:2019-09-30": {
       "taxonomy": "us-gaap",
@@ -36428,5 +36427,5 @@
     }
   },
   "unresolved": {},
-  "reviewed_at": "2026-10-22T12:27:55.326680+00:00"
+  "reviewed_at": "2026-10-29T19:34:09.487650+00:00"
 }

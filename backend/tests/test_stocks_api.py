@@ -451,6 +451,53 @@ class StockApiTests(unittest.TestCase):
 
         self.assertEqual(today, latest)
 
+    def test_history_check_detects_versions_built_by_older_code(self):
+        """A stored history that a rebuild would change is reported, not overwritten.
+
+        Real case (29.10.2026): versions built before the number format changed kept
+        "-33.0000000000" while the latest view served "-33".
+        """
+        from app.data_pipeline.metric_history import (
+            history_fingerprint,
+            verify_history,
+        )
+        from app.models import AnnualMetricVersion
+
+        self.insert_restated_income()
+        self.build_history()
+        versions = AnnualMetricVersion.__table__
+        # SQLite has no advisory locks; the lock itself is not under test here.
+        with patch("app.database.lock_data_imports"):
+            current = verify_history(self.database)
+            with self.database.begin() as connection:
+                approved = (
+                    connection.execute(
+                        versions.select().where(
+                            versions.c.metric == "net_income",
+                            versions.c.confirmation == "approved",
+                        )
+                    )
+                    .mappings()
+                    .one()
+                )
+                padded = dict(approved["details"], value="-33.0000000000")
+                connection.execute(
+                    versions.update()
+                    .where(versions.c.id == approved["id"])
+                    .values(details=padded)
+                )
+                stale = history_fingerprint(connection)
+
+            with self.assertRaisesRegex(ValueError, "run build-history"):
+                verify_history(self.database)
+
+        with self.database.connect() as connection:
+            after_check = history_fingerprint(connection)
+        self.assertEqual(current[0], stale[0])
+        self.assertNotEqual(current, stale)
+        # The rebuild used for the comparison was rolled back.
+        self.assertEqual(after_check, stale)
+
     def test_as_of_rejects_future_dates_and_missing_history(self):
         """A future date is invalid; an unbuilt history must not look like no data."""
         self.insert_restated_income()

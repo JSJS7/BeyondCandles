@@ -605,5 +605,31 @@ class StatementEndTests(unittest.TestCase):
             self.review("Oct. 25, 2015")
 
 
+class MissingEquityPeriodTests(unittest.TestCase):
+    def test_version_without_the_annual_period_stays_unresolved(self):
+        """An equity version whose filing facts do not form the period is one issue.
+
+        It must not raise StopIteration, which would stop the whole review instead
+        of leaving this single version unresolved.
+        """
+        fact = annual_fact("StockholdersEquity", "100")
+        task = SimpleNamespace(
+            metric="equity",
+            cik=fact["source_cik"],
+            cell_facts=[fact],
+            supporting_facts=[],
+            known_facts=[],
+            start=date(2020, 1, 1),
+            end=END,
+            filed=date(2021, 2, 1),
+            statement_ends=[END],
+        )
+
+        review, reason = version_reviews.review_task(task, {"equity": {}})
+
+        self.assertIsNone(review)
+        self.assertEqual(reason, "The filing's facts do not form this annual period")
+
+
 if __name__ == "__main__":
     unittest.main()

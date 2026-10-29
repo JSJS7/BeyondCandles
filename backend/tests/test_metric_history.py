@@ -307,6 +307,85 @@ class NvdaSplitTests(unittest.TestCase):
         self.assertEqual(versions[1].value.value, Decimal("0.1730000000"))
 
 
+class GeReviewedSplitTests(unittest.TestCase):
+    """GE FY2016 EPS: 0.89 in the 2017 10-K, restated to 0.75 in 2019."""
+
+    def test_reviewed_version_receives_the_later_reverse_split(self):
+        """A table-checked old value is restated to today's share basis.
+
+        GE's 1-for-8 reverse split (2 Aug 2021) postdates the 2017 10-K, so its
+        0.89 becomes 0.89 × 8 = 7.12, comparable with the latest 0.75 × 8 = 6.00.
+        Served unadjusted, the old version would look like a 85% drop.
+        """
+        period = {
+            "source_cik": "0000040545",
+            "metric": "eps_diluted",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "period_start": date(2016, 1, 1),
+            "period_end": date(2016, 12, 31),
+        }
+        first = reported_fact(
+            **period,
+            value=Decimal("0.89"),
+            filed=date(2017, 2, 24),
+            accession="0000040545-17-000010",
+        )
+        latest = reported_fact(
+            **period,
+            value=Decimal("0.75"),
+            filed=date(2019, 2, 26),
+            accession="0000040545-19-000014",
+        )
+        reverse_split = {
+            "basis_date": "2026-10-13",
+            "actions": [
+                {
+                    "ticker": "GE",
+                    "date": "2021-08-02",
+                    "new_shares": 1,
+                    "old_shares": 8,
+                    "source_url": "https://www.sec.gov/example-1-for-8",
+                }
+            ],
+        }
+        reviews = {
+            first["accession"]: {
+                "value": "0.89",
+                "components": [{"fact": fact_identity(first), "coefficient": 1}],
+                "selected_tag": "EarningsPerShareDiluted",
+                "calculation": None,
+                "eps_basis": "diluted",
+                "note": "Checked.",
+            }
+        }
+        raw = approved_metric(latest)
+        final = raw.model_copy(deep=True)
+        apply_share_basis(final, "GE", reverse_split, LATEST_VIEW_NOTE)
+
+        versions = build(
+            [first, latest],
+            raw,
+            "eps_diluted",
+            final=final,
+            eps_context=("GE", reverse_split),
+            reviews=reviews,
+        )
+
+        self.assertEqual(
+            timeline(versions),
+            [
+                (date(2017, 2, 24), "ready", "reviewed"),
+                (date(2019, 2, 26), "ready", "approved"),
+            ],
+        )
+        reviewed = versions[0].value
+        self.assertEqual(reviewed.value, Decimal("7.1200000000"))
+        self.assertEqual(reviewed.eps_share_basis.reported_value, Decimal("0.89"))
+        self.assertEqual(len(reviewed.eps_share_basis.applied_splits), 1)
+        self.assertEqual(versions[1].value.value, Decimal("6.0000000000"))
+
+
 class RoundingTests(unittest.TestCase):
     """TSLA 2018 revenue: 21 461 268 thousand first, 21 461 million later."""
 

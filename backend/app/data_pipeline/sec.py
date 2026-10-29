@@ -10,7 +10,7 @@ from typing import cast
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from app.data_pipeline.source_files import ROOT, read_json, sha256
+from app.data_pipeline.source_files import ROOT, read_json, sha256, write_json
 from app.data_pipeline.validation import number
 
 METRICS = {
@@ -329,9 +329,7 @@ def audit_sec():
             "metrics": metrics,
             "warnings": warnings,
         }
-    output = ROOT / "data/processed/sec-catalogue-report.json"
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    write_json(ROOT / "data/processed/sec-catalogue-report.json", report)
     return report
 
 

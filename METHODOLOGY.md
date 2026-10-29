@@ -206,8 +206,9 @@ companies comparable with each other.
 - Survivorship bias: the 200 companies were large at the end of the period, so
   backtests on this fixed universe overstate absolute returns and are best used for
   relative comparisons. Only 200 companies; US-listed, USD only.
-- Annual data only. The point-in-time view (`as_of`) leaves earlier versions that
-  differ from today's verified value without a value until they are checked.
+- Annual data only. The point-in-time view (`as_of`) shows an earlier version only
+  when it is confirmed; one earlier version (BK revenue for 2015 as first reported)
+  has no value, because that filing tags only a segment total.
 - Sector differences (banks, insurers, utilities) make cross-sector ratios unreliable.
 - GAAP figures without adjustments; preferred equity and dividends affect per-share
   and return ratios.

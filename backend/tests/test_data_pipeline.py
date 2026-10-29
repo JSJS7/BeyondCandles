@@ -263,5 +263,94 @@ class CommandLineErrorTests(unittest.TestCase):
             self.run_failing_command(TypeError("unexpected argument"))
 
 
+class CheckModeTests(unittest.TestCase):
+    """--check holds every JSON write and compares it with the file on disk."""
+
+    def setUp(self):
+        self.directory = TemporaryDirectory()
+        self.root = Path(self.directory.name)
+        self.addCleanup(self.directory.cleanup)
+        self.same = self.root / "same.json"
+        self.changed = self.root / "changed.json"
+        self.new = self.root / "new.json"
+        self.same.write_text('{\n  "a": 1,\n  "reviewed_at": "old"\n}\n')
+        self.changed.write_text('{\n  "a": 1\n}\n')
+
+    def run_check(self, review):
+        import json
+        from contextlib import redirect_stdout
+        from io import StringIO
+
+        from app.data_pipeline.__main__ import main
+
+        stdout = StringIO()
+        with (
+            patch("sys.argv", ["data_pipeline", "review-sec-periods", "--check"]),
+            patch("app.data_pipeline.source_files.ROOT", self.root),
+            patch(
+                "app.data_pipeline.fiscal_periods.review_fiscal_periods",
+                side_effect=review,
+            ),
+            redirect_stdout(stdout),
+        ):
+            exit_code = main()
+        return exit_code, json.loads(stdout.getvalue())["check"]
+
+    def test_differences_fail_without_touching_the_files(self):
+        """A changed or new file fails the check; disk content stays as it was.
+
+        A later read in the same run sees the held content, as a real run would.
+        """
+        from app.data_pipeline.source_files import read_json, write_json
+
+        def review(fetch):
+            write_json(self.same, {"a": 1, "reviewed_at": "new"})
+            write_json(self.changed, {"a": 2})
+            write_json(self.new, {"a": 3})
+            self.assertEqual(read_json(self.changed), {"a": 2})
+            return {"status": "verified"}
+
+        before = self.changed.read_text()
+
+        exit_code, check = self.run_check(review)
+
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(check["changed"], ["changed.json", "new.json"])
+        self.assertEqual(check["unchanged"], ["same.json"])
+        self.assertEqual(self.changed.read_text(), before)
+        self.assertIn('"old"', self.same.read_text())
+        self.assertFalse(self.new.exists())
+        self.assertEqual(read_json(self.changed), {"a": 1})
+
+    def test_only_a_new_run_timestamp_passes(self):
+        """Regenerating the same reviewed data is a successful check."""
+        from app.data_pipeline.source_files import write_json
+
+        def review(fetch):
+            write_json(self.same, {"a": 1, "reviewed_at": "new"})
+            return {"status": "verified"}
+
+        exit_code, check = self.run_check(review)
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(check, {"changed": [], "unchanged": ["same.json"]})
+
+    def test_commands_that_change_the_database_are_rejected(self):
+        """--check cannot hold database writes, so such commands refuse it."""
+        from contextlib import redirect_stderr
+        from io import StringIO
+
+        from app.data_pipeline.__main__ import main
+
+        with (
+            patch("sys.argv", ["data_pipeline", "build-history", "--check"]),
+            redirect_stderr(StringIO()),
+            self.assertRaises(SystemExit) as raised,
+        ):
+            main()
+
+        self.assertEqual(raised.exception.code, 2)
+
+
 if __name__ == "__main__":
     unittest.main()

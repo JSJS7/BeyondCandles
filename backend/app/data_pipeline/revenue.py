@@ -279,13 +279,6 @@ REVIEWED_NOTE_TOTALS = {
         "label": "Revenues, Total",
         "value": "10824000000",
     },
-    "0000882184:2017-10-01:2018-09-30": {
-        "accession": "0000882184-20-000143",
-        "filename": "R41.htm",
-        "tag": "Revenues",
-        "label": "Revenues",
-        "value": "16068000000",
-    },
     "0001069183:2021-01-01:2021-12-31": {
         "accession": "0001069183-24-000061",
         "filename": "R48.htm",

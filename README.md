@@ -66,8 +66,10 @@ Versioned rules in `data/` select reported values and preserve their sources.
 EPS is normalized for splits to a common share basis dated 13 Oct 2026;
 basic EPS and cash flow from continuing operations remain explicitly labeled.
 
-**Limitations:** annual results use the latest imported report versions, so they
-are not yet suitable for point-in-time backtests. Neither Close nor Adjusted Close
+**Limitations:** the app shows annual results from the latest report versions. The
+API can also return them as known on a given date (`as_of`), but the interface has no
+such view yet, and the data stays annual and limited to a fixed list of today's
+companies (see [METHODOLOGY.md](METHODOLOGY.md)). Neither Close nor Adjusted Close
 can be divided directly by EPS: the vendor also scales prices for some spin-offs,
 mergers and conversions, and Adjusted Close adds dividend conventions (see
 [METHODOLOGY.md](METHODOLOGY.md)). Price corrections do not certify every corporate

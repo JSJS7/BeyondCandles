@@ -850,11 +850,16 @@ def review_cash_flow(task, evidence, end):
 def equity_task(task):
     """The equity review task as it would have been built on the filing date."""
     periods = annual_periods(task.known_facts, equity_policy={})
-    period = next(
+    matching = [
         period
         for period in periods
         if (period.period_start, period.period_end) == (task.start, task.end)
-    )
+    ]
+    if not matching:
+        # A ValueError leaves this one version unresolved instead of stopping the
+        # whole review, which a bare next() would do with StopIteration.
+        raise ValueError("The filing's facts do not form this annual period")
+    period = matching[0]
     variants = [
         variant
         for variant in period.metrics["equity"].variants
