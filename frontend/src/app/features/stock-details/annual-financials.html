@@ -1,0 +1,257 @@
+<p class="muted">
+  Amounts in USD millions, rounded to whole millions; EPS in USD per share. Latest filed versions,
+  including later revisions. Select a value to see its SEC sources.
+</p>
+
+<details class="reading-guide">
+  <summary>How to read this table</summary>
+  <dl>
+    <dt>Fiscal year</dt>
+    <dd>Labels follow company reports. A fiscal year may end in the following calendar year.</dd>
+    <dt>Net income</dt>
+    <dd>
+      Attributable to the parent, before preferred-shareholder and other per-share adjustments.
+    </dd>
+    <dt>EPS</dt>
+    <dd>
+      Diluted where available. Normalized for reviewed stock splits, so all years use the same share
+      count basis; the sources show the originally reported value.
+    </dd>
+    <dt>Parent equity</dt>
+    <dd>
+      Belongs to the parent's owners at period end, including preferred equity and excluding
+      noncontrolling interests.
+    </dd>
+    <dt>Operating cash flow</dt>
+    <dd>Whole company, unless marked Continuing ops.</dd>
+  </dl>
+  <dl>
+    <dt><span class="metric-label">Basic</span></dt>
+    <dd>Basic EPS, used where no verified diluted EPS exists.</dd>
+    <dt><span class="metric-label">Continuing ops</span></dt>
+    <dd>Operating cash flow of continuing operations, excluding discontinued operations.</dd>
+    <dt><span class="metric-label">Split-adjusted</span></dt>
+    <dd>Reported EPS divided for stock splits after the filing.</dd>
+    <dt><span class="metric-label">Calculated</span></dt>
+    <dd>Calculated from values reported in one filing, not one reported figure.</dd>
+    <dt><span class="review">Needs review</span></dt>
+    <dd>An unverified definition or conflicting values; no value is shown.</dd>
+    <dt><span class="muted">Not available</span></dt>
+    <dd>No matching value was imported.</dd>
+  </dl>
+</details>
+
+@if (missingFiscalYears().length > 0) {
+  <p>
+    Not available in the imported date range: fiscal years
+    {{ missingFiscalYears().join(', ') }}.
+  </p>
+}
+@if (hasUnverifiedFiscalYears()) {
+  <p class="review">
+    Some fiscal year labels need review. Missing-year coverage cannot be determined.
+  </p>
+}
+
+<p class="scroll-hint muted" aria-hidden="true">Swipe the table sideways to see all measures.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Annual financial statements">
+  <table>
+    <caption>
+      Annual values for periods ending in 2015–2024
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="period-column">Fiscal year</th>
+        @for (column of columns; track column.key) {
+          <th scope="col" class="number-column">
+            {{ column.label }}
+            <span class="column-unit">{{ column.unit }}</span>
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (period of periods(); track period.period_start + period.period_end) {
+        <tr>
+          <th scope="row" class="period-column">
+            <span [class.review]="period.fiscal_year == null" class="fiscal-year"
+              >{{ fiscalYearLabel(period) }}
+              @if (period.period_note) {
+                <span class="note-marker" aria-hidden="true">*</span>
+              }
+            </span>
+            <span class="period-end">ends {{ formatDate(period.period_end) }}</span>
+          </th>
+          @for (column of columns; track column.key) {
+            @let cell = period.metrics[column.key];
+            <td [class.selected]="isSelected(period, column)">
+              <ng-template #cellContent>
+                @if (cell.status === 'ready' && cell.value !== null) {
+                  <span class="cell-value">{{ tableValue(column, cell.value) }}</span>
+                } @else if (cell.status === 'needs_review') {
+                  <span class="review">Needs review</span>
+                } @else {
+                  <span class="muted">Not available</span>
+                }
+                @for (label of cellLabels(column, cell); track label) {
+                  <span class="metric-label">{{ label }}</span>
+                }
+              </ng-template>
+              @if (cell.variants.length > 0) {
+                <button
+                  type="button"
+                  class="cell-button"
+                  [attr.aria-expanded]="isSelected(period, column)"
+                  (click)="toggleSources(period, column, $event)"
+                >
+                  <ng-container [ngTemplateOutlet]="cellContent" />
+                  <span class="visually-hidden">
+                    Sources for {{ column.label }}, {{ fiscalYearLabel(period) }}</span
+                  >
+                </button>
+              } @else {
+                <span class="cell-plain"><ng-container [ngTemplateOutlet]="cellContent" /></span>
+              }
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (periodsWithNotes().length > 0) {
+  <div class="period-notes">
+    <h3>Period notes</h3>
+    @for (period of periodsWithNotes(); track period.period_start + period.period_end) {
+      <p>
+        <span aria-hidden="true">* </span><strong>{{ fiscalYearLabel(period) }}</strong> ({{
+          formatDate(period.period_start)
+        }}
+        – {{ formatDate(period.period_end) }}):
+        {{ period.period_note }}
+      </p>
+    }
+  </div>
+}
+
+@if (selected(); as details) {
+  <section
+    class="sources-panel"
+    aria-labelledby="sources-heading"
+    (keydown.escape)="closeSources()"
+  >
+    <div class="sources-header">
+      <h3 id="sources-heading" tabindex="-1" #sourcesHeading>
+        {{ details.column.label }} · {{ fiscalYearLabel(details.period) }}
+      </h3>
+      <button type="button" class="close-button" (click)="closeSources()">Close</button>
+    </div>
+    <p class="muted">
+      {{ formatDate(details.period.period_start) }} –
+      {{ formatDate(details.period.period_end) }}
+    </p>
+
+    @let cell = details.cell;
+    @if (cell.status === 'ready' && cell.value !== null) {
+      <p class="exact-value">{{ exactValueWithUnit(details.column, cell.value) }}</p>
+      @for (label of cellLabels(details.column, cell); track label) {
+        <span class="metric-label">{{ label }}</span>
+      }
+    } @else if (cell.status === 'needs_review') {
+      <p class="review">
+        Needs review: the sources below disagree or their definition is not verified, so no value is
+        shown.
+      </p>
+    } @else {
+      <p class="muted">Not available: no value matching the definition was imported.</p>
+    }
+
+    @if (cell.eps_share_basis; as shareBasis) {
+      <div class="share-basis">
+        <p>Reported in the filing: {{ formatExact(shareBasis.reported_value) }} USD per share.</p>
+        @if (shareBasis.applied_splits.length > 0) {
+          <p>Divided for later stock splits:</p>
+          <ul>
+            @for (split of shareBasis.applied_splits; track split.date) {
+              <li>
+                <a [href]="split.source_url" target="_blank" rel="noopener noreferrer">{{
+                  formatDate(split.date)
+                }}</a
+                >: {{ split.new_shares }} new shares for {{ split.old_shares }} old
+              </li>
+            }
+          </ul>
+        } @else {
+          <p>The filing already reflects every reviewed split.</p>
+        }
+        <p class="muted">Share count basis: {{ formatDate(shareBasis.as_of) }}.</p>
+      </div>
+    }
+    @if (cell.calculation) {
+      <p>Calculation: {{ cell.calculation }}</p>
+    }
+    @if (cell.selection_note) {
+      <p class="muted">{{ cell.selection_note }}</p>
+    }
+    @if (details.period.period_note) {
+      <p class="muted">Period note: {{ details.period.period_note }}</p>
+    }
+
+    <h4>SEC sources ({{ details.sources.length }})</h4>
+    <ol class="source-list">
+      @for (
+        source of details.sources;
+        track source.variant.tag +
+          source.variant.accession +
+          source.variant.unit +
+          source.variant.source_cik +
+          source.variant.statement_column +
+          source.variant.statement_label
+      ) {
+        @let variant = source.variant;
+        <li [class.used-source]="source.role !== null">
+          @if (source.role) {
+            <p class="source-role">{{ source.role }}</p>
+          }
+          <dl>
+            <dt>Reported value</dt>
+            <dd>{{ formatExact(variant.value) }} {{ variant.unit }}</dd>
+            <dt>Definition</dt>
+            <dd>{{ variant.taxonomy }}:{{ variant.tag }}</dd>
+            @if (variant.statement_column) {
+              <dt>Statement position</dt>
+              <dd>{{ variant.statement_label }}</dd>
+              <dt>Statement column</dt>
+              <dd>{{ variant.statement_column }}</dd>
+            }
+            <dt>Period</dt>
+            <dd>{{ variant.period_start }} to {{ variant.period_end }}</dd>
+            <dt>Filed</dt>
+            <dd>{{ variant.filed }} · {{ variant.form }}</dd>
+            <dt>Accession</dt>
+            <dd>{{ variant.accession }}</dd>
+            @if (variant.source_cik) {
+              <dt>SEC issuer (CIK)</dt>
+              <dd>{{ variant.source_cik }}</dd>
+            }
+          </dl>
+          @if (variant.statement_url || source.filingUrl) {
+            <p class="source-links">
+              @if (variant.statement_url) {
+                <a [href]="variant.statement_url" target="_blank" rel="noopener noreferrer"
+                  >Open SEC statement</a
+                >
+              }
+              @if (source.filingUrl) {
+                <a [href]="source.filingUrl" target="_blank" rel="noopener noreferrer"
+                  >Open filing on SEC EDGAR</a
+                >
+              }
+            </p>
+          }
+        </li>
+      }
+    </ol>
+  </section>
+}

@@ -14,6 +14,7 @@ from app.annual_financials import annual_periods
 from app.database import Base, get_connection
 from app.main import app
 from app.models import Company, DailyPrice, FinancialFact
+from app.schemas.stock import decimal_string
 
 
 def reported_fact(**changes):
@@ -36,6 +37,25 @@ def reported_fact(**changes):
 
 
 class AnnualFinancialTests(unittest.TestCase):
+    def test_decimal_strings_have_one_form_for_one_number(self):
+        """Serialize equal numbers identically, whatever scale the value was stored with.
+
+        Stored facts are padded to ten decimal places, reviewed values are not; an
+        API client must not see 9.7700000000 in one view and 9.77 in another.
+        """
+        cases = [
+            (Decimal("9.7700000000"), "9.77"),
+            (Decimal("9.77"), "9.77"),
+            (Decimal("391035000000.0000000000"), "391035000000"),
+            (Decimal("1E+2"), "100"),
+            (Decimal("-42012000000.0000000000"), "-42012000000"),
+            (Decimal("0.0000000001"), "0.0000000001"),
+            (Decimal("-0.0000000000"), "0"),
+        ]
+        for value, expected in cases:
+            with self.subTest(value=value):
+                self.assertEqual(decimal_string(value), expected)
+
     def test_latest_revision_preserves_source_and_missing_values(self):
         """Show the latest revision, retain its filing date and leave missing metrics empty."""
         original = reported_fact()
@@ -463,7 +483,7 @@ class StockApiTests(unittest.TestCase):
         self.assertEqual(len(response.json()), 1)
         metric = response.json()[0]["metrics"]["net_income"]
         self.assertEqual(metric["status"], "ready")
-        self.assertEqual(metric["value"], "95.0000000000")
+        self.assertEqual(metric["value"], "95")
         self.assertEqual(metric["variants"][0]["form"], "10-Q/A")
         self.assertEqual(metric["variants"][0]["filed"], "2022-02-01")
         self.assertEqual(metric["variants"][0]["accession"], "quarterly-revision")
@@ -734,7 +754,7 @@ class StockApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         revenue = response.json()[0]["metrics"]["revenue"]
         self.assertEqual(revenue["status"], "ready")
-        self.assertEqual(revenue["value"], "100.0000000000")
+        self.assertEqual(revenue["value"], "100")
         self.assertEqual(revenue["selected_tag"], "Revenues")
         self.assertEqual(len(revenue["variants"]), 2)
         self.assertIn("Other candidates are retained", revenue["selection_note"])
@@ -780,7 +800,7 @@ class StockApiTests(unittest.TestCase):
         response = self.client.get("/stocks/AAPL/financials/annual")
         self.assertEqual(response.status_code, 200)
         cell = response.json()[0]["metrics"]["net_income"]
-        self.assertEqual(cell["value"], "100.0000000000")
+        self.assertEqual(cell["value"], "100")
         self.assertEqual(cell["selected_tag"], "NetIncomeLoss")
         self.assertEqual(len(cell["variants"]), 2)
         self.assertEqual(cell["selected_sources"][0]["accession"], "original")
@@ -817,7 +837,7 @@ class StockApiTests(unittest.TestCase):
             response = self.client.get("/stocks/AAPL/financials/annual")
         self.assertEqual(response.status_code, 200)
         cell = response.json()[0]["metrics"]["net_income"]
-        self.assertEqual(cell["value"], "80.0000000000")
+        self.assertEqual(cell["value"], "80")
         self.assertEqual(len(cell["selected_sources"]), 2)
         self.assertIn("other owners", cell["calculation"])
         self.assertIsNone(cell["selected_tag"])
@@ -900,7 +920,7 @@ class StockApiTests(unittest.TestCase):
         ]
         payload = self.client.get("/stocks/AAPL/financials/annual").json()
         metric = payload[0]["metrics"]["eps_diluted"]
-        self.assertEqual(metric["value"], "2.0775000000")
+        self.assertEqual(metric["value"], "2.0775")
         self.assertEqual(
             Decimal(metric["selected_sources"][0]["value"]), Decimal("8.31")
         )

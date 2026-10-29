@@ -61,63 +61,6 @@ a {
 .retry-button:hover {
   background: var(--bc-subtle);
 }
-.table-scroll {
-  overflow-x: auto;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-caption {
-  text-align: left;
-  padding-bottom: 16px;
-  color: var(--bc-muted);
-}
-th,
-td {
-  padding: 14px;
-  border-bottom: 1px solid var(--bc-border);
-  text-align: left;
-  vertical-align: top;
-}
-thead th {
-  background: var(--bc-subtle);
-}
-tbody th {
-  min-width: 115px;
-  font-weight: 500;
-}
-td {
-  min-width: 145px;
-  font-variant-numeric: tabular-nums;
-}
-summary {
-  margin-top: 10px;
-  color: var(--bc-primary);
-  cursor: pointer;
-}
-dl {
-  max-width: 320px;
-  overflow-wrap: anywhere;
-}
-dt {
-  color: var(--bc-muted);
-  margin-top: 8px;
-}
-dd {
-  margin-left: 0;
-}
-.metric-scope {
-  display: block;
-  margin-top: 4px;
-  color: var(--bc-secondary);
-  font-size: 12px;
-  font-weight: 600;
-}
-.review {
-  color: var(--bc-warning);
-}
 :focus-visible {
   outline: 2px solid var(--bc-primary);
   outline-offset: 3px;
@@ -132,19 +75,4 @@ dd {
   h1 {
     font-size: 28px;
   }
-}
-
-.period-details summary {
-  box-sizing: border-box;
-  min-height: 44px;
-  padding-block: 12px;
-}
-.period-details p {
-  max-width: 20rem;
-  font-weight: 400;
-}
-
-/* Expanded EPS sources stay readable while scrolling inside the financial table. */
-details.eps-share-details[open] {
-  width: min(20rem, calc(100vw - 72px));
 }

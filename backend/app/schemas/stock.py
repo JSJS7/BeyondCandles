@@ -6,8 +6,19 @@ from pydantic import BaseModel, Field, PlainSerializer
 
 
 def decimal_string(value: Decimal) -> str:
-    """Keep every decimal digit and avoid scientific notation in HTTP responses."""
-    return format(value, "f")
+    """Write one canonical form of a number in HTTP responses.
+
+    Every significant digit is kept and scientific notation is avoided. Trailing
+    zeros only reflect the storage scale (database columns pad to ten places,
+    reviewed values do not), so they are removed: 9.7700000000 and 9.77 are
+    the same number and must look the same to API clients.
+    """
+    text = format(value, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    if text == "-0":
+        text = "0"
+    return text
 
 
 DecimalValue = Annotated[Decimal, PlainSerializer(decimal_string, return_type=str)]

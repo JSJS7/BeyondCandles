@@ -227,10 +227,13 @@ class CatalogueCacheTests(unittest.TestCase):
             verify_submission("OLD", entry, {"cik": 789019, "tickers": ["OLD"]})
 
     def test_decimal_response_keeps_zero_and_long_fractional_values(self):
-        """Serialize financial numbers as plain decimal strings, including exact zero."""
+        """Serialize financial numbers as plain decimal strings, including exact zero.
+
+        Scientific notation never appears; only storage-scale trailing zeros are dropped.
+        """
         for value, expected in (
-            ("0E-10", "0.0000000000"),
-            ("1234567890123.1234567890", "1234567890123.1234567890"),
+            ("0E-10", "0"),
+            ("1234567890123.1234567890", "1234567890123.123456789"),
         ):
             with self.subTest(value=value):
                 metric = AnnualMetric(status="ready", value=Decimal(value), variants=[])

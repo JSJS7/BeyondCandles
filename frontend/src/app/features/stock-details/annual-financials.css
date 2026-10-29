@@ -1,0 +1,326 @@
+:host {
+  display: block;
+  container-type: inline-size;
+}
+.muted {
+  color: var(--bc-muted);
+}
+.review {
+  color: var(--bc-warning);
+}
+a {
+  color: var(--bc-primary);
+}
+h3 {
+  margin: 0;
+  font-size: 16px;
+}
+h4 {
+  margin: 20px 0 8px;
+  font-size: 14px;
+}
+
+/* Reading guide */
+.reading-guide {
+  margin-bottom: 16px;
+}
+.reading-guide summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--bc-primary);
+  cursor: pointer;
+}
+.reading-guide dl {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr);
+  gap: 6px 16px;
+  max-width: 48rem;
+  margin: 8px 0 16px;
+}
+.reading-guide dt {
+  color: var(--bc-muted);
+}
+.reading-guide dd {
+  margin: 0;
+}
+
+/* Table */
+.scroll-hint {
+  display: none;
+}
+.table-scroll {
+  /* Positioned, so that visually hidden labels stay clipped inside the scroll area. */
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+caption {
+  padding-bottom: 12px;
+  color: var(--bc-muted);
+  text-align: left;
+}
+th,
+td {
+  border-bottom: 1px solid var(--bc-border);
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  padding: 10px 12px;
+  background: var(--bc-subtle);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+.column-unit {
+  display: block;
+  color: var(--bc-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.number-column {
+  min-width: 7.5rem;
+  text-align: right;
+}
+
+/* The fiscal year stays visible while the metrics scroll sideways on narrow screens. */
+.period-column {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-width: 7rem;
+  border-right: 1px solid var(--bc-border);
+}
+thead .period-column {
+  z-index: 2;
+}
+tbody .period-column {
+  padding: 10px 12px;
+  background: var(--bc-surface);
+  font-weight: 400;
+}
+.fiscal-year {
+  display: block;
+  font-weight: 600;
+}
+.period-end {
+  display: block;
+  color: var(--bc-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.note-marker {
+  margin-left: 2px;
+  color: var(--bc-secondary);
+}
+
+td {
+  padding: 0;
+  font-variant-numeric: tabular-nums;
+}
+td.selected {
+  background: var(--bc-selection);
+}
+.cell-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--bc-text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  cursor: pointer;
+}
+.cell-button:hover {
+  background: var(--bc-subtle);
+}
+td.selected .cell-button:hover {
+  background: transparent;
+}
+.cell-button:focus-visible {
+  outline: 2px solid var(--bc-primary);
+  outline-offset: -2px;
+}
+.cell-value {
+  font-weight: 500;
+  white-space: nowrap;
+}
+.cell-plain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 10px 12px;
+  text-align: right;
+}
+.metric-label {
+  color: var(--bc-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Period notes and sources */
+.period-notes {
+  margin-top: 16px;
+}
+.period-notes p {
+  max-width: 48rem;
+}
+.sources-panel {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid var(--bc-border);
+  border-radius: 10px;
+  background: var(--bc-page);
+}
+.sources-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sources-header h3:focus {
+  outline: none;
+}
+.sources-header h3:focus-visible {
+  outline: 2px solid var(--bc-primary);
+  outline-offset: 3px;
+}
+.close-button {
+  flex-shrink: 0;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--bc-control-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--bc-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+.close-button:hover {
+  background: var(--bc-subtle);
+}
+.exact-value {
+  margin-bottom: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.sources-panel > .metric-label {
+  display: inline-block;
+  margin-right: 10px;
+}
+.sources-panel > p,
+.share-basis {
+  max-width: 48rem;
+  overflow-wrap: anywhere;
+}
+.share-basis ul {
+  padding-left: 20px;
+}
+.share-basis a {
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 12px;
+  line-height: 20px;
+}
+.source-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.source-list li {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--bc-border);
+  border-radius: 8px;
+  background: var(--bc-surface);
+}
+.source-list li.used-source {
+  border-color: var(--bc-secondary);
+}
+.source-role {
+  margin: 0 0 4px;
+  color: var(--bc-secondary);
+  font-weight: 600;
+}
+.source-list dl {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.source-list dt {
+  margin-top: 6px;
+  color: var(--bc-muted);
+  font-size: 12px;
+}
+.source-list dd {
+  margin: 0;
+}
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  margin: 8px 0 0;
+}
+.source-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Below about this width the five measures no longer fit beside the fiscal year column
+   (measured: the table needs 640–720 px, depending on how headers wrap). The query uses
+   the space of this component, which shrinks also when the sidebar is visible. */
+@container (max-width: 719px) {
+  .scroll-hint {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .reading-guide dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .reading-guide dd {
+    margin-bottom: 8px;
+  }
+  .number-column {
+    min-width: 6.5rem;
+  }
+  .period-column {
+    min-width: 6.5rem;
+  }
+  .sources-panel {
+    padding: 12px;
+  }
+}

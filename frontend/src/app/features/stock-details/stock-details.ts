@@ -16,13 +16,14 @@ import {
   tap,
 } from 'rxjs';
 import { LoadState } from '../../models/load-state';
-import { AnnualMetric, AnnualPeriod, FilingValue, Price, Stock } from '../../models/stock';
+import { AnnualPeriod, Price, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
+import { AnnualFinancials } from './annual-financials';
 import { PriceChart } from './price-chart';
 
 @Component({
   selector: 'app-stock-details',
-  imports: [RouterLink, PriceChart],
+  imports: [RouterLink, PriceChart, AnnualFinancials],
   templateUrl: './stock-details.html',
   styleUrl: './stock-details.css',
 })
@@ -47,25 +48,9 @@ export class StockDetailsComponent implements OnInit {
   });
   readonly prices = signal<Price[]>([]);
   readonly annualFinancials = signal<AnnualPeriod[]>([]);
-  readonly hasUnverifiedFiscalYears = computed(() =>
-    this.annualFinancials().some((period) => period.fiscal_year == null),
-  );
-  readonly missingAnnualYears = computed(() => {
-    if (this.hasUnverifiedFiscalYears()) return [];
-    const reportedYears = new Set(this.annualFinancials().map((period) => period.fiscal_year));
-    const expectedYears = Array.from({ length: 10 }, (_, index) => 2015 + index);
-    return expectedYears.filter((year) => !reportedYears.has(year));
-  });
   readonly stockLoadState = signal<LoadState>({ status: 'idle' });
   readonly pricesLoadState = signal<LoadState>({ status: 'idle' });
   readonly financialsLoadState = signal<LoadState>({ status: 'idle' });
-  readonly metrics = [
-    { key: 'revenue', label: 'Revenue' },
-    { key: 'net_income', label: 'Net income' },
-    { key: 'eps_diluted', label: 'EPS' },
-    { key: 'equity', label: 'Parent equity at period end' },
-    { key: 'operating_cash_flow', label: 'Operating cash flow' },
-  ];
 
   ngOnInit(): void {
     this.route.paramMap
@@ -162,30 +147,5 @@ export class StockDetailsComponent implements OnInit {
         return EMPTY;
       }),
     );
-  }
-
-  isSelectedSource(metric: AnnualMetric, variant: FilingValue): boolean {
-    if (metric.status !== 'ready') return false;
-    return (metric.selected_sources ?? []).some(
-      (source) =>
-        source.source_cik === variant.source_cik &&
-        source.taxonomy === variant.taxonomy &&
-        source.tag === variant.tag &&
-        source.unit === variant.unit &&
-        source.accession === variant.accession &&
-        source.period_start === variant.period_start &&
-        source.period_end === variant.period_end &&
-        source.statement_column === variant.statement_column &&
-        source.statement_label === variant.statement_label,
-    );
-  }
-
-  formatValue(value: string | null): string {
-    if (value === null) return 'Not available';
-    // Format decimal strings without converting financial values to floating point.
-    const [integer, decimal = ''] = value.split('.');
-    const groupedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    const significantDecimals = decimal.replace(/0+$/, '');
-    return significantDecimals ? `${groupedInteger}.${significantDecimals}` : groupedInteger;
   }
 }
