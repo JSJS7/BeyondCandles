@@ -15,18 +15,25 @@ from app.data_pipeline import version_reviews
 END = date(2020, 12, 31)
 
 
-def task_with(fact):
+def task_with(fact, supporting_facts=()):
     """A version of one net-income cell whose filing reported the given fact."""
-    return SimpleNamespace(cik=fact["source_cik"], end=END, cell_facts=[fact])
+    return SimpleNamespace(
+        cik=fact["source_cik"],
+        end=END,
+        cell_facts=[fact],
+        supporting_facts=list(supporting_facts),
+    )
 
 
-def review_against(html, fact):
+def review_against(html, fact, supporting_facts=()):
     statements = [({"url": "https://www.sec.gov/R4.htm"}, html)]
     summary = {"url": "https://www.sec.gov/FilingSummary.xml"}
     with patch.object(
         version_reviews, "income_statements", return_value=(summary, statements)
     ):
-        return version_reviews.review_net_income(task_with(fact), {}, END)
+        return version_reviews.review_net_income(
+            task_with(fact, supporting_facts), {}, END
+        )
 
 
 class NetIncomeVersionTests(unittest.TestCase):
@@ -54,6 +61,100 @@ class NetIncomeVersionTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             review_against(html, self.fact)
+
+
+class UnstoredAllocationTests(unittest.TestCase):
+    """Amphenol's first FY2015 report tags only group income and its allocation.
+
+    The import stores the noncontrolling fact only where the latest report lacks a
+    parent row, so the review reads it from the same filing and pins it.
+    """
+
+    def setUp(self):
+        self.group = reported_fact(
+            tag="ProfitLoss",
+            value=Decimal("772300000"),
+            period_start=date(2020, 1, 1),
+            period_end=END,
+        )
+        self.allocation = reported_fact(
+            tag="NetIncomeLossAttributableToNoncontrollingInterest",
+            value=Decimal("8800000"),
+            period_start=date(2020, 1, 1),
+            period_end=END,
+        )
+        self.html = statement(
+            [
+                ("ProfitLoss", "Net income", "772.3"),
+                (
+                    "NetIncomeLossAttributableToNoncontrollingInterest",
+                    "Less: Net income attributable to noncontrolling interests",
+                    "(8.8)",
+                ),
+                (
+                    "NetIncomeLossAvailableToCommonStockholdersBasic",
+                    "Net income attributable to Amphenol Corporation",
+                    "$ 763.5",
+                ),
+            ]
+        )
+
+    def test_unstored_allocation_reconciles_and_is_pinned(self):
+        """Group income minus the filing's own allocation; only that one is pinned."""
+        review = review_against(self.html, self.group, [self.allocation])
+
+        self.assertEqual(review["value"], "763500000")
+        group, allocation = review["components"]
+        self.assertEqual(group["fact"]["tag"], "ProfitLoss")
+        self.assertNotIn("statement_position", group)
+        self.assertEqual(allocation["coefficient"], -1)
+        self.assertTrue(allocation["statement_position"])
+
+    def test_without_the_allocation_the_version_stays_unresolved(self):
+        """Group income is never shown as parent income for lack of an allocation."""
+        with self.assertRaisesRegex(ValueError, "Missing or conflicting fact"):
+            review_against(self.html, self.group)
+
+
+class SupportingFactTests(unittest.TestCase):
+    def test_only_unstored_annual_facts_of_the_same_filing_are_attached(self):
+        """Another filing, a quarter or an already stored fact is not added."""
+        stored = reported_fact(
+            tag="NetIncomeLossAvailableToCommonStockholdersBasic",
+            value=Decimal("763500000"),
+        )
+        in_database = dict(stored, history_eligible=True)
+        wanted = reported_fact(
+            tag="NetIncomeLossAttributableToNoncontrollingInterest",
+            value=Decimal("8800000"),
+        )
+        extracted = [
+            wanted,
+            dict(wanted),  # SEC lists the same fact once per frame.
+            dict(wanted, accession="restated", filed=date(2022, 2, 1)),
+            dict(wanted, period_start=date(2020, 10, 1), period_kind="quarterly"),
+            stored,
+        ]
+        for fact in extracted:
+            fact.pop("source_cik")
+        task = SimpleNamespace(
+            accession="original",
+            start=date(2020, 1, 1),
+            end=END,
+            calendar={},
+            cell_facts=[in_database],
+        )
+
+        with patch.object(
+            version_reviews, "extract_facts", return_value=(extracted, [])
+        ):
+            version_reviews.add_supporting_facts([task], "0000320193", {}, None)
+
+        self.assertEqual(len(task.supporting_facts), 1)
+        attached = task.supporting_facts[0]
+        self.assertEqual(attached["tag"], wanted["tag"])
+        self.assertEqual(attached["source_cik"], "0000320193")
+        self.assertTrue(attached["history_eligible"])
 
 
 class ReviewedCashFlowScopeTests(unittest.TestCase):

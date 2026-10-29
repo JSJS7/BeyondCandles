@@ -153,13 +153,15 @@ session). An earlier version is served only when it is confirmed:
   with the same rules as the latest one, as if its filing date were today. The value
   must appear in that filing's annual column (within displayed rounding) and match the
   filing's tagged facts; a value read from the table itself (e.g. noncontrolling
-  interests deducted from group equity), or an EPS figure read from the filing's
-  original XBRL when it was not among the imported facts, is pinned to that source. Such a version
+  interests deducted from group equity), an EPS figure read from the filing's
+  original XBRL when it was not among the imported facts, or a deduction from group
+  net income (e.g. the noncontrolling share) taken from the same filing's SEC data
+  when the import kept only the group figure, is pinned to that source. Such a version
   may differ from today's value: it is what the company reported at the time.
 
 Any other earlier annual-report version is marked *needs review* and has no value: for
 example, the statement could not be matched unambiguously, or a fact needed to explain
-it (such as the noncontrolling share of income) is missing. A quarterly (10-Q) version that is not confirmed is ignored, so the
+it (such as the noncontrolling interests in equity) is missing. A quarterly (10-Q) version that is not confirmed is ignored, so the
 previous annual version stays in force until the next annual report. EPS keeps the same
 share basis (13 Oct 2026) as the latest view. With D = today the result is identical to
 the latest view. Part of the history therefore remains unavailable rather than possibly

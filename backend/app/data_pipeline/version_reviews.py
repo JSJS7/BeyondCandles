@@ -19,15 +19,25 @@ from app.data_pipeline import equity as equity_review
 from app.data_pipeline import operating_cash_flow as cash_flow_review
 from app.data_pipeline.eps import CLASS_MEMBERS, eps_position, instance_eps
 from app.data_pipeline.eps import EVIDENCE_INDEX as EPS_EVIDENCE
-from app.data_pipeline.net_income import issuer_income_files, position, verify_exception
+from app.data_pipeline.net_income import (
+    ISSUER_SUPPORTING_TAGS,
+    SUPPORTING_TAGS,
+    issuer_income_files,
+    position,
+    verify_exception,
+)
 from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
 from app.data_pipeline.revenue import download_evidence, verify_filing_period
 from app.data_pipeline.revenue_facts import cache_instance
-from app.data_pipeline.sec import CacheIntegrityError, SecAccessDenied
+from app.data_pipeline.sec import CacheIntegrityError, SecAccessDenied, extract_facts
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
-from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
+from app.data_pipeline.sec_history import (
+    HISTORY_INDEX,
+    history_eligible,
+    prepare_company_facts,
+)
 from app.data_pipeline.sec_statements import matches_rendered_value
 from app.data_pipeline.source_files import (
     ROOT,
@@ -93,6 +103,8 @@ class VersionTask:
             }
         self.cik = next(iter(ciks)) if len(ciks) == 1 else None
         self.cell_facts = cell_facts
+        # Net-income allocations of this filing that the import did not store.
+        self.supporting_facts = []
 
     def in_period(self, fact):
         start, end = canonical_period(fact, self.calendar)
@@ -148,13 +160,51 @@ def pending_tasks():
             # Every unchecked report date is a task, not only the first of a run.
             keep_repeats=True,
         )
-        for version in versions:
-            if (
-                version.value.status == "needs_review"
-                and version.form in ANNUAL_REPORT_FORMS
-            ):
-                tasks.append(VersionTask(ticker, facts, version, calendar))
+        company_tasks = [
+            VersionTask(ticker, facts, version, calendar)
+            for version in versions
+            if version.value.status == "needs_review"
+            and version.form in ANNUAL_REPORT_FORMS
+        ]
+        allocation_tasks = [
+            task
+            for task in company_tasks
+            if task.metric == "net_income" and task.cik == entry["cik"]
+        ]
+        if allocation_tasks:
+            history_rules = issuers[ticker].get("history")
+            add_supporting_facts(allocation_tasks, entry["cik"], body, history_rules)
+        tasks.extend(company_tasks)
     return tasks, issuers, history
+
+
+def add_supporting_facts(tasks, cik, body, history_rules):
+    """Attach the filing's own net-income allocations that the import did not store.
+
+    The import keeps noncontrolling, common-shareholder and preferred positions only
+    for periods whose latest report lacks a parent-income row
+    (net_income.supporting_facts). An earlier report of such a period may still
+    present only group income and its allocations; the same SEC facts of that filing
+    are read here and later checked against its statement.
+    """
+    tags = SUPPORTING_TAGS + ISSUER_SUPPORTING_TAGS.get(cik, ())
+    extracted, _ = extract_facts(body, metrics={"net_income": tags})
+    for task in tasks:
+        stored = [fact_identity(fact) for fact in task.cell_facts]
+        added = []
+        for fact in extracted:
+            if fact["accession"] != task.accession or fact["period_kind"] != "annual":
+                continue
+            if canonical_period(fact, task.calendar) != (task.start, task.end):
+                continue
+            fact = dict(fact, source_cik=cik)
+            fact["history_eligible"] = history_eligible(fact, cik, history_rules)
+            identity = fact_identity(fact)
+            if not fact["history_eligible"] or identity in stored:
+                continue
+            if identity not in [fact_identity(item) for item in added]:
+                added.append(fact)
+        task.supporting_facts = added
 
 
 def single_source(task, fact):
@@ -260,12 +310,17 @@ def review_revenue(task, evidence, end):
 
 
 def review_net_income(task, evidence, end):
-    """Match the parent row, or reconcile it exactly as review-net-income does."""
+    """Match the parent row, or reconcile it exactly as review-net-income does.
+
+    An allocation the import did not store is pinned like a statement position: the
+    reconciliation has matched it to its row in this filing's statement.
+    """
     current = [
         FilingValue.model_validate(dict(fact))
-        for fact in task.cell_facts
+        for fact in task.cell_facts + task.supporting_facts
         if fact["period_kind"] == "annual"
     ]
+    unstored = [fact_identity(fact) for fact in task.supporting_facts]
     parent = [
         value
         for value in current
@@ -295,13 +350,16 @@ def review_net_income(task, evidence, end):
                 for source, coefficient in zip(selected, coefficients, strict=True)
             ]
         )
+        components = []
+        for source, coefficient in zip(selected, coefficients, strict=True):
+            component = {"fact": fact_identity(source), "coefficient": coefficient}
+            if component["fact"] in unstored:
+                component["statement_position"] = True
+            components.append(component)
         choices.append(
             {
                 "value": format(value, "f"),
-                "components": [
-                    {"fact": fact_identity(source), "coefficient": coefficient}
-                    for source, coefficient in zip(selected, coefficients, strict=True)
-                ],
+                "components": components,
                 "selected_tag": selected[0].tag if len(selected) == 1 else None,
                 "calculation": calculation,
                 "note": NET_INCOME_DEFINITION + (" " + note if note else ""),

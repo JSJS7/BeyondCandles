@@ -13130,6 +13130,144 @@
         "file": "318d201ca8a8c3d45b8cfdcfacac3ba3e6bafda507530e6d218db34199bc9874.htm"
       }
     },
+    "AON:net_income:2019-01-01:2019-12-31:0001628280-20-001607": {
+      "filed": "2020-02-14",
+      "form": "10-K",
+      "value": "1532000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315293",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "1573000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-14",
+            "accession": "0001628280-20-001607",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000315293",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "41000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-14",
+            "accession": "0001628280-20-001607",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315293/000162828020001607/R2.htm",
+        "sha256": "fa6585de055f94a1e274b323246d0b8e82e0d12dc0d25fa60b9acb8824fb1c43",
+        "file": "fa6585de055f94a1e274b323246d0b8e82e0d12dc0d25fa60b9acb8824fb1c43.htm"
+      }
+    },
+    "AON:net_income:2019-01-01:2019-12-31:0001628280-21-002574": {
+      "filed": "2021-02-19",
+      "form": "10-K",
+      "value": "1532000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315293",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "1573000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2021-02-19",
+            "accession": "0001628280-21-002574",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000315293",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "41000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2021-02-19",
+            "accession": "0001628280-21-002574",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315293/000162828021002574/R2.htm",
+        "sha256": "ca5e961186b946d6bd54e888f988fdfc8090768f0db18d3cacefdef199628843",
+        "file": "ca5e961186b946d6bd54e888f988fdfc8090768f0db18d3cacefdef199628843.htm"
+      }
+    },
+    "AON:net_income:2020-01-01:2020-12-31:0001628280-21-002574": {
+      "filed": "2021-02-19",
+      "form": "10-K",
+      "value": "1969000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315293",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "2018000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2021-02-19",
+            "accession": "0001628280-21-002574",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000315293",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "49000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2021-02-19",
+            "accession": "0001628280-21-002574",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315293/000162828021002574/R2.htm",
+        "sha256": "ca5e961186b946d6bd54e888f988fdfc8090768f0db18d3cacefdef199628843",
+        "file": "ca5e961186b946d6bd54e888f988fdfc8090768f0db18d3cacefdef199628843.htm"
+      }
+    },
     "AON:revenue:2015-01-01:2015-12-31:0001628280-16-011485": {
       "filed": "2016-02-22",
       "form": "10-K",
@@ -15400,6 +15538,52 @@
         "url": "https://www.sec.gov/Archives/edgar/data/820313/000155837025000714/R5.htm",
         "sha256": "92d72b2407fe0dc4a97a8e67bd755d669c1ef565d3a001891a299170a84df41a",
         "file": "92d72b2407fe0dc4a97a8e67bd755d669c1ef565d3a001891a299170a84df41a.htm"
+      }
+    },
+    "APH:net_income:2015-01-01:2015-12-31:0001104659-16-098503": {
+      "filed": "2016-02-19",
+      "form": "10-K",
+      "value": "763500000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000820313",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "772300000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-19",
+            "accession": "0001104659-16-098503",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000820313",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "8800000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-19",
+            "accession": "0001104659-16-098503",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/820313/000110465916098503/R2.htm",
+        "sha256": "709ff2deaa5358ad6ea8eae2ef56a025e425f72048f435754b6e922b8a32a5b1",
+        "file": "709ff2deaa5358ad6ea8eae2ef56a025e425f72048f435754b6e922b8a32a5b1.htm"
       }
     },
     "APH:operating_cash_flow:2015-01-01:2015-12-31:0001104659-16-098503": {
@@ -28498,6 +28682,144 @@
         "file": "c04d3ad74d6362ca764d9f9a8c9d92e52656abfb81a9bfe3008858c12b190490.htm"
       }
     },
+    "CI:net_income:2023-01-01:2023-12-31:0001739940-24-000005": {
+      "filed": "2024-02-29",
+      "form": "10-K",
+      "value": "5164000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001739940",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "5372000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-29",
+            "accession": "0001739940-24-000005",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001739940",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "208000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-29",
+            "accession": "0001739940-24-000005",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1739940/000173994024000005/R3.htm",
+        "sha256": "1ac534e4bc5e50509da9e544c637caa20fafcc95039546e85cd01690affc55da",
+        "file": "1ac534e4bc5e50509da9e544c637caa20fafcc95039546e85cd01690affc55da.htm"
+      }
+    },
+    "CI:net_income:2023-01-01:2023-12-31:0001739940-25-000009": {
+      "filed": "2025-02-27",
+      "form": "10-K",
+      "value": "5164000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001739940",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "5372000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-27",
+            "accession": "0001739940-25-000009",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001739940",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "208000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-27",
+            "accession": "0001739940-25-000009",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1739940/000173994025000009/R3.htm",
+        "sha256": "a7aab1e1ac2db5887ae7c3cd1635d5b5e7ffb3355dcf77a814c88f2fd4f1caed",
+        "file": "a7aab1e1ac2db5887ae7c3cd1635d5b5e7ffb3355dcf77a814c88f2fd4f1caed.htm"
+      }
+    },
+    "CI:net_income:2024-01-01:2024-12-31:0001739940-25-000009": {
+      "filed": "2025-02-27",
+      "form": "10-K",
+      "value": "3434000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001739940",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "3778000000",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-27",
+            "accession": "0001739940-25-000009",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001739940",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "344000000",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-27",
+            "accession": "0001739940-25-000009",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1739940/000173994025000009/R3.htm",
+        "sha256": "a7aab1e1ac2db5887ae7c3cd1635d5b5e7ffb3355dcf77a814c88f2fd4f1caed",
+        "file": "a7aab1e1ac2db5887ae7c3cd1635d5b5e7ffb3355dcf77a814c88f2fd4f1caed.htm"
+      }
+    },
     "CI:operating_cash_flow:2015-01-01:2015-12-31:0001047469-16-010432": {
       "filed": "2016-02-25",
       "form": "10-K",
@@ -36654,6 +36976,52 @@
         "url": "https://www.sec.gov/Archives/edgar/data/64803/000006480323000009/R5.htm",
         "sha256": "567d496819d1061fa6e6d0cf30db2c388ff45cfda78b03b0ea6268fe7b1d7c18",
         "file": "567d496819d1061fa6e6d0cf30db2c388ff45cfda78b03b0ea6268fe7b1d7c18.htm"
+      }
+    },
+    "CVS:net_income:2015-01-01:2015-12-31:0000064803-16-000074": {
+      "filed": "2016-02-09",
+      "form": "10-K",
+      "value": "5237000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000064803",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "5239000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-09",
+            "accession": "0000064803-16-000074",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000064803",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "2000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-09",
+            "accession": "0000064803-16-000074",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/64803/000006480316000074/R2.htm",
+        "sha256": "281a93d0710f14efd26e695c4700f9afdefd7ac7271f24493c1c3ea234002aa9",
+        "file": "281a93d0710f14efd26e695c4700f9afdefd7ac7271f24493c1c3ea234002aa9.htm"
       }
     },
     "CVS:net_income:2021-01-01:2021-12-31:0000064803-22-000008": {
@@ -45135,6 +45503,99 @@
         "file": "75b426ad68dbbd276ad008c28089472c38d2e8253cf9560ea54d59984ae593c2.htm"
       }
     },
+    "ECL:net_income:2021-01-01:2021-12-31:0001558370-22-002059": {
+      "filed": "2022-02-25",
+      "form": "10-K",
+      "value": "1129900000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000031462",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+            "unit": "USD",
+            "value": "1129900000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-25",
+            "accession": "0001558370-22-002059",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. The reviewed income statement explicitly labels this position as net income attributable to the parent issuer.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/31462/000155837022002059/R2.htm",
+        "sha256": "91537344f2f2fca4349f8fb18499d6823ad6b5240748a86dc351909c87663354",
+        "file": "91537344f2f2fca4349f8fb18499d6823ad6b5240748a86dc351909c87663354.htm"
+      }
+    },
+    "ECL:net_income:2021-01-01:2021-12-31:0001558370-23-001969": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "1129900000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000031462",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+            "unit": "USD",
+            "value": "1129900000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2023-02-24",
+            "accession": "0001558370-23-001969",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. The reviewed income statement explicitly labels this position as net income attributable to the parent issuer.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/31462/000155837023001969/R2.htm",
+        "sha256": "8a030ac451d4f8908763b2507f8ec972329d2d30a1cdf08e8a0285bf473a6cb1",
+        "file": "8a030ac451d4f8908763b2507f8ec972329d2d30a1cdf08e8a0285bf473a6cb1.htm"
+      }
+    },
+    "ECL:net_income:2022-01-01:2022-12-31:0001558370-23-001969": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "1091700000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000031462",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+            "unit": "USD",
+            "value": "1091700000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-24",
+            "accession": "0001558370-23-001969",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. The reviewed income statement explicitly labels this position as net income attributable to the parent issuer.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/31462/000155837023001969/R2.htm",
+        "sha256": "8a030ac451d4f8908763b2507f8ec972329d2d30a1cdf08e8a0285bf473a6cb1",
+        "file": "8a030ac451d4f8908763b2507f8ec972329d2d30a1cdf08e8a0285bf473a6cb1.htm"
+      }
+    },
     "ECL:operating_cash_flow:2015-01-01:2015-12-31:0001558370-16-003581": {
       "filed": "2016-02-26",
       "form": "10-K",
@@ -47903,6 +48364,52 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118217000014/R2.htm",
         "sha256": "a71da5abd3e2eba2b38d28e209855ac0d31c57c96edc0f7eea04974250309d9e",
         "file": "a71da5abd3e2eba2b38d28e209855ac0d31c57c96edc0f7eea04974250309d9e.htm"
+      }
+    },
+    "ETN:net_income:2019-01-01:2019-12-31:0001551182-20-000050": {
+      "filed": "2020-02-26",
+      "form": "10-K",
+      "value": "2211000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001551182",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "2213000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-26",
+            "accession": "0001551182-20-000050",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001551182",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "2000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-26",
+            "accession": "0001551182-20-000050",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118220000050/R2.htm",
+        "sha256": "0789364b26a3dadaf3dc11370543eb458dee75072b96dc67f66685876259f7e9",
+        "file": "0789364b26a3dadaf3dc11370543eb458dee75072b96dc67f66685876259f7e9.htm"
       }
     },
     "ETN:operating_cash_flow:2015-01-01:2015-12-31:0001551182-16-000041": {
@@ -96637,6 +97144,144 @@
         "file": "e6d5a0c72643160e1550d37acc811f69a2c1a9190ef9e9c1f4d3c55df97fdc6b.htm"
       }
     },
+    "OXY:net_income:2020-01-01:2020-12-31:0000797468-21-000009": {
+      "filed": "2021-02-26",
+      "form": "10-K",
+      "value": "-14831000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "-14831000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2021-02-26",
+            "accession": "0000797468-21-000009",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2021-02-26",
+            "accession": "0000797468-21-000009",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746821000009/R4.htm",
+        "sha256": "6ca2d295bb374f90140713456842b160b13034178480e6767806e75c0b82975b",
+        "file": "6ca2d295bb374f90140713456842b160b13034178480e6767806e75c0b82975b.htm"
+      }
+    },
+    "OXY:net_income:2020-01-01:2020-12-31:0000797468-22-000008": {
+      "filed": "2022-02-24",
+      "form": "10-K",
+      "value": "-14831000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "-14831000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2022-02-24",
+            "accession": "0000797468-22-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2022-02-24",
+            "accession": "0000797468-22-000008",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746822000008/R5.htm",
+        "sha256": "de697167ba9fb4a21d70f26d1fa031fb8b525b675201110f9a7f6e32f331279c",
+        "file": "de697167ba9fb4a21d70f26d1fa031fb8b525b675201110f9a7f6e32f331279c.htm"
+      }
+    },
+    "OXY:net_income:2021-01-01:2021-12-31:0000797468-22-000008": {
+      "filed": "2022-02-24",
+      "form": "10-K",
+      "value": "2322000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "2322000000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-24",
+            "accession": "0000797468-22-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000797468",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-24",
+            "accession": "0000797468-22-000008",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746822000008/R5.htm",
+        "sha256": "de697167ba9fb4a21d70f26d1fa031fb8b525b675201110f9a7f6e32f331279c",
+        "file": "de697167ba9fb4a21d70f26d1fa031fb8b525b675201110f9a7f6e32f331279c.htm"
+      }
+    },
     "OXY:net_income:2022-01-01:2022-12-31:0000797468-23-000011": {
       "filed": "2023-02-27",
       "form": "10-K",
@@ -98369,6 +99014,68 @@
         "url": "https://www.sec.gov/Archives/edgar/data/723531/000072353118000026/R2.htm",
         "sha256": "082d1585a441a1588cb8508cc3613e0956fc490e888d8cb9ed57b10c91836e4e",
         "file": "082d1585a441a1588cb8508cc3613e0956fc490e888d8cb9ed57b10c91836e4e.htm"
+      }
+    },
+    "PAYX:net_income:2023-06-01:2024-05-31:0000950170-24-082958": {
+      "filed": "2024-07-11",
+      "form": "10-K",
+      "value": "1690400000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000723531",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+            "unit": "USD",
+            "value": "1690400000",
+            "period_start": "2023-06-01",
+            "period_end": "2024-05-31",
+            "filed": "2024-07-11",
+            "accession": "0000950170-24-082958",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. The reviewed statement labels this position as its sole net-income bottom line, without separate preferred-shareholder or noncontrolling allocations. The common-shareholder concept is not used as a universal parent-income synonym.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/723531/000095017024082958/R2.htm",
+        "sha256": "e16337857ce0d9cf7e3d702d5db0818fb21ce56c5800de3ca9d82e153600322d",
+        "file": "e16337857ce0d9cf7e3d702d5db0818fb21ce56c5800de3ca9d82e153600322d.htm"
+      }
+    },
+    "PAYX:net_income:2023-06-01:2024-05-31:0000950170-25-095300": {
+      "filed": "2025-07-11",
+      "form": "10-K",
+      "value": "1690400000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000723531",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+            "unit": "USD",
+            "value": "1690400000",
+            "period_start": "2023-06-01",
+            "period_end": "2024-05-31",
+            "filed": "2025-07-11",
+            "accession": "0000950170-25-095300",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. The reviewed statement labels this position as its sole net-income bottom line, without separate preferred-shareholder or noncontrolling allocations. The common-shareholder concept is not used as a universal parent-income synonym.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/723531/000095017025095300/R2.htm",
+        "sha256": "170e2f67a6497c48918db4052ea6663964dfae0c9c52603db6cbf6df7c132e87",
+        "file": "170e2f67a6497c48918db4052ea6663964dfae0c9c52603db6cbf6df7c132e87.htm"
       }
     },
     "PAYX:operating_cash_flow:2015-06-01:2016-05-31:0000723531-16-000046": {
@@ -109332,6 +110039,144 @@
         "file": "dcc85777cb5a8ba99828f4f22b46547d989ed52495ec4b9b14ae3fe4d2ebf48a.htm"
       }
     },
+    "PWR:net_income:2017-01-01:2017-12-31:0001050915-18-000003": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "314978000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001050915",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "318225000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001050915-18-000003",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001050915",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "3247000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001050915-18-000003",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1050915/000105091518000003/R4.htm",
+        "sha256": "c03c1dba13818c8b91c186e253d34cdd8e63b88754f8435ea67a88e9ece28524",
+        "file": "c03c1dba13818c8b91c186e253d34cdd8e63b88754f8435ea67a88e9ece28524.htm"
+      }
+    },
+    "PWR:net_income:2017-01-01:2017-12-31:0001050915-19-000014": {
+      "filed": "2019-02-28",
+      "form": "10-K",
+      "value": "314978000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001050915",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "318225000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2019-02-28",
+            "accession": "0001050915-19-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001050915",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "3247000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2019-02-28",
+            "accession": "0001050915-19-000014",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1050915/000105091519000014/R4.htm",
+        "sha256": "3e4bfb4fbd82309ce90cf7795ffd34ddbb90797a78bcadb45c62be1894ed0d97",
+        "file": "3e4bfb4fbd82309ce90cf7795ffd34ddbb90797a78bcadb45c62be1894ed0d97.htm"
+      }
+    },
+    "PWR:net_income:2018-01-01:2018-12-31:0001050915-19-000014": {
+      "filed": "2019-02-28",
+      "form": "10-K",
+      "value": "293346000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001050915",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "296007000",
+            "period_start": "2018-01-01",
+            "period_end": "2018-12-31",
+            "filed": "2019-02-28",
+            "accession": "0001050915-19-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001050915",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "2661000",
+            "period_start": "2018-01-01",
+            "period_end": "2018-12-31",
+            "filed": "2019-02-28",
+            "accession": "0001050915-19-000014",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1050915/000105091519000014/R4.htm",
+        "sha256": "3e4bfb4fbd82309ce90cf7795ffd34ddbb90797a78bcadb45c62be1894ed0d97",
+        "file": "3e4bfb4fbd82309ce90cf7795ffd34ddbb90797a78bcadb45c62be1894ed0d97.htm"
+      }
+    },
     "PWR:operating_cash_flow:2015-01-01:2015-12-31:0001193125-16-485494": {
       "filed": "2016-02-29",
       "form": "10-K",
@@ -117683,6 +118528,192 @@
         "file": "6a3cd4508614866a860a809e052a3039c41af8edc62939fd586b7b8aebe760e6.htm"
       }
     },
+    "SO:net_income:2023-01-01:2023-12-31:0000092122-24-000009": {
+      "filed": "2024-02-15",
+      "form": "10-K",
+      "value": "3976000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "3849000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-15",
+            "accession": "0000092122-24-000009",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-127000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-15",
+            "accession": "0000092122-24-000009",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        },
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "PreferredStockDividendsIncomeStatementImpact",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-15",
+            "accession": "0000092122-24-000009",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212224000009/R3.htm",
+        "sha256": "cc638b64f62f36f70bfc9fa16883573793986f6e59bbe03fb5febae650e57f8e",
+        "file": "cc638b64f62f36f70bfc9fa16883573793986f6e59bbe03fb5febae650e57f8e.htm"
+      }
+    },
+    "SO:net_income:2023-01-01:2023-12-31:0000092122-25-000018": {
+      "filed": "2025-02-20",
+      "form": "10-K",
+      "value": "3976000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "3849000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000092122-25-000018",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-127000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000092122-25-000018",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        },
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "PreferredStockDividendsIncomeStatementImpact",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000092122-25-000018",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212225000018/R3.htm",
+        "sha256": "830d9bc853fc0f6504a5631d7a8a7b298201d16b724d38b2f6f6607f3069fc95",
+        "file": "830d9bc853fc0f6504a5631d7a8a7b298201d16b724d38b2f6f6607f3069fc95.htm"
+      }
+    },
+    "SO:net_income:2024-01-01:2024-12-31:0000092122-25-000018": {
+      "filed": "2025-02-20",
+      "form": "10-K",
+      "value": "4401000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "4260000000",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000092122-25-000018",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-141000000",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000092122-25-000018",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        },
+        {
+          "fact": {
+            "source_cik": "0000092122",
+            "taxonomy": "us-gaap",
+            "tag": "PreferredStockDividendsIncomeStatementImpact",
+            "unit": "USD",
+            "value": "0",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000092122-25-000018",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212225000018/R3.htm",
+        "sha256": "830d9bc853fc0f6504a5631d7a8a7b298201d16b724d38b2f6f6607f3069fc95",
+        "file": "830d9bc853fc0f6504a5631d7a8a7b298201d16b724d38b2f6f6607f3069fc95.htm"
+      }
+    },
     "SO:operating_cash_flow:2017-01-01:2017-12-31:0000092122-18-000012": {
       "filed": "2018-02-21",
       "form": "10-K",
@@ -120776,6 +121807,144 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1032208/000008652119000014/R2.htm",
         "sha256": "2749f6211b9b1d0047088931e8eb45554c5c4a33e13dcd26b7dd76e13eae3fab",
         "file": "2749f6211b9b1d0047088931e8eb45554c5c4a33e13dcd26b7dd76e13eae3fab.htm"
+      }
+    },
+    "SRE:net_income:2021-01-01:2021-12-31:0001032208-22-000007": {
+      "filed": "2022-02-25",
+      "form": "10-K",
+      "value": "1318000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001032208",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "1463000000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-25",
+            "accession": "0001032208-22-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001032208",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "145000000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-25",
+            "accession": "0001032208-22-000007",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220822000007/R3.htm",
+        "sha256": "858ce71a38788c89a4f4cb3fde4d4c5ebb5e763d110f86a5bbf904457bc25287",
+        "file": "858ce71a38788c89a4f4cb3fde4d4c5ebb5e763d110f86a5bbf904457bc25287.htm"
+      }
+    },
+    "SRE:net_income:2021-01-01:2021-12-31:0001032208-23-000008": {
+      "filed": "2023-02-28",
+      "form": "10-K",
+      "value": "1318000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001032208",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "1463000000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2023-02-28",
+            "accession": "0001032208-23-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001032208",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "145000000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2023-02-28",
+            "accession": "0001032208-23-000008",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220823000008/R3.htm",
+        "sha256": "d78d44df5339e53aefee5c139d72e156f00386f2376d4814180b4295a32068d3",
+        "file": "d78d44df5339e53aefee5c139d72e156f00386f2376d4814180b4295a32068d3.htm"
+      }
+    },
+    "SRE:net_income:2022-01-01:2022-12-31:0001032208-23-000008": {
+      "filed": "2023-02-28",
+      "form": "10-K",
+      "value": "2139000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001032208",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "2285000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-28",
+            "accession": "0001032208-23-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001032208",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "146000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-28",
+            "accession": "0001032208-23-000008",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220823000008/R3.htm",
+        "sha256": "d78d44df5339e53aefee5c139d72e156f00386f2376d4814180b4295a32068d3",
+        "file": "d78d44df5339e53aefee5c139d72e156f00386f2376d4814180b4295a32068d3.htm"
       }
     },
     "SRE:operating_cash_flow:2015-01-01:2015-12-31:0000086521-16-000091": {
@@ -126832,6 +128001,144 @@
         "url": "https://www.sec.gov/Archives/edgar/data/97745/000009774521000011/R4.htm",
         "sha256": "72cb8075c128162a1729d942697c61b1dec8edc21119eb1015b4c7c718c7916d",
         "file": "72cb8075c128162a1729d942697c61b1dec8edc21119eb1015b4c7c718c7916d.htm"
+      }
+    },
+    "TMO:net_income:2023-01-01:2023-12-31:0000097745-24-000007": {
+      "filed": "2024-02-22",
+      "form": "10-K",
+      "value": "5995000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000097745",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "5955000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-22",
+            "accession": "0000097745-24-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000097745",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-40000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-22",
+            "accession": "0000097745-24-000007",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/97745/000009774524000007/R5.htm",
+        "sha256": "3e04687f3e502e36cd678318355cbf21136b87f257a83538ccfa7392e3568026",
+        "file": "3e04687f3e502e36cd678318355cbf21136b87f257a83538ccfa7392e3568026.htm"
+      }
+    },
+    "TMO:net_income:2023-01-01:2023-12-31:0000097745-25-000010": {
+      "filed": "2025-02-20",
+      "form": "10-K",
+      "value": "5995000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000097745",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "5955000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000097745-25-000010",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000097745",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-40000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000097745-25-000010",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/97745/000009774525000010/R5.htm",
+        "sha256": "c2f37071a41c4114615a52e3f98ae68e0134c276e02774dda74bc2187456b187",
+        "file": "c2f37071a41c4114615a52e3f98ae68e0134c276e02774dda74bc2187456b187.htm"
+      }
+    },
+    "TMO:net_income:2024-01-01:2024-12-31:0000097745-25-000010": {
+      "filed": "2025-02-20",
+      "form": "10-K",
+      "value": "6335000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000097745",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "6338000000",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000097745-25-000010",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000097745",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "3000000",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-20",
+            "accession": "0000097745-25-000010",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/97745/000009774525000010/R5.htm",
+        "sha256": "c2f37071a41c4114615a52e3f98ae68e0134c276e02774dda74bc2187456b187",
+        "file": "c2f37071a41c4114615a52e3f98ae68e0134c276e02774dda74bc2187456b187.htm"
       }
     },
     "TMO:operating_cash_flow:2015-01-01:2015-12-31:0000097745-16-000043": {
@@ -137705,6 +139012,52 @@
         "file": "046242f5fc5ecd3cb38a480accdc09131663e997b56d08b8b13ed61c24a315aa.htm"
       }
     },
+    "WM:net_income:2015-01-01:2015-12-31:0001193125-16-467957": {
+      "filed": "2016-02-18",
+      "form": "10-K",
+      "value": "753000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000823768",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "752000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-18",
+            "accession": "0001193125-16-467957",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000823768",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-1000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-18",
+            "accession": "0001193125-16-467957",
+            "form": "10-K"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/823768/000119312516467957/R4.htm",
+        "sha256": "f815f82a801cf1ada07afe951eaef04fc23b1f703c10246c8afefeb7e1ae4ad3",
+        "file": "f815f82a801cf1ada07afe951eaef04fc23b1f703c10246c8afefeb7e1ae4ad3.htm"
+      }
+    },
     "WM:operating_cash_flow:2015-01-01:2015-12-31:0001193125-16-467957": {
       "filed": "2016-02-18",
       "form": "10-K",
@@ -140875,22 +142228,6 @@
       "filed": "2016-02-25",
       "reason": "No unique same-issuer fact matches this annual column; Original custom-tag XBRL instance has not been cached"
     },
-    "AON:net_income:2019-01-01:2019-12-31:0001628280-20-001607": {
-      "filed": "2020-02-14",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "AON:net_income:2019-01-01:2019-12-31:0001628280-21-002574": {
-      "filed": "2021-02-19",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "AON:net_income:2020-01-01:2020-12-31:0001628280-21-002574": {
-      "filed": "2021-02-19",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "APH:net_income:2015-01-01:2015-12-31:0001104659-16-098503": {
-      "filed": "2016-02-19",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
     "AXP:revenue:2015-01-01:2015-12-31:0001193125-16-469798": {
       "filed": "2016-02-19",
       "reason": "The filing has no stored fact for this cell"
@@ -140931,18 +142268,6 @@
       "filed": "2016-02-10",
       "reason": "No unique explicitly reported total noncontrolling interest"
     },
-    "CI:net_income:2023-01-01:2023-12-31:0001739940-24-000005": {
-      "filed": "2024-02-29",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "CI:net_income:2023-01-01:2023-12-31:0001739940-25-000009": {
-      "filed": "2025-02-27",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "CI:net_income:2024-01-01:2024-12-31:0001739940-25-000009": {
-      "filed": "2025-02-27",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
     "COR:equity:2017-10-01:2018-09-30:0001140859-20-000050": {
       "filed": "2020-11-19",
       "reason": "No unique explicitly reported total noncontrolling interest; No unique group-equity position for this date"
@@ -140951,29 +142276,9 @@
       "filed": "2015-03-06",
       "reason": "No unique annual operating position for NetCashProvidedByUsedInOperatingActivities"
     },
-    "CVS:net_income:2015-01-01:2015-12-31:0000064803-16-000074": {
-      "filed": "2016-02-09",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "ECL:net_income:2021-01-01:2021-12-31:0001558370-22-002059": {
-      "filed": "2022-02-25",
-      "reason": "Missing or conflicting fact for NetIncomeLossAvailableToCommonStockholdersBasic"
-    },
-    "ECL:net_income:2021-01-01:2021-12-31:0001558370-23-001969": {
-      "filed": "2023-02-24",
-      "reason": "Missing or conflicting fact for NetIncomeLossAvailableToCommonStockholdersBasic"
-    },
-    "ECL:net_income:2022-01-01:2022-12-31:0001558370-23-001969": {
-      "filed": "2023-02-24",
-      "reason": "Missing or conflicting fact for NetIncomeLossAvailableToCommonStockholdersBasic"
-    },
     "ELV:equity:2020-01-01:2020-12-31:0001156039-23-000007": {
       "filed": "2023-02-15",
       "reason": "No unique explicitly reported total noncontrolling interest; No unique group-equity position for this date"
-    },
-    "ETN:net_income:2019-01-01:2019-12-31:0001551182-20-000050": {
-      "filed": "2020-02-26",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
     },
     "EW:net_income:2021-01-01:2021-12-31:0001099800-22-000005": {
       "filed": "2022-02-14",
@@ -141035,41 +142340,9 @@
       "filed": "2019-02-21",
       "reason": "No unique source-matching annual NetIncomeLoss position"
     },
-    "OXY:net_income:2020-01-01:2020-12-31:0000797468-21-000009": {
-      "filed": "2021-02-26",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "OXY:net_income:2020-01-01:2020-12-31:0000797468-22-000008": {
-      "filed": "2022-02-24",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "OXY:net_income:2021-01-01:2021-12-31:0000797468-22-000008": {
-      "filed": "2022-02-24",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "PAYX:net_income:2023-06-01:2024-05-31:0000950170-24-082958": {
-      "filed": "2024-07-11",
-      "reason": "Missing or conflicting fact for NetIncomeLossAvailableToCommonStockholdersBasic"
-    },
-    "PAYX:net_income:2023-06-01:2024-05-31:0000950170-25-095300": {
-      "filed": "2025-07-11",
-      "reason": "Missing or conflicting fact for NetIncomeLossAvailableToCommonStockholdersBasic"
-    },
     "PLD:equity:2015-01-01:2015-12-31:0001564590-16-012933": {
       "filed": "2016-02-19",
       "reason": "Conflicting parent-equity scopes in the same statement"
-    },
-    "PWR:net_income:2017-01-01:2017-12-31:0001050915-18-000003": {
-      "filed": "2018-02-28",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "PWR:net_income:2017-01-01:2017-12-31:0001050915-19-000014": {
-      "filed": "2019-02-28",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "PWR:net_income:2018-01-01:2018-12-31:0001050915-19-000014": {
-      "filed": "2019-02-28",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
     },
     "ROP:equity:2015-01-01:2015-12-31:0000882835-16-000035": {
       "filed": "2016-02-26",
@@ -141078,30 +142351,6 @@
     "RTX:equity:2015-01-01:2015-12-31:0000101829-18-000005": {
       "filed": "2018-02-09",
       "reason": "No unique group-equity position for this date"
-    },
-    "SO:net_income:2023-01-01:2023-12-31:0000092122-24-000009": {
-      "filed": "2024-02-15",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "SO:net_income:2023-01-01:2023-12-31:0000092122-25-000018": {
-      "filed": "2025-02-20",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "SO:net_income:2024-01-01:2024-12-31:0000092122-25-000018": {
-      "filed": "2025-02-20",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "SRE:net_income:2021-01-01:2021-12-31:0001032208-22-000007": {
-      "filed": "2022-02-25",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "SRE:net_income:2021-01-01:2021-12-31:0001032208-23-000008": {
-      "filed": "2023-02-28",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "SRE:net_income:2022-01-01:2022-12-31:0001032208-23-000008": {
-      "filed": "2023-02-28",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
     },
     "T:net_income:2016-01-01:2016-12-31:0000732717-17-000021": {
       "filed": "2017-02-17",
@@ -141123,18 +142372,6 @@
       "filed": "2015-03-31",
       "reason": "No unique same-issuer fact matches this annual column"
     },
-    "TMO:net_income:2023-01-01:2023-12-31:0000097745-24-000007": {
-      "filed": "2024-02-22",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "TMO:net_income:2023-01-01:2023-12-31:0000097745-25-000010": {
-      "filed": "2025-02-20",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
-    "TMO:net_income:2024-01-01:2024-12-31:0000097745-25-000010": {
-      "filed": "2025-02-20",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
     "TSLA:net_income:2017-01-01:2017-12-31:0001564590-18-002956": {
       "filed": "2018-02-23",
       "reason": "No unique source-matching annual NetIncomeLoss position"
@@ -141143,14 +142380,10 @@
       "filed": "2022-02-15",
       "reason": "No unique group-equity position for this date"
     },
-    "WM:net_income:2015-01-01:2015-12-31:0001193125-16-467957": {
-      "filed": "2016-02-18",
-      "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
-    },
     "XOM:revenue:2015-01-01:2015-12-31:0000034088-16-000065": {
       "filed": "2016-02-24",
       "reason": "No unique same-issuer fact matches this annual column; Original custom-tag XBRL instance has not been cached"
     }
   },
-  "reviewed_at": "2026-10-29T10:53:48.602638+00:00"
+  "reviewed_at": "2026-10-29T11:28:47.780820+00:00"
 }
