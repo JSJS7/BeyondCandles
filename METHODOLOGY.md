@@ -176,6 +176,13 @@ wrong.
   are arithmetically exact.
 - Cross-checks: EPS against weighted-average share counts from the same filings, equity
   and cash flow against their standard tags, and split completeness across issuers.
+- **Every earlier version served by `as_of`** (identical, rounding, split and reviewed)
+  was compared with the primary document of its own filing, not with the XBRL data
+  used by the import: most automatically (the value in the row of the metric and the
+  column of its period, EPS before split restatement, calculations by component), the
+  rest by hand, with no discrepancies found. A few amendments (10-K/A) that only
+  re-filed XBRL or corrected the cover page repeat the value of the original report
+  filed days earlier.
 
 These checks were run once, on the snapshot used by the app (October 2026), with
 throwaway scripts that are not part of the repository. They show that the numbers
