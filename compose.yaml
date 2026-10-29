@@ -1,5 +1,4 @@
-# Preserve the existing PostgreSQL container and volume after the directory rename.
-name: stockengine
+name: beyondcandles
 
 services:
   postgres:
