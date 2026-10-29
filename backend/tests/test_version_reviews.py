@@ -6,6 +6,8 @@ from decimal import Decimal
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from test_eps import html_row
+from test_eps import statement as eps_statement
 from test_net_income import statement
 from test_stocks_api import reported_fact
 
@@ -349,6 +351,67 @@ class CustomRevenueTests(unittest.TestCase):
 
         self.assertNotIn("instance_position", review["components"][0])
         instance.assert_not_called()
+
+
+class BerkshireClassBFootnoteTests(unittest.TestCase):
+    """Berkshire's 10-K for 2015 shows EPS only per Class A share (14,656) and states
+    the Class B amount (1/1,500, $9.77) in the statement's footnote, without a fact."""
+
+    def review(self, stated, accession="0001193125-16-483023"):
+        rows = html_row("StatementClassOfStockAxis", "Class A [Member]", "")
+        rows += html_row(
+            "EarningsPerShareBasic",
+            "Net earnings per share attributable to Berkshire Hathaway shareholders",
+            "$ 14,656",
+        )
+        footnote = (
+            "<div>[1] Equivalent Class B shares outstanding are 1,500 times the "
+            "equivalent Class A amount. Net earnings per equivalent Class B share "
+            "outstanding are one-fifteen-hundredth (1/1,500) of the equivalent Class A "
+            f"amount or ${stated} for 2020, $8.06 for 2019 and $7.90 for 2018. </div>"
+        )
+        task = SimpleNamespace(
+            metric="eps_diluted",
+            cik=version_reviews.BERKSHIRE_CIK,
+            accession=accession,
+            source=f"{version_reviews.BERKSHIRE_CIK}:{accession}",
+            start=date(2020, 1, 1),
+            end=END,
+            filed=date(2021, 2, 27),
+            form="10-K",
+            cell_facts=[],
+        )
+        statements = [
+            ({"url": "https://www.sec.gov/R3.htm"}, eps_statement(rows) + footnote)
+        ]
+        summary = {"url": "https://www.sec.gov/FilingSummary.xml"}
+        with patch.object(
+            version_reviews, "income_statements", return_value=(summary, statements)
+        ):
+            return version_reviews.review_eps(task, {"income": {}, "eps": {}}, END)
+
+    def test_stated_amount_equal_to_class_a_over_1500_is_pinned(self):
+        """14,656 / 1,500 = 9.7707 rounds to the stated 9.77, so 9.77 is approved."""
+        review = self.review("9.77")
+
+        component = review["components"][0]
+        self.assertEqual(review["value"], "9.77")
+        self.assertEqual(review["eps_basis"], "basic")
+        self.assertTrue(component["statement_position"])
+        self.assertEqual(component["fact"]["accession"], "0001193125-16-483023")
+
+    def test_stated_amount_differing_from_the_calculation_is_rejected(self):
+        """A footnote amount that is not Class A EPS / 1,500 is not trusted."""
+        with self.assertRaises(ValueError):
+            self.review("9.78")
+
+    def test_other_berkshire_filings_keep_the_class_b_row_review(self):
+        """Only the two reviewed filings use the footnote; others need a Class B row."""
+        with (
+            patch.object(version_reviews, "instance_candidates", return_value=[]),
+            self.assertRaises(ValueError),
+        ):
+            self.review("9.77", accession="0001193125-18-057033")
 
 
 class SupportingFactTests(unittest.TestCase):

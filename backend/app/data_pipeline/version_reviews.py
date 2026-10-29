@@ -9,10 +9,12 @@ facts of the same filing. Approvals are pinned in data/version-reviews.json with
 their source facts; a later change of those facts invalidates the approval.
 """
 
+import html as html_text
+import re
 import xml.etree.ElementTree as ET
 from collections import Counter
 from datetime import datetime, timezone
-from decimal import Decimal, localcontext
+from decimal import ROUND_HALF_UP, Decimal, localcontext
 
 from app.annual_financials import ANNUAL_REPORT_FORMS, annual_periods
 from app.data_pipeline import equity as equity_review
@@ -41,6 +43,7 @@ from app.data_pipeline.sec_history import (
 )
 from app.data_pipeline.sec_statements import (
     StatementRows,
+    displayed_amount,
     matches_rendered_value,
     normalized_label,
 )
@@ -51,6 +54,7 @@ from app.data_pipeline.source_files import (
     sha256,
     write_json,
 )
+from app.eps import BASIC_TAG
 from app.eps import DEFINITION as EPS_DEFINITION
 from app.eps_splits import split_rules
 from app.equity import DEFINITION as EQUITY_DEFINITION
@@ -536,12 +540,118 @@ def instance_candidates(task, entry):
     ]
 
 
+BERKSHIRE_CIK = "0001067983"
+# Berkshire's 10-Ks for 2015 and 2016 present EPS only per Class A share and tag no
+# Class B fact; the statement's footnote states the Class B amount, which later 10-Ks
+# tag. Approved on 29.10.2026 as that stated amount, cross-checked as Class A / 1,500.
+CLASS_B_FOOTNOTE_FILINGS = {"0001193125-16-483023", "0001193125-17-056969"}
+CLASS_B_FOOTNOTE = re.compile(
+    r"Net earnings per equivalent Class B share outstanding are one-fifteen-hundredth"
+    r"(?: \(1/1,500\))? of the equivalent Class A amount or (.+?)\.(?:\s|$)"
+)
+CLASS_B_AMOUNT = re.compile(r"\$(\d+\.\d\d) for (\d{4})")
+CLASS_B_RATIO = 1500
+
+
+def annual_column_amount(parsed, end):
+    """The single displayed amount of the statement's annual column ending on end."""
+    amounts = set()
+    for column_end, annual, cell in zip(
+        parsed["dates"], parsed["annual_columns"], parsed["values"], strict=True
+    ):
+        if column_end == end and annual:
+            amount = displayed_amount(cell)
+            if amount is not None:
+                amounts.add(amount)
+    if len(amounts) != 1:
+        raise ValueError("No unique amount in the statement's annual column")
+    return amounts.pop()
+
+
+def stated_class_b_amounts(html):
+    """Class B EPS by year, as the statement's footnote states them."""
+    text = " ".join(html_text.unescape(re.sub(r"<[^>]+>", " ", html)).split())
+    footnotes = {match.group(1) for match in CLASS_B_FOOTNOTE.finditer(text)}
+    if len(footnotes) != 1:
+        raise ValueError("No unique Class B footnote in the statement")
+    amounts = {}
+    for amount, year in CLASS_B_AMOUNT.findall(footnotes.pop()):
+        amounts[int(year)] = Decimal(amount)
+    return amounts
+
+
+def berkshire_class_b_eps(task, html, end):
+    """The Class B EPS stated in the footnote, equal to Class A EPS / 1,500 in cents."""
+    _, parsed, _, _ = eps_position(
+        html, task.cik, end, class_labels={"Class A [Member]"}
+    )
+    class_a = annual_column_amount(parsed, end)
+    stated = stated_class_b_amounts(html).get(end.year)
+    if stated is None:
+        raise ValueError("The Class B footnote states no amount for this year")
+    derived = (class_a / CLASS_B_RATIO).quantize(Decimal("0.01"), ROUND_HALF_UP)
+    if derived != stated:
+        raise ValueError("The stated Class B amount differs from Class A EPS / 1,500")
+    fact = {
+        "source_cik": task.cik,
+        "taxonomy": "us-gaap",
+        "tag": BASIC_TAG,
+        "unit": "USD/shares",
+        "value": stated,
+        "period_start": task.start,
+        "period_end": task.end,
+        "filed": task.filed,
+        "accession": task.accession,
+        "form": task.form,
+    }
+    note = (
+        "Basic net EPS for Berkshire Class B, used because verified diluted EPS is "
+        "unavailable. This filing tags EPS only per Class A share; the amount is the "
+        "Class B figure stated in the statement's footnote, equal to Class A EPS "
+        f"{format(class_a, 'f')} / {CLASS_B_RATIO} rounded to cents. Later filings "
+        "tag the same figure."
+    )
+    return fact, note
+
+
+def review_berkshire_class_b(task, evidence, end):
+    """Pin the stated Class B amount of a reviewed Berkshire filing as a statement position."""
+    summary, statements = income_statements(task, evidence["income"])
+    choices = []
+    issues = []
+    for reference, html in statements:
+        try:
+            fact, note = berkshire_class_b_eps(task, html, end)
+        except ValueError as exc:
+            issues.append(str(exc))
+            continue
+        component = single_source(task, fact)
+        component["statement_position"] = True
+        choices.append(
+            {
+                "value": format(fact["value"], "f"),
+                "components": [component],
+                "selected_tag": BASIC_TAG,
+                "calculation": f"Class A EPS / {CLASS_B_RATIO}, as stated in the filing",
+                "eps_basis": "basic",
+                "note": EPS_DEFINITION + " " + note,
+                "summary": summary,
+                "statement": reference,
+            }
+        )
+    if not choices:
+        raise ValueError("; ".join(sorted(set(issues))))
+    return unique_choice(choices)
+
+
 def review_eps(task, evidence, end):
     """Find the net diluted EPS row of the income statement and its exact fact.
 
     An EPS fact missing from the stored facts (or class-specific) is read from the
     filing's original instance and pinned like a statement position.
     """
+    if task.cik == BERKSHIRE_CIK and task.accession in CLASS_B_FOOTNOTE_FILINGS:
+        return review_berkshire_class_b(task, evidence, end)
     from_instance = needs_eps_instance(task)
     entry = evidence["eps"].get(task.source, {})
     candidates = instance_candidates(task, entry) if from_instance else task.cell_facts

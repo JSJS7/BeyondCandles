@@ -23017,6 +23017,70 @@
         "file": "2bb26eb2531b4721631da2d3fe4300cdd98311ba08d98c861a6c7a86914091c1.htm"
       }
     },
+    "BRK-B:eps_diluted:2015-01-01:2015-12-31:0001193125-16-483023": {
+      "filed": "2016-02-29",
+      "form": "10-K",
+      "value": "9.77",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001067983",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareBasic",
+            "unit": "USD/shares",
+            "value": "9.77",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-29",
+            "accession": "0001193125-16-483023",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "EarningsPerShareBasic",
+      "calculation": "Class A EPS / 1500, as stated in the filing",
+      "eps_basis": "basic",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This filing tags EPS only per Class A share; the amount is the Class B figure stated in the statement's footnote, equal to Class A EPS 14656 / 1500 rounded to cents. Later filings tag the same figure.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312516483023/R3.htm",
+        "sha256": "e71f84e1cb9546906023a962c3b50dfc9b292c32e5f825e20baf3895f736067c",
+        "file": "e71f84e1cb9546906023a962c3b50dfc9b292c32e5f825e20baf3895f736067c.htm"
+      }
+    },
+    "BRK-B:eps_diluted:2016-01-01:2016-12-31:0001193125-17-056969": {
+      "filed": "2017-02-27",
+      "form": "10-K",
+      "value": "9.76",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001067983",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareBasic",
+            "unit": "USD/shares",
+            "value": "9.76",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-27",
+            "accession": "0001193125-17-056969",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": "EarningsPerShareBasic",
+      "calculation": "Class A EPS / 1500, as stated in the filing",
+      "eps_basis": "basic",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This filing tags EPS only per Class A share; the amount is the Class B figure stated in the statement's footnote, equal to Class A EPS 14645 / 1500 rounded to cents. Later filings tag the same figure.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312517056969/R4.htm",
+        "sha256": "1eb19e7c2a7fd1dd8ba618f38adc710f732e1144f0ce48b862d6e0656d656a21",
+        "file": "1eb19e7c2a7fd1dd8ba618f38adc710f732e1144f0ce48b862d6e0656d656a21.htm"
+      }
+    },
     "BRK-B:eps_diluted:2017-01-01:2017-12-31:0001193125-18-057033": {
       "filed": "2018-02-26",
       "form": "10-K",
@@ -143533,15 +143597,7 @@
     "BK:revenue:2015-01-01:2015-12-31:0001390777-16-000204": {
       "filed": "2016-02-26",
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
-    },
-    "BRK-B:eps_diluted:2015-01-01:2015-12-31:0001193125-16-483023": {
-      "filed": "2016-02-29",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "BRK-B:eps_diluted:2016-01-01:2016-12-31:0001193125-17-056969": {
-      "filed": "2017-02-27",
-      "reason": "No unique net diluted EPS row for the selected share class"
     }
   },
-  "reviewed_at": "2026-10-29T14:15:14.307614+00:00"
+  "reviewed_at": "2026-10-29T16:26:50.345198+00:00"
 }

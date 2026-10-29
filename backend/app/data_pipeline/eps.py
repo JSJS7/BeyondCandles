@@ -240,8 +240,14 @@ def instance_eps(body, cik, metadata, *, reviewed_revision=False):
     return list(result.values())
 
 
-def eps_position(html, cik, end):
-    """Identify net EPS and its basis in the face statement, preserving the annual column."""
+def eps_position(html, cik, end, class_labels=None):
+    """Identify net EPS and its basis in the face statement, preserving the annual column.
+
+    class_labels replaces the approved share-class section, e.g. to read Berkshire's
+    Class A row as a cross-check of a stated Class B amount.
+    """
+    if class_labels is None:
+        class_labels = CLASS_LABELS.get(cik, set())
     parser = StatementRows()
     parser.feed(html)
     headers = []
@@ -263,7 +269,7 @@ def eps_position(html, cik, end):
         if axes:
             if axes != ["StatementClassOfStockAxis"]:
                 break
-            active = cells[0] in CLASS_LABELS.get(cik, set())
+            active = cells[0] in class_labels
             section = ""
             continue
         if not active:

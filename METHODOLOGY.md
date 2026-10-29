@@ -159,7 +159,10 @@ session). An earlier version is served only when it is confirmed:
   another concept (the noncontrolling share deducted from group net income, or a net
   income row tagged with the common-shareholder or, after review, a
   continuing-operations concept in a year without discontinued operations), is pinned
-  to that source. Such a version may differ from today's value: it is what the company
+  to that source. Berkshire Hathaway's 10-Ks for 2015 and 2016 tag EPS only per Class A
+  share; for Class B the amount stated in the statement's footnote is used, after
+  checking that it equals Class A EPS / 1,500 rounded to cents (later filings tag the
+  same figure). Such a version may differ from today's value: it is what the company
   reported at the time.
 
 Any other earlier annual-report version is marked *needs review* and has no value: for
