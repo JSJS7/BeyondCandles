@@ -101,6 +101,22 @@ class VersionTask:
         return (start, end) == (self.start, self.end)
 
     @property
+    def statement_ends(self):
+        """Column dates to try: the canonical end first, then the filing's own end.
+
+        A filing may tag a 52/53-week year with its nominal month end (Deere's FY2015
+        and FY2016 reports use Oct. 31 for years ending Nov. 1 and Oct. 30). The exact
+        period is mapped to the canonical one only by a reviewed alias in
+        data/fiscal-periods.json, and the filing's statements use the same date.
+        """
+        own_ends = {
+            fact["period_end"]
+            for fact in self.cell_facts
+            if fact["period_end"] != self.end
+        }
+        return [self.end, *sorted(own_ends)]
+
+    @property
     def key(self):
         return review_key(
             self.ticker, self.metric, self.start, self.end, self.accession
@@ -187,7 +203,7 @@ def unique_choice(choices):
     return choices[0]
 
 
-def review_revenue(task, evidence):
+def review_revenue(task, evidence, end):
     """The same per-filing check as review-revenue for the latest filing."""
     entry = evidence.get(task.source, {})
     if "summary" not in entry:
@@ -202,6 +218,7 @@ def review_revenue(task, evidence):
         {"filings": {}},
         False,
         evidence,
+        statement_end=end,
     )
     if rule is None:
         reasons = sorted({attempt["reason"] for attempt in attempts})
@@ -242,7 +259,7 @@ def review_revenue(task, evidence):
     }
 
 
-def review_net_income(task, evidence):
+def review_net_income(task, evidence, end):
     """Match the parent row, or reconcile it exactly as review-net-income does."""
     current = [
         FilingValue.model_validate(dict(fact))
@@ -263,11 +280,11 @@ def review_net_income(task, evidence):
         try:
             if len(parent) == 1:
                 # Raises unless the row shows this value in the annual column.
-                position(html, PARENT_TAG, task.end, parent[0].value)
+                position(html, PARENT_TAG, end, parent[0].value)
                 selected, coefficients, calculation, note = parent, [1], None, None
             else:
                 selected, coefficients, calculation, note = verify_exception(
-                    html, current, task.end
+                    html, current, end
                 )
         except ValueError as exc:
             issues.append(str(exc))
@@ -325,7 +342,7 @@ def instance_candidates(task, entry):
     ]
 
 
-def review_eps(task, evidence):
+def review_eps(task, evidence, end):
     """Find the net diluted EPS row of the income statement and its exact fact.
 
     An EPS fact missing from the stored facts (or class-specific) is read from the
@@ -339,7 +356,7 @@ def review_eps(task, evidence):
     issues = []
     for reference, html in statements:
         try:
-            tag, parsed, _, note = eps_position(html, task.cik, task.end)
+            tag, parsed, _, note = eps_position(html, task.cik, end)
         except ValueError as exc:
             issues.append(str(exc))
             continue
@@ -349,7 +366,7 @@ def review_eps(task, evidence):
             if fact["taxonomy"] == "us-gaap"
             and fact["tag"] == tag
             and fact["unit"] == "USD/shares"
-            and matches_rendered_value(parsed, fact["value"], task.end)
+            and matches_rendered_value(parsed, fact["value"], end)
         ]
         if len({fact["value"] for fact in matching}) != 1:
             issues.append("EPS source fact does not match the annual statement value")
@@ -375,7 +392,7 @@ def review_eps(task, evidence):
     return unique_choice(choices)
 
 
-def review_cash_flow(task, evidence):
+def review_cash_flow(task, evidence, end):
     """The same statement reading and component choice as review-operating-cash-flow."""
     entry = evidence.get(task.source, {})
     if "summary" not in entry:
@@ -394,7 +411,7 @@ def review_cash_flow(task, evidence):
         reference = entry[filename]
         html = verify_reference(reference).read_text(encoding="utf-8")
         try:
-            positions, discontinued = cash_flow_review.cash_positions(html, task.end)
+            positions, discontinued = cash_flow_review.cash_positions(html, end)
             selected, calculation, note = cash_flow_review.choose_positions(
                 positions, discontinued
             )
@@ -465,7 +482,7 @@ def equity_kind(task):
     return "equity" if (task.filed - task.end).days > 450 else "balance"
 
 
-def review_equity(task, evidence):
+def review_equity(task, evidence, end):
     """The same per-filing source review as review-equity."""
     filed = task.filed
     choices, issues, _, _ = equity_review.source_choices(
@@ -475,6 +492,7 @@ def review_equity(task, evidence):
         filed,
         evidence.get(task.source, {}),
         task.calendar,
+        statement_end=end,
     )
     if not choices:
         raise ValueError("; ".join(sorted(set(issues))) or "No equity position")
@@ -508,6 +526,19 @@ REVIEWS = {
     "operating_cash_flow": review_cash_flow,
     "equity": review_equity,
 }
+
+
+def review_with_statement_end(task, evidence):
+    """Review at the canonical end; only if that fails, at the filing's own end date."""
+    issues = []
+    for end in task.statement_ends:
+        try:
+            return REVIEWS[task.metric](task, evidence, end)
+        except (SecAccessDenied, CacheIntegrityError):
+            raise
+        except ValueError as exc:
+            issues.append(str(exc))
+    raise ValueError("; ".join(dict.fromkeys(issues)))
 
 
 def evidence_indexes():
@@ -590,7 +621,7 @@ def review_versions(fetch=False):
                 raise ValueError("The filing has no stored fact for this cell")
             if task.cik is None:
                 raise ValueError("The filing has no single issuer for this cell")
-            review = REVIEWS[task.metric](task, evidence_for[task.metric])
+            review = review_with_statement_end(task, evidence_for[task.metric])
         except (SecAccessDenied, CacheIntegrityError):
             raise
         except (ValueError, KeyError, ET.ParseError) as exc:

@@ -276,6 +276,43 @@ class EpsStatementTests(unittest.TestCase):
                 date(2021, 12, 31),
             )
 
+    def test_reviewed_continuing_row_is_net_eps_only_without_discontinued_amounts(self):
+        """AT&T 2016 tags both net income and its only EPS row as continuing operations.
+
+        The reviewed period accepts that row as net EPS; another year, or the same year
+        with a discontinued amount on the statement, still needs review.
+        """
+        end = date(2016, 12, 31)
+        rows = html_row(
+            "IncomeLossFromContinuingOperations",
+            "Net Income Attributable to AT&T",
+            "12976",
+        ) + html_row(
+            CONTINUING_TAG, "Diluted Earnings Per Share Attributable to AT&T", "2.10"
+        )
+        html = statement(rows).replace("Dec. 31, 2020", "Dec. 31, 2016")
+
+        tag, parsed, status, _ = eps_position(html, "0000732717", end)
+
+        self.assertEqual((tag, status), (CONTINUING_TAG, "ready"))
+        self.assertTrue(matches_rendered_value(parsed, Decimal("2.10"), end))
+        with_discontinued = html.replace(
+            "</table>",
+            html_row(
+                "IncomeLossFromDiscontinuedOperationsNetOfTax",
+                "Income from discontinued operations",
+                "45",
+            )
+            + "</table>",
+        )
+        for other_html, other_end in (
+            (html.replace("Dec. 31, 2016", "Dec. 31, 2017"), date(2017, 12, 31)),
+            (with_discontinued, end),
+        ):
+            with self.subTest(end=other_end, html=other_html):
+                with self.assertRaises(ValueError):
+                    eps_position(other_html, "0000732717", other_end)
+
     def test_berkshire_class_b_is_reviewed_as_basic_without_diluted_equivalence(self):
         """The one-column fallback retains basic Class B earnings rather than inventing a diluted value."""
         rows = html_row("StatementClassOfStockAxis", "Equivalent Class A [Member]", "")
@@ -410,6 +447,30 @@ class EpsOriginalSourceTests(unittest.TestCase):
                 self.assertEqual(len(facts), 1)
                 self.assertEqual(facts[0]["value"], Decimal("9.73"))
                 self.assertEqual(facts[0]["unit"], "USD/shares")
+
+    def test_default_namespace_redeclared_on_a_dimension_member_keeps_the_unit(self):
+        """A later default-namespace declaration must not change the root-scoped unit.
+
+        RR Donnelley instances (e.g. TSLA's 10-K for 2015) declare
+        xmlns="http://xbrl.org/2006/xbrldi" on every explicitMember. The unprefixed
+        "shares" of a unit declared at the root still means xbrli:shares, so the
+        company-wide EPS fact must be read.
+        """
+        other_context = (
+            '<context id="segment"><entity><identifier scheme="http://www.sec.gov/CIK">'
+            "0001318605</identifier><segment>"
+            '<explicitMember xmlns="http://xbrl.org/2006/xbrldi" '
+            'dimension="us-gaap:StatementBusinessSegmentsAxis">v:SegmentMember'
+            "</explicitMember></segment></entity>"
+            "<period><instant>2020-12-31</instant></period></context>"
+        )
+        body = original_instance(member="", cik="0001318605", default_namespace=True)
+        body = body.replace(b"</xbrli:xbrl>", other_context.encode() + b"</xbrli:xbrl>")
+
+        facts = instance_eps(body, "0001318605", self.metadata)
+
+        self.assertEqual([fact["value"] for fact in facts], [Decimal("9.73")])
+        self.assertEqual(facts[0]["unit"], "USD/shares")
 
     def test_wrong_class_subsidiary_segment_unit_and_quarter_are_excluded(self):
         """Reject sources that could otherwise attach a different security's earnings to Visa."""

@@ -1936,6 +1936,80 @@
         "file": "7a95cf88c883cb302c9e9b8f6b51a655751e739e88a855f0b349d9a67a1757f8.htm"
       }
     },
+    "ADI:eps_diluted:2014-11-02:2015-10-31:0000006281-15-000044": {
+      "filed": "2015-11-24",
+      "form": "10-K",
+      "value": "2.20",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000006281",
+            "taxonomy": "us-gaap",
+            "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+            "unit": "USD/shares",
+            "value": "2.2",
+            "period_start": "2014-11-02",
+            "period_end": "2015-10-31",
+            "filed": "2015-11-24",
+            "accession": "0000006281-15-000044",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628115000044/adi-20151031.xml",
+            "sha256": "01f31f0608195e046694f0f3315e081eff6ab54ebfd75f51724ad4f5f5dd87e1",
+            "file": "01f31f0608195e046694f0f3315e081eff6ab54ebfd75f51724ad4f5f5dd87e1.htm"
+          }
+        }
+      ],
+      "selected_tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628115000044/R2.htm",
+        "sha256": "811df526a5112d8ebf13c7c0a3c812784565ba43ec2e91025bbb6cbe232b7763",
+        "file": "811df526a5112d8ebf13c7c0a3c812784565ba43ec2e91025bbb6cbe232b7763.htm"
+      }
+    },
+    "ADI:eps_diluted:2015-11-01:2016-10-29:0000006281-16-000097": {
+      "filed": "2016-11-22",
+      "form": "10-K",
+      "value": "2.76",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000006281",
+            "taxonomy": "us-gaap",
+            "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+            "unit": "USD/shares",
+            "value": "2.76",
+            "period_start": "2015-11-01",
+            "period_end": "2016-10-29",
+            "filed": "2016-11-22",
+            "accession": "0000006281-16-000097",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628116000097/adi-20161029.xml",
+            "sha256": "de1d037a39c5ffbe87fa34d7c0e565b7dfe662e5d413fbed39e7c2c3f41a8c03",
+            "file": "de1d037a39c5ffbe87fa34d7c0e565b7dfe662e5d413fbed39e7c2c3f41a8c03.htm"
+          }
+        }
+      ],
+      "selected_tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628116000097/R2.htm",
+        "sha256": "30a93a2fb2074f1589b94335df842edef0080c62cd0fac527bbbed1c15d28ddd",
+        "file": "30a93a2fb2074f1589b94335df842edef0080c62cd0fac527bbbed1c15d28ddd.htm"
+      }
+    },
     "ADI:eps_diluted:2016-10-30:2017-10-28:0000006281-17-000144": {
       "filed": "2017-11-22",
       "form": "10-K",
@@ -37897,6 +37971,220 @@
         "file": "cd6998ea70def54fa969dade132335ca70e5e521d12c9dd8a5610312f53c7cb5.htm"
       }
     },
+    "DE:eps_diluted:2014-11-03:2015-11-01:0001047469-15-009300": {
+      "filed": "2015-12-18",
+      "form": "10-K",
+      "value": "5.77",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.77",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2015-12-18",
+            "accession": "0001047469-15-009300",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746915009300/R2.htm",
+        "sha256": "6e3063fb3359f71e4c018babe97da7332544cdd550cc485b5cd020a05269c1fd",
+        "file": "6e3063fb3359f71e4c018babe97da7332544cdd550cc485b5cd020a05269c1fd.htm"
+      }
+    },
+    "DE:eps_diluted:2014-11-03:2015-11-01:0001047469-16-009947": {
+      "filed": "2016-02-01",
+      "form": "10-K/A",
+      "value": "5.77",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.77",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-02-01",
+            "accession": "0001047469-16-009947",
+            "form": "10-K/A"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916009947/R2.htm",
+        "sha256": "5a623a573308eedfa393a4ab9398c0242a65098969fb917385746af6c363a794",
+        "file": "5a623a573308eedfa393a4ab9398c0242a65098969fb917385746af6c363a794.htm"
+      }
+    },
+    "DE:eps_diluted:2014-11-03:2015-11-01:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "5.77",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.77",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R2.htm",
+        "sha256": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd",
+        "file": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd.htm"
+      }
+    },
+    "DE:eps_diluted:2015-11-02:2016-10-30:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "4.81",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "4.81",
+            "period_start": "2015-11-01",
+            "period_end": "2016-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R2.htm",
+        "sha256": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd",
+        "file": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd.htm"
+      }
+    },
+    "DE:equity:2014-11-03:2015-11-01:0001047469-15-009300": {
+      "filed": "2015-12-18",
+      "form": "10-K",
+      "value": "6743400000.0",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "6743400000",
+            "period_start": "2015-10-31",
+            "period_end": "2015-10-31",
+            "filed": "2015-12-18",
+            "accession": "0001047469-15-009300",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746915009300/R4.htm",
+        "sha256": "5b8530efeb78292fb34b196461f55e0c5916524ef92a5f8e0c7cbe419945ebdf",
+        "file": "5b8530efeb78292fb34b196461f55e0c5916524ef92a5f8e0c7cbe419945ebdf.htm"
+      }
+    },
+    "DE:equity:2014-11-03:2015-11-01:0001047469-16-009947": {
+      "filed": "2016-02-01",
+      "form": "10-K/A",
+      "value": "6743400000.0",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "6743400000",
+            "period_start": "2015-10-31",
+            "period_end": "2015-10-31",
+            "filed": "2016-02-01",
+            "accession": "0001047469-16-009947",
+            "form": "10-K/A"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916009947/R4.htm",
+        "sha256": "7b42eeb8d8decfd658bd2ea11c7f9c7eaf9657fb11deb494489fcec2f5e2d605",
+        "file": "7b42eeb8d8decfd658bd2ea11c7f9c7eaf9657fb11deb494489fcec2f5e2d605.htm"
+      }
+    },
+    "DE:equity:2014-11-03:2015-11-01:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "6743400000.0",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "6743400000",
+            "period_start": "2015-10-31",
+            "period_end": "2015-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R4.htm",
+        "sha256": "cd14dae2239a2db6583e7408547b9fd1b007d91eea5e183737bf29e20ee9d6e9",
+        "file": "cd14dae2239a2db6583e7408547b9fd1b007d91eea5e183737bf29e20ee9d6e9.htm"
+      }
+    },
     "DE:equity:2014-11-03:2015-11-01:0001047469-17-007719": {
       "filed": "2017-12-18",
       "form": "10-K",
@@ -37944,6 +38232,36 @@
         "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746917007719/R7.htm",
         "sha256": "02b2067bcdc96971d86d29c0eae1456eb77070315a2ce0cccaca36eae752b1ba",
         "file": "02b2067bcdc96971d86d29c0eae1456eb77070315a2ce0cccaca36eae752b1ba.htm"
+      }
+    },
+    "DE:equity:2015-11-02:2016-10-30:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "6520000000.0",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "6520000000",
+            "period_start": "2016-10-31",
+            "period_end": "2016-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R4.htm",
+        "sha256": "cd14dae2239a2db6583e7408547b9fd1b007d91eea5e183737bf29e20ee9d6e9",
+        "file": "cd14dae2239a2db6583e7408547b9fd1b007d91eea5e183737bf29e20ee9d6e9.htm"
       }
     },
     "DE:equity:2015-11-02:2016-10-30:0001047469-17-007719": {
@@ -38799,6 +39117,250 @@
         "file": "76468f1b4d8d1be5cf591005a8f402f1bde69c52491d6aee5c7af1c4f6b744fd.htm"
       }
     },
+    "DE:net_income:2014-11-03:2015-11-01:0001047469-15-009300": {
+      "filed": "2015-12-18",
+      "form": "10-K",
+      "value": "1940000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1940000000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2015-12-18",
+            "accession": "0001047469-15-009300",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746915009300/R2.htm",
+        "sha256": "6e3063fb3359f71e4c018babe97da7332544cdd550cc485b5cd020a05269c1fd",
+        "file": "6e3063fb3359f71e4c018babe97da7332544cdd550cc485b5cd020a05269c1fd.htm"
+      }
+    },
+    "DE:net_income:2014-11-03:2015-11-01:0001047469-16-009947": {
+      "filed": "2016-02-01",
+      "form": "10-K/A",
+      "value": "1940000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1940000000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-02-01",
+            "accession": "0001047469-16-009947",
+            "form": "10-K/A"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916009947/R2.htm",
+        "sha256": "5a623a573308eedfa393a4ab9398c0242a65098969fb917385746af6c363a794",
+        "file": "5a623a573308eedfa393a4ab9398c0242a65098969fb917385746af6c363a794.htm"
+      }
+    },
+    "DE:net_income:2014-11-03:2015-11-01:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "1940000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1940000000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R2.htm",
+        "sha256": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd",
+        "file": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd.htm"
+      }
+    },
+    "DE:net_income:2015-11-02:2016-10-30:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "1523900000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1523900000",
+            "period_start": "2015-11-01",
+            "period_end": "2016-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R2.htm",
+        "sha256": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd",
+        "file": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd.htm"
+      }
+    },
+    "DE:operating_cash_flow:2014-11-03:2015-11-01:0001047469-15-009300": {
+      "filed": "2015-12-18",
+      "form": "10-K",
+      "value": "3740300000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3740300000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2015-12-18",
+            "accession": "0001047469-15-009300",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746915009300/R6.htm",
+        "sha256": "1bcfb7d841efb5d23e700e3c08ce60e8b69dde32e7a210c8df73f0b3618f6c78",
+        "file": "1bcfb7d841efb5d23e700e3c08ce60e8b69dde32e7a210c8df73f0b3618f6c78.htm"
+      }
+    },
+    "DE:operating_cash_flow:2014-11-03:2015-11-01:0001047469-16-009947": {
+      "filed": "2016-02-01",
+      "form": "10-K/A",
+      "value": "3740300000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3740300000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-02-01",
+            "accession": "0001047469-16-009947",
+            "form": "10-K/A"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916009947/R6.htm",
+        "sha256": "e5a7c8220ff0f8076684cab192d2ac32703f24774d5ec0ffa9f90ce1f68d9208",
+        "file": "e5a7c8220ff0f8076684cab192d2ac32703f24774d5ec0ffa9f90ce1f68d9208.htm"
+      }
+    },
+    "DE:operating_cash_flow:2014-11-03:2015-11-01:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "3740300000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3740300000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R6.htm",
+        "sha256": "11965b7fb83a431694d9f20f1f6603e8743eaffc9bbafb03b3015fa3bf40b22e",
+        "file": "11965b7fb83a431694d9f20f1f6603e8743eaffc9bbafb03b3015fa3bf40b22e.htm"
+      }
+    },
+    "DE:operating_cash_flow:2015-11-02:2016-10-30:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "3764300000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3764300000",
+            "period_start": "2015-11-01",
+            "period_end": "2016-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R6.htm",
+        "sha256": "11965b7fb83a431694d9f20f1f6603e8743eaffc9bbafb03b3015fa3bf40b22e",
+        "file": "11965b7fb83a431694d9f20f1f6603e8743eaffc9bbafb03b3015fa3bf40b22e.htm"
+      }
+    },
     "DE:operating_cash_flow:2016-10-31:2017-10-29:0001047469-17-007719": {
       "filed": "2017-12-18",
       "form": "10-K",
@@ -38890,6 +39452,126 @@
         "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746918007694/R6.htm",
         "sha256": "6039e97848508ac094f4be143d34b64e89f592ddbe24da7e2a150db971d68c52",
         "file": "6039e97848508ac094f4be143d34b64e89f592ddbe24da7e2a150db971d68c52.htm"
+      }
+    },
+    "DE:revenue:2014-11-03:2015-11-01:0001047469-15-009300": {
+      "filed": "2015-12-18",
+      "form": "10-K",
+      "value": "28862800000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "28862800000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2015-12-18",
+            "accession": "0001047469-15-009300",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746915009300/R2.htm",
+        "sha256": "6e3063fb3359f71e4c018babe97da7332544cdd550cc485b5cd020a05269c1fd",
+        "file": "6e3063fb3359f71e4c018babe97da7332544cdd550cc485b5cd020a05269c1fd.htm"
+      }
+    },
+    "DE:revenue:2014-11-03:2015-11-01:0001047469-16-009947": {
+      "filed": "2016-02-01",
+      "form": "10-K/A",
+      "value": "28862800000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "28862800000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-02-01",
+            "accession": "0001047469-16-009947",
+            "form": "10-K/A"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916009947/R2.htm",
+        "sha256": "5a623a573308eedfa393a4ab9398c0242a65098969fb917385746af6c363a794",
+        "file": "5a623a573308eedfa393a4ab9398c0242a65098969fb917385746af6c363a794.htm"
+      }
+    },
+    "DE:revenue:2014-11-03:2015-11-01:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "28862800000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "28862800000",
+            "period_start": "2014-11-01",
+            "period_end": "2015-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R2.htm",
+        "sha256": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd",
+        "file": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd.htm"
+      }
+    },
+    "DE:revenue:2015-11-02:2016-10-30:0001047469-16-017244": {
+      "filed": "2016-12-19",
+      "form": "10-K",
+      "value": "26644000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000315189",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "26644000000",
+            "period_start": "2015-11-01",
+            "period_end": "2016-10-31",
+            "filed": "2016-12-19",
+            "accession": "0001047469-16-017244",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/315189/000104746916017244/R2.htm",
+        "sha256": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd",
+        "file": "80c343a2e43754a6ca41420ad59fcf60a2ad8104d243c8ff69e477d34f4626dd.htm"
       }
     },
     "DHI:equity:2014-10-01:2015-09-30:0000882184-15-000085": {
@@ -48895,6 +49577,80 @@
         "file": "81d3e9dca46f7b5a2b905fcc2faac85690c24b4a6dd655e63d72e5bcad03c7c4.htm"
       }
     },
+    "FCX:eps_diluted:2023-01-01:2023-12-31:0000831259-24-000011": {
+      "filed": "2024-02-16",
+      "form": "10-K",
+      "value": "1.28",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831259",
+            "taxonomy": "us-gaap",
+            "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+            "unit": "USD/shares",
+            "value": "1.28",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-16",
+            "accession": "0000831259-24-000011",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125924000011/fcx-20231231_htm.xml",
+            "sha256": "daf9500e8388359d4110cba03bdf30c38851a13614727cd6880213bef4cbc592",
+            "file": "daf9500e8388359d4110cba03bdf30c38851a13614727cd6880213bef4cbc592.htm"
+          }
+        }
+      ],
+      "selected_tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125924000011/R3.htm",
+        "sha256": "e4f5b55daf546de3db7a89a4a5fa2cc227b833e5cdeb7a55ddb584e96125afcb",
+        "file": "e4f5b55daf546de3db7a89a4a5fa2cc227b833e5cdeb7a55ddb584e96125afcb.htm"
+      }
+    },
+    "FCX:eps_diluted:2024-01-01:2024-12-31:0000831259-25-000006": {
+      "filed": "2025-02-14",
+      "form": "10-K",
+      "value": "1.30",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831259",
+            "taxonomy": "us-gaap",
+            "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+            "unit": "USD/shares",
+            "value": "1.3",
+            "period_start": "2024-01-01",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-14",
+            "accession": "0000831259-25-000006",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125925000006/fcx-20241231_htm.xml",
+            "sha256": "20ec5c99e913f31b165c67ecf0d8fc45a1f47dd7f68fc96e23ea97e12bbbdf43",
+            "file": "20ec5c99e913f31b165c67ecf0d8fc45a1f47dd7f68fc96e23ea97e12bbbdf43.htm"
+          }
+        }
+      ],
+      "selected_tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125925000006/R3.htm",
+        "sha256": "92b4291cfa7db3278e694107ae4b9e82088d99098363371874fe6a83f443392c",
+        "file": "92b4291cfa7db3278e694107ae4b9e82088d99098363371874fe6a83f443392c.htm"
+      }
+    },
     "FCX:equity:2020-01-01:2020-12-31:0000831259-21-000009": {
       "filed": "2021-02-16",
       "form": "10-K",
@@ -56879,6 +57635,80 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785817000028/R2.htm",
         "sha256": "8ef9df88a4db43be780f95bc1c52accf9470f337a9b1c267a6e8b93f6896a076",
         "file": "8ef9df88a4db43be780f95bc1c52accf9470f337a9b1c267a6e8b93f6896a076.htm"
+      }
+    },
+    "GOOGL:eps_diluted:2015-01-01:2015-12-31:0001652044-16-000012": {
+      "filed": "2016-02-11",
+      "form": "10-K",
+      "value": "22.84",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001652044",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "22.84",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-11",
+            "accession": "0001652044-16-000012",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204416000012/goog-20151231.xml",
+            "sha256": "d4444b4196d721b4bfc547aa41227a50aab43454169757b95a2c60bc833a07c0",
+            "file": "d4444b4196d721b4bfc547aa41227a50aab43454169757b95a2c60bc833a07c0.htm"
+          }
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204416000012/R4.htm",
+        "sha256": "81bcf0e7c4ce129d5d44446baaf1a56bcafa6d5037e0669d8c6b2f5e5451197f",
+        "file": "81bcf0e7c4ce129d5d44446baaf1a56bcafa6d5037e0669d8c6b2f5e5451197f.htm"
+      }
+    },
+    "GOOGL:eps_diluted:2016-01-01:2016-12-31:0001652044-17-000008": {
+      "filed": "2017-02-03",
+      "form": "10-K",
+      "value": "27.85",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001652044",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "27.85",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-03",
+            "accession": "0001652044-17-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204417000008/goog-20161231.xml",
+            "sha256": "21e4884c4b8ea845c78ca9f1fa1335baa18a0ff3c8a672f62738ff2966bbd533",
+            "file": "21e4884c4b8ea845c78ca9f1fa1335baa18a0ff3c8a672f62738ff2966bbd533.htm"
+          }
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204417000008/R4.htm",
+        "sha256": "69f1523ed6d7dc8534848b7d35b6a6b301dba28e0bc68affb660ab8163ebb97f",
+        "file": "69f1523ed6d7dc8534848b7d35b6a6b301dba28e0bc68affb660ab8163ebb97f.htm"
       }
     },
     "GOOGL:eps_diluted:2017-01-01:2017-12-31:0001652044-18-000007": {
@@ -88497,6 +89327,43 @@
         "file": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768.htm"
       }
     },
+    "NEE:eps_diluted:2016-01-01:2016-12-31:0000753308-17-000060": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "6.25",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000753308",
+            "taxonomy": "us-gaap",
+            "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+            "unit": "USD/shares",
+            "value": "6.25",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0000753308-17-000060",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330817000060/nee-20161231.xml",
+            "sha256": "c4df64f7c3c2ac6b5e8f3257c05f3c80572e3d0369d471849e50714b15041fda",
+            "file": "c4df64f7c3c2ac6b5e8f3257c05f3c80572e3d0369d471849e50714b15041fda.htm"
+          }
+        }
+      ],
+      "selected_tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330817000060/R2.htm",
+        "sha256": "be684448ab4ee102bf1292b4ce19112138953cd5e49249f1dc0a6698554f4ba3",
+        "file": "be684448ab4ee102bf1292b4ce19112138953cd5e49249f1dc0a6698554f4ba3.htm"
+      }
+    },
     "NEE:eps_diluted:2016-01-01:2016-12-31:0000753308-18-000013": {
       "filed": "2018-02-16",
       "form": "10-K",
@@ -119655,6 +120522,43 @@
         "file": "e134594533e461ee28a907c430104332f83c6e18a31d5785110d1891d8e94c0f.htm"
       }
     },
+    "T:eps_diluted:2016-01-01:2016-12-31:0000732717-17-000021": {
+      "filed": "2017-02-17",
+      "form": "10-K",
+      "value": "2.1",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000732717",
+            "taxonomy": "us-gaap",
+            "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+            "unit": "USD/shares",
+            "value": "2.1",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-17",
+            "accession": "0000732717-17-000021",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/732717/000073271717000021/t-20161231.xml",
+            "sha256": "6778d33cf661f5f10b2a3040946c42611bc1b7366ed9c847793694eee987cfff",
+            "file": "6778d33cf661f5f10b2a3040946c42611bc1b7366ed9c847793694eee987cfff.htm"
+          }
+        }
+      ],
+      "selected_tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/732717/000073271717000021/R2.htm",
+        "sha256": "93ef4cf9c25599911e9af36a2279dbcd2489cd31b52da72bbab4e770eac998a1",
+        "file": "93ef4cf9c25599911e9af36a2279dbcd2489cd31b52da72bbab4e770eac998a1.htm"
+      }
+    },
     "T:eps_diluted:2021-01-01:2021-12-31:0000732717-22-000015": {
       "filed": "2022-02-16",
       "form": "10-K",
@@ -125826,6 +126730,43 @@
         "url": "https://www.sec.gov/Archives/edgar/data/86312/000104746916010107/R2.htm",
         "sha256": "62342fe1448033a7e1c4189ed7549a040226c166aec95a98f293a21e529fe695",
         "file": "62342fe1448033a7e1c4189ed7549a040226c166aec95a98f293a21e529fe695.htm"
+      }
+    },
+    "TSLA:eps_diluted:2015-01-01:2015-12-31:0001564590-16-013195": {
+      "filed": "2016-02-24",
+      "form": "10-K",
+      "value": "-6.93",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001318605",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareBasicAndDiluted",
+            "unit": "USD/shares",
+            "value": "-6.93",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-24",
+            "accession": "0001564590-16-013195",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1318605/000156459016013195/tsla-20151231.xml",
+            "sha256": "aff5dbf0f973c4d5e5c6c5df408bffdffa6a78bc30362e7d4fe3c91c7f807565",
+            "file": "aff5dbf0f973c4d5e5c6c5df408bffdffa6a78bc30362e7d4fe3c91c7f807565.htm"
+          }
+        }
+      ],
+      "selected_tag": "EarningsPerShareBasicAndDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS; the original per-share value is preserved without additional split adjustments. The statement explicitly identifies the amount as both basic and diluted.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000156459016013195/R4.htm",
+        "sha256": "c343b7be48119f35e66b7371c6982db2cc4dc1c6fa32f10d04ad6b6023886c49",
+        "file": "c343b7be48119f35e66b7371c6982db2cc4dc1c6fa32f10d04ad6b6023886c49.htm"
       }
     },
     "TSLA:eps_diluted:2016-01-01:2016-12-31:0001564590-17-003118": {
@@ -139201,14 +140142,6 @@
       "filed": "2016-02-19",
       "reason": "The filing has no stored fact for this cell"
     },
-    "ADI:eps_diluted:2014-11-02:2015-10-31:0000006281-15-000044": {
-      "filed": "2015-11-24",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "ADI:eps_diluted:2015-11-01:2016-10-29:0000006281-16-000097": {
-      "filed": "2016-11-22",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
     "ADSK:operating_cash_flow:2014-02-01:2015-01-31:0000769397-15-000012": {
       "filed": "2015-03-18",
       "reason": "No unique annual operating position for NetCashProvidedByUsedInOperatingActivities"
@@ -139349,86 +140282,6 @@
       "filed": "2016-02-09",
       "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
     },
-    "DE:eps_diluted:2014-11-03:2015-11-01:0001047469-15-009300": {
-      "filed": "2015-12-18",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "DE:eps_diluted:2014-11-03:2015-11-01:0001047469-16-009947": {
-      "filed": "2016-02-01",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "DE:eps_diluted:2014-11-03:2015-11-01:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "DE:eps_diluted:2015-11-02:2016-10-30:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "DE:equity:2014-11-03:2015-11-01:0001047469-15-009300": {
-      "filed": "2015-12-18",
-      "reason": "No unique group-equity position for this date"
-    },
-    "DE:equity:2014-11-03:2015-11-01:0001047469-16-009947": {
-      "filed": "2016-02-01",
-      "reason": "No unique group-equity position for this date"
-    },
-    "DE:equity:2014-11-03:2015-11-01:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No unique group-equity position for this date"
-    },
-    "DE:equity:2015-11-02:2016-10-30:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No unique group-equity position for this date"
-    },
-    "DE:net_income:2014-11-03:2015-11-01:0001047469-15-009300": {
-      "filed": "2015-12-18",
-      "reason": "No unique source-matching annual NetIncomeLoss position"
-    },
-    "DE:net_income:2014-11-03:2015-11-01:0001047469-16-009947": {
-      "filed": "2016-02-01",
-      "reason": "No unique source-matching annual NetIncomeLoss position"
-    },
-    "DE:net_income:2014-11-03:2015-11-01:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No unique source-matching annual NetIncomeLoss position"
-    },
-    "DE:net_income:2015-11-02:2016-10-30:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No unique source-matching annual NetIncomeLoss position"
-    },
-    "DE:operating_cash_flow:2014-11-03:2015-11-01:0001047469-15-009300": {
-      "filed": "2015-12-18",
-      "reason": "No verified annual operating-cash-flow total"
-    },
-    "DE:operating_cash_flow:2014-11-03:2015-11-01:0001047469-16-009947": {
-      "filed": "2016-02-01",
-      "reason": "No verified annual operating-cash-flow total"
-    },
-    "DE:operating_cash_flow:2014-11-03:2015-11-01:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No verified annual operating-cash-flow total"
-    },
-    "DE:operating_cash_flow:2015-11-02:2016-10-30:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "No verified annual operating-cash-flow total"
-    },
-    "DE:revenue:2014-11-03:2015-11-01:0001047469-15-009300": {
-      "filed": "2015-12-18",
-      "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
-    },
-    "DE:revenue:2014-11-03:2015-11-01:0001047469-16-009947": {
-      "filed": "2016-02-01",
-      "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
-    },
-    "DE:revenue:2014-11-03:2015-11-01:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
-    },
-    "DE:revenue:2015-11-02:2016-10-30:0001047469-16-017244": {
-      "filed": "2016-12-19",
-      "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
-    },
     "ECL:net_income:2021-01-01:2021-12-31:0001558370-22-002059": {
       "filed": "2022-02-25",
       "reason": "Missing or conflicting fact for NetIncomeLossAvailableToCommonStockholdersBasic"
@@ -139456,14 +140309,6 @@
     "EW:net_income:2022-01-01:2022-12-31:0001099800-23-000005": {
       "filed": "2023-02-13",
       "reason": "The filing has no stored fact for this cell"
-    },
-    "FCX:eps_diluted:2023-01-01:2023-12-31:0000831259-24-000011": {
-      "filed": "2024-02-16",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "FCX:eps_diluted:2024-01-01:2024-12-31:0000831259-25-000006": {
-      "filed": "2025-02-14",
-      "reason": "No unique net diluted EPS row for the selected share class"
     },
     "FI:operating_cash_flow:2015-01-01:2015-12-31:0000798354-17-000006": {
       "filed": "2017-02-23",
@@ -139505,14 +140350,6 @@
       "filed": "2017-02-06",
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
     },
-    "GOOGL:eps_diluted:2015-01-01:2015-12-31:0001652044-16-000012": {
-      "filed": "2016-02-11",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
-    "GOOGL:eps_diluted:2016-01-01:2016-12-31:0001652044-17-000008": {
-      "filed": "2017-02-03",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
     "KR:equity:2014-02-02:2015-01-31:0001104659-15-024557": {
       "filed": "2015-03-31",
       "reason": "No unique group-equity position for this date"
@@ -139532,10 +140369,6 @@
     "MCK:equity:2014-04-01:2015-03-31:0001628280-15-004098": {
       "filed": "2015-05-12",
       "reason": "No unique group-equity position for this date"
-    },
-    "NEE:eps_diluted:2016-01-01:2016-12-31:0000753308-17-000060": {
-      "filed": "2017-02-23",
-      "reason": "No unique net diluted EPS row for the selected share class"
     },
     "NSC:equity:2016-01-01:2016-12-31:0000702165-17-000018": {
       "filed": "2017-02-06",
@@ -139649,10 +140482,6 @@
       "filed": "2023-02-28",
       "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
     },
-    "T:eps_diluted:2016-01-01:2016-12-31:0000732717-17-000021": {
-      "filed": "2017-02-17",
-      "reason": "No unique net diluted EPS row for the selected share class"
-    },
     "T:net_income:2016-01-01:2016-12-31:0000732717-17-000021": {
       "filed": "2017-02-17",
       "reason": "The filing has no stored fact for this cell"
@@ -139685,10 +140514,6 @@
       "filed": "2025-02-20",
       "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
     },
-    "TSLA:eps_diluted:2015-01-01:2015-12-31:0001564590-16-013195": {
-      "filed": "2016-02-24",
-      "reason": "EPS source fact does not match the annual statement value"
-    },
     "TSLA:net_income:2017-01-01:2017-12-31:0001564590-18-002956": {
       "filed": "2018-02-23",
       "reason": "No unique source-matching annual NetIncomeLoss position"
@@ -139706,5 +140531,5 @@
       "reason": "No unique same-issuer fact matches this annual column; Original custom-tag XBRL instance has not been cached"
     }
   },
-  "reviewed_at": "2026-10-28T21:36:26.814373+00:00"
+  "reviewed_at": "2026-10-29T10:29:58.121930+00:00"
 }

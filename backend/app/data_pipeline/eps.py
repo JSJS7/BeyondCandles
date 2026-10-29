@@ -59,7 +59,12 @@ CLASS_MEMBERS = {
     "0001067983": {"brka:EquivalentClassBMember"},
 }
 CLASS_LABELS = {
-    "0001652044": {"Class A and Class B Common Stock", "Class A Common Stock"},
+    "0001652044": {
+        "Class A and Class B Common Stock",
+        "Class A Common Stock",
+        # The 10-Ks for 2015 and 2016 name the same member with this label.
+        "Common Class A and Common Class B",
+    },
     "0001403161": {"Class A common stock", "Class A Common Stock"},
     "0001404912": {"Common Stock", "Common Units", "Class A Common Stock"},
     "0001067983": {"Equivalent Class B [Member]"},
@@ -67,14 +72,55 @@ CLASS_LABELS = {
 # Reviewed issuers whose face statements sometimes use a continuing concept for a net EPS row.
 # A period is approved only after matching its net-income heading and original numeric fact.
 NET_ROW_ALIASES = {"0000006281", "0000004962", "0001163165", "0000831259", "0000865752"}
+# Reviewed periods whose only diluted EPS row carries a continuing-operations label and
+# concept while the company had no discontinued operations: net income equals income
+# from continuing operations in the original statement, so the row is the net EPS. The
+# row is still rejected when the statement shows any discontinued amount.
+CONTINUING_ROW_IS_NET = {
+    ("0000831259", date(2022, 12, 31)),  # FCX
+    ("0000831259", date(2023, 12, 31)),
+    ("0000831259", date(2024, 12, 31)),
+    ("0000006281", date(2015, 10, 31)),  # ADI
+    ("0000006281", date(2016, 10, 29)),
+    ("0000753308", date(2016, 12, 31)),  # NEE
+    ("0000732717", date(2016, 12, 31)),  # AT&T
+}
+
+
+def parse_with_scopes(body):
+    """Parse an instance and keep the namespace prefixes in scope at every element.
+
+    Some filing agents redeclare the default namespace on each dimension member
+    (xmlns="http://xbrl.org/2006/xbrldi"). A single document-wide prefix map would let
+    that later declaration hide xbrli for an unprefixed unit measure such as "shares".
+    """
+    scopes = {}
+    stack = [{}]
+    declared = {}
+    root = None
+    events = ("start-ns", "start", "end")
+    for event, item in ET.iterparse(io.BytesIO(body), events=events):
+        if event == "start-ns":
+            prefix, uri = item
+            declared[prefix] = uri
+        elif event == "start":
+            scope = {**stack[-1], **declared} if declared else stack[-1]
+            declared = {}
+            stack.append(scope)
+            scopes[item] = scope
+            if root is None:
+                root = item
+        else:
+            stack.pop()
+    if root is None:
+        raise ValueError("The XBRL instance has no root element")
+    return root, scopes
 
 
 def instance_eps(body, cik, metadata, *, reviewed_revision=False):
     """Accept USD per share and only the reviewed class; reject other dimensions and entities."""
-    namespaces = dict(
-        value for _, value in ET.iterparse(io.BytesIO(body), events=("start-ns",))
-    )
-    root = ET.fromstring(body)
+    root, scopes = parse_with_scopes(body)
+    namespaces = scopes[root]
     contexts = {}
     for context in root.findall(XBRLI + "context"):
         identifier = context.findtext(XBRLI + "entity/" + XBRLI + "identifier", "")
@@ -143,11 +189,14 @@ def instance_eps(body, cik, metadata, *, reviewed_revision=False):
             bottom = ["", bottom[0]]
         if len(top) != 2 or len(bottom) != 2:
             continue
+        # Each measure's prefix is resolved where it is written, not document-wide.
+        top_namespaces = scopes[numerator[0]]
+        bottom_namespaces = scopes[denominator[0]]
         if (
             top[1] == "USD"
-            and namespaces.get(top[0]) == ISO4217
+            and top_namespaces.get(top[0]) == ISO4217
             and bottom[1] == "shares"
-            and namespaces.get(bottom[0]) == XBRLI[1:-1]
+            and bottom_namespaces.get(bottom[0]) == XBRLI[1:-1]
         ):
             units.add(unit.attrib["id"])
 
@@ -201,6 +250,8 @@ def eps_position(html, cik, end):
     section = ""
     eps_rows = []
     has_net_income = False
+    reviewed_continuing_period = (cik, end) in CONTINUING_ROW_IS_NET
+    discontinued_amount = False
     for row in parser.rows:
         cells = row["cells"]
         if not cells:
@@ -233,6 +284,11 @@ def eps_position(html, cik, end):
             section = cells[0]
         if any("Discontinued" in tag and ("Per" in tag) for _, tag in row["tags"]):
             eps_rows.append(("Discontinued", cells[0]))
+        has_discontinued_tag = any("Discontinued" in tag for _, tag in row["tags"])
+        if has_discontinued_tag and any(
+            re.search(r"[1-9]", cell) for cell in cells[1:]
+        ):
+            discontinued_amount = True
         matching = [
             tag
             for taxonomy, tag in row["tags"]
@@ -249,13 +305,19 @@ def eps_position(html, cik, end):
             or "continuing" in section.lower()
         ):
             continue
-        if "continuing" in full_label and not (
-            cik == "0000831259"
-            and end == date(2022, 12, 31)
-            and "net income" in section.lower()
-        ):
+        # The reviewed exception covers an earnings-per-share row of the whole company.
+        continuing_as_net = (
+            reviewed_continuing_period
+            and tag == CONTINUING_TAG
+            and ("net income" in full_label or "earnings" in full_label)
+        )
+        if "continuing" in full_label and not continuing_as_net:
             continue
-        if tag == CONTINUING_TAG and cik not in NET_ROW_ALIASES:
+        if (
+            tag == CONTINUING_TAG
+            and cik not in NET_ROW_ALIASES
+            and not continuing_as_net
+        ):
             continue
         both = "basic" in full_label and "diluted" in full_label
         if tag == BASIC_TAG and not both and cik != "0001067983":
@@ -282,12 +344,15 @@ def eps_position(html, cik, end):
             )
         except ValueError:
             continue
-        candidates.append((tag, parsed, both))
+        candidates.append((tag, parsed, both, continuing_as_net))
     # A continuing concept cannot override separately reported discontinued/total EPS.
     if any("Discontinued" in tag for tag, _ in eps_rows):
         candidates = [
             candidate for candidate in candidates if candidate[0] != CONTINUING_TAG
         ]
+    # A reviewed continuing row stands for net EPS only without discontinued operations.
+    if discontinued_amount:
+        candidates = [candidate for candidate in candidates if not candidate[3]]
     if any(candidate[0] in (DILUTED_TAG, COMBINED_TAG) for candidate in candidates):
         candidates = [
             candidate
@@ -296,8 +361,10 @@ def eps_position(html, cik, end):
         ]
     if len(candidates) != 1:
         raise ValueError("No unique net diluted EPS row for the selected share class")
-    tag, parsed, both = candidates[0]
-    if tag == CONTINUING_TAG and not has_net_income:
+    tag, parsed, both, continuing_as_net = candidates[0]
+    # AT&T tags its net income row itself with a continuing concept; the reviewed
+    # period has no discontinued amount, checked above.
+    if tag == CONTINUING_TAG and not has_net_income and not continuing_as_net:
         raise ValueError(
             "Continuing EPS has no confirmed net-income face-statement context"
         )

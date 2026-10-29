@@ -678,15 +678,18 @@ def select_components(positions, facts, cik, accession, end, calendar, primary_c
     )
 
 
-def source_choices(task, cik, accession, filed, entry, calendar):
+def source_choices(task, cik, accession, filed, entry, calendar, statement_end=None):
     """Review one filing of a period against its cached statements and instance.
 
     Returns (choices, issues, found, visible parent amounts). Choices from the
     original XBRL instance take precedence over rendered statements: it retains
     exact dates omitted by some SEC HTML renders, and an explicit parent fact
-    takes precedence over rounded group-minus-NCI.
+    takes precedence over rounded group-minus-NCI. statement_end is the balance date
+    the filing itself uses when it differs from the canonical one (a reviewed
+    fiscal-period alias); source facts still match by the canonical date.
     """
     end = task["period"].period_end
+    position_end = statement_end or end
     issues = []
     visible_parents = set()
     found = False
@@ -715,11 +718,11 @@ def source_choices(task, cik, accession, filed, entry, calendar):
                         nci_controls.extend(statement_nci_controls(body, reference))
                     nci_controls.extend(reviewed_nci_controls(task, cik, accession))
                     positions = instant_equity_positions(
-                        path.read_bytes(), cik, end, nci_controls=nci_controls
+                        path.read_bytes(), cik, position_end, nci_controls=nci_controls
                     )
                 else:
                     positions = statement_positions(
-                        path.read_text(encoding="utf-8"), end, kind
+                        path.read_text(encoding="utf-8"), position_end, kind
                     )
                 visible_parents.update(
                     position["value"]

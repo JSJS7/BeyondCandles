@@ -358,11 +358,15 @@ def reviewed_disclosure(period, group, source, old, fetch=False, evidence=None):
 
 
 def verify_filing_period(
-    ticker, period, group, source, old, supplements, fetch, evidence
+    ticker, period, group, source, old, supplements, fetch, evidence, statement_end=None
 ):
-    """Return a source-backed definition only when this issuer's annual amount matches."""
+    """Return a source-backed definition only when this issuer's annual amount matches.
+
+    statement_end is the column date the filing itself uses when it differs from the
+    canonical period end (a reviewed fiscal-period alias); facts still match by period.
+    """
     cik, accession = source
-    end_date = datetime.fromisoformat(period.split(":")[2]).date()
+    end_date = statement_end or datetime.fromisoformat(period.split(":")[2]).date()
     attempts = []
     try:
         summary = old["summary"]
