@@ -21,6 +21,7 @@ from app.data_pipeline.eps import CLASS_MEMBERS, eps_position, instance_eps
 from app.data_pipeline.eps import EVIDENCE_INDEX as EPS_EVIDENCE
 from app.data_pipeline.net_income import (
     ISSUER_SUPPORTING_TAGS,
+    NCI_TAGS,
     SUPPORTING_TAGS,
     issuer_income_files,
     position,
@@ -30,7 +31,7 @@ from app.data_pipeline.revenue import (
     EVIDENCE_INDEX as INCOME_EVIDENCE,
 )
 from app.data_pipeline.revenue import download_evidence, verify_filing_period
-from app.data_pipeline.revenue_facts import cache_instance
+from app.data_pipeline.revenue_facts import cache_instance, instance_facts
 from app.data_pipeline.sec import CacheIntegrityError, SecAccessDenied, extract_facts
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import (
@@ -38,7 +39,11 @@ from app.data_pipeline.sec_history import (
     history_eligible,
     prepare_company_facts,
 )
-from app.data_pipeline.sec_statements import matches_rendered_value
+from app.data_pipeline.sec_statements import (
+    StatementRows,
+    matches_rendered_value,
+    normalized_label,
+)
 from app.data_pipeline.source_files import (
     ROOT,
     SELECTION,
@@ -178,6 +183,18 @@ def pending_tasks():
     return tasks, issuers, history
 
 
+# Reviewed earlier 10-K filings whose parent-income row carries a continuing-operations
+# concept while the company had no discontinued operations, as CONTINUING_ROW_IS_NET in
+# eps.py for the EPS row of the same filing; checked in the primary document (29.10.2026).
+CONTINUING_PARENT_ROWS = {
+    # AT&T FY2016: "Net Income Attributable to AT&T".
+    ("0000732717", "0000732717-17-000021"),
+}
+CONTINUING_PARENT_TAG = "IncomeLossFromContinuingOperations"
+CONTINUING_GROUP_TAG = "IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest"
+CONTINUING_ROW_TAGS = (CONTINUING_PARENT_TAG, CONTINUING_GROUP_TAG)
+
+
 def add_supporting_facts(tasks, cik, body, history_rules):
     """Attach the filing's own net-income allocations that the import did not store.
 
@@ -187,13 +204,16 @@ def add_supporting_facts(tasks, cik, body, history_rules):
     present only group income and its allocations; the same SEC facts of that filing
     are read here and later checked against its statement.
     """
-    tags = SUPPORTING_TAGS + ISSUER_SUPPORTING_TAGS.get(cik, ())
+    tags = SUPPORTING_TAGS + ISSUER_SUPPORTING_TAGS.get(cik, ()) + CONTINUING_ROW_TAGS
     extracted, _ = extract_facts(body, metrics={"net_income": tags})
     for task in tasks:
         stored = [fact_identity(fact) for fact in task.cell_facts]
+        reviewed_continuing = (cik, task.accession) in CONTINUING_PARENT_ROWS
         added = []
         for fact in extracted:
             if fact["accession"] != task.accession or fact["period_kind"] != "annual":
+                continue
+            if fact["tag"] in CONTINUING_ROW_TAGS and not reviewed_continuing:
                 continue
             if canonical_period(fact, task.calendar) != (task.start, task.end):
                 continue
@@ -253,6 +273,35 @@ def unique_choice(choices):
     return choices[0]
 
 
+def custom_revenue_facts(task, rule):
+    """The reviewed custom total of the filing's original instance, as review-revenue reads it.
+
+    SEC companyfacts omit company-specific concepts, so the import stores such a total
+    only for the latest filing; an earlier filing's fact is pinned like an EPS fact
+    read from the instance.
+    """
+    if not task.filing_facts:
+        raise ValueError("The filing has no stored fact to identify its form")
+    form_fact = task.filing_facts[0]
+    metadata = {
+        "accession": task.accession,
+        "filed": task.filed,
+        "form": form_fact["form"],
+        "fiscal_period": form_fact.get("fiscal_period"),
+    }
+    facts = instance_facts(
+        verify_reference(rule["original_instance"]).read_bytes(),
+        task.cik,
+        metadata,
+        {(rule["taxonomy"], rule["tag"])},
+    )
+    return [
+        fact
+        for fact in facts
+        if canonical_period(fact, task.calendar) == (task.start, task.end)
+    ]
+
+
 def review_revenue(task, evidence, end):
     """The same per-filing check as review-revenue for the latest filing."""
     entry = evidence.get(task.source, {})
@@ -274,18 +323,31 @@ def review_revenue(task, evidence, end):
         reasons = sorted({attempt["reason"] for attempt in attempts})
         raise ValueError("; ".join(reasons) or "No verified total revenue")
     tags = rule.get("components") or [rule["tag"]]
-    components = []
-    for tag in tags:
-        matching = [
+
+    def matching_facts(candidates, tag):
+        return [
             fact
-            for fact in task.cell_facts
+            for fact in candidates
             if fact["taxonomy"] == rule["taxonomy"]
             and fact["tag"] == tag
             and fact["unit"] == "USD"
         ]
+
+    components = []
+    for tag in tags:
+        matching = matching_facts(task.cell_facts, tag)
+        from_instance = False
+        if not matching and rule["taxonomy"] != "us-gaap":
+            # A custom total the import did not store for this filing.
+            matching = matching_facts(custom_revenue_facts(task, rule), tag)
+            from_instance = True
         if len({fact["value"] for fact in matching}) != 1:
             raise ValueError(f"No unique {tag} fact in the filing")
-        components.append(single_source(task, matching[0]))
+        component = single_source(task, matching[0])
+        if from_instance:
+            component["instance_position"] = True
+            component["instance"] = rule["original_instance"]
+        components.append(component)
     calculation = None
     note = rule.get(
         "note",
@@ -307,6 +369,81 @@ def review_revenue(task, evidence, end):
         "summary": rule["summary"],
         "statement": rule["evidence"],
     }
+
+
+def weighted_value(selected, coefficients):
+    return calculated_value(
+        [
+            (source.value, Decimal(coefficient))
+            for source, coefficient in zip(selected, coefficients, strict=True)
+        ]
+    )
+
+
+def parent_row_or_reconciliation(html, parent, current, end):
+    """The parent-income row, or a reconciliation of the statement that gives its value.
+
+    A filing may tag its parent fact outside the face statement while the statement
+    shows the same amount under another concept: TSLA's 2017 10-K presents group loss,
+    noncontrolling interests and "net loss attributable to common stockholders", and
+    OXY's 2018 10-K only its unallocated net income. The statement is then reconciled
+    as review-net-income does, and the result must equal the filing's parent fact.
+    """
+    try:
+        # Raises unless the row shows this value in the annual column.
+        position(html, PARENT_TAG, end, parent.value)
+        return [parent], [1], None, None
+    except ValueError as exc:
+        missing_row = exc
+    selected, coefficients, calculation, note = verify_exception(html, current, end)
+    if weighted_value(selected, coefficients) != parent.value:
+        raise ValueError(
+            f"{missing_row}; the statement reconciliation differs from the parent fact"
+        )
+    return selected, coefficients, calculation, note
+
+
+def continuing_parent_row(html, current, end):
+    """A reviewed parent row with a continuing concept, reconciled to group income.
+
+    The statement must show no discontinued operations, label the row as income
+    attributable to the issuer, and show group income less noncontrolling interests
+    equal to it; each value must match its own fact in the same filing.
+    """
+    parser = StatementRows()
+    parser.feed(html)
+    for row in parser.rows:
+        label = normalized_label(row["cells"][0]) if row["cells"] else ""
+        if "discontinued" in label or any(
+            "Discontinued" in tag for _, tag in row["tags"]
+        ):
+            raise ValueError("The statement shows discontinued operations")
+
+    def statement_fact(tag, allocation=False):
+        facts = [
+            fact
+            for fact in current
+            if fact.taxonomy == "us-gaap" and fact.tag == tag and fact.unit == "USD"
+        ]
+        if len({fact.value for fact in facts}) != 1:
+            raise ValueError(f"Missing or conflicting fact for {tag}")
+        parsed, _ = position(html, tag, end, facts[0].value, allocation)
+        return facts[0], normalized_label(parsed["label"])
+
+    parent, label = statement_fact(CONTINUING_PARENT_TAG)
+    if "attributable to" not in label or "noncontrolling" in label:
+        raise ValueError("The continuing row is not labelled as parent income")
+    group, _ = statement_fact(CONTINUING_GROUP_TAG)
+    allocation, _ = statement_fact(NCI_TAGS[0], allocation=True)
+    if group.value - allocation.value != parent.value:
+        raise ValueError("Group income less noncontrolling interests differs")
+    note = (
+        "The reviewed statement labels this continuing-operations position as net "
+        "income attributable to the issuer; the filing reports no discontinued "
+        "operations, and group income less noncontrolling interests equals it. This "
+        "is a source-specific review, not a tag alias."
+    )
+    return [parent], [1], None, note
 
 
 def review_net_income(task, evidence, end):
@@ -334,9 +471,13 @@ def review_net_income(task, evidence, end):
     for reference, html in statements:
         try:
             if len(parent) == 1:
-                # Raises unless the row shows this value in the annual column.
-                position(html, PARENT_TAG, end, parent[0].value)
-                selected, coefficients, calculation, note = parent, [1], None, None
+                selected, coefficients, calculation, note = (
+                    parent_row_or_reconciliation(html, parent[0], current, end)
+                )
+            elif (task.cik, task.accession) in CONTINUING_PARENT_ROWS:
+                selected, coefficients, calculation, note = continuing_parent_row(
+                    html, current, end
+                )
             else:
                 selected, coefficients, calculation, note = verify_exception(
                     html, current, end
@@ -344,12 +485,7 @@ def review_net_income(task, evidence, end):
         except ValueError as exc:
             issues.append(str(exc))
             continue
-        value = calculated_value(
-            [
-                (source.value, Decimal(coefficient))
-                for source, coefficient in zip(selected, coefficients, strict=True)
-            ]
-        )
+        value = weighted_value(selected, coefficients)
         components = []
         for source, coefficient in zip(selected, coefficients, strict=True):
             component = {"fact": fact_identity(source), "coefficient": coefficient}
@@ -757,10 +893,37 @@ def alternative_equity_jobs(tasks, evidence):
     return jobs
 
 
+def custom_revenue_instances(tasks, outcomes, evidence):
+    """Cache the original instance where review-revenue would: a custom statement total.
+
+    Whether a filing's total is a custom concept is known only after reading its
+    statement, so the instance is fetched for the unresolved versions that need it.
+    """
+    sources = set()
+    for task in tasks:
+        _, reason = outcomes[task.key]
+        if task.metric != "revenue" or reason is None:
+            continue
+        if "custom-tag XBRL instance has not been cached" not in reason:
+            continue
+        # The reason arises only after the filing's statement was read from the cache.
+        entry = evidence[task.source]
+        if "instance" not in entry:
+            cache_instance(task.cik, task.accession, entry)
+            write_json(INCOME_EVIDENCE, evidence)
+        sources.add(task.source)
+    return sources
+
+
 def review_task(task, evidence_for):
     """Return (review, None) for an approved version, or (None, reason)."""
     try:
-        if not task.cell_facts and task.metric != "eps_diluted":
+        # EPS and a reviewed custom revenue total are read from the original instance,
+        # and net income may be reconciled from the filing's own allocations alone
+        # (e.g. a "Net earnings" row tagged with the common-shareholder concept, which
+        # the import did not store).
+        has_sources = task.cell_facts or task.supporting_facts
+        if not has_sources and task.metric not in ("eps_diluted", "revenue"):
             raise ValueError("The filing has no stored fact for this cell")
         if task.cik is None:
             raise ValueError("The filing has no single issuer for this cell")
@@ -802,6 +965,10 @@ def review_versions(fetch=False):
             for task in tasks:
                 if task.metric == "equity" and task.source in refreshed:
                     outcomes[task.key] = review_task(task, evidence_for)
+        with_instance = custom_revenue_instances(tasks, outcomes, indexes["income"])
+        for task in tasks:
+            if task.metric == "revenue" and task.source in with_instance:
+                outcomes[task.key] = review_task(task, evidence_for)
     policy = {
         "version": 1,
         "selection_sha256": sha256(SELECTION),

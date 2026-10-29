@@ -558,6 +558,32 @@ class CashFlowStatementTests(unittest.TestCase):
         )
         self.assertEqual(positions, {})
 
+    def test_hidden_concept_name_in_a_value_cell_is_not_displayed_text(self):
+        """Early-2015 SEC renderings (ADSK FY2015) hide the concept name after each value.
+
+        Only the visible 100 is the displayed amount; reading the hidden span as well
+        turned the cell into "100us-gaap_..." and left the annual column without a value.
+        """
+        hidden = (
+            f'<span style="display:none;white-space:normal;text-align:left;">'
+            f"us-gaap_{TOTAL_TAG}</span><span></span>"
+        )
+        html = self.table(
+            [
+                (
+                    TOTAL_TAG,
+                    "Net cash provided by operating activities",
+                    f'<a title="us-gaap_{TOTAL_TAG}" '
+                    f'onclick="toggleNextSibling(this);">100</a>{hidden}',
+                    f"90{hidden}",
+                )
+            ]
+        )
+        positions, flag = cash_positions(html, END)
+        self.assertEqual(
+            choose_positions(positions, flag)[0][0]["value"], Decimal(100000000)
+        )
+
     def test_reconciliation_wording_does_not_restrict_the_operating_section(self):
         """Walmart/Pfizer reconcile continuing income to total OCF; that wording is not a section header."""
         html = self.table(

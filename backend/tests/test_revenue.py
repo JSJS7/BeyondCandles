@@ -404,6 +404,14 @@ class RevenueStatementTests(unittest.TestCase):
             matches_rendered_value(total, Decimal("100000000"), date(2020, 12, 31))
         )
 
+    def test_terse_revenue_total_label_is_recognized(self):
+        """General Dynamics' 2016 10-K renders its total as "Revenue, total"."""
+        html = statement(row("us-gaap_Revenues", "Revenue, total"))
+
+        total = statement_total(html)
+
+        self.assertEqual(total["tag"], "Revenues")
+
     def test_amount_comparison_requires_the_correct_date_column_and_scale(self):
         """Do not match a prior year's amount or ignore the monetary scale beside share units."""
         total = statement_total(statement(row("us-gaap_Revenues", "Revenues")))

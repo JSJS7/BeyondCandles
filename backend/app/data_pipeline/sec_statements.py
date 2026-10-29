@@ -13,6 +13,8 @@ from app.data_pipeline.revenue_facts import CUSTOM_REVENUE_TAGS
 TOTAL_LABELS = {
     "revenue",
     "revenues",
+    # General Dynamics' 2016 10-K renders its Revenues row as "Revenue, total".
+    "revenue total",
     "total revenue",
     "total revenues",
     "net revenue",
@@ -105,8 +107,21 @@ def stated_dollar_scale(header_text):
     return SCALES[match.group(1)]
 
 
+VOID_ELEMENTS = {"br", "col", "hr", "img", "input", "link", "meta", "wbr"}
+
+
+def hidden_style(attrs):
+    style = re.sub(r"\s", "", (attrs.get("style") or "").lower())
+    return "display:none" in style
+
+
 class StatementRows(HTMLParser):
-    """Read only the visible statement table, excluding hidden concept-definition tables."""
+    """Read only the visible statement table, excluding hidden concept-definition tables.
+
+    SEC renderings of early 2015 also put the concept name in a hidden span inside
+    every value cell ("708.1" followed by "us-gaap_..."); hidden text is not part of
+    the displayed value.
+    """
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -114,6 +129,8 @@ class StatementRows(HTMLParser):
         self.rows = []
         self.row: dict[str, Any] | None = None
         self.cell = None
+        # Open elements inside a hidden element of a cell, the hidden one included.
+        self.hidden = 0
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -122,6 +139,9 @@ class StatementRows(HTMLParser):
                 self.depth += 1
         if self.depth != 1:
             return
+        if self.cell is not None and tag not in VOID_ELEMENTS:
+            if self.hidden or hidden_style(attrs):
+                self.hidden += 1
         if tag == "tr":
             self.row = {"cells": [], "spans": [], "tags": set(), "header": False}
         if self.row is not None:
@@ -137,11 +157,17 @@ class StatementRows(HTMLParser):
                 self.row["tags"].add(reference.groups())
 
     def handle_data(self, text):
-        if self.depth == 1 and self.cell is not None:
+        if self.depth == 1 and self.cell is not None and not self.hidden:
             self.cell += text
 
     def handle_endtag(self, tag):
         if self.depth == 1:
+            if tag in ("td", "th"):
+                # The cell ends even if a hidden element inside it was left unclosed.
+                self.hidden = 0
+            elif self.hidden and tag not in VOID_ELEMENTS:
+                self.hidden -= 1
+                return
             if tag in ("td", "th") and self.cell is not None and self.row is not None:
                 self.row["cells"].append(" ".join(self.cell.split()))
                 self.cell = None

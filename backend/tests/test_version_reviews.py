@@ -15,25 +15,39 @@ from app.data_pipeline import version_reviews
 END = date(2020, 12, 31)
 
 
-def task_with(fact, supporting_facts=()):
-    """A version of one net-income cell whose filing reported the given fact."""
+def task_with(fact, supporting_facts=(), cik=None, accession="original"):
+    """A version of one net-income cell whose filing reported the given fact.
+
+    Without a fact, the filing stored nothing for the cell (only supporting facts).
+    """
     return SimpleNamespace(
-        cik=fact["source_cik"],
+        cik=cik or fact["source_cik"],
+        accession=accession,
         end=END,
-        cell_facts=[fact],
+        cell_facts=[] if fact is None else [fact],
         supporting_facts=list(supporting_facts),
     )
 
 
-def review_against(html, fact, supporting_facts=()):
+def review_against(html, fact, supporting_facts=(), **task_fields):
     statements = [({"url": "https://www.sec.gov/R4.htm"}, html)]
     summary = {"url": "https://www.sec.gov/FilingSummary.xml"}
     with patch.object(
         version_reviews, "income_statements", return_value=(summary, statements)
     ):
         return version_reviews.review_net_income(
-            task_with(fact, supporting_facts), {}, END
+            task_with(fact, supporting_facts, **task_fields), {}, END
         )
+
+
+def annual_fact(tag, value, **changes):
+    return reported_fact(
+        tag=tag,
+        value=Decimal(value),
+        period_start=date(2020, 1, 1),
+        period_end=END,
+        **changes,
+    )
 
 
 class NetIncomeVersionTests(unittest.TestCase):
@@ -114,6 +128,227 @@ class UnstoredAllocationTests(unittest.TestCase):
         """Group income is never shown as parent income for lack of an allocation."""
         with self.assertRaisesRegex(ValueError, "Missing or conflicting fact"):
             review_against(self.html, self.group)
+
+
+class ParentFactOffStatementTests(unittest.TestCase):
+    """Tesla's FY2017 10-K tags NetIncomeLoss, but its statement shows that amount as
+    "Net loss attributable to common stockholders" under another concept."""
+
+    def setUp(self):
+        self.group = annual_fact("ProfitLoss", "-2240000000")
+        self.allocation = annual_fact(
+            "NetIncomeLossAttributableToNoncontrollingInterest", "-279000000"
+        )
+        self.html = statement(
+            [
+                ("ProfitLoss", "Net loss", "(2,240)"),
+                (
+                    "NetIncomeLossAttributableToNoncontrollingInterest",
+                    "Net loss attributable to noncontrolling interests",
+                    "(279)",
+                ),
+                (
+                    "NetIncomeLossAvailableToCommonStockholdersBasic",
+                    "Net loss attributable to common stockholders",
+                    "$ (1,961)",
+                ),
+            ]
+        )
+
+    def review(self, parent_value):
+        parent = annual_fact("NetIncomeLoss", parent_value)
+        task = task_with(parent, [self.allocation])
+        task.cell_facts.append(self.group)
+        statements = [({"url": "https://www.sec.gov/R4.htm"}, self.html)]
+        summary = {"url": "https://www.sec.gov/FilingSummary.xml"}
+        with patch.object(
+            version_reviews, "income_statements", return_value=(summary, statements)
+        ):
+            return version_reviews.review_net_income(task, {}, END)
+
+    def test_reconciliation_equal_to_the_parent_fact_is_approved(self):
+        """Group loss less noncontrolling interests (-2 240 + 279) equals the fact."""
+        review = self.review("-1961000000")
+
+        self.assertEqual(review["value"], "-1961000000")
+        tags = [component["fact"]["tag"] for component in review["components"]]
+        self.assertEqual(
+            tags, ["ProfitLoss", "NetIncomeLossAttributableToNoncontrollingInterest"]
+        )
+
+    def test_reconciliation_differing_from_the_parent_fact_is_rejected(self):
+        """The statement reconciliation does not replace a parent fact it contradicts."""
+        with self.assertRaisesRegex(ValueError, "differs from the parent fact"):
+            self.review("-1900000000")
+
+
+class CommonRowOnlyTests(unittest.TestCase):
+    """AbbVie's FY2015 10-K tags its "Net earnings" row only with the common-shareholder
+    concept, which the import did not store for that period."""
+
+    def setUp(self):
+        self.common = annual_fact(
+            "NetIncomeLossAvailableToCommonStockholdersBasic", "5144000000"
+        )
+        self.html = statement(
+            [
+                (
+                    "NetIncomeLossAvailableToCommonStockholdersBasic",
+                    "Net earnings",
+                    "$ 5,144",
+                )
+            ]
+        )
+
+    def review_task(self, supporting_facts):
+        task = task_with(None, supporting_facts, cik=self.common["source_cik"])
+        task.metric = "net_income"
+        task.statement_ends = [END]
+        statements = [({"url": "https://www.sec.gov/R4.htm"}, self.html)]
+        summary = {"url": "https://www.sec.gov/FilingSummary.xml"}
+        with patch.object(
+            version_reviews, "income_statements", return_value=(summary, statements)
+        ):
+            return version_reviews.review_task(task, {"net_income": {}})
+
+    def test_sole_net_earnings_row_is_approved_and_pinned(self):
+        """No stored fact, but the filing's own fact matches its only net-income row."""
+        review, reason = self.review_task([self.common])
+
+        self.assertIsNone(reason)
+        self.assertEqual(review["value"], "5144000000")
+        self.assertTrue(review["components"][0]["statement_position"])
+
+    def test_version_without_any_fact_of_the_filing_stays_unresolved(self):
+        """Without stored or supporting facts, net income is not reviewed at all."""
+        review, reason = self.review_task([])
+
+        self.assertIsNone(review)
+        self.assertEqual(reason, "The filing has no stored fact for this cell")
+
+
+class ContinuingParentRowTests(unittest.TestCase):
+    """AT&T's FY2016 10-K shows "Net Income Attributable to AT&T" under the
+    continuing-operations concept; the company had no discontinued operations."""
+
+    CIK = "0000732717"
+    ACCESSION = "0000732717-17-000021"
+
+    def setUp(self):
+        self.facts = [
+            annual_fact(version_reviews.CONTINUING_GROUP_TAG, "13333000000"),
+            annual_fact(
+                "NetIncomeLossAttributableToNoncontrollingInterest", "357000000"
+            ),
+            annual_fact(version_reviews.CONTINUING_PARENT_TAG, "12976000000"),
+        ]
+        self.rows = [
+            (version_reviews.CONTINUING_GROUP_TAG, "Net Income", "13,333"),
+            (
+                "NetIncomeLossAttributableToNoncontrollingInterest",
+                "Less: Net Income Attributable to Noncontrolling Interest",
+                "(357)",
+            ),
+            (
+                version_reviews.CONTINUING_PARENT_TAG,
+                "Net Income Attributable to AT&T",
+                "$ 12,976",
+            ),
+        ]
+
+    def review(self, rows, accession=ACCESSION):
+        return review_against(
+            statement(rows), None, self.facts, cik=self.CIK, accession=accession
+        )
+
+    def test_reviewed_filing_is_approved_from_the_parent_row(self):
+        """13 333 - 357 = 12 976, the row's own fact, pinned from the statement."""
+        review = self.review(self.rows)
+
+        self.assertEqual(review["value"], "12976000000")
+        self.assertEqual(review["selected_tag"], version_reviews.CONTINUING_PARENT_TAG)
+        self.assertTrue(review["components"][0]["statement_position"])
+
+    def test_other_filing_or_discontinued_operations_stay_unresolved(self):
+        """The mapping holds for the reviewed filing only, and never beside a
+        discontinued-operations row."""
+        discontinued = (
+            "IncomeLossFromDiscontinuedOperationsNetOfTax",
+            "Income from discontinued operations",
+            "0",
+        )
+        cases = (
+            (self.rows, "another"),
+            (self.rows[:2] + [discontinued] + self.rows[2:], self.ACCESSION),
+        )
+        for rows, accession in cases:
+            with self.subTest(accession=accession):
+                with self.assertRaises(ValueError):
+                    self.review(rows, accession)
+
+
+class CustomRevenueTests(unittest.TestCase):
+    """American Express' FY2015 total is a custom axp concept, which SEC companyfacts
+    omit; the reviewed total is read from the filing's original instance."""
+
+    def setUp(self):
+        self.fact = reported_fact(
+            source_cik="0000004962",
+            metric="revenue",
+            taxonomy="axp",
+            tag="TotalRevenuesNetOfInterestExpense",
+            value=Decimal("32818000000"),
+            period_start=date(2020, 1, 1),
+            period_end=END,
+        )
+        self.rule = {
+            "taxonomy": "axp",
+            "tag": "TotalRevenuesNetOfInterestExpense",
+            "label": "Total revenues net of interest expense",
+            "value": "32818000000",
+            "summary": {"url": "https://www.sec.gov/FilingSummary.xml"},
+            "evidence": {"url": "https://www.sec.gov/R2.htm"},
+            "original_instance": {"url": "https://www.sec.gov/axp.xml"},
+        }
+
+    def review(self, cell_facts):
+        task = SimpleNamespace(
+            ticker="AXP",
+            cik="0000004962",
+            accession="original",
+            start=date(2020, 1, 1),
+            end=END,
+            source="0000004962:original",
+            filing_facts=cell_facts,
+            cell_facts=cell_facts,
+        )
+        evidence = {task.source: {"summary": self.rule["summary"]}}
+        with (
+            patch.object(
+                version_reviews, "verify_filing_period", return_value=(self.rule, [])
+            ),
+            patch.object(
+                version_reviews, "custom_revenue_facts", return_value=[self.fact]
+            ) as instance,
+        ):
+            review = version_reviews.review_revenue(task, evidence, END)
+        return review, instance
+
+    def test_unstored_custom_total_is_pinned_from_the_instance(self):
+        """No stored fact: the instance fact is used and pinned with its file."""
+        review, _ = self.review([])
+
+        component = review["components"][0]
+        self.assertEqual(review["value"], "32818000000")
+        self.assertTrue(component["instance_position"])
+        self.assertEqual(component["instance"], self.rule["original_instance"])
+
+    def test_stored_custom_total_keeps_the_database_fact(self):
+        """A custom fact the import stored is not re-read or pinned from the instance."""
+        review, instance = self.review([self.fact])
+
+        self.assertNotIn("instance_position", review["components"][0])
+        instance.assert_not_called()
 
 
 class SupportingFactTests(unittest.TestCase):

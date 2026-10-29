@@ -27,6 +27,8 @@ CUSTOM_REVENUE_TAGS = {
     ("xom", "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes"),
     ("bk", "TotalRevenuesIncludingRevenueGeneratedByVariableInterestEntities"),
     ("amp", "NetRevenues"),
+    # American Express 10-Ks for 2015 and 2016, before the us-gaap concept.
+    ("axp", "TotalRevenuesNetOfInterestExpense"),
 }
 
 
