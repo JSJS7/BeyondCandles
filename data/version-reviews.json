@@ -19686,6 +19686,37 @@
         "file": "c9865ea189cb9ce84fd44273448d67102e0ac08b122cb2d32d047aa644747ef1.htm"
       }
     },
+    "BDX:operating_cash_flow:2014-10-01:2015-09-30:0001628280-15-008984": {
+      "filed": "2015-11-25",
+      "form": "10-K",
+      "value": "1730000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000010795",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "1730000000",
+            "period_start": "2014-10-01",
+            "period_end": "2015-09-30",
+            "filed": "2015-11-25",
+            "accession": "0001628280-15-008984",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing's primary document shows this year's discontinued cash flow as a dash, an explicit zero, so the continuing operating subtotal is the whole-company total. This is a source-specific review, not a tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000162828015008984/R7.htm",
+        "sha256": "f779a36b26abbc3c7684800af2973762072f52715789ca7f1139ebe80cf90ff4",
+        "file": "f779a36b26abbc3c7684800af2973762072f52715789ca7f1139ebe80cf90ff4.htm"
+      }
+    },
     "BDX:operating_cash_flow:2019-10-01:2020-09-30:0000010795-20-000055": {
       "filed": "2020-11-25",
       "form": "10-K",
@@ -25068,6 +25099,285 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1393818/000119312518067079/R4.htm",
         "sha256": "dfc40df37580abeb0d89819ebd30a661e5f501229be983e67f153161cfaf2fd2",
         "file": "dfc40df37580abeb0d89819ebd30a661e5f501229be983e67f153161cfaf2fd2.htm"
+      }
+    },
+    "C:operating_cash_flow:2016-01-01:2016-12-31:0000831001-17-000038": {
+      "filed": "2017-02-24",
+      "form": "10-K",
+      "value": "53932000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "53932000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-24",
+            "accession": "0000831001-17-000038",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100117000038/R8.htm",
+        "sha256": "9a1348bc10e490131eb511e06ffd6f8b64baaf1baef8bdc618f176becb952741",
+        "file": "9a1348bc10e490131eb511e06ffd6f8b64baaf1baef8bdc618f176becb952741.htm"
+      }
+    },
+    "C:operating_cash_flow:2016-01-01:2016-12-31:0000831001-18-000040": {
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "value": "53932000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "53932000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-23",
+            "accession": "0000831001-18-000040",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100118000040/R8.htm",
+        "sha256": "a676610489a6dad3191c51def93c749bfd9e97f2baeb954fa64616bdc375c1a8",
+        "file": "a676610489a6dad3191c51def93c749bfd9e97f2baeb954fa64616bdc375c1a8.htm"
+      }
+    },
+    "C:operating_cash_flow:2017-01-01:2017-12-31:0000831001-18-000040": {
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "value": "-8587000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "-8587000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-23",
+            "accession": "0000831001-18-000040",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100118000040/R8.htm",
+        "sha256": "a676610489a6dad3191c51def93c749bfd9e97f2baeb954fa64616bdc375c1a8",
+        "file": "a676610489a6dad3191c51def93c749bfd9e97f2baeb954fa64616bdc375c1a8.htm"
+      }
+    },
+    "C:operating_cash_flow:2018-01-01:2018-12-31:0000831001-19-000027": {
+      "filed": "2019-02-22",
+      "form": "10-K",
+      "value": "36952000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "36952000000",
+            "period_start": "2018-01-01",
+            "period_end": "2018-12-31",
+            "filed": "2019-02-22",
+            "accession": "0000831001-19-000027",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100119000027/R8.htm",
+        "sha256": "6450e8de063e2f473f35c59b25fea67feb4fc953efd4b38d199f892cf1cb2f65",
+        "file": "6450e8de063e2f473f35c59b25fea67feb4fc953efd4b38d199f892cf1cb2f65.htm"
+      }
+    },
+    "C:operating_cash_flow:2018-01-01:2018-12-31:0000831001-20-000031": {
+      "filed": "2020-02-21",
+      "form": "10-K",
+      "value": "36952000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "36952000000",
+            "period_start": "2018-01-01",
+            "period_end": "2018-12-31",
+            "filed": "2020-02-21",
+            "accession": "0000831001-20-000031",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100120000031/R8.htm",
+        "sha256": "15f0e1f201a2de8ecc9523d4ecba73751fb02b5331d26bea0f11e8b4694c2648",
+        "file": "15f0e1f201a2de8ecc9523d4ecba73751fb02b5331d26bea0f11e8b4694c2648.htm"
+      }
+    },
+    "C:operating_cash_flow:2019-01-01:2019-12-31:0000831001-20-000031": {
+      "filed": "2020-02-21",
+      "form": "10-K",
+      "value": "-12837000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "-12837000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-21",
+            "accession": "0000831001-20-000031",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100120000031/R8.htm",
+        "sha256": "15f0e1f201a2de8ecc9523d4ecba73751fb02b5331d26bea0f11e8b4694c2648",
+        "file": "15f0e1f201a2de8ecc9523d4ecba73751fb02b5331d26bea0f11e8b4694c2648.htm"
+      }
+    },
+    "C:operating_cash_flow:2020-01-01:2020-12-31:0000831001-21-000042": {
+      "filed": "2021-02-26",
+      "form": "10-K",
+      "value": "-20621000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "-20621000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2021-02-26",
+            "accession": "0000831001-21-000042",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100121000042/R8.htm",
+        "sha256": "c61b8b4f0b68295bd107d4d165d23ae0dd8dcb9b669c7d8fd1574104b16d1dd1",
+        "file": "c61b8b4f0b68295bd107d4d165d23ae0dd8dcb9b669c7d8fd1574104b16d1dd1.htm"
+      }
+    },
+    "C:operating_cash_flow:2020-01-01:2020-12-31:0000831001-22-000036": {
+      "filed": "2022-02-28",
+      "form": "10-K",
+      "value": "-20621000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "-20621000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2022-02-28",
+            "accession": "0000831001-22-000036",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100122000036/R9.htm",
+        "sha256": "c72e2f389bc9cfbebb4482ab8cfbc4a40681325293c22f350e9f5294e1c9eb94",
+        "file": "c72e2f389bc9cfbebb4482ab8cfbc4a40681325293c22f350e9f5294e1c9eb94.htm"
+      }
+    },
+    "C:operating_cash_flow:2021-01-01:2021-12-31:0000831001-22-000036": {
+      "filed": "2022-02-28",
+      "form": "10-K",
+      "value": "61249000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000831001",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "61249000000",
+            "period_start": "2021-01-01",
+            "period_end": "2021-12-31",
+            "filed": "2022-02-28",
+            "accession": "0000831001-22-000036",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing describes discontinued cash flows as not material without a separately quantified operating amount; not material does not mean zero. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100122000036/R9.htm",
+        "sha256": "c72e2f389bc9cfbebb4482ab8cfbc4a40681325293c22f350e9f5294e1c9eb94",
+        "file": "c72e2f389bc9cfbebb4482ab8cfbc4a40681325293c22f350e9f5294e1c9eb94.htm"
       }
     },
     "C:revenue:2016-01-01:2016-12-31:0000831001-17-000038": {
@@ -51325,6 +51635,37 @@
         "file": "3cc25fdb4b294795f4f15d5c1093ee9457cacb82dee3dcac2dd57243e98bf3eb.htm"
       }
     },
+    "FI:operating_cash_flow:2015-01-01:2015-12-31:0000798354-17-000006": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "1346000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000798354",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "1346000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2017-02-23",
+            "accession": "0000798354-17-000006",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing's primary document shows this year's discontinued cash flow as a dash, an explicit zero, so the continuing operating subtotal is the whole-company total. This is a source-specific review, not a tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/798354/000079835417000006/R8.htm",
+        "sha256": "e71facd9e71f7c739911a95b4750f9c25bcd93c89c8a1cc8c34f2194dd9b94e4",
+        "file": "e71facd9e71f7c739911a95b4750f9c25bcd93c89c8a1cc8c34f2194dd9b94e4.htm"
+      }
+    },
     "FI:operating_cash_flow:2015-01-01:2015-12-31:0001628280-16-011435": {
       "filed": "2016-02-19",
       "form": "10-K",
@@ -51373,6 +51714,37 @@
         "url": "https://www.sec.gov/Archives/edgar/data/798354/000162828016011435/R8.htm",
         "sha256": "9cb13240b25c79b9546423ed7945ab89d6e1237532d51a1db8c35985a89c28a8",
         "file": "9cb13240b25c79b9546423ed7945ab89d6e1237532d51a1db8c35985a89c28a8.htm"
+      }
+    },
+    "FI:operating_cash_flow:2016-01-01:2016-12-31:0000798354-17-000006": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "1431000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000798354",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "1431000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0000798354-17-000006",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing's primary document shows this year's discontinued cash flow as a dash, an explicit zero, so the continuing operating subtotal is the whole-company total. This is a source-specific review, not a tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/798354/000079835417000006/R8.htm",
+        "sha256": "e71facd9e71f7c739911a95b4750f9c25bcd93c89c8a1cc8c34f2194dd9b94e4",
+        "file": "e71facd9e71f7c739911a95b4750f9c25bcd93c89c8a1cc8c34f2194dd9b94e4.htm"
       }
     },
     "FI:operating_cash_flow:2016-01-01:2016-12-31:0000798354-18-000005": {
@@ -53706,6 +54078,192 @@
         "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053317000006/R2.htm",
         "sha256": "7cad7ca07b6d9e564348343af29f80846cdbdf21b5ce0e445194e3fcd27ab29e",
         "file": "7cad7ca07b6d9e564348343af29f80846cdbdf21b5ce0e445194e3fcd27ab29e.htm"
+      }
+    },
+    "GD:operating_cash_flow:2015-01-01:2015-12-31:0000040533-16-000056": {
+      "filed": "2016-02-08",
+      "form": "10-K",
+      "value": "2499000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000040533",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "2499000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-08",
+            "accession": "0000040533-16-000056",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053316000056/R6.htm",
+        "sha256": "2d3e9e1aa373f137c2a8f3a0ac39a527f28635fef21a537ccc79a560cda77304",
+        "file": "2d3e9e1aa373f137c2a8f3a0ac39a527f28635fef21a537ccc79a560cda77304.htm"
+      }
+    },
+    "GD:operating_cash_flow:2016-01-01:2016-12-31:0000040533-17-000006": {
+      "filed": "2017-02-06",
+      "form": "10-K",
+      "value": "2198000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000040533",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "2198000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-06",
+            "accession": "0000040533-17-000006",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053317000006/R6.htm",
+        "sha256": "5af8c68cafa45320bf10257db54ca80ff0500112d5941325003f8bf4bd0e6879",
+        "file": "5af8c68cafa45320bf10257db54ca80ff0500112d5941325003f8bf4bd0e6879.htm"
+      }
+    },
+    "GD:operating_cash_flow:2016-01-01:2016-12-31:0000040533-18-000008": {
+      "filed": "2018-02-12",
+      "form": "10-K",
+      "value": "2198000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000040533",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "2198000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-12",
+            "accession": "0000040533-18-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053318000008/R6.htm",
+        "sha256": "6f37a62b11c423439a505f94be2c2a469196fe596d1ec3070b3778fa40c272d8",
+        "file": "6f37a62b11c423439a505f94be2c2a469196fe596d1ec3070b3778fa40c272d8.htm"
+      }
+    },
+    "GD:operating_cash_flow:2017-01-01:2017-12-31:0000040533-18-000008": {
+      "filed": "2018-02-12",
+      "form": "10-K",
+      "value": "3879000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000040533",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3879000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-12",
+            "accession": "0000040533-18-000008",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053318000008/R6.htm",
+        "sha256": "6f37a62b11c423439a505f94be2c2a469196fe596d1ec3070b3778fa40c272d8",
+        "file": "6f37a62b11c423439a505f94be2c2a469196fe596d1ec3070b3778fa40c272d8.htm"
+      }
+    },
+    "GD:operating_cash_flow:2017-01-01:2017-12-31:0000040533-19-000010": {
+      "filed": "2019-02-13",
+      "form": "10-K",
+      "value": "3876000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000040533",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3876000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2019-02-13",
+            "accession": "0000040533-19-000010",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053319000010/R6.htm",
+        "sha256": "e3c5dd850ddb0e6edbe687fe6834ba30a5095ebd7a3419a8969d1ba31378deca",
+        "file": "e3c5dd850ddb0e6edbe687fe6834ba30a5095ebd7a3419a8969d1ba31378deca.htm"
+      }
+    },
+    "GD:operating_cash_flow:2018-01-01:2018-12-31:0000040533-19-000010": {
+      "filed": "2019-02-13",
+      "form": "10-K",
+      "value": "3148000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000040533",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3148000000",
+            "period_start": "2018-01-01",
+            "period_end": "2018-12-31",
+            "filed": "2019-02-13",
+            "accession": "0000040533-19-000010",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "continuing",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The reported continuing operating cash flow is shown. The filing reports an aggregate discontinued cash-flow amount without a separately quantified operating component. This continuing-only value must not be treated as a whole-company total in calculations.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053319000010/R6.htm",
+        "sha256": "e3c5dd850ddb0e6edbe687fe6834ba30a5095ebd7a3419a8969d1ba31378deca",
+        "file": "e3c5dd850ddb0e6edbe687fe6834ba30a5095ebd7a3419a8969d1ba31378deca.htm"
       }
     },
     "GD:revenue:2015-01-01:2015-12-31:0000040533-16-000056": {
@@ -113467,6 +114025,68 @@
         "file": "9ce8749881e4fbc47ac34f436f02afe7b8091ade5e1119d2e0df5dfbc5162463.htm"
       }
     },
+    "RTX:operating_cash_flow:2018-01-01:2018-12-31:0000101829-20-000013": {
+      "filed": "2020-02-06",
+      "form": "10-K",
+      "value": "6322000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000101829",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "6322000000",
+            "period_start": "2018-01-01",
+            "period_end": "2018-12-31",
+            "filed": "2020-02-06",
+            "accession": "0000101829-20-000013",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing reports no discontinued operations, so its continuing operating subtotal is the whole-company total. This is a source-specific review.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182920000013/R6.htm",
+        "sha256": "8049875ffb66f7d611e1e7021a548a75cedea96ff59ab320e0affeaa00019248",
+        "file": "8049875ffb66f7d611e1e7021a548a75cedea96ff59ab320e0affeaa00019248.htm"
+      }
+    },
+    "RTX:operating_cash_flow:2019-01-01:2019-12-31:0000101829-20-000013": {
+      "filed": "2020-02-06",
+      "form": "10-K",
+      "value": "8883000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000101829",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "8883000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-06",
+            "accession": "0000101829-20-000013",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing reports no discontinued operations, so its continuing operating subtotal is the whole-company total. This is a source-specific review.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/101829/000010182920000013/R6.htm",
+        "sha256": "8049875ffb66f7d611e1e7021a548a75cedea96ff59ab320e0affeaa00019248",
+        "file": "8049875ffb66f7d611e1e7021a548a75cedea96ff59ab320e0affeaa00019248.htm"
+      }
+    },
     "RTX:operating_cash_flow:2019-01-01:2019-12-31:0000101829-21-000008": {
       "filed": "2021-02-08",
       "form": "10-K",
@@ -115575,6 +116195,99 @@
         "url": "https://www.sec.gov/Archives/edgar/data/87347/000156459017000589/R6.htm",
         "sha256": "f7554612238ef0e4db8a547e2ca900100e82aef97e932e2e1282942214059fb3",
         "file": "f7554612238ef0e4db8a547e2ca900100e82aef97e932e2e1282942214059fb3.htm"
+      }
+    },
+    "SLB:operating_cash_flow:2016-01-01:2016-12-31:0001564590-17-000589": {
+      "filed": "2017-01-25",
+      "form": "10-K",
+      "value": "6261000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000087347",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "6261000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-01-25",
+            "accession": "0001564590-17-000589",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing's primary document shows this year's discontinued cash flow as a dash, an explicit zero, so the continuing operating subtotal is the whole-company total. This is a source-specific review, not a tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/87347/000156459017000589/R6.htm",
+        "sha256": "f7554612238ef0e4db8a547e2ca900100e82aef97e932e2e1282942214059fb3",
+        "file": "f7554612238ef0e4db8a547e2ca900100e82aef97e932e2e1282942214059fb3.htm"
+      }
+    },
+    "SLB:operating_cash_flow:2016-01-01:2016-12-31:0001564590-18-000821": {
+      "filed": "2018-01-24",
+      "form": "10-K",
+      "value": "6261000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000087347",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "6261000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-01-24",
+            "accession": "0001564590-18-000821",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing's primary document shows this year's discontinued cash flow as a dash, an explicit zero, so the continuing operating subtotal is the whole-company total. This is a source-specific review, not a tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/87347/000156459018000821/R6.htm",
+        "sha256": "d2acc0189abcf1f448fd99603d57a2c8bdca78b354722304c8c82dd104392ce9",
+        "file": "d2acc0189abcf1f448fd99603d57a2c8bdca78b354722304c8c82dd104392ce9.htm"
+      }
+    },
+    "SLB:operating_cash_flow:2017-01-01:2017-12-31:0001564590-18-000821": {
+      "filed": "2018-01-24",
+      "form": "10-K",
+      "value": "5663000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000087347",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "5663000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-01-24",
+            "accession": "0001564590-18-000821",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. The filing's primary document shows this year's discontinued cash flow as a dash, an explicit zero, so the continuing operating subtotal is the whole-company total. This is a source-specific review, not a tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/87347/000156459018000821/R6.htm",
+        "sha256": "d2acc0189abcf1f448fd99603d57a2c8bdca78b354722304c8c82dd104392ce9",
+        "file": "d2acc0189abcf1f448fd99603d57a2c8bdca78b354722304c8c82dd104392ce9.htm"
       }
     },
     "SLB:revenue:2016-01-01:2016-12-31:0001564590-17-000589": {
@@ -140186,10 +140899,6 @@
       "filed": "2017-02-17",
       "reason": "The filing has no stored fact for this cell"
     },
-    "BDX:operating_cash_flow:2014-10-01:2015-09-30:0001628280-15-008984": {
-      "filed": "2015-11-25",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
     "BK:revenue:2015-01-01:2015-12-31:0001390777-16-000204": {
       "filed": "2016-02-26",
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
@@ -140213,42 +140922,6 @@
     "BSX:equity:2022-01-01:2022-12-31:0000885725-23-000008": {
       "filed": "2023-02-23",
       "reason": "No unique explicitly reported total noncontrolling interest; Statement currency is not explicitly USD"
-    },
-    "C:operating_cash_flow:2016-01-01:2016-12-31:0000831001-17-000038": {
-      "filed": "2017-02-24",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2016-01-01:2016-12-31:0000831001-18-000040": {
-      "filed": "2018-02-23",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2017-01-01:2017-12-31:0000831001-18-000040": {
-      "filed": "2018-02-23",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2018-01-01:2018-12-31:0000831001-19-000027": {
-      "filed": "2019-02-22",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2018-01-01:2018-12-31:0000831001-20-000031": {
-      "filed": "2020-02-21",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2019-01-01:2019-12-31:0000831001-20-000031": {
-      "filed": "2020-02-21",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2020-01-01:2020-12-31:0000831001-21-000042": {
-      "filed": "2021-02-26",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2020-01-01:2020-12-31:0000831001-22-000036": {
-      "filed": "2022-02-28",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "C:operating_cash_flow:2021-01-01:2021-12-31:0000831001-22-000036": {
-      "filed": "2022-02-28",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
     },
     "CB:equity:2015-01-01:2015-12-31:0000896159-16-000027": {
       "filed": "2016-02-26",
@@ -140309,38 +140982,6 @@
     "EW:net_income:2022-01-01:2022-12-31:0001099800-23-000005": {
       "filed": "2023-02-13",
       "reason": "The filing has no stored fact for this cell"
-    },
-    "FI:operating_cash_flow:2015-01-01:2015-12-31:0000798354-17-000006": {
-      "filed": "2017-02-23",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "FI:operating_cash_flow:2016-01-01:2016-12-31:0000798354-17-000006": {
-      "filed": "2017-02-23",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "GD:operating_cash_flow:2015-01-01:2015-12-31:0000040533-16-000056": {
-      "filed": "2016-02-08",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "GD:operating_cash_flow:2016-01-01:2016-12-31:0000040533-17-000006": {
-      "filed": "2017-02-06",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "GD:operating_cash_flow:2016-01-01:2016-12-31:0000040533-18-000008": {
-      "filed": "2018-02-12",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "GD:operating_cash_flow:2017-01-01:2017-12-31:0000040533-18-000008": {
-      "filed": "2018-02-12",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "GD:operating_cash_flow:2017-01-01:2017-12-31:0000040533-19-000010": {
-      "filed": "2019-02-13",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "GD:operating_cash_flow:2018-01-01:2018-12-31:0000040533-19-000010": {
-      "filed": "2019-02-13",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
     },
     "GD:revenue:2015-01-01:2015-12-31:0000040533-17-000006": {
       "filed": "2017-02-06",
@@ -140438,26 +141079,6 @@
       "filed": "2018-02-09",
       "reason": "No unique group-equity position for this date"
     },
-    "RTX:operating_cash_flow:2018-01-01:2018-12-31:0000101829-20-000013": {
-      "filed": "2020-02-06",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "RTX:operating_cash_flow:2019-01-01:2019-12-31:0000101829-20-000013": {
-      "filed": "2020-02-06",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "SLB:operating_cash_flow:2016-01-01:2016-12-31:0001564590-17-000589": {
-      "filed": "2017-01-25",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "SLB:operating_cash_flow:2016-01-01:2016-12-31:0001564590-18-000821": {
-      "filed": "2018-01-24",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
-    "SLB:operating_cash_flow:2017-01-01:2017-12-31:0001564590-18-000821": {
-      "filed": "2018-01-24",
-      "reason": "Continuing-only operating cash flow cannot stand for the whole-company total"
-    },
     "SO:net_income:2023-01-01:2023-12-31:0000092122-24-000009": {
       "filed": "2024-02-15",
       "reason": "Missing or conflicting fact for NetIncomeLossAttributableToNoncontrollingInterest"
@@ -140531,5 +141152,5 @@
       "reason": "No unique same-issuer fact matches this annual column; Original custom-tag XBRL instance has not been cached"
     }
   },
-  "reviewed_at": "2026-10-29T10:29:58.121930+00:00"
+  "reviewed_at": "2026-10-29T10:53:48.602638+00:00"
 }

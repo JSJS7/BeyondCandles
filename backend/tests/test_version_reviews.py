@@ -9,6 +9,7 @@ from unittest.mock import patch
 from test_net_income import statement
 from test_stocks_api import reported_fact
 
+from app.data_pipeline import operating_cash_flow as cash_flow
 from app.data_pipeline import version_reviews
 
 END = date(2020, 12, 31)
@@ -53,6 +54,71 @@ class NetIncomeVersionTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             review_against(html, self.fact)
+
+
+class ReviewedCashFlowScopeTests(unittest.TestCase):
+    """Reviewed filings whose cash-flow statement shows only a continuing subtotal."""
+
+    def continuing(self, value=Decimal("6261000000")):
+        return {
+            cash_flow.CONTINUING_TAG: {
+                "tag": cash_flow.CONTINUING_TAG,
+                "value": value,
+                "label": "NET CASH PROVIDED BY OPERATING ACTIVITIES",
+                "scope": "total",
+            }
+        }
+
+    def test_explicit_zero_filing_keeps_the_whole_company_scope(self):
+        """SLB's FY2016 primary document shows a dash for discontinued cash flow."""
+        task = SimpleNamespace(cik="0000087347", accession="0001564590-17-000589")
+
+        selected, scope, note = version_reviews.reviewed_cash_flow_scope(
+            task, self.continuing(), True
+        )
+
+        self.assertEqual(selected[0]["value"], Decimal("6261000000"))
+        self.assertEqual(scope, "total")
+        self.assertIn("explicit zero", note)
+
+    def test_not_material_filing_keeps_the_continuing_scope(self):
+        """Citigroup's version shows the continuing amount, flagged as continuing."""
+        task = SimpleNamespace(cik="0000831001", accession="0000831001-19-000027")
+
+        _, scope, _ = version_reviews.reviewed_cash_flow_scope(
+            task, self.continuing(), False
+        )
+
+        self.assertEqual(scope, "continuing")
+
+    def test_unreviewed_or_contradicting_statement_is_not_approved(self):
+        """Another filing, a nonzero discontinued operating part, or a discontinued
+        row in a filing reviewed as having none, all stay unresolved."""
+        slb = SimpleNamespace(cik="0000087347", accession="0001564590-17-000589")
+        rtx = SimpleNamespace(cik="0000101829", accession="0000101829-20-000013")
+        with_discontinued = self.continuing() | {
+            cash_flow.DISCONTINUED_TAG: {
+                "tag": cash_flow.DISCONTINUED_TAG,
+                "value": Decimal("-233000000"),
+                "scope": "discontinued",
+            }
+        }
+        cases = (
+            (
+                SimpleNamespace(cik="0000087347", accession="other"),
+                self.continuing(),
+                True,
+            ),
+            (slb, with_discontinued, True),
+            (rtx, self.continuing(), True),
+        )
+        for task, positions, has_discontinued in cases:
+            with self.subTest(task=task):
+                self.assertIsNone(
+                    version_reviews.reviewed_cash_flow_scope(
+                        task, positions, has_discontinued
+                    )
+                )
 
 
 class StatementEndTests(unittest.TestCase):

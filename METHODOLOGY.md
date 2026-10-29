@@ -100,7 +100,10 @@ of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
 - **Exceptions:** where a company reports only a continuing-operations total (C and GD,
   20 periods) that figure is shown and labelled *Continuing operations*. If a company
   reports continuing and discontinued parts separately, they are added up from the
-  same filing.
+  same filing. Earlier report versions (`as_of`) follow the same rules: C and GD
+  versions keep the *Continuing operations* label, and another filing's continuing
+  subtotal counts as the whole-company figure only where that filing shows no
+  discontinued cash flow for the year (an explicit dash) or no discontinued operations.
 - **Watch out:** for banks and asset managers operating cash flow is dominated by
   client and balance-sheet movements and says little about earnings quality. Free cash
   flow cannot be computed yet (capital expenditure is not included).

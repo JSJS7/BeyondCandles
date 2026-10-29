@@ -392,6 +392,85 @@ def review_eps(task, evidence, end):
     return unique_choice(choices)
 
 
+# Reviewed earlier 10-K filings whose cash-flow statement shows only a continuing
+# operating subtotal; each was checked in the filing's primary document (29.10.2026).
+REVIEWED_CASH_FLOW_SCOPES = {
+    # The discontinued line of the year is a dash (an explicit zero) in the primary
+    # document; the rendered R file leaves SLB's cell blank.
+    ("0000087347", "0001564590-17-000589"): "explicit_zero",  # SLB FY2016
+    ("0000087347", "0001564590-18-000821"): "explicit_zero",  # SLB FY2017
+    ("0000010795", "0001628280-15-008984"): "explicit_zero",  # BDX FY2015
+    ("0000798354", "0000798354-17-000006"): "explicit_zero",  # FI FY2016
+    # No discontinued operations anywhere in the filing (UTC before its spin-offs).
+    ("0000101829", "0000101829-20-000013"): "no_discontinued",  # RTX FY2019
+    # As the latest view decides: only the continuing amount is reported.
+    ("0000831001", "0000831001-17-000038"): "not_material",  # C
+    ("0000831001", "0000831001-18-000040"): "not_material",
+    ("0000831001", "0000831001-19-000027"): "not_material",
+    ("0000831001", "0000831001-20-000031"): "not_material",
+    ("0000831001", "0000831001-21-000042"): "not_material",
+    ("0000831001", "0000831001-22-000036"): "not_material",
+    ("0000040533", "0000040533-16-000056"): "aggregate_only",  # GD
+    ("0000040533", "0000040533-17-000006"): "aggregate_only",
+    ("0000040533", "0000040533-18-000008"): "aggregate_only",
+    ("0000040533", "0000040533-19-000010"): "aggregate_only",
+}
+REVIEWED_SCOPE_NOTES = {
+    "explicit_zero": (
+        "total",
+        "The filing's primary document shows this year's discontinued cash flow as a "
+        "dash, an explicit zero, so the continuing operating subtotal is the "
+        "whole-company total. This is a source-specific review, not a tag alias.",
+    ),
+    "no_discontinued": (
+        "total",
+        "The filing reports no discontinued operations, so its continuing operating "
+        "subtotal is the whole-company total. This is a source-specific review.",
+    ),
+    "not_material": (
+        "continuing",
+        "The reported continuing operating cash flow is shown. The filing describes "
+        "discontinued cash flows as not material without a separately quantified "
+        "operating amount; not material does not mean zero. This continuing-only "
+        "value must not be treated as a whole-company total in calculations.",
+    ),
+    "aggregate_only": (
+        "continuing",
+        "The reported continuing operating cash flow is shown. The filing reports an "
+        "aggregate discontinued cash-flow amount without a separately quantified "
+        "operating component. This continuing-only value must not be treated as a "
+        "whole-company total in calculations.",
+    ),
+}
+
+
+def reviewed_cash_flow_scope(task, positions, has_discontinued):
+    """The continuing subtotal of a reviewed filing, with its scope and note.
+
+    Each resolution is checked against the statement again: a separately reported
+    discontinued operating amount, or for "no_discontinued" any discontinued row,
+    rejects the review.
+    """
+    resolution = REVIEWED_CASH_FLOW_SCOPES.get((task.cik, task.accession))
+    if resolution is None:
+        return None
+    continuing = positions.get(cash_flow_review.CONTINUING_TAG)
+    total = positions.get(cash_flow_review.TOTAL_TAG)
+    if continuing is None and total and total["scope"] == "continuing":
+        continuing = total
+    discontinued = positions.get(cash_flow_review.DISCONTINUED_TAG) or positions.get(
+        cash_flow_review.DISCONTINUED_CASH_TAG
+    )
+    if continuing is None:
+        return None
+    if discontinued and discontinued["value"] != 0:
+        return None
+    if resolution == "no_discontinued" and has_discontinued:
+        return None
+    scope, note = REVIEWED_SCOPE_NOTES[resolution]
+    return [continuing], scope, note
+
+
 def review_cash_flow(task, evidence, end):
     """The same statement reading and component choice as review-operating-cash-flow."""
     entry = evidence.get(task.source, {})
@@ -412,9 +491,17 @@ def review_cash_flow(task, evidence, end):
         html = verify_reference(reference).read_text(encoding="utf-8")
         try:
             positions, discontinued = cash_flow_review.cash_positions(html, end)
-            selected, calculation, note = cash_flow_review.choose_positions(
-                positions, discontinued
-            )
+            scope = "total"
+            try:
+                selected, calculation, note = cash_flow_review.choose_positions(
+                    positions, discontinued
+                )
+            except ValueError:
+                reviewed = reviewed_cash_flow_scope(task, positions, discontinued)
+                if reviewed is None:
+                    raise
+                selected, scope, note = reviewed
+                calculation = None
             components = [
                 cash_flow_review.source_component(
                     item, task.cell_facts, task.cell_facts[0], reference
@@ -445,7 +532,7 @@ def review_cash_flow(task, evidence, end):
                     components[0]["fact"]["tag"] if len(components) == 1 else None
                 ),
                 "calculation": calculation,
-                "scope": "total",
+                "scope": scope,
                 "note": CASH_FLOW_DEFINITION + " " + note,
                 "summary": entry["summary"],
                 "statement": reference,
