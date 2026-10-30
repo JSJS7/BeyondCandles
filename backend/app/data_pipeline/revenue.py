@@ -25,7 +25,12 @@ from app.data_pipeline.source_files import (
     sha256,
     write_json,
 )
-from app.revenue import RULES_PATH, period_key, sum_reported_values
+from app.revenue import (
+    RULES_PATH,
+    period_key,
+    sum_reported_values,
+    weighted_reported_values,
+)
 
 from .revenue_facts import (
     SUPPLEMENT_INDEX,
@@ -262,6 +267,62 @@ def verified_bank_total(html, end_date, group, period):
     }
 
 
+# Philip Morris reports net revenues excluding excise taxes from FY2016 on. FY2015 is
+# only in filings that still showed "Net revenues" including excise taxes, with excise
+# taxes as a separate cost line, so the series would mix both definitions. The
+# same-filing difference reproduces the company's own restatement exactly: in the
+# 10-K for 2017, 74,953 - 48,268 = 26,685 (FY2016) and 78,098 - 49,350 = 28,748
+# (FY2017), the net revenues later 10-Ks report. Reviewed 30.10.2026 (M7).
+NET_OF_EXCISE_PERIODS = {
+    "0001413329:2015-01-01:2015-12-31": "0001413329-18-000007",
+}
+NET_OF_EXCISE_COMPONENTS = {"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1}
+
+
+def verified_net_of_excise_total(html, end_date, group, period):
+    """Verify revenues including excise taxes and the excise taxes on one statement."""
+    selected = []
+    for concept in NET_OF_EXCISE_COMPONENTS:
+        # Excise taxes are presented among the costs, below the revenue rows.
+        row = statement_total(html, end_date, concept=concept, stop_at_costs=False)
+        matches = [
+            fact
+            for fact in group
+            if fact["metric"] == "revenue"
+            and fact["tag"] == concept
+            and fact["taxonomy"] == "us-gaap"
+            and fact["unit"] == "USD"
+            and period_key(fact["source_cik"], fact["period_start"], fact["period_end"])
+            == period
+        ]
+        if len(matches) != 1 or not matches_rendered_value(
+            row, matches[0]["value"], end_date
+        ):
+            raise ValueError(
+                "Revenue and excise taxes do not match the same annual statement"
+            )
+        selected.append(matches[0])
+    value = weighted_reported_values(
+        [(fact, NET_OF_EXCISE_COMPONENTS[fact["tag"]]) for fact in selected]
+    )
+    return {
+        "taxonomy": "us-gaap",
+        "tag": None,
+        "label": "Net revenues less excise taxes on products",
+        "components": list(NET_OF_EXCISE_COMPONENTS),
+        "coefficients": dict(NET_OF_EXCISE_COMPONENTS),
+        "calculation": "Net revenues including excise taxes - excise taxes on products",
+        "note": (
+            "Calculated net revenues excluding excise taxes from two positions of the "
+            "same income statement, the definition the company uses from FY2016 on; "
+            "this filing still shows revenues including excise taxes."
+        ),
+    }, {
+        "value": value,
+        "component_values": {fact["tag"]: str(fact["value"]) for fact in selected},
+    }
+
+
 # Exact disclosures reviewed because the primary face omits the consolidated total
 # or a quarterly filing corrects a historical full year only in a revenue note.
 REVIEWED_NOTE_TOTALS = {
@@ -375,6 +436,17 @@ def verify_filing_period(
                     total, selected = verified_bank_total(html, end_date, group, period)
                     matches.append((total, selected, reference))
                     continue
+                if period in NET_OF_EXCISE_PERIODS:
+                    if accession != NET_OF_EXCISE_PERIODS[period]:
+                        # A newer filing may present this year differently.
+                        raise ValueError(
+                            "Net-of-excise revenue was reviewed for another filing"
+                        )
+                    total, selected = verified_net_of_excise_total(
+                        html, end_date, group, period
+                    )
+                    matches.append((total, selected, reference))
+                    continue
                 if cik == "0001120193":
                     total = statement_total(
                         html, end_date, concept="GrossProfit", stop_at_costs=False
@@ -459,6 +531,16 @@ def verify_filing_period(
         total, selected, reference = matches[0]
         rule = {
             **({"components": total["components"]} if total.get("components") else {}),
+            **(
+                {"coefficients": total["coefficients"]}
+                if total.get("coefficients")
+                else {}
+            ),
+            **(
+                {"calculation": total["calculation"]}
+                if total.get("calculation")
+                else {}
+            ),
             "taxonomy": total["taxonomy"],
             "tag": total["tag"],
             "label": total["label"],
@@ -475,6 +557,8 @@ def verify_filing_period(
         }
         if total["taxonomy"] != "us-gaap":
             rule["original_instance"] = old["instance"]
+        if total.get("note"):
+            rule["note"] = total["note"]
         if cik == "0001120193":
             rule["note"] = (
                 "Nasdaq reported net revenue after transaction-based expenses. The issuer uses "
@@ -514,6 +598,8 @@ def review_revenue(fetch=False):
         "definition": (
             "Reported consolidated revenue on the income statement's tax/interest basis. "
             "Reviewed banks use GAAP net interest income plus noninterest income from one filing. "
+            "One reviewed Philip Morris year deducts excise taxes on the same statement, "
+            "matching the definition of its later years. "
             "Overlapping concepts are never summed; different sectors are not normalized."
         ),
         "periods": {},

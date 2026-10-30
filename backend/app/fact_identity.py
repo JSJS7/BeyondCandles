@@ -18,6 +18,35 @@ def fact_identity(value):
     return record
 
 
+STATEMENT_FIELDS = {"statement_url", "statement_label", "statement_column"}
+
+
+def same_reported_fact(variant, source):
+    """The same SEC fact, whether or not one copy also names its statement position."""
+    return variant.model_dump(exclude=STATEMENT_FIELDS) == source.model_dump(
+        exclude=STATEMENT_FIELDS
+    )
+
+
+def add_selected_sources(variants, sources):
+    """List every selected source once among the variants, in place.
+
+    A source read from a statement can be a stored fact plus its statement
+    position; it then replaces that fact. A position that is not a stored fact
+    (e.g. noncontrolling interests read from the table) is appended.
+    """
+    for source in sources:
+        same = [
+            index
+            for index, variant in enumerate(variants)
+            if same_reported_fact(variant, source)
+        ]
+        if same:
+            variants[same[0]] = source
+        else:
+            variants.append(source)
+
+
 def variants_fingerprint(variants):
     records = [fact_identity(variant) for variant in variants]
     records.sort(key=lambda record: json.dumps(record, sort_keys=True))

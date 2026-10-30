@@ -3,7 +3,12 @@
 from decimal import Decimal, localcontext
 from pathlib import Path
 
-from app.fact_identity import fact_identity, period_issuer, variants_fingerprint
+from app.fact_identity import (
+    add_selected_sources,
+    fact_identity,
+    period_issuer,
+    variants_fingerprint,
+)
 from app.fiscal_periods import canonical_period
 from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, FilingValue
@@ -187,9 +192,7 @@ def select_cash_flow(variants, start, end, *, facts, calendar, rules=None):
             or selected[1].tag != DISCONTINUED_TAG
         ):
             return result
-    for source in selected:
-        if source not in result.variants:
-            result.variants.append(source)
+    add_selected_sources(result.variants, selected)
     result.status = "ready"
     result.value = value
     result.selected_sources = selected

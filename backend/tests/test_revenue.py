@@ -291,6 +291,49 @@ class RevenueSelectionTests(unittest.TestCase):
         result = select_revenue(variants, self.start, self.end, rules, facts=facts)
         self.assertEqual(result.value, Decimal("15476"))
 
+    def test_reviewed_deduction_uses_the_signed_coefficient_and_rule_text(self):
+        """Philip Morris FY2015: 73,908 - 47,114 excise taxes = 26,794 (M7).
+
+        The filing shows revenues including excise taxes; later years exclude them.
+        The excise taxes are deducted, not added like bank components.
+        """
+        facts = [
+            reported_fact(
+                metric="revenue", tag="SalesRevenueNet", value=Decimal("73908")
+            ),
+            reported_fact(
+                metric="revenue", tag="ExciseAndSalesTaxes", value=Decimal("47114")
+            ),
+        ]
+        variants = [FilingValue.model_validate(fact) for fact in facts]
+        rules: dict[str, Any] = {
+            self.key: approved_rule(
+                components=["SalesRevenueNet", "ExciseAndSalesTaxes"],
+                coefficients={"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1},
+                calculation="Revenues including excise taxes - excise taxes",
+                note="Calculated without excise taxes.",
+                value="26794",
+                component_values={
+                    "SalesRevenueNet": "73908",
+                    "ExciseAndSalesTaxes": "47114",
+                },
+            )
+        }
+
+        result = select_revenue(variants, self.start, self.end, rules, facts=facts)
+
+        self.assertEqual(result.status, "ready")
+        self.assertEqual(result.value, Decimal("26794"))
+        self.assertEqual(
+            result.calculation, "Revenues including excise taxes - excise taxes"
+        )
+        self.assertEqual(result.selection_note, "Calculated without excise taxes.")
+        self.assertEqual(len(result.selected_sources), 2)
+        # The same facts under a rule expecting their sum must not be accepted.
+        rules[self.key]["value"] = "121022"
+        result = select_revenue(variants, self.start, self.end, rules, facts=facts)
+        self.assertEqual(result.status, "needs_review")
+
     def test_complementary_amounts_keep_database_decimal_precision(self):
         """Adding revenue components must not round digits beyond Decimal's default precision."""
         from app.revenue import sum_reported_values
@@ -758,6 +801,88 @@ class RevenueEvidenceTests(unittest.TestCase):
                         "NDAQ", period, [fact], source, old, {"filings": {}}, False, {}
                     )
                     self.assertEqual(rule is not None, expected)
+
+    def test_net_of_excise_year_requires_both_rows_of_the_reviewed_filing(self):
+        """Approve revenue less excise taxes only from one statement of the pinned filing.
+
+        The excise row sits among the costs, below the revenue row. A changed excise
+        amount or another filing of the same year is not approved.
+        """
+        from app.data_pipeline.revenue import verify_filing_period
+        from app.data_pipeline.source_files import sha256
+
+        with TemporaryDirectory(prefix="beyondcandles-excise-revenue-") as directory:
+            root = Path(directory)
+
+            def reference(name, text):
+                path = root / name
+                path.write_text(text, encoding="utf-8")
+                return {
+                    "file": name,
+                    "sha256": sha256(path),
+                    "url": "https://www.sec.gov/" + name,
+                }
+
+            summary = (
+                "<FilingSummary><Report><ShortName>Statements of Earnings</ShortName>"
+                "<MenuCategory>Statements</MenuCategory><HtmlFileName>R4.htm"
+                "</HtmlFileName></Report></FilingSummary>"
+            )
+            old = {
+                "summary": reference("summary.xml", summary),
+                "R4.htm": reference(
+                    "R4.htm",
+                    statement(
+                        row("us-gaap_SalesRevenueNet", "Net revenues", ("73,908", "1"))
+                        + row(
+                            "us-gaap_CostOfGoodsSold", "Cost of sales", ("9,365", "1")
+                        )
+                        + row(
+                            "us-gaap_ExciseAndSalesTaxes",
+                            "Excise taxes on products",
+                            ("47,114", "1"),
+                        )
+                    ),
+                ),
+            }
+            revenue = reported_fact(
+                metric="revenue", tag="SalesRevenueNet", value=Decimal("73908000000")
+            )
+            excise = reported_fact(
+                metric="revenue",
+                tag="ExciseAndSalesTaxes",
+                value=Decimal("47114000000"),
+            )
+            period = period_key(
+                revenue["source_cik"], revenue["period_start"], revenue["period_end"]
+            )
+            source = (revenue["source_cik"], revenue["accession"])
+
+            def review(facts, filing=source):
+                rule, _ = verify_filing_period(
+                    "FIXTURE", period, facts, filing, old, {"filings": {}}, False, {}
+                )
+                return rule
+
+            with (
+                patch("app.data_pipeline.sec_catalogue.CACHE", root),
+                patch(
+                    "app.data_pipeline.revenue.NET_OF_EXCISE_PERIODS",
+                    {period: "original"},
+                ),
+            ):
+                rule = review([revenue, excise])
+                changed = review([revenue, dict(excise, value=Decimal("47000000000"))])
+                other_filing = review([revenue, excise], (source[0], "later"))
+
+        assert rule is not None
+        self.assertEqual(rule["value"], "26794000000")
+        self.assertEqual(rule["components"], ["SalesRevenueNet", "ExciseAndSalesTaxes"])
+        self.assertEqual(
+            rule["coefficients"], {"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1}
+        )
+        self.assertIsNone(changed)
+        self.assertIsNone(other_filing)
 
     def test_pinned_note_uses_the_consolidated_row_before_any_segment_axis(self):
         """Approve a same-filing note total, preserving boundaries against later segment rows."""

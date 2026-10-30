@@ -32,7 +32,7 @@ from app.eps_splits import (
     share_count_ratio,
     split_rules,
 )
-from app.fact_identity import fact_identity
+from app.fact_identity import add_selected_sources, fact_identity
 from app.fiscal_periods import canonical_period, fiscal_rules, period_metadata
 from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, AnnualPeriod, EpsSplit, FilingValue
@@ -454,9 +454,7 @@ def periods_as_of(facts, stored_versions, as_of, period_rules=None):
             )
             # As in the equity and OCF selection: a statement position used by the
             # value is listed with the variants, although it is not a stored fact.
-            for source in value.selected_sources:
-                if source not in value.variants:
-                    value.variants.append(source)
+            add_selected_sources(value.variants, value.selected_sources)
             metrics[metric] = value
         fiscal_year, note = period_metadata(eligible, start, end, rules)
         result.append(

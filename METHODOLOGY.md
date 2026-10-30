@@ -51,8 +51,19 @@ of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
 - **Exceptions:** for WFC, USB, COF and TFC revenue is *net interest income +
   noninterest income* from the same filing (marked *Calculated*). A few issuers use
   their own tags (e.g. BAC, BK, XOM, AMP) or a company-specific revenue line (Nasdaq).
+- **One year recalculated to the company's later definition:** Philip Morris reports
+  revenue excluding excise taxes from 2016 on, but 2015 appears only in filings that
+  still showed revenue including them. Its 2015 value is *net revenues minus excise
+  taxes on products* from the same statement (marked *Calculated*). We recalculate a
+  year only when the company itself changed the definition and the same calculation
+  reproduces the figures the company later restated (here 2016 and 2017, to the
+  million). Otherwise the reported value stays: Chevron includes excise taxes until
+  2017, and ExxonMobil's total from 2020 includes equity-affiliate and other income,
+  so their series change basis by a few percent.
 - **Watch out:** bank, insurer and industrial "revenue" are not comparable. Avoid
-  revenue-based ratios across sectors.
+  revenue-based ratios across sectors. Within one company, years come from different
+  filings: after a spin-off or an accounting change, consecutive years can be on
+  different bases, so growth computed from the table can be wrong in such years.
 
 ### Net income
 - **Shown:** net income **attributable to the parent company's shareholders**

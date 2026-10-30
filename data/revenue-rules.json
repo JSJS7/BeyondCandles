@@ -2,7 +2,7 @@
   "version": 2,
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "method": "Verify the latest revenue filing separately for every reviewed annual period. Match the primary income-statement total, issuer, annual date column, USD scale and exact source fact within displayed rounding. Pin the accession, filing date and amount; a tag approval never transfers to another filing automatically. Four exact note exceptions verify consolidated totals or historical annual corrections.",
-  "definition": "Reported consolidated revenue on the income statement's tax/interest basis. Reviewed banks use GAAP net interest income plus noninterest income from one filing. Overlapping concepts are never summed; different sectors are not normalized.",
+  "definition": "Reported consolidated revenue on the income statement's tax/interest basis. Reviewed banks use GAAP net interest income plus noninterest income from one filing. One reviewed Philip Morris year deducts excise taxes on the same statement, matching the definition of its later years. Overlapping concepts are never summed; different sectors are not normalized.",
   "periods": {
     "0000001800:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
@@ -32844,12 +32844,25 @@
       }
     },
     "0001413329:2015-01-01:2015-12-31": {
+      "components": [
+        "SalesRevenueNet",
+        "ExciseAndSalesTaxes"
+      ],
+      "coefficients": {
+        "SalesRevenueNet": 1,
+        "ExciseAndSalesTaxes": -1
+      },
+      "calculation": "Net revenues including excise taxes - excise taxes on products",
       "taxonomy": "us-gaap",
-      "tag": "SalesRevenueNet",
-      "label": "Net revenues",
+      "tag": null,
+      "label": "Net revenues less excise taxes on products",
       "accession": "0001413329-18-000007",
       "filed": "2018-02-13",
-      "value": "73908000000",
+      "value": "26794000000",
+      "component_values": {
+        "SalesRevenueNet": "73908000000",
+        "ExciseAndSalesTaxes": "47114000000"
+      },
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1413329/000141332918000007/R4.htm",
         "sha256": "3ddc7faeb5de3ed4fba46b0444aa1f3b9ddd66598fc0d6f97cbe3c35dded08f1",
@@ -32859,7 +32872,8 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1413329/000141332918000007/FilingSummary.xml",
         "sha256": "b3bc1a55a09eab55ee284a57d307d0b5d342a3a5903193e306e0338a36fd8eee",
         "file": "b3bc1a55a09eab55ee284a57d307d0b5d342a3a5903193e306e0338a36fd8eee.htm"
-      }
+      },
+      "note": "Calculated net revenues excluding excise taxes from two positions of the same income statement, the definition the company uses from FY2016 on; this filing still shows revenues including excise taxes."
     },
     "0001413329:2016-01-01:2016-12-31": {
       "taxonomy": "us-gaap",
@@ -36427,5 +36441,5 @@
     }
   },
   "unresolved": {},
-  "reviewed_at": "2026-10-29T19:34:09.487650+00:00"
+  "reviewed_at": "2026-10-30T13:14:02.977265+00:00"
 }

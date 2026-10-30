@@ -578,5 +578,112 @@ class UnapprovedCellTests(unittest.TestCase):
         self.assertEqual(versions[0].value.variants, [])
 
 
+class AsOfSourceListTests(unittest.TestCase):
+    """ADP equity on 30.06.2017 as known on 01.09.2019 (real case, 30.10.2026).
+
+    The version review pinned the 10-Q fact with its statement position. The same
+    fact is also a stored variant, so it must be listed once, with its position.
+    """
+
+    def test_reviewed_source_replaces_the_same_stored_fact(self):
+        from app.metric_history import periods_as_of
+
+        period = {
+            "source_cik": "0000008670",
+            "period_start": date(2016, 7, 1),
+            "period_end": date(2017, 6, 30),
+        }
+        annual_report = reported_fact(
+            **period, filed=date(2017, 8, 4), accession="0000008670-17-000010"
+        )
+        group_equity = reported_fact(
+            source_cik="0000008670",
+            metric="equity",
+            tag="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            value=Decimal("4984100000.0000000000"),
+            period_start=date(2017, 6, 30),
+            period_end=date(2017, 6, 30),
+            filed=date(2019, 5, 3),
+            accession="0000008670-19-000013",
+            form="10-Q",
+            period_kind="instant",
+        )
+        reviewed_source = FilingValue.model_validate(
+            {
+                **group_equity,
+                "value": Decimal("4984100000"),
+                "statement_label": "us-gaap:StockholdersEquityIncludingPortion"
+                "AttributableToNoncontrollingInterest",
+                "statement_column": "2017-06-30; consolidated instant context",
+                "statement_url": "https://www.sec.gov/Archives/edgar/data/8670/"
+                "000000867019000013/adp-20190331.xml",
+            }
+        )
+        stored = []
+        for metric in ("revenue", "net_income", "eps_diluted", "operating_cash_flow"):
+            details = AnnualMetric(status="needs_review", variants=[])
+            stored.append((metric, date(2017, 8, 4), details))
+        equity = AnnualMetric(
+            status="ready",
+            value=Decimal("4984100000"),
+            variants=[],
+            selected_sources=[reviewed_source],
+        )
+        stored.append(("equity", date(2019, 5, 3), equity))
+        stored_versions = [
+            {
+                "period_start": period["period_start"],
+                "period_end": period["period_end"],
+                "metric": metric,
+                "known_from": known_from,
+                "details": details.model_dump(mode="json", exclude={"variants"}),
+            }
+            for metric, known_from, details in stored
+        ]
+
+        periods = periods_as_of(
+            [annual_report, group_equity],
+            stored_versions,
+            date(2019, 9, 1),
+            period_rules={"periods": {}, "aliases": {}},
+        )
+
+        variants = periods[0].metrics["equity"].variants
+        self.assertEqual(len(variants), 1)
+        self.assertEqual(variants[0], reviewed_source)
+
+    def test_latest_view_lists_a_statement_source_once(self):
+        """The same rule serves the latest view (59 equity cells listed a fact twice).
+
+        A statement position of a stored fact replaces it; a position that is no
+        stored fact, such as noncontrolling interests read from the table, is added.
+        """
+        from app.fact_identity import add_selected_sources
+
+        stored = FilingValue.model_validate(
+            reported_fact(metric="equity", value=Decimal("67678000000.0000000000"))
+        )
+        same_with_position = stored.model_copy(
+            update={
+                "value": Decimal("67678000000"),
+                "statement_label": "Beginning Balance at Nov. 03, 2024",
+                "statement_column": "Total",
+            }
+        )
+        table_only = stored.model_copy(
+            update={
+                "tag": "MinorityInterest",
+                "value": Decimal("12000000"),
+                "statement_label": "Noncontrolling interests",
+                "statement_column": "Total",
+            }
+        )
+        variants = [stored]
+
+        add_selected_sources(variants, [same_with_position, table_only])
+
+        self.assertEqual(variants, [same_with_position, table_only])
+
+
 if __name__ == "__main__":
     unittest.main()

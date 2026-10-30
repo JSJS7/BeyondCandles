@@ -335,6 +335,25 @@ class CheckModeTests(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(check, {"changed": [], "unchanged": ["same.json"]})
 
+    def test_a_known_gap_reproduced_unchanged_passes(self):
+        """The check compares files, not the review status.
+
+        Real case (30.10.2026): review-versions keeps one unresolved version (BK
+        revenue 2015), so its status is completed_with_gaps; an identical rerun
+        exited with 1 and looked like a difference. The gap is recorded in the
+        file, so a new or changed gap would still show up as a changed file.
+        """
+        from app.data_pipeline.source_files import write_json
+
+        def review(fetch):
+            write_json(self.same, {"a": 1, "reviewed_at": "new"})
+            return {"status": "completed_with_gaps"}
+
+        exit_code, check = self.run_check(review)
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(check["changed"], [])
+
     def test_commands_that_change_the_database_are_rejected(self):
         """--check cannot hold database writes, so such commands refuse it."""
         from contextlib import redirect_stderr

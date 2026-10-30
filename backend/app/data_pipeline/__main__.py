@@ -231,9 +231,11 @@ def main():
 
         print(formatted_result)
 
+        if comparison is not None:
+            # A check compares published files; a known gap is recorded in them, so
+            # an unchanged gap passes and a new or changed one is a changed file.
+            return 1 if comparison["changed"] else 0
         if result.get("status") in ("needs_review", "completed_with_gaps"):
-            return 1
-        if comparison is not None and comparison["changed"]:
             return 1
         return 0
     except (ValueError, OSError) as exc:

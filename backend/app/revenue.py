@@ -3,6 +3,7 @@
 from decimal import Decimal, localcontext
 from pathlib import Path
 
+from app.fact_identity import add_selected_sources
 from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, FilingValue
 
@@ -43,7 +44,7 @@ def select_revenue(variants, start, end, rules=None, facts=None):
         )
 
     if rule.get("components"):
-        return calculated_bank_revenue(variants, start, end, rule, facts or [])
+        return calculated_revenue(variants, start, end, rule, facts or [])
     selected = [
         variant
         for variant in variants
@@ -83,9 +84,40 @@ def sum_reported_values(facts):
         return sum((fact["value"] for fact in facts), Decimal(0))
 
 
-def calculated_bank_revenue(variants, start, end, rule, facts):
-    """Add complementary GAAP bank components from the latest coherent filing only."""
+def weighted_reported_values(weighted_facts):
+    """Add (fact, coefficient) pairs with the full NUMERIC(38,10) precision."""
+    with localcontext() as context:
+        context.prec = 50
+        return sum(
+            (
+                fact["value"] * Decimal(coefficient)
+                for fact, coefficient in weighted_facts
+            ),
+            Decimal(0),
+        )
+
+
+BANK_CALCULATION = "Net interest income + noninterest income"
+BANK_NOTE = (
+    "Calculated GAAP revenue from two complementary consolidated income-statement "
+    "positions in the same filing. Taxable-equivalent and adjusted revenue are not used."
+)
+
+
+def calculated_revenue(variants, start, end, rule, facts):
+    """Combine reviewed components from the latest coherent filing only.
+
+    Banks add net interest income and noninterest income (every coefficient 1, the
+    default). A reviewed rule may also deduct a position, e.g. excise taxes.
+    """
     components = set(rule["components"])
+    coefficients = rule.get("coefficients", {})
+
+    def calculated_total(group):
+        return weighted_reported_values(
+            [(fact, coefficients.get(fact["tag"], 1)) for fact in group]
+        )
+
     sources = {variant.source_cik for variant in variants}
     candidates = [
         fact
@@ -129,7 +161,7 @@ def calculated_bank_revenue(variants, start, end, rule, facts):
             and {fact["tag"] for fact in group} == components
         ):
             complete.append(group)
-    totals = {sum_reported_values(group) for group in complete}
+    totals = {calculated_total(group) for group in complete}
     if len(totals) != 1:
         return AnnualMetric(
             status="needs_review", variants=variants, selection_note=note
@@ -149,24 +181,19 @@ def calculated_bank_revenue(variants, start, end, rule, facts):
         or any(
             fact["value"] != Decimal(control_values[fact["tag"]]) for fact in selected
         )
-        or sum_reported_values(selected) != Decimal(rule["value"])
+        or calculated_total(selected) != Decimal(rule["value"])
     ):
         return AnnualMetric(
             status="needs_review", variants=variants, selection_note=note
         )
     selected_sources = [FilingValue.model_validate(dict(fact)) for fact in selected]
     display_variants = list(variants)
-    for source in selected_sources:
-        if source not in display_variants:
-            display_variants.append(source)
+    add_selected_sources(display_variants, selected_sources)
     return AnnualMetric(
         status="ready",
         value=next(iter(totals)),
         variants=display_variants,
         selected_sources=selected_sources,
-        calculation="Net interest income + noninterest income",
-        selection_note=(
-            "Calculated GAAP revenue from two complementary consolidated income-statement "
-            "positions in the same filing. Taxable-equivalent and adjusted revenue are not used."
-        ),
+        calculation=rule.get("calculation", BANK_CALCULATION),
+        selection_note=rule.get("note", BANK_NOTE),
     )
