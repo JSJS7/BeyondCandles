@@ -122,6 +122,49 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(corrected, apply_adjustments(rows, rule))
         self.assertEqual(rows[0]["adjusted_close"], "1")
 
+    def test_missing_dividend_scales_only_earlier_vendor_adjusted_close(self):
+        """A dividend the vendor omits lowers earlier Adjusted Close by (Close - cash) / Close.
+
+        The vendor factor 0.99 stays. With the dividend, the ex-date return is
+        98 / (100 - 1) - 1 (about -1.01%) instead of a -2% loss; later sessions are
+        unchanged.
+        """
+        rows = [
+            {"date": "2025-09-11", "close": "100", "adjusted_close": "99"},
+            {"date": "2025-09-12", "close": "98", "adjusted_close": "97.02"},
+            {"date": "2025-09-15", "close": "99", "adjusted_close": "98.01"},
+        ]
+        rule = {
+            "method": "missing_cash_dividends",
+            "dividends": [
+                {"ex_date": "2025-09-12", "amount": "1", "split_divisor": "1"},
+            ],
+        }
+
+        corrected = apply_adjustments(rows, rule)
+        total_return = corrected["2025-09-12"] / corrected["2025-09-11"] - 1
+
+        self.assertEqual(corrected["2025-09-11"], Decimal("98.01"))
+        self.assertEqual(corrected["2025-09-12"], Decimal("97.02"))
+        self.assertEqual(corrected["2025-09-15"], Decimal("98.01"))
+        self.assertAlmostEqual(float(total_return), 98 / 99 - 1, places=12)
+
+    def test_missing_dividend_refuses_a_day_the_vendor_already_adjusts(self):
+        """If the vendor factor changes on the ex-date, adding the dividend would double it."""
+        rows = [
+            {"date": "2025-09-11", "close": "100", "adjusted_close": "99"},
+            {"date": "2025-09-12", "close": "98", "adjusted_close": "98"},
+        ]
+        rule = {
+            "method": "missing_cash_dividends",
+            "dividends": [
+                {"ex_date": "2025-09-12", "amount": "1", "split_divisor": "1"},
+            ],
+        }
+
+        with self.assertRaisesRegex(ValueError, "already adjusts"):
+            apply_adjustments(rows, rule)
+
     def test_reviewed_avgo_actions_correct_duplicate_and_missing_cash(self):
         """Keep issuer-announced common dividends, including actions absent from Kaggle."""
         from app.data_pipeline.source_files import MANIFEST, ROOT, read_json
@@ -145,6 +188,35 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(Decimal(by_date["2025-12-22"]["amount"]), Decimal("0.65"))
         self.assertEqual(len(dividends), 44)
         self.assertNotIn("2026-03-23", by_date)
+
+    def test_reviewed_missing_dividends_match_the_vendor_gaps_found(self):
+        """The 10 dividends absent from the vendor's Adjusted Close (M10) are all reviewed."""
+        from app.data_pipeline.source_files import MANIFEST, ROOT, read_json
+
+        active = read_json(MANIFEST)
+        policy = read_json(ROOT / active["reviews"]["AVGO"]["rules_file"])
+        missing = {
+            (ticker, dividend["ex_date"], dividend["amount"])
+            for ticker, rule in policy["companies"].items()
+            if rule["method"] == "missing_cash_dividends"
+            for dividend in rule["dividends"]
+        }
+
+        self.assertEqual(
+            missing,
+            {
+                ("ACN", "2025-10-10", "1.63"),
+                ("AON", "2025-11-03", "0.745"),
+                ("CB", "2025-09-12", "0.97"),
+                ("CB", "2025-12-12", "0.97"),
+                ("ETN", "2018-08-02", "0.66"),
+                ("ETN", "2018-11-01", "0.66"),
+                ("JCI", "2025-09-22", "0.40"),
+                ("JCI", "2025-12-22", "0.40"),
+                ("MDT", "2018-09-27", "0.50"),
+                ("TT", "2025-12-05", "0.94"),
+            },
+        )
 
 
 class PriceAuditTests(unittest.TestCase):

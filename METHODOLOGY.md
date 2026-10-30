@@ -30,9 +30,10 @@ the engineering details of the import are kept with the code.
 - **External inputs:** all financial values come from SEC filings. Besides the price
   dataset and SEC, the only outside inputs are: one AMD price session (2 Jan 2015) from
   DoltHub; one FI price session (12 Nov 2025), absent from the dataset after Fiserv's
-  move to Nasdaq, from Nasdaq and confirmed by Cboe; company names, sectors, exchanges
-  and the market-capitalisation ranking used to choose the 200 companies, from an
-  archived Kaggle S&P 500 dataset
+  move to Nasdaq, from Nasdaq and confirmed by Cboe; ten dividends missing from the
+  vendor's adjustments, from DoltHub (amounts confirmed in SEC filings); company
+  names, sectors, exchanges and the market-capitalisation ranking used to choose the
+  200 companies, from an archived Kaggle S&P 500 dataset
   (`andrewmvd/sp-500-stocks`, version 1022); and corporate-action evidence (company
   press releases and filings, vendor split data) behind the price adjustments and the
   EPS split restatement.
@@ -201,7 +202,12 @@ wrong.
 
 - Prices were compared with the source files row by row (all 553,200), and the
   calendar, OHLC consistency and large price jumps were screened. Corrections apply
-  only to AVGO, DHR, JCI and one session each for AMD and FI.
+  only to AVGO, DHR, JCI, one session each for AMD and FI, and ten dividends the
+  vendor's Adjusted Close omits (ETN and MDT 2018; ACN, AON, CB, JCI and TT 2025).
+  These were found by checking every dividend in DoltHub's table against the
+  vendor's adjustments; years without DoltHub data for a company (for example GILD
+  2015–2017) could not be checked, and a few ex-dates differ by up to a week
+  between the two sources without being changed.
 - The SEC import is faithful and complete: every stored fact matches the downloaded SEC
   data, and every fact in that data that meets the import criteria (the five metrics,
   annual and quarterly filings, periods ending 2015–2024) is stored. The database can be

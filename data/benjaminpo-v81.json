@@ -1429,7 +1429,7 @@
   },
   "license_declared": "GPL 3 (Kaggle publisher declaration)",
   "public_display_rights": "Not independently confirmed for upstream Yahoo data; local migration does not approve public redistribution.",
-  "price_basis": "Vendor OHLC/volume basis at v81, including post-2024 actions. Preserve final vendor Adjusted Close anchor. Rebuild AVGO cash dividends; remove duplicate DHR/Fortive cash factor while retaining vendor equivalent conversion; value JCI/Adient distribution at first regular-way close (45.51/10). Price-index convention, not point-in-time raw prices or exact portfolio total return.",
+  "price_basis": "Vendor OHLC/volume basis at v81, including post-2024 actions. Preserve final vendor Adjusted Close anchor. Rebuild AVGO cash dividends; remove duplicate DHR/Fortive cash factor while retaining vendor equivalent conversion; value JCI/Adient distribution at first regular-way close (45.51/10). Add 10 reviewed regular cash dividends the vendor omits (ACN, AON, CB, ETN, JCI, MDT, TT; price-adjustments.json). Price-index convention, not point-in-time raw prices or exact portfolio total return.",
   "limitations": [
     "Static end-of-period constituent selection; survivorship bias; not historical S&P 500 membership",
     "Capitalization snapshot has no explicit per-company valuation date",
@@ -1442,7 +1442,7 @@
       "status": "reviewed",
       "method": "cash_dividends_preserve_vendor_anchor",
       "rules_file": "data/price-adjustments.json",
-      "rules_sha256": "95dfdece310a4cc27008296725ad47abd03b9bf9ee2d5d3797de93fc3306e41b",
+      "rules_sha256": "5437e59fa490c84ce3196cbf58f04a653d963fb91811004e45443a089c1b2ae7",
       "note": "Use 44 verified ordinary cash dividends; retain final source Adj Close to preserve later adjustments. Correct duplicated March/June 2018 distributions."
     },
     "DHR": {

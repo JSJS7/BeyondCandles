@@ -3,7 +3,7 @@
   "source_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "period_end": "2025-12-31",
-  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation.",
+  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. For other companies, add only reviewed regular cash dividends that the vendor's Adj Close omits, multiplying earlier Adj Close by (prior Close - amount) / prior Close. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation.",
   "companies": {
     "AVGO": {
       "status": "reviewed",
@@ -253,6 +253,182 @@
         {
           "ex_date": "2025-12-22",
           "amount": "0.65",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "ACN": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-Q filed 2025-12-18: cash dividends paid 1.63 per share in the quarter September-November 2025.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2025-10-10",
+          "amount": "1.63",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "AON": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-K 2025: cash dividends paid 2.91 per share = 0.675 + 3 x 0.745.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2025-11-03",
+          "amount": "0.745",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "CB": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-Q Q3 2025: declared 0.97; 10-K 2025: declared 3.82 per share = 0.91 + 3 x 0.97.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2025-09-12",
+          "amount": "0.97",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2025-12-12",
+          "amount": "0.97",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "ETN": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-Q Q3 2018: declared 0.66; 10-K 2018: declared 2.64 per share = 4 x 0.66.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2018-08-02",
+          "amount": "0.66",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2018-11-01",
+          "amount": "0.66",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "JCI": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-K FY2025: declared 1.51 per share = 3 x 0.37 + 0.40; 10-Q October-December 2025: declared 0.40.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2025-09-22",
+          "amount": "0.40",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2025-12-22",
+          "amount": "0.40",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "MDT": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-Q for July 28 - October 26, 2018: cash dividends paid 0.50 per share.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2018-09-27",
+          "amount": "0.50",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "TT": {
+      "status": "reviewed",
+      "method": "missing_cash_dividends",
+      "note": "Regular cash dividends absent from the vendor's Adj Close (no factor change on the ex-date). Ex-dates and amounts from the pinned DoltHub dividend table; the vendor has no split or other basis change after these dates, so amounts need no divisor. SEC 10-K 2025: declared 3.76 per share = 4 x 0.94.",
+      "evidence": {
+        "format": "dolthub_sql",
+        "url": "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master?q=SELECT+*+FROM+dividend+AS+OF+%27sv2onpqvm9gte13evbqhcchba66epbuv%27+WHERE+act_symbol+IN+%28%27ACN%27%2C%27AON%27%2C%27CB%27%2C%27ETN%27%2C%27JCI%27%2C%27MDT%27%2C%27TT%27%29+AND+ex_date%3E%3D%272018-01-01%27+AND+ex_date%3C%3D%272025-12-31%27+ORDER+BY+act_symbol%2C+ex_date",
+        "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+        "retrieved_at": "2026-10-30T22:26:36Z",
+        "file": "data/raw/benjaminpo-v81/evidence/missing-dividends-dolt.json",
+        "sha256": "e0a4c3c624512b1a094ed3195e100e6728788bd5b84544570f61b58891107bf6",
+        "declared_license": "CC BY-SA 4.0",
+        "attribution": "post-no-preference/stocks, DoltHub",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "dividends": [
+        {
+          "ex_date": "2025-12-05",
+          "amount": "0.94",
           "split_divisor": "1"
         }
       ]

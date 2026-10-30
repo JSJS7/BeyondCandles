@@ -58,6 +58,9 @@ Explicit price corrections retained in the pipeline:
   an additional USD 24.56 adjustment.
 - **JCI/Adient:** value the distribution at USD 4.551 per JCI share, using Adient's
   first closing price and the 1:10 distribution ratio.
+- **Dividends missing from the provider's adjustments:** add 10 regular dividends
+  (ETN and MDT in 2018; ACN, AON, CB, JCI and TT in 2025) from a pinned DoltHub
+  revision, with amounts confirmed in SEC filings.
 - **AMD, 2 Jan 2015:** fill one missing session from a pinned DoltHub revision,
   with the closing price also checked against a Scotiabank document.
 - **FI, 12 Nov 2025:** insert one session absent from the provider's file, the day

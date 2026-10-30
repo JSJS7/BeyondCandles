@@ -36,6 +36,9 @@ def apply_adjustments(rows, rule):
         if rule["method"] == "remove_duplicate_distribution":
             return remove_duplicate_distribution(rows, positions, rule)
 
+        if rule["method"] == "missing_cash_dividends":
+            return add_missing_dividends(rows, positions, rule["dividends"])
+
     raise ValueError(f"Unknown price correction method: {rule['method']}")
 
 
@@ -111,6 +114,59 @@ def remove_duplicate_distribution(rows, positions, rule):
         corrected[row["date"]] = adjusted.quantize(PRICE_QUANTUM)
 
     return corrected
+
+
+def add_missing_dividends(rows, positions, dividends):
+    """Apply reviewed cash dividends absent from the vendor's Adjusted Close.
+
+    Each multiplies every earlier Adjusted Close by (prior Close - amount) / prior
+    Close; Close and the vendor's other factors stay as they are.
+    """
+    multipliers = {}
+
+    for dividend in dividends:
+        day = dividend["ex_date"]
+        position = positions.get(day)
+
+        if position is None or position == 0:
+            raise ValueError(f"Missing ex-dividend session or prior Close: {day}")
+
+        if day in multipliers:
+            raise ValueError(f"Duplicate cash distribution: {day}")
+
+        previous = rows[position - 1]
+        current = rows[position]
+        previous_close = number(previous["close"], "prior Close")
+        previous_ratio = number(previous["adjusted_close"], "prior Adjusted Close") / (
+            previous_close
+        )
+        current_ratio = number(current["adjusted_close"], "Adjusted Close") / number(
+            current["close"], "Close"
+        )
+
+        # The vendor must have no factor change on this day; otherwise the dividend
+        # is already there (or something else is) and adding it would double it.
+        if abs(previous_ratio / current_ratio - 1) > Decimal("0.000001"):
+            raise ValueError(f"Source already adjusts the ex-dividend session: {day}")
+
+        amount = number(dividend["amount"], "dividend")
+        divisor = number(dividend["split_divisor"], "dividend split divisor")
+        if divisor <= 0:
+            raise ValueError("Dividend split divisor must be positive")
+        multipliers[day] = cash_adjustment(previous_close, amount / divisor)
+
+    factor = Decimal(1)
+    corrected = {}
+
+    for row in reversed(rows):
+        day = row["date"]
+        adjusted = number(row["adjusted_close"], "Adjusted Close")
+        corrected[day] = (adjusted * factor).quantize(PRICE_QUANTUM)
+
+        if day in multipliers:
+            factor *= multipliers[day]
+
+    return {row["date"]: corrected[row["date"]] for row in rows}
 
 
 def scan_adjustment_factors(rows):

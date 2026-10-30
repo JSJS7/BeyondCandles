@@ -374,14 +374,16 @@ def correct_quote(rows, manifest, ticker):
     return 1
 
 
-def correct_avgo(rows, manifest):
-    """Rebuild verified cash adjustments while retaining the vendor's final anchor."""
-    from .price_adjustments import apply_adjustments
+def cash_adjustment_policy(manifest):
+    """Load the reviewed cash-adjustment rules of all companies.
 
+    The AVGO review pins the whole file (path and SHA-256); the file also holds the
+    dividends other companies' vendor histories omit.
+    """
     review = manifest["reviews"]["AVGO"]
     policy_path = ROOT / review["rules_file"]
     if sha256(policy_path) != review["rules_sha256"]:
-        raise ValueError("AVGO evidence policy checksum mismatch")
+        raise ValueError("Cash-adjustment policy checksum mismatch")
     policy = read_json(policy_path)
     if (
         policy["version"] != 1
@@ -389,7 +391,63 @@ def correct_avgo(rows, manifest):
         or policy["selection_sha256"] != manifest["selection_sha256"]
         or policy["period_end"] != manifest["period_end"]
     ):
-        raise ValueError("AVGO policy differs from the reviewed price snapshot")
+        raise ValueError(
+            "Cash-adjustment policy differs from the reviewed price snapshot"
+        )
+    return policy
+
+
+def missing_dividend_tickers(policy):
+    return sorted(
+        ticker
+        for ticker, rule in policy["companies"].items()
+        if rule["method"] == "missing_cash_dividends"
+    )
+
+
+def correct_missing_dividends(rows, policy, ticker):
+    """Add reviewed dividends the vendor's Adjusted Close omits; return their number.
+
+    Every amount must appear in the pinned evidence for the same symbol and ex-date.
+    apply_adjustments refuses an ex-date where the vendor already has a factor change,
+    so a dividend is never counted twice.
+    """
+    from .price_adjustments import apply_adjustments
+
+    rule = policy["companies"][ticker]
+    if rule["status"] != "reviewed" or rule["method"] != "missing_cash_dividends":
+        raise ValueError(f"Unapproved {ticker} missing-dividend correction")
+    evidence = rule["evidence"]
+    if sha256(ROOT / evidence["file"]) != evidence["sha256"]:
+        raise ValueError(f"{ticker} missing-dividend evidence checksum mismatch")
+    document = read_json(ROOT / evidence["file"])
+    if evidence["format"] != "dolthub_sql" or (
+        document["query_execution_status"] != "Success"
+    ):
+        raise ValueError(f"{ticker} missing-dividend evidence is not a DoltHub result")
+    listed = {}
+    for item in document["rows"]:
+        listed[(item["act_symbol"], item["ex_date"])] = Decimal(item["amount"])
+    for dividend in rule["dividends"]:
+        key = (ticker, dividend["ex_date"])
+        if listed.get(key) != Decimal(dividend["amount"]):
+            raise ValueError(
+                f"{ticker} dividend {dividend['ex_date']} differs from the evidence"
+            )
+    corrected = apply_adjustments(rows, rule)
+    for row in rows:
+        # Sessions after the last added dividend keep their source text unchanged.
+        if corrected[row["date"]] != Decimal(row["adjusted_close"]):
+            row["adjusted_close"] = str(corrected[row["date"]])
+    return len(rule["dividends"])
+
+
+def correct_avgo(rows, manifest):
+    """Rebuild verified cash adjustments while retaining the vendor's final anchor."""
+    from .price_adjustments import apply_adjustments
+
+    review = manifest["reviews"]["AVGO"]
+    policy = cash_adjustment_policy(manifest)
     rule = policy["companies"]["AVGO"]
     if (
         review["status"] != "reviewed"
@@ -431,6 +489,12 @@ def prepare_prices(*, require_reviewed=False):
     count = 0
     changed = {}
     events = {}
+    added_dividends = {}
+    policy = None
+    dividend_tickers = []
+    if "AVGO" in manifest["reviews"]:
+        policy = cash_adjustment_policy(manifest)
+        dividend_tickers = missing_dividend_tickers(policy)
     temporary = None
     try:
         with NamedTemporaryFile(
@@ -460,6 +524,12 @@ def prepare_prices(*, require_reviewed=False):
                         "source": before,
                         "prepared": event_summary(rows, review["ex_date"]),
                     }
+                # After the spin-off corrections: JCI has both, and the reviewed
+                # spin-off checks the vendor's own factors around 2016.
+                if ticker in dividend_tickers:
+                    added_dividends[ticker] = correct_missing_dividends(
+                        rows, policy, ticker
+                    )
                 for row in rows:
                     prices = dict(
                         zip(
@@ -494,6 +564,7 @@ def prepare_prices(*, require_reviewed=False):
         "processed_sha256": sha256(output),
         "adjustment_rules_sha256": adjustment_rules_sha256(manifest),
         "adjusted_prices_changed": changed,
+        "missing_dividends_added": added_dividends,
         "unresolved": unresolved,
         "events": events,
     }

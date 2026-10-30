@@ -6,6 +6,7 @@ import io
 import json
 import tempfile
 import unittest
+from decimal import Decimal
 from pathlib import Path
 from unittest.mock import patch
 from zipfile import ZipFile
@@ -561,8 +562,61 @@ class BenjaminpoTests(unittest.TestCase):
             "rules_sha256": sha256(policy),
         }
 
-        with self.assertRaisesRegex(ValueError, "AVGO policy differs"):
+        with self.assertRaisesRegex(ValueError, "policy differs"):
             source.correct_avgo([], self.manifest)
+
+    def test_missing_dividend_must_match_the_pinned_evidence(self):
+        """A reviewed amount that differs from the pinned DoltHub row stops preparation."""
+        evidence = self.root / "dividends.json"
+        source.write_json(
+            evidence,
+            {
+                "query_execution_status": "Success",
+                "rows": [
+                    {"act_symbol": "CB", "ex_date": "2025-09-12", "amount": "0.97000"}
+                ],
+            },
+        )
+        rule = {
+            "status": "reviewed",
+            "method": "missing_cash_dividends",
+            "evidence": {
+                "format": "dolthub_sql",
+                "file": evidence.name,
+                "sha256": sha256(evidence),
+            },
+            "dividends": [
+                {"ex_date": "2025-09-12", "amount": "0.97", "split_divisor": "1"}
+            ],
+        }
+        rows = [
+            {
+                "ticker": "CB",
+                "date": "2025-09-11",
+                "close": "100",
+                "adjusted_close": "99",
+            },
+            {
+                "ticker": "CB",
+                "date": "2025-09-12",
+                "close": "98",
+                "adjusted_close": "97.02",
+            },
+        ]
+
+        added = source.correct_missing_dividends(
+            rows, {"companies": {"CB": rule}}, "CB"
+        )
+
+        self.assertEqual(added, 1)
+        self.assertEqual(
+            Decimal(rows[0]["adjusted_close"]), Decimal("99") * Decimal("0.9903")
+        )
+        self.assertEqual(rows[1]["adjusted_close"], "97.02")
+
+        rule["dividends"][0]["amount"] = "0.98"
+        with self.assertRaisesRegex(ValueError, "CB dividend 2025-09-12 differs"):
+            source.correct_missing_dividends(rows, {"companies": {"CB": rule}}, "CB")
 
     def test_economic_review_blocks_numerically_valid_candidate(self):
         """Valid prices cannot bypass the unresolved DHR corporate-action gate."""
@@ -585,7 +639,16 @@ class BenjaminpoTests(unittest.TestCase):
         """
         self.write_history()
         policy = self.root / "rules.json"
-        policy.write_text('{"version": 1}\n', encoding="utf-8")
+        source.write_json(
+            policy,
+            {
+                "version": 1,
+                "source_sha256": self.manifest["sha256"],
+                "selection_sha256": self.manifest["selection_sha256"],
+                "period_end": self.manifest["period_end"],
+                "companies": {},
+            },
+        )
         self.manifest["reviews"]["AVGO"] = {
             "status": "reviewed",
             "rules_file": policy.name,
