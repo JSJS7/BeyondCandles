@@ -234,7 +234,11 @@ def main():
         if comparison is not None:
             # A check compares published files; a known gap is recorded in them, so
             # an unchanged gap passes and a new or changed one is a changed file.
-            return 1 if comparison["changed"] else 0
+            # needs_review still fails: some commands report it without writing a
+            # file (review-eps-splits never writes; review-sec-periods stops first).
+            if comparison["changed"] or result.get("status") == "needs_review":
+                return 1
+            return 0
         if result.get("status") in ("needs_review", "completed_with_gaps"):
             return 1
         return 0

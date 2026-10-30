@@ -354,6 +354,22 @@ class CheckModeTests(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(check["changed"], [])
 
+    def test_needs_review_fails_even_when_no_file_was_written(self):
+        """A review problem fails the check although no published file differs.
+
+        Real case (W12, 30.10.2026): review-sec-periods returns needs_review for an
+        ambiguous fiscal year before writing its rules, and review-eps-splits never
+        writes a file, so comparing files alone exited with 0.
+        """
+
+        def review(fetch):
+            return {"status": "needs_review", "issues": [{"ticker": "FIXTURE"}]}
+
+        exit_code, check = self.run_check(review)
+
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(check, {"changed": [], "unchanged": []})
+
     def test_commands_that_change_the_database_are_rejected(self):
         """--check cannot hold database writes, so such commands refuse it."""
         from contextlib import redirect_stderr

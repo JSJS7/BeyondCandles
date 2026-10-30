@@ -57,7 +57,10 @@ of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
   taxes on products* from the same statement (marked *Calculated*). We recalculate a
   year only when the company itself changed the definition and the same calculation
   reproduces the figures the company later restated (here 2016 and 2017, to the
-  million). Otherwise the reported value stays: Chevron includes excise taxes until
+  million). Every version of 2015 is shown on this basis, but as known on a date
+  (`as_of`) before the 10-K filed on 7 Feb 2019 the 2016 and 2017 values still include
+  excise taxes, so between Feb 2017 and Feb 2019 the series changes basis after 2015.
+  Otherwise the reported value stays: Chevron includes excise taxes until
   2017, and ExxonMobil's total from 2020 includes equity-affiliate and other income,
   so their series change basis by a few percent.
 - **Watch out:** bank, insurer and industrial "revenue" are not comparable. Avoid
