@@ -51,8 +51,8 @@ REVENUE_SOURCE_TAGS = {
     "0000927628": ("InterestIncomeExpenseNet", "NoninterestIncome"),
     "0000092230": ("InterestIncomeExpenseNet", "NoninterestIncome"),
     "0001404912": ("InvestmentAdvisoryFees",),
-    # Philip Morris: excise taxes, deducted from FY2015 revenues that its filings
-    # still showed including them (data_pipeline/revenue.py, NET_OF_EXCISE_PERIODS).
+    # Philip Morris: excise taxes, deducted from FY2015-FY2017 revenues that its filings
+    # still showed including them (data_pipeline/revenue.py, NET_OF_EXCISE_FILINGS).
     "0001413329": ("ExciseAndSalesTaxes",),
 }
 CACHE = ROOT / "data/raw/sec"

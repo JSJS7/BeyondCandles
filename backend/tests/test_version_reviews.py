@@ -353,6 +353,94 @@ class CustomRevenueTests(unittest.TestCase):
         instance.assert_not_called()
 
 
+class CalculatedRevenueTests(unittest.TestCase):
+    """A reviewed calculation keeps its own coefficients and texts (N21, W13).
+
+    Philip Morris' 10-K of 14.02.2017 still shows FY2016 revenue including excise
+    taxes: 74,953 - 48,268 = 26,685, the value the company restated in 2019.
+    """
+
+    def review(self, rule, cell_facts):
+        task = SimpleNamespace(
+            ticker="PM",
+            cik="0001413329",
+            accession="original",
+            start=date(2020, 1, 1),
+            end=END,
+            source="0001413329:original",
+            filing_facts=cell_facts,
+            cell_facts=cell_facts,
+        )
+        evidence = {task.source: {"summary": rule["summary"]}}
+        with patch.object(
+            version_reviews, "verify_filing_period", return_value=(rule, [])
+        ):
+            return version_reviews.review_revenue(task, evidence, END)
+
+    def rule(self, **changes):
+        return {
+            "components": ["SalesRevenueNet", "ExciseAndSalesTaxes"],
+            "taxonomy": "us-gaap",
+            "tag": None,
+            "label": "Net revenues less excise taxes on products",
+            "value": "26685000000",
+            "summary": {"url": "https://www.sec.gov/FilingSummary.xml"},
+            "evidence": {"url": "https://www.sec.gov/R4.htm"},
+            **changes,
+        }
+
+    def test_deducted_component_keeps_its_negative_coefficient(self):
+        """The excise taxes are pinned with -1, so the stored version adds up to the value."""
+        facts = [
+            annual_fact("SalesRevenueNet", "74953000000", metric="revenue"),
+            annual_fact("ExciseAndSalesTaxes", "48268000000", metric="revenue"),
+        ]
+        rule = self.rule(
+            coefficients={"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1},
+            calculation="Net revenues including excise taxes - excise taxes on products",
+            note="Calculated net revenues excluding excise taxes.",
+        )
+
+        review = self.review(rule, facts)
+
+        coefficients = {
+            component["fact"]["tag"]: component["coefficient"]
+            for component in review["components"]
+        }
+        self.assertEqual(
+            coefficients, {"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1}
+        )
+        self.assertEqual(review["calculation"], rule["calculation"])
+        self.assertEqual(review["note"], rule["note"])
+        total = sum(
+            Decimal(component["fact"]["value"]) * component["coefficient"]
+            for component in review["components"]
+        )
+        self.assertEqual(total, Decimal(review["value"]))
+
+    def test_bank_components_keep_the_default_sum_and_texts(self):
+        """Without coefficients a calculation adds its components, as for banks."""
+        facts = [
+            annual_fact("InterestIncomeExpenseNet", "40000000000", metric="revenue"),
+            annual_fact("NoninterestIncome", "30000000000", metric="revenue"),
+        ]
+        rule = self.rule(
+            components=["InterestIncomeExpenseNet", "NoninterestIncome"],
+            label="Net interest income plus noninterest income",
+            value="70000000000",
+        )
+
+        review = self.review(rule, facts)
+
+        self.assertEqual(
+            [component["coefficient"] for component in review["components"]], [1, 1]
+        )
+        self.assertEqual(
+            review["calculation"], "Net interest income + noninterest income"
+        )
+        self.assertTrue(review["note"].startswith("Calculated GAAP revenue"))
+
+
 class BerkshireClassBFootnoteTests(unittest.TestCase):
     """Berkshire's 10-K for 2015 shows EPS only per Class A share (14,656) and states
     the Class B amount (1/1,500, $9.77) in the statement's footnote, without a fact."""

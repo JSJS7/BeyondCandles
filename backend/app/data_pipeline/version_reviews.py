@@ -64,7 +64,7 @@ from app.metric_history import VERSION_REVIEWS_PATH, company_versions, review_ke
 from app.net_income import DEFINITION as NET_INCOME_DEFINITION
 from app.net_income import PARENT_TAG, calculated_value
 from app.operating_cash_flow import DEFINITION as CASH_FLOW_DEFINITION
-from app.revenue import period_key
+from app.revenue import BANK_CALCULATION, period_key
 from app.schemas.stock import FilingValue
 
 REPORT_PATH = ROOT / "data/processed/version-reviews-report.json"
@@ -337,6 +337,8 @@ def review_revenue(task, evidence, end):
             and fact["unit"] == "USD"
         ]
 
+    # Banks add their components; a reviewed rule may deduct one (PM excise taxes).
+    coefficients = rule.get("coefficients", {})
     components = []
     for tag in tags:
         matching = matching_facts(task.cell_facts, tag)
@@ -348,6 +350,7 @@ def review_revenue(task, evidence, end):
         if len({fact["value"] for fact in matching}) != 1:
             raise ValueError(f"No unique {tag} fact in the filing")
         component = single_source(task, matching[0])
+        component["coefficient"] = coefficients.get(tag, 1)
         if from_instance:
             component["instance_position"] = True
             component["instance"] = rule["original_instance"]
@@ -359,10 +362,11 @@ def review_revenue(task, evidence, end):
         "separately; values are not summed.",
     )
     if rule.get("components"):
-        calculation = "Net interest income + noninterest income"
-        note = (
+        calculation = rule.get("calculation", BANK_CALCULATION)
+        note = rule.get(
+            "note",
             "Calculated GAAP revenue from two complementary consolidated "
-            "income-statement positions in the same filing."
+            "income-statement positions in the same filing.",
         )
     return {
         "value": rule["value"],

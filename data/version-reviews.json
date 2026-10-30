@@ -108079,7 +108079,7 @@
     "PM:revenue:2016-01-01:2016-12-31:0001413329-17-000014": {
       "filed": "2017-02-14",
       "form": "10-K",
-      "value": "74953000000",
+      "value": "26685000000",
       "components": [
         {
           "fact": {
@@ -108095,11 +108095,26 @@
             "form": "10-K"
           },
           "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001413329",
+            "taxonomy": "us-gaap",
+            "tag": "ExciseAndSalesTaxes",
+            "unit": "USD",
+            "value": "48268000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-14",
+            "accession": "0001413329-17-000014",
+            "form": "10-K"
+          },
+          "coefficient": -1
         }
       ],
-      "selected_tag": "SalesRevenueNet",
-      "calculation": null,
-      "note": "Reported total: Net revenues. Other candidates are retained separately; values are not summed.",
+      "selected_tag": null,
+      "calculation": "Net revenues including excise taxes - excise taxes on products",
+      "note": "Calculated net revenues excluding excise taxes from two positions of the same income statement, the definition the company uses from FY2016 on; this filing still shows revenues including excise taxes.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1413329/000141332917000014/R4.htm",
         "sha256": "2e5a6c4bb87321079d4626f878066ff9a9934d2b864e9609722fbbf2f93d3ab2",
@@ -108109,7 +108124,7 @@
     "PM:revenue:2016-01-01:2016-12-31:0001413329-18-000007": {
       "filed": "2018-02-13",
       "form": "10-K",
-      "value": "74953000000",
+      "value": "26685000000",
       "components": [
         {
           "fact": {
@@ -108125,11 +108140,26 @@
             "form": "10-K"
           },
           "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001413329",
+            "taxonomy": "us-gaap",
+            "tag": "ExciseAndSalesTaxes",
+            "unit": "USD",
+            "value": "48268000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-13",
+            "accession": "0001413329-18-000007",
+            "form": "10-K"
+          },
+          "coefficient": -1
         }
       ],
-      "selected_tag": "SalesRevenueNet",
-      "calculation": null,
-      "note": "Reported total: Net revenues. Other candidates are retained separately; values are not summed.",
+      "selected_tag": null,
+      "calculation": "Net revenues including excise taxes - excise taxes on products",
+      "note": "Calculated net revenues excluding excise taxes from two positions of the same income statement, the definition the company uses from FY2016 on; this filing still shows revenues including excise taxes.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1413329/000141332918000007/R4.htm",
         "sha256": "3ddc7faeb5de3ed4fba46b0444aa1f3b9ddd66598fc0d6f97cbe3c35dded08f1",
@@ -108139,7 +108169,7 @@
     "PM:revenue:2017-01-01:2017-12-31:0001413329-18-000007": {
       "filed": "2018-02-13",
       "form": "10-K",
-      "value": "78098000000",
+      "value": "28748000000",
       "components": [
         {
           "fact": {
@@ -108155,11 +108185,26 @@
             "form": "10-K"
           },
           "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0001413329",
+            "taxonomy": "us-gaap",
+            "tag": "ExciseAndSalesTaxes",
+            "unit": "USD",
+            "value": "49350000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-13",
+            "accession": "0001413329-18-000007",
+            "form": "10-K"
+          },
+          "coefficient": -1
         }
       ],
-      "selected_tag": "SalesRevenueNet",
-      "calculation": null,
-      "note": "Reported total: Net revenues. Other candidates are retained separately; values are not summed.",
+      "selected_tag": null,
+      "calculation": "Net revenues including excise taxes - excise taxes on products",
+      "note": "Calculated net revenues excluding excise taxes from two positions of the same income statement, the definition the company uses from FY2016 on; this filing still shows revenues including excise taxes.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1413329/000141332918000007/R4.htm",
         "sha256": "3ddc7faeb5de3ed4fba46b0444aa1f3b9ddd66598fc0d6f97cbe3c35dded08f1",
@@ -143599,5 +143644,5 @@
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
     }
   },
-  "reviewed_at": "2026-10-29T22:33:57.429566+00:00"
+  "reviewed_at": "2026-10-30T16:00:39.618141+00:00"
 }

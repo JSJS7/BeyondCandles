@@ -864,16 +864,30 @@ class RevenueEvidenceTests(unittest.TestCase):
                 )
                 return rule
 
+            # The fixture facts are filed on 01.02.2021.
+            restated_later = date(2022, 1, 1)
+            restated_earlier = date(2021, 1, 1)
             with (
                 patch("app.data_pipeline.sec_catalogue.CACHE", root),
                 patch(
-                    "app.data_pipeline.revenue.NET_OF_EXCISE_PERIODS",
-                    {period: "original"},
+                    "app.data_pipeline.revenue.NET_OF_EXCISE_FILINGS",
+                    {period: ("original",)},
                 ),
             ):
-                rule = review([revenue, excise])
-                changed = review([revenue, dict(excise, value=Decimal("47000000000"))])
-                other_filing = review([revenue, excise], (source[0], "later"))
+                with patch(
+                    "app.data_pipeline.revenue.NET_REVENUE_REPORTED_FROM",
+                    restated_later,
+                ):
+                    rule = review([revenue, excise])
+                    changed = review(
+                        [revenue, dict(excise, value=Decimal("47000000000"))]
+                    )
+                    unreviewed_filing = review([revenue, excise], (source[0], "later"))
+                with patch(
+                    "app.data_pipeline.revenue.NET_REVENUE_REPORTED_FROM",
+                    restated_earlier,
+                ):
+                    restated_filing = review([revenue, excise], (source[0], "later"))
 
         assert rule is not None
         self.assertEqual(rule["value"], "26794000000")
@@ -882,7 +896,40 @@ class RevenueEvidenceTests(unittest.TestCase):
             rule["coefficients"], {"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1}
         )
         self.assertIsNone(changed)
-        self.assertIsNone(other_filing)
+        # Another filing from before the restatement still shows revenue including
+        # excise taxes and is not approved without its own review.
+        self.assertIsNone(unreviewed_filing)
+        # A filing from the restatement on reports revenue without excise taxes, so
+        # its statement total is reviewed as usual (here the fixture's only row).
+        assert restated_filing is not None
+        self.assertEqual(restated_filing["tag"], "SalesRevenueNet")
+        self.assertNotIn("coefficients", restated_filing)
+
+    def test_net_of_excise_filings_cover_every_year_restated_later(self):
+        """Philip Morris restated 2016 and 2017 without excise taxes only in 2019 (W13).
+
+        Every filing before the restatement that showed one of these years with
+        excise taxes is pinned, so the point-in-time series has one definition:
+        FY2015 from the 10-K of 2018, FY2016 from the 10-Ks of 2017 and 2018, FY2017
+        from the 10-K of 2018 (FY2015's earlier filings are confirmed as identical).
+        """
+        from app.data_pipeline.revenue import (
+            NET_OF_EXCISE_FILINGS,
+            NET_REVENUE_REPORTED_FROM,
+        )
+
+        self.assertEqual(
+            NET_OF_EXCISE_FILINGS,
+            {
+                "0001413329:2015-01-01:2015-12-31": ("0001413329-18-000007",),
+                "0001413329:2016-01-01:2016-12-31": (
+                    "0001413329-17-000014",
+                    "0001413329-18-000007",
+                ),
+                "0001413329:2017-01-01:2017-12-31": ("0001413329-18-000007",),
+            },
+        )
+        self.assertEqual(NET_REVENUE_REPORTED_FROM, date(2019, 2, 7))
 
     def test_pinned_note_uses_the_consolidated_row_before_any_segment_axis(self):
         """Approve a same-filing note total, preserving boundaries against later segment rows."""

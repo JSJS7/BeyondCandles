@@ -4,7 +4,7 @@ import re
 import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from decimal import Decimal
 from threading import Lock
 from time import sleep
@@ -267,15 +267,23 @@ def verified_bank_total(html, end_date, group, period):
     }
 
 
-# Philip Morris reports net revenues excluding excise taxes from FY2016 on. FY2015 is
-# only in filings that still showed "Net revenues" including excise taxes, with excise
-# taxes as a separate cost line, so the series would mix both definitions. The
-# same-filing difference reproduces the company's own restatement exactly: in the
-# 10-K for 2017, 74,953 - 48,268 = 26,685 (FY2016) and 78,098 - 49,350 = 28,748
-# (FY2017), the net revenues later 10-Ks report. Reviewed 30.10.2026 (M7).
-NET_OF_EXCISE_PERIODS = {
-    "0001413329:2015-01-01:2015-12-31": "0001413329-18-000007",
+# Philip Morris reports net revenues excluding excise taxes from its 10-K filed on
+# 07.02.2019, restating FY2016 and FY2017. Earlier filings showed "Net revenues"
+# including excise taxes, with excise taxes as a separate cost line, so the series
+# (and the point-in-time view) would mix both definitions. The same-filing
+# difference reproduces the company's own restatement exactly: in the 10-K for 2017,
+# 74,953 - 48,268 = 26,685 (FY2016) and 78,098 - 49,350 = 28,748 (FY2017).
+# Reviewed 30.10.2026: FY2015 (M7) and the earlier versions of FY2016-FY2017 (W13).
+# FY2015's 10-Ks of 2016 and 2017 report identical components, so rule C confirms them.
+NET_OF_EXCISE_FILINGS = {
+    "0001413329:2015-01-01:2015-12-31": ("0001413329-18-000007",),
+    "0001413329:2016-01-01:2016-12-31": (
+        "0001413329-17-000014",
+        "0001413329-18-000007",
+    ),
+    "0001413329:2017-01-01:2017-12-31": ("0001413329-18-000007",),
 }
+NET_REVENUE_REPORTED_FROM = date(2019, 2, 7)
 NET_OF_EXCISE_COMPONENTS = {"SalesRevenueNet": 1, "ExciseAndSalesTaxes": -1}
 
 
@@ -436,17 +444,21 @@ def verify_filing_period(
                     total, selected = verified_bank_total(html, end_date, group, period)
                     matches.append((total, selected, reference))
                     continue
-                if period in NET_OF_EXCISE_PERIODS:
-                    if accession != NET_OF_EXCISE_PERIODS[period]:
-                        # A newer filing may present this year differently.
-                        raise ValueError(
-                            "Net-of-excise revenue was reviewed for another filing"
+                reviewed_filings = NET_OF_EXCISE_FILINGS.get(period)
+                if reviewed_filings is not None:
+                    if accession in reviewed_filings:
+                        total, selected = verified_net_of_excise_total(
+                            html, end_date, group, period
                         )
-                    total, selected = verified_net_of_excise_total(
-                        html, end_date, group, period
-                    )
-                    matches.append((total, selected, reference))
-                    continue
+                        matches.append((total, selected, reference))
+                        continue
+                    filed = max(fact["filed"] for fact in group)
+                    if filed < NET_REVENUE_REPORTED_FROM:
+                        # It still shows revenue including excise taxes; a filing
+                        # from the restatement on is reviewed like any other.
+                        raise ValueError(
+                            "Net-of-excise revenue was not reviewed for this filing"
+                        )
                 if cik == "0001120193":
                     total = statement_total(
                         html, end_date, concept="GrossProfit", stop_at_costs=False
