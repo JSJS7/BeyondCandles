@@ -1,9 +1,11 @@
 """Replay the frozen EPS share-basis review without downloading or changing data."""
 
 import csv
+import math
 from collections import Counter
 from datetime import datetime, timezone
 from decimal import Decimal
+from itertools import pairwise
 
 from sqlalchemy import select
 
@@ -17,6 +19,13 @@ from app.eps_splits import normalize_eps, sources_fingerprint, split_rules
 from app.models import Company, FinancialFact
 
 CACHE = ROOT / "data/raw/eps-splits"
+# The vendor may restate its latest sessions for a split before the first split-adjusted
+# session (APH and MNST in 2026: three sessions earlier), so the check starts earlier.
+SESSIONS_BEFORE_SPLIT = 10
+SESSIONS_AFTER_SPLIT = 3
+# A vendor ratio this close to 1 looks like an ordinary daily move, so continuity
+# cannot tell whether the vendor restated its prices.
+MIN_DECISIVE_RATIO = 1.25
 
 
 def checked_reference(reference, directory, verified):
@@ -112,6 +121,83 @@ def verify_evidence(policy):
     return len(verified)
 
 
+def split_price_steps(action, closes):
+    """Return sessions near the action whose close moves like an unrestated split.
+
+    closes is an ascending list of (ISO date, close). A move counts as a step when its
+    logarithm is closer to the vendor ratio than to no change: for 2:1 a fall of more
+    than about 29% between two sessions.
+    """
+    first_split_session = None
+    for index, (day, _close) in enumerate(closes):
+        if day >= action["date"]:
+            first_split_session = index
+            break
+    if first_split_session is None:
+        raise ValueError(
+            f"Vendor prices end before the split: {action['ticker']} {action['date']}"
+        )
+    start = max(first_split_session - SESSIONS_BEFORE_SPLIT - 1, 0)
+    end = first_split_session + SESSIONS_AFTER_SPLIT + 1
+    window = closes[start:end]
+    expected = math.log(action["vendor_new_shares"] / action["vendor_old_shares"])
+    steps = []
+    for (_previous_day, previous_close), (day, close) in pairwise(window):
+        change = math.log(previous_close / close)
+        if abs(change - expected) < abs(change):
+            steps.append(day)
+    return steps
+
+
+def verify_price_continuity(actions, closes_by_ticker):
+    """Require each split to be restated in the vendor history or marked as not restated.
+
+    An unmarked action must show no step; a marked one exactly one step on its
+    vendor_prices_unadjusted_before date, which price_share_basis relies on.
+    """
+    checked = 0
+    not_decisive = []
+    marked_steps = 0
+    for action in actions:
+        label = f"{action['ticker']} {action['date']}"
+        vendor_ratio = action["vendor_new_shares"] / action["vendor_old_shares"]
+        if 1 / MIN_DECISIVE_RATIO < vendor_ratio < MIN_DECISIVE_RATIO:
+            not_decisive.append(label)
+            continue
+        steps = split_price_steps(action, closes_by_ticker[action["ticker"]])
+        marked = action.get("vendor_prices_unadjusted_before")
+        expected_steps = [marked] if marked is not None else []
+        if steps != expected_steps:
+            raise ValueError(
+                f"Vendor price steps {steps} around the split {label} differ from "
+                f"the reviewed {expected_steps}"
+            )
+        checked += 1
+        if marked is not None:
+            marked_steps += 1
+    return {
+        "checked": checked,
+        "vendor_steps_marked": marked_steps,
+        "not_decisive": not_decisive,
+    }
+
+
+def vendor_closes(tickers):
+    """Read frozen vendor closes by ticker; checksums are verified in verify_evidence."""
+    manifest = read_json(ROOT / "data/manifest.json")
+    result = {}
+    for ticker in sorted(tickers):
+        path = ROOT / manifest["files"][ticker]["file"]
+        closes = []
+        with path.open(encoding="utf-8", newline="") as stream:
+            for row in csv.DictReader(stream):
+                if not row["Close"]:
+                    continue  # The vendor leaves a few sessions without prices.
+                closes.append((row["Datetime"][:10], float(row["Close"])))
+        result[ticker] = closes
+    return result
+
+
 def verify_comparisons(actions, facts):
     """Replay rounded before/after reported EPS controls, independently of the selected output."""
     count = 0
@@ -156,6 +242,8 @@ def review_eps_splits():
     """Check every selected EPS against approval; return counts, leaving PostgreSQL untouched."""
     policy = split_rules()
     evidence_count = verify_evidence(policy)
+    closes = vendor_closes({action["ticker"] for action in policy["actions"]})
+    continuity = verify_price_continuity(policy["actions"], closes)
     states = Counter()
     adjusted = 0
     adjusted_companies = set()
@@ -205,5 +293,6 @@ def review_eps_splits():
         "physical_actions": len(policy["actions"]),
         "reported_eps_comparisons": comparisons,
         "excluded_vendor_events": len(policy["excluded_vendor_events"]),
+        "price_continuity": continuity,
         "verified_source_files": evidence_count,
     }

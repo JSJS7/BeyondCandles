@@ -14,9 +14,9 @@ the engineering details of the import are kept with the code.
   **survivorship bias**: these are companies that were large at the end of the period.
 - **Prices:** daily, 2 Jan 2015 to 20 Dec 2024 (2,510 sessions per company), from
   Benjaminpo's Finance Dataset v81 (Yahoo Finance data). Open, High, Low and Close are
-  as provided by the vendor. Their history is adjusted for stock splits and, for some
-  companies, also scaled by vendor factors for spin-offs, mergers and share conversions
-  (see *Prices and per-share values* below). *Adjusted Close* additionally includes
+  as provided by the vendor. Their history is adjusted for stock splits (except two
+  splits of 2026, see below) and, for some companies, also scaled by vendor factors for
+  spin-offs, mergers and share conversions (see *Prices and per-share values* below). *Adjusted Close* additionally includes
   dividend conventions. A few documented corrections are applied (see the README).
 - **Financials:** annual values from SEC EDGAR (XBRL company facts and original
   filings) for fiscal periods ending 2015–2024, in USD. Fiscal-year labels follow each
@@ -124,9 +124,16 @@ of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
 ## Prices and per-share values
 
 EPS is restated for later stock splits up to 13 Oct 2026, the last date in the vendor's
-price files, so ordinary splits affect Close and EPS in the same way. The vendor,
-however, treats some spin-offs, mergers and share conversions as if they were splits and
-scales the whole earlier price history by their factors. EPS does not include these
+price files. The vendor restated its earlier prices for every ordinary split except two:
+the 2-for-1 splits of Monster Beverage (MNST, August 2026) and Amphenol (APH, September
+2026). There it halved only the last few sessions before the split, so all earlier Close
+values keep the pre-split share count. The EPS split review checks the vendor's prices
+around every split and finds a jump in the split's proportion only on these two
+recorded days; it cannot decide ratios close to 1 (Honeywell's 2026 event), which are
+checked against closing prices stated in SEC filings instead. Returns within the price
+window are unaffected, as a constant factor cancels out. The vendor also treats some
+spin-offs, mergers and share conversions as if they were splits and scales the whole
+earlier price history by their factors. EPS does not include these
 factors, because the number of shares did not change in that way.
 
 - **Affected companies:** APD, BDX, CMCSA, DHR, FDX, GE, HLT, HON, IBM, JCI, MET, MMM,
@@ -138,9 +145,10 @@ factors, because the number of shares did not change in that way.
   free of artificial drops on event days.
 - **Valuation ratios** (P/E and any later per-share ratio): use the price converted to
   the share basis of EPS: Close multiplied, for every vendor event after that day, by
-  the vendor ratio divided by the reviewed share-count ratio (1 for conversions). It uses
-  the same reviewed event list as the EPS restatement and is accurate to about 0.1%,
-  because vendor ratios are rounded. JCI prices through 2 Sep 2016 have no comparable
+  the vendor ratio divided by the reviewed share-count ratio (1 for conversions), and
+  divided by the split ratio before the vendor's own jump for the MNST and APH splits
+  of 2026. It uses the same reviewed event list as the EPS restatement and is accurate
+  to about 0.1%, because vendor ratios are rounded. JCI prices through 2 Sep 2016 have no comparable
   price and are left out. The app does not show such ratios yet.
 
 ## Versions of reports and time

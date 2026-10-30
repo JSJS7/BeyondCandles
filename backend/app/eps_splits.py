@@ -110,6 +110,12 @@ def load_rules(stamps):
         if key in keys or date.fromisoformat(action["date"]) > basis_date:
             raise ValueError("Duplicate or future EPS split")
         keys.add(key)
+        price_step = action.get("vendor_prices_unadjusted_before")
+        if price_step is not None:
+            split_day = date.fromisoformat(action["date"])
+            # The vendor cannot have adjusted its prices later than the split itself.
+            if date.fromisoformat(price_step) > split_day:
+                raise ValueError("Vendor price step follows the EPS split")
         EpsSplit.model_validate(action)
         approval = document["companies"].get(action["ticker"], {})
         if action["source_cik"] not in approval.get("source_ciks", []):

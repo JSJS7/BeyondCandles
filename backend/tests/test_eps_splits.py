@@ -14,7 +14,11 @@ from unittest.mock import patch
 from test_stocks_api import reported_fact
 
 from app.annual_financials import annual_periods
-from app.data_pipeline.eps_splits import checked_reference, verify_comparisons
+from app.data_pipeline.eps_splits import (
+    checked_reference,
+    verify_comparisons,
+    verify_price_continuity,
+)
 from app.data_pipeline.source_files import sha256
 from app.eps_splits import (
     adjusted_eps,
@@ -322,12 +326,17 @@ class EpsSplitTests(unittest.TestCase):
                 }
             )
             policy["companies"]["AAPL"]["source_ciks"] = ["0000320193"]
-            for change in ("price", "future", "duplicate", "issuer"):
+            for change in ("price", "future", "duplicate", "issuer", "late_step"):
                 altered = copy.deepcopy(policy)
                 if change == "price":
                     altered["price_manifest_sha256"] = "new-prices"
                 elif change == "future":
                     altered["actions"][0]["date"] = "2027-01-01"
+                elif change == "late_step":
+                    # The vendor step must precede or coincide with the actual split.
+                    altered["actions"][0]["vendor_prices_unadjusted_before"] = (
+                        "2020-09-01"
+                    )
                 elif change == "duplicate":
                     altered["actions"].append(copy.deepcopy(altered["actions"][0]))
                 else:
@@ -436,6 +445,56 @@ class EpsSplitTests(unittest.TestCase):
             ] = "9.99" if change == "value" else "unseen"
             with self.subTest(change=change), self.assertRaises(ValueError):
                 verify_comparisons([broken], [before, after])
+
+    def test_price_continuity_requires_reviewed_vendor_steps(self):
+        """A 2:1 split must be restated in the whole vendor history, or the session where
+        the vendor's prices halve must be recorded; any other step stops the review.
+
+        The vendor restated APH and MNST in 2026 only from a few sessions before the
+        actual split, so the step is searched before the split date as well.
+        """
+        days = [f"2026-08-{day:02d}" for day in (3, 4, 5, 6, 7, 10, 11, 12, 13, 14)]
+        restated = [(day, 47.0 + index * 0.1) for index, day in enumerate(days)]
+        # The vendor halved only sessions from 6 August; the split was on 11 August.
+        partly_restated = [
+            (day, close * 2 if day < "2026-08-06" else close) for day, close in restated
+        ]
+        split = {
+            "ticker": "MNST",
+            "date": "2026-08-11",
+            "vendor_new_shares": 2,
+            "vendor_old_shares": 1,
+        }
+        marked = dict(split, vendor_prices_unadjusted_before="2026-08-06")
+        wrong_day = dict(split, vendor_prices_unadjusted_before="2026-08-11")
+
+        restated_result = verify_price_continuity([split], {"MNST": restated})
+        marked_result = verify_price_continuity([marked], {"MNST": partly_restated})
+
+        self.assertEqual(restated_result["checked"], 1)
+        self.assertEqual(marked_result["vendor_steps_marked"], 1)
+        for action, closes in (
+            (split, partly_restated),
+            (marked, restated),
+            (wrong_day, partly_restated),
+        ):
+            with self.subTest(action=action), self.assertRaises(ValueError):
+                verify_price_continuity([action], {"MNST": closes})
+
+    def test_price_continuity_reports_ratios_it_cannot_decide(self):
+        """HON's vendor ratio 1907/2000 is a 5% move, like an ordinary session, so the
+        check lists it instead of passing or failing it."""
+        honeywell = {
+            "ticker": "HON",
+            "date": "2026-06-29",
+            "vendor_new_shares": 1907,
+            "vendor_old_shares": 2000,
+        }
+
+        result = verify_price_continuity([honeywell], {})
+
+        self.assertEqual(result["checked"], 0)
+        self.assertEqual(result["not_decisive"], ["HON 2026-06-29"])
 
     def test_frozen_issuer_changes_are_documented_one_for_one_exchanges(self):
         """Each reviewed predecessor in the frozen catalogue keeps the current EPS share basis."""

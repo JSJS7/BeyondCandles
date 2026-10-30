@@ -385,6 +385,7 @@
       "old_shares": 1,
       "vendor_new_shares": 2,
       "vendor_old_shares": 1,
+      "vendor_prices_unadjusted_before": "2026-08-31",
       "source_cik": "0000820313",
       "ratio_evidence": {
         "cache": "eps-splits",
@@ -394,7 +395,7 @@
         "bytes": 61527
       },
       "source_url": "https://investors.amphenol.com/news-and-events/news-details/2026/Amphenol-Announces-Two-for-One-Stock-Split-and-Third-Quarter-2026-Dividend/default.aspx",
-      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count. The vendor applied this split to its prices only from 2026-08-31; its earlier prices keep the pre-split share count, so they are divided by the split ratio for comparisons with EPS."
     },
     {
       "ticker": "AVGO",
@@ -1469,6 +1470,7 @@
       "old_shares": 1,
       "vendor_new_shares": 2,
       "vendor_old_shares": 1,
+      "vendor_prices_unadjusted_before": "2026-08-06",
       "source_cik": "0000865752",
       "ratio_evidence": {
         "cache": "eps-splits",
@@ -1478,7 +1480,7 @@
         "bytes": 41904
       },
       "source_url": "https://investors.monsterbevcorp.com/news-releases/news-release-details/monster-beverage-declares-two-one-stock-split",
-      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
+      "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count. The vendor applied this split to its prices only from 2026-08-06; its earlier prices keep the pre-split share count, so they are divided by the split ratio for comparisons with EPS."
     },
     {
       "ticker": "NDAQ",

@@ -14,8 +14,8 @@ def rules(actions=(), excluded=()):
     return {"actions": list(actions), "excluded_vendor_events": list(excluded)}
 
 
-def action(day, new, old, vendor_new, vendor_old, ticker="HON"):
-    return {
+def action(day, new, old, vendor_new, vendor_old, ticker="HON", unadjusted_before=None):
+    result = {
         "ticker": ticker,
         "date": day,
         "new_shares": new,
@@ -23,6 +23,9 @@ def action(day, new, old, vendor_new, vendor_old, ticker="HON"):
         "vendor_new_shares": vendor_new,
         "vendor_old_shares": vendor_old,
     }
+    if unadjusted_before is not None:
+        result["vendor_prices_unadjusted_before"] = unadjusted_before
+    return result
 
 
 def excluded(day, vendor_new, vendor_old, reason=CONVERSION, ticker="HON"):
@@ -76,6 +79,36 @@ class ShareBasisArithmeticTests(unittest.TestCase):
         )
 
         self.assertEqual(converted, Decimal("48.168"))
+
+    def test_split_missing_from_vendor_history_applies_before_the_vendor_step(self):
+        """The vendor applied a 2:1 split only from 6 August, three sessions before the
+        first split-adjusted session (11 August). Its earlier prices keep the old share
+        count and are halved; from the step on they already match EPS."""
+        policy = rules(
+            actions=[
+                action(
+                    "2026-08-11",
+                    2,
+                    1,
+                    2,
+                    1,
+                    ticker="MNST",
+                    unadjusted_before="2026-08-06",
+                )
+            ]
+        )
+
+        before_step = share_basis_price(
+            "MNST", date(2026, 8, 5), Decimal("94.46"), policy
+        )
+        on_step = share_basis_price("MNST", date(2026, 8, 6), Decimal("47.08"), policy)
+        on_split = share_basis_price(
+            "MNST", date(2026, 8, 11), Decimal("45.53"), policy
+        )
+
+        self.assertEqual(before_step, Decimal("47.2300000000"))
+        self.assertEqual(on_step, Decimal("47.08"))
+        self.assertEqual(on_split, Decimal("45.53"))
 
     def test_event_reviewed_only_for_old_eps_sources_is_rejected(self):
         """Exclusions justified by preceding all EPS filings say nothing about prices,
@@ -133,6 +166,32 @@ class FrozenSnapshotReferenceTests(unittest.TestCase):
                 expected = Decimal(stated_close) * share_factor
 
                 self.assertEqual(round(converted, 2), expected)
+
+    def test_amphenol_and_monster_prices_include_their_2026_splits(self):
+        """The vendor did not restate history for the 2:1 splits of APH and MNST in 2026,
+        while EPS includes them. APH's vendor close of 70.58 on 20 December 2024 is the
+        historical quote (snapshot capitalization 85.09 bn / about 1.206 bn shares), so on
+        the EPS basis it is 35.29 and P/E 2024 is about 36.8 (EPS 0.96), not 73.5. From
+        the vendor step on (MNST 6 August, APH 31 August 2026) prices are unchanged."""
+        policy = split_rules()
+        references = [
+            # ticker, day, vendor close, expected close on the EPS share basis
+            ("APH", date(2024, 12, 20), "70.5800018311", "35.29"),
+            ("MNST", date(2024, 12, 20), "51.7200012207", "25.86"),
+            ("MNST", date(2026, 8, 5), "94.4599990845", "47.23"),
+            ("MNST", date(2026, 8, 6), "47.0800018311", "47.08"),
+            ("APH", date(2026, 8, 28), "157.7400054932", "78.87"),
+            ("APH", date(2026, 8, 31), "79.2750015259", "79.28"),
+        ]
+
+        for ticker, day, vendor_close, expected in references:
+            with self.subTest(ticker=ticker, day=day):
+                converted = share_basis_price(
+                    ticker, day, Decimal(vendor_close), policy
+                )
+                assert converted is not None
+
+                self.assertEqual(round(converted, 2), Decimal(expected))
 
     def test_company_without_vendor_events_keeps_its_reported_close(self):
         """ExxonMobil's 2024 10-K cover states a $115.12 close on 28 June 2024, the same

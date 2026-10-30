@@ -23,11 +23,22 @@ def price_basis_factor(ticker, day, rules):
     """Return the factor that turns a vendor price on this day into the EPS share basis.
 
     An event affects prices before its date. The vendor divided those prices by its own
-    ratio; EPS uses the reviewed share-count ratio, which is 1 for conversions.
+    ratio; EPS uses the reviewed share-count ratio, which is 1 for conversions. For an
+    action marked vendor_prices_unadjusted_before the vendor divided only prices from that
+    day on, so earlier vendor prices still lack its ratio.
     """
     factor = Fraction(1)
     for action in rules["actions"]:
-        if action["ticker"] != ticker or day >= date.fromisoformat(action["date"]):
+        if action["ticker"] != ticker:
+            continue
+        unadjusted_before = action.get("vendor_prices_unadjusted_before")
+        if unadjusted_before is not None:
+            vendor_step_day = date.fromisoformat(unadjusted_before)
+            if day < vendor_step_day:
+                factor *= Fraction(
+                    action["vendor_old_shares"], action["vendor_new_shares"]
+                )
+        if day >= date.fromisoformat(action["date"]):
             continue
         vendor_ratio = Fraction(
             action["vendor_new_shares"], action["vendor_old_shares"]
