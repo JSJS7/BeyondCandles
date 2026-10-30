@@ -139,8 +139,12 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(Decimal(by_date["2024-06-24"]["amount"]), Decimal("5.25"))
         self.assertEqual(by_date["2024-06-24"]["split_divisor"], "10")
         self.assertEqual(by_date["2024-09-19"]["split_divisor"], "1")
-        self.assertEqual(len(dividends), 39)
-        self.assertNotIn("2024-12-23", by_date)
+        # The window ends 2025-12-31: SEC cash paid 2.36 in fiscal 2025 (4 x 0.59),
+        # then 0.65; the March 2026 ex-date lies after the window.
+        self.assertEqual(Decimal(by_date["2024-12-23"]["amount"]), Decimal("0.59"))
+        self.assertEqual(Decimal(by_date["2025-12-22"]["amount"]), Decimal("0.65"))
+        self.assertEqual(len(dividends), 44)
+        self.assertNotIn("2026-03-23", by_date)
 
 
 class PriceAuditTests(unittest.TestCase):

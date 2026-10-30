@@ -12,7 +12,7 @@ the engineering details of the import are kept with the code.
   snapshot among companies with a complete price history, one share class per company.
   The list is frozen; it does not follow index membership over time, so it has
   **survivorship bias**: these are companies that were large at the end of the period.
-- **Prices:** daily, 2 Jan 2015 to 20 Dec 2024 (2,510 sessions per company), from
+- **Prices:** daily, 2 Jan 2015 to 31 Dec 2025 (2,766 sessions per company), from
   Benjaminpo's Finance Dataset v81 (Yahoo Finance data). Open, High, Low and Close are
   as provided by the vendor. Their history is adjusted for stock splits (except two
   splits of 2026, see below) and, for some companies, also scaled by vendor factors for
@@ -29,8 +29,10 @@ the engineering details of the import are kept with the code.
   shares became JCI shares), while the financials are those of Johnson Controls Inc.
 - **External inputs:** all financial values come from SEC filings. Besides the price
   dataset and SEC, the only outside inputs are: one AMD price session (2 Jan 2015) from
-  DoltHub; company names, sectors, exchanges and the market-capitalisation ranking used
-  to choose the 200 companies, from an archived Kaggle S&P 500 dataset
+  DoltHub; one FI price session (12 Nov 2025), absent from the dataset after Fiserv's
+  move to Nasdaq, from Nasdaq and confirmed by Cboe; company names, sectors, exchanges
+  and the market-capitalisation ranking used to choose the 200 companies, from an
+  archived Kaggle S&P 500 dataset
   (`andrewmvd/sp-500-stocks`, version 1022); and corporate-action evidence (company
   press releases and filings, vendor split data) behind the price adjustments and the
   EPS split restatement.
@@ -197,9 +199,9 @@ wrong.
 
 ## How the data was checked
 
-- Prices were compared with the source files row by row (all 502,000), and the
+- Prices were compared with the source files row by row (all 553,200), and the
   calendar, OHLC consistency and large price jumps were screened. Corrections apply
-  only to AVGO, DHR, JCI and one AMD session.
+  only to AVGO, DHR, JCI and one session each for AMD and FI.
 - The SEC import is faithful and complete: every stored fact matches the downloaded SEC
   data, and every fact in that data that meets the import criteria (the five metrics,
   annual and quarterly filings, periods ending 2015–2024) is stored. The database can be

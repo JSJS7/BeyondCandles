@@ -1,11 +1,11 @@
 {
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "period_start": "2015-01-02",
-  "period_end": "2024-12-20",
+  "period_end": "2025-12-31",
   "company_count": 200,
-  "trading_dates": 2510,
-  "price_rows": 502000,
-  "calendar_sha256": "72a868cfb24ef97b691dff4b605d391b5d2f01bf8d1c54861a1d055163749a82",
+  "trading_dates": 2766,
+  "price_rows": 553200,
+  "calendar_sha256": "f8750743b4e04857d5e0286e1011873e68d2d0f2f9bef61ed3d3cfb71c0d4eda",
   "currency": "USD",
   "selection": "200 largest eligible complete histories by archived market cap snapshot; deduplicated normalized company names",
   "id": "kaggle-benjaminpo-v81",
@@ -1442,8 +1442,8 @@
       "status": "reviewed",
       "method": "cash_dividends_preserve_vendor_anchor",
       "rules_file": "data/price-adjustments.json",
-      "rules_sha256": "4234ce8fc36fe7bfc5efb08d3867646b8c6011809fbeb9c231d94a5702308658",
-      "note": "Use 39 verified ordinary cash dividends; retain final source Adj Close to preserve later adjustments. Correct duplicated March/June 2018 distributions."
+      "rules_sha256": "95dfdece310a4cc27008296725ad47abd03b9bf9ee2d5d3797de93fc3306e41b",
+      "note": "Use 44 verified ordinary cash dividends; retain final source Adj Close to preserve later adjustments. Correct duplicated March/June 2018 distributions."
     },
     "DHR": {
       "status": "reviewed",
@@ -1543,6 +1543,7 @@
       "date": "2015-01-02",
       "reviewed_on": "2026-10-23",
       "method": "verified_quote_replacement",
+      "quoted_symbol": "AMD",
       "expected": {
         "open": "2.670000076300000000",
         "high": "2.670000076300000000",
@@ -1569,14 +1570,56 @@
           "sha256": "005075fbd7153e9ceffcd1f3bbe4d88bb1859c370c29de49f608aa27a890a256",
           "declared_license": "CC BY-SA 4.0",
           "attribution": "post-no-preference/stocks, DoltHub",
-          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "format": "dolthub_sql"
         },
         {
           "role": "independent_close",
           "url": "https://api.scotiabank.com/investorsolutions/issue/v1.0/download/document?docTypeCd=PRS&issueId=56262&langId=EN",
           "file": "data/raw/benjaminpo-v81/evidence/amd-2015-01-02-scotiabank.pdf",
           "sha256": "03c04101a7183cf1226c11dcd3bf2c9733becca016d5afd3a4463b30884f367d",
-          "position": "Appendix C, AMD: starting closing share price USD 2.69 on January 2, 2015"
+          "position": "Appendix C, AMD: starting closing share price USD 2.69 on January 2, 2015",
+          "format": "document"
+        }
+      ]
+    },
+    "FI": {
+      "status": "reviewed",
+      "ticker": "FI",
+      "date": "2025-11-12",
+      "reviewed_on": "2026-10-30",
+      "method": "verified_quote_insertion",
+      "quoted_symbol": "FISV",
+      "replacement": {
+        "open": "64.20",
+        "high": "64.87",
+        "low": "63.11",
+        "close": "64.38",
+        "adjusted_close": "64.38",
+        "volume": "6244651"
+      },
+      "note": "Insert the session absent from the vendor file (stocks_us/1d/FISV.csv). Fiserv moved its listing from the NYSE (FI, last trading day November 10, 2025) to Nasdaq (FISV, from November 11, 2025), per its 8-K of October 29, 2025; the missing day follows the transfer. OHLCV are the values reported by Nasdaq, the listing exchange. Cboe's delayed-quote history reports the same OHLCV and volume; both publish the consolidated tape, so they are two publishers of one record, not independent measurements. DoltHub post-no-preference/stocks has no FI or FISV bar for November 11-14, 2025. Adjusted Close equals Close on the unchanged FI v81 basis; no correction propagates to other sessions. The vendor's neighbouring sessions (November 11 and 13) agree with Nasdaq OHLC.",
+      "listing_change_evidence": "https://www.sec.gov/Archives/edgar/data/798354/000119312525254670/d17957d8k.htm",
+      "evidence": [
+        {
+          "role": "ohlcv",
+          "format": "nasdaq_historical",
+          "url": "https://api.nasdaq.com/api/quote/FISV/historical?assetclass=stocks&fromdate=2025-10-30&todate=2026-10-30&limit=400",
+          "retrieved_at": "2026-10-30T19:57:16Z",
+          "file": "data/raw/benjaminpo-v81/evidence/fi-2025-11-12-nasdaq.json",
+          "sha256": "83007dd38b6b09d1ed3a304c31090d99a0a36b75f9586b75e2fc069b8d21d897",
+          "position": "data.tradesTable.rows, date 11/12/2025",
+          "attribution": "Nasdaq, Inc. historical quotes (nasdaq.com)"
+        },
+        {
+          "role": "independent_close",
+          "format": "cboe_historical",
+          "url": "https://cdn.cboe.com/api/global/delayed_quotes/charts/historical/FISV.json",
+          "retrieved_at": "2026-10-30T19:57:16Z",
+          "file": "data/raw/benjaminpo-v81/evidence/fi-2025-11-12-cboe.json",
+          "sha256": "8bba2f28864f468323e4eb40ea6f1de89bd048863bacd1b8306142835bdf81c3",
+          "position": "data, date 2025-11-12: close 64.38 (same open, high, low and volume)",
+          "attribution": "Cboe Global Markets delayed quotes (cboe.com)"
         }
       ]
     }

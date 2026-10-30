@@ -2,13 +2,13 @@
   "version": 1,
   "source_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
-  "period_end": "2024-12-20",
+  "period_end": "2025-12-31",
   "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation.",
   "companies": {
     "AVGO": {
       "status": "reviewed",
       "method": "cash_dividends",
-      "note": "Use 39 verified ordinary common-stock distributions in the frozen period, expressed on the same share basis as Close. The July 2024 10-for-1 split is already reflected in Close. March and June 2018 cash distributions are each applied once. The December 23, 2024 ex-date is outside the frozen period and is excluded. Preferred-stock and partnership distributions are not common-stock dividends.",
+      "note": "Use 44 verified ordinary common-stock distributions in the frozen period, expressed on the same share basis as Close. The July 2024 10-for-1 split is already reflected in Close. March and June 2018 cash distributions are each applied once. The five ex-dates from December 23, 2024 to December 22, 2025 match the vendor's factor changes (implied 0.59 four times, then 0.65); SEC reports cash paid of 2.36 per share in fiscal 2025 (4 x 0.59, 10-K filed 2025-12-18) and 0.65 in fiscal Q1 2026 (10-Q filed 2026-03-11). The March 23, 2026 ex-date is outside the frozen period and is excluded. Preferred-stock and partnership distributions are not common-stock dividends.",
       "evidence": [
         "https://investors.broadcom.com/static-files/b23c15d8-4928-4caf-bc1f-a2679b8e81cf",
         "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/avgo-10292017x10k.htm",
@@ -30,7 +30,9 @@
         "https://www.broadcom.com/company/news/financial-releases/62226",
         "https://www.broadcom.com/company/news/financial-releases/62441",
         "https://investors.broadcom.com/static-files/e90fe911-25c9-47eb-afbe-8e763b71eb64",
-        "https://listingcenter.nasdaq.com/assets/RuleBook/Nasdaq/rules/Issuer_Alert_2024-001.pdf"
+        "https://listingcenter.nasdaq.com/assets/RuleBook/Nasdaq/rules/Issuer_Alert_2024-001.pdf",
+        "https://www.sec.gov/Archives/edgar/data/1730168/000173016825000121/",
+        "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000016/"
       ],
       "dividends": [
         {
@@ -226,6 +228,31 @@
         {
           "ex_date": "2024-09-19",
           "amount": "0.53",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2024-12-23",
+          "amount": "0.59",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2025-03-20",
+          "amount": "0.59",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2025-06-20",
+          "amount": "0.59",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2025-09-22",
+          "amount": "0.59",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2025-12-22",
+          "amount": "0.65",
           "split_divisor": "1"
         }
       ]

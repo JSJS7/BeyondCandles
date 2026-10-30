@@ -224,62 +224,140 @@ def read_history(ticker, manifest):
             dates.add(day)
             rows.append(dict(zip(FIELDS, [ticker, day, *values], strict=True)))
     rows.sort(key=lambda row: row["date"])
-    calendar = "\n".join(row["date"] for row in rows).encode("utf-8")
+    source_dates = {row["date"] for row in rows}
+    missing_dates = reviewed_missing_sessions(ticker, manifest)
+    if missing_dates & source_dates:
+        raise ValueError(f"Source now contains a reviewed missing session: {ticker}")
+    # A reviewed quote insertion supplies its session later; the calendar must
+    # match with exactly those sessions added.
+    calendar_dates = sorted(source_dates | missing_dates)
+    calendar = "\n".join(calendar_dates).encode("utf-8")
     calendar_matches = (
         hashlib.sha256(calendar).hexdigest() == manifest["calendar_sha256"]
     )
-    if len(rows) != manifest["trading_dates"] or not calendar_matches:
+    if len(calendar_dates) != manifest["trading_dates"] or not calendar_matches:
         raise ValueError(f"Frozen calendar mismatch: {ticker}")
     return rows
 
 
-def correct_amd(rows, manifest):
-    """Replace one missing vendor bar using its reviewed, pinned OHLCV evidence."""
-    review = manifest["reviews"]["AMD"]
-    if (
-        review["status"] != "reviewed"
-        or review["method"] != "verified_quote_replacement"
-        or review["date"] != "2015-01-02"
+# Vendor sessions corrected from pinned OHLCV evidence: a defective bar is replaced,
+# a session absent from the vendor file is inserted. Each needs a reviewed manifest entry.
+QUOTE_CORRECTIONS = ("AMD", "FI")
+QUOTE_FIELDS = ("open", "high", "low", "close", "volume")
+
+
+def reviewed_missing_sessions(ticker, manifest):
+    """Sessions absent from the vendor file that a reviewed quote insertion supplies."""
+    review = manifest["reviews"].get(ticker)
+    if review and review.get("method") == "verified_quote_insertion":
+        return {review["date"]}
+    return set()
+
+
+def quoted_session(reference, symbol, day):
+    """Read one session's OHLCV from a pinned evidence response, by its format."""
+    document = read_json(ROOT / reference["file"])
+    evidence_format = reference["format"]
+    if evidence_format == "dolthub_sql":
+        if document["query_execution_status"] != "Success":
+            raise ValueError("Quote evidence query did not succeed")
+        sessions = [
+            {field: quote[field] for field in QUOTE_FIELDS}
+            for quote in document["rows"]
+            if quote["act_symbol"] == symbol and quote["date"] == day
+        ]
+    elif evidence_format == "nasdaq_historical":
+        data = document["data"]
+        if data["symbol"] != symbol:
+            raise ValueError(f"Quote evidence is for {data['symbol']}, not {symbol}")
+        # Nasdaq labels sessions MM/DD/YYYY and prints prices as "$64.38".
+        nasdaq_day = f"{day[5:7]}/{day[8:10]}/{day[:4]}"
+        sessions = []
+        for quote in data["tradesTable"]["rows"]:
+            if quote["date"] != nasdaq_day:
+                continue
+            session = {}
+            for field in QUOTE_FIELDS:
+                session[field] = quote[field].replace("$", "").replace(",", "")
+            sessions.append(session)
+    elif evidence_format == "cboe_historical":
+        if document["symbol"] != symbol:
+            raise ValueError(
+                f"Quote evidence is for {document['symbol']}, not {symbol}"
+            )
+        sessions = [
+            {field: str(quote[field]) for field in QUOTE_FIELDS}
+            for quote in document["data"]
+            if quote["date"] == day
+        ]
+    else:
+        raise ValueError(f"Unknown quote evidence format: {evidence_format}")
+    if len(sessions) != 1:
+        raise ValueError(f"Quote evidence has no single {symbol} session {day}")
+    return {field: Decimal(value) for field, value in sessions[0].items()}
+
+
+def correct_quote(rows, manifest, ticker):
+    """Replace a defective vendor bar, or insert a missing one, from reviewed pinned evidence."""
+    review = manifest["reviews"][ticker]
+    method = review["method"]
+    day = review["date"]
+    if review["status"] != "reviewed" or method not in (
+        "verified_quote_replacement",
+        "verified_quote_insertion",
     ):
-        raise ValueError("Unapproved AMD quote correction")
-    matches = [row for row in rows if row["date"] == review["date"]]
-    if len(matches) != 1 or any(row["ticker"] != "AMD" for row in rows):
-        raise ValueError("AMD correction requires exactly one approved session")
-    row = matches[0]
-    expected = review["expected"]
+        raise ValueError(f"Unapproved {ticker} quote correction")
+    if any(row["ticker"] != ticker for row in rows):
+        raise ValueError(f"{ticker} correction received another company's session")
+    matches = [row for row in rows if row["date"] == day]
     replacement = review["replacement"]
-    if set(expected) != set(FIELDS[2:]) or set(replacement) != set(FIELDS[2:]):
-        raise ValueError("AMD correction must specify all six numeric fields")
-    if any(Decimal(row[field]) != Decimal(expected[field]) for field in expected):
-        raise ValueError("AMD source differs from the reviewed missing quote")
+    if set(replacement) != set(FIELDS[2:]):
+        raise ValueError(f"{ticker} correction must specify all six numeric fields")
+    if method == "verified_quote_replacement":
+        if len(matches) != 1:
+            raise ValueError(
+                f"{ticker} correction requires exactly one approved session"
+            )
+        expected = review["expected"]
+        if set(expected) != set(FIELDS[2:]):
+            raise ValueError(f"{ticker} correction must specify all six numeric fields")
+        row = matches[0]
+        if any(Decimal(row[field]) != Decimal(expected[field]) for field in expected):
+            raise ValueError(f"{ticker} source differs from the reviewed missing quote")
+    elif matches:
+        raise ValueError(f"{ticker} source now contains the reviewed missing session")
 
     evidence = {reference["role"]: reference for reference in review["evidence"]}
     if set(evidence) != {"ohlcv", "independent_close"}:
         raise ValueError(
-            "AMD correction requires quote and independent closing evidence"
+            f"{ticker} correction requires quote and independent closing evidence"
         )
     for reference in evidence.values():
         if sha256(ROOT / reference["file"]) != reference["sha256"]:
-            raise ValueError("AMD correction evidence checksum mismatch")
-    response = read_json(ROOT / evidence["ohlcv"]["file"])
-    quotes = response["rows"]
-    if (
-        response["query_execution_status"] != "Success"
-        or len(quotes) != 1
-        or quotes[0]["act_symbol"] != "AMD"
-        or quotes[0]["date"] != review["date"]
-    ):
-        raise ValueError("AMD quote evidence has an unexpected issuer or session")
-    quote = quotes[0]
-    for field in ("open", "high", "low", "close", "volume"):
-        if Decimal(quote[field]) != Decimal(replacement[field]):
-            raise ValueError("AMD replacement differs from the pinned OHLCV quote")
-    # The frozen AMD source has no dividend/split factor: every Adj Close equals Close.
-    # A changed basis must be reviewed instead of applying this equality universally.
+            raise ValueError(f"{ticker} correction evidence checksum mismatch")
+    symbol = review["quoted_symbol"]
+    quote = quoted_session(evidence["ohlcv"], symbol, day)
+    for field in QUOTE_FIELDS:
+        if quote[field] != Decimal(replacement[field]):
+            raise ValueError(
+                f"{ticker} replacement differs from the pinned OHLCV quote"
+            )
+    # A reviewed document (a PDF) is pinned by checksum only; a machine-readable
+    # quote must also show the same closing price.
+    if evidence["independent_close"]["format"] != "document":
+        second = quoted_session(evidence["independent_close"], symbol, day)
+        if second["close"] != Decimal(replacement["close"]):
+            raise ValueError(
+                f"{ticker} independent closing price differs from the replacement"
+            )
+    # The reviewed vendor files have no dividend/split factor: every Adj Close equals
+    # Close. A changed basis must be reviewed instead of applying this equality.
     if any(
         Decimal(item["adjusted_close"]) != Decimal(item["close"]) for item in rows
     ) or Decimal(replacement["adjusted_close"]) != Decimal(replacement["close"]):
-        raise ValueError("AMD adjustment basis differs from the reviewed snapshot")
+        raise ValueError(
+            f"{ticker} adjustment basis differs from the reviewed snapshot"
+        )
     numeric_prices = dict(
         zip(
             PRICE_COLUMNS,
@@ -288,7 +366,11 @@ def correct_amd(rows, manifest):
         )
     )
     validate_price({**numeric_prices, "Volume": replacement["volume"]})
-    row.update(replacement)
+    if method == "verified_quote_replacement":
+        matches[0].update(replacement)
+    else:
+        rows.append({"ticker": ticker, "date": day, **replacement})
+        rows.sort(key=lambda row: row["date"])
     return 1
 
 
@@ -363,8 +445,8 @@ def prepare_prices(*, require_reviewed=False):
             writer.writeheader()
             for ticker in tickers:
                 rows = read_history(ticker, manifest)
-                if ticker == "AMD":
-                    changed[ticker] = correct_amd(rows, manifest)
+                if ticker in QUOTE_CORRECTIONS:
+                    changed[ticker] = correct_quote(rows, manifest, ticker)
                 if ticker == "AVGO":
                     changed[ticker] = correct_avgo(rows, manifest)
                 if ticker in ("DHR", "JCI"):

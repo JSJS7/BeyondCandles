@@ -284,12 +284,19 @@ class BenjaminpoTests(unittest.TestCase):
             "status": "reviewed",
             "method": "verified_quote_replacement",
             "date": "2015-01-02",
+            "quoted_symbol": "AMD",
             "expected": original,
             "replacement": replacement,
             "evidence": [
-                {"role": "ohlcv", "file": evidence.name, "sha256": sha256(evidence)},
+                {
+                    "role": "ohlcv",
+                    "format": "dolthub_sql",
+                    "file": evidence.name,
+                    "sha256": sha256(evidence),
+                },
                 {
                     "role": "independent_close",
+                    "format": "document",
                     "file": document.name,
                     "sha256": sha256(document),
                 },
@@ -307,7 +314,7 @@ class BenjaminpoTests(unittest.TestCase):
         next_session = dict(rows[1])
         original_bytes = evidence.read_bytes()
 
-        changed = source.correct_amd(rows, self.manifest)
+        changed = source.correct_quote(rows, self.manifest, "AMD")
 
         self.assertEqual(changed, 1)
         self.assertEqual(rows[0]["date"], "2015-01-02")
@@ -330,7 +337,7 @@ class BenjaminpoTests(unittest.TestCase):
                 before = [dict(row) for row in rows]
 
                 with self.assertRaisesRegex(ValueError, "AMD.*(session|source)"):
-                    source.correct_amd(rows, self.manifest)
+                    source.correct_quote(rows, self.manifest, "AMD")
 
                 self.assertEqual(rows, before)
 
@@ -351,7 +358,7 @@ class BenjaminpoTests(unittest.TestCase):
                     review["evidence"][0]["sha256"] = sha256(evidence)
 
                 with self.assertRaises(ValueError):
-                    source.correct_amd(rows, self.manifest)
+                    source.correct_quote(rows, self.manifest, "AMD")
 
     def test_amd_quote_does_not_assume_adjusted_close_equals_close_on_another_basis(
         self,
@@ -361,7 +368,138 @@ class BenjaminpoTests(unittest.TestCase):
         rows[1]["adjusted_close"] = "2.00"
 
         with self.assertRaisesRegex(ValueError, "AMD.*basis"):
-            source.correct_amd(rows, self.manifest)
+            source.correct_quote(rows, self.manifest, "AMD")
+
+    def fi_quote_fixture(self):
+        """A vendor history without 2025-11-12 and two pinned exchange quote histories."""
+        replacement = {
+            "open": "64.20",
+            "high": "64.87",
+            "low": "63.11",
+            "close": "64.38",
+            "adjusted_close": "64.38",
+            "volume": "6244651",
+        }
+        nasdaq = self.root / "fi-nasdaq.json"
+        source.write_json(
+            nasdaq,
+            {
+                "data": {
+                    "symbol": "FISV",
+                    "tradesTable": {
+                        "rows": [
+                            {
+                                "date": "11/12/2025",
+                                "close": "$64.38",
+                                "volume": "6,244,651",
+                                "open": "$64.20",
+                                "high": "$64.87",
+                                "low": "$63.11",
+                            }
+                        ]
+                    },
+                }
+            },
+        )
+        cboe = self.root / "fi-cboe.json"
+        source.write_json(
+            cboe,
+            {
+                "symbol": "FISV",
+                "data": [
+                    {
+                        "date": "2025-11-12",
+                        "volume": 6244651,
+                        "open": 64.2,
+                        "high": 64.87,
+                        "low": 63.11,
+                        "close": 64.38,
+                    }
+                ],
+            },
+        )
+        self.manifest["reviews"]["FI"] = {
+            "status": "reviewed",
+            "method": "verified_quote_insertion",
+            "date": "2025-11-12",
+            "quoted_symbol": "FISV",
+            "replacement": replacement,
+            "evidence": [
+                {
+                    "role": "ohlcv",
+                    "format": "nasdaq_historical",
+                    "file": nasdaq.name,
+                    "sha256": sha256(nasdaq),
+                },
+                {
+                    "role": "independent_close",
+                    "format": "cboe_historical",
+                    "file": cboe.name,
+                    "sha256": sha256(cboe),
+                },
+            ],
+        }
+        neighbour = dict.fromkeys(source.FIELDS[2:7], "64.26")
+        rows = [
+            {"ticker": "FI", "date": "2025-11-11", **neighbour, "volume": "5427200"},
+            {"ticker": "FI", "date": "2025-11-13", **neighbour, "volume": "9274500"},
+        ]
+        return rows, cboe
+
+    def test_fi_quote_inserts_only_the_verified_missing_session(self):
+        """Insert the absent 2025-11-12 bar in date order; neighbouring sessions stay unchanged."""
+        rows, _ = self.fi_quote_fixture()
+        neighbours = [dict(row) for row in rows]
+
+        changed = source.correct_quote(rows, self.manifest, "FI")
+
+        self.assertEqual(changed, 1)
+        self.assertEqual(
+            [row["date"] for row in rows], ["2025-11-11", "2025-11-12", "2025-11-13"]
+        )
+        self.assertEqual(rows[1]["ticker"], "FI")
+        self.assertEqual(rows[1]["close"], "64.38")
+        self.assertEqual(rows[1]["adjusted_close"], "64.38")
+        self.assertEqual(rows[1]["volume"], "6244651")
+        self.assertEqual([rows[0], rows[2]], neighbours)
+
+    def test_fi_quote_insertion_refuses_conflicting_source_or_evidence(self):
+        """An existing vendor bar, another issuer or a different second close stops preparation."""
+        for altered in ("vendor_has_session", "issuer", "independent_close"):
+            with self.subTest(altered=altered):
+                rows, cboe = self.fi_quote_fixture()
+                review = self.manifest["reviews"]["FI"]
+                if altered == "vendor_has_session":
+                    rows.insert(1, {**rows[0], "date": "2025-11-12"})
+                elif altered == "issuer":
+                    review["quoted_symbol"] = "FI"
+                else:
+                    document = source.read_json(cboe)
+                    document["data"][0]["close"] = 64.39
+                    source.write_json(cboe, document)
+                    review["evidence"][1]["sha256"] = sha256(cboe)
+                before = [dict(row) for row in rows]
+
+                with self.assertRaisesRegex(ValueError, "FI|FISV"):
+                    source.correct_quote(rows, self.manifest, "FI")
+
+                self.assertEqual(rows, before)
+
+    def test_calendar_accepts_a_missing_session_only_with_a_reviewed_insertion(self):
+        """The vendor gap is allowed in the frozen calendar only through an approved insertion."""
+        self.write_history(
+            rows=[["2020-01-02T00:00:00+0000", "10", "12", "9", "11", "5", "100"]]
+        )
+        with self.assertRaisesRegex(ValueError, "calendar mismatch"):
+            source.read_history("AAPL", self.manifest)
+
+        self.manifest["reviews"]["AAPL"] = {
+            "method": "verified_quote_insertion",
+            "date": "2020-01-03",
+        }
+        rows = source.read_history("AAPL", self.manifest)
+
+        self.assertEqual([row["date"] for row in rows], ["2020-01-02"])
 
     def test_avgo_uses_verified_cash_once_and_preserves_vendor_anchor(self):
         """A duplicated 0.175 dividend is rebuilt once; post-period anchor stays 90."""

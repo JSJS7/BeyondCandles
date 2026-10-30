@@ -3,7 +3,7 @@
 An educational stock analysis app with company search, interactive price charts,
 and annual financial statements from SEC EDGAR.
 
-- **Coverage:** 200 companies, 502,000 daily prices, 2 Jan 2015 to 20 Dec 2024.
+- **Coverage:** 200 companies, 553,200 daily prices, 2 Jan 2015 to 31 Dec 2025.
 - **Financials:** revenue, net income, EPS, equity, and operating cash flow.
 - **Interface:** responsive layout, light and dark themes, preset chart periods,
   and selection of a custom date range.
@@ -53,13 +53,16 @@ is versioned separately.
 
 Explicit price corrections retained in the pipeline:
 
-- **AVGO:** 39 verified dividend adjustments, excluding duplicate 2018 payments.
+- **AVGO:** 44 verified dividend adjustments, excluding duplicate 2018 payments.
 - **DHR/Fortive:** retain the provider's 1319:1000 price conversion and remove
   an additional USD 24.56 adjustment.
 - **JCI/Adient:** value the distribution at USD 4.551 per JCI share, using Adient's
   first closing price and the 1:10 distribution ratio.
 - **AMD, 2 Jan 2015:** fill one missing session from a pinned DoltHub revision,
   with the closing price also checked against a Scotiabank document.
+- **FI, 12 Nov 2025:** insert one session absent from the provider's file, the day
+  after Fiserv moved from the NYSE (FI) to Nasdaq (FISV); prices and volume from a
+  pinned Nasdaq response, with the same values in Cboe's published history.
 
 Financials come from [SEC EDGAR](https://www.sec.gov/edgar).
 Versioned rules in `data/` select reported values and preserve their sources.
@@ -94,6 +97,7 @@ Values come from the latest filed report versions, are annual only, and are not
 comparable across sectors without care.
 
 The Kaggle publisher declares GPL 3; the AMD supplement records DoltHub's
-CC BY-SA 4.0 declaration. Rights to publicly display the underlying Yahoo data
+CC BY-SA 4.0 declaration. The FI supplement uses one session published by Nasdaq
+and Cboe, whose terms of use were not reviewed for redistribution. Rights to publicly display the underlying Yahoo data
 remain unconfirmed. Publishing this code does not establish permission to
 redistribute the datasets or display their data publicly.

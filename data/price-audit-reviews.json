@@ -179,6 +179,14 @@
       "note": "Special dividend; SEC fiscal Q1 2025 dividend payments 4 396 mln / 58.3 mln diluted shares = 75.4."
     },
     {
+      "ticker": "TDG",
+      "date": "2025-09-02",
+      "factor_change_percent": "6.876107791719134584219951100",
+      "kind": "cash_dividend",
+      "per_share": "90.00",
+      "note": "Special dividend; SEC fiscal Q4 2025 dividend payments 9 629 - 4 396 = 5 233 mln / 58.2 mln shares = 89.9."
+    },
+    {
       "ticker": "WMB",
       "date": "2016-03-10",
       "factor_change_percent": "3.695184480378473829332488900",
