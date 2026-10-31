@@ -242,8 +242,29 @@ def read_history(ticker, manifest):
 
 # Vendor sessions corrected from pinned OHLCV evidence: a defective bar is replaced,
 # a session absent from the vendor file is inserted. Each needs a reviewed manifest entry.
-QUOTE_CORRECTIONS = ("AMD", "FI")
+QUOTE_METHODS = ("verified_quote_replacement", "verified_quote_insertion")
 QUOTE_FIELDS = ("open", "high", "low", "close", "volume")
+# Spin-off reviews carry no method; corporate_actions.correct_spin_off applies them.
+SPIN_OFF_REVIEWS = ("DHR", "JCI")
+
+
+def review_corrections(manifest):
+    """Name the correction that applies each manifest review.
+
+    A review no correction applies would otherwise be skipped without a trace, so a
+    reviewed quote for another company or an unknown kind of review stops preparation.
+    """
+    corrections = {}
+    for ticker, review in manifest["reviews"].items():
+        if review.get("method") in QUOTE_METHODS:
+            corrections[ticker] = "quote"
+        elif ticker == "AVGO":
+            corrections[ticker] = "avgo_dividends"
+        elif ticker in SPIN_OFF_REVIEWS:
+            corrections[ticker] = "spin_off"
+        else:
+            raise ValueError(f"No price correction applies the review of {ticker}")
+    return corrections
 
 
 def reviewed_missing_sessions(ticker, manifest):
@@ -397,12 +418,27 @@ def cash_adjustment_policy(manifest):
     return policy
 
 
-def missing_dividend_tickers(policy):
-    return sorted(
-        ticker
-        for ticker, rule in policy["companies"].items()
-        if rule["method"] == "missing_cash_dividends"
-    )
+def missing_dividend_tickers(policy, tickers):
+    """List the companies with reviewed missing dividends; reject any other rule.
+
+    Only AVGO's rebuilt dividends (applied by correct_avgo) and missing dividends of
+    catalogue companies exist, so an unknown method or company is an error rather than
+    a rule that silently applies to nothing.
+    """
+    result = []
+    for ticker, rule in policy["companies"].items():
+        if ticker == "AVGO" and rule["method"] == "cash_dividends":
+            continue
+        if rule["method"] != "missing_cash_dividends":
+            raise ValueError(
+                f"Unknown cash-adjustment method for {ticker}: {rule['method']}"
+            )
+        if ticker not in tickers:
+            raise ValueError(
+                f"Cash-adjustment rule for a company outside the catalogue: {ticker}"
+            )
+        result.append(ticker)
+    return sorted(result)
 
 
 def correct_missing_dividends(rows, policy, ticker):
@@ -490,11 +526,12 @@ def prepare_prices(*, require_reviewed=False):
     changed = {}
     events = {}
     added_dividends = {}
+    corrections = review_corrections(manifest)
     policy = None
     dividend_tickers = []
     if "AVGO" in manifest["reviews"]:
         policy = cash_adjustment_policy(manifest)
-        dividend_tickers = missing_dividend_tickers(policy)
+        dividend_tickers = missing_dividend_tickers(policy, tickers)
     temporary = None
     try:
         with NamedTemporaryFile(
@@ -509,11 +546,11 @@ def prepare_prices(*, require_reviewed=False):
             writer.writeheader()
             for ticker in tickers:
                 rows = read_history(ticker, manifest)
-                if ticker in QUOTE_CORRECTIONS:
+                if corrections.get(ticker) == "quote":
                     changed[ticker] = correct_quote(rows, manifest, ticker)
                 if ticker == "AVGO":
                     changed[ticker] = correct_avgo(rows, manifest)
-                if ticker in ("DHR", "JCI"):
+                if ticker in SPIN_OFF_REVIEWS:
                     from .corporate_actions import correct_spin_off
 
                     review = manifest["reviews"][ticker]

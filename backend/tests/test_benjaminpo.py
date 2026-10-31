@@ -618,6 +618,43 @@ class BenjaminpoTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "CB dividend 2025-09-12 differs"):
             source.correct_missing_dividends(rows, {"companies": {"CB": rule}}, "CB")
 
+    def test_review_or_cash_rule_no_correction_applies_stops_preparation(self):
+        """A reviewed correction that nothing would apply is an error, not a silent skip.
+
+        Corrections were chosen by tickers written in the code, so a reviewed quote
+        for another company, an unknown kind of review, a misspelt rule method or a
+        rule for a company outside the catalogue left the prices uncorrected.
+        """
+        quote = {"status": "reviewed", "method": "verified_quote_replacement"}
+        self.manifest["reviews"] = {"XYZ": quote, "DHR": {"status": "reviewed"}}
+
+        self.assertEqual(
+            source.review_corrections(self.manifest),
+            {"XYZ": "quote", "DHR": "spin_off"},
+        )
+
+        self.manifest["reviews"]["XOM"] = {"status": "reviewed", "method": "other"}
+        with self.assertRaisesRegex(ValueError, "No price correction.*XOM"):
+            source.review_corrections(self.manifest)
+
+        policy = {
+            "companies": {
+                "AVGO": {"method": "cash_dividends"},
+                "CB": {"method": "missing_cash_dividends"},
+            }
+        }
+        self.assertEqual(
+            source.missing_dividend_tickers(policy, ["AVGO", "CB"]), ["CB"]
+        )
+        with self.assertRaisesRegex(ValueError, "outside the catalogue: CB"):
+            source.missing_dividend_tickers(policy, ["AVGO"])
+
+        policy["companies"]["CB"]["method"] = "missing_cash_dividend"
+        with self.assertRaisesRegex(
+            ValueError, "Unknown cash-adjustment method for CB"
+        ):
+            source.missing_dividend_tickers(policy, ["AVGO", "CB"])
+
     def test_economic_review_blocks_numerically_valid_candidate(self):
         """Valid prices cannot bypass the unresolved DHR corporate-action gate."""
         self.write_history()

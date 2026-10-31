@@ -172,6 +172,17 @@ def fetch_history_sources(issuers, refresh=False):
     return len(result["issuers"])
 
 
+def needs_period_review(period_count, missing, overlaps, unverified):
+    """Flag overlapping, unlabelled or missing annual periods of one company.
+
+    A missing fiscal-year label is accepted only with one period per window year: a
+    company whose fiscal year ends early in the next calendar year (e.g. HD) labels
+    every period one year earlier, so its last window year has no label of its own.
+    """
+    has_gap = bool(missing) and period_count < len(WINDOW_YEARS)
+    return bool(overlaps or unverified or has_gap)
+
+
 def audit_history():
     """Screen the frozen catalogue; report scope limits and unresolved period issues."""
     from app.annual_financials import annual_periods
@@ -213,7 +224,7 @@ def audit_history():
                         str(later.period_end),
                     ]
                 )
-        needs_review = bool(overlaps or unverified or (missing and len(periods) < 10))
+        needs_review = needs_period_review(len(periods), missing, overlaps, unverified)
         status = "needs_review" if needs_review else "screened"
         if history and history["status"] == "needs_review":
             status = "needs_review"

@@ -6,6 +6,11 @@ from app.data_pipeline.source_files import ROOT, read_json
 from app.data_pipeline.validation import number
 
 PRICE_QUANTUM = Decimal("1e-18")
+# The vendor's factor moves by less than this on sessions without an event (rounding of
+# its single-precision prices; measured below 1e-5 across the 2015-2025 window).
+FACTOR_NOISE = Decimal("0.00001")
+# Dividend sources differ on ex-dates by up to about a week.
+NEARBY_SESSIONS = 5
 REVIEWED_EVENTS = ROOT / "data/price-audit-reviews.json"
 
 
@@ -116,6 +121,19 @@ def remove_duplicate_distribution(rows, positions, rule):
     return corrected
 
 
+def vendor_factor_change(rows, index):
+    """Relative change of the vendor's Adjusted Close / Close factor into one session."""
+    previous = rows[index - 1]
+    current = rows[index]
+    previous_factor = number(previous["adjusted_close"], "prior Adjusted Close") / (
+        number(previous["close"], "prior Close")
+    )
+    current_factor = number(current["adjusted_close"], "Adjusted Close") / number(
+        current["close"], "Close"
+    )
+    return current_factor / previous_factor - 1
+
+
 def add_missing_dividends(rows, positions, dividends):
     """Apply reviewed cash dividends absent from the vendor's Adjusted Close.
 
@@ -134,26 +152,30 @@ def add_missing_dividends(rows, positions, dividends):
         if day in multipliers:
             raise ValueError(f"Duplicate cash distribution: {day}")
 
-        previous = rows[position - 1]
-        current = rows[position]
-        previous_close = number(previous["close"], "prior Close")
-        previous_ratio = number(previous["adjusted_close"], "prior Adjusted Close") / (
-            previous_close
-        )
-        current_ratio = number(current["adjusted_close"], "Adjusted Close") / number(
-            current["close"], "Close"
-        )
-
-        # The vendor must have no factor change on this day; otherwise the dividend
-        # is already there (or something else is) and adding it would double it.
-        if abs(previous_ratio / current_ratio - 1) > Decimal("0.000001"):
-            raise ValueError(f"Source already adjusts the ex-dividend session: {day}")
-
+        previous_close = number(rows[position - 1]["close"], "prior Close")
         amount = number(dividend["amount"], "dividend")
         divisor = number(dividend["split_divisor"], "dividend split divisor")
         if divisor <= 0:
             raise ValueError("Dividend split divisor must be positive")
-        multipliers[day] = cash_adjustment(previous_close, amount / divisor)
+        multiplier = cash_adjustment(previous_close, amount / divisor)
+
+        # The vendor must not have this dividend already: not on the ex-date (any
+        # change there, beyond rounding noise, is something else too) and not a few
+        # sessions away, since sources differ on ex-dates by days.
+        first = max(position - NEARBY_SESSIONS, 1)
+        last = min(position + NEARBY_SESSIONS, len(rows) - 1)
+        for index in range(first, last + 1):
+            change = abs(vendor_factor_change(rows, index))
+            if index == position and change > FACTOR_NOISE:
+                raise ValueError(
+                    f"Source already adjusts the ex-dividend session: {day}"
+                )
+            if change > (1 - multiplier) / 2:
+                raise ValueError(
+                    "Source adjusts a session near the ex-dividend date "
+                    f"{day}: {rows[index]['date']}"
+                )
+        multipliers[day] = multiplier
 
     factor = Decimal(1)
     corrected = {}

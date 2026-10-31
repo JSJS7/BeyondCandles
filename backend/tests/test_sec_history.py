@@ -13,6 +13,7 @@ from test_stocks_api import reported_fact
 from app.annual_financials import annual_periods
 from app.data_pipeline.sec_history import (
     history_eligible,
+    needs_period_review,
     prepare_company_facts,
     read_predecessor,
     validate_history_catalogue,
@@ -106,6 +107,23 @@ class HistoryRulesTests(unittest.TestCase):
                     "B": {"cik": "0000000002"},
                 }
             )
+
+    def test_missing_year_is_accepted_only_with_one_period_per_window_year(self):
+        """A missing label passes with a full set of periods and is flagged otherwise.
+
+        The allowance once compared with a fixed 10 periods, the length of the
+        2015-2024 window; in an 11-year window a company with 10 periods and a missing
+        year would then have passed the screen.
+        """
+        with patch("app.data_pipeline.sec_history.WINDOW_YEARS", range(2015, 2025)):
+            # HD-like: ten periods labelled 2014-2023, so 2024 has no label of its own.
+            self.assertFalse(needs_period_review(10, [2024], [], False))
+            self.assertTrue(needs_period_review(9, [2024], [], False))
+
+        with patch("app.data_pipeline.sec_history.WINDOW_YEARS", range(2015, 2026)):
+            self.assertFalse(needs_period_review(11, [2025], [], False))
+            self.assertTrue(needs_period_review(10, [2025], [], False))
+            self.assertFalse(needs_period_review(11, [], [], False))
 
 
 class HistoryCacheTests(unittest.TestCase):

@@ -9,6 +9,7 @@ from app.data_pipeline.price_adjustments import (
     scan_adjustment_factors,
     separate_reviewed_events,
 )
+from app.data_pipeline.source_files import MANIFEST, ROOT, read_json
 
 
 class PriceAdjustmentTests(unittest.TestCase):
@@ -165,10 +166,53 @@ class PriceAdjustmentTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "already adjusts"):
             apply_adjustments(rows, rule)
 
+    def test_missing_dividend_refuses_a_vendor_dividend_a_few_sessions_away(self):
+        """A vendor dividend two sessions after the reviewed ex-date would be counted twice.
+
+        Dividend sources differ on ex-dates by days, so a flat factor on the ex-date
+        alone does not show that the vendor lacks the dividend.
+        """
+        rows = [
+            {"date": "2025-09-11", "close": "100", "adjusted_close": "99"},
+            {"date": "2025-09-12", "close": "98", "adjusted_close": "97.02"},
+            {"date": "2025-09-15", "close": "99", "adjusted_close": "98.01"},
+            # The vendor factor moves from 0.99 to 1: its own 1% dividend.
+            {"date": "2025-09-16", "close": "99", "adjusted_close": "99"},
+        ]
+        rule = {
+            "method": "missing_cash_dividends",
+            "dividends": [
+                {"ex_date": "2025-09-12", "amount": "1", "split_divisor": "1"},
+            ],
+        }
+
+        with self.assertRaisesRegex(ValueError, "near the ex-dividend date"):
+            apply_adjustments(rows, rule)
+
+    def test_missing_dividend_accepts_rounding_noise_on_the_ex_date(self):
+        """A factor change of 5e-6 is the vendor's rounding, not an adjustment.
+
+        Such noise occurs on days without any event in the vendor files; the
+        earlier tolerance of 1e-6 refused a valid dividend on those days.
+        """
+        rows = [
+            {"date": "2025-09-11", "close": "100", "adjusted_close": "99"},
+            {"date": "2025-09-12", "close": "98", "adjusted_close": "97.0204851"},
+        ]
+        rule = {
+            "method": "missing_cash_dividends",
+            "dividends": [
+                {"ex_date": "2025-09-12", "amount": "1", "split_divisor": "1"},
+            ],
+        }
+
+        corrected = apply_adjustments(rows, rule)
+
+        self.assertEqual(corrected["2025-09-11"], Decimal("98.01"))
+        self.assertEqual(corrected["2025-09-12"], Decimal("97.0204851"))
+
     def test_reviewed_avgo_actions_correct_duplicate_and_missing_cash(self):
         """Keep issuer-announced common dividends, including actions absent from Kaggle."""
-        from app.data_pipeline.source_files import MANIFEST, ROOT, read_json
-
         active = read_json(MANIFEST)
         policy = read_json(ROOT / active["reviews"]["AVGO"]["rules_file"])
         dividends = policy["companies"]["AVGO"]["dividends"]
@@ -189,10 +233,12 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(len(dividends), 44)
         self.assertNotIn("2026-03-23", by_date)
 
-    def test_reviewed_missing_dividends_match_the_vendor_gaps_found(self):
-        """The 10 dividends absent from the vendor's Adjusted Close (M10) are all reviewed."""
-        from app.data_pipeline.source_files import MANIFEST, ROOT, read_json
+    def test_reviewed_missing_dividends_are_the_ten_found_in_m10(self):
+        """The rules list exactly the 10 dividends found missing in M10.
 
+        This pins the list itself, so any addition or removal needs a new review.
+        That the vendor files really lack them is checked by MissingDividendSourceTests.
+        """
         active = read_json(MANIFEST)
         policy = read_json(ROOT / active["reviews"]["AVGO"]["rules_file"])
         missing = {
@@ -332,6 +378,71 @@ class PriceAuditTests(unittest.TestCase):
         self.assertIsNone(
             find_dividend_coverage_gap({"last_adjustment": None}, body, "2024-12-20")
         )
+
+
+def vendor_factor(row):
+    return Decimal(row["adjusted_close"]) / Decimal(row["close"])
+
+
+@unittest.skipUnless(
+    (ROOT / "data/raw/benjaminpo-v81").is_dir(),
+    "Needs the pinned Benjaminpo v81 files in data/raw (outside Git)",
+)
+class MissingDividendSourceTests(unittest.TestCase):
+    def test_added_dividends_fill_gaps_in_the_pinned_vendor_files(self):
+        """Every added dividend is absent from the vendor files and applied exactly.
+
+        Checked on the checksum-pinned vendor histories rather than on the rules: the
+        vendor's factor stays within rounding noise for five sessions on each side of
+        the ex-date, and the corrected series falls into the ex-date by exactly
+        (prior Close - cash) / prior Close more than the vendor's own series.
+        """
+        from app.data_pipeline import benjaminpo
+
+        manifest = read_json(MANIFEST)
+        policy = benjaminpo.cash_adjustment_policy(manifest)
+        tickers = benjaminpo.missing_dividend_tickers(
+            policy, benjaminpo.selected_tickers(manifest)
+        )
+        checked = 0
+
+        for ticker in tickers:
+            source_rows = benjaminpo.read_history(ticker, manifest)
+            rows = [dict(row) for row in source_rows]
+            benjaminpo.correct_missing_dividends(rows, policy, ticker)
+            positions = {row["date"]: index for index, row in enumerate(rows)}
+
+            for dividend in policy["companies"][ticker]["dividends"]:
+                position = positions[dividend["ex_date"]]
+                with self.subTest(ticker=ticker, ex_date=dividend["ex_date"]):
+                    for index in range(position - 5, position + 6):
+                        vendor_change = (
+                            vendor_factor(source_rows[index])
+                            / vendor_factor(source_rows[index - 1])
+                            - 1
+                        )
+                        self.assertLess(abs(vendor_change), Decimal("0.00001"))
+
+                    prior_close = Decimal(source_rows[position - 1]["close"])
+                    expected = (prior_close - Decimal(dividend["amount"])) / prior_close
+                    scale_before = Decimal(rows[position - 1]["adjusted_close"]) / (
+                        Decimal(source_rows[position - 1]["adjusted_close"])
+                    )
+                    scale_on_ex_date = Decimal(rows[position]["adjusted_close"]) / (
+                        Decimal(source_rows[position]["adjusted_close"])
+                    )
+                    self.assertAlmostEqual(
+                        scale_before / scale_on_ex_date,
+                        expected,
+                        delta=Decimal("1e-15"),
+                    )
+                checked += 1
+            # Sessions after the last added dividend keep the vendor's values.
+            self.assertEqual(
+                rows[-1]["adjusted_close"], source_rows[-1]["adjusted_close"]
+            )
+
+        self.assertEqual(checked, 10)
 
 
 if __name__ == "__main__":
