@@ -889,3 +889,85 @@ class EquityReviewedNoteTests(unittest.TestCase):
             verify_original_position(html, exception), Decimal("15326000000")
         )
         self.assertEqual(sum(Decimal(value) for value in row[1:]), Decimal("15327"))
+
+
+class AnnualReportConfirmationTests(unittest.TestCase):
+    """A quarterly year-end total gains parent scope only from a closed annual roll-forward."""
+
+    def setUp(self):
+        # The latest source is a 10-Q repeating the year-end group total; the
+        # year-end 10-K reports the same total for the same day.
+        self.latest = balance(
+            tag=GROUP,
+            form="10-Q",
+            accession="quarter",
+            filed=date(2021, 7, 30),
+            history_eligible=True,
+        )
+        self.annual = balance(
+            tag=GROUP, accession="annual", filed=date(2021, 2, 1), history_eligible=True
+        )
+        self.task = {
+            "period": FilingValue.model_validate(self.latest),
+            "facts": [self.latest, self.annual],
+            "variants": [FilingValue.model_validate(self.latest)],
+            "sources": {("0000320193", "quarter", date(2021, 7, 30))},
+        }
+        self.evidence = {
+            "0000320193:annual": {
+                "balance_files": [],
+                "equity_files": [],
+                "summary": {},
+            }
+        }
+
+    def confirm(self, annual_choices):
+        from unittest.mock import patch
+
+        from app.data_pipeline.equity import group_confirmed_by_annual_report
+
+        jobs = set()
+        with patch(
+            "app.data_pipeline.equity.source_choices",
+            return_value=(annual_choices, [], True, set()),
+        ):
+            return group_confirmed_by_annual_report(
+                self.task, self.evidence, {}, set(), jobs
+            )
+
+    def annual_choice(self, value="100", controls=True):
+        return {
+            "value": value,
+            "scope_controls": [[{"column": "Retained Earnings", "value": value}]]
+            if controls
+            else [],
+            "components": [{"fact": fact_identity(self.annual), "coefficient": 1}],
+            "summary": {"url": "annual/FilingSummary.xml"},
+            "statement": {"url": "annual/R7.htm"},
+        }
+
+    def test_closed_annual_rollforward_confirms_the_latest_total(self):
+        """The rule keeps the latest 10-Q fact and cites the annual statement that proves its scope."""
+        rule = self.confirm([self.annual_choice()])
+
+        self.assertEqual(rule["value"], "100")
+        self.assertEqual(rule["accession"], "quarter")
+        self.assertEqual(rule["components"][0]["fact"], fact_identity(self.latest))
+        self.assertEqual(rule["statement"], {"url": "annual/R7.htm"})
+        self.assertTrue(rule["scope_controls"])
+
+    def test_annual_total_without_closed_accounts_or_with_another_amount_is_refused(
+        self,
+    ):
+        """A group total alone, or a different annual amount, does not prove the parent scope."""
+        self.assertIsNone(self.confirm([self.annual_choice(controls=False)]))
+        self.assertIsNone(self.confirm([self.annual_choice(value="90")]))
+        self.assertIsNone(
+            self.confirm([self.annual_choice(), self.annual_choice(value="90")])
+        )
+
+    def test_a_changed_annual_amount_has_no_confirming_report(self):
+        """When the annual report shows another amount for the day, no earlier fact is matched."""
+        self.annual["value"] = Decimal("90")
+
+        self.assertIsNone(self.confirm([self.annual_choice()]))

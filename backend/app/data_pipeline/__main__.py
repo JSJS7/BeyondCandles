@@ -3,6 +3,7 @@
 import argparse
 import json
 import sys
+from datetime import date
 
 import psycopg
 from sqlalchemy.exc import SQLAlchemyError
@@ -16,6 +17,7 @@ CHECKABLE_COMMANDS = (
     "review-net-income",
     "review-eps",
     "review-eps-splits",
+    "approve-eps-splits",
     "review-equity",
     "review-operating-cash-flow",
     "review-sec-periods",
@@ -89,6 +91,10 @@ def run_command(args):
         from .eps_splits import review_eps_splits
 
         result = review_eps_splits()
+    elif args.command == "approve-eps-splits":
+        from .eps_splits import approve_eps_splits
+
+        result = approve_eps_splits(args.approved_through)
     elif args.command == "review-eps":
         from .eps import review_eps
 
@@ -142,6 +148,7 @@ def main():
             "review-net-income",
             "review-eps",
             "review-eps-splits",
+            "approve-eps-splits",
             "review-equity",
             "review-operating-cash-flow",
             "review-sec-periods",
@@ -168,6 +175,14 @@ def main():
     )
     parser.add_argument("--backup", help="Full CSV backup created by replace-prices")
     parser.add_argument(
+        "--approved-through",
+        type=date.fromisoformat,
+        help=(
+            "Last period end covered by the current EPS split approvals; "
+            "approve-eps-splits requires it"
+        ),
+    )
+    parser.add_argument(
         "--check",
         action="store_true",
         help=(
@@ -180,6 +195,8 @@ def main():
         parser.error("--check works only with: " + ", ".join(CHECKABLE_COMMANDS))
     if args.check and (args.fetch or args.refresh):
         parser.error("--check reads the local cache only; omit --fetch and --refresh")
+    if args.command == "approve-eps-splits" and args.approved_through is None:
+        parser.error("approve-eps-splits requires --approved-through YYYY-MM-DD")
 
     try:
         comparison = None

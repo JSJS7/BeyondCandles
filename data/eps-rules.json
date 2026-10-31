@@ -38,6 +38,42 @@
         "file": "98f67589506d27e46621abd4fd032d66e21918b69e63f1ae5ff4ebe27c4a5639.htm"
       }
     },
+    "0001067983:2025-01-01:2025-12-31": {
+      "ticker": "BRK-B",
+      "status": "ready",
+      "eps_basis": "basic",
+      "observed_sha256": "bc6962d8a411ac8d9687359f43134487f5efcd8a82c3db1d41cf05810fdbbebf",
+      "fact": {
+        "source_cik": "0001067983",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareBasic",
+        "unit": "USD/shares",
+        "value": "31.04",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "filed": "2026-03-02",
+        "accession": "0001193125-26-083899",
+        "form": "10-K"
+      },
+      "note": "Reported basic net EPS for Berkshire Class B, used because verified diluted EPS is unavailable. This is basic EPS, not a claim of diluted equivalence. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/R4.htm",
+        "sha256": "5afd32282ae7fdd1a01418db38ae82378f48066e1fa851949f14417d6458f200",
+        "file": "5afd32282ae7fdd1a01418db38ae82378f48066e1fa851949f14417d6458f200.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/FilingSummary.xml",
+        "sha256": "eb4b5b59069c9772abf003b557856a62f17ee42b2523508c5bd78e25f586bd95",
+        "file": "eb4b5b59069c9772abf003b557856a62f17ee42b2523508c5bd78e25f586bd95.htm"
+      },
+      "label": "Net earnings per average equivalent",
+      "column": "12 months ended 2025-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231_htm.xml",
+        "sha256": "85cdfd4f4c3ffd4a6332a135215abda946f320ab41dac4a1946cc339546fa1b5",
+        "file": "85cdfd4f4c3ffd4a6332a135215abda946f320ab41dac4a1946cc339546fa1b5.htm"
+      }
+    },
     "0001067983:2024-01-01:2024-12-31": {
       "ticker": "BRK-B",
       "status": "ready",
@@ -396,6 +432,42 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312518057033/brka-20171231.xml",
         "sha256": "ca54bf4b99666b5c3e6f7fd5e1aab56c74d25bc20125968adf20044e70a8fb09",
         "file": "ca54bf4b99666b5c3e6f7fd5e1aab56c74d25bc20125968adf20044e70a8fb09.htm"
+      }
+    },
+    "0001403161:2024-10-01:2025-09-30": {
+      "ticker": "V",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "d11a97d09c1b12ad5e365142e1d70c379f9ab1c644803d131f3ec92fa3343f8e",
+      "fact": {
+        "source_cik": "0001403161",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "10.2",
+        "period_start": "2024-10-01",
+        "period_end": "2025-09-30",
+        "filed": "2025-11-06",
+        "accession": "0001403161-25-000089",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/R5.htm",
+        "sha256": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab",
+        "file": "6a7d3ecd77da72b0d0a0427a0297453f56f883696f455674d70a2950c2b71aab.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/FilingSummary.xml",
+        "sha256": "bde20fb194036e7e173adcc7c9246b3be41087222d739a9fa62becdcb85c04c4",
+        "file": "bde20fb194036e7e173adcc7c9246b3be41087222d739a9fa62becdcb85c04c4.htm"
+      },
+      "label": "Diluted earnings per share (in dollars per share)",
+      "column": "12 months ended 2025-09-30; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/v-20250930_htm.xml",
+        "sha256": "6656d5527225918d78f619ff716affcdea38d7526f60a07a6d0e1c3999227d8b",
+        "file": "6656d5527225918d78f619ff716affcdea38d7526f60a07a6d0e1c3999227d8b.htm"
       }
     },
     "0001403161:2023-10-01:2024-09-30": {
@@ -972,6 +1044,42 @@
         "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004962.json",
         "sha256": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f",
         "file": "8fe514defe349eb117b04523e2e5371387cef70748eabd0445040fe0a9f4840f.json"
+      }
+    },
+    "0001404912:2025-01-01:2025-12-31": {
+      "ticker": "KKR",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "c13d30d9e854bdbf88ad32176bcc0a55741e2e0ec116b5d443ec02a59c31034f",
+      "fact": {
+        "source_cik": "0001404912",
+        "taxonomy": "us-gaap",
+        "tag": "EarningsPerShareDiluted",
+        "unit": "USD/shares",
+        "value": "2.34",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "filed": "2026-02-27",
+        "accession": "0001404912-26-000007",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. The source is restricted to the selected security's approved share class.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/R6.htm",
+        "sha256": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4",
+        "file": "984a9ae6621ac2b321acfbfbb630415999d3943a242ce228e4beae94cbd15dc4.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/FilingSummary.xml",
+        "sha256": "66df9699393a94b3d6348263895b1345d0645c1a8d4ff856a3c2f83d29380f0e",
+        "file": "66df9699393a94b3d6348263895b1345d0645c1a8d4ff856a3c2f83d29380f0e.htm"
+      },
+      "label": "Diluted (in dollars per share)",
+      "column": "12 months ended 2025-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000007/kkr-20251231_htm.xml",
+        "sha256": "1377dee03286cebb367302de8cda7e05473089fa7af4d2a51ac3270f2f291b75",
+        "file": "1377dee03286cebb367302de8cda7e05473089fa7af4d2a51ac3270f2f291b75.htm"
       }
     },
     "0001404912:2024-01-01:2024-12-31": {
@@ -2162,6 +2270,42 @@
         "file": "1a60fc0f9776bfc713f1569c0d588be4a28901044e47de75c24e1a6a9b4369c7.json"
       }
     },
+    "0000831259:2025-01-01:2025-12-31": {
+      "ticker": "FCX",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "a021674632c2b847d105bb474d35575e1757c3c24912bbbdc958325506c506ee",
+      "fact": {
+        "source_cik": "0000831259",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.52",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "filed": "2026-02-13",
+        "accession": "0000831259-26-000012",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/R3.htm",
+        "sha256": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689",
+        "file": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/FilingSummary.xml",
+        "sha256": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688",
+        "file": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688.htm"
+      },
+      "label": "Diluted",
+      "column": "12 months ended 2025-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831259.json",
+        "sha256": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11",
+        "file": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11.json"
+      }
+    },
     "0000831259:2024-01-01:2024-12-31": {
       "ticker": "FCX",
       "status": "ready",
@@ -2268,6 +2412,42 @@
         "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831259.json",
         "sha256": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11",
         "file": "9e88803b7e6f52764f09394cef2c020aa7f8fa50a494c551471a448c1c943d11.json"
+      }
+    },
+    "0000865752:2025-01-01:2025-12-31": {
+      "ticker": "MNST",
+      "status": "ready",
+      "eps_basis": "diluted",
+      "observed_sha256": "a0f7a7dcafb00167fed84526fb5430055cc6fe23ad309c5a1ef77f579568efa3",
+      "fact": {
+        "source_cik": "0000865752",
+        "taxonomy": "us-gaap",
+        "tag": "IncomeLossFromContinuingOperationsPerDilutedShare",
+        "unit": "USD/shares",
+        "value": "1.94",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "filed": "2026-02-27",
+        "accession": "0001104659-26-020831",
+        "form": "10-K"
+      },
+      "note": "Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately. This issuer uses a continuing-operations concept for its sole diluted net-income row in this reviewed filing.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/R4.htm",
+        "sha256": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37",
+        "file": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37.htm"
+      },
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/FilingSummary.xml",
+        "sha256": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa",
+        "file": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa.htm"
+      },
+      "label": "Diluted (in dollar per share)",
+      "column": "12 months ended 2025-12-31; USD per share; selected security class",
+      "source": {
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+        "sha256": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07",
+        "file": "64144475e8bf6500e75b335c46c775c2f1f9d1c8e708b9d71f43f1d6eb3eed07.json"
       }
     },
     "0000865752:2024-01-01:2024-12-31": {

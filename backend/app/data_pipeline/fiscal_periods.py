@@ -229,6 +229,40 @@ COVER_YEAR_CORRECTIONS = {
             "January 28, 2023 and January 29, 2022, respectively"
         ),
     },
+    # Found when the 2025 window fetched every annual filing's cover (31.10.2026):
+    # each cover tags a fiscal year one off the company's own naming of the year.
+    "0000056873:0001558370-25-004267": {
+        "reported_year": 2025,
+        "fiscal_year": 2024,
+        "document": "kr-20250201x10k.htm",
+        "document_end": "2025-02-01",
+        "quote": (
+            "All references to 2024, 2023 and 2022 are to the fiscal years ended February 1, 2025, "
+            "February 3, 2024 and January 28, 2023, respectively"
+        ),
+    },
+    "0001108524:0001108524-26-000060": {
+        "reported_year": 2025,
+        "fiscal_year": 2026,
+        "document": "crm-20260131.htm",
+        "document_end": "2026-01-31",
+        "quote": (
+            "References to fiscal 2026, for example, refer to the fiscal year ending "
+            "January 31, 2026"
+        ),
+    },
+    "0001060391:0001060391-17-000012": {
+        "reported_year": 2015,
+        "fiscal_year": 2016,
+        "document": "rsg-2016x1231x10xk.htm",
+    },
+    "0000814547:0000814547-20-000012": {
+        "reported_year": 2019,
+        "fiscal_year": 2020,
+        "document": "fico10-k2020.htm",
+        "document_end": "2020-09-30",
+        "quote": "For the fiscal year ended September 30, 2020",
+    },
 }
 
 

@@ -531,3 +531,86 @@ class EpsSplitTests(unittest.TestCase):
         self.assertEqual(
             sum(a["ticker"] == "DHR" for a in policy["excluded_vendor_events"]), 2
         )
+
+
+class EpsSplitApprovalTests(unittest.TestCase):
+    """Re-approval after a window extension keeps the reviewed periods fixed."""
+
+    def eps_fact(self, year, value, filed):
+        return reported_fact(
+            metric="eps_diluted",
+            tag="EarningsPerShareDiluted",
+            unit="USD/shares",
+            value=Decimal(value),
+            period_start=date(year, 1, 1),
+            period_end=date(year, 12, 31),
+            filed=filed,
+            accession=f"filing-{filed}",
+        )
+
+    def approve(self, facts, policy):
+        """Run the approval on stored facts of one company.
+
+        The rules file as left by the run is kept in self.written, also after an error.
+        """
+        from app.data_pipeline.eps_splits import approve_eps_splits
+
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "eps-split-rules.json"
+            path.write_text(json.dumps(policy), encoding="utf-8")
+            module = "app.data_pipeline.eps_splits"
+            with (
+                patch(f"{module}.RULES_PATH", path),
+                patch(f"{module}.split_rules", return_value=copy.deepcopy(policy)),
+                patch(f"{module}.verify_evidence"),
+                patch(f"{module}.vendor_closes"),
+                patch(f"{module}.verify_price_continuity", return_value={}),
+                patch(f"{module}.engine"),
+                patch(
+                    f"{module}.stored_companies",
+                    return_value=[{"id": 1, "ticker": "AAPL"}],
+                ),
+                patch(f"{module}.stored_facts", return_value=facts),
+            ):
+                try:
+                    return approve_eps_splits(date(2020, 12, 31))
+                finally:
+                    self.written = json.loads(path.read_text(encoding="utf-8"))
+
+    def test_new_period_renews_the_fingerprint_of_an_unchanged_company(self):
+        """FY2021 is added to the approval; it precedes a later split filed after it."""
+        reviewed = self.eps_fact(2020, "8.00", date(2021, 2, 1))
+        added = self.eps_fact(2021, "9.00", date(2022, 2, 1))
+        policy = approved_policy(annual_periods([reviewed]), (("2022-06-01", 2, 1),))
+
+        result = self.approve([reviewed, added], policy)
+
+        self.assertEqual(result["renewed_fingerprints"], 1)
+        self.assertEqual(
+            self.written["companies"]["AAPL"]["observed_sha256"],
+            sources_fingerprint(annual_periods([reviewed, added])),
+        )
+        self.assertEqual(
+            result["new_periods_before_splits"],
+            [
+                {
+                    "ticker": "AAPL",
+                    "period_end": "2021-12-31",
+                    "source_filed": "2022-02-01",
+                    "split": "2022-06-01",
+                    "split_applied": True,
+                }
+            ],
+        )
+
+    def test_changed_reviewed_period_stops_without_writing(self):
+        """A restated FY2020 source needs a new review, so no fingerprint is renewed."""
+        reviewed = self.eps_fact(2020, "8.00", date(2021, 2, 1))
+        restated = self.eps_fact(2020, "7.50", date(2022, 2, 1))
+        added = self.eps_fact(2021, "9.00", date(2022, 2, 1))
+        policy = approved_policy(annual_periods([reviewed]))
+
+        with self.assertRaisesRegex(ValueError, "review again: AAPL"):
+            self.approve([reviewed, restated, added], policy)
+
+        self.assertEqual(self.written, policy)

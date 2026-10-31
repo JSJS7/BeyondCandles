@@ -46,6 +46,7 @@ COMPONENT_TAGS = (
 )
 PARENT_TAGS = ("StockholdersEquity", "PartnersCapital")
 GROUP_TAG = "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+ANNUAL_FORMS = ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
 # These precise historical facts are not whole-equity balances. All originals remain stored.
 REJECTED_FACTS = {
     ("0000008670", "2018-06-30", "0000008670-21-000027", GROUP_TAG): "-679800000",
@@ -803,6 +804,91 @@ def source_choices(task, cik, accession, filed, entry, calendar, statement_end=N
     return choices, issues, found, visible_parents
 
 
+def earlier_annual_fact(task, current, tags, calendar):
+    """Return the newest annual-report fact with the same amount for the same day."""
+    end = task["period"].period_end
+    older = [
+        fact
+        for fact in task["facts"]
+        if fact["metric"] == "equity"
+        and fact["history_eligible"]
+        and fact["source_cik"] == current["source_cik"]
+        and fact["tag"] in tags
+        and fact["value"] == current["value"]
+        and fact["form"] in ANNUAL_FORMS
+        and fact["filed"] <= current["filed"]
+        and 0 <= (fact["filed"] - end).days <= 450
+        and canonical_period(fact, calendar)[1] == end
+    ]
+    if not older:
+        return None
+    return max(older, key=lambda fact: (fact["filed"], fact["accession"]))
+
+
+def group_confirmed_by_annual_report(
+    task, evidence, calendar, visible_parents, alternative_jobs
+):
+    """Accept the latest group-equity total that an earlier annual report closes to parent accounts.
+
+    A quarterly report can repeat the year-end total without the account columns
+    that show it holds no noncontrolling interest (SYK 2025-12-31 in its 2026
+    10-Q). When the year-end annual roll-forward reports the same total and its
+    parent accounts add up to it, the parent scope is established there; the
+    latest fact remains the selected version.
+    """
+    end = task["period"].period_end
+    current_dates = {filed for _, _, filed in task["sources"]}
+    current_group = [
+        fact
+        for fact in task["facts"]
+        if fact["metric"] == "equity"
+        and fact["history_eligible"]
+        and fact["tag"] == GROUP_TAG
+        and fact["filed"] in current_dates
+        and canonical_period(fact, calendar)[1] == end
+        and not rejected(fact)
+    ]
+    amounts = {fact["value"] for fact in current_group}
+    if len(amounts) != 1 or visible_parents - amounts:
+        return None
+    current = max(current_group, key=lambda fact: (fact["filed"], fact["accession"]))
+    old = earlier_annual_fact(task, current, (GROUP_TAG,), calendar)
+    if old is None or old["accession"] == current["accession"]:
+        return None
+
+    source = old["source_cik"] + ":" + old["accession"]
+    entry = evidence.get(source, {})
+    for kind in ("balance", "equity"):
+        if kind + "_files" not in entry:
+            alternative_jobs.add((source, kind))
+    annual_choices, _, _, _ = source_choices(
+        task, old["source_cik"], old["accession"], old["filed"], entry, calendar
+    )
+    annual_amounts = {Decimal(choice["value"]) for choice in annual_choices}
+    if annual_amounts != {current["value"]}:
+        return None
+    closed = [
+        choice
+        for choice in annual_choices
+        if choice["scope_controls"] and len(choice["components"]) == 1
+    ]
+    if not closed:
+        return None
+    return {
+        "observed_sha256": variants_fingerprint(task["variants"]),
+        "value": format(current["value"], "f"),
+        "filed": str(current["filed"]),
+        "accession": current["accession"],
+        "anchor": fact_identity(current),
+        "scope_controls": closed[0]["scope_controls"],
+        "components": [{"fact": fact_identity(current), "coefficient": 1}],
+        "calculation": None,
+        "note": "The latest group-equity fact is unchanged from the year-end annual statement for the same day, where the parent equity accounts add up to the total without noncontrolling interest. Both filing versions are pinned; a new snapshot requires review.",
+        "summary": closed[0]["summary"],
+        "statement": closed[0]["statement"],
+    }
+
+
 def equity_tasks():
     """Build review periods from the frozen source cache without using prior approvals."""
     from app.annual_financials import annual_periods
@@ -936,24 +1022,8 @@ def review_equity(fetch=False):
                 current = max(
                     current_parent, key=lambda fact: (fact["filed"], fact["accession"])
                 )
-                older = [
-                    fact
-                    for fact in task["facts"]
-                    if fact["metric"] == "equity"
-                    and fact["history_eligible"]
-                    and fact["source_cik"] == current["source_cik"]
-                    and fact["tag"] in PARENT_TAGS
-                    and fact["value"] == current["value"]
-                    and fact["form"]
-                    in ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
-                    and fact["filed"] <= current["filed"]
-                    and 0 <= (fact["filed"] - end).days <= 450
-                    and canonical_period(fact, calendar)[1] == end
-                ]
-                if older:
-                    old = max(
-                        older, key=lambda fact: (fact["filed"], fact["accession"])
-                    )
+                old = earlier_annual_fact(task, current, PARENT_TAGS, calendar)
+                if old:
                     source = old["source_cik"] + ":" + old["accession"]
                     entry = evidence.get(source, {})
                     if "balance_files" not in entry:
@@ -999,6 +1069,12 @@ def review_equity(fetch=False):
                                     "statement": entry[filename],
                                 }
                             )
+            if not current_parent:
+                confirmed = group_confirmed_by_annual_report(
+                    task, evidence, calendar, visible_parents, alternative_jobs
+                )
+                if confirmed:
+                    choices.append(confirmed)
         if choices and len({Decimal(choice["value"]) for choice in choices}) == 1:
             policy["periods"][key] = min(
                 choices, key=lambda choice: len(choice["components"])

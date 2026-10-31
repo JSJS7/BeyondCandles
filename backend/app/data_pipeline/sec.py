@@ -58,7 +58,7 @@ REVENUE_SOURCE_TAGS = {
 CACHE = ROOT / "data/raw/sec"
 # Annual periods ending in this window match the Benjaminpo price window.
 WINDOW_START = date(2015, 1, 1)
-WINDOW_END = date(2024, 12, 31)
+WINDOW_END = date(2025, 12, 31)
 WINDOW_YEARS = range(WINDOW_START.year, WINDOW_END.year + 1)
 XBRLI = "{http://www.xbrl.org/2003/instance}"
 XBRLDI = "{http://xbrl.org/2006/xbrldi}"
@@ -79,7 +79,7 @@ HISTORICAL_IDENTITIES = {
         "cik": "0000034088",
         "name": "EXXON MOBIL CORP",
         "evidence": "https://www.sec.gov/Archives/edgar/data/34088/000003408825000010/xom-20241231.htm",
-        "note": "2024 10-K identifies XOM. Current submissions tickers are empty after 2026 successor reorganization; keep historical issuer for 2015-2024.",
+        "note": "2024 10-K identifies XOM. Current submissions tickers are empty after 2026 successor reorganization; keep historical issuer for 2015-2025 (the 2025 10-K, filed 2026-02-18, is under this CIK).",
     }
 }
 

@@ -2,6 +2,29 @@
   "version": 1,
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "periods": {
+    "0001730168:2024-11-04:2025-11-02": {
+      "filed": "2025-12-18",
+      "accession": "0001730168-25-000121",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        }
+      ],
+      "value": "23126000000",
+      "calculation": null,
+      "note": "The reviewed income statement presents this as its net-income bottom line; it does not present a separate noncontrolling allocation. This is an exact period mapping, not a general ProfitLoss fallback.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016825000121/FilingSummary.xml",
+        "sha256": "3755d9b0713131d7bd023385c7dafe5b030af30db9dcc93167b8e7f7fa4940da",
+        "file": "3755d9b0713131d7bd023385c7dafe5b030af30db9dcc93167b8e7f7fa4940da.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016825000121/R5.htm",
+        "sha256": "454c1e050581df994588a80c61f869634c150b41214f5daba72b7d3f0595f778",
+        "file": "454c1e050581df994588a80c61f869634c150b41214f5daba72b7d3f0595f778.htm"
+      }
+    },
     "0001730168:2023-10-30:2024-11-03": {
       "filed": "2025-12-18",
       "accession": "0001730168-25-000121",
@@ -169,6 +192,34 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016819000144/R4.htm",
         "sha256": "8ac1856277449be8c66b9324c7e80051d6e5dccf59ce8f2a52916ba69b79f6a7",
         "file": "8ac1856277449be8c66b9324c7e80051d6e5dccf59ce8f2a52916ba69b79f6a7.htm"
+      }
+    },
+    "0001141391:2025-01-01:2025-12-31": {
+      "filed": "2026-02-11",
+      "accession": "0001141391-26-000013",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        }
+      ],
+      "value": "14968000000",
+      "calculation": null,
+      "note": "The same filing's statement of changes in equity assigns this entire net-income position to Mastercard stockholders. Separately tagged noncontrolling activity is not deducted a second time.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000013/FilingSummary.xml",
+        "sha256": "e4cedb5088ed587f4b90940094211b599b572157fd2d5d9ea06e3a1ebaf53d28",
+        "file": "e4cedb5088ed587f4b90940094211b599b572157fd2d5d9ea06e3a1ebaf53d28.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000013/R3.htm",
+        "sha256": "1e56810e41e0712a6b460dc7df7833f0d9fc486cfb1007c307841fddf39b182c",
+        "file": "1e56810e41e0712a6b460dc7df7833f0d9fc486cfb1007c307841fddf39b182c.htm"
+      },
+      "parent_equity_statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000013/R7.htm",
+        "sha256": "e68ab0dcea4a2617d1b79842b72714ef8966cddd4fba900768626ee1419e49c0",
+        "file": "e68ab0dcea4a2617d1b79842b72714ef8966cddd4fba900768626ee1419e49c0.htm"
       }
     },
     "0001141391:2024-01-01:2024-12-31": {
@@ -651,6 +702,33 @@
         "file": "21c3b96b578513771a5ad7689cc6549b287a8fce5e6cfa8ee77bdaef354245ef.htm"
       }
     },
+    "0000018230:2025-01-01:2025-12-31": {
+      "filed": "2026-02-13",
+      "accession": "0000018230-26-000008",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "8884000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823026000008/FilingSummary.xml",
+        "sha256": "abf9d865838f2bda306c2691f04e8244d9a86e84911bd2e54d6c6fc48fd45fba",
+        "file": "abf9d865838f2bda306c2691f04e8244d9a86e84911bd2e54d6c6fc48fd45fba.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823026000008/R3.htm",
+        "sha256": "d473677311cd495cb70b1dbf19acef348cd3a217e489dfa2f4fe4f7258b3cc57",
+        "file": "d473677311cd495cb70b1dbf19acef348cd3a217e489dfa2f4fe4f7258b3cc57.htm"
+      }
+    },
     "0000018230:2024-01-01:2024-12-31": {
       "filed": "2026-02-13",
       "accession": "0000018230-26-000008",
@@ -919,6 +997,29 @@
         "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823018000042/R2.htm",
         "sha256": "70f1918ba39b761ba3f4e86c4e283de98cb061146a48fd8477c531caf591a97b",
         "file": "70f1918ba39b761ba3f4e86c4e283de98cb061146a48fd8477c531caf591a97b.htm"
+      }
+    },
+    "0001075531:2025-01-01:2025-12-31": {
+      "filed": "2026-02-18",
+      "accession": "0001075531-26-000009",
+      "components": [
+        {
+          "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+          "coefficient": 1
+        }
+      ],
+      "value": "5404000000",
+      "calculation": null,
+      "note": "The reviewed statement labels this position as its sole net-income bottom line, without separate preferred-shareholder or noncontrolling allocations. The common-shareholder concept is not used as a universal parent-income synonym.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1075531/000107553126000009/FilingSummary.xml",
+        "sha256": "37020e7d3d04928de808ecfbdde0b846a94428c33a2d696f8bf6c0bf4f86f330",
+        "file": "37020e7d3d04928de808ecfbdde0b846a94428c33a2d696f8bf6c0bf4f86f330.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1075531/000107553126000009/R5.htm",
+        "sha256": "41c8aa2829248b85c3f8d83c08160c3a4fdbc79948a42b7fe6b29c264f161479",
+        "file": "41c8aa2829248b85c3f8d83c08160c3a4fdbc79948a42b7fe6b29c264f161479.htm"
       }
     },
     "0001075531:2024-01-01:2024-12-31": {
@@ -1230,6 +1331,33 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118218000074/R2.htm",
         "sha256": "ea1d052f327555a7d8fd8be309cf58a6d0b94976aed24c4a17a4aaa8f4a6df85",
         "file": "ea1d052f327555a7d8fd8be309cf58a6d0b94976aed24c4a17a4aaa8f4a6df85.htm"
+      }
+    },
+    "0000885725:2025-01-01:2025-12-31": {
+      "filed": "2026-02-17",
+      "accession": "0000885725-26-000010",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "2898000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572526000010/FilingSummary.xml",
+        "sha256": "0b94c23a6b53b3ea89fcc903249a97a42a847b42b32350c50c21c092b960792a",
+        "file": "0b94c23a6b53b3ea89fcc903249a97a42a847b42b32350c50c21c092b960792a.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572526000010/R3.htm",
+        "sha256": "1a1be53ddf0cbd044afdc128116acbe91a99729731cf836bc153ab70594d0f41",
+        "file": "1a1be53ddf0cbd044afdc128116acbe91a99729731cf836bc153ab70594d0f41.htm"
       }
     },
     "0000885725:2024-01-01:2024-12-31": {
@@ -1749,6 +1877,33 @@
         "file": "e62b756074ee3b8a191bd30877e1975e3437c301b6ddff91de198edfbcccff0f.htm"
       }
     },
+    "0001053507:2025-01-01:2025-12-31": {
+      "filed": "2026-02-24",
+      "accession": "0001053507-26-000035",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "2529500000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1053507/000105350726000035/FilingSummary.xml",
+        "sha256": "bfa908060a82c2a776be6b50733693333337886639842a22fadec6a36344d6ad",
+        "file": "bfa908060a82c2a776be6b50733693333337886639842a22fadec6a36344d6ad.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1053507/000105350726000035/R5.htm",
+        "sha256": "e61c1102e7b73e77e37d43bbea0465443bfc4845e10189be20afbabb9210b880",
+        "file": "e61c1102e7b73e77e37d43bbea0465443bfc4845e10189be20afbabb9210b880.htm"
+      }
+    },
     "0001053507:2024-01-01:2024-12-31": {
       "filed": "2026-02-24",
       "accession": "0001053507-26-000035",
@@ -1911,6 +2066,33 @@
         "file": "f7ec17bd120ecc68a9fe0fc20bd9eae16935702dcffe08e2a62a5cc96b417e04.htm"
       }
     },
+    "0000076334:2024-07-01:2025-06-30": {
+      "filed": "2026-08-21",
+      "accession": "0000076334-26-000105",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "3531000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/76334/000007633426000105/FilingSummary.xml",
+        "sha256": "7615ec8792994be8cf58d5cda3c78f48dcf57262c81a76cdbed72e8fe23e0d54",
+        "file": "7615ec8792994be8cf58d5cda3c78f48dcf57262c81a76cdbed72e8fe23e0d54.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/76334/000007633426000105/R3.htm",
+        "sha256": "b57c2c3bea97eaa9fcb405b876662202ecb4bfe032649749cc17406ff1c4332a",
+        "file": "b57c2c3bea97eaa9fcb405b876662202ecb4bfe032649749cc17406ff1c4332a.htm"
+      }
+    },
     "0000076334:2023-07-01:2024-06-30": {
       "filed": "2026-08-21",
       "accession": "0000076334-26-000105",
@@ -1963,6 +2145,33 @@
         "url": "https://www.sec.gov/Archives/edgar/data/76334/000007633425000035/R3.htm",
         "sha256": "cf63722d24cbc60df01fd959c03ba7168e5c8734ae0756ff4bb7c2d04daf6ced",
         "file": "cf63722d24cbc60df01fd959c03ba7168e5c8734ae0756ff4bb7c2d04daf6ced.htm"
+      }
+    },
+    "0000766704:2025-01-01:2025-12-31": {
+      "filed": "2026-02-12",
+      "accession": "0000766704-26-000010",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "936845000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/766704/000076670426000010/FilingSummary.xml",
+        "sha256": "edf0e7c2c860806ce13365449ecbb73ee47f3133a0c7656bec48d183511c73fd",
+        "file": "edf0e7c2c860806ce13365449ecbb73ee47f3133a0c7656bec48d183511c73fd.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/766704/000076670426000010/R4.htm",
+        "sha256": "602c09ca15def6f775d59f59a2b105b20273ab775f36fba49fd1124d23dda50f",
+        "file": "602c09ca15def6f775d59f59a2b105b20273ab775f36fba49fd1124d23dda50f.htm"
       }
     },
     "0000766704:2024-01-01:2024-12-31": {
@@ -2559,6 +2768,33 @@
         "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
       }
     },
+    "0000713676:2025-01-01:2025-12-31": {
+      "filed": "2026-02-20",
+      "accession": "0000713676-26-000020",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "6936000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367626000020/FilingSummary.xml",
+        "sha256": "2388a75cc2f3b3d1b34308fe4a6f009a73874ee860c9b26c088fde85b41cf841",
+        "file": "2388a75cc2f3b3d1b34308fe4a6f009a73874ee860c9b26c088fde85b41cf841.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367626000020/R3.htm",
+        "sha256": "5bf9f15db2da4d6d6bdbe55d2ca7a65e2e2ae0dbde92d42ab237fc2094fd2ba1",
+        "file": "5bf9f15db2da4d6d6bdbe55d2ca7a65e2e2ae0dbde92d42ab237fc2094fd2ba1.htm"
+      }
+    },
     "0000713676:2024-01-01:2024-12-31": {
       "filed": "2026-02-20",
       "accession": "0000713676-26-000020",
@@ -2827,6 +3063,29 @@
         "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367618000032/R2.htm",
         "sha256": "c195c5d145778aaa5632b0c9dbd5f706e6875b47ef58cbf213714d66d55f42fd",
         "file": "c195c5d145778aaa5632b0c9dbd5f706e6875b47ef58cbf213714d66d55f42fd.htm"
+      }
+    },
+    "0000049826:2025-01-01:2025-12-31": {
+      "filed": "2026-02-13",
+      "accession": "0000049826-26-000008",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        }
+      ],
+      "value": "3066000000",
+      "calculation": null,
+      "note": "The reviewed income statement presents this as its net-income bottom line; it does not present a separate noncontrolling allocation. This is an exact period mapping, not a general ProfitLoss fallback.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/49826/000004982626000008/FilingSummary.xml",
+        "sha256": "1cac3fa99d64f4372a70f6460649acb754358655ea141569ce59468b9b186c61",
+        "file": "1cac3fa99d64f4372a70f6460649acb754358655ea141569ce59468b9b186c61.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/49826/000004982626000008/R3.htm",
+        "sha256": "5d07011597501489e7b154a7ba83fa011b9651a5bfa3fcc57f095a635ccb090f",
+        "file": "5d07011597501489e7b154a7ba83fa011b9651a5bfa3fcc57f095a635ccb090f.htm"
       }
     },
     "0000049826:2024-01-01:2024-12-31": {
@@ -3207,6 +3466,33 @@
         "url": "https://www.sec.gov/Archives/edgar/data/31462/000155837018000999/R2.htm",
         "sha256": "75b426ad68dbbd276ad008c28089472c38d2e8253cf9560ea54d59984ae593c2",
         "file": "75b426ad68dbbd276ad008c28089472c38d2e8253cf9560ea54d59984ae593c2.htm"
+      }
+    },
+    "0001063761:2025-01-01:2025-12-31": {
+      "filed": "2026-02-25",
+      "accession": "0001104659-26-019419",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "4627612000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000110465926019419/FilingSummary.xml",
+        "sha256": "553a03b5565e48c257cf21b342c7917ffe6f7c939a3034714259448022994467",
+        "file": "553a03b5565e48c257cf21b342c7917ffe6f7c939a3034714259448022994467.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1063761/000110465926019419/R4.htm",
+        "sha256": "03fd2c44078a7d6d9bdbd0fac0a0455b0702e0c284d44bfbf1081759f4ab111c",
+        "file": "03fd2c44078a7d6d9bdbd0fac0a0455b0702e0c284d44bfbf1081759f4ab111c.htm"
       }
     },
     "0001063761:2024-01-01:2024-12-31": {
@@ -3686,6 +3972,33 @@
         "file": "6a04638d43353a4eb6255677208c33ca13bc8ad391544b53132f6fbc343a09a6.htm"
       }
     },
+    "0000092230:2025-01-01:2025-12-31": {
+      "filed": "2026-02-24",
+      "accession": "0000092230-26-000030",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "5307000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000030/FilingSummary.xml",
+        "sha256": "42d90bbb3bbffbfd8a75fcee030ac84bc102d6f489c5fa844c61d6de8f8cd092",
+        "file": "42d90bbb3bbffbfd8a75fcee030ac84bc102d6f489c5fa844c61d6de8f8cd092.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000030/R5.htm",
+        "sha256": "da0b0ae1436d9b555852b49758c35ddb939a23db2f6c292c325099e3c964d128",
+        "file": "da0b0ae1436d9b555852b49758c35ddb939a23db2f6c292c325099e3c964d128.htm"
+      }
+    },
     "0000092230:2024-01-01:2024-12-31": {
       "filed": "2026-02-24",
       "accession": "0000092230-26-000030",
@@ -3977,6 +4290,33 @@
         "url": "https://www.sec.gov/Archives/edgar/data/900075/000090007521000022/R4.htm",
         "sha256": "7504567fc4e2d11ae0ef8191d7457beab01c393d33aad9749432447846195d07",
         "file": "7504567fc4e2d11ae0ef8191d7457beab01c393d33aad9749432447846195d07.htm"
+      }
+    },
+    "0000831259:2025-01-01:2025-12-31": {
+      "filed": "2026-02-13",
+      "accession": "0000831259-26-000012",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "IncomeLossFromContinuingOperationsAttributableToNoncontrollingEntity",
+          "coefficient": -1
+        }
+      ],
+      "value": "2204000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/FilingSummary.xml",
+        "sha256": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688",
+        "file": "64d084d1c85b217ff4b4d4bfbe05d8f1e455b7b645db3a01eb4bac3a192bd688.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000012/R3.htm",
+        "sha256": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689",
+        "file": "bbb1e1241ddf5135b2ebc40d66b3f81c2340e5f26587a8ccc375503b45352689.htm"
       }
     },
     "0000831259:2024-01-01:2024-12-31": {
@@ -4450,6 +4790,29 @@
         "file": "680aa9e57123c7ebce23adc8f60719c7e3a8b7553554d178d9a2940d9b0afdb4.htm"
       }
     },
+    "0000865752:2025-01-01:2025-12-31": {
+      "filed": "2026-02-27",
+      "accession": "0001104659-26-020831",
+      "components": [
+        {
+          "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+          "coefficient": 1
+        }
+      ],
+      "value": "1905432000",
+      "calculation": null,
+      "note": "The reviewed statement labels this position as its sole net-income bottom line, without separate preferred-shareholder or noncontrolling allocations. The common-shareholder concept is not used as a universal parent-income synonym.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/FilingSummary.xml",
+        "sha256": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa",
+        "file": "08933215df07616cb084c5332cd8cf9937c5bf7341d719dcfbfc5a1bdd9066aa.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/865752/000110465926020831/R4.htm",
+        "sha256": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37",
+        "file": "e7c37695434c73295764e916a177cea4226d151d34f94551d69baa4a1cb62a37.htm"
+      }
+    },
     "0000865752:2024-01-01:2024-12-31": {
       "filed": "2026-02-27",
       "accession": "0001104659-26-020831",
@@ -4864,6 +5227,33 @@
         "file": "082d1585a441a1588cb8508cc3613e0956fc490e888d8cb9ed57b10c91836e4e.htm"
       }
     },
+    "0000004904:2025-01-01:2025-12-31": {
+      "filed": "2026-02-12",
+      "accession": "0000004904-26-000013",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "3580000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4904/000000490426000013/FilingSummary.xml",
+        "sha256": "ebaf3721fec1e2885a06fc46a5d71e165037f9b4158fdc0645bb70e1c15e2aeb",
+        "file": "ebaf3721fec1e2885a06fc46a5d71e165037f9b4158fdc0645bb70e1c15e2aeb.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4904/000000490426000013/R3.htm",
+        "sha256": "57e954160adb495db38b28777f93e2e4ed271675763190964c08015ccb9fccd4",
+        "file": "57e954160adb495db38b28777f93e2e4ed271675763190964c08015ccb9fccd4.htm"
+      }
+    },
     "0000004904:2024-01-01:2024-12-31": {
       "filed": "2026-02-12",
       "accession": "0000004904-26-000013",
@@ -5188,6 +5578,33 @@
         "file": "c03c1dba13818c8b91c186e253d34cdd8e63b88754f8435ea67a88e9ece28524.htm"
       }
     },
+    "0000026172:2025-01-01:2025-12-31": {
+      "filed": "2026-02-10",
+      "accession": "0000026172-26-000009",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "2843000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/26172/000002617226000009/FilingSummary.xml",
+        "sha256": "1cf162e4e5b0f6ad052b28c61f1d5da5df15579d288cf491b8140c2699660fb0",
+        "file": "1cf162e4e5b0f6ad052b28c61f1d5da5df15579d288cf491b8140c2699660fb0.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/26172/000002617226000009/R3.htm",
+        "sha256": "f70728b6e1ec2250b033e3d680aa1c6a62b088490eb4bbebee7850333dfab3a9",
+        "file": "f70728b6e1ec2250b033e3d680aa1c6a62b088490eb4bbebee7850333dfab3a9.htm"
+      }
+    },
     "0000026172:2024-01-01:2024-12-31": {
       "filed": "2026-02-10",
       "accession": "0000026172-26-000009",
@@ -5479,6 +5896,33 @@
         "url": "https://www.sec.gov/Archives/edgar/data/882184/000088218417000103/R4.htm",
         "sha256": "ac32a4924407c3df8f1ad038008bdee63cb88cfed9083c3d071fbffaf392e1a2",
         "file": "ac32a4924407c3df8f1ad038008bdee63cb88cfed9083c3d071fbffaf392e1a2.htm"
+      }
+    },
+    "0000797468:2025-01-01:2025-12-31": {
+      "filed": "2026-02-18",
+      "accession": "0001628280-26-009059",
+      "components": [
+        {
+          "tag": "ProfitLoss",
+          "coefficient": 1
+        },
+        {
+          "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+          "coefficient": -1
+        }
+      ],
+      "value": "2326000000",
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "summary": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000162828026009059/FilingSummary.xml",
+        "sha256": "02c97b4a8ba0b9ea05150948210bcf472e88d9c7ddc3250454491f39a20f6253",
+        "file": "02c97b4a8ba0b9ea05150948210bcf472e88d9c7ddc3250454491f39a20f6253.htm"
+      },
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/797468/000162828026009059/R5.htm",
+        "sha256": "b6fe793dd2d9bf0034e466544251fa1cecc548b7ecce714ac60e3223e7b2e6a8",
+        "file": "b6fe793dd2d9bf0034e466544251fa1cecc548b7ecce714ac60e3223e7b2e6a8.htm"
       }
     },
     "0000797468:2024-01-01:2024-12-31": {

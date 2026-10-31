@@ -3,7 +3,7 @@
 import csv
 import math
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from decimal import Decimal
 from itertools import pairwise
 
@@ -13,9 +13,20 @@ from app.annual_financials import annual_periods
 from app.data_pipeline.benjaminpo import ALIASES
 from app.data_pipeline.sec import CACHE as SEC_CACHE
 from app.data_pipeline.sec_statements import DocumentText
-from app.data_pipeline.source_files import ROOT, SELECTION, read_json, sha256
+from app.data_pipeline.source_files import (
+    ROOT,
+    SELECTION,
+    read_json,
+    sha256,
+    write_json,
+)
 from app.database import engine
-from app.eps_splits import normalize_eps, sources_fingerprint, split_rules
+from app.eps_splits import (
+    RULES_PATH,
+    normalize_eps,
+    sources_fingerprint,
+    split_rules,
+)
 from app.models import Company, FinancialFact
 
 CACHE = ROOT / "data/raw/eps-splits"
@@ -238,6 +249,111 @@ def verify_comparisons(actions, facts):
     return count
 
 
+def stored_companies(connection, policy):
+    """Return the stored companies; their catalogue must be the reviewed EPS catalogue."""
+    companies = connection.execute(select(Company.__table__)).mappings().all()
+    if {company["ticker"] for company in companies} != set(policy["companies"]):
+        raise ValueError(
+            "Stored company catalogue differs from the reviewed EPS catalogue"
+        )
+    return companies
+
+
+def stored_facts(connection, company):
+    return (
+        connection.execute(
+            select(FinancialFact.__table__).where(
+                FinancialFact.company_id == company["id"]
+            )
+        )
+        .mappings()
+        .all()
+    )
+
+
+def approve_eps_splits(approved_through):
+    """Approve the share basis again after the window grew past approved_through.
+
+    An approval pins a fingerprint of all selected EPS sources of a company, so new
+    annual periods change every fingerprint. A new fingerprint is written only when
+    the periods ending by approved_through still give the stored one: the reviewed
+    part is unchanged and only later periods are added. Any changed company stops
+    the approval without writing. Evidence, price continuity and the reported split
+    controls are verified first, as in review_eps_splits.
+    """
+    policy = split_rules()
+    verify_evidence(policy)
+    closes = vendor_closes({action["ticker"] for action in policy["actions"]})
+    continuity = verify_price_continuity(policy["actions"], closes)
+    changed = []
+    fingerprints = {}
+    new_periods_before_splits = []
+    with engine.connect() as connection:
+        for company in stored_companies(connection, policy):
+            ticker = company["ticker"]
+            facts = stored_facts(connection, company)
+            actions = [
+                action for action in policy["actions"] if action["ticker"] == ticker
+            ]
+            verify_comparisons(actions, facts)
+            periods = annual_periods(facts)
+            reviewed_periods = [
+                period for period in periods if period.period_end <= approved_through
+            ]
+            stored_fingerprint = policy["companies"][ticker]["observed_sha256"]
+            if stored_fingerprint != sources_fingerprint(reviewed_periods):
+                changed.append(ticker)
+                continue
+            fingerprints[ticker] = sources_fingerprint(periods)
+
+            # List each new period ending before a split of its company: the
+            # split is applied when the source was filed before it and is taken as
+            # already restated when the source was filed on or after it.
+            for period in periods:
+                if period.period_end <= approved_through:
+                    continue
+                metric = period.metrics["eps_diluted"]
+                if metric.status != "ready" or len(metric.selected_sources) != 1:
+                    continue
+                filed = metric.selected_sources[0].filed
+                for action in actions:
+                    split_day = date.fromisoformat(action["date"])
+                    if period.period_end >= split_day:
+                        continue
+                    new_periods_before_splits.append(
+                        {
+                            "ticker": ticker,
+                            "period_end": str(period.period_end),
+                            "source_filed": str(filed),
+                            "split": action["date"],
+                            "split_applied": filed < split_day,
+                        }
+                    )
+    if changed:
+        raise ValueError(
+            "EPS sources of already approved periods changed; review again: "
+            + ", ".join(sorted(changed))
+        )
+
+    # The cached policy is shared with the API, so the file is re-read for writing.
+    document = read_json(RULES_PATH)
+    renewed = 0
+    for ticker, fingerprint in fingerprints.items():
+        approval = document["companies"][ticker]
+        if approval["observed_sha256"] != fingerprint:
+            approval["observed_sha256"] = fingerprint
+            renewed += 1
+    write_json(RULES_PATH, document)
+    return {
+        "status": "approved",
+        "approved_through": str(approved_through),
+        "companies": len(fingerprints),
+        "renewed_fingerprints": renewed,
+        "price_continuity": continuity,
+        "new_periods_before_splits": new_periods_before_splits,
+    }
+
+
 def review_eps_splits():
     """Check every selected EPS against approval; return counts, leaving PostgreSQL untouched."""
     policy = split_rules()
@@ -249,21 +365,9 @@ def review_eps_splits():
     adjusted_companies = set()
     comparisons = 0
     with engine.connect() as connection:
-        companies = connection.execute(select(Company.__table__)).mappings().all()
-        if {company["ticker"] for company in companies} != set(policy["companies"]):
-            raise ValueError(
-                "Stored company catalogue differs from the reviewed EPS catalogue"
-            )
+        companies = stored_companies(connection, policy)
         for company in companies:
-            facts = (
-                connection.execute(
-                    select(FinancialFact.__table__).where(
-                        FinancialFact.company_id == company["id"]
-                    )
-                )
-                .mappings()
-                .all()
-            )
+            facts = stored_facts(connection, company)
             actions = [
                 action
                 for action in policy["actions"]
