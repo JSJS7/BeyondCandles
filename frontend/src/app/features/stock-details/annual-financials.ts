@@ -41,7 +41,7 @@ interface SelectedCell {
 }
 
 const FIRST_FISCAL_YEAR = 2015;
-const LAST_FISCAL_YEAR = 2024;
+const LAST_FISCAL_YEAR = 2025;
 
 @Component({
   selector: 'app-annual-financials',
@@ -83,6 +83,11 @@ export class AnnualFinancials {
       if (!reportedYears.has(year)) missingYears.push(year);
     }
     return missingYears;
+  });
+
+  readonly missingFiscalYearsLabel = computed(() => {
+    const years = this.missingFiscalYears();
+    return `${years.length === 1 ? 'fiscal year' : 'fiscal years'} ${years.join(', ')}`;
   });
 
   readonly periodsWithNotes = computed(() => this.periods().filter((period) => period.period_note));

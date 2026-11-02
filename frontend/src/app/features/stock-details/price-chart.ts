@@ -18,6 +18,7 @@ import {
   formatPrice,
   formatPriceDate,
   periodChange,
+  PRICE_SERIES_DESCRIPTION,
   PricePreset,
   PriceRange,
   pricesForPreset,
@@ -71,6 +72,7 @@ export class PriceChart implements OnChanges, OnDestroy {
     return last ? formatPrice(Number(last.adjusted_close)) : 'Not available';
   });
   readonly formatDate = formatPriceDate;
+  readonly seriesDescription = PRICE_SERIES_DESCRIPTION;
 
   constructor() {
     effect(() => {

@@ -63,6 +63,35 @@ describe('Topbar', () => {
     expect(component.filteredStocks()).toEqual([]);
   });
 
+  it('lists an exact ticker first, then ticker starts, name words and other matches', () => {
+    // W14: one-letter tickers (V, T) were buried under alphabetical substring matches.
+    http.expectOne(catalogueUrl).flush([
+      { ticker: 'ADSK', name: 'Autodesk, Inc.', exchange: 'NMS', sector: null },
+      { ticker: 'BA', name: 'The Boeing Company', exchange: 'NYQ', sector: null },
+      { ticker: 'MA', name: 'Mastercard Incorporated', exchange: 'NYQ', sector: null },
+      { ticker: 'NVDA', name: 'NVIDIA Corporation', exchange: 'NMS', sector: null },
+      { ticker: 'T', name: 'AT&T Inc.', exchange: 'NYQ', sector: null },
+      { ticker: 'TGT', name: 'Target Corporation', exchange: 'NYQ', sector: null },
+      { ticker: 'V', name: 'Visa Inc.', exchange: 'NYQ', sector: null },
+      { ticker: 'VZ', name: 'Verizon Communications Inc.', exchange: 'NYQ', sector: null },
+    ]);
+
+    component.onSearchInput('v');
+    expect(component.filteredStocks().map((stock) => stock.ticker)).toEqual(['V', 'VZ', 'NVDA']);
+
+    // "The Boeing Company" has a word starting with "t"; the rest only contain the letter.
+    component.onSearchInput('T');
+    expect(component.filteredStocks().map((stock) => stock.ticker)).toEqual([
+      'T',
+      'TGT',
+      'BA',
+      'ADSK',
+      'MA',
+      'NVDA',
+      'VZ',
+    ]);
+  });
+
   it('recovers through Try again while keeping the entered query', () => {
     const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
     input.value = 'aapl';

@@ -20,6 +20,7 @@ import { AnnualPeriod, Price, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
 import { AnnualFinancials } from './annual-financials';
 import { PriceChart } from './price-chart';
+import { PRICE_SERIES_DESCRIPTION } from './price-chart-data';
 
 @Component({
   selector: 'app-stock-details',
@@ -35,6 +36,7 @@ export class StockDetailsComponent implements OnInit {
   private readonly pricesRetry = new Subject<void>();
   private readonly financialsRetry = new Subject<void>();
 
+  readonly priceSeriesDescription = PRICE_SERIES_DESCRIPTION;
   readonly ticker = signal('Unknown');
   readonly stock = signal<Stock | null>(null);
   readonly exchangeName = computed(() => {

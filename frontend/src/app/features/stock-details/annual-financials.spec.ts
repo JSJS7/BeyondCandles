@@ -160,6 +160,29 @@ describe('Annual financials table', () => {
     expect(element.textContent).toContain('fiscal years 2017, 2018');
   });
 
+  it('reports only fiscal 2025 as missing when that year ends after the data range', () => {
+    // Retailers such as HD end fiscal 2025 in February 2026, after the 31 Dec 2025 cut-off;
+    // their fiscal 2014 ends in early 2015 and is inside the range.
+    const periods = [];
+    for (let year = 2014; year <= 2024; year++) {
+      periods.push(
+        period(
+          {},
+          {
+            fiscal_year: year,
+            period_start: `${year}-02-03`,
+            period_end: `${year + 1}-02-01`,
+          },
+        ),
+      );
+    }
+    const element = render(periods);
+
+    expect(fixture.componentInstance.missingFiscalYears()).toEqual([2025]);
+    expect(element.textContent).toContain('Not available: fiscal year 2025.');
+    expect(element.textContent).toContain('periods ending from 1 Jan 2015 to 31 Dec 2025');
+  });
+
   it('keeps unknown fiscal labels explicit without inventing missing years', () => {
     // An unverified label must not silently fall back to the end date's calendar year.
     const element = render([period({}, { fiscal_year: null })]);

@@ -6,6 +6,14 @@ export interface PriceRange {
   end: string;
 }
 
+/**
+ * One description of the price series wherever it is shown. The vendor adjusted the
+ * whole history to its 13 Oct 2026 files, so a level is not the price quoted that day.
+ */
+export const PRICE_SERIES_DESCRIPTION =
+  'USD · Adjusted Close: the vendor adjusted all history for splits and dividends up to ' +
+  '13 Oct 2026, so levels differ from the prices quoted on each day.';
+
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',

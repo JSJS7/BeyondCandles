@@ -43,8 +43,8 @@
 
 @if (missingFiscalYears().length > 0) {
   <p>
-    Not available in the imported date range: fiscal years
-    {{ missingFiscalYears().join(', ') }}.
+    Not available: {{ missingFiscalYearsLabel() }}. The imported data covers periods ending from 1
+    Jan 2015 to 31 Dec 2025, so fiscal years ending outside that range are not included.
   </p>
 }
 @if (hasUnverifiedFiscalYears()) {
@@ -57,7 +57,7 @@
 <div class="table-scroll" tabindex="0" role="region" aria-label="Annual financial statements">
   <table>
     <caption>
-      Annual values for periods ending in 2015–2024
+      Annual values for periods ending in 2015–2025
     </caption>
     <thead>
       <tr>

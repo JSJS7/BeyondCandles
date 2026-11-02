@@ -23,7 +23,8 @@
         }
       </p>
       <p class="muted">
-        Historical dataset: 2015–2024. Prices and financials may use different period end dates.
+        Historical dataset: prices from 2 Jan 2015 to 31 Dec 2025; annual financials for periods
+        ending in 2015–2025. Prices and financials may use different period end dates.
       </p>
     </header>
 
@@ -31,9 +32,7 @@
       @let priceState = pricesLoadState();
       @if (priceState.status !== 'ready' || prices().length === 0) {
         <h2 id="price-heading">Adjusted closing price</h2>
-        <p class="muted">
-          USD · Vendor-adjusted history, including split and dividend adjustments.
-        </p>
+        <p class="muted">{{ priceSeriesDescription }}</p>
       }
       @if (priceState.status === 'loading') {
         <p role="status">Loading price history...</p>

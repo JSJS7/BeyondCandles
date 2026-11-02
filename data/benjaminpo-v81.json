@@ -1431,7 +1431,7 @@
   "public_display_rights": "Not independently confirmed for upstream Yahoo data; local migration does not approve public redistribution.",
   "price_basis": "Vendor OHLC/volume basis at v81, including post-2024 actions. Preserve final vendor Adjusted Close anchor. Rebuild AVGO cash dividends; remove duplicate DHR/Fortive cash factor while retaining vendor equivalent conversion; value JCI/Adient distribution at first regular-way close (45.51/10). Add 10 reviewed regular cash dividends the vendor omits (ACN, AON, CB, ETN, JCI, MDT, TT; price-adjustments.json). Price-index convention, not point-in-time raw prices or exact portfolio total return.",
   "limitations": [
-    "Static end-of-period constituent selection; survivorship bias; not historical S&P 500 membership",
+    "Static constituent selection at the December 2024 snapshot, before the 2025 prices; survivorship bias mainly in 2015-2024; not historical S&P 500 membership",
     "Capitalization snapshot has no explicit per-company valuation date",
     "Calendar checked against frozen source dates, not official exchange calendar",
     "Do not combine source prices with SEC EPS without matching share basis.",

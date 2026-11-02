@@ -1,7 +1,7 @@
 <div class="chart-header">
   <div class="chart-heading">
     <h2 id="price-heading">Adjusted closing price</h2>
-    <p>USD · Adjusted historical prices, including dividends and corporate actions.</p>
+    <p>{{ seriesDescription }}</p>
   </div>
   <div class="range-buttons" role="group" aria-label="Price history range">
     @for (preset of presets; track preset) {
@@ -33,7 +33,7 @@
     }
   </div>
   <div>
-    <span class="summary-label">Period change</span>
+    <span class="summary-label">Total return (dividends reinvested)</span>
     <strong class="change-value">{{ changeLabel() }}</strong>
     @if (firstPrice(); as first) {
       @if (lastPrice(); as last) {

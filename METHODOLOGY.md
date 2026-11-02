@@ -11,7 +11,9 @@ the engineering details of the import are kept with the code.
   S&P 500 snapshot (late December 2024), chosen by market capitalisation at that
   snapshot among companies with a complete price history, one share class per company.
   The list is frozen; it does not follow index membership over time, so it has
-  **survivorship bias**: these are companies that were large at the end of the period.
+  **survivorship bias**: these are companies that were large at the end of 2024. The
+  bias concerns mainly 2015–2024; 2025 follows the selection date, although requiring a
+  complete price history still leaves out companies that stopped trading later.
 - **Prices:** daily, 2 Jan 2015 to 31 Dec 2025 (2,766 sessions per company), from
   Benjaminpo's Finance Dataset v81 (Yahoo Finance data). Open, High, Low and Close are
   as provided by the vendor. Their history is adjusted for stock splits (except two
@@ -19,9 +21,10 @@ the engineering details of the import are kept with the code.
   spin-offs, mergers and share conversions (see *Prices and per-share values* below). *Adjusted Close* additionally includes
   dividend conventions. A few documented corrections are applied (see the README).
 - **Financials:** annual values from SEC EDGAR (XBRL company facts and original
-  filings) for fiscal periods ending 2015–2024, in USD. Fiscal-year labels follow each
-  company's own reports, so a fiscal year can end in the next calendar year. FY2024 of
-  HD, LOW, TGT, ROST, LULU and KR ends in 2025 and is outside the range.
+  filings) for fiscal periods ending 1 Jan 2015 to 31 Dec 2025, in USD. Fiscal-year
+  labels follow each company's own reports, so a fiscal year can end in the next
+  calendar year. FY2025 of HD, LOW, TGT, ROST, LULU and KR ends in 2026 and is outside
+  the range.
 - **Company changes:** where an issuer changed through a reorganisation or merger
   (JCI, BLK, AVGO, DIS, LIN, CI), earlier periods follow the reviewed accounting
   predecessor. We never add up separate companies. Prices follow the listed share
@@ -43,7 +46,7 @@ the engineering details of the import are kept with the code.
 Every value keeps its source filing, tag, period and filing date. If a value cannot be
 tied to a reviewed definition the app shows *Needs review* instead of guessing, and
 *Not available* when nothing was reported. We never fill gaps with zeros. At the time
-of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
+of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
 
 ### Revenue
 - **Shown:** total consolidated revenue as the company reports it.
@@ -87,7 +90,7 @@ of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
   convertibles that could add shares, so it is never higher than basic EPS and is the
   usual figure behind valuation ratios such as P/E.
 - **Exceptions:** basic EPS is used only where no diluted figure is reported
-  (Berkshire Hathaway Class B, 10 periods) and is labelled *Basic*. Where a company has
+  (Berkshire Hathaway Class B, all periods) and is labelled *Basic*. Where a company has
   several share classes the reviewed class is shown (e.g. Visa Class A, Alphabet
   Class A, Berkshire Class B equivalent). Some companies tag their only diluted
   net-income row with a continuing-operations concept (no discontinued operations that
@@ -114,7 +117,7 @@ of writing all 10,005 values (2,001 periods × 5 metrics) have a reviewed value.
 - **Shown:** net cash from operating activities of the **whole company**, including
   discontinued operations.
 - **Exceptions:** where a company reports only a continuing-operations total (C and GD,
-  20 periods) that figure is shown and labelled *Continuing operations*. If a company
+  every period) that figure is shown and labelled *Continuing operations*. If a company
   reports continuing and discontinued parts separately, they are added up from the
   same filing. Earlier report versions (`as_of`) follow the same rules: C and GD
   versions keep the *Continuing operations* label, and another filing's continuing
@@ -205,14 +208,16 @@ wrong.
   only to AVGO, DHR, JCI, one session each for AMD and FI, and ten dividends the
   vendor's Adjusted Close omits (ETN and MDT 2018; ACN, AON, CB, JCI and TT 2025).
   These were found by checking every dividend in DoltHub's table against the
-  vendor's adjustments; years without DoltHub data for a company (for example GILD
-  2015–2017) could not be checked, and a few ex-dates differ by up to a week
-  between the two sources without being changed.
+  vendor's adjustments. Years and single quarters without DoltHub data for a company
+  (for example GILD 2015–2017, a few quarters of TT, AON and JCI) could not be
+  checked, and a dividend missing from both sources would go unnoticed, so ten is a
+  lower bound. A few ex-dates differ by up to a week between the two sources without
+  being changed.
 - The SEC import is faithful and complete: every stored fact matches the downloaded SEC
   data, and every fact in that data that meets the import criteria (the five metrics,
-  annual and quarterly filings, periods ending 2015–2024) is stored. The database can be
+  annual and quarterly filings, periods ending 2015–2025) is stored. The database can be
   rebuilt from scratch with identical content.
-- **Every served value was compared with the original SEC statements** (10,005 values):
+- **Every served value was compared with the original SEC statements** (11,005 values):
   most automatically, the rest by hand, with no discrepancies found. Calculated values
   are arithmetically exact.
 - Cross-checks: EPS against weighted-average share counts from the same filings, equity
@@ -232,7 +237,7 @@ companies comparable with each other.
 
 ## Known limitations
 
-- Survivorship bias: the 200 companies were large at the end of the period, so
+- Survivorship bias: the 200 companies were large at the end of 2024, so
   backtests on this fixed universe overstate absolute returns and are best used for
   relative comparisons. Only 200 companies; US-listed, USD only.
 - Annual data only. The point-in-time view (`as_of`) shows an earlier version only

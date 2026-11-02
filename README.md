@@ -4,7 +4,8 @@ An educational stock analysis app with company search, interactive price charts,
 and annual financial statements from SEC EDGAR.
 
 - **Coverage:** 200 companies, 553,200 daily prices, 2 Jan 2015 to 31 Dec 2025.
-- **Financials:** revenue, net income, EPS, equity, and operating cash flow.
+- **Financials:** revenue, net income, EPS, equity, and operating cash flow for
+  fiscal years ending 1 Jan 2015 to 31 Dec 2025.
 - **Interface:** responsive layout, light and dark themes, preset chart periods,
   and selection of a custom date range.
 - **Stack:** Angular, TypeScript, Chart.js, FastAPI, SQLAlchemy, Alembic,
@@ -99,8 +100,8 @@ each choice, the exceptions and how the data was checked. In short:
 Values come from the latest filed report versions, are annual only, and are not
 comparable across sectors without care.
 
-The Kaggle publisher declares GPL 3; the AMD supplement records DoltHub's
-CC BY-SA 4.0 declaration. The FI supplement uses one session published by Nasdaq
+The Kaggle publisher declares GPL 3. The AMD session and the ten added dividends
+come from DoltHub `post-no-preference/stocks`, declared as CC BY-SA 4.0. The FI supplement uses one session published by Nasdaq
 and Cboe, whose terms of use were not reviewed for redistribution. Rights to publicly display the underlying Yahoo data
 remain unconfirmed. Publishing this code does not establish permission to
 redistribute the datasets or display their data publicly.
