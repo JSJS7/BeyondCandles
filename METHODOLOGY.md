@@ -56,6 +56,10 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   industry or company-specific ones). Picking the largest number or the first tag
   gives wrong totals, so each company and period is mapped to a reviewed line.
 - **Not used:** taxable-equivalent, adjusted or "managed" revenue.
+- **Totals read from a note:** where an old income statement shows only segments, the
+  consolidated total is taken from the same filing's segment reconciliation or selected
+  financial data (PCAR and DHI 2015, AXON 2021, NDAQ 2019), after checking the figure
+  against the original filing.
 - **Banks:** AXP, BAC, BK, C, COF, GS, JPM, MS, PNC, SCHW, TFC, USB and WFC show net
   revenue: their own net revenue line, or *net interest income + noninterest income*
   from the same filing where no such line exists (WFC, USB, COF and TFC, marked
@@ -85,6 +89,10 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   revenue-based ratios across sectors. Within one company, years come from different
   filings: after a spin-off or an accounting change, consecutive years can be on
   different bases, so growth computed from the table can be wrong in such years.
+  Examples: KKR's 2015 is "Fees and Other" (1,044 mln), while from 2016 it is total
+  revenues including capital allocation income (2,040 mln, so the table shows +95%);
+  Chevron and ExxonMobil change basis by a few percent (see above). A marker for
+  breaks above 5% is planned before ratios.
 
 ### Net income
 - **Shown:** net income **attributable to the parent company's shareholders**
@@ -115,6 +123,9 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   years are comparable. A split is applied only if it happened after the filing, and
   only physical changes in share count count (spin-off price factors do not). The
   originally reported value and every applied split are shown under *Sources*.
+  Where a company's reports before a one-for-one exchange of shares come from a
+  predecessor issuer (AVGO, BLK, CI, DIS, LIN), the splits of the successor apply to
+  the predecessor's reports too.
 - **Watch out:** this is GAAP EPS. Impairments and one-off gains are included, so
   single years can look extreme.
 
@@ -123,6 +134,9 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   including preferred equity and excluding non-controlling interests. It is a balance
   at one date, not a yearly flow.
 - **Why:** it is the equity that belongs to the company's own shareholders.
+- **Source:** the latest report that states the balance, which can be a quarterly (10-Q)
+  report filed years later when it repeats the year-end balance (310 values); the source
+  filing is shown for each value.
 - **Exceptions:** often calculated as total equity minus non-controlling interests
   (marked *Calculated*). Negative equity is valid (e.g. McDonald's, TransDigm). Two small
   differences stay below the correction threshold: Lilly's 2024 and 2025 equity includes
@@ -239,7 +253,9 @@ under one rule for all companies:
 
 A reliable value comes from an SEC filing, then a company or exchange statement, then two
 independent sources. A large difference without one stays and is described here. A missing
-price session is filled, because all companies share one calendar; a missing financial value
+price session is filled, because all companies share one calendar, even from a single source
+when a document confirms the closing price (AMD, 2 Jan 2015: the document confirms only the
+close, so open, high, low and volume come from DoltHub alone). A missing financial value
 stays empty and is never estimated.
 
 Smaller differences are neither searched for nor corrected, so the data still contains

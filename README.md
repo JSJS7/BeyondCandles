@@ -104,7 +104,7 @@ each choice, the exceptions and how the data was checked. In short:
 Values come from the latest filed report versions, are annual only, and are not
 comparable across sectors without care.
 
-The Kaggle publisher declares GPL 3. The AMD session and the ten added dividends
+The Kaggle publisher declares GPL 3. The AMD session and the two added ETN dividends
 come from DoltHub `post-no-preference/stocks`, declared as CC BY-SA 4.0. The FI supplement uses one session published by Nasdaq
 and Cboe, whose terms of use were not reviewed for redistribution. Rights to publicly display the underlying Yahoo data
 remain unconfirmed. Publishing this code does not establish permission to
