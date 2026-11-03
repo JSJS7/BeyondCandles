@@ -52,20 +52,18 @@ S&P 500 membership. [The manifest](data/manifest.json) records source files,
 SHA-256 checksums, and correction evidence; [the company list](data/companies-200.json)
 is versioned separately.
 
-Explicit price corrections retained in the pipeline:
+Explicit price corrections retained in the pipeline, for differences over 1% of a
+company's Adjusted Close and missing sessions ([the rule](METHODOLOGY.md#what-we-correct)):
 
 - **AVGO:** 44 verified dividend adjustments, excluding duplicate 2018 payments.
 - **DHR/Fortive:** retain the provider's 1319:1000 price conversion and remove
   an additional USD 24.56 adjustment.
-- **JCI/Adient:** value the distribution at USD 4.551 per JCI share, using Adient's
-  first closing price and the 1:10 distribution ratio.
-- **Dividends missing from the provider's adjustments:** add 10 regular dividends
-  (ETN and MDT in 2018; ACN, AON, CB, JCI and TT in 2025) from a pinned DoltHub
-  revision, with amounts confirmed in SEC filings.
+- **ETN:** add two regular dividends of 2018 the provider omits, from a pinned DoltHub
+  revision with amounts confirmed in SEC filings, and change 13 May 2020 from 0.073 to
+  0.73.
 - **Dividends the provider applied wrongly:** remove CoreSite's 12 dividends from COR
-  (same ticker, another company), rescale 29 T dividends by the provider's 1.324
-  conversion of 2022, change ETN 13 May 2020 from 0.073 to 0.73, and remove duplicates
-  or events ruled out by filings (AON 2018, NSC 2015, HCA 2020, JCI 2016).
+  (same ticker, another company) and rescale 29 T dividends by the provider's 1.324
+  conversion of 2022.
 - **OXY, 3 Aug 2020:** add the warrant distribution the provider omits, at USD 0.61875
   per share (1/8 warrant at the USD 4.95 the company reports).
 - **AMD, 2 Jan 2015:** fill one missing session from a pinned DoltHub revision,

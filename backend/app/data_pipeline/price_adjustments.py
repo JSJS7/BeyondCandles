@@ -343,6 +343,29 @@ def separate_reviewed_events(material_events, reviewed):
     return unreviewed, len(matched), missing
 
 
+def reviewed_coverage_gaps():
+    """Hand-reviewed dividend coverage gaps, by ticker."""
+    return read_json(REVIEWED_EVENTS).get("coverage_gaps", {})
+
+
+def separate_reviewed_gaps(gaps, reviewed):
+    """Split coverage gaps into reviewed and still unreviewed ones.
+
+    A review covers only the last adjustment date it saw. Reviewed gaps the screen
+    no longer finds are returned too, because that is also a data change.
+    """
+    unreviewed = {}
+    matched = set()
+    for ticker, gap in gaps.items():
+        review = reviewed.get(ticker)
+        if review and review["last_adjustment"] == gap["last_adjustment"]:
+            matched.add(ticker)
+        else:
+            unreviewed[ticker] = gap
+    missing = sorted(set(reviewed) - matched)
+    return unreviewed, missing
+
+
 def audit_prices(fetch=False):
     """Screen all 200 prepared histories against cached SEC dividends and a second source."""
     import csv
@@ -382,15 +405,23 @@ def audit_prices(fetch=False):
     unreviewed, reviewed_count, missing = separate_reviewed_events(
         material_events, reviewed_price_events()
     )
+    unreviewed_gaps, missing_gaps = separate_reviewed_gaps(
+        gaps, reviewed_coverage_gaps()
+    )
     needs_review = (
-        gaps or unreviewed or missing or dividends["status"] == "needs_review"
+        unreviewed_gaps
+        or missing_gaps
+        or unreviewed
+        or missing
+        or dividends["status"] == "needs_review"
     )
     return {
         "status": "needs_review" if needs_review else "screen_passed",
         "companies": len(companies),
         "prices": summary["prices"],
         "adjustment_rules_sha256": summary["adjustment_rules_sha256"],
-        "dividend_coverage_candidates": gaps,
+        "dividend_coverage_candidates": unreviewed_gaps,
+        "reviewed_coverage_gaps_not_found": missing_gaps,
         "dividend_audit": dividends,
         "material_factor_changes": unreviewed,
         "reviewed_factor_changes": reviewed_count,

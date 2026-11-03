@@ -1429,20 +1429,20 @@
   },
   "license_declared": "GPL 3 (Kaggle publisher declaration)",
   "public_display_rights": "Not independently confirmed for upstream Yahoo data; local migration does not approve public redistribution.",
-  "price_basis": "Vendor OHLC/volume basis at v81, including post-2024 actions. Preserve final vendor Adjusted Close anchor. Rebuild AVGO cash dividends; remove duplicate DHR/Fortive cash factor while retaining vendor equivalent conversion; value JCI/Adient distribution at first regular-way close (45.51/10). Add 10 reviewed regular cash dividends the vendor omits (ACN, AON, CB, ETN, JCI, MDT, TT; price-adjustments.json). Price-index convention, not point-in-time raw prices or exact portfolio total return.",
+  "price_basis": "Vendor OHLC/volume basis at v81, including post-2024 actions. Preserve final vendor Adjusted Close anchor. Rebuild AVGO cash dividends; remove duplicate DHR/Fortive cash factor while retaining vendor equivalent conversion. Add 2 reviewed regular cash dividends the vendor omits (ETN; price-adjustments.json). Differences below 1% of Adjusted Close stay as in the source. Price-index convention, not point-in-time raw prices or exact portfolio total return.",
   "limitations": [
     "Static constituent selection at the December 2024 snapshot, before the 2025 prices; survivorship bias mainly in 2015-2024; not historical S&P 500 membership",
     "Capitalization snapshot has no explicit per-company valuation date",
     "Calendar checked against frozen source dates, not official exchange calendar",
     "Do not combine source prices with SEC EPS without matching share basis.",
-    "Reviewed AVGO, DHR and JCI actions follow documented price-index conventions. This does not independently certify every corporate action or price in the catalogue."
+    "Reviewed AVGO and DHR actions follow documented price-index conventions. This does not independently certify every corporate action or price in the catalogue."
   ],
   "reviews": {
     "AVGO": {
       "status": "reviewed",
       "method": "cash_dividends_preserve_vendor_anchor",
       "rules_file": "data/price-adjustments.json",
-      "rules_sha256": "d0ad47a4c9a8ba7a44e4c3ab84c76519c216fea7f683e9838c61b40d358295f0",
+      "rules_sha256": "30bd7a65ec4bae5fa0a50d25d0746f6990709edef1041da7fcd790716bce9692",
       "note": "Use 44 verified ordinary cash dividends; retain final source Adj Close to preserve later adjustments. Correct duplicated March/June 2018 distributions."
     },
     "DHR": {
@@ -1498,44 +1498,6 @@
         "rounding_half_unit": "0.005",
         "note": "Issuer-authored 2016 annual report, stock performance graph, year-end values rounded to two decimals. A rounded annual cross-check, not proof of every daily investor return."
       }
-    },
-    "JCI": {
-      "status": "reviewed",
-      "ex_date": "2016-10-31",
-      "note": "Replace the unverified vendor 4.70 estimate with a documented convention: 45.51 first regular-way ADNT closing price (2016 10-K Item 5) times 1/10 distribution ratio = 4.551 per JCI share. Back-adjust strictly before ex-date using (previous Close - cash equivalent)/previous Close. This is a stock distribution valued for the price index, not cash received or a tax-basis allocation. Preserve source OHLC, all other factors and the final vendor anchor.",
-      "evidence": [
-        "https://www.sec.gov/Archives/edgar/data/833444/000110465916143835/a16-18104_1ex99d1.htm",
-        "https://adient.mediaroom.com/2016-10-31-Adient-Completes-Separation-from-Johnson-Controls-International-Begins-Trading-Today-on-NYSE",
-        "https://www.sec.gov/Archives/edgar/data/1670541/000167054116000016/a9302016adientform10-k.htm",
-        "https://query1.finance.yahoo.com/v8/finance/chart/JCI?period1=1477267200&period2=1478131200&interval=1d&events=div%2Csplits%2CcapitalGains"
-      ],
-      "evidence_files": [
-        {
-          "url": "https://adient.mediaroom.com/2016-10-31-Adient-Completes-Separation-from-Johnson-Controls-International-Begins-Trading-Today-on-NYSE",
-          "file": "data/raw/benjaminpo-v81/evidence/adient-completion.html",
-          "sha256": "8784a686ec8ecf68eed3309c22d677ecb375999237c696dcc9fae4abb7ac9fdb",
-          "role": "distribution"
-        },
-        {
-          "role": "annual_report",
-          "url": "https://www.sec.gov/Archives/edgar/data/1670541/000167054116000016/a9302016adientform10-k.htm",
-          "file": "data/raw/benjaminpo-v81/evidence/adient-2016-10k.html",
-          "sha256": "22be0a56290396b8ecbb4090bce2a9e124ba17117ef0b7a82036f3e206ce7043"
-        },
-        {
-          "role": "vendor_actions",
-          "url": "https://query1.finance.yahoo.com/v8/finance/chart/JCI?period1=1477267200&period2=1478131200&interval=1d&events=div%2Csplits%2CcapitalGains",
-          "file": "data/raw/benjaminpo-v81/evidence/jci-2016-vendor-actions.json",
-          "sha256": "1b1de791bd81bb6fd390d9cd191b0e499227f2f4bbb510b05ca6c711ccfe8104"
-        }
-      ],
-      "ticker": "JCI",
-      "reviewed_on": "2026-10-22",
-      "method": "replace_distribution_cash_equivalent",
-      "original_amount": "4.70",
-      "distributed_close": "45.51",
-      "distributed_shares": "1",
-      "parent_shares": "10"
     },
     "AMD": {
       "status": "reviewed",

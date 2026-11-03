@@ -37,10 +37,10 @@
     {
       "ticker": "JCI",
       "date": "2016-10-31",
-      "factor_change_percent": "11.60702004751349087114263720",
+      "factor_change_percent": "12.03276113050596188761008040",
       "kind": "spin_off",
-      "per_share": "4.551",
-      "note": "Adient distribution valued as in the reviewed JCI correction (Adient first close, 1:10 ratio)."
+      "per_share": "4.70",
+      "note": "Adient distribution as valued by the vendor. Adient's first close gives 4.551; the difference is below the 1% project rule, so the source value stays."
     },
     {
       "ticker": "OKE",
@@ -210,5 +210,15 @@
       "per_share": "0.64",
       "note": "Regular quarterly dividend at a depressed price; SEC declared 0.64 in Q2 2016."
     }
-  ]
+  ],
+  "coverage_gaps": {
+    "CB": {
+      "last_adjustment": "2025-06-13",
+      "note": "The vendor omits the dividends of the second half of 2025 listed in dividend-audit-reviews.json. Left as in the source: Adjusted Close of this company differs by less than 1% (project rule)."
+    },
+    "JCI": {
+      "last_adjustment": "2025-06-23",
+      "note": "The vendor omits the dividends of the second half of 2025 listed in dividend-audit-reviews.json. Left as in the source: Adjusted Close of this company differs by less than 1% (project rule)."
+    }
+  }
 }

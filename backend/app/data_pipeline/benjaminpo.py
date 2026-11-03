@@ -245,7 +245,7 @@ def read_history(ticker, manifest):
 QUOTE_METHODS = ("verified_quote_replacement", "verified_quote_insertion")
 QUOTE_FIELDS = ("open", "high", "low", "close", "volume")
 # Spin-off reviews carry no method; corporate_actions.correct_spin_off applies them.
-SPIN_OFF_REVIEWS = ("DHR", "JCI")
+SPIN_OFF_REVIEWS = ("DHR",)
 
 
 def review_corrections(manifest):
@@ -603,8 +603,6 @@ def prepare_prices(*, require_reviewed=False):
                         "source": before,
                         "prepared": event_summary(rows, review["ex_date"]),
                     }
-                # After the spin-off corrections: JCI has both, and the reviewed
-                # spin-off checks the vendor's own factors around 2016.
                 if ticker in dividend_tickers:
                     added_dividends[ticker] = correct_missing_dividends(
                         rows, policy, ticker

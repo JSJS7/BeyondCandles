@@ -35,7 +35,7 @@ the engineering details of the import are kept with the code.
 - **External inputs:** all financial values come from SEC filings. Besides the price
   dataset and SEC, the only outside inputs are: one AMD price session (2 Jan 2015) from
   DoltHub; one FI price session (12 Nov 2025), absent from the dataset after Fiserv's
-  move to Nasdaq, from Nasdaq and confirmed by Cboe; ten dividends missing from the
+  move to Nasdaq, from Nasdaq and confirmed by Cboe; two Eaton dividends missing from the
   vendor's adjustments, from DoltHub (amounts confirmed in SEC filings); company
   names, sectors, exchanges and the market-capitalisation ranking used to choose the
   200 companies, from an archived Kaggle S&P 500 dataset
@@ -56,18 +56,20 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   industry or company-specific ones). Picking the largest number or the first tag
   gives wrong totals, so each company and period is mapped to a reviewed line.
 - **Not used:** taxable-equivalent, adjusted or "managed" revenue.
-- **Exceptions:** for WFC, USB, COF and TFC revenue is *net interest income +
-  noninterest income* from the same filing (marked *Calculated*). A few issuers use
-  their own tags (e.g. BAC, BK, AMP).
-- **One definition within a company:** when a company reports both a sales line and a
-  total including other income, one line is used for all its years, and for companies
-  of an industry the line they all report. A line a company does not show is not
-  calculated only to compare it with others. Nasdaq therefore shows total revenues,
-  like ICE and CME, not its revenues less transaction-based expenses. ExxonMobil shows
-  total revenues and other income in all years, because from its 2023 report that is
-  its only revenue line; Chevron and ConocoPhillips show sales and other operating
-  revenues, so ExxonMobil's figure includes a few percent more than theirs. Altria's
-  revenue includes excise taxes, while Philip Morris's does not.
+- **Banks:** AXP, BAC, BK, C, COF, GS, JPM, MS, PNC, SCHW, TFC, USB and WFC show net
+  revenue: their own net revenue line, or *net interest income + noninterest income*
+  from the same filing where no such line exists (WFC, USB, COF and TFC, marked
+  *Calculated*). A few issuers use their own tags (e.g. BAC, BK, AMP).
+- **One line per group:** a group of similar companies uses one line when they show it,
+  and every other company shows its own revenue total. A line a company does not show
+  is not calculated only to compare it with others. Differences between lines up to 5%
+  are accepted rather than corrected. Nasdaq therefore shows total revenues, like ICE
+  and CME, not its revenues less transaction-based expenses. Chevron, ConocoPhillips,
+  Phillips 66 and Occidental show sales. ExxonMobil shows its total including equity
+  income and other income in all years, a few percent above its sales line (within the
+  5% tolerance). EOG's only total includes results on commodity derivatives, which can
+  move it by more (about 13% in 2022). Altria's revenue includes excise taxes, while
+  Philip Morris's does not.
 - **Recalculated to the company's later definition:** Philip Morris reports revenue
   excluding excise taxes from its 10-K filed on 7 Feb 2019, which restated 2016 and
   2017; 2015 appears only in earlier filings that still showed revenue including them.
@@ -122,7 +124,10 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   at one date, not a yearly flow.
 - **Why:** it is the equity that belongs to the company's own shareholders.
 - **Exceptions:** often calculated as total equity minus non-controlling interests
-  (marked *Calculated*). Negative equity is valid (e.g. McDonald's, TransDigm).
+  (marked *Calculated*). Negative equity is valid (e.g. McDonald's, TransDigm). Two small
+  differences stay below the correction threshold: Lilly's 2024 and 2025 equity includes
+  non-controlling interests, and Southern's 2015 and 2016 equity includes preferred stock
+  of subsidiaries.
 - **Watch out:** because preferred equity is included, ROE and price-to-book for
   companies with large preferred stock (banks) are not based on *common* equity.
 
@@ -168,7 +173,9 @@ factors, because the number of shares did not change in that way.
   divided by the split ratio before the vendor's own jump for the MNST and APH splits
   of 2026. It uses the same reviewed event list as the EPS restatement and is accurate
   to about 0.1%, because vendor ratios are rounded. JCI prices through 2 Sep 2016 have no comparable
-  price and are left out. The app does not show such ratios yet.
+  price and are left out. Blackstone's Close before 1 Oct 2015 is also scaled by about
+  1.9% for the PJT Partners spin-off, a factor missing from the vendor's event list and
+  therefore from this conversion. The app does not show such ratios yet.
 
 ## Versions of reports and time
 
@@ -218,20 +225,40 @@ share basis (13 Oct 2026) as the latest view. With D = today the result is ident
 the latest view. Part of the history therefore remains unavailable rather than possibly
 wrong.
 
+## What we correct
+
+A source value is changed only when the error is large and a reliable value is known,
+under one rule for all companies:
+
+- **Adjusted Close:** the largest difference from the right value anywhere in the window,
+  per company, exceeds 1%.
+- **Artificial one-session jump:** over 5%.
+- **Financial value:** the difference exceeds the larger of 5% of the value and 0.5% of the
+  company's annual revenue; for EPS, the larger of 5% and 2 cents.
+- **Always:** wrong company, scale, sign, period, or data used before it was published.
+
+A reliable value comes from an SEC filing, then a company or exchange statement, then two
+independent sources. A large difference without one stays and is described here. A missing
+price session is filled, because all companies share one calendar; a missing financial value
+stays empty and is never estimated.
+
+Smaller differences are neither searched for nor corrected, so the data still contains
+known small errors from the vendor (see *Known limitations*). The thresholds are a judgement
+suited to an educational project, not a measured standard.
+
 ## How the data was checked
 
 - Prices were compared with the source files row by row (all 553,200), and the
   calendar, OHLC consistency and large price jumps were screened. Close changes only
-  for one session each of AMD and FI; Adjusted Close is corrected for AVGO, DHR, JCI,
-  dividends the vendor omits (ETN and MDT 2018; ACN, AON, CB, JCI and TT 2025) and
-  dividends it applied wrongly: COR (another company's under the same ticker), T (not
-  rescaled with its 2022 price conversion), ETN (wrong decimal place), AON and NSC
-  (duplicates), HCA and JCI (events the company's filings rule out). OXY gains the
-  warrant distribution of 2020, which the vendor omits.
+  for one session each of AMD and FI; Adjusted Close is corrected for AVGO (dividends
+  rebuilt, including duplicates of 2018), DHR (a false cash factor), ETN (two omitted
+  dividends and a wrong decimal place), COR (another company's dividends under the same
+  ticker), T (dividends not rescaled with its 2022 price conversion) and OXY (the warrant
+  distribution of 2020, which the vendor omits).
 - Every change of the vendor's adjustment factor is compared with DoltHub's dividend
   table, and every fiscal year with the dividends per share reported to the SEC, which
   decides when the two disagree. Each remaining difference has a reviewed explanation
-  in `data/dividend-audit-reviews.json`. Limits: a few regular payments have no second
+  in `data/dividend-audit-reviews.json`, including those left below the threshold. Limits: a few regular payments have no second
   confirmation, and differences between declaration and ex-date are accepted when a
   shifted run of payments matches the SEC total, so a small error there could pass.
   DoltHub is not fully independent of the vendor. A few ex-dates differ by up to a week
@@ -239,13 +266,14 @@ wrong.
 - Non-cash distributions are outside this comparison, because neither source lists them.
   The one the vendor omits, Occidental's warrants of 2020, is added at the value the
   company reports. The value of spin-offs follows the vendor's ratios. Against the first
-  closing prices of the spun-off companies they differ by up to about 1.5 percentage
-  points on the event day in the cases checked (AT&T, 3M, GE, Danaher, MetLife); not
-  every spin-off could be checked. RTX is the exception: its first days after the
-  Carrier and Otis separation of April 2020 were strongly dislocated, the vendor's level
-  before that date lies about 6% below the return table in RTX's 10-K, and a calculation
-  from the first closing prices lies about as far above it. No value can be confirmed, so
-  the vendor's stays, and RTX returns across that date carry this uncertainty.
+  closing prices of the spun-off companies they differ by up to about 1.8 percentage
+  points on the event day in the cases checked (largest for GE and GE HealthCare in 2023);
+  not every spin-off could be checked. RTX is the exception: its first days after the
+  Carrier and Otis separation of April 2020 were strongly dislocated. The company's own
+  figures put the vendor's level before that date about 4–7% too low (6–7% in its 10-K
+  return tables, about 4% in its proxy statements), while a calculation from the first
+  closing prices lies on the other side. No single value is reliable, so the vendor's
+  stays, and RTX returns across that date carry this uncertainty.
 - The SEC import is faithful and complete: every stored fact matches the downloaded SEC
   data, and every fact in that data that meets the import criteria (the five metrics,
   annual and quarterly filings, periods ending 2015–2025) is stored. The database can be
@@ -275,7 +303,8 @@ Two commands repeat the essential part of these checks on the stored data:
   that a definition is the right one.
 - `check-identities` tests EPS against shares and income, the cash flow statement
   against the change in cash, and the balance sheet against equity. Its tolerances
-  catch gross errors only. Not every period can be tested, because companies do not
+  catch gross errors only, and the balance-sheet test depends little on the served equity,
+  because it also accepts the group total. Not every period can be tested, because companies do not
   tag every number, and a value in a later filing's equity statement may be compared
   with an earlier balance sheet. Explained differences are listed in
   `data/identity-reviews.json`.
@@ -297,6 +326,13 @@ an audit and do not make companies comparable with each other.
 - For JCI until 2 Sep 2016 the point-in-time financials are those of Johnson Controls
   and the prices those of Tyco, so price ratios must not combine them.
 - Sector differences (banks, insurers, utilities) make cross-sector ratios unreliable.
+- Known vendor errors left below the correction threshold: a few dividends are missing,
+  repeated or were never paid (ACN, AON, CB, HCA, JCI, MDT, NSC, TT; each company's level differs
+  by under 1%); the Adient distribution is valued at the vendor's estimate; two sessions
+  repeat the previous close (CB on 15 Jan 2016, S&P Global on 28 Apr 2016); and Berkshire's
+  volume is 100 times too small on 16 and 17 Mar 2021 (volume is not used in calculations).
+- Occidental's warrant distribution of 2020 has a value the company reports, but no filing
+  states its ex-date; the session is the most likely one.
 - GAAP figures without adjustments; preferred equity and dividends affect per-share
   and return ratios.
 - Vendor prices and EPS are not on the same share basis for 20 companies before

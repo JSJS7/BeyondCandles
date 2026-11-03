@@ -8,6 +8,7 @@ from app.data_pipeline.price_adjustments import (
     find_dividend_coverage_gap,
     scan_adjustment_factors,
     separate_reviewed_events,
+    separate_reviewed_gaps,
 )
 from app.data_pipeline.source_files import MANIFEST, ROOT, read_json
 
@@ -233,11 +234,13 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(len(dividends), 44)
         self.assertNotIn("2026-03-23", by_date)
 
-    def test_reviewed_missing_dividends_are_the_ten_found_in_m10(self):
-        """The rules list exactly the 10 dividends found missing in M10.
+    def test_reviewed_missing_dividends_are_those_above_the_threshold(self):
+        """Only ETN keeps added dividends: its Adjusted Close moves over 1%.
 
-        This pins the list itself, so any addition or removal needs a new review.
-        That the vendor files really lack them is checked by MissingDividendSourceTests.
+        The other eight dividends found missing in M10 change their companies by less,
+        so the source value stays (project-principles.md, section 5.1). This pins the
+        list itself. That the vendor files really lack ETN's two dividends is checked
+        by MissingDividendSourceTests.
         """
         active = read_json(MANIFEST)
         policy = read_json(ROOT / active["reviews"]["AVGO"]["rules_file"])
@@ -251,16 +254,8 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(
             missing,
             {
-                ("ACN", "2025-10-10", "1.63"),
-                ("AON", "2025-11-03", "0.745"),
-                ("CB", "2025-09-12", "0.97"),
-                ("CB", "2025-12-12", "0.97"),
                 ("ETN", "2018-08-02", "0.66"),
                 ("ETN", "2018-11-01", "0.66"),
-                ("JCI", "2025-09-22", "0.40"),
-                ("JCI", "2025-12-22", "0.40"),
-                ("MDT", "2018-09-27", "0.50"),
-                ("TT", "2025-12-05", "0.94"),
             },
         )
 
@@ -291,6 +286,24 @@ class PriceAuditTests(unittest.TestCase):
         changed = [dict(events[0], factor_change_percent="3.4")]
         unreviewed, matched, _ = separate_reviewed_events(changed, reviewed)
         self.assertEqual((len(unreviewed), matched), (1, 0))
+
+    def test_only_the_exact_reviewed_coverage_gap_passes(self):
+        """A reviewed gap is accepted; a new, changed or vanished gap is not."""
+        gaps = {
+            "CB": {"last_adjustment": "2025-06-13"},
+            "JCI": {"last_adjustment": "2025-03-21"},
+            "PGR": {"last_adjustment": "2025-01-02"},
+        }
+        reviewed = {
+            "CB": {"last_adjustment": "2025-06-13"},
+            "JCI": {"last_adjustment": "2025-06-23"},
+            "TT": {"last_adjustment": "2025-06-06"},
+        }
+
+        unreviewed, missing = separate_reviewed_gaps(gaps, reviewed)
+
+        self.assertEqual(sorted(unreviewed), ["JCI", "PGR"])
+        self.assertEqual(missing, ["JCI", "TT"])
 
     def vendor_rows_with_dividends(self, cash_by_date):
         """Close stays at 100; Adjusted Close contains exactly these vendor amounts."""
@@ -573,7 +586,7 @@ class MissingDividendSourceTests(unittest.TestCase):
                 rows[-1]["adjusted_close"], source_rows[-1]["adjusted_close"]
             )
 
-        self.assertEqual(checked, 10)
+        self.assertEqual(checked, 2)
 
 
 if __name__ == "__main__":

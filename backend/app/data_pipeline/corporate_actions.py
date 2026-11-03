@@ -8,11 +8,7 @@ from decimal import Decimal, localcontext
 from app.data_pipeline.source_files import ROOT, read_json, sha256
 from app.data_pipeline.validation import number
 
-from .price_adjustments import (
-    PRICE_QUANTUM,
-    cash_adjustment,
-    remove_duplicate_distribution,
-)
+from .price_adjustments import remove_duplicate_distribution
 
 
 def evidence_file(review, role):
@@ -69,20 +65,6 @@ def evidence_text(review, role):
     return " ".join(html.unescape(text).split())
 
 
-def primary_adient_close(review):
-    """Read the first regular-way closing price from Adient's own 2016 SEC filing."""
-    text = evidence_text(review, "annual_report")
-    match = re.search(
-        r"The October 31, 2016 closing share price was \$([0-9]+\.[0-9]+)", text
-    )
-    if match is None:
-        raise ValueError("Adient's primary closing-price disclosure was not found")
-    close = number(match.group(1), "Adient closing price")
-    if close != Decimal(review["distributed_close"]):
-        raise ValueError("Adient closing price differs from the reviewed policy")
-    return close
-
-
 def correct_spin_off(rows, review):
     """Change only pre-event Adjusted Close; preserve vendor OHLC and final anchor."""
     if review["status"] != "reviewed" or not review.get("note"):
@@ -127,37 +109,6 @@ def correct_spin_off(rows, review):
                 )
             rule = {"ex_date": review["ex_date"], "amount": review["original_amount"]}
             corrected = remove_duplicate_distribution(rows, positions, rule)
-        elif review["method"] == "replace_distribution_cash_equivalent":
-            # Define a reproducible cash-equivalent value using the first
-            # regular-way close, not the vendor's unverified 4.70 estimate.
-            if review["ticker"] != "JCI" or splits:
-                raise ValueError(
-                    "JCI must have one distribution without an additional conversion"
-                )
-            distributed_close = primary_adient_close(review)
-            numerator = number(review["distributed_shares"], "distributed shares")
-            denominator = number(review["parent_shares"], "parent shares")
-            if (numerator, denominator) != (Decimal(1), Decimal(10)):
-                raise ValueError("Unexpected Adient distribution ratio")
-            distribution = evidence_text(review, "distribution").lower()
-            if (
-                "one ordinary share for every ten johnson controls shares"
-                not in distribution
-            ):
-                raise ValueError(
-                    "Missing primary disclosure of the Adient distribution ratio"
-                )
-            equivalent = distributed_close * numerator / denominator
-            previous_close = number(rows[position - 1]["close"], "prior Close")
-            original_factor = cash_adjustment(previous_close, amount)
-            reviewed_factor = cash_adjustment(previous_close, equivalent)
-            multiplier = reviewed_factor / original_factor
-            corrected = {}
-            for row in rows:
-                value = number(row["adjusted_close"], "Adjusted Close")
-                if row["date"] < review["ex_date"]:
-                    value *= multiplier
-                corrected[row["date"]] = value.quantize(PRICE_QUANTUM)
         else:
             raise ValueError("Unsupported reviewed spin-off correction")
 
