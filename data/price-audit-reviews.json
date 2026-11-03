@@ -69,10 +69,18 @@
     {
       "ticker": "OXY",
       "date": "2020-03-09",
-      "factor_change_percent": "3.030314458813602523026502600",
+      "factor_change_percent": "3.030314458813602520424104700",
       "kind": "cash_dividend",
       "per_share": "0.79",
       "note": "Regular quarterly dividend on the day of the oil price crash; SEC declared 0.79 in Q1 2020."
+    },
+    {
+      "ticker": "OXY",
+      "date": "2020-08-03",
+      "factor_change_percent": "4.091923679367865104479594500",
+      "kind": "warrant_distribution",
+      "per_share": "0.61875",
+      "note": "Reviewed correction: 1/8 warrant at the 4.95 Occidental reports; the vendor has no event here."
     },
     {
       "ticker": "PCAR",
@@ -80,7 +88,7 @@
       "factor_change_percent": "3.012045101446187635114996300",
       "kind": "cash_dividend",
       "per_share": "0.933",
-      "note": "Year-end extra dividend on the vendor's split-adjusted basis (1.40 before the 2024 3:2 split); SEC Q1 2016 payments 576.9 mln / 351.3 mln shares = 0.24 regular + 1.40."
+      "note": "Year-end extra dividend on the vendor's split-adjusted basis (1.40 before the 2023 3:2 split); SEC Q1 2016 payments 576.9 mln / 351.3 mln shares = 0.24 regular + 1.40."
     },
     {
       "ticker": "PCAR",
@@ -88,7 +96,7 @@
       "factor_change_percent": "3.545443280181671536805523600",
       "kind": "cash_dividend",
       "per_share": "1.333",
-      "note": "Year-end extra dividend on the vendor's split-adjusted basis (2.00 before the 2024 3:2 split); SEC Q1 2019 payments 806.1 mln / 347.8 mln shares = 0.32 regular + 2.00."
+      "note": "Year-end extra dividend on the vendor's split-adjusted basis (2.00 before the 2023 3:2 split); SEC Q1 2019 payments 806.1 mln / 347.8 mln shares = 0.32 regular + 2.00."
     },
     {
       "ticker": "PCAR",

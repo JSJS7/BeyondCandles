@@ -618,6 +618,55 @@ class BenjaminpoTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "CB dividend 2025-09-12 differs"):
             source.correct_missing_dividends(rows, {"companies": {"CB": rule}}, "CB")
 
+    def test_dividend_change_requires_its_pinned_evidence(self):
+        """A reviewed removal runs only while the files it relies on are unchanged."""
+        evidence = self.root / "filing.htm"
+        evidence.write_text("one dividend of 0.43", encoding="utf-8")
+        rule = {
+            "status": "reviewed",
+            "method": "reviewed_dividend_changes",
+            "evidence": [{"file": evidence.name, "sha256": sha256(evidence)}],
+            "changes": [
+                {
+                    "ex_date": "2020-10-29",
+                    "vendor_amount": "1",
+                    "amount": "0",
+                    "split_divisor": "1",
+                }
+            ],
+        }
+        rows = [
+            {"date": "2020-10-28", "close": "100", "adjusted_close": "99"},
+            {"date": "2020-10-29", "close": "100", "adjusted_close": "100"},
+        ]
+        policy = {"dividend_changes": {"HCA": rule}}
+
+        changed = source.correct_dividend_changes(rows, policy, "HCA")
+
+        self.assertEqual(changed, 1)
+        self.assertEqual(Decimal(rows[0]["adjusted_close"]), Decimal(100))
+        self.assertEqual(rows[1]["adjusted_close"], "100")
+
+        evidence.write_text("edited", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "HCA dividend change evidence"):
+            source.correct_dividend_changes(rows, policy, "HCA")
+
+        rule["evidence"] = []
+        with self.assertRaisesRegex(ValueError, "HCA dividend change has no evidence"):
+            source.correct_dividend_changes(rows, policy, "HCA")
+
+    def test_dividend_change_rule_nothing_applies_to_stops_preparation(self):
+        """A misspelt method or a company outside the catalogue is an error, not a skip."""
+        policy = {"dividend_changes": {"COR": {"method": "reviewed_dividend_changes"}}}
+        self.assertEqual(source.dividend_change_tickers(policy, ["COR"]), ["COR"])
+        with self.assertRaisesRegex(ValueError, "outside the catalogue: COR"):
+            source.dividend_change_tickers(policy, ["T"])
+
+        policy["dividend_changes"]["COR"]["method"] = "other"
+        with self.assertRaisesRegex(ValueError, "Unknown dividend change method"):
+            source.dividend_change_tickers(policy, ["COR"])
+        self.assertEqual(source.dividend_change_tickers({"companies": {}}, []), [])
+
     def test_review_or_cash_rule_no_correction_applies_stops_preparation(self):
         """A reviewed correction that nothing would apply is an error, not a silent skip.
 

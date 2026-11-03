@@ -53,6 +53,28 @@ class HistoryRulesTests(unittest.TestCase):
         self.assertFalse(history_eligible(later, "0000320193", history))
         self.assertFalse(history_eligible(reported_fact(), "0000320193", history))
 
+    def test_reviewed_exclusion_removes_only_the_named_fact(self):
+        """Regression for N35: CME's table of pay, not its statement, gave 2,106 for 2020."""
+        history = {
+            "status": "reviewed",
+            "excluded_facts": [
+                {
+                    "accession": "original",
+                    "tag": "NetIncomeLoss",
+                    "period_end": "2020-12-31",
+                }
+            ],
+        }
+        rounded = reported_fact()
+        another_year = reported_fact(period_end=date(2019, 12, 31))
+        another_tag = reported_fact(tag="ProfitLoss")
+        another_filing = reported_fact(accession="another")
+
+        self.assertFalse(history_eligible(rounded, "0000320193", history))
+        self.assertTrue(history_eligible(another_year, "0000320193", history))
+        self.assertTrue(history_eligible(another_tag, "0000320193", history))
+        self.assertTrue(history_eligible(another_filing, "0000320193", history))
+
     def test_unresolved_history_is_not_presented_as_approved(self):
         """Keep unresolved source assignments out of the selected financial history."""
         self.assertFalse(

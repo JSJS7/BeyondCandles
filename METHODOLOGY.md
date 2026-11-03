@@ -24,7 +24,9 @@ the engineering details of the import are kept with the code.
   filings) for fiscal periods ending 1 Jan 2015 to 31 Dec 2025, in USD. Fiscal-year
   labels follow each company's own reports, so a fiscal year can end in the next
   calendar year. FY2025 of HD, LOW, TGT, ROST, LULU and KR ends in 2026 and is outside
-  the range.
+  the range; WMT, NVDA, CRM, TJX and ADSK, which name a year by its end, also stop at a
+  period ending in early 2025. The last period of 19 companies ends before July 2025, so
+  a cross-section by "FY2025" joins periods up to 11 months apart.
 - **Company changes:** where an issuer changed through a reorganisation or merger
   (JCI, BLK, AVGO, DIS, LIN, CI), earlier periods follow the reviewed accounting
   predecessor. We never add up separate companies. Prices follow the listed share
@@ -56,7 +58,16 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
 - **Not used:** taxable-equivalent, adjusted or "managed" revenue.
 - **Exceptions:** for WFC, USB, COF and TFC revenue is *net interest income +
   noninterest income* from the same filing (marked *Calculated*). A few issuers use
-  their own tags (e.g. BAC, BK, XOM, AMP) or a company-specific revenue line (Nasdaq).
+  their own tags (e.g. BAC, BK, AMP).
+- **One definition within a company:** when a company reports both a sales line and a
+  total including other income, one line is used for all its years, and for companies
+  of an industry the line they all report. A line a company does not show is not
+  calculated only to compare it with others. Nasdaq therefore shows total revenues,
+  like ICE and CME, not its revenues less transaction-based expenses. ExxonMobil shows
+  total revenues and other income in all years, because from its 2023 report that is
+  its only revenue line; Chevron and ConocoPhillips show sales and other operating
+  revenues, so ExxonMobil's figure includes a few percent more than theirs. Altria's
+  revenue includes excise taxes, while Philip Morris's does not.
 - **Recalculated to the company's later definition:** Philip Morris reports revenue
   excluding excise taxes from its 10-K filed on 7 Feb 2019, which restated 2016 and
   2017; 2015 appears only in earlier filings that still showed revenue including them.
@@ -66,8 +77,8 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   We recalculate only when the company itself changed the definition and the same
   calculation reproduces the figures the company later restated (here 2016 and 2017,
   to the million). Otherwise the reported value stays: Chevron includes excise taxes
-  until 2017, and ExxonMobil's total from 2020 includes equity-affiliate and other
-  income, so their series change basis by a few percent.
+  until 2017, and ExxonMobil includes sales-based taxes in its earliest years, so their
+  series change basis by a few percent.
 - **Watch out:** bank, insurer and industrial "revenue" are not comparable. Avoid
   revenue-based ratios across sectors. Within one company, years come from different
   filings: after a spin-off or an accounting change, consecutive years can be on
@@ -80,7 +91,9 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   Group net income also contains the share of minority holders.
 - **Exceptions:** when the standard tag is missing or ambiguous, the value is
   calculated in one filing as group net income minus the amounts attributable to other
-  owners (marked *Calculated*, with the formula in *Sources*).
+  owners (marked *Calculated*, with the formula in *Sources*). A rounded figure tagged
+  only for an executive pay table is not used; the audited statements decide (CME's 10-K
+  filed in 2026).
 - **Watch out:** net income is before preferred dividends, while EPS is after them, so
   net income ÷ EPS is not always the share count (e.g. BDX 2018, KMI 2017).
 
@@ -169,7 +182,11 @@ The API can also return the table **as known on a date D** (`as_of`), for analys
 the past. A year appears from the filing date of its first annual report, and each
 value is the latest version filed on or before D (the SEC filing date counts as known
 on that day; filings carry no time of day, so a backtest should act on the next
-session). An earlier version is served only when it is confirmed:
+session). That first report may come from a predecessor issuer (for example Praxair
+for Linde's 2016 and 2017), or from the original XBRL of a filing that SEC's fact data
+omits (S&P Global's 10-K for 2024); such reports date a value but never define today's
+one, and the period shows what that report said. An earlier version is served only when
+it is confirmed:
 
 - **identical:** every source of today's verified value has the same value in the same
   concept, unit, issuer and period in that earlier filing;
@@ -204,15 +221,31 @@ wrong.
 ## How the data was checked
 
 - Prices were compared with the source files row by row (all 553,200), and the
-  calendar, OHLC consistency and large price jumps were screened. Corrections apply
-  only to AVGO, DHR, JCI, one session each for AMD and FI, and ten dividends the
-  vendor's Adjusted Close omits (ETN and MDT 2018; ACN, AON, CB, JCI and TT 2025).
-  These were found by checking every dividend in DoltHub's table against the
-  vendor's adjustments. Years and single quarters without DoltHub data for a company
-  (for example GILD 2015–2017, a few quarters of TT, AON and JCI) could not be
-  checked, and a dividend missing from both sources would go unnoticed, so ten is a
-  lower bound. A few ex-dates differ by up to a week between the two sources without
-  being changed.
+  calendar, OHLC consistency and large price jumps were screened. Close changes only
+  for one session each of AMD and FI; Adjusted Close is corrected for AVGO, DHR, JCI,
+  dividends the vendor omits (ETN and MDT 2018; ACN, AON, CB, JCI and TT 2025) and
+  dividends it applied wrongly: COR (another company's under the same ticker), T (not
+  rescaled with its 2022 price conversion), ETN (wrong decimal place), AON and NSC
+  (duplicates), HCA and JCI (events the company's filings rule out). OXY gains the
+  warrant distribution of 2020, which the vendor omits.
+- Every change of the vendor's adjustment factor is compared with DoltHub's dividend
+  table, and every fiscal year with the dividends per share reported to the SEC, which
+  decides when the two disagree. Each remaining difference has a reviewed explanation
+  in `data/dividend-audit-reviews.json`. Limits: a few regular payments have no second
+  confirmation, and differences between declaration and ex-date are accepted when a
+  shifted run of payments matches the SEC total, so a small error there could pass.
+  DoltHub is not fully independent of the vendor. A few ex-dates differ by up to a week
+  between the two sources without being changed.
+- Non-cash distributions are outside this comparison, because neither source lists them.
+  The one the vendor omits, Occidental's warrants of 2020, is added at the value the
+  company reports. The value of spin-offs follows the vendor's ratios. Against the first
+  closing prices of the spun-off companies they differ by up to about 1.5 percentage
+  points on the event day in the cases checked (AT&T, 3M, GE, Danaher, MetLife); not
+  every spin-off could be checked. RTX is the exception: its first days after the
+  Carrier and Otis separation of April 2020 were strongly dislocated, the vendor's level
+  before that date lies about 6% below the return table in RTX's 10-K, and a calculation
+  from the first closing prices lies about as far above it. No value can be confirmed, so
+  the vendor's stays, and RTX returns across that date carry this uncertainty.
 - The SEC import is faithful and complete: every stored fact matches the downloaded SEC
   data, and every fact in that data that meets the import criteria (the five metrics,
   annual and quarterly filings, periods ending 2015–2025) is stored. The database can be
@@ -230,10 +263,25 @@ wrong.
   re-filed XBRL or corrected the cover page repeat the value of the original report
   filed days earlier.
 
-These checks were run once, on the snapshot used by the app (October 2026), with
-throwaway scripts that are not part of the repository. They show that the numbers
-match the filings and the stated definitions. They are not an audit and do not make
-companies comparable with each other.
+Two commands repeat the essential part of these checks on the stored data:
+
+- `check-documents` looks for every served version in the tables of its own filing.
+  A value must stand in a row labelled as that metric, in the column or row of its
+  period. A value the check cannot read in its own filing passes only if another
+  filing shows the same number for the same period, and the few that remain are
+  reviewed by hand in `data/document-check-reviews.json`. `control-documents` plants
+  wrong years, values and rows to measure how many still pass. This finds a wrong
+  period, value or row, not a choice between two real rows, so it does not confirm
+  that a definition is the right one.
+- `check-identities` tests EPS against shares and income, the cash flow statement
+  against the change in cash, and the balance sheet against equity. Its tolerances
+  catch gross errors only. Not every period can be tested, because companies do not
+  tag every number, and a value in a later filing's equity statement may be compared
+  with an earlier balance sheet. Explained differences are listed in
+  `data/identity-reviews.json`.
+
+They show that the numbers match the filings and the stated definitions. They are not
+an audit and do not make companies comparable with each other.
 
 ## Known limitations
 
@@ -243,6 +291,11 @@ companies comparable with each other.
 - Annual data only. The point-in-time view (`as_of`) shows an earlier version only
   when it is confirmed; one earlier version (BK revenue for 2015 as first reported)
   has no value, because that filing tags only a segment total.
+- A series joins values restated in different years. Later reports recast earlier years
+  after spin-offs and new accounting standards, so the change between two adjacent years
+  in the table can mix definitions; a marker for these breaks is planned before ratios.
+- For JCI until 2 Sep 2016 the point-in-time financials are those of Johnson Controls
+  and the prices those of Tyco, so price ratios must not combine them.
 - Sector differences (banks, insurers, utilities) make cross-sector ratios unreliable.
 - GAAP figures without adjustments; preferred equity and dividends affect per-share
   and return ratios.

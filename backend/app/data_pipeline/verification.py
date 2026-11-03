@@ -9,6 +9,8 @@ from app.data_pipeline.prices import validate_prices
 from app.data_pipeline.source_files import ROOT
 from app.data_pipeline.validation import FIELDS
 
+FINGERPRINT_MODULUS = 2**256
+
 
 def fingerprint(values):
     ticker, day, *numbers = values
@@ -21,6 +23,16 @@ def fingerprint(values):
             formatted = formatted.rstrip("0").rstrip(".")
         canonical.append(formatted)
     return int.from_bytes(hashlib.sha256("|".join(canonical).encode()).digest(), "big")
+
+
+def rows_fingerprint(rows):
+    """Order-independent sum of row fingerprints; returns (row count, 64 hex digits)."""
+    digest = 0
+    count = 0
+    for row in rows:
+        digest = (digest + fingerprint(row)) % FINGERPRINT_MODULUS
+        count += 1
+    return count, f"{digest:064x}"
 
 
 def inspect_db():
@@ -43,30 +55,22 @@ def inspect_db():
 def verify_db():
     from sqlalchemy import text
 
-    from app.data_pipeline.metric_history import verify_history
+    from app.data_pipeline.metric_history import current_cell_statuses, verify_history
+    from app.data_pipeline.sec import verify_stored_facts
     from app.database import engine
 
     path, _, validated = validate_prices()
-    expected = 0
-    observed = 0
-    count = 0
-    modulus = 2**256
     with path.open(encoding="utf-8", newline="") as handle:
-        for row in csv.DictReader(handle):
-            expected = (expected + fingerprint([row[f] for f in FIELDS])) % modulus
+        rows = ([row[f] for f in FIELDS] for row in csv.DictReader(handle))
+        _, expected = rows_fingerprint(rows)
     with engine.connect() as connection:
-        for row in (
-            connection.execution_options(stream_results=True)
-            .execute(
-                text("""
+        stored = connection.execution_options(stream_results=True).execute(
+            text("""
             SELECT c.ticker,p.date,p.open,p.high,p.low,p.close,p.adjusted_close,p.volume
             FROM daily_prices p JOIN companies c ON c.id=p.company_id
         """)
-            )
-            .yield_per(10000)
-        ):
-            observed = (observed + fingerprint(row)) % modulus
-            count += 1
+        )
+        count, observed = rows_fingerprint(stored.yield_per(10000))
         if count != validated["prices"] or observed != expected:
             raise ValueError("Stored price data does not match validated source")
         db_companies = connection.execute(
@@ -74,17 +78,28 @@ def verify_db():
         ).scalar_one()
         if db_companies != 200:
             raise ValueError("Stored company count differs from 200")
-        financial = connection.execute(
+        financial = verify_stored_facts(connection)
+        total_facts = connection.execute(
             text("SELECT count(*) FROM financial_facts")
         ).scalar_one()
+        if total_facts != financial:
+            raise ValueError("Stored facts belong to unknown companies")
     versions, history = verify_history(engine)
+    with engine.connect() as connection:
+        statuses = current_cell_statuses(connection)
+    not_ready = [cell for cell, status in statuses.items() if status != "ready"]
+    if not_ready:
+        raise ValueError(
+            f"{len(not_ready)} current metric cells are not ready, first {not_ready[0]}"
+        )
     result = {
         "status": "verified",
         "companies": db_companies,
         "prices": count,
-        "price_fingerprint": f"{observed:064x}",
+        "price_fingerprint": observed,
         "financial_facts": financial,
         "metric_versions": versions,
+        "current_metric_cells": len(statuses),
         "metric_history_fingerprint": history,
         "period_start": validated["period_start"],
         "period_end": validated["period_end"],

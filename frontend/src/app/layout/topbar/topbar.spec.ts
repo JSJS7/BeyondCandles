@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { TopbarComponent } from './topbar';
 
 describe('Topbar', () => {
@@ -177,6 +177,104 @@ describe('Topbar', () => {
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.search-result').textContent).toContain('AAPL');
+  });
+
+  function openedSearch(query: string): HTMLInputElement {
+    http.expectOne(catalogueUrl).flush(catalogue);
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    input.value = query;
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    return input;
+  }
+
+  function press(input: HTMLInputElement, key: string): KeyboardEvent {
+    const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+    input.dispatchEvent(event);
+    fixture.detectChanges();
+    return event;
+  }
+
+  it('closes suggestions on a click outside the search, not on one inside it', () => {
+    // N31: only Escape or a choice closed the list.
+    openedSearch('aapl');
+    const results = fixture.nativeElement.querySelector('.search-results');
+
+    results.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.search-results')).not.toBeNull();
+
+    document.body.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.search-results')).toBeNull();
+    expect(component.searchQuery()).toBe('aapl');
+  });
+
+  it('closes suggestions when Tab leaves the search', () => {
+    const input = openedSearch('aapl');
+
+    press(input, 'Tab');
+
+    expect(fixture.nativeElement.querySelector('.search-results')).toBeNull();
+  });
+
+  it('marks options with the arrow keys, wrapping at both ends, without moving focus', () => {
+    const input = openedSearch('example');
+    expect(input.getAttribute('aria-activedescendant')).toBeNull();
+
+    const event = press(input, 'ArrowDown');
+    expect(event.defaultPrevented).toBe(true);
+    expect(input.getAttribute('aria-activedescendant')).toBe('search-option-0');
+    const first = fixture.nativeElement.querySelector('#search-option-0');
+    expect(first.getAttribute('aria-selected')).toBe('true');
+
+    press(input, 'ArrowUp');
+    expect(input.getAttribute('aria-activedescendant')).toBe('search-option-9');
+    press(input, 'ArrowDown');
+    expect(input.getAttribute('aria-activedescendant')).toBe('search-option-0');
+  });
+
+  it('opens the marked option with Enter, or the best match when none is marked', () => {
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    const input = openedSearch('example');
+
+    press(input, 'ArrowDown');
+    press(input, 'ArrowDown');
+    press(input, 'Enter');
+    expect(navigate).toHaveBeenCalledWith(['/stocks', 'T1']);
+    expect(component.searchQuery()).toBe('');
+
+    input.value = 'apple';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    press(input, 'Enter');
+    expect(navigate).toHaveBeenLastCalledWith(['/stocks', 'AAPL']);
+  });
+
+  it('does nothing on Enter when no option is shown', () => {
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    const input = openedSearch('unknown');
+
+    const event = press(input, 'Enter');
+
+    expect(navigate).not.toHaveBeenCalled();
+    expect(event.defaultPrevented).toBe(false);
+  });
+
+  it('exposes the combobox state to assistive technology', () => {
+    const input = openedSearch('aapl');
+
+    expect(input.getAttribute('role')).toBe('combobox');
+    expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(fixture.nativeElement.querySelector('#search-options').getAttribute('role')).toBe(
+      'listbox',
+    );
+    expect(fixture.nativeElement.querySelector('.search-result').getAttribute('role')).toBe(
+      'option',
+    );
+
+    press(input, 'Escape');
+    expect(input.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('switches the page theme using the labelled toolbar button', () => {

@@ -749,12 +749,12 @@ class RevenueEvidenceTests(unittest.TestCase):
                 )
                 self.assertIsNone(rule)
 
-    def test_nasdaq_gross_profit_tag_requires_its_exact_net_revenue_label(self):
-        """A Nasdaq-specific net-revenue mapping must never approve an ordinary gross profit."""
+    def verified_rule(self, ticker, facts, rows):
+        """Run the filing check on one invented income statement."""
         from app.data_pipeline.revenue import verify_filing_period
         from app.data_pipeline.source_files import sha256
 
-        with TemporaryDirectory(prefix="beyondcandles-nasdaq-revenue-") as directory:
+        with TemporaryDirectory(prefix="beyondcandles-revenue-row-") as directory:
             root = Path(directory)
             summary = root / "summary.xml"
             summary.write_text(
@@ -764,43 +764,112 @@ class RevenueEvidenceTests(unittest.TestCase):
                 encoding="utf-8",
             )
             income = root / "income.htm"
-            fact = reported_fact(
-                metric="revenue",
-                tag="GrossProfit",
-                value=Decimal("100000000"),
-                source_cik="0001120193",
-            )
-            source = (fact["source_cik"], fact["accession"])
-            period = period_key(
-                fact["source_cik"], fact["period_start"], fact["period_end"]
-            )
+            income.write_text(statement(rows), encoding="utf-8")
             old = {
                 "summary": {
                     "file": summary.name,
                     "sha256": sha256(summary),
                     "url": "https://www.sec.gov/summary",
-                }
+                },
+                "R2.htm": {
+                    "file": income.name,
+                    "sha256": sha256(income),
+                    "url": "https://www.sec.gov/income",
+                },
             }
-            for label, expected in (
-                ("Gross profit", False),
-                ("Revenues less transaction-based expenses", True),
-            ):
-                with (
-                    self.subTest(label=label),
-                    patch("app.data_pipeline.sec_catalogue.CACHE", root),
-                ):
-                    income.write_text(
-                        statement(row("us-gaap_GrossProfit", label)), encoding="utf-8"
-                    )
-                    old["R2.htm"] = {
-                        "file": income.name,
-                        "sha256": sha256(income),
-                        "url": "https://www.sec.gov/income",
-                    }
-                    rule, _ = verify_filing_period(
-                        "NDAQ", period, [fact], source, old, {"filings": {}}, False, {}
-                    )
-                    self.assertEqual(rule is not None, expected)
+            fact = facts[0]
+            source = (fact["source_cik"], fact["accession"])
+            period = period_key(
+                fact["source_cik"], fact["period_start"], fact["period_end"]
+            )
+            with patch("app.data_pipeline.sec_catalogue.CACHE", root):
+                rule, _ = verify_filing_period(
+                    ticker, period, facts, source, old, {"filings": {}}, False, {}
+                )
+            return rule
+
+    def test_exchange_uses_total_revenues_not_revenues_less_expenses(self):
+        """Nasdaq shows both; total revenues is the row ICE and CME report as well."""
+        total = reported_fact(
+            metric="revenue",
+            tag="Revenues",
+            value=Decimal("100000000"),
+            source_cik="0001120193",
+        )
+        rows = row("us-gaap_Revenues", "Total revenues") + row(
+            "us-gaap_GrossProfit",
+            "Revenues less transaction-based expenses",
+            ("60", "50"),
+        )
+
+        rule = self.verified_rule("NDAQ", [total], rows)
+
+        self.assertEqual(rule["tag"], "Revenues")
+        self.assertEqual(rule["value"], "100000000")
+
+    def test_reviewed_note_reads_revenue_rows_after_the_per_share_rows(self):
+        """Nasdaq FY2021 lists revenue below EPS, then repeats it for each segment.
+
+        Only the row before the segment axis is the consolidated total, and without the
+        reviewed option the per-share rows end the search as for any other statement.
+        """
+        from app.data_pipeline.sec_statements import (
+            NoUniqueStatementRow,
+            statement_total,
+        )
+
+        concept = "RevenueFromContractWithCustomerExcludingAssessedTax"
+        html = statement(
+            row("us-gaap_GrossProfit", "Revenues less transaction-based expenses")
+            + row("us-gaap_EarningsPerShareBasic", "Basic", ("1", "1"))
+            + row("us-gaap_" + concept, "Total revenues", ("588", "562"))
+            + row("srt_ConsolidationItemsAxis", "Operating Segments", ("", ""))
+            + row("us-gaap_" + concept, "Total revenues", ("46", "35"))
+        )
+        options = {
+            "concept": concept,
+            "stop_at_costs": False,
+            "stop_at_dimensions": True,
+        }
+
+        end = date(2020, 12, 31)
+
+        total = statement_total(html, end, past_per_share=True, **options)
+
+        self.assertEqual(total["values"], ["588", "562"])
+        with self.assertRaises(NoUniqueStatementRow):
+            statement_total(html, end, **options)
+
+    def test_exxon_uses_its_total_also_where_a_sales_row_exists(self):
+        """Its reports from 2023 show only the total, so all years must use that row."""
+        total = reported_fact(
+            metric="revenue",
+            tag="Revenues",
+            value=Decimal("100000000"),
+            source_cik="0000034088",
+        )
+        sales = reported_fact(
+            metric="revenue",
+            tag="RevenueFromContractWithCustomerExcludingAssessedTax",
+            value=Decimal("90000000"),
+            source_cik="0000034088",
+        )
+        rows = row(
+            "us-gaap_RevenueFromContractWithCustomerExcludingAssessedTax",
+            "Sales and other operating revenue",
+            ("90", "80"),
+        ) + row("us-gaap_Revenues", "Total revenues and other income")
+
+        rule = self.verified_rule("XOM", [total, sales], rows)
+
+        self.assertEqual(rule["tag"], "Revenues")
+        self.assertEqual(rule["value"], "100000000")
+
+        peer = dict(sales, source_cik="0000093410")
+        rule = self.verified_rule("CVX", [peer], rows)
+        self.assertEqual(
+            rule["tag"], "RevenueFromContractWithCustomerExcludingAssessedTax"
+        )
 
     def test_net_of_excise_year_requires_both_rows_of_the_reviewed_filing(self):
         """Approve revenue less excise taxes only from one statement of the pinned filing.

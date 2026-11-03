@@ -16,11 +16,17 @@
     <input
       #searchInput
       type="text"
+      role="combobox"
       aria-label="Search companies"
+      aria-autocomplete="list"
+      aria-controls="search-options"
+      [attr.aria-expanded]="optionsVisible()"
+      [attr.aria-activedescendant]="activeOptionId()"
       placeholder="Search companies..."
       [value]="searchQuery()"
       (focus)="onSearchFocus()"
       (input)="onSearchInput(searchInput.value)"
+      (keydown)="onSearchKeydown($event)"
     />
 
     @let loadState = stocksLoadState();
@@ -47,9 +53,18 @@
 
         @case ('ready') {
           @if (filteredStocks().length > 0) {
-            <div class="search-results">
-              @for (stock of filteredStocks(); track stock.ticker) {
-                <button class="search-result" type="button" (click)="selectStock(stock)">
+            <div class="search-results" id="search-options" role="listbox">
+              @for (stock of filteredStocks(); track stock.ticker; let index = $index) {
+                <button
+                  class="search-result"
+                  type="button"
+                  role="option"
+                  tabindex="-1"
+                  [id]="optionId(index)"
+                  [class.active]="index === activeOption()"
+                  [attr.aria-selected]="index === activeOption()"
+                  (click)="selectStock(stock)"
+                >
                   <div class="result-main">
                     <strong>{{ stock.ticker }}</strong>
                     <span>{{ stock.name }}</span>

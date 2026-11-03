@@ -36,6 +36,7 @@ from app.fact_identity import add_selected_sources, fact_identity
 from app.fiscal_periods import canonical_period, fiscal_rules, period_metadata
 from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, AnnualPeriod, EpsSplit, FilingValue
+from app.timeline import as_known_then, timeline_facts, timeline_rules
 
 VERSION_REVIEWS_PATH = Path(__file__).resolve().parents[2] / "data/version-reviews.json"
 CONFIRMED_IDENTICAL = "identical"
@@ -428,12 +429,15 @@ def periods_as_of(facts, stored_versions, as_of, period_rules=None):
     rules = fiscal_rules() if period_rules is None else period_rules
     eligible = [fact for fact in facts if fact.get("history_eligible", True)]
     known_facts = [fact for fact in facts if fact["filed"] <= as_of]
-    variants = {
-        (period.period_start, period.period_end): {
-            metric: value.variants for metric, value in period.metrics.items()
-        }
-        for period in annual_periods(known_facts, period_rules=rules)
-    }
+    timeline = timeline_rules()
+    variants = {}
+    # A period known only from a report that dates versions has its variants from there;
+    # a period also in the current view keeps those of the current selection.
+    for known in (as_known_then(known_facts, timeline), known_facts):
+        for period in annual_periods(known, period_rules=rules):
+            variants[(period.period_start, period.period_end)] = {
+                metric: value.variants for metric, value in period.metrics.items()
+            }
 
     current = {}
     for stored in stored_versions:
@@ -488,12 +492,13 @@ def company_versions(
     eligible = [fact for fact in facts if fact.get("history_eligible", True)]
     raw_periods = annual_periods(facts, period_rules=rules)
     final_periods = normalize_eps(ticker, raw_periods, rules=split_policy)
-    reports = first_reports(eligible, rules)
+    dating_facts = eligible + timeline_facts(facts, timeline_rules())
+    reports = first_reports(dating_facts, rules)
 
     supported_forms = ANNUAL_REPORT_FORMS + QUARTERLY_REPORT_FORMS
     facts_by_key = defaultdict(list)
     cell_facts = defaultdict(list)
-    for fact in eligible:
+    for fact in dating_facts:
         if fact["form"] not in supported_forms:
             continue
         if fact["period_kind"] not in ("annual", "instant"):

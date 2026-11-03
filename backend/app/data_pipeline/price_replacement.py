@@ -11,24 +11,14 @@ from app.data_pipeline.source_files import MANIFEST, ROOT, read_json, sha256, wr
 from app.data_pipeline.validation import FIELDS
 
 from .benjaminpo import CANDIDATE, prepare_prices
-from .verification import fingerprint
+from .verification import rows_fingerprint
 
 BACKUPS = ROOT / "data/raw/backups"
-MODULUS = 2**256
 PRICE_QUERY = """
     SELECT c.ticker,p.date,p.open,p.high,p.low,p.close,p.adjusted_close,p.volume
     FROM daily_prices p JOIN companies c ON c.id=p.company_id
     ORDER BY c.ticker,p.date
 """
-
-
-def rows_fingerprint(rows):
-    digest = 0
-    count = 0
-    for row in rows:
-        digest = (digest + fingerprint(row)) % MODULUS
-        count += 1
-    return count, f"{digest:064x}"
 
 
 def file_fingerprint(path):

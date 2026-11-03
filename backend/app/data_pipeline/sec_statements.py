@@ -207,8 +207,13 @@ def statement_total(
     stop_at_costs=True,
     stop_at_dimensions=False,
     per_share=False,
+    past_per_share=False,
 ):
-    """Accept exactly one explicit total row; never infer a total from its numeric size."""
+    """Accept exactly one explicit total row; never infer a total from its numeric size.
+
+    past_per_share keeps reading after the per-share rows, for a reviewed statement that
+    lists its revenue rows below them.
+    """
     parser = StatementRows()
     parser.feed(html)
     candidates = []
@@ -243,6 +248,7 @@ def statement_total(
         if (
             not stop_at_costs
             and not per_share
+            and not past_per_share
             and any(tag.startswith("EarningsPerShare") for _, tag in row["tags"])
         ):
             break

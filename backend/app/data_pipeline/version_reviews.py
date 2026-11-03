@@ -66,6 +66,7 @@ from app.net_income import PARENT_TAG, calculated_value
 from app.operating_cash_flow import DEFINITION as CASH_FLOW_DEFINITION
 from app.revenue import BANK_CALCULATION, period_key
 from app.schemas.stock import FilingValue
+from app.timeline import as_known_then, timeline_rules
 
 REPORT_PATH = ROOT / "data/processed/version-reviews-report.json"
 METHOD = (
@@ -154,6 +155,7 @@ def pending_tasks():
     history = read_json(HISTORY_INDEX) if HISTORY_INDEX.exists() else {"issuers": {}}
     calendar = fiscal_rules()
     split_policy = split_rules()
+    timeline = timeline_rules()
     tasks = []
     _, companies = load_all_sec()
     for ticker, (entry, body) in companies:
@@ -169,8 +171,11 @@ def pending_tasks():
             # Every unchecked report date is a task, not only the first of a run.
             keep_repeats=True,
         )
+        # A version is reviewed on what its filing showed that day, also from a report
+        # outside the current view.
+        known_then = as_known_then(facts, timeline)
         company_tasks = [
-            VersionTask(ticker, facts, version, calendar)
+            VersionTask(ticker, known_then, version, calendar)
             for version in versions
             if version.value.status == "needs_review"
             and version.form in ANNUAL_REPORT_FORMS

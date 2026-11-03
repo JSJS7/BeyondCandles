@@ -9,13 +9,13 @@ from decimal import Decimal
 from threading import Lock
 from time import sleep
 
+from app.annual_financials import ANNUAL_REPORT_FORMS
 from app.data_pipeline.sec import CACHE, CacheIntegrityError, SecAccessDenied
 from app.data_pipeline.sec_cache import RequestGate, cached
 from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_reference
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
     matches_rendered_value,
-    normalized_label,
     statement_total,
 )
 from app.data_pipeline.source_files import (
@@ -39,7 +39,6 @@ from .revenue_facts import (
 )
 
 EVIDENCE_INDEX = CACHE / "revenue-evidence-index.json"
-ANNUAL_FORMS = ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
 
 
 def income_statement_files(summary):
@@ -105,12 +104,12 @@ def review_jobs(facts):
         for fact in facts
         if fact["history_eligible"]
         and fact["period_kind"] == "annual"
-        and fact["form"] in ANNUAL_FORMS + ("10-Q", "10-Q/A")
+        and fact["form"] in ANNUAL_REPORT_FORMS + ("10-Q", "10-Q/A")
     ]
     periods = {
         fact_period_key(fact, calendar)
         for fact in eligible
-        if fact["form"] in ANNUAL_FORMS
+        if fact["form"] in ANNUAL_REPORT_FORMS
     }
     latest = {}
     groups = defaultdict(list)
@@ -130,7 +129,7 @@ def review_jobs(facts):
         candidates = [
             fact
             for fact in eligible
-            if fact["form"] in ANNUAL_FORMS
+            if fact["form"] in ANNUAL_REPORT_FORMS
             and fact_period_key(fact, calendar) == period
         ]
         anchor = max(candidates, key=lambda fact: (fact["filed"], fact["accession"]))
@@ -355,6 +354,16 @@ REVIEWED_NOTE_TOTALS = {
         "label": "Revenue from contract with customers",
         "value": "865638000",
     },
+    # Nasdaq's FY2021 statement opens with revenues less expenses and lists its revenue
+    # rows after the per-share rows; the segment axis below ends the consolidated part.
+    "0001120193:2019-01-01:2019-12-31": {
+        "accession": "0001120193-22-000007",
+        "filename": "R5.htm",
+        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "label": "Total revenues",
+        "value": "4258000000",
+        "past_per_share": True,
+    },
 }
 
 
@@ -384,6 +393,7 @@ def reviewed_disclosure(period, group, source, old, fetch=False, evidence=None):
         concept=reviewed["tag"],
         stop_at_costs=False,
         stop_at_dimensions=True,
+        past_per_share=reviewed.get("past_per_share", False),
     )
     if total["label"] != reviewed["label"]:
         raise ValueError("Reviewed consolidated note label changed")
@@ -459,27 +469,18 @@ def verify_filing_period(
                         raise ValueError(
                             "Net-of-excise revenue was not reviewed for this filing"
                         )
-                if cik == "0001120193":
-                    total = statement_total(
-                        html, end_date, concept="GrossProfit", stop_at_costs=False
-                    )
-                    if (
-                        normalized_label(total["label"])
-                        != "revenues less transaction based expenses"
-                    ):
-                        raise ValueError(
-                            "Nasdaq net revenue is not explicitly identified on this statement"
-                        )
-                else:
-                    labels = {
-                        "VRTX": ("product revenues net",),
-                        "KKR": ("fees and other",),
-                        "GE": ("total revenues and other income",),
-                        "EOG": ("total",),
-                    }
-                    total = statement_total(
-                        html, end_date, extra_labels=labels.get(ticker, ())
-                    )
+                labels = {
+                    "VRTX": ("product revenues net",),
+                    "KKR": ("fees and other",),
+                    "GE": ("total revenues and other income",),
+                    "EOG": ("total",),
+                    # From its 2023 report ExxonMobil shows only this total, so every
+                    # year uses it rather than the sales row of the earlier reports.
+                    "XOM": ("total revenues and other income",),
+                }
+                total = statement_total(
+                    html, end_date, extra_labels=labels.get(ticker, ())
+                )
                 if total["taxonomy"] != "us-gaap":
                     if fetch:
                         cache_instance(cik, accession, old)
@@ -571,11 +572,6 @@ def verify_filing_period(
             rule["original_instance"] = old["instance"]
         if total.get("note"):
             rule["note"] = total["note"]
-        if cik == "0001120193":
-            rule["note"] = (
-                "Nasdaq reported net revenue after transaction-based expenses. The issuer uses "
-                "us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
-            )
         return rule, attempts
     except (ValueError, KeyError, ET.ParseError) as exc:
         if isinstance(exc, (SecAccessDenied, CacheIntegrityError)):

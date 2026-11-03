@@ -15976,6 +15976,220 @@
         "file": "2c1a25927ba4798760955adb5cbcdb98022a1fea60f0a03c5be209a11032cc63.htm"
       }
     },
+    "AVGO:eps_diluted:2014-11-03:2015-11-01:0001441634-15-000089": {
+      "filed": "2015-12-17",
+      "form": "10-K",
+      "value": "4.85",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001441634",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "4.85",
+            "period_start": "2014-11-03",
+            "period_end": "2015-11-01",
+            "filed": "2015-12-17",
+            "accession": "0001441634-15-000089",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1441634/000144163415000089/R4.htm",
+        "sha256": "4f4dcee81ec9af8986f187c90cc2b5bbbdc1df18ebc87830d16d636081a8c62e",
+        "file": "4f4dcee81ec9af8986f187c90cc2b5bbbdc1df18ebc87830d16d636081a8c62e.htm"
+      }
+    },
+    "AVGO:eps_diluted:2015-11-02:2016-10-30:0001649338-16-000151": {
+      "filed": "2016-12-23",
+      "form": "10-K",
+      "value": "-4.86",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "-4.86",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2016-12-23",
+            "accession": "0001649338-16-000151",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933816000151/R4.htm",
+        "sha256": "c0eabcb5887966230645544ef3451f7573fbb4eaf7c8e4b26ef3053f741243aa",
+        "file": "c0eabcb5887966230645544ef3451f7573fbb4eaf7c8e4b26ef3053f741243aa.htm"
+      }
+    },
+    "AVGO:eps_diluted:2015-11-02:2016-10-30:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "-4.86",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "-4.86",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R4.htm",
+        "sha256": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8",
+        "file": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8.htm"
+      }
+    },
+    "AVGO:eps_diluted:2016-10-31:2017-10-29:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "4.02",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "4.02",
+            "period_start": "2016-10-31",
+            "period_end": "2017-10-29",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R4.htm",
+        "sha256": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8",
+        "file": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8.htm"
+      }
+    },
+    "AVGO:equity:2014-11-03:2015-11-01:0001441634-15-000089": {
+      "filed": "2015-12-17",
+      "form": "10-K",
+      "value": "4714000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001441634",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "4714000000",
+            "period_start": "2015-11-01",
+            "period_end": "2015-11-01",
+            "filed": "2015-12-17",
+            "accession": "0001441634-15-000089",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1441634/000144163415000089/R2.htm",
+        "sha256": "bbdffe2a3184753fe323e27ecfd875a0cdff3a40975292016acaa8dd910f44f8",
+        "file": "bbdffe2a3184753fe323e27ecfd875a0cdff3a40975292016acaa8dd910f44f8.htm"
+      }
+    },
+    "AVGO:equity:2015-11-02:2016-10-30:0001649338-16-000151": {
+      "filed": "2016-12-23",
+      "form": "10-K",
+      "value": "18892000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "18892000000",
+            "period_start": "2016-10-30",
+            "period_end": "2016-10-30",
+            "filed": "2016-12-23",
+            "accession": "0001649338-16-000151",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933816000151/R2.htm",
+        "sha256": "7c3a53d03bf5ce49dad59a18b5ca8f7ad168215bdb87dfd83ad547fcc4296de4",
+        "file": "7c3a53d03bf5ce49dad59a18b5ca8f7ad168215bdb87dfd83ad547fcc4296de4.htm"
+      }
+    },
+    "AVGO:equity:2015-11-02:2016-10-30:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "18892000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "18892000000",
+            "period_start": "2016-10-30",
+            "period_end": "2016-10-30",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/avgo-20171029.xml",
+        "sha256": "c9c602880203c79e9085063810665222f1533053ce017a256950cd09aa0d250d",
+        "file": "c9c602880203c79e9085063810665222f1533053ce017a256950cd09aa0d250d.htm"
+      }
+    },
     "AVGO:equity:2015-11-02:2016-10-30:0001730168-18-000084": {
       "filed": "2018-12-21",
       "form": "10-K",
@@ -16008,6 +16222,156 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016818000084/R7.htm",
         "sha256": "d6c25bca4af8a2a61733e523df07d4678ff82d1c53d9a75d210b54fa89251728",
         "file": "d6c25bca4af8a2a61733e523df07d4678ff82d1c53d9a75d210b54fa89251728.htm"
+      }
+    },
+    "AVGO:equity:2016-10-31:2017-10-29:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "20285000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "20285000000",
+            "period_start": "2017-10-29",
+            "period_end": "2017-10-29",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/avgo-20171029.xml",
+        "sha256": "c9c602880203c79e9085063810665222f1533053ce017a256950cd09aa0d250d",
+        "file": "c9c602880203c79e9085063810665222f1533053ce017a256950cd09aa0d250d.htm"
+      }
+    },
+    "AVGO:net_income:2014-11-03:2015-11-01:0001441634-15-000089": {
+      "filed": "2015-12-17",
+      "form": "10-K",
+      "value": "1364000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001441634",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1364000000",
+            "period_start": "2014-11-03",
+            "period_end": "2015-11-01",
+            "filed": "2015-12-17",
+            "accession": "0001441634-15-000089",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1441634/000144163415000089/R4.htm",
+        "sha256": "4f4dcee81ec9af8986f187c90cc2b5bbbdc1df18ebc87830d16d636081a8c62e",
+        "file": "4f4dcee81ec9af8986f187c90cc2b5bbbdc1df18ebc87830d16d636081a8c62e.htm"
+      }
+    },
+    "AVGO:net_income:2015-11-02:2016-10-30:0001649338-16-000151": {
+      "filed": "2016-12-23",
+      "form": "10-K",
+      "value": "-1739000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "-1739000000",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2016-12-23",
+            "accession": "0001649338-16-000151",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933816000151/R4.htm",
+        "sha256": "c0eabcb5887966230645544ef3451f7573fbb4eaf7c8e4b26ef3053f741243aa",
+        "file": "c0eabcb5887966230645544ef3451f7573fbb4eaf7c8e4b26ef3053f741243aa.htm"
+      }
+    },
+    "AVGO:net_income:2015-11-02:2016-10-30:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "-1739000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "-1739000000",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R4.htm",
+        "sha256": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8",
+        "file": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8.htm"
+      }
+    },
+    "AVGO:net_income:2016-10-31:2017-10-29:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "1692000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1692000000",
+            "period_start": "2016-10-31",
+            "period_end": "2017-10-29",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R4.htm",
+        "sha256": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8",
+        "file": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8.htm"
       }
     },
     "AVGO:net_income:2021-11-01:2022-10-30:0001730168-22-000118": {
@@ -16068,6 +16432,250 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016823000096/R5.htm",
         "sha256": "e0d21e59289e0f9dd493bfe825624afb0f79c7e51295aba3dd25ee59ab7294f5",
         "file": "e0d21e59289e0f9dd493bfe825624afb0f79c7e51295aba3dd25ee59ab7294f5.htm"
+      }
+    },
+    "AVGO:operating_cash_flow:2014-11-03:2015-11-01:0001441634-15-000089": {
+      "filed": "2015-12-17",
+      "form": "10-K",
+      "value": "2318000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001441634",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "2318000000",
+            "period_start": "2014-11-03",
+            "period_end": "2015-11-01",
+            "filed": "2015-12-17",
+            "accession": "0001441634-15-000089",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1441634/000144163415000089/R6.htm",
+        "sha256": "01593af17b5115aa01d7dd9b4b8488e4d76e9f9dc63d210035b297eacac71934",
+        "file": "01593af17b5115aa01d7dd9b4b8488e4d76e9f9dc63d210035b297eacac71934.htm"
+      }
+    },
+    "AVGO:operating_cash_flow:2015-11-02:2016-10-30:0001649338-16-000151": {
+      "filed": "2016-12-23",
+      "form": "10-K",
+      "value": "3411000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "3411000000",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2016-12-23",
+            "accession": "0001649338-16-000151",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933816000151/R6.htm",
+        "sha256": "479c10044d7d993c7593e9e2bdd055b6d49d9cf5983148c7842c67e2c6b75437",
+        "file": "479c10044d7d993c7593e9e2bdd055b6d49d9cf5983148c7842c67e2c6b75437.htm"
+      }
+    },
+    "AVGO:operating_cash_flow:2015-11-02:2016-10-30:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "3411000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "3411000000",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R6.htm",
+        "sha256": "5e01d19ca2d20b8ba15d8f5c9ab23eef866f266552a665156495172448d1308b",
+        "file": "5e01d19ca2d20b8ba15d8f5c9ab23eef866f266552a665156495172448d1308b.htm"
+      }
+    },
+    "AVGO:operating_cash_flow:2016-10-31:2017-10-29:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "6551000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "6551000000",
+            "period_start": "2016-10-31",
+            "period_end": "2017-10-29",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R6.htm",
+        "sha256": "5e01d19ca2d20b8ba15d8f5c9ab23eef866f266552a665156495172448d1308b",
+        "file": "5e01d19ca2d20b8ba15d8f5c9ab23eef866f266552a665156495172448d1308b.htm"
+      }
+    },
+    "AVGO:revenue:2014-11-03:2015-11-01:0001441634-15-000089": {
+      "filed": "2015-12-17",
+      "form": "10-K",
+      "value": "6824000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001441634",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "6824000000",
+            "period_start": "2014-11-03",
+            "period_end": "2015-11-01",
+            "filed": "2015-12-17",
+            "accession": "0001441634-15-000089",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Net revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1441634/000144163415000089/R4.htm",
+        "sha256": "4f4dcee81ec9af8986f187c90cc2b5bbbdc1df18ebc87830d16d636081a8c62e",
+        "file": "4f4dcee81ec9af8986f187c90cc2b5bbbdc1df18ebc87830d16d636081a8c62e.htm"
+      }
+    },
+    "AVGO:revenue:2015-11-02:2016-10-30:0001649338-16-000151": {
+      "filed": "2016-12-23",
+      "form": "10-K",
+      "value": "13240000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "13240000000",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2016-12-23",
+            "accession": "0001649338-16-000151",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Net revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933816000151/R4.htm",
+        "sha256": "c0eabcb5887966230645544ef3451f7573fbb4eaf7c8e4b26ef3053f741243aa",
+        "file": "c0eabcb5887966230645544ef3451f7573fbb4eaf7c8e4b26ef3053f741243aa.htm"
+      }
+    },
+    "AVGO:revenue:2015-11-02:2016-10-30:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "13240000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "13240000000",
+            "period_start": "2015-11-02",
+            "period_end": "2016-10-30",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Net revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R4.htm",
+        "sha256": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8",
+        "file": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8.htm"
+      }
+    },
+    "AVGO:revenue:2016-10-31:2017-10-29:0001649338-17-000158": {
+      "filed": "2017-12-21",
+      "form": "10-K",
+      "value": "17636000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001649338",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "17636000000",
+            "period_start": "2016-10-31",
+            "period_end": "2017-10-29",
+            "filed": "2017-12-21",
+            "accession": "0001649338-17-000158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Net revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1649338/000164933817000158/R4.htm",
+        "sha256": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8",
+        "file": "aebb5be1a81eb046bf2e4e5bcc9ea9df9d9d99ba5157721130ce246ca18a11d8.htm"
       }
     },
     "AVGO:revenue:2016-10-31:2017-10-29:0001730168-18-000084": {
@@ -22310,6 +22918,99 @@
         "file": "36b3cf889de71af9110f7dcfaf622851afdad23f8ced859197f3df7f01f28ce2.htm"
       }
     },
+    "BLK:eps_diluted:2022-01-01:2022-12-31:0000950170-23-004343": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "33.97",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "33.97",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-24",
+            "accession": "0000950170-23-004343",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017023004343/R4.htm",
+        "sha256": "32079c2e94ff5a0092f728a54d275fca64fee67f1ca2abdbb6857928f560393f",
+        "file": "32079c2e94ff5a0092f728a54d275fca64fee67f1ca2abdbb6857928f560393f.htm"
+      }
+    },
+    "BLK:eps_diluted:2022-01-01:2022-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "33.97",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "33.97",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R4.htm",
+        "sha256": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6",
+        "file": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6.htm"
+      }
+    },
+    "BLK:eps_diluted:2023-01-01:2023-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "36.51",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "36.51",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R4.htm",
+        "sha256": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6",
+        "file": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6.htm"
+      }
+    },
     "BLK:equity:2016-01-01:2016-12-31:0001564590-17-002816": {
       "filed": "2017-02-28",
       "form": "10-K",
@@ -22434,6 +23135,66 @@
         "file": "861f14d4329473c32e9b6b37f5c83608a453453cd6f050b2d31db260bde5eced.htm"
       }
     },
+    "BLK:equity:2022-01-01:2022-12-31:0000950170-23-004343": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "37744000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "37744000000",
+            "period_start": "2022-12-31",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-24",
+            "accession": "0000950170-23-004343",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017023004343/R2.htm",
+        "sha256": "c8b18800e2ab78c0a8ba52b58a26079df957a92557162ee98f0be664141dd515",
+        "file": "c8b18800e2ab78c0a8ba52b58a26079df957a92557162ee98f0be664141dd515.htm"
+      }
+    },
+    "BLK:equity:2022-01-01:2022-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "37744000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "37744000000",
+            "period_start": "2022-12-31",
+            "period_end": "2022-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R2.htm",
+        "sha256": "eb50f16203522c4add167317e0d8ca71e64bb1c22081bd36447cf3b1c6ef15cb",
+        "file": "eb50f16203522c4add167317e0d8ca71e64bb1c22081bd36447cf3b1c6ef15cb.htm"
+      }
+    },
     "BLK:equity:2022-01-01:2022-12-31:0000950170-25-026584": {
       "filed": "2025-02-25",
       "form": "10-K",
@@ -22466,6 +23227,36 @@
         "url": "https://www.sec.gov/Archives/edgar/data/2012383/000095017025026584/R7.htm",
         "sha256": "be638168832899727ce6d580f37251042c6bf6b21578e0935b579fafc89a2fe4",
         "file": "be638168832899727ce6d580f37251042c6bf6b21578e0935b579fafc89a2fe4.htm"
+      }
+    },
+    "BLK:equity:2023-01-01:2023-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "39347000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "39347000000",
+            "period_start": "2023-12-31",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R2.htm",
+        "sha256": "eb50f16203522c4add167317e0d8ca71e64bb1c22081bd36447cf3b1c6ef15cb",
+        "file": "eb50f16203522c4add167317e0d8ca71e64bb1c22081bd36447cf3b1c6ef15cb.htm"
       }
     },
     "BLK:net_income:2016-01-01:2016-12-31:0001564590-17-002816": {
@@ -22556,6 +23347,96 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1364742/000156459018003744/R4.htm",
         "sha256": "36b3cf889de71af9110f7dcfaf622851afdad23f8ced859197f3df7f01f28ce2",
         "file": "36b3cf889de71af9110f7dcfaf622851afdad23f8ced859197f3df7f01f28ce2.htm"
+      }
+    },
+    "BLK:net_income:2022-01-01:2022-12-31:0000950170-23-004343": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "5178000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "5178000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-24",
+            "accession": "0000950170-23-004343",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017023004343/R4.htm",
+        "sha256": "32079c2e94ff5a0092f728a54d275fca64fee67f1ca2abdbb6857928f560393f",
+        "file": "32079c2e94ff5a0092f728a54d275fca64fee67f1ca2abdbb6857928f560393f.htm"
+      }
+    },
+    "BLK:net_income:2022-01-01:2022-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "5178000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "5178000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R4.htm",
+        "sha256": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6",
+        "file": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6.htm"
+      }
+    },
+    "BLK:net_income:2023-01-01:2023-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "5502000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "5502000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R4.htm",
+        "sha256": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6",
+        "file": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6.htm"
       }
     },
     "BLK:operating_cash_flow:2016-01-01:2016-12-31:0001564590-17-002816": {
@@ -22651,6 +23532,99 @@
         "file": "0257a267f6e3de9d95650b5e76409ba2fe81a05a47454d73f89021d77f506691.htm"
       }
     },
+    "BLK:operating_cash_flow:2022-01-01:2022-12-31:0000950170-23-004343": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "4956000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "4956000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-24",
+            "accession": "0000950170-23-004343",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017023004343/R9.htm",
+        "sha256": "8ff9a6f8dab4c815d910842a7568ff613767d2abd52fd0cafd963619b9ffe646",
+        "file": "8ff9a6f8dab4c815d910842a7568ff613767d2abd52fd0cafd963619b9ffe646.htm"
+      }
+    },
+    "BLK:operating_cash_flow:2022-01-01:2022-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "4956000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "4956000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R9.htm",
+        "sha256": "3e3b6ab59e490564ca7dbeadada8affecb1633de3c99c5186d4717c3d9a4a3c9",
+        "file": "3e3b6ab59e490564ca7dbeadada8affecb1633de3c99c5186d4717c3d9a4a3c9.htm"
+      }
+    },
+    "BLK:operating_cash_flow:2023-01-01:2023-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "4165000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "4165000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R9.htm",
+        "sha256": "3e3b6ab59e490564ca7dbeadada8affecb1633de3c99c5186d4717c3d9a4a3c9",
+        "file": "3e3b6ab59e490564ca7dbeadada8affecb1633de3c99c5186d4717c3d9a4a3c9.htm"
+      }
+    },
     "BLK:revenue:2016-01-01:2016-12-31:0001564590-17-002816": {
       "filed": "2017-02-28",
       "form": "10-K",
@@ -22739,6 +23713,96 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1364742/000156459018003744/R4.htm",
         "sha256": "36b3cf889de71af9110f7dcfaf622851afdad23f8ced859197f3df7f01f28ce2",
         "file": "36b3cf889de71af9110f7dcfaf622851afdad23f8ced859197f3df7f01f28ce2.htm"
+      }
+    },
+    "BLK:revenue:2022-01-01:2022-12-31:0000950170-23-004343": {
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "17873000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "value": "17873000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2023-02-24",
+            "accession": "0000950170-23-004343",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "calculation": null,
+      "note": "Reported total: Total revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017023004343/R4.htm",
+        "sha256": "32079c2e94ff5a0092f728a54d275fca64fee67f1ca2abdbb6857928f560393f",
+        "file": "32079c2e94ff5a0092f728a54d275fca64fee67f1ca2abdbb6857928f560393f.htm"
+      }
+    },
+    "BLK:revenue:2022-01-01:2022-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "17873000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "value": "17873000000",
+            "period_start": "2022-01-01",
+            "period_end": "2022-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "calculation": null,
+      "note": "Reported total: Total revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R4.htm",
+        "sha256": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6",
+        "file": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6.htm"
+      }
+    },
+    "BLK:revenue:2023-01-01:2023-12-31:0000950170-24-019271": {
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "17859000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001364742",
+            "taxonomy": "us-gaap",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "value": "17859000000",
+            "period_start": "2023-01-01",
+            "period_end": "2023-12-31",
+            "filed": "2024-02-23",
+            "accession": "0000950170-24-019271",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "calculation": null,
+      "note": "Reported total: Total revenue. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1364742/000095017024019271/R4.htm",
+        "sha256": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6",
+        "file": "fd43387eced53a319d4debbb5f4661abf9f42d4d5fa6bb0be4e647d6fe02e7d6.htm"
       }
     },
     "BMY:operating_cash_flow:2015-01-01:2015-12-31:0000014272-16-000288": {
@@ -28768,6 +29832,99 @@
         "file": "9fc295773efed811991929306be5ab8a77d36c2ddc2d467c6f82cdd5143c60b1.htm"
       }
     },
+    "CI:eps_diluted:2016-01-01:2016-12-31:0001047469-17-000899": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "7.19",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "7.19",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0001047469-17-000899",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746917000899/R2.htm",
+        "sha256": "bc19cc6c8a4abb65860e2b72a941c7c0900e2f32ae4de75cff17ad019c71c9b9",
+        "file": "bc19cc6c8a4abb65860e2b72a941c7c0900e2f32ae4de75cff17ad019c71c9b9.htm"
+      }
+    },
+    "CI:eps_diluted:2016-01-01:2016-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "7.19",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "7.19",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R2.htm",
+        "sha256": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e",
+        "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
+      }
+    },
+    "CI:eps_diluted:2017-01-01:2017-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "8.77",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "8.77",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R2.htm",
+        "sha256": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e",
+        "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
+      }
+    },
     "CI:eps_diluted:2021-01-01:2021-12-31:0001739940-22-000007": {
       "filed": "2022-02-24",
       "form": "10-K",
@@ -28861,6 +30018,66 @@
         "file": "c04d3ad74d6362ca764d9f9a8c9d92e52656abfb81a9bfe3008858c12b190490.htm"
       }
     },
+    "CI:equity:2016-01-01:2016-12-31:0001047469-17-000899": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "13723000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "13723000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0001047469-17-000899",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746917000899/R5.htm",
+        "sha256": "310ebc7965e4ac06e95a332d5fd96f5e1251d5dd093e82064d6126025fb9c4ed",
+        "file": "310ebc7965e4ac06e95a332d5fd96f5e1251d5dd093e82064d6126025fb9c4ed.htm"
+      }
+    },
+    "CI:equity:2016-01-01:2016-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "13723000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "13723000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R5.htm",
+        "sha256": "c70d91faa7ec6c35e7724a28dd647fc0f96fd6fe3de55a546dffdd4b965a0a31",
+        "file": "c70d91faa7ec6c35e7724a28dd647fc0f96fd6fe3de55a546dffdd4b965a0a31.htm"
+      }
+    },
     "CI:equity:2016-01-01:2016-12-31:0001047469-19-000792": {
       "filed": "2019-02-28",
       "form": "10-K",
@@ -28893,6 +30110,36 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1739940/000104746919000792/R7.htm",
         "sha256": "9a79661a715f62b083498f8888b6737fc44467df0e5d2286fa1737b1209414ec",
         "file": "9a79661a715f62b083498f8888b6737fc44467df0e5d2286fa1737b1209414ec.htm"
+      }
+    },
+    "CI:equity:2017-01-01:2017-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "13735000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "13735000000",
+            "period_start": "2017-12-31",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R5.htm",
+        "sha256": "c70d91faa7ec6c35e7724a28dd647fc0f96fd6fe3de55a546dffdd4b965a0a31",
+        "file": "c70d91faa7ec6c35e7724a28dd647fc0f96fd6fe3de55a546dffdd4b965a0a31.htm"
       }
     },
     "CI:equity:2020-01-01:2020-12-31:0001739940-21-000007": {
@@ -29107,6 +30354,141 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1739940/000173994023000008/R5.htm",
         "sha256": "21eb8ff3d3c94bdc93e10768345de13be5d0222c72f95c92151613e804c71e3f",
         "file": "21eb8ff3d3c94bdc93e10768345de13be5d0222c72f95c92151613e804c71e3f.htm"
+      }
+    },
+    "CI:net_income:2016-01-01:2016-12-31:0001047469-17-000899": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "1867000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "1843000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0001047469-17-000899",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-24000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0001047469-17-000899",
+            "form": "10-K"
+          },
+          "coefficient": -1
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746917000899/R2.htm",
+        "sha256": "bc19cc6c8a4abb65860e2b72a941c7c0900e2f32ae4de75cff17ad019c71c9b9",
+        "file": "bc19cc6c8a4abb65860e2b72a941c7c0900e2f32ae4de75cff17ad019c71c9b9.htm"
+      }
+    },
+    "CI:net_income:2016-01-01:2016-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "1867000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "1843000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-24000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": -1
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R2.htm",
+        "sha256": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e",
+        "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
+      }
+    },
+    "CI:net_income:2017-01-01:2017-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "2237000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "ProfitLoss",
+            "unit": "USD",
+            "value": "2232000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLossAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "-5000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": -1
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group net income - allocations to other owners",
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments. Calculated from one income statement: deduct separately reported noncontrolling income and subsidiary preferred dividends, before the parent's own preferred-shareholder adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R2.htm",
+        "sha256": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e",
+        "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
       }
     },
     "CI:net_income:2021-01-01:2021-12-31:0001739940-22-000007": {
@@ -29442,6 +30824,189 @@
         "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746917000899/R8.htm",
         "sha256": "5f173d1163168067a46791ec2a1de675b14e65f1aba09887a8a64c292bb9f2ff",
         "file": "5f173d1163168067a46791ec2a1de675b14e65f1aba09887a8a64c292bb9f2ff.htm"
+      }
+    },
+    "CI:operating_cash_flow:2016-01-01:2016-12-31:0001047469-17-000899": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "4026000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "4026000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0001047469-17-000899",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746917000899/R8.htm",
+        "sha256": "5f173d1163168067a46791ec2a1de675b14e65f1aba09887a8a64c292bb9f2ff",
+        "file": "5f173d1163168067a46791ec2a1de675b14e65f1aba09887a8a64c292bb9f2ff.htm"
+      }
+    },
+    "CI:operating_cash_flow:2016-01-01:2016-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "4026000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "4026000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R8.htm",
+        "sha256": "21c183a6a97f9a1e9a7e70d5d14be9e71003a9c1a4691438a6cff306e3213d43",
+        "file": "21c183a6a97f9a1e9a7e70d5d14be9e71003a9c1a4691438a6cff306e3213d43.htm"
+      }
+    },
+    "CI:operating_cash_flow:2017-01-01:2017-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "4086000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "4086000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R8.htm",
+        "sha256": "21c183a6a97f9a1e9a7e70d5d14be9e71003a9c1a4691438a6cff306e3213d43",
+        "file": "21c183a6a97f9a1e9a7e70d5d14be9e71003a9c1a4691438a6cff306e3213d43.htm"
+      }
+    },
+    "CI:revenue:2016-01-01:2016-12-31:0001047469-17-000899": {
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "39668000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "39668000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-02-23",
+            "accession": "0001047469-17-000899",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746917000899/R2.htm",
+        "sha256": "bc19cc6c8a4abb65860e2b72a941c7c0900e2f32ae4de75cff17ad019c71c9b9",
+        "file": "bc19cc6c8a4abb65860e2b72a941c7c0900e2f32ae4de75cff17ad019c71c9b9.htm"
+      }
+    },
+    "CI:revenue:2016-01-01:2016-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "39668000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "39668000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R2.htm",
+        "sha256": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e",
+        "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
+      }
+    },
+    "CI:revenue:2017-01-01:2017-12-31:0001047469-18-001158": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "41616000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000701221",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "value": "41616000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0001047469-18-001158",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "Revenues",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/701221/000104746918001158/R2.htm",
+        "sha256": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e",
+        "file": "053cae3e3ad590520c3467ed209944648227bb9c311d08042e3db7a85bd90c0e.htm"
       }
     },
     "CI:revenue:2021-01-01:2021-12-31:0001739940-22-000007": {
@@ -31173,186 +32738,6 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637523000020/R3.htm",
         "sha256": "64a32afee35bdf684b21d47fc2e00871f71e47f06f73eaca6cb902fda6738ab4",
         "file": "64a32afee35bdf684b21d47fc2e00871f71e47f06f73eaca6cb902fda6738ab4.htm"
-      }
-    },
-    "CME:net_income:2020-01-01:2020-12-31:0001156375-21-000020": {
-      "filed": "2021-02-26",
-      "form": "10-K",
-      "value": "2105200000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001156375",
-            "taxonomy": "us-gaap",
-            "tag": "NetIncomeLoss",
-            "unit": "USD",
-            "value": "2105200000",
-            "period_start": "2020-01-01",
-            "period_end": "2020-12-31",
-            "filed": "2021-02-26",
-            "accession": "0001156375-21-000020",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "NetIncomeLoss",
-      "calculation": null,
-      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637521000020/R3.htm",
-        "sha256": "9d83d2e9423ca644400dfff138186f1e0f7c31f84e0f719288ef7f4d68a21492",
-        "file": "9d83d2e9423ca644400dfff138186f1e0f7c31f84e0f719288ef7f4d68a21492.htm"
-      }
-    },
-    "CME:net_income:2020-01-01:2020-12-31:0001156375-22-000076": {
-      "filed": "2022-02-25",
-      "form": "10-K",
-      "value": "2105200000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001156375",
-            "taxonomy": "us-gaap",
-            "tag": "NetIncomeLoss",
-            "unit": "USD",
-            "value": "2105200000",
-            "period_start": "2020-01-01",
-            "period_end": "2020-12-31",
-            "filed": "2022-02-25",
-            "accession": "0001156375-22-000076",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "NetIncomeLoss",
-      "calculation": null,
-      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637522000076/R4.htm",
-        "sha256": "32b38aa6e054f944e86a4498d7402a1946c7400dc86d6a9ab9cf4bbea36d4e80",
-        "file": "32b38aa6e054f944e86a4498d7402a1946c7400dc86d6a9ab9cf4bbea36d4e80.htm"
-      }
-    },
-    "CME:net_income:2020-01-01:2020-12-31:0001156375-23-000020": {
-      "filed": "2023-02-27",
-      "form": "10-K",
-      "value": "2105200000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001156375",
-            "taxonomy": "us-gaap",
-            "tag": "NetIncomeLoss",
-            "unit": "USD",
-            "value": "2105200000",
-            "period_start": "2020-01-01",
-            "period_end": "2020-12-31",
-            "filed": "2023-02-27",
-            "accession": "0001156375-23-000020",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "NetIncomeLoss",
-      "calculation": null,
-      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637523000020/R4.htm",
-        "sha256": "51043db65cb8283eb9283d574e1fb95f9dfae2b399def11661f3405cdadd7f47",
-        "file": "51043db65cb8283eb9283d574e1fb95f9dfae2b399def11661f3405cdadd7f47.htm"
-      }
-    },
-    "CME:net_income:2021-01-01:2021-12-31:0001156375-22-000076": {
-      "filed": "2022-02-25",
-      "form": "10-K",
-      "value": "2636400000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001156375",
-            "taxonomy": "us-gaap",
-            "tag": "NetIncomeLoss",
-            "unit": "USD",
-            "value": "2636400000",
-            "period_start": "2021-01-01",
-            "period_end": "2021-12-31",
-            "filed": "2022-02-25",
-            "accession": "0001156375-22-000076",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "NetIncomeLoss",
-      "calculation": null,
-      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637522000076/R4.htm",
-        "sha256": "32b38aa6e054f944e86a4498d7402a1946c7400dc86d6a9ab9cf4bbea36d4e80",
-        "file": "32b38aa6e054f944e86a4498d7402a1946c7400dc86d6a9ab9cf4bbea36d4e80.htm"
-      }
-    },
-    "CME:net_income:2021-01-01:2021-12-31:0001156375-23-000020": {
-      "filed": "2023-02-27",
-      "form": "10-K",
-      "value": "2636400000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001156375",
-            "taxonomy": "us-gaap",
-            "tag": "NetIncomeLoss",
-            "unit": "USD",
-            "value": "2636400000",
-            "period_start": "2021-01-01",
-            "period_end": "2021-12-31",
-            "filed": "2023-02-27",
-            "accession": "0001156375-23-000020",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "NetIncomeLoss",
-      "calculation": null,
-      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637523000020/R4.htm",
-        "sha256": "51043db65cb8283eb9283d574e1fb95f9dfae2b399def11661f3405cdadd7f47",
-        "file": "51043db65cb8283eb9283d574e1fb95f9dfae2b399def11661f3405cdadd7f47.htm"
-      }
-    },
-    "CME:net_income:2021-01-01:2021-12-31:0001156375-24-000010": {
-      "filed": "2024-02-28",
-      "form": "10-K",
-      "value": "2636400000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001156375",
-            "taxonomy": "us-gaap",
-            "tag": "NetIncomeLoss",
-            "unit": "USD",
-            "value": "2636400000",
-            "period_start": "2021-01-01",
-            "period_end": "2021-12-31",
-            "filed": "2024-02-28",
-            "accession": "0001156375-24-000010",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "NetIncomeLoss",
-      "calculation": null,
-      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637524000010/R4.htm",
-        "sha256": "2e9df75dea41ebb3c7f063db8af5dac802e89881dcda89c677918d1c31f32ea7",
-        "file": "2e9df75dea41ebb3c7f063db8af5dac802e89881dcda89c677918d1c31f32ea7.htm"
       }
     },
     "CME:operating_cash_flow:2015-01-01:2015-12-31:0001156375-16-000116": {
@@ -42699,6 +44084,219 @@
         "file": "da219881d1f999e7ca9afb74501eac9a448db3ba2aedc2f38bfa6c7046675a95.htm"
       }
     },
+    "DIS:eps_diluted:2016-10-02:2017-09-30:0001001039-17-000198": {
+      "filed": "2017-11-22",
+      "form": "10-K",
+      "value": "5.69",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.69",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2017-11-22",
+            "accession": "0001001039-17-000198",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103917000198/R2.htm",
+        "sha256": "a31bc94bd00af6732609daaba7d4ac55b336d2ed1a4c3dfbd7d602a2766d046a",
+        "file": "a31bc94bd00af6732609daaba7d4ac55b336d2ed1a4c3dfbd7d602a2766d046a.htm"
+      }
+    },
+    "DIS:eps_diluted:2016-10-02:2017-09-30:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "5.69",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.69",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R2.htm",
+        "sha256": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac",
+        "file": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac.htm"
+      }
+    },
+    "DIS:eps_diluted:2017-10-01:2018-09-29:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "8.36",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "8.36",
+            "period_start": "2017-10-01",
+            "period_end": "2018-09-29",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R2.htm",
+        "sha256": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac",
+        "file": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac.htm"
+      }
+    },
+    "DIS:equity:2017-10-01:2018-09-29:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "48773000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "48773000000",
+            "period_start": "2018-09-29",
+            "period_end": "2018-09-29",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R4.htm",
+        "sha256": "ced94ab440151294c1e4bb41e5eff605c5612f3c203b75deb82968b4372824cd",
+        "file": "ced94ab440151294c1e4bb41e5eff605c5612f3c203b75deb82968b4372824cd.htm"
+      }
+    },
+    "DIS:net_income:2016-10-02:2017-09-30:0001001039-17-000198": {
+      "filed": "2017-11-22",
+      "form": "10-K",
+      "value": "8980000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "8980000000",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2017-11-22",
+            "accession": "0001001039-17-000198",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103917000198/R2.htm",
+        "sha256": "a31bc94bd00af6732609daaba7d4ac55b336d2ed1a4c3dfbd7d602a2766d046a",
+        "file": "a31bc94bd00af6732609daaba7d4ac55b336d2ed1a4c3dfbd7d602a2766d046a.htm"
+      }
+    },
+    "DIS:net_income:2016-10-02:2017-09-30:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "8980000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "8980000000",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R2.htm",
+        "sha256": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac",
+        "file": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac.htm"
+      }
+    },
+    "DIS:net_income:2017-10-01:2018-09-29:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "12598000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "12598000000",
+            "period_start": "2017-10-01",
+            "period_end": "2018-09-29",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R2.htm",
+        "sha256": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac",
+        "file": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac.htm"
+      }
+    },
     "DIS:operating_cash_flow:2014-09-28:2015-10-03:0001001039-15-000255": {
       "filed": "2015-11-25",
       "form": "10-K",
@@ -42790,6 +44388,99 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103916000516/R6.htm",
         "sha256": "7f6459639062f8075a6d3340cd98206177559415c1f5831ff44f5a927d904827",
         "file": "7f6459639062f8075a6d3340cd98206177559415c1f5831ff44f5a927d904827.htm"
+      }
+    },
+    "DIS:operating_cash_flow:2016-10-02:2017-09-30:0001001039-17-000198": {
+      "filed": "2017-11-22",
+      "form": "10-K",
+      "value": "12343000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "12343000000",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2017-11-22",
+            "accession": "0001001039-17-000198",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103917000198/R6.htm",
+        "sha256": "39ee4ca7a04adea4b2072d7b9c26d6f45c8350e7c834845617af6c806f455a85",
+        "file": "39ee4ca7a04adea4b2072d7b9c26d6f45c8350e7c834845617af6c806f455a85.htm"
+      }
+    },
+    "DIS:operating_cash_flow:2016-10-02:2017-09-30:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "12343000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "12343000000",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R6.htm",
+        "sha256": "1bb418280c4ede949f29333fbaa8370bbfff0c76f555e9389afeec3fe561cff2",
+        "file": "1bb418280c4ede949f29333fbaa8370bbfff0c76f555e9389afeec3fe561cff2.htm"
+      }
+    },
+    "DIS:operating_cash_flow:2017-10-01:2018-09-29:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "14295000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "14295000000",
+            "period_start": "2017-10-01",
+            "period_end": "2018-09-29",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R6.htm",
+        "sha256": "1bb418280c4ede949f29333fbaa8370bbfff0c76f555e9389afeec3fe561cff2",
+        "file": "1bb418280c4ede949f29333fbaa8370bbfff0c76f555e9389afeec3fe561cff2.htm"
       }
     },
     "DIS:operating_cash_flow:2017-10-01:2018-09-29:0001744489-19-000225": {
@@ -43390,6 +45081,96 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448924000276/R8.htm",
         "sha256": "810f9189447091118e6abe48144fd0741d2edf36d47570920fa72454e6f4001a",
         "file": "810f9189447091118e6abe48144fd0741d2edf36d47570920fa72454e6f4001a.htm"
+      }
+    },
+    "DIS:revenue:2016-10-02:2017-09-30:0001001039-17-000198": {
+      "filed": "2017-11-22",
+      "form": "10-K",
+      "value": "55137000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "55137000000",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2017-11-22",
+            "accession": "0001001039-17-000198",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103917000198/R2.htm",
+        "sha256": "a31bc94bd00af6732609daaba7d4ac55b336d2ed1a4c3dfbd7d602a2766d046a",
+        "file": "a31bc94bd00af6732609daaba7d4ac55b336d2ed1a4c3dfbd7d602a2766d046a.htm"
+      }
+    },
+    "DIS:revenue:2016-10-02:2017-09-30:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "55137000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "55137000000",
+            "period_start": "2016-10-02",
+            "period_end": "2017-09-30",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R2.htm",
+        "sha256": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac",
+        "file": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac.htm"
+      }
+    },
+    "DIS:revenue:2017-10-01:2018-09-29:0001001039-18-000187": {
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "value": "59434000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001001039",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "59434000000",
+            "period_start": "2017-10-01",
+            "period_end": "2018-09-29",
+            "filed": "2018-11-21",
+            "accession": "0001001039-18-000187",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1001039/000100103918000187/R2.htm",
+        "sha256": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac",
+        "file": "08bbc22c89cd43ef7e084702819d10617195371e5687946d68f26cbfc3d4a3ac.htm"
       }
     },
     "DIS:revenue:2018-09-30:2019-09-28:0001744489-19-000225": {
@@ -70293,6 +72074,37 @@
         "file": "3ae18e6d290dcb8d03e675520f087beab46397ee49cbc087acb967b5406f8b5b.htm"
       }
     },
+    "JCI:eps_diluted:2014-10-01:2015-09-30:0000053669-15-000034": {
+      "filed": "2015-11-18",
+      "form": "10-K",
+      "value": "2.36",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000053669",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "2.36",
+            "period_start": "2014-10-01",
+            "period_end": "2015-09-30",
+            "filed": "2015-11-18",
+            "accession": "0000053669-15-000034",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/53669/000005366915000034/R2.htm",
+        "sha256": "64746bca304a1f85d66b912d49dbc6f582c49575708388a95abd108223f17a73",
+        "file": "64746bca304a1f85d66b912d49dbc6f582c49575708388a95abd108223f17a73.htm"
+      }
+    },
     "JCI:eps_diluted:2015-10-01:2016-09-30:0000833444-16-000216": {
       "filed": "2016-11-23",
       "form": "10-K",
@@ -70322,6 +72134,97 @@
         "url": "https://www.sec.gov/Archives/edgar/data/833444/000083344416000216/R2.htm",
         "sha256": "67060f3b3b37b181eaecac7839d475401b6e072fa9b610cd1fcdbd009ae140f8",
         "file": "67060f3b3b37b181eaecac7839d475401b6e072fa9b610cd1fcdbd009ae140f8.htm"
+      }
+    },
+    "JCI:equity:2014-10-01:2015-09-30:0000053669-15-000034": {
+      "filed": "2015-11-18",
+      "form": "10-K",
+      "value": "10376000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000053669",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "10376000000",
+            "period_start": "2015-09-30",
+            "period_end": "2015-09-30",
+            "filed": "2015-11-18",
+            "accession": "0000053669-15-000034",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/53669/000005366915000034/R4.htm",
+        "sha256": "b7eacd0bd5e7ffcb4880da197105e52d2089482103af4649151073d8c107936e",
+        "file": "b7eacd0bd5e7ffcb4880da197105e52d2089482103af4649151073d8c107936e.htm"
+      }
+    },
+    "JCI:net_income:2014-10-01:2015-09-30:0000053669-15-000034": {
+      "filed": "2015-11-18",
+      "form": "10-K",
+      "value": "1563000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000053669",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1563000000",
+            "period_start": "2014-10-01",
+            "period_end": "2015-09-30",
+            "filed": "2015-11-18",
+            "accession": "0000053669-15-000034",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/53669/000005366915000034/R2.htm",
+        "sha256": "64746bca304a1f85d66b912d49dbc6f582c49575708388a95abd108223f17a73",
+        "file": "64746bca304a1f85d66b912d49dbc6f582c49575708388a95abd108223f17a73.htm"
+      }
+    },
+    "JCI:operating_cash_flow:2014-10-01:2015-09-30:0000053669-15-000034": {
+      "filed": "2015-11-18",
+      "form": "10-K",
+      "value": "1600000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000053669",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivities",
+            "unit": "USD",
+            "value": "1600000000",
+            "period_start": "2014-10-01",
+            "period_end": "2015-09-30",
+            "filed": "2015-11-18",
+            "accession": "0000053669-15-000034",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivities",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. Reported whole-company operating cash flow; other definitions remain separate.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/53669/000005366915000034/R6.htm",
+        "sha256": "2623790ada84aff4aba499807b3ff978357a2540898c6731007aebc68b4f576b",
+        "file": "2623790ada84aff4aba499807b3ff978357a2540898c6731007aebc68b4f576b.htm"
       }
     },
     "JCI:operating_cash_flow:2015-10-01:2016-09-30:0000833444-16-000216": {
@@ -71077,6 +72980,36 @@
         "url": "https://www.sec.gov/Archives/edgar/data/833444/000083344424000064/R7.htm",
         "sha256": "72369ea9fd3e558148a4d71ba08c3b254d28d1cc0024bf939f965f6ee68a9c39",
         "file": "72369ea9fd3e558148a4d71ba08c3b254d28d1cc0024bf939f965f6ee68a9c39.htm"
+      }
+    },
+    "JCI:revenue:2014-10-01:2015-09-30:0000053669-15-000034": {
+      "filed": "2015-11-18",
+      "form": "10-K",
+      "value": "37179000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000053669",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "37179000000",
+            "period_start": "2014-10-01",
+            "period_end": "2015-09-30",
+            "filed": "2015-11-18",
+            "accession": "0000053669-15-000034",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Net sales. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/53669/000005366915000034/R2.htm",
+        "sha256": "64746bca304a1f85d66b912d49dbc6f582c49575708388a95abd108223f17a73",
+        "file": "64746bca304a1f85d66b912d49dbc6f582c49575708388a95abd108223f17a73.htm"
       }
     },
     "JCI:revenue:2014-10-01:2015-09-30:0000833444-16-000216": {
@@ -75804,6 +77737,159 @@
         "file": "22892b4aa0848d1d30d29b1177da68b5a7fa062683b0fd6715be6e90cc4b44ed.htm"
       }
     },
+    "LIN:eps_diluted:2016-01-01:2016-12-31:0000884905-17-000007": {
+      "filed": "2017-03-01",
+      "form": "10-K",
+      "value": "5.21",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.21",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-03-01",
+            "accession": "0000884905-17-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490517000007/R2.htm",
+        "sha256": "0999bc8a42c3228e10565210c9c8df8ae1e96ab5cab5de228ff70a7d150f164a",
+        "file": "0999bc8a42c3228e10565210c9c8df8ae1e96ab5cab5de228ff70a7d150f164a.htm"
+      }
+    },
+    "LIN:eps_diluted:2016-01-01:2016-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "5.21",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "5.21",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R2.htm",
+        "sha256": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585",
+        "file": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585.htm"
+      }
+    },
+    "LIN:eps_diluted:2017-01-01:2017-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "4.32",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "EarningsPerShareDiluted",
+            "unit": "USD/shares",
+            "value": "4.32",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "EarningsPerShareDiluted",
+      "calculation": null,
+      "eps_basis": "diluted",
+      "note": "Reported net earnings per common share (or historical common unit), in USD; prefer diluted, with explicitly reviewed basic fallbacks; original values retain the filing share basis. Reported diluted net EPS as printed in the filing's statement; share-count normalization is applied separately.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R2.htm",
+        "sha256": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585",
+        "file": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585.htm"
+      }
+    },
+    "LIN:equity:2016-01-01:2016-12-31:0000884905-17-000007": {
+      "filed": "2017-03-01",
+      "form": "10-K",
+      "value": "5021000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "5021000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2017-03-01",
+            "accession": "0000884905-17-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490517000007/R4.htm",
+        "sha256": "fe4181a0794f19f65bba29a4a88e9478302bb38361a0c0bb80fe19871a5b0a79",
+        "file": "fe4181a0794f19f65bba29a4a88e9478302bb38361a0c0bb80fe19871a5b0a79.htm"
+      }
+    },
+    "LIN:equity:2016-01-01:2016-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "5021000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "5021000000",
+            "period_start": "2016-12-31",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R4.htm",
+        "sha256": "484c789d487b5d70bc74f5aece58558255e85ef64519d1a820d3c644a0211fd4",
+        "file": "484c789d487b5d70bc74f5aece58558255e85ef64519d1a820d3c644a0211fd4.htm"
+      }
+    },
     "LIN:equity:2016-01-01:2016-12-31:0001628280-19-003050": {
       "filed": "2019-03-18",
       "form": "10-K",
@@ -75838,6 +77924,126 @@
         "file": "f27dc4cef1040d570a11535abb92cf75f5ee7b1ec840676ef4911d45578a5932.htm"
       }
     },
+    "LIN:equity:2017-01-01:2017-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "6018000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquity",
+            "unit": "USD",
+            "value": "6018000000",
+            "period_start": "2017-12-31",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "StockholdersEquity",
+      "calculation": null,
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R4.htm",
+        "sha256": "484c789d487b5d70bc74f5aece58558255e85ef64519d1a820d3c644a0211fd4",
+        "file": "484c789d487b5d70bc74f5aece58558255e85ef64519d1a820d3c644a0211fd4.htm"
+      }
+    },
+    "LIN:net_income:2016-01-01:2016-12-31:0000884905-17-000007": {
+      "filed": "2017-03-01",
+      "form": "10-K",
+      "value": "1500000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1500000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-03-01",
+            "accession": "0000884905-17-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490517000007/R2.htm",
+        "sha256": "0999bc8a42c3228e10565210c9c8df8ae1e96ab5cab5de228ff70a7d150f164a",
+        "file": "0999bc8a42c3228e10565210c9c8df8ae1e96ab5cab5de228ff70a7d150f164a.htm"
+      }
+    },
+    "LIN:net_income:2016-01-01:2016-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "1500000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1500000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R2.htm",
+        "sha256": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585",
+        "file": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585.htm"
+      }
+    },
+    "LIN:net_income:2017-01-01:2017-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "1247000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "value": "1247000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetIncomeLoss",
+      "calculation": null,
+      "note": "Net income attributable to the parent, before preferred-shareholder and other per-share adjustments.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R2.htm",
+        "sha256": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585",
+        "file": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585.htm"
+      }
+    },
     "LIN:operating_cash_flow:2015-01-01:2015-12-31:0000884905-16-000108": {
       "filed": "2016-02-24",
       "form": "10-K",
@@ -75867,6 +78073,99 @@
         "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490516000108/R6.htm",
         "sha256": "a9ab3fd7ab68643ebc33b390869dad9be47d5c3414101f358f117a02e26ba917",
         "file": "a9ab3fd7ab68643ebc33b390869dad9be47d5c3414101f358f117a02e26ba917.htm"
+      }
+    },
+    "LIN:operating_cash_flow:2016-01-01:2016-12-31:0000884905-17-000007": {
+      "filed": "2017-03-01",
+      "form": "10-K",
+      "value": "2773000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "2773000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-03-01",
+            "accession": "0000884905-17-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490517000007/R6.htm",
+        "sha256": "7bd5f2fe7fc9521fdb3a35a4410ad964d4e88d46e33876b7cb0cb3c3ac515342",
+        "file": "7bd5f2fe7fc9521fdb3a35a4410ad964d4e88d46e33876b7cb0cb3c3ac515342.htm"
+      }
+    },
+    "LIN:operating_cash_flow:2016-01-01:2016-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "2773000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "2773000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R6.htm",
+        "sha256": "8474a969c60e70364c2b034a8c0bd4a91bdc7c8a9ba2db1fa7481a388a86fe28",
+        "file": "8474a969c60e70364c2b034a8c0bd4a91bdc7c8a9ba2db1fa7481a388a86fe28.htm"
+      }
+    },
+    "LIN:operating_cash_flow:2017-01-01:2017-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "3041000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+            "unit": "USD",
+            "value": "3041000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+      "calculation": null,
+      "scope": "total",
+      "note": "Net cash from operating activities of the whole company, including discontinued operations. This exact statement presents an unqualified whole-company operating-cash-flow bottom line using the legacy continuing-operations concept, without separate discontinued operating cash flows. This is a source-specific approval, not a universal tag alias.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R6.htm",
+        "sha256": "8474a969c60e70364c2b034a8c0bd4a91bdc7c8a9ba2db1fa7481a388a86fe28",
+        "file": "8474a969c60e70364c2b034a8c0bd4a91bdc7c8a9ba2db1fa7481a388a86fe28.htm"
       }
     },
     "LIN:operating_cash_flow:2017-01-01:2017-12-31:0001628280-19-003050": {
@@ -76267,6 +78566,96 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1707925/000162828022004180/R7.htm",
         "sha256": "d05220ba3c5e990abcdcf6f2c008a368f4ac221f0d4f1642561fa80eeca6dba8",
         "file": "d05220ba3c5e990abcdcf6f2c008a368f4ac221f0d4f1642561fa80eeca6dba8.htm"
+      }
+    },
+    "LIN:revenue:2016-01-01:2016-12-31:0000884905-17-000007": {
+      "filed": "2017-03-01",
+      "form": "10-K",
+      "value": "10534000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "10534000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2017-03-01",
+            "accession": "0000884905-17-000007",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Sales. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490517000007/R2.htm",
+        "sha256": "0999bc8a42c3228e10565210c9c8df8ae1e96ab5cab5de228ff70a7d150f164a",
+        "file": "0999bc8a42c3228e10565210c9c8df8ae1e96ab5cab5de228ff70a7d150f164a.htm"
+      }
+    },
+    "LIN:revenue:2016-01-01:2016-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "10534000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "10534000000",
+            "period_start": "2016-01-01",
+            "period_end": "2016-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Sales. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R2.htm",
+        "sha256": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585",
+        "file": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585.htm"
+      }
+    },
+    "LIN:revenue:2017-01-01:2017-12-31:0000884905-18-000014": {
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "11437000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000884905",
+            "taxonomy": "us-gaap",
+            "tag": "SalesRevenueNet",
+            "unit": "USD",
+            "value": "11437000000",
+            "period_start": "2017-01-01",
+            "period_end": "2017-12-31",
+            "filed": "2018-02-28",
+            "accession": "0000884905-18-000014",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "SalesRevenueNet",
+      "calculation": null,
+      "note": "Reported total: Sales. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/884905/000088490518000014/R2.htm",
+        "sha256": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585",
+        "file": "fc24736a6eac84ee2bbbb232bf5dd428f5084d668c615bb9e494066ffaf50585.htm"
       }
     },
     "LIN:revenue:2017-01-01:2017-12-31:0001628280-19-003050": {
@@ -91428,15 +93817,15 @@
     "NDAQ:revenue:2016-01-01:2016-12-31:0001120193-17-000003": {
       "filed": "2017-03-01",
       "form": "10-K",
-      "value": "2277000000",
+      "value": "3705000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001120193",
             "taxonomy": "us-gaap",
-            "tag": "GrossProfit",
+            "tag": "Revenues",
             "unit": "USD",
-            "value": "2277000000",
+            "value": "3705000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2017-03-01",
@@ -91446,9 +93835,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "GrossProfit",
+      "selected_tag": "Revenues",
       "calculation": null,
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback.",
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019317000003/R4.htm",
         "sha256": "8b0364e0ddebd989ce86e76687f762e02e63f3c47b0b1530a4ec489e11603938",
@@ -91458,15 +93847,15 @@
     "NDAQ:revenue:2016-01-01:2016-12-31:0001120193-18-000003": {
       "filed": "2018-02-28",
       "form": "10-K",
-      "value": "2277000000",
+      "value": "3705000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001120193",
             "taxonomy": "us-gaap",
-            "tag": "GrossProfit",
+            "tag": "Revenues",
             "unit": "USD",
-            "value": "2277000000",
+            "value": "3705000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2018-02-28",
@@ -91476,9 +93865,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "GrossProfit",
+      "selected_tag": "Revenues",
       "calculation": null,
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback.",
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/R4.htm",
         "sha256": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768",
@@ -91488,15 +93877,15 @@
     "NDAQ:revenue:2017-01-01:2017-12-31:0001120193-18-000003": {
       "filed": "2018-02-28",
       "form": "10-K",
-      "value": "2428000000",
+      "value": "3965000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001120193",
             "taxonomy": "us-gaap",
-            "tag": "GrossProfit",
+            "tag": "Revenues",
             "unit": "USD",
-            "value": "2428000000",
+            "value": "3965000000",
             "period_start": "2017-01-01",
             "period_end": "2017-12-31",
             "filed": "2018-02-28",
@@ -91506,13 +93895,103 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "GrossProfit",
+      "selected_tag": "Revenues",
       "calculation": null,
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback.",
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/R4.htm",
         "sha256": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768",
         "file": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768.htm"
+      }
+    },
+    "NDAQ:revenue:2019-01-01:2019-12-31:0001120193-20-000004": {
+      "filed": "2020-02-25",
+      "form": "10-K",
+      "value": "4262000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001120193",
+            "taxonomy": "us-gaap",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "value": "4262000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2020-02-25",
+            "accession": "0001120193-20-000004",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019320000004/R4.htm",
+        "sha256": "8d73861286e2af2e2ee7fa5cb681b3fa5654c1cb6a650345c11f3aa4bea8c9cb",
+        "file": "8d73861286e2af2e2ee7fa5cb681b3fa5654c1cb6a650345c11f3aa4bea8c9cb.htm"
+      }
+    },
+    "NDAQ:revenue:2019-01-01:2019-12-31:0001120193-21-000011": {
+      "filed": "2021-02-23",
+      "form": "10-K",
+      "value": "4262000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001120193",
+            "taxonomy": "us-gaap",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "value": "4262000000",
+            "period_start": "2019-01-01",
+            "period_end": "2019-12-31",
+            "filed": "2021-02-23",
+            "accession": "0001120193-21-000011",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/R4.htm",
+        "sha256": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1",
+        "file": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1.htm"
+      }
+    },
+    "NDAQ:revenue:2020-01-01:2020-12-31:0001120193-21-000011": {
+      "filed": "2021-02-23",
+      "form": "10-K",
+      "value": "5627000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001120193",
+            "taxonomy": "us-gaap",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "value": "5627000000",
+            "period_start": "2020-01-01",
+            "period_end": "2020-12-31",
+            "filed": "2021-02-23",
+            "accession": "0001120193-21-000011",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        }
+      ],
+      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "calculation": null,
+      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/R4.htm",
+        "sha256": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1",
+        "file": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1.htm"
       }
     },
     "NEE:eps_diluted:2016-01-01:2016-12-31:0000753308-17-000060": {
@@ -123040,6 +125519,55 @@
         "file": "e025b431ac696fd91239519b9f5a4efac43d7da5bc776bffa101686c9345e1fe.htm"
       }
     },
+    "SPGI:equity:2024-01-01:2024-12-31:0000064040-25-000052": {
+      "filed": "2025-02-11",
+      "form": "10-K",
+      "value": "33159000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0000064040",
+            "taxonomy": "us-gaap",
+            "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+            "unit": "USD",
+            "value": "33256000000",
+            "period_start": "2024-12-31",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-11",
+            "accession": "0000064040-25-000052",
+            "form": "10-K"
+          },
+          "coefficient": 1
+        },
+        {
+          "fact": {
+            "source_cik": "0000064040",
+            "taxonomy": "us-gaap",
+            "tag": "MinorityInterest",
+            "unit": "USD",
+            "value": "97000000",
+            "period_start": "2024-12-31",
+            "period_end": "2024-12-31",
+            "filed": "2025-02-11",
+            "accession": "0000064040-25-000052",
+            "form": "10-K",
+            "statement_url": "https://www.sec.gov/Archives/edgar/data/64040/000006404025000052/R5.htm",
+            "statement_label": "Total equity \u2013 noncontrolling interests",
+            "statement_column": "2024-12-31"
+          },
+          "coefficient": -1,
+          "statement_position": true
+        }
+      ],
+      "selected_tag": null,
+      "calculation": "Group equity - noncontrolling interests",
+      "note": "Equity attributable to the parent's owners, including preferred equity and excluding noncontrolling interests. Verified against the pinned equity position. Additional statement columns retain their original row concept and column label; source facts and alternative definitions are retained.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/64040/000006404025000052/R5.htm",
+        "sha256": "669214edeb890a4e19890cad4340bb59780ccc6f847188f54f4132cad52049d9",
+        "file": "669214edeb890a4e19890cad4340bb59780ccc6f847188f54f4132cad52049d9.htm"
+      }
+    },
     "SPGI:equity:2024-01-01:2024-12-31:0000064040-26-000013": {
       "filed": "2026-02-11",
       "form": "10-K",
@@ -143141,15 +145669,15 @@
     "XOM:revenue:2015-01-01:2015-12-31:0000034088-16-000065": {
       "filed": "2016-02-24",
       "form": "10-K",
-      "value": "259488000000",
+      "value": "268882000000",
       "components": [
         {
           "fact": {
             "source_cik": "0000034088",
             "taxonomy": "xom",
-            "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+            "tag": "TotalRevenuesAndOtherIncome",
             "unit": "USD",
-            "value": "259488000000",
+            "value": "268882000000",
             "period_start": "2015-01-01",
             "period_end": "2015-12-31",
             "filed": "2016-02-24",
@@ -143165,9 +145693,9 @@
           }
         }
       ],
-      "selected_tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+      "selected_tag": "TotalRevenuesAndOtherIncome",
       "calculation": null,
-      "note": "Reported total: Sales and other operating revenue. Other candidates are retained separately; values are not summed.",
+      "note": "Reported total: Total revenues and other income. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408816000065/R2.htm",
         "sha256": "bbf2009e15b016e03e0b8c0530e6d21fd0e4584daeb6477b15823f78f355027b",
@@ -143177,27 +145705,33 @@
     "XOM:revenue:2015-01-01:2015-12-31:0000034088-17-000017": {
       "filed": "2017-02-22",
       "form": "10-K",
-      "value": "259488000000",
+      "value": "268882000000",
       "components": [
         {
           "fact": {
             "source_cik": "0000034088",
             "taxonomy": "xom",
-            "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+            "tag": "TotalRevenuesAndOtherIncome",
             "unit": "USD",
-            "value": "259488000000",
+            "value": "268882000000",
             "period_start": "2015-01-01",
             "period_end": "2015-12-31",
             "filed": "2017-02-22",
             "accession": "0000034088-17-000017",
             "form": "10-K"
           },
-          "coefficient": 1
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408817000017/xom-20161231.xml",
+            "sha256": "4b8d1793c39e5cca99dd8d293435eb2c1e8749dd3b253ffb026124453973ba40",
+            "file": "4b8d1793c39e5cca99dd8d293435eb2c1e8749dd3b253ffb026124453973ba40.htm"
+          }
         }
       ],
-      "selected_tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+      "selected_tag": "TotalRevenuesAndOtherIncome",
       "calculation": null,
-      "note": "Reported total: Sales and other operating revenue. Other candidates are retained separately; values are not summed.",
+      "note": "Reported total: Total revenues and other income. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408817000017/R2.htm",
         "sha256": "e5e8bb3d2c0b7defe2ab99495a55530fff75ccefb579c52e5627f16b90c7f469",
@@ -143207,27 +145741,33 @@
     "XOM:revenue:2016-01-01:2016-12-31:0000034088-17-000017": {
       "filed": "2017-02-22",
       "form": "10-K",
-      "value": "218608000000",
+      "value": "226094000000",
       "components": [
         {
           "fact": {
             "source_cik": "0000034088",
             "taxonomy": "xom",
-            "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+            "tag": "TotalRevenuesAndOtherIncome",
             "unit": "USD",
-            "value": "218608000000",
+            "value": "226094000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2017-02-22",
             "accession": "0000034088-17-000017",
             "form": "10-K"
           },
-          "coefficient": 1
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408817000017/xom-20161231.xml",
+            "sha256": "4b8d1793c39e5cca99dd8d293435eb2c1e8749dd3b253ffb026124453973ba40",
+            "file": "4b8d1793c39e5cca99dd8d293435eb2c1e8749dd3b253ffb026124453973ba40.htm"
+          }
         }
       ],
-      "selected_tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+      "selected_tag": "TotalRevenuesAndOtherIncome",
       "calculation": null,
-      "note": "Reported total: Sales and other operating revenue. Other candidates are retained separately; values are not summed.",
+      "note": "Reported total: Total revenues and other income. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408817000017/R2.htm",
         "sha256": "e5e8bb3d2c0b7defe2ab99495a55530fff75ccefb579c52e5627f16b90c7f469",
@@ -143237,15 +145777,15 @@
     "XOM:revenue:2017-01-01:2017-12-31:0000034088-18-000015": {
       "filed": "2018-02-28",
       "form": "10-K",
-      "value": "237162000000",
+      "value": "244363000000",
       "components": [
         {
           "fact": {
             "source_cik": "0000034088",
             "taxonomy": "xom",
-            "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+            "tag": "TotalRevenuesAndOtherIncome",
             "unit": "USD",
-            "value": "237162000000",
+            "value": "244363000000",
             "period_start": "2017-01-01",
             "period_end": "2017-12-31",
             "filed": "2018-02-28",
@@ -143255,9 +145795,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+      "selected_tag": "TotalRevenuesAndOtherIncome",
       "calculation": null,
-      "note": "Reported total: Sales and other operating revenue. Other candidates are retained separately; values are not summed.",
+      "note": "Reported total: Total revenues and other income. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408818000015/R2.htm",
         "sha256": "26c4051d7a928332f22bbde2a6ef8b66bcd15ca5355ea91e3b7f88e83a5d0ef9",
@@ -143267,15 +145807,15 @@
     "XOM:revenue:2017-01-01:2017-12-31:0000034088-19-000010": {
       "filed": "2019-02-27",
       "form": "10-K",
-      "value": "237162000000",
+      "value": "244363000000",
       "components": [
         {
           "fact": {
             "source_cik": "0000034088",
             "taxonomy": "xom",
-            "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+            "tag": "TotalRevenuesAndOtherIncome",
             "unit": "USD",
-            "value": "237162000000",
+            "value": "244363000000",
             "period_start": "2017-01-01",
             "period_end": "2017-12-31",
             "filed": "2019-02-27",
@@ -143285,9 +145825,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+      "selected_tag": "TotalRevenuesAndOtherIncome",
       "calculation": null,
-      "note": "Reported total: Sales and other operating revenue. Other candidates are retained separately; values are not summed.",
+      "note": "Reported total: Total revenues and other income. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408819000010/R2.htm",
         "sha256": "5ca98936cc14983ed0261d422f5cf30dbd3a9662a377175ba2c907baaa39ff26",
@@ -143297,15 +145837,15 @@
     "XOM:revenue:2018-01-01:2018-12-31:0000034088-19-000010": {
       "filed": "2019-02-27",
       "form": "10-K",
-      "value": "279332000000",
+      "value": "290212000000",
       "components": [
         {
           "fact": {
             "source_cik": "0000034088",
             "taxonomy": "xom",
-            "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+            "tag": "TotalRevenuesAndOtherIncome",
             "unit": "USD",
-            "value": "279332000000",
+            "value": "290212000000",
             "period_start": "2018-01-01",
             "period_end": "2018-12-31",
             "filed": "2019-02-27",
@@ -143315,9 +145855,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
+      "selected_tag": "TotalRevenuesAndOtherIncome",
       "calculation": null,
-      "note": "Reported total: Sales and other operating revenue. Other candidates are retained separately; values are not summed.",
+      "note": "Reported total: Total revenues and other income. Other candidates are retained separately; values are not summed.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408819000010/R2.htm",
         "sha256": "5ca98936cc14983ed0261d422f5cf30dbd3a9662a377175ba2c907baaa39ff26",
@@ -144428,5 +146968,5 @@
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
     }
   },
-  "reviewed_at": "2026-10-31T11:05:34.289306+00:00"
+  "reviewed_at": "2026-11-03T10:35:44.488065+00:00"
 }

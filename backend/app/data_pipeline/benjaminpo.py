@@ -421,9 +421,9 @@ def cash_adjustment_policy(manifest):
 def missing_dividend_tickers(policy, tickers):
     """List the companies with reviewed missing dividends; reject any other rule.
 
-    Only AVGO's rebuilt dividends (applied by correct_avgo) and missing dividends of
-    catalogue companies exist, so an unknown method or company is an error rather than
-    a rule that silently applies to nothing.
+    In this list only AVGO's rebuilt dividends (applied by correct_avgo) and missing
+    dividends of catalogue companies exist, so an unknown method or company is an error
+    rather than a rule that silently applies to nothing.
     """
     result = []
     for ticker, rule in policy["companies"].items():
@@ -478,6 +478,45 @@ def correct_missing_dividends(rows, policy, ticker):
     return len(rule["dividends"])
 
 
+def dividend_change_tickers(policy, tickers):
+    """List companies with reviewed vendor dividend changes; reject any other rule."""
+    changes = policy.get("dividend_changes", {})
+    for ticker, rule in changes.items():
+        if rule["method"] != "reviewed_dividend_changes":
+            raise ValueError(
+                f"Unknown dividend change method for {ticker}: {rule['method']}"
+            )
+        if ticker not in tickers:
+            raise ValueError(
+                f"Dividend change rule for a company outside the catalogue: {ticker}"
+            )
+    return sorted(changes)
+
+
+def correct_dividend_changes(rows, policy, ticker):
+    """Fix dividends the vendor applied wrongly; return the number of changed events.
+
+    Every file a review relies on is pinned, and apply_adjustments refuses an event the
+    vendor's series does not show, so a review cannot apply to changed data.
+    """
+    from .price_adjustments import apply_adjustments
+
+    rule = policy["dividend_changes"][ticker]
+    if rule["status"] != "reviewed":
+        raise ValueError(f"Unapproved {ticker} dividend change")
+    if not rule["evidence"]:
+        raise ValueError(f"{ticker} dividend change has no evidence")
+    for evidence in rule["evidence"]:
+        if sha256(ROOT / evidence["file"]) != evidence["sha256"]:
+            raise ValueError(f"{ticker} dividend change evidence checksum mismatch")
+    corrected = apply_adjustments(rows, rule)
+    for row in rows:
+        # Sessions after the last changed event keep their source text unchanged.
+        if corrected[row["date"]] != Decimal(row["adjusted_close"]):
+            row["adjusted_close"] = str(corrected[row["date"]])
+    return len(rule["changes"])
+
+
 def correct_avgo(rows, manifest):
     """Rebuild verified cash adjustments while retaining the vendor's final anchor."""
     from .price_adjustments import apply_adjustments
@@ -529,9 +568,12 @@ def prepare_prices(*, require_reviewed=False):
     corrections = review_corrections(manifest)
     policy = None
     dividend_tickers = []
+    change_tickers = []
+    changed_dividends = {}
     if "AVGO" in manifest["reviews"]:
         policy = cash_adjustment_policy(manifest)
         dividend_tickers = missing_dividend_tickers(policy, tickers)
+        change_tickers = dividend_change_tickers(policy, tickers)
     temporary = None
     try:
         with NamedTemporaryFile(
@@ -565,6 +607,10 @@ def prepare_prices(*, require_reviewed=False):
                 # spin-off checks the vendor's own factors around 2016.
                 if ticker in dividend_tickers:
                     added_dividends[ticker] = correct_missing_dividends(
+                        rows, policy, ticker
+                    )
+                if ticker in change_tickers:
+                    changed_dividends[ticker] = correct_dividend_changes(
                         rows, policy, ticker
                     )
                 for row in rows:
@@ -602,6 +648,7 @@ def prepare_prices(*, require_reviewed=False):
         "adjustment_rules_sha256": adjustment_rules_sha256(manifest),
         "adjusted_prices_changed": changed,
         "missing_dividends_added": added_dividends,
+        "vendor_dividends_changed": changed_dividends,
         "unresolved": unresolved,
         "events": events,
     }

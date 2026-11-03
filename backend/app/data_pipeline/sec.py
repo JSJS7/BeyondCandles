@@ -44,8 +44,6 @@ METRICS = {
 # Additional revenue facts are limited to reviewed issuers, not treated as
 # universal revenue synonyms (advisory fees are only a component for many firms).
 REVENUE_SOURCE_TAGS = {
-    # Nasdaq reports net revenue after transaction-based expenses using this concept.
-    "0001120193": ("GrossProfit",),
     "0000072971": ("InterestIncomeExpenseNet", "NoninterestIncome"),
     "0000036104": ("InterestIncomeExpenseNet", "NoninterestIncome"),
     "0000927628": ("InterestIncomeExpenseNet", "NoninterestIncome"),
@@ -349,16 +347,10 @@ def fact_key(fact):
     )
 
 
-def import_sec():
-    from sqlalchemy import bindparam, select
-    from sqlalchemy.dialects.postgresql import insert
-
-    from app.database import engine, lock_data_imports
-    from app.models import Company, FinancialFact
-
-    from .metric_history import rebuild_history
+def prepare_all_company_facts():
+    """Return the facts the cached SEC files and rules define, by company."""
     from .sec_catalogue import identifiers, load_all_sec
-    from .sec_history import HISTORY_INDEX, history_eligible, prepare_company_facts
+    from .sec_history import HISTORY_INDEX, prepare_company_facts
 
     issuers = identifiers()
     history_index = (
@@ -376,6 +368,93 @@ def import_sec():
         except ValueError as exc:
             raise ValueError(f"{ticker}: {exc}") from exc
         prepared[ticker] = (entry, facts, history)
+    return prepared
+
+
+def fact_differences(expected_facts, stored_rows):
+    """Compare one company's stored facts with the expected ones, field by field.
+
+    Returns the identifying keys of facts that are missing, unexpected or changed.
+    Unlike an import, this also compares history_eligible, which a reviewed rule change
+    may alter: verification must notice when an import was not run afterwards.
+    """
+    stored_by_key = {fact_key(row): row for row in stored_rows}
+    expected_by_key = {fact_key(fact): fact for fact in expected_facts}
+    missing = sorted(set(expected_by_key) - set(stored_by_key), key=str)
+    unexpected = sorted(set(stored_by_key) - set(expected_by_key), key=str)
+    changed = []
+    for key, fact in expected_by_key.items():
+        stored = stored_by_key.get(key)
+        if stored is None:
+            continue
+        if any(stored[column] != value for column, value in fact.items()):
+            changed.append(key)
+    return {
+        "missing": missing,
+        "unexpected": unexpected,
+        "changed": sorted(changed, key=str),
+    }
+
+
+def verify_stored_facts(connection):
+    """Fail unless the stored SEC facts equal those from the cache; return their count."""
+    from sqlalchemy import select
+
+    from app.models import Company, FinancialFact
+
+    prepared = prepare_all_company_facts()
+    companies = connection.execute(
+        select(Company.id, Company.ticker, Company.cik)
+    ).all()
+    problems = []
+    checked = 0
+    for company in companies:
+        stored_rows = (
+            connection.execute(
+                select(FinancialFact.__table__).where(
+                    FinancialFact.company_id == company.id
+                )
+            )
+            .mappings()
+            .all()
+        )
+        if company.ticker not in prepared:
+            if stored_rows:
+                problems.append(f"{company.ticker}: facts outside the SEC catalogue")
+            continue
+        entry, facts, _ = prepared[company.ticker]
+        if company.cik != entry["cik"]:
+            problems.append(f"{company.ticker}: stored CIK differs")
+        differences = fact_differences(facts, stored_rows)
+        checked += len(stored_rows)
+        for kind, keys in differences.items():
+            if keys:
+                problems.append(
+                    f"{company.ticker}: {len(keys)} {kind}, first {keys[0]}"
+                )
+    tickers = {company.ticker for company in companies}
+    for ticker in sorted(set(prepared) - tickers):
+        problems.append(f"{ticker}: company missing from the database")
+    if problems:
+        shown = "; ".join(problems[:5])
+        raise ValueError(
+            f"Stored SEC facts differ from the cached sources in {len(problems)} "
+            f"places: {shown}"
+        )
+    return checked
+
+
+def import_sec():
+    from sqlalchemy import bindparam, select
+    from sqlalchemy.dialects.postgresql import insert
+
+    from app.database import engine, lock_data_imports
+    from app.models import Company, FinancialFact
+
+    from .metric_history import rebuild_history
+    from .sec_history import history_eligible
+
+    prepared = prepare_all_company_facts()
     summary = {}
     with engine.begin() as connection:
         lock_data_imports(connection)

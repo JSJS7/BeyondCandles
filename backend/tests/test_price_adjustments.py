@@ -292,6 +292,137 @@ class PriceAuditTests(unittest.TestCase):
         unreviewed, matched, _ = separate_reviewed_events(changed, reviewed)
         self.assertEqual((len(unreviewed), matched), (1, 0))
 
+    def vendor_rows_with_dividends(self, cash_by_date):
+        """Close stays at 100; Adjusted Close contains exactly these vendor amounts."""
+        days = ["2020-01-02", "2020-01-03", "2020-01-06", "2020-01-07", "2020-01-08"]
+        factor = Decimal(1)
+        rows = []
+        for day in reversed(days):
+            rows.append(
+                {"date": day, "close": "100", "adjusted_close": str(100 * factor)}
+            )
+            if day in cash_by_date:
+                factor *= (100 - Decimal(cash_by_date[day])) / 100
+        rows.reverse()
+        return rows
+
+    def implied_cash(self, corrected, earlier, later):
+        return 100 * (1 - corrected[earlier] / corrected[later])
+
+    def test_foreign_dividend_is_removed_and_own_one_stays(self):
+        """COR case: removing CoreSite's 1.22 leaves Cencora's 0.40 exactly as it was."""
+        rows = self.vendor_rows_with_dividends(
+            {"2020-01-03": "0.40", "2020-01-07": "1.22"}
+        )
+        rule = {
+            "method": "reviewed_dividend_changes",
+            "changes": [
+                {
+                    "ex_date": "2020-01-07",
+                    "vendor_amount": "1.22",
+                    "amount": "0",
+                    "split_divisor": "1",
+                }
+            ],
+        }
+
+        corrected = apply_adjustments(rows, rule)
+
+        self.assertEqual(corrected["2020-01-06"], corrected["2020-01-07"])
+        self.assertAlmostEqual(
+            float(self.implied_cash(corrected, "2020-01-02", "2020-01-03")), 0.40, 9
+        )
+        self.assertEqual(corrected["2020-01-08"], Decimal(100))
+
+    def test_dividend_on_the_old_scale_is_rescaled(self):
+        """T case: 0.52 stands on prices divided by 1.324, so its share is 0.52 / 1.324."""
+        rows = self.vendor_rows_with_dividends({"2020-01-07": "0.52"})
+        rule = {
+            "method": "reviewed_dividend_changes",
+            "changes": [
+                {
+                    "ex_date": "2020-01-07",
+                    "vendor_amount": "0.52",
+                    "amount": "0.52",
+                    "split_divisor": "1.324",
+                }
+            ],
+        }
+
+        corrected = apply_adjustments(rows, rule)
+
+        self.assertAlmostEqual(
+            float(self.implied_cash(corrected, "2020-01-06", "2020-01-07")),
+            0.52 / 1.324,
+            9,
+        )
+
+    def test_wrong_decimal_place_is_replaced(self):
+        """ETN case: the vendor applied 0.073 where SEC reports 0.73."""
+        rows = self.vendor_rows_with_dividends({"2020-01-07": "0.073"})
+        rule = {
+            "method": "reviewed_dividend_changes",
+            "changes": [
+                {
+                    "ex_date": "2020-01-07",
+                    "vendor_amount": "0.073",
+                    "amount": "0.73",
+                    "split_divisor": "1",
+                }
+            ],
+        }
+
+        corrected = apply_adjustments(rows, rule)
+
+        self.assertAlmostEqual(
+            float(self.implied_cash(corrected, "2020-01-06", "2020-01-07")), 0.73, 9
+        )
+
+    def test_distribution_the_vendor_omits_is_added(self):
+        """OXY case: warrants worth 0.62 a share appear where the vendor shows nothing."""
+        rows = self.vendor_rows_with_dividends({"2020-01-03": "0.40"})
+        rule = {
+            "method": "reviewed_dividend_changes",
+            "changes": [
+                {
+                    "ex_date": "2020-01-07",
+                    "vendor_amount": "0",
+                    "amount": "0.61875",
+                    "split_divisor": "1",
+                }
+            ],
+        }
+
+        corrected = apply_adjustments(rows, rule)
+
+        self.assertAlmostEqual(
+            float(self.implied_cash(corrected, "2020-01-06", "2020-01-07")), 0.61875, 9
+        )
+        self.assertAlmostEqual(
+            float(self.implied_cash(corrected, "2020-01-02", "2020-01-03")), 0.40, 9
+        )
+
+    def test_change_requires_the_amount_the_vendor_shows(self):
+        """A review written for another amount or a quiet session must not apply."""
+        rows = self.vendor_rows_with_dividends({"2020-01-07": "0.073"})
+        for ex_date, vendor_amount in (
+            ("2020-01-07", "0.50"),
+            ("2020-01-06", "0.073"),
+        ):
+            rule = {
+                "method": "reviewed_dividend_changes",
+                "changes": [
+                    {
+                        "ex_date": ex_date,
+                        "vendor_amount": vendor_amount,
+                        "amount": "0",
+                        "split_divisor": "1",
+                    }
+                ],
+            }
+            with self.assertRaisesRegex(ValueError, "does not show"):
+                apply_adjustments(rows, rule)
+
     def test_large_market_move_is_not_a_distribution(self):
         """Flag a change in adjustment factor, not an actual large market-price return."""
         rows = [

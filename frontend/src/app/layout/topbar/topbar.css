@@ -79,7 +79,8 @@
 }
 
 .search-result:hover,
-.search-result:focus-visible {
+.search-result:focus-visible,
+.search-result.active {
   background: var(--bc-subtle);
 }
 

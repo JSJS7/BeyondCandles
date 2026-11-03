@@ -1442,7 +1442,7 @@
       "status": "reviewed",
       "method": "cash_dividends_preserve_vendor_anchor",
       "rules_file": "data/price-adjustments.json",
-      "rules_sha256": "5437e59fa490c84ce3196cbf58f04a653d963fb91811004e45443a089c1b2ae7",
+      "rules_sha256": "d0ad47a4c9a8ba7a44e4c3ab84c76519c216fea7f683e9838c61b40d358295f0",
       "note": "Use 44 verified ordinary cash dividends; retain final source Adj Close to preserve later adjustments. Correct duplicated March/June 2018 distributions."
     },
     "DHR": {

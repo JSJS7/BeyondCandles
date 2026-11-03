@@ -1,0 +1,633 @@
+{
+  "version": 1,
+  "method": "Flags left by audit-prices after comparing the dividends implied by Adjusted Close with the pinned DoltHub dividend table and SEC dividends per share. An entry accepts only the exact ticker, check, date and values; a new or changed flag still needs review. Amounts are per share at the traded price, fiscal_year amounts on the share basis at the period end.",
+  "evidence": {
+    "file": "data/raw/benjaminpo-v81/evidence/dividends-dolt.json",
+    "source": "https://www.dolthub.com/repositories/post-no-preference/stocks",
+    "license_declared": "CC BY-SA 4.0",
+    "revision": "sv2onpqvm9gte13evbqhcchba66epbuv",
+    "rows_sha256": "83109765ff9c125f11515a5be6d77d571676402141642fffc77e208ec9d1280e"
+  },
+  "symbol_history": {
+    "CB": [
+      {
+        "symbol": "CB",
+        "from": "2016-01-15",
+        "through": "2026-12-31"
+      }
+    ],
+    "COR": [
+      {
+        "symbol": "ABC",
+        "from": "2015-01-01",
+        "through": "2023-08-29"
+      },
+      {
+        "symbol": "COR",
+        "from": "2023-08-30",
+        "through": "2026-12-31"
+      }
+    ],
+    "ELV": [
+      {
+        "symbol": "ANTM",
+        "from": "2015-01-01",
+        "through": "2022-06-27"
+      },
+      {
+        "symbol": "ELV",
+        "from": "2022-06-28",
+        "through": "2026-12-31"
+      }
+    ],
+    "FI": [
+      {
+        "symbol": "FI",
+        "from": "2023-06-07",
+        "through": "2026-12-31"
+      }
+    ],
+    "JCI": [
+      {
+        "symbol": "JCI",
+        "from": "2016-09-06",
+        "through": "2026-12-31"
+      }
+    ],
+    "LIN": [
+      {
+        "symbol": "PX",
+        "from": "2015-01-01",
+        "through": "2018-10-30"
+      },
+      {
+        "symbol": "LIN",
+        "from": "2018-10-31",
+        "through": "2026-12-31"
+      }
+    ],
+    "RTX": [
+      {
+        "symbol": "UTX",
+        "from": "2015-01-01",
+        "through": "2020-04-02"
+      },
+      {
+        "symbol": "RTX",
+        "from": "2020-04-03",
+        "through": "2026-12-31"
+      }
+    ],
+    "TFC": [
+      {
+        "symbol": "BBT",
+        "from": "2015-01-01",
+        "through": "2019-12-06"
+      },
+      {
+        "symbol": "TFC",
+        "from": "2019-12-07",
+        "through": "2026-12-31"
+      }
+    ],
+    "TT": [
+      {
+        "symbol": "IR",
+        "from": "2015-01-01",
+        "through": "2020-03-01"
+      },
+      {
+        "symbol": "TT",
+        "from": "2020-03-02",
+        "through": "2026-12-31"
+      }
+    ],
+    "WELL": [
+      {
+        "symbol": "HCN",
+        "from": "2015-01-01",
+        "through": "2018-02-27"
+      },
+      {
+        "symbol": "WELL",
+        "from": "2018-02-28",
+        "through": "2026-12-31"
+      }
+    ]
+  },
+  "flags": [
+    {
+      "ticker": "ACN",
+      "check": "source_only",
+      "date": "2015-04-08",
+      "vendor": null,
+      "source": "1.0200",
+      "kind": "source_row_repeated",
+      "note": "DoltHub lists 1.02 on 2 and 8 Apr 2015; the vendor has it once. SEC FY2015 cash paid 2.04 = 1.02 + 1.02."
+    },
+    {
+      "ticker": "APD",
+      "check": "amount",
+      "date": "2015-12-30",
+      "vendor": "0.8100",
+      "source": "0.7493",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub lowered amounts for the 2016 Versum spin-off; the vendor has them as paid. SEC FY2016 3.39 = 0.81 + 3 x 0.86."
+    },
+    {
+      "ticker": "APD",
+      "check": "amount",
+      "date": "2016-03-30",
+      "vendor": "0.8600",
+      "source": "0.7956",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub lowered amounts for the 2016 Versum spin-off; the vendor has them as paid. SEC FY2016 3.39 = 0.81 + 3 x 0.86."
+    },
+    {
+      "ticker": "APD",
+      "check": "amount",
+      "date": "2016-06-29",
+      "vendor": "0.8599",
+      "source": "0.7956",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub lowered amounts for the 2016 Versum spin-off; the vendor has them as paid. SEC FY2016 3.39 = 0.81 + 3 x 0.86."
+    },
+    {
+      "ticker": "AXP",
+      "check": "fiscal_year",
+      "date": "2025-12-31",
+      "vendor": "3.1600",
+      "source": "3.2800",
+      "kind": "declared_versus_ex_date",
+      "note": "The raise declared in late 2025 is paid after the price window; the difference equals the raise."
+    },
+    {
+      "ticker": "CL",
+      "check": "fiscal_year",
+      "date": "2024-12-31",
+      "vendor": "1.9800",
+      "source": "2.4800",
+      "kind": "declared_versus_ex_date",
+      "note": "SEC counts five declarations in 2024: 0.48 + 4 x 0.50; four ex-dates fall in the year."
+    },
+    {
+      "ticker": "COP",
+      "check": "fiscal_year",
+      "date": "2023-12-31",
+      "vendor": "3.9100",
+      "source": "2.1100",
+      "kind": "sec_value_covers_part",
+      "note": "The SEC tag covers the ordinary dividend only; the vendor total adds the variable return of cash, with the same amounts as DoltHub."
+    },
+    {
+      "ticker": "COP",
+      "check": "fiscal_year",
+      "date": "2024-12-31",
+      "vendor": "3.1200",
+      "source": "2.5200",
+      "kind": "sec_value_covers_part",
+      "note": "The SEC tag covers the ordinary dividend only; the vendor total adds the variable return of cash, with the same amounts as DoltHub."
+    },
+    {
+      "ticker": "COP",
+      "check": "close_pair",
+      "date": "2022-02-11",
+      "vendor": "0.4600",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Variable return of cash between ordinary dividends (10-K FY2023); DoltHub has the same amounts."
+    },
+    {
+      "ticker": "COP",
+      "check": "close_pair",
+      "date": "2022-06-27",
+      "vendor": "0.7000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Variable return of cash between ordinary dividends (10-K FY2023); DoltHub has the same amounts."
+    },
+    {
+      "ticker": "COP",
+      "check": "close_pair",
+      "date": "2022-12-23",
+      "vendor": "0.7000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Variable return of cash between ordinary dividends (10-K FY2023); DoltHub has the same amounts."
+    },
+    {
+      "ticker": "COP",
+      "check": "close_pair",
+      "date": "2023-06-26",
+      "vendor": "0.6000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Variable return of cash between ordinary dividends (10-K FY2023); DoltHub has the same amounts."
+    },
+    {
+      "ticker": "COST",
+      "check": "close_pair",
+      "date": "2015-02-11",
+      "vendor": "0.3550",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Special dividend near a regular one: 5.00 and 0.355 in Feb 2015 (SEC declared 5.355), 10.00 in Dec 2020 (SEC declared 10.00 in fiscal Q1 2021)."
+    },
+    {
+      "ticker": "COST",
+      "check": "close_pair",
+      "date": "2020-12-01",
+      "vendor": "10.0000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Special dividend near a regular one: 5.00 and 0.355 in Feb 2015 (SEC declared 5.355), 10.00 in Dec 2020 (SEC declared 10.00 in fiscal Q1 2021)."
+    },
+    {
+      "ticker": "DHR",
+      "check": "amount",
+      "date": "2015-12-17",
+      "vendor": "0.1350",
+      "source": "0.1024",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub lowered the amount for the Fortive spin-off; the vendor has 0.135 as paid."
+    },
+    {
+      "ticker": "DHR",
+      "check": "source_only",
+      "date": "2016-07-05",
+      "vendor": null,
+      "source": "24.5600",
+      "kind": "source_amount_rebased",
+      "note": "Fortive distribution of 2016, not cash; its factor change was removed on purpose by the reviewed DHR correction."
+    },
+    {
+      "ticker": "DIS",
+      "check": "vendor_only",
+      "date": "2024-07-08",
+      "vendor": "0.4500",
+      "source": null,
+      "kind": "source_gap",
+      "note": "Missing from DoltHub. Disney 10-K FY2024 note 11: 0.45 per share, paid July 2024, holders of record 8 July 2024."
+    },
+    {
+      "ticker": "EOG",
+      "check": "fiscal_year",
+      "date": "2021-12-31",
+      "vendor": "4.6140",
+      "source": "4.9875",
+      "kind": "declared_versus_ex_date",
+      "note": "SEC 4.9875 = vendor 4.6125 - 0.375 paid for 2020 + 0.75 declared in Q4 2021 and paid in Jan 2022."
+    },
+    {
+      "ticker": "FCX",
+      "check": "fiscal_year",
+      "date": "2015-12-31",
+      "vendor": "0.5740",
+      "source": "0.2605",
+      "kind": "declared_versus_ex_date",
+      "note": "Paid in Jan 2015 and Feb 2020 but declared the year before. 2015: 0.2605 = 0.05 + 0.1605 + 0.05; vendor adds 0.3125."
+    },
+    {
+      "ticker": "FCX",
+      "check": "fiscal_year",
+      "date": "2020-12-31",
+      "vendor": "0.0500",
+      "source": "0.0000",
+      "kind": "declared_versus_ex_date",
+      "note": "Paid in Jan 2015 and Feb 2020 but declared the year before. 2015: 0.2605 = 0.05 + 0.1605 + 0.05; vendor adds 0.3125."
+    },
+    {
+      "ticker": "FDX",
+      "check": "fiscal_year",
+      "date": "2023-05-31",
+      "vendor": "4.6000",
+      "source": "5.8600",
+      "kind": "declared_versus_ex_date",
+      "note": "Declarations and ex-dates fall in different years; both years add up to 9.64 in SEC and at the vendor."
+    },
+    {
+      "ticker": "FDX",
+      "check": "fiscal_year",
+      "date": "2024-05-31",
+      "vendor": "5.0399",
+      "source": "3.7800",
+      "kind": "declared_versus_ex_date",
+      "note": "Declarations and ex-dates fall in different years; both years add up to 9.64 in SEC and at the vendor."
+    },
+    {
+      "ticker": "JCI",
+      "check": "fiscal_year",
+      "date": "2016-09-30",
+      "vendor": "0.8200",
+      "source": "1.1600",
+      "kind": "sec_value_covers_part",
+      "note": "Vendor prices through 2 Sep 2016 are Tyco's and SEC 1.16 is Johnson Controls Inc.'s (documented), so the two cannot match. 0.82 = 4 x 0.205, Tyco's quarterly dividend in its 2016 10-Q filings."
+    },
+    {
+      "ticker": "JCI",
+      "check": "vendor_only",
+      "date": "2015-01-21",
+      "vendor": "0.1800",
+      "source": null,
+      "kind": "source_gap",
+      "note": "Tyco dividend before its rate rose to 0.205; the vendor series is Tyco's through 2 Sep 2016 and DoltHub lists 0.18 on this date."
+    },
+    {
+      "ticker": "JPM",
+      "check": "fiscal_year",
+      "date": "2025-12-31",
+      "vendor": "5.5500",
+      "source": "5.8000",
+      "kind": "declared_versus_ex_date",
+      "note": "The raise declared in late 2025 is paid after the price window; the difference equals the raise."
+    },
+    {
+      "ticker": "KKR",
+      "check": "fiscal_year",
+      "date": "2018-12-31",
+      "vendor": "0.6350",
+      "source": "0.2950",
+      "kind": "sec_value_covers_part",
+      "note": "SEC 0.295 covers the second half of 2018 after the conversion to a corporation; 0.34 for the first half is a separate fact. Vendor 0.635 = both."
+    },
+    {
+      "ticker": "LLY",
+      "check": "fiscal_year",
+      "date": "2025-12-31",
+      "vendor": "6.0000",
+      "source": "6.2300",
+      "kind": "declared_versus_ex_date",
+      "note": "The raise declared in late 2025 is paid after the price window; the difference equals the raise."
+    },
+    {
+      "ticker": "MA",
+      "check": "fiscal_year",
+      "date": "2025-12-31",
+      "vendor": "3.0399",
+      "source": "3.1500",
+      "kind": "declared_versus_ex_date",
+      "note": "The raise declared in late 2025 is paid after the price window; the difference equals the raise."
+    },
+    {
+      "ticker": "MU",
+      "check": "fiscal_year",
+      "date": "2021-09-02",
+      "vendor": "0.0000",
+      "source": "0.1000",
+      "kind": "declared_versus_ex_date",
+      "note": "0.10 declared in Aug 2021 and paid in Oct 2021; both years add up to 0.415 in SEC and at the vendor."
+    },
+    {
+      "ticker": "MU",
+      "check": "fiscal_year",
+      "date": "2022-09-01",
+      "vendor": "0.4150",
+      "source": "0.3150",
+      "kind": "declared_versus_ex_date",
+      "note": "0.10 declared in Aug 2021 and paid in Oct 2021; both years add up to 0.415 in SEC and at the vendor."
+    },
+    {
+      "ticker": "NKE",
+      "check": "amount",
+      "date": "2015-09-03",
+      "vendor": "0.2800",
+      "source": "0.1400",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub halved amounts for the 2:1 split of Dec 2015; the vendor has them as traded. SEC FY2016 0.62 after the split = 0.14 + 3 x 0.16."
+    },
+    {
+      "ticker": "NKE",
+      "check": "amount",
+      "date": "2015-12-07",
+      "vendor": "0.3200",
+      "source": "0.1600",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub halved amounts for the 2:1 split of Dec 2015; the vendor has them as traded. SEC FY2016 0.62 after the split = 0.14 + 3 x 0.16."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2015-12-16",
+      "vendor": "1.4000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2016-12-14",
+      "vendor": "0.6000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2017-12-13",
+      "vendor": "1.2000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2018-12-13",
+      "vendor": "2.0000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2019-12-19",
+      "vendor": "2.3000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2020-12-17",
+      "vendor": "0.7000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PCAR",
+      "check": "close_pair",
+      "date": "2021-12-16",
+      "vendor": "1.5000",
+      "source": null,
+      "kind": "special_dividend",
+      "note": "Year-end extra dividend beside the quarterly one; 10-K tables FY2016, FY2017, FY2019 and FY2021 give 1.40, 0.60, 1.20, 2.00, 2.30, 0.70, 1.50."
+    },
+    {
+      "ticker": "PGR",
+      "check": "fiscal_year",
+      "date": "2016-12-31",
+      "vendor": "0.8880",
+      "source": "0.6808",
+      "kind": "declared_versus_ex_date",
+      "note": "Annual and special dividends are declared in December and paid the next year: each vendor year equals the SEC value of the year before, except 2021, where the 4.50 special was declared in 2020."
+    },
+    {
+      "ticker": "PGR",
+      "check": "fiscal_year",
+      "date": "2017-12-31",
+      "vendor": "0.6810",
+      "source": "1.1247",
+      "kind": "declared_versus_ex_date",
+      "note": "Annual and special dividends are declared in December and paid the next year: each vendor year equals the SEC value of the year before, except 2021, where the 4.50 special was declared in 2020."
+    },
+    {
+      "ticker": "PGR",
+      "check": "fiscal_year",
+      "date": "2018-12-31",
+      "vendor": "1.1250",
+      "source": "2.5140",
+      "kind": "declared_versus_ex_date",
+      "note": "Annual and special dividends are declared in December and paid the next year: each vendor year equals the SEC value of the year before, except 2021, where the 4.50 special was declared in 2020."
+    },
+    {
+      "ticker": "PGR",
+      "check": "fiscal_year",
+      "date": "2021-12-31",
+      "vendor": "6.3999",
+      "source": "1.9000",
+      "kind": "declared_versus_ex_date",
+      "note": "Annual and special dividends are declared in December and paid the next year: each vendor year equals the SEC value of the year before, except 2021, where the 4.50 special was declared in 2020."
+    },
+    {
+      "ticker": "PGR",
+      "check": "fiscal_year",
+      "date": "2025-12-31",
+      "vendor": "4.9000",
+      "source": "13.9000",
+      "kind": "declared_versus_ex_date",
+      "note": "Annual and special dividends are declared in December and paid the next year: each vendor year equals the SEC value of the year before, except 2021, where the 4.50 special was declared in 2020."
+    },
+    {
+      "ticker": "PGR",
+      "check": "amount",
+      "date": "2025-01-10",
+      "vendor": "4.6000",
+      "source": "0.1000",
+      "kind": "source_amount_rebased",
+      "note": "DoltHub has only the 0.10 quarterly part; the Jan 2025 payment also includes the 4.50 special dividend declared in 2024."
+    },
+    {
+      "ticker": "RCL",
+      "check": "source_only",
+      "date": "2015-02-17",
+      "vendor": null,
+      "source": "0.3000",
+      "kind": "source_row_repeated",
+      "note": "DoltHub repeats each dividend a few days apart; the vendor has it once. SEC declared by quarter 2015: 0.30, 0.30, 0.375, 0.375."
+    },
+    {
+      "ticker": "RCL",
+      "check": "source_only",
+      "date": "2015-05-18",
+      "vendor": null,
+      "source": "0.3000",
+      "kind": "source_row_repeated",
+      "note": "DoltHub repeats each dividend a few days apart; the vendor has it once. SEC declared by quarter 2015: 0.30, 0.30, 0.375, 0.375."
+    },
+    {
+      "ticker": "RCL",
+      "check": "source_only",
+      "date": "2015-09-17",
+      "vendor": null,
+      "source": "0.3750",
+      "kind": "source_row_repeated",
+      "note": "DoltHub repeats each dividend a few days apart; the vendor has it once. SEC declared by quarter 2015: 0.30, 0.30, 0.375, 0.375."
+    },
+    {
+      "ticker": "SBUX",
+      "check": "fiscal_year",
+      "date": "2020-09-27",
+      "vendor": "1.6400",
+      "source": "1.2300",
+      "kind": "declared_versus_ex_date",
+      "note": "Three declarations in fiscal 2020 and five in fiscal 2021; two-year totals differ only by the raise."
+    },
+    {
+      "ticker": "SBUX",
+      "check": "fiscal_year",
+      "date": "2021-10-03",
+      "vendor": "1.8000",
+      "source": "2.2900",
+      "kind": "declared_versus_ex_date",
+      "note": "Three declarations in fiscal 2020 and five in fiscal 2021; two-year totals differ only by the raise."
+    },
+    {
+      "ticker": "SLB",
+      "check": "source_only",
+      "date": "2015-09-01",
+      "vendor": null,
+      "source": "0.5000",
+      "kind": "source_row_repeated",
+      "note": "DoltHub lists 0.50 on 31 Aug and 1 Sep 2015; the vendor has it once, four payments in the year."
+    },
+    {
+      "ticker": "TJX",
+      "check": "fiscal_year",
+      "date": "2021-01-30",
+      "vendor": "0.2300",
+      "source": "0.2600",
+      "kind": "declared_versus_ex_date",
+      "note": "SEC 0.26 was declared in early 2021 for payment after the fiscal year; 0.23 was the only payment in the year."
+    },
+    {
+      "ticker": "TJX",
+      "check": "amount",
+      "date": "2018-11-14",
+      "vendor": "0.1950",
+      "source": "0.3900",
+      "kind": "source_amount_rebased",
+      "note": "Ex-date after the 2:1 split of Nov 2018: 0.195 as traded, DoltHub keeps 0.39. SEC FY2019 0.78 = 4 x 0.195."
+    },
+    {
+      "ticker": "TMUS",
+      "check": "fiscal_year",
+      "date": "2024-12-31",
+      "vendor": "2.8301",
+      "source": "3.7100",
+      "kind": "declared_versus_ex_date",
+      "note": "Declared raises reach the ex-date a quarter later: 2024 differs by 0.88 and 2025 by 1.02 - 0.88."
+    },
+    {
+      "ticker": "TMUS",
+      "check": "fiscal_year",
+      "date": "2025-12-31",
+      "vendor": "3.6600",
+      "source": "3.8000",
+      "kind": "declared_versus_ex_date",
+      "note": "Declared raises reach the ex-date a quarter later: 2024 differs by 0.88 and 2025 by 1.02 - 0.88."
+    },
+    {
+      "ticker": "TT",
+      "check": "fiscal_year",
+      "date": "2016-12-31",
+      "vendor": "1.3600",
+      "source": "1.1600",
+      "kind": "sec_tag_wrong_year",
+      "note": "SEC value 1.16 in the 2019 filing is the 2015 amount. Ingersoll-Rand 10-K FY2016 gives 0.32 x 3 + 0.40 = 1.36, equal to the vendor."
+    },
+    {
+      "ticker": "V",
+      "check": "source_only",
+      "date": "2016-02-17",
+      "vendor": null,
+      "source": "0.1400",
+      "kind": "source_row_repeated",
+      "note": "DoltHub lists 0.14 on 10 and 17 Feb 2016; the vendor has it once."
+    }
+  ]
+}

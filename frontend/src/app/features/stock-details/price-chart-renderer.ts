@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Price } from '../../models/stock';
-import { formatPrice, formatPriceDate } from './price-chart-data';
+import { formatPrice, formatPriceDate, yearlyTickIndexes } from './price-chart-data';
 
 Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip);
 export type PriceLineChart = Chart<'line', number[], string>;
@@ -35,6 +35,8 @@ export class PriceChartRenderer {
       year: days > 92 ? 'numeric' : undefined,
       timeZone: 'UTC',
     });
+    // Years only on the axis: automatic skipping would repeat or drop years unevenly.
+    const labelsYears = days > 1830;
     return new Chart(context, {
       type: 'line',
       data: {
@@ -80,7 +82,14 @@ export class PriceChartRenderer {
         },
         scales: {
           x: {
+            // Read at every layout: the canvas has its real width only after the first one.
+            afterBuildTicks: (axis) => {
+              if (!labelsYears) return;
+              const indexes = yearlyTickIndexes(prices, axis.chart.width < 500 ? 4 : 8);
+              if (indexes) axis.ticks = indexes.map((value) => ({ value }));
+            },
             ticks: {
+              autoSkip: !labelsYears,
               maxTicksLimit: canvas.clientWidth < 500 ? 4 : 8,
               maxRotation: 0,
               color: color('muted'),

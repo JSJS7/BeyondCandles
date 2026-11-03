@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  HostListener,
   inject,
   input,
   OnInit,
@@ -69,6 +70,18 @@ export class TopbarComponent implements OnInit {
     return matches.slice(0, 10).map((match) => match.stock);
   });
 
+  readonly activeOption = signal(-1);
+  readonly optionsVisible = computed(
+    () =>
+      this.searchResultsOpen() &&
+      this.stocksLoadState().status === 'ready' &&
+      this.filteredStocks().length > 0,
+  );
+  readonly activeOptionId = computed(() => {
+    const active = this.activeOption();
+    return this.optionsVisible() && active >= 0 ? this.optionId(active) : null;
+  });
+
   ngOnInit(): void {
     this.loadStocks();
   }
@@ -113,10 +126,48 @@ export class TopbarComponent implements OnInit {
   onSearchInput(query: string): void {
     this.searchQuery.set(query);
     this.searchResultsOpen.set(true);
+    this.activeOption.set(-1);
+  }
+
+  /** Focus stays in the input; the arrow keys only mark an option (aria-activedescendant). */
+  onSearchKeydown(event: KeyboardEvent): void {
+    const options = this.filteredStocks();
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      // Keeps the caret in place and the page from scrolling, also with no options.
+      event.preventDefault();
+      if (!options.length) return;
+      if (!this.searchResultsOpen()) {
+        this.searchResultsOpen.set(true);
+        return;
+      }
+      const step = event.key === 'ArrowDown' ? 1 : -1;
+      const current = this.activeOption();
+      // From no marked option, Down goes to the first and Up to the last.
+      const start = current < 0 && step < 0 ? 0 : current;
+      this.activeOption.set((start + step + options.length) % options.length);
+    } else if (event.key === 'Enter') {
+      if (!this.optionsVisible()) return;
+      event.preventDefault();
+      this.selectStock(options[Math.max(this.activeOption(), 0)]);
+    } else if (event.key === 'Tab') {
+      this.dismissSearchResults();
+    }
+  }
+
+  @HostListener('document:pointerdown', ['$event'])
+  onDocumentPointerDown(event: Event): void {
+    const target = event.target;
+    if (target instanceof Element && target.closest('.global-search')) return;
+    this.dismissSearchResults();
+  }
+
+  optionId(index: number): string {
+    return `search-option-${index}`;
   }
 
   dismissSearchResults(): void {
     this.searchResultsOpen.set(false);
+    this.activeOption.set(-1);
   }
 
   selectStock(stock: Stock): void {

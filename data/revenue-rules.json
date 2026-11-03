@@ -4164,11 +4164,11 @@
     },
     "0000034088:2015-01-01:2015-12-31": {
       "taxonomy": "xom",
-      "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
-      "label": "Sales and other operating revenue",
+      "tag": "TotalRevenuesAndOtherIncome",
+      "label": "Total revenues and other income",
       "accession": "0000034088-18-000015",
       "filed": "2018-02-28",
-      "value": "239854000000",
+      "value": "249248000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408818000015/R2.htm",
         "sha256": "26c4051d7a928332f22bbde2a6ef8b66bcd15ca5355ea91e3b7f88e83a5d0ef9",
@@ -4187,11 +4187,11 @@
     },
     "0000034088:2016-01-01:2016-12-31": {
       "taxonomy": "xom",
-      "tag": "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes",
-      "label": "Sales and other operating revenue",
+      "tag": "TotalRevenuesAndOtherIncome",
+      "label": "Total revenues and other income",
       "accession": "0000034088-19-000010",
       "filed": "2019-02-27",
-      "value": "200628000000",
+      "value": "208114000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408819000010/R2.htm",
         "sha256": "5ca98936cc14983ed0261d422f5cf30dbd3a9662a377175ba2c907baaa39ff26",
@@ -4210,11 +4210,11 @@
     },
     "0000034088:2017-01-01:2017-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Sales and other operating revenue",
+      "tag": "Revenues",
+      "label": "Total revenues and other income",
       "accession": "0000034088-20-000016",
       "filed": "2020-02-26",
-      "value": "237162000000",
+      "value": "244363000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408820000016/R2.htm",
         "sha256": "4e9354b66dd36c168eec4b2a47922a159da7ce5cb8425efdf35fa6fc50c24b06",
@@ -4228,11 +4228,11 @@
     },
     "0000034088:2018-01-01:2018-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Sales and other operating revenue",
+      "tag": "Revenues",
+      "label": "Total revenues and other income",
       "accession": "0000034088-21-000012",
       "filed": "2021-02-24",
-      "value": "279332000000",
+      "value": "290212000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/R2.htm",
         "sha256": "180b220ec01af39855e0b1b192ed66ee064c10318b99d555a7251533285abea3",
@@ -4246,11 +4246,11 @@
     },
     "0000034088:2019-01-01:2019-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Sales and other operating revenue",
+      "tag": "Revenues",
+      "label": "Total revenues and other income",
       "accession": "0000034088-22-000011",
       "filed": "2022-02-23",
-      "value": "255583000000",
+      "value": "264938000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408822000011/R2.htm",
         "sha256": "41090388a054ab449eef75dd3fcebc12da0e769540cb7f5c37959d1d044c7ab3",
@@ -30963,11 +30963,11 @@
     },
     "0001120193:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "Revenues",
+      "label": "Total revenues",
       "accession": "0001120193-18-000003",
       "filed": "2018-02-28",
-      "value": "2090000000",
+      "value": "3403000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/R4.htm",
         "sha256": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768",
@@ -30977,16 +30977,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/FilingSummary.xml",
         "sha256": "a8cf22e745e464ffa164957a032522e444eedae0df440161039cf9bf6c2405f8",
         "file": "a8cf22e745e464ffa164957a032522e444eedae0df440161039cf9bf6c2405f8.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2016-01-01:2016-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-19-000002",
       "filed": "2019-02-22",
-      "value": "2276000000",
+      "value": "3704000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019319000002/R4.htm",
         "sha256": "ba40073204d50430d87a437ac059ef6c8fc8968b99d246ca5843a77cb6a5152f",
@@ -30996,16 +30995,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019319000002/FilingSummary.xml",
         "sha256": "27dd206aaf807186238baad8a108d7cf5eedb18d57c0a34275234c734322fad4",
         "file": "27dd206aaf807186238baad8a108d7cf5eedb18d57c0a34275234c734322fad4.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2017-01-01:2017-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-20-000004",
       "filed": "2020-02-25",
-      "value": "2411000000",
+      "value": "3948000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019320000004/R4.htm",
         "sha256": "8d73861286e2af2e2ee7fa5cb681b3fa5654c1cb6a650345c11f3aa4bea8c9cb",
@@ -31015,16 +31013,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019320000004/FilingSummary.xml",
         "sha256": "9819f09dc4d0e02685735eba102801ea81242d703a7c656e9b6ddc09a21e9024",
         "file": "9819f09dc4d0e02685735eba102801ea81242d703a7c656e9b6ddc09a21e9024.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2018-01-01:2018-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-21-000011",
       "filed": "2021-02-23",
-      "value": "2526000000",
+      "value": "4277000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/R4.htm",
         "sha256": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1",
@@ -31034,16 +31031,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/FilingSummary.xml",
         "sha256": "7cf1875232322c8cf6251dbca415abdca3ff6bac7d29d905d91caae9cce92d45",
         "file": "7cf1875232322c8cf6251dbca415abdca3ff6bac7d29d905d91caae9cce92d45.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2019-01-01:2019-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-22-000007",
       "filed": "2022-02-23",
-      "value": "2535000000",
+      "value": "4258000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019322000007/R5.htm",
         "sha256": "8394f14f1fd4c12f7b39dfe7b81e75924a828f7bc40af77b4566df0c20f60c01",
@@ -31054,15 +31050,15 @@
         "sha256": "096abdca55abb4119e7ac07b11d8fd500cd64fa8c9b7d96302919eea5c775fd5",
         "file": "096abdca55abb4119e7ac07b11d8fd500cd64fa8c9b7d96302919eea5c775fd5.htm"
       },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      "note": "Consolidated annual total verified in the same filing's revenue/segment reconciliation, before segment breakdowns. Quarterly and segment amounts are not substituted."
     },
     "0001120193:2020-01-01:2020-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-23-000014",
       "filed": "2023-02-23",
-      "value": "2903000000",
+      "value": "5625000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019323000014/R5.htm",
         "sha256": "1c5558c31219ae1e90c04feb0e46dc85d2c529eb18e221b435a03a7c10404c42",
@@ -31072,16 +31068,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019323000014/FilingSummary.xml",
         "sha256": "be1a63bef78c11fed29d431f62e2a36174311538ddb9af84a3852f42249d163a",
         "file": "be1a63bef78c11fed29d431f62e2a36174311538ddb9af84a3852f42249d163a.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2021-01-01:2021-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-24-000006",
       "filed": "2024-02-21",
-      "value": "3420000000",
+      "value": "5886000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019324000006/R5.htm",
         "sha256": "54411e101fa7c7dc8ab056bd4873b45ea66f4f7abebae7b0112e95deb9dcd40f",
@@ -31091,16 +31086,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019324000006/FilingSummary.xml",
         "sha256": "daa5be33c25aa8b25ba8a2ec773b67c19c1af700c50744060aaf65f67946282f",
         "file": "daa5be33c25aa8b25ba8a2ec773b67c19c1af700c50744060aaf65f67946282f.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2022-01-01:2022-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001120193-25-000008",
       "filed": "2025-02-21",
-      "value": "3582000000",
+      "value": "6226000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019325000008/R5.htm",
         "sha256": "02e2edff17c8cd302d3d9602fb347899f366fe8ffb638b9161b0645962793670",
@@ -31110,16 +31104,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019325000008/FilingSummary.xml",
         "sha256": "305d9a906415eaf5c21b67ce913b3b0108d74b046996dcade87e9f42c85e3abb",
         "file": "305d9a906415eaf5c21b67ce913b3b0108d74b046996dcade87e9f42c85e3abb.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2023-01-01:2023-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001628280-26-007703",
       "filed": "2026-02-12",
-      "value": "3895000000",
+      "value": "6064000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/R5.htm",
         "sha256": "61df6561a3a0508c5c9d2cc4d5cc00f53085c8153339c6beef41dbe2c07d6d2c",
@@ -31129,16 +31122,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/FilingSummary.xml",
         "sha256": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182",
         "file": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2024-01-01:2024-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001628280-26-007703",
       "filed": "2026-02-12",
-      "value": "4649000000",
+      "value": "7400000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/R5.htm",
         "sha256": "61df6561a3a0508c5c9d2cc4d5cc00f53085c8153339c6beef41dbe2c07d6d2c",
@@ -31148,16 +31140,15 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/FilingSummary.xml",
         "sha256": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182",
         "file": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001120193:2025-01-01:2025-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "GrossProfit",
-      "label": "Revenues less transaction-based expenses",
+      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "label": "Total revenues",
       "accession": "0001628280-26-007703",
       "filed": "2026-02-12",
-      "value": "5249000000",
+      "value": "8262000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/R5.htm",
         "sha256": "61df6561a3a0508c5c9d2cc4d5cc00f53085c8153339c6beef41dbe2c07d6d2c",
@@ -31167,8 +31158,7 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/FilingSummary.xml",
         "sha256": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182",
         "file": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182.htm"
-      },
-      "note": "Nasdaq reported net revenue after transaction-based expenses. The issuer uses us-gaap:GrossProfit for this explicit revenue position; it is not a general gross-profit fallback."
+      }
     },
     "0001133421:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
@@ -40079,5 +40069,5 @@
     }
   },
   "unresolved": {},
-  "reviewed_at": "2026-10-31T10:11:04.438903+00:00"
+  "reviewed_at": "2026-11-02T20:48:24.734658+00:00"
 }

@@ -21,6 +21,23 @@ const priceFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2,
 });
 
+/**
+ * Sessions to label on a multi-year axis: the first of a year, at equal steps of years.
+ * The steps are counted back from the last year, so the axis always shows where the
+ * series ends. Returns null when the series spans too few years to label by year.
+ */
+export function yearlyTickIndexes(prices: Price[], maxTicks: number): number[] | null {
+  const firstSessions = new Map<string, number>();
+  prices.forEach((price, index) => {
+    const year = price.date.slice(0, 4);
+    if (!firstSessions.has(year)) firstSessions.set(year, index);
+  });
+  const indexes = [...firstSessions.values()];
+  if (indexes.length < 2) return null;
+  const step = Math.ceil(indexes.length / maxTicks);
+  return indexes.filter((_, position) => (indexes.length - 1 - position) % step === 0);
+}
+
 export function formatPrice(value: number): string {
   return Number.isFinite(value) ? priceFormatter.format(value) : 'Not available';
 }

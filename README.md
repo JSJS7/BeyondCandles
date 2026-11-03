@@ -62,6 +62,12 @@ Explicit price corrections retained in the pipeline:
 - **Dividends missing from the provider's adjustments:** add 10 regular dividends
   (ETN and MDT in 2018; ACN, AON, CB, JCI and TT in 2025) from a pinned DoltHub
   revision, with amounts confirmed in SEC filings.
+- **Dividends the provider applied wrongly:** remove CoreSite's 12 dividends from COR
+  (same ticker, another company), rescale 29 T dividends by the provider's 1.324
+  conversion of 2022, change ETN 13 May 2020 from 0.073 to 0.73, and remove duplicates
+  or events ruled out by filings (AON 2018, NSC 2015, HCA 2020, JCI 2016).
+- **OXY, 3 Aug 2020:** add the warrant distribution the provider omits, at USD 0.61875
+  per share (1/8 warrant at the USD 4.95 the company reports).
 - **AMD, 2 Jan 2015:** fill one missing session from a pinned DoltHub revision,
   with the closing price also checked against a Scotiabank document.
 - **FI, 12 Nov 2025:** insert one session absent from the provider's file, the day

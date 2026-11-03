@@ -1,0 +1,240 @@
+{
+  "version": 1,
+  "method": "Versions the automatic table check cannot confirm, read by hand in the filing. Each review pins the value it saw.",
+  "reviews": [
+    {
+      "ticker": "ADP",
+      "metric": "eps_diluted",
+      "period_end": "2017-06-30",
+      "accession": "0000008670-19-000021",
+      "value": "3.97",
+      "row": "Diluted earnings per share from continuing operations | 5.24 | 4.25 | 3.97 | 3.25 | 2.89",
+      "note": "Five-year table of the 10-K filed in 2019, third column (fiscal 2017); its header stands in a separate table."
+    },
+    {
+      "ticker": "AXON",
+      "metric": "eps_diluted",
+      "period_end": "2021-12-31",
+      "accession": "0001069183-24-000061",
+      "value": "-0.85",
+      "row": "Net income per common and common equivalent shares - Diluted | (0.91) | 0.06 | (0.85)",
+      "note": "Restatement table of the 10-Q: Year Ended December 31, 2021 | As Reported | Revision | As Revised."
+    },
+    {
+      "ticker": "AXON",
+      "metric": "net_income",
+      "period_end": "2021-12-31",
+      "accession": "0001069183-24-000061",
+      "value": "-56339000",
+      "row": "Net income | (60,018) | 3,679 | (56,339)",
+      "note": "Restatement table of the 10-Q: Year Ended December 31, 2021 | As Reported | Revision | As Revised."
+    },
+    {
+      "ticker": "AXON",
+      "metric": "revenue",
+      "period_end": "2021-12-31",
+      "accession": "0001069183-24-000061",
+      "value": "865638000",
+      "row": "Net sales | 863,381 | 2,257 | 865,638",
+      "note": "Restatement table of the 10-Q: Year Ended December 31, 2021 | As Reported | Revision | As Revised."
+    },
+    {
+      "ticker": "COP",
+      "metric": "net_income",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-21-000027",
+      "value": "7189000000",
+      "row": "Net Income (Loss) Attributable to ConocoPhillips 7,189",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "operating_cash_flow",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-21-000027",
+      "value": "11104000000",
+      "row": "Net Cash Provided by Operating Activities 11,104",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "revenue",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-21-000027",
+      "value": "32567000000",
+      "row": "Sales and other operating revenues 32,567",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "eps_diluted",
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-039954",
+      "value": "6.4",
+      "row": "Diluted 6.40",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column of the diluted row."
+    },
+    {
+      "ticker": "COP",
+      "metric": "net_income",
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-039954",
+      "value": "7189000000",
+      "row": "Net Income (Loss) Attributable to ConocoPhillips 7,189",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "operating_cash_flow",
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-039954",
+      "value": "11104000000",
+      "row": "Net Cash Provided by Operating Activities 11,104",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "revenue",
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-039954",
+      "value": "32567000000",
+      "row": "Sales and other operating revenues 32,567",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "eps_diluted",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-22-000031",
+      "value": "6.4",
+      "row": "Diluted 6.40",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column of the diluted row."
+    },
+    {
+      "ticker": "COP",
+      "metric": "net_income",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-22-000031",
+      "value": "7189000000",
+      "row": "Net Income (Loss) Attributable to ConocoPhillips 7,189",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "operating_cash_flow",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-22-000031",
+      "value": "11104000000",
+      "row": "Net Cash Provided by Operating Activities 11,104",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "COP",
+      "metric": "revenue",
+      "period_end": "2019-12-31",
+      "accession": "0001562762-22-000031",
+      "value": "32567000000",
+      "row": "Sales and other operating revenues 32,567",
+      "note": "This 10-K has no HTML tables (layout by blocks), so the text was read: the value stands in the fiscal 2019 column."
+    },
+    {
+      "ticker": "FCX",
+      "metric": "net_income",
+      "period_end": "2016-12-31",
+      "accession": "0000831259-17-000012",
+      "value": "-4315000000",
+      "row": "Net loss | (4,025) ... Continuing operations | (227) ... Discontinued operations | (63)",
+      "note": "Income statement: -4,025 - 227 - 63 = -4,315, the rule's reviewed calculation before the redemption gain; the rows of noncontrolling interests have the heading above them."
+    },
+    {
+      "ticker": "FCX",
+      "metric": "net_income",
+      "period_end": "2016-12-31",
+      "accession": "0000831259-19-000009",
+      "value": "-4315000000",
+      "row": "Net loss | (4,025) ... Continuing operations | (227) ... Discontinued operations | (63)",
+      "note": "Income statement: -4,025 - 227 - 63 = -4,315, the rule's reviewed calculation before the redemption gain; the rows of noncontrolling interests have the heading above them."
+    },
+    {
+      "ticker": "FCX",
+      "metric": "net_income",
+      "period_end": "2016-12-31",
+      "accession": "0000831259-18-000008",
+      "value": "-4315000000",
+      "row": "Net loss | (4,025) ... Continuing operations | (227) ... Discontinued operations | (63)",
+      "note": "Income statement: -4,025 - 227 - 63 = -4,315, the rule's reviewed calculation before the redemption gain; the rows of noncontrolling interests have the heading above them."
+    },
+    {
+      "ticker": "FICO",
+      "metric": "equity",
+      "period_end": "2016-09-30",
+      "accession": "0000814547-19-000016",
+      "value": "481316000",
+      "row": "Balance at September 30, 2016 (As Adjusted) | 30,935 | 309 | 1,188,913 | (2,136,760) | 1,505,866 | (77,012) | 481,316",
+      "note": "Statement of stockholders' equity, last column is the total; the words As Adjusted exclude the row from the automatic label."
+    },
+    {
+      "ticker": "MMM",
+      "metric": "equity",
+      "period_end": "2015-12-31",
+      "accession": "0001558370-16-003162",
+      "value": "11708000000",
+      "row": "Total 3M Company shareholders' equity | 11,708 | 13,109",
+      "note": "Balance sheet columns December 31, 2015 and 2014; the header stands apart from the table."
+    },
+    {
+      "ticker": "KKR",
+      "metric": "revenue",
+      "period_end": "2015-12-31",
+      "accession": "0001404912-16-000009",
+      "value": "1043768000",
+      "row": "Fees and Other | 1,043,768 | 1,110,008 | 762,546 | 568,442 | 723,620",
+      "note": "Five-year table, row Fees and Other under the heading Revenues: the row exists in the period's column. It is fees only, not total revenue; this definition break is the recorded limitation M9."
+    },
+    {
+      "ticker": "KKR",
+      "metric": "revenue",
+      "period_end": "2015-12-31",
+      "accession": "0001404912-18-000005",
+      "value": "1043768000",
+      "row": "Fees and Other | 3,282,265 | 1,908,093 | 1,043,768 | 1,110,008 | 762,546",
+      "note": "Five-year table, row Fees and Other under the heading Revenues: the row exists in the period's column. It is fees only, not total revenue; this definition break is the recorded limitation M9."
+    },
+    {
+      "ticker": "KKR",
+      "metric": "revenue",
+      "period_end": "2016-12-31",
+      "accession": "0001404912-18-000005",
+      "value": "1908093000",
+      "row": "Fees and Other | 3,282,265 | 1,908,093 | 1,043,768 | 1,110,008 | 762,546",
+      "note": "Five-year table, row Fees and Other under the heading Revenues: the row exists in the period's column. It is fees only, not total revenue; this definition break is the recorded limitation M9."
+    },
+    {
+      "ticker": "KKR",
+      "metric": "revenue",
+      "period_end": "2017-12-31",
+      "accession": "0001404912-18-000005",
+      "value": "3282265000",
+      "row": "Fees and Other | 3,282,265 | 1,908,093 | 1,043,768 | 1,110,008 | 762,546",
+      "note": "Five-year table, row Fees and Other under the heading Revenues: the row exists in the period's column. It is fees only, not total revenue; this definition break is the recorded limitation M9."
+    },
+    {
+      "ticker": "KKR",
+      "metric": "revenue",
+      "period_end": "2015-12-31",
+      "accession": "0001404912-17-000005",
+      "value": "1043768000",
+      "row": "Fees and Other | 1,908,093 | 1,043,768 | 1,110,008 | 762,546 | 568,442",
+      "note": "Five-year table, row Fees and Other under the heading Revenues: the row exists in the period's column. It is fees only, not total revenue; this definition break is the recorded limitation M9."
+    },
+    {
+      "ticker": "KKR",
+      "metric": "revenue",
+      "period_end": "2016-12-31",
+      "accession": "0001404912-17-000005",
+      "value": "1908093000",
+      "row": "Fees and Other | 1,908,093 | 1,043,768 | 1,110,008 | 762,546 | 568,442",
+      "note": "Five-year table, row Fees and Other under the heading Revenues: the row exists in the period's column. It is fees only, not total revenue; this definition break is the recorded limitation M9."
+    }
+  ]
+}

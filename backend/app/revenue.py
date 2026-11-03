@@ -4,14 +4,11 @@ from decimal import Decimal, localcontext
 from pathlib import Path
 
 from app.fact_identity import add_selected_sources
+from app.fiscal_periods import period_key
 from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, FilingValue
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "data/revenue-rules.json"
-
-
-def period_key(cik, start, end):
-    return f"{cik}:{start}:{end}"
 
 
 def revenue_rules():

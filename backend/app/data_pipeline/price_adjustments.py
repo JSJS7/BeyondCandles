@@ -9,6 +9,8 @@ PRICE_QUANTUM = Decimal("1e-18")
 # The vendor's factor moves by less than this on sessions without an event (rounding of
 # its single-precision prices; measured below 1e-5 across the 2015-2025 window).
 FACTOR_NOISE = Decimal("0.00001")
+# A reviewed vendor amount may differ from the implied cash by the vendor's float noise.
+REVIEWED_AMOUNT_TOLERANCE = Decimal("0.0005")
 # Dividend sources differ on ex-dates by up to about a week.
 NEARBY_SESSIONS = 5
 REVIEWED_EVENTS = ROOT / "data/price-audit-reviews.json"
@@ -43,6 +45,9 @@ def apply_adjustments(rows, rule):
 
         if rule["method"] == "missing_cash_dividends":
             return add_missing_dividends(rows, positions, rule["dividends"])
+
+        if rule["method"] == "reviewed_dividend_changes":
+            return change_vendor_dividends(rows, positions, rule["changes"])
 
     raise ValueError(f"Unknown price correction method: {rule['method']}")
 
@@ -177,6 +182,52 @@ def add_missing_dividends(rows, positions, dividends):
                 )
         multipliers[day] = multiplier
 
+    return multiply_earlier_sessions(rows, multipliers)
+
+
+def change_vendor_dividends(rows, positions, changes):
+    """Replace cash amounts the vendor applied wrongly, keeping its other factors.
+
+    Each change names the amount the vendor's factor implies on its ex-date (0 when it
+    has no event there) and the correct amount on the vendor's Close basis (amount /
+    split_divisor; 0 removes the event). The vendor's series must show exactly that
+    amount, so a review can never alter a session it did not look at.
+    """
+    multipliers = {}
+
+    for change in changes:
+        day = change["ex_date"]
+        position = positions.get(day)
+
+        if position is None or position == 0:
+            raise ValueError(f"Missing dividend change session or prior Close: {day}")
+
+        if day in multipliers:
+            raise ValueError(f"Duplicate dividend change: {day}")
+
+        previous_close = number(rows[position - 1]["close"], "prior Close")
+        vendor_multiplier = 1 / (1 + vendor_factor_change(rows, position))
+        implied_cash = previous_close * (1 - vendor_multiplier)
+        expected = number(change["vendor_amount"], "vendor dividend amount")
+        if abs(implied_cash - expected) > REVIEWED_AMOUNT_TOLERANCE:
+            raise ValueError(
+                f"Source does not show the reviewed amount on {day}: {implied_cash}"
+            )
+
+        amount = number(change["amount"], "dividend")
+        divisor = number(change["split_divisor"], "dividend split divisor")
+        if divisor <= 0:
+            raise ValueError("Dividend split divisor must be positive")
+        correct_multiplier = Decimal(1)
+        if amount != 0:
+            correct_multiplier = cash_adjustment(previous_close, amount / divisor)
+        multipliers[day] = correct_multiplier / vendor_multiplier
+
+    return multiply_earlier_sessions(rows, multipliers)
+
+
+def multiply_earlier_sessions(rows, multipliers):
+    """Multiply Adjusted Close of the sessions before each dated multiplier."""
     factor = Decimal(1)
     corrected = {}
 
@@ -292,34 +343,55 @@ def separate_reviewed_events(material_events, reviewed):
     return unreviewed, len(matched), missing
 
 
-def audit_prices():
-    """Run an offline screen of all 200 prepared histories and cached SEC dividends."""
+def audit_prices(fetch=False):
+    """Screen all 200 prepared histories against cached SEC dividends and a second source."""
     import csv
 
+    from app.eps_splits import split_rules
+
+    from .dividend_audit import audit_dividends, reported_dividends
     from .prices import validate_prices
-    from .sec_catalogue import load_all_sec
+    from .sec_catalogue import identifiers, load_all_sec
+    from .sec_history import HISTORY_INDEX, read_predecessor
 
     path, _, summary = validate_prices()
     with path.open(encoding="utf-8", newline="") as handle:
         companies, material_events = scan_adjustment_factors(csv.DictReader(handle))
 
+    issuers = identifiers()
+    history_index = read_json(HISTORY_INDEX)
+    rules = split_rules()
     _, entries = load_all_sec()
     gaps = {}
+    reported = {}
     for ticker, (entry, body) in entries:
         gap = find_dividend_coverage_gap(companies[ticker], body, summary["period_end"])
         if gap:
             gaps[ticker] = {**gap, "source": entry["facts"]}
+        history = issuers[ticker].get("history") or {}
+        predecessors = [
+            read_predecessor(source, history_index)
+            for source in history.get("predecessors", [])
+            # A source outside the current view paid another share's dividends
+            # (Johnson Controls before Tyco's shares became JCI's).
+            if source.get("current_view", True)
+        ]
+        reported[ticker] = reported_dividends(ticker, [body, *predecessors], rules)
 
+    dividends = audit_dividends(path, reported, rules, fetch=fetch)
     unreviewed, reviewed_count, missing = separate_reviewed_events(
         material_events, reviewed_price_events()
     )
-    needs_review = gaps or unreviewed or missing
+    needs_review = (
+        gaps or unreviewed or missing or dividends["status"] == "needs_review"
+    )
     return {
         "status": "needs_review" if needs_review else "screen_passed",
         "companies": len(companies),
         "prices": summary["prices"],
         "adjustment_rules_sha256": summary["adjustment_rules_sha256"],
         "dividend_coverage_candidates": gaps,
+        "dividend_audit": dividends,
         "material_factor_changes": unreviewed,
         "reviewed_factor_changes": reviewed_count,
         "reviewed_events_not_found": missing,

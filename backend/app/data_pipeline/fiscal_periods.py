@@ -7,7 +7,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
 from itertools import pairwise
 
-from app.data_pipeline.revenue import ANNUAL_FORMS, EVIDENCE_INDEX
+from app.annual_financials import ANNUAL_REPORT_FORMS
+from app.data_pipeline.revenue import EVIDENCE_INDEX
 from app.data_pipeline.revenue_facts import cache_instance
 from app.data_pipeline.sec import CACHE, METRICS, SecAccessDenied, period_kind
 from app.data_pipeline.sec_cache import RequestGate, cached
@@ -71,7 +72,7 @@ def parse_cover(html, expected_cik):
     ciks = {value.zfill(10) for value in fields["EntityCentralIndexKey"]}
     if expected_cik not in ciks:
         raise ValueError("Fiscal cover issuer does not match source CIK")
-    if values["DocumentType"] not in ANNUAL_FORMS:
+    if values["DocumentType"] not in ANNUAL_REPORT_FORMS:
         raise ValueError("Fiscal cover is not an annual filing")
     year = int(values["DocumentFiscalYearFocus"])
     if not 1900 <= year <= 2100:
@@ -106,7 +107,7 @@ def parse_instance_cover(body, expected_cik):
             fields[tag].add(element.text.strip())
     if any(len(fields[tag]) != 1 for tag in tags):
         raise ValueError("Missing or conflicting original DEI cover facts")
-    if next(iter(fields["DocumentType"])) not in ANNUAL_FORMS:
+    if next(iter(fields["DocumentType"])) not in ANNUAL_REPORT_FORMS:
         raise ValueError("Original DEI document is not annual")
     year = int(next(iter(fields["DocumentFiscalYearFocus"])))
     end = date.fromisoformat(next(iter(fields["DocumentPeriodEndDate"])))
@@ -199,7 +200,7 @@ def raw_annual_filings(body):
                 .get("units", {})
                 .get(unit, [])
             ):
-                if fact.get("form") not in ANNUAL_FORMS or not fact.get("start"):
+                if fact.get("form") not in ANNUAL_REPORT_FORMS or not fact.get("start"):
                     continue
                 start = date.fromisoformat(fact["start"])
                 end = date.fromisoformat(fact["end"])
@@ -436,7 +437,7 @@ def review_fiscal_periods(fetch=False):
             period_key(fact["source_cik"], fact["period_start"], fact["period_end"])
             for fact in facts
             if fact["history_eligible"]
-            and fact["form"] in ANNUAL_FORMS
+            and fact["form"] in ANNUAL_REPORT_FORMS
             and fact["period_kind"] == "annual"
         }
         for key in sorted(targets):

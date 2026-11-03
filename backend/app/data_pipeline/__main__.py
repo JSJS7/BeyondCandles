@@ -54,7 +54,7 @@ def run_command(args):
     elif args.command == "audit-prices":
         from .price_adjustments import audit_prices
 
-        result = audit_prices()
+        result = audit_prices(fetch=args.fetch)
     elif args.command == "fetch-sec":
         from .sec_catalogue import fetch_all_sec
 
@@ -115,6 +115,18 @@ def run_command(args):
         from .version_reviews import review_versions
 
         result = review_versions(fetch=args.fetch)
+    elif args.command == "check-documents":
+        from .document_check import check_documents
+
+        result = check_documents(fetch_missing=args.fetch)
+    elif args.command == "control-documents":
+        from .document_check import control_documents
+
+        result = control_documents()
+    elif args.command == "check-identities":
+        from .identity_checks import check_identities
+
+        result = check_identities()
     elif args.command == "inspect-db":
         from .verification import inspect_db
 
@@ -155,6 +167,9 @@ def main():
             "review-versions",
             "import-sec",
             "build-history",
+            "check-documents",
+            "control-documents",
+            "check-identities",
             "inspect-db",
             "verify-db",
         ),
@@ -162,7 +177,7 @@ def main():
     parser.add_argument(
         "--fetch",
         action="store_true",
-        help="Download missing SEC review evidence; otherwise use the local cache",
+        help="Download missing review evidence; otherwise use the local cache",
     )
     parser.add_argument(
         "--refresh",

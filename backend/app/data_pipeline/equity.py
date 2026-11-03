@@ -7,6 +7,7 @@ from decimal import Decimal
 from threading import Lock
 from typing import Any
 
+from app.annual_financials import ANNUAL_REPORT_FORMS
 from app.data_pipeline.equity_exceptions import reviewed_nci_controls
 from app.data_pipeline.equity_facts import instant_equity_positions
 from app.data_pipeline.revenue import (
@@ -46,7 +47,6 @@ COMPONENT_TAGS = (
 )
 PARENT_TAGS = ("StockholdersEquity", "PartnersCapital")
 GROUP_TAG = "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
-ANNUAL_FORMS = ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
 # These precise historical facts are not whole-equity balances. All originals remain stored.
 REJECTED_FACTS = {
     ("0000008670", "2018-06-30", "0000008670-21-000027", GROUP_TAG): "-679800000",
@@ -815,7 +815,7 @@ def earlier_annual_fact(task, current, tags, calendar):
         and fact["source_cik"] == current["source_cik"]
         and fact["tag"] in tags
         and fact["value"] == current["value"]
-        and fact["form"] in ANNUAL_FORMS
+        and fact["form"] in ANNUAL_REPORT_FORMS
         and fact["filed"] <= current["filed"]
         and 0 <= (fact["filed"] - end).days <= 450
         and canonical_period(fact, calendar)[1] == end

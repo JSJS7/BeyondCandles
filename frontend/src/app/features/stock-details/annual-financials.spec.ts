@@ -496,6 +496,17 @@ describe('Annual financials table', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.sources-panel')).toBeNull();
 
+    // N22: the chart cancels its range on a document-level Escape; this one is handled here.
+    const documentListener = vi.fn();
+    document.addEventListener('keydown', documentListener);
+    openSources('revenue').dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    document.removeEventListener('keydown', documentListener);
+    fixture.detectChanges();
+    expect(documentListener).not.toHaveBeenCalled();
+    expect(fixture.nativeElement.querySelector('.sources-panel')).toBeNull();
+
     // Sources of a period that is no longer listed must not stay on screen.
     openSources('revenue');
     render([period({ revenue: ready }, { period_start: '2021-01-01', period_end: '2021-12-31' })]);

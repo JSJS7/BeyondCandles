@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "method": "Filings that date earlier versions of a cell but never define today's value. A version from such a filing must still pass the statement review in version-reviews.json.",
+  "issuers": {
+    "0001441634": {
+      "ticker": "AVGO",
+      "filed_to": "2016-02-01",
+      "period_end_to": "2015-12-31",
+      "note": "Avago Technologies, accounting predecessor; its 10-K of 17 Dec 2015 first reports fiscal 2015."
+    },
+    "0001649338": {
+      "ticker": "AVGO",
+      "filed_to": "2018-04-04",
+      "period_end_to": "2017-12-31",
+      "note": "Broadcom Limited reports fiscal 2016 and 2017 before the 2018 redomiciliation."
+    },
+    "0001364742": {
+      "ticker": "BLK",
+      "filed_to": "2024-10-01",
+      "period_end_to": "2023-12-31",
+      "note": "BlackRock before the 2024 holding-company reorganization reports 2022 and 2023."
+    },
+    "0000701221": {
+      "ticker": "CI",
+      "filed_to": "2018-12-20",
+      "period_end_to": "2017-12-31",
+      "note": "Cigna before the 2018 Express Scripts combination reports 2016 and 2017."
+    },
+    "0001001039": {
+      "ticker": "DIS",
+      "filed_to": "2019-03-20",
+      "period_end_to": "2018-12-31",
+      "note": "Disney before the 2019 reorganization reports fiscal 2017 and 2018."
+    },
+    "0000053669": {
+      "ticker": "JCI",
+      "filed_to": "2016-09-01",
+      "period_end_to": "2015-12-31",
+      "note": "Johnson Controls, accounting predecessor; its 10-K of 18 Nov 2015 first reports fiscal 2015. Its later 10-K as a subsidiary is outside the bound."
+    },
+    "0000884905": {
+      "ticker": "LIN",
+      "filed_to": "2018-10-31",
+      "period_end_to": "2017-12-31",
+      "note": "Praxair before the 2018 Linde combination reports 2016 and 2017."
+    }
+  },
+  "filings": [
+    {
+      "ticker": "SPGI",
+      "cik": "0000064040",
+      "accession": "0000064040-25-000052",
+      "filed": "2025-02-11",
+      "form": "10-K",
+      "fiscal_period": "FY",
+      "period_end": "2024-12-31",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/64040/000006404025000052/spgi-20241231_htm.xml",
+        "sha256": "b95bd6ced9964c41074dd11a4c272477398ddb72448ae76c7a51899f4a6b82a4",
+        "file": "b95bd6ced9964c41074dd11a4c272477398ddb72448ae76c7a51899f4a6b82a4.htm"
+      },
+      "note": "This 10-K has no facts at all in SEC companyfacts, so fiscal 2024 would otherwise appear a year late."
+    }
+  ]
+}

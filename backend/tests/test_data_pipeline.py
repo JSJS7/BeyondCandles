@@ -13,11 +13,52 @@ from app.data_pipeline.sec import (
     SecAccessDenied,
     cache_response,
     extract_facts,
+    fact_differences,
     fetch,
     period_kind,
 )
 from app.data_pipeline.validation import validate_price
 from app.data_pipeline.verification import fingerprint
+
+
+class FactDifferenceTests(unittest.TestCase):
+    def fact(self, accession="A1", value="10", eligible=True):
+        return {
+            "source_cik": "0000000001",
+            "taxonomy": "us-gaap",
+            "tag": "Revenues",
+            "unit": "USD",
+            "period_start": date(2020, 1, 1),
+            "period_end": date(2020, 12, 31),
+            "accession": accession,
+            "value": Decimal(value),
+            "history_eligible": eligible,
+        }
+
+    def test_equal_facts_have_no_differences(self):
+        """Extra database columns and numeric padding are not differences."""
+        stored = dict(self.fact(value="10.0000000000"), id=7, company_id=1)
+
+        differences = fact_differences([self.fact()], [stored])
+
+        self.assertEqual(differences, {"missing": [], "unexpected": [], "changed": []})
+
+    def test_each_kind_of_difference_is_reported(self):
+        """A changed value, a missing row and an unexpected row are told apart."""
+        expected = [self.fact("A1"), self.fact("A2")]
+        stored = [self.fact("A1", value="11"), self.fact("A3")]
+
+        differences = fact_differences(expected, stored)
+
+        self.assertEqual([key[-1] for key in differences["changed"]], ["A1"])
+        self.assertEqual([key[-1] for key in differences["missing"]], ["A2"])
+        self.assertEqual([key[-1] for key in differences["unexpected"]], ["A3"])
+
+    def test_history_membership_is_compared(self):
+        """A rule change without a new import leaves history_eligible outdated."""
+        differences = fact_differences([self.fact()], [self.fact(eligible=False)])
+
+        self.assertEqual(len(differences["changed"]), 1)
 
 
 class PriceTests(unittest.TestCase):

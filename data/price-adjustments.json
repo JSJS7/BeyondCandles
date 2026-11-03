@@ -3,7 +3,7 @@
   "source_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "period_end": "2025-12-31",
-  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. For other companies, add only reviewed regular cash dividends that the vendor's Adj Close omits, multiplying earlier Adj Close by (prior Close - amount) / prior Close. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation.",
+  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. For other companies, add only reviewed regular cash dividends that the vendor's Adj Close omits, multiplying earlier Adj Close by (prior Close - amount) / prior Close. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation. Dividends the vendor applied wrongly (another company's, duplicated, or on the wrong scale) and a non-cash distribution it omitted are changed one by one in dividend_changes; each entry names the amount the vendor's series must show.",
   "companies": {
     "AVGO": {
       "status": "reviewed",
@@ -430,6 +430,418 @@
           "ex_date": "2025-12-05",
           "amount": "0.94",
           "split_divisor": "1"
+        }
+      ]
+    }
+  },
+  "dividend_changes": {
+    "AON": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "The vendor and DoltHub repeat the 0.40 dividend on 31 Jul and 9 Aug 2018. SEC 2018: 1.56 = 0.36 + 3 x 0.40 paid and declared. The regular ex-dates fall at the end of Jan, Apr, Jul and Oct, so 9 Aug is the surplus one.",
+      "evidence": [
+        {
+          "file": "data/raw/sec/819d4d3a03c706da9d0db33b6640c98509d9eb9957a556433db54ecd9650a775.json",
+          "sha256": "819d4d3a03c706da9d0db33b6640c98509d9eb9957a556433db54ecd9650a775",
+          "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000315293.json"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2018-08-09",
+          "vendor_amount": "0.40",
+          "amount": "0",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "COR": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "The ticker COR belonged to CoreSite Realty until its acquisition in Dec 2021; the vendor mixed its dividends into Cencora's series. CoreSite SEC facts: 1.10 and 1.22. Cencora's dividends are 1.60, 1.66 and 1.76 a year in fiscal 2019-2021, and its FY2021 10-K return table (100, 104.23, 118.20, 107.53, 128.87, 161.34) excludes these amounts.",
+      "evidence": [
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/cencora-2021-10k.htm",
+          "sha256": "ed1c051a7426fea54d7c05811b8da355c0c70313f482ce49dcdd0cb977cc2a3b",
+          "url": "https://www.sec.gov/Archives/edgar/data/1140859/000114085921000058/abc-20210930.htm"
+        },
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/coresite-companyfacts.json",
+          "sha256": "f511ef739708b7e8c65f8445caebe48c4668ed0a59ca3d01806ce8e679ef1c17",
+          "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001490892.json"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2019-03-28",
+          "vendor_amount": "1.10",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2019-06-27",
+          "vendor_amount": "1.22",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2019-09-27",
+          "vendor_amount": "1.22",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2019-12-30",
+          "vendor_amount": "1.22",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2020-03-30",
+          "vendor_amount": "1.22",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2020-06-29",
+          "vendor_amount": "1.22",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2020-09-29",
+          "vendor_amount": "1.22",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2020-12-30",
+          "vendor_amount": "1.23",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2021-03-30",
+          "vendor_amount": "1.23",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2021-06-29",
+          "vendor_amount": "1.27",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2021-09-29",
+          "vendor_amount": "1.27",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2021-12-01",
+          "vendor_amount": "1.27",
+          "amount": "0",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "ETN": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "The vendor applied 0.073 instead of 0.73 on 13 May 2020. SEC 2020: 2.92 = 4 x 0.73; DoltHub also has 0.73.",
+      "evidence": [
+        {
+          "file": "data/raw/sec/109482303c686ea9a3927143981559f7285115a0d15e7baa226d3c705c664e02.json",
+          "sha256": "109482303c686ea9a3927143981559f7285115a0d15e7baa226d3c705c664e02",
+          "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551182.json"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2020-05-13",
+          "vendor_amount": "0.073",
+          "amount": "0.73",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "HCA": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "HCA 10-K FY2020: one dividend of 0.43 was declared in Jan 2020 and the program was suspended for the second, third and fourth quarters. The vendor and DoltHub both list 0.072 and 0.268 in late 2020; the filing rules them out, the cause in the sources is unknown.",
+      "evidence": [
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/hca-2020-10k.htm",
+          "sha256": "fbfcca8da92f815899cb1a4c8ebb5d44a4bad3aa5510d5e0532162e4391214dc",
+          "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312521048994/d37951d10k.htm"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2020-10-29",
+          "vendor_amount": "0.072",
+          "amount": "0",
+          "split_divisor": "1"
+        },
+        {
+          "ex_date": "2020-12-24",
+          "vendor_amount": "0.268",
+          "amount": "0",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "JCI": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "Vendor prices through 2 Sep 2016 are Tyco's. Tyco's 10-Q for June 2016 lists 0.205 per share with record date 22 Jul 2016 and no later dividend, while old Johnson Controls paid 0.29 with this ex-date in DoltHub, so the event belongs to another company. 0.2408 is the vendor's implied amount on its own price basis.",
+      "evidence": [
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/tyco-2016-06-10q.htm",
+          "sha256": "f2c220b53ee2ea9ee8613e6a57336562e65407f2e01faa51b90714cde275bfd6",
+          "url": "https://www.sec.gov/Archives/edgar/data/833444/000083344416000197/tyc-2016624x10q.htm"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2016-08-03",
+          "vendor_amount": "0.2408",
+          "amount": "0",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "NSC": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "The vendor and DoltHub repeat the 0.59 dividend on 29 Apr and 6 May 2015. SEC 2015: 2.36 = 4 x 0.59. The other ex-dates fall in the first week of Feb, Aug and Nov, so 29 Apr is the surplus one.",
+      "evidence": [
+        {
+          "file": "data/raw/sec/19e2b893fa81e7209a06aa2c2c327b0ca912a9a6bcb5c535439c80475eed4759.json",
+          "sha256": "19e2b893fa81e7209a06aa2c2c327b0ca912a9a6bcb5c535439c80475eed4759",
+          "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000702165.json"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2015-04-29",
+          "vendor_amount": "0.59",
+          "amount": "0",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "OXY": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "Occidental distributed 1/8 warrant per share on 3 Aug 2020 to holders of record on 6 Jul 2020 and reports the warrant at 4.95 (average NYSE high and low on 4 Aug 2020), so 0.61875 per share; the vendor has no adjustment. OXY fell 3.1% on 3 Aug while seven energy peers rose 0.4%, which places the event on that session; no filing states an ex-date. Effect on the 10-K return table: the 2020 ratio moves from 0.943 into rounding of the table's 46; the remaining 3% from 2021 equals reinvesting the 0.79 dividend of 9 Mar 2020 at that day's close, when the stock fell 53%, as such tables do.",
+      "evidence": [
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/oxy-warrants-qa.pdf",
+          "sha256": "93957d7e6a74755152d45284fb36bbf4564dc085d8d6656082423faa6613f6ed",
+          "url": "https://www.oxy.com/link/5e2475ddc4e74544b32e9d195171abf7.aspx"
+        },
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/oxy-2020-09-10q.htm",
+          "sha256": "260e88b55aa26322ec79b98557370b619b08cbecbe7000086fe6ddfe1e149595",
+          "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746820000033/oxy-20200930.htm"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2020-08-03",
+          "vendor_amount": "0",
+          "amount": "0.61875",
+          "split_divisor": "1"
+        }
+      ]
+    },
+    "T": {
+      "status": "reviewed",
+      "method": "reviewed_dividend_changes",
+      "note": "The vendor divided all earlier prices by 1.324 for the WarnerMedia spin-off of 11 Apr 2022 but kept dividends in dollars of the time, so each is about 32% too large against the scaled Close. SEC 1.89-2.08 a year; DoltHub has the same amounts. Rescaled by the vendor's own 1.324. Control: Close x 1.324 with SEC amounts gives x1.0965 for 2 Jan 2015 - 8 Apr 2022, and the same method reproduces the vendor exactly for VZ, CVS and KO.",
+      "evidence": [
+        {
+          "file": "data/raw/sec/483db761a498797a4ba14df701a0404a8cc8d21b7409984eb1e722cb089f3dbb.json",
+          "sha256": "483db761a498797a4ba14df701a0404a8cc8d21b7409984eb1e722cb089f3dbb",
+          "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000732717.json"
+        }
+      ],
+      "changes": [
+        {
+          "ex_date": "2015-01-07",
+          "vendor_amount": "0.47",
+          "amount": "0.47",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2015-04-08",
+          "vendor_amount": "0.47",
+          "amount": "0.47",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2015-07-08",
+          "vendor_amount": "0.47",
+          "amount": "0.47",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2015-10-07",
+          "vendor_amount": "0.47",
+          "amount": "0.47",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2016-01-06",
+          "vendor_amount": "0.48",
+          "amount": "0.48",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2016-04-06",
+          "vendor_amount": "0.48",
+          "amount": "0.48",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2016-07-06",
+          "vendor_amount": "0.48",
+          "amount": "0.48",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2016-10-05",
+          "vendor_amount": "0.48",
+          "amount": "0.48",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2017-01-06",
+          "vendor_amount": "0.49",
+          "amount": "0.49",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2017-04-06",
+          "vendor_amount": "0.49",
+          "amount": "0.49",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2017-07-06",
+          "vendor_amount": "0.49",
+          "amount": "0.49",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2017-10-06",
+          "vendor_amount": "0.49",
+          "amount": "0.49",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2018-01-09",
+          "vendor_amount": "0.50",
+          "amount": "0.50",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2018-04-09",
+          "vendor_amount": "0.50",
+          "amount": "0.50",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2018-07-09",
+          "vendor_amount": "0.50",
+          "amount": "0.50",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2018-10-09",
+          "vendor_amount": "0.50",
+          "amount": "0.50",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2019-01-09",
+          "vendor_amount": "0.51",
+          "amount": "0.51",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2019-04-09",
+          "vendor_amount": "0.51",
+          "amount": "0.51",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2019-07-09",
+          "vendor_amount": "0.51",
+          "amount": "0.51",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2019-10-09",
+          "vendor_amount": "0.51",
+          "amount": "0.51",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2020-01-09",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2020-04-08",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2020-07-09",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2020-10-08",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2021-01-08",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2021-04-08",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2021-07-08",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2021-10-07",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
+        },
+        {
+          "ex_date": "2022-01-07",
+          "vendor_amount": "0.52",
+          "amount": "0.52",
+          "split_divisor": "1.324"
         }
       ]
     }

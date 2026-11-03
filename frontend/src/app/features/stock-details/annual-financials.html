@@ -139,7 +139,7 @@
   <section
     class="sources-panel"
     aria-labelledby="sources-heading"
-    (keydown.escape)="closeSources()"
+    (keydown.escape)="closeSources(); $event.stopPropagation()"
   >
     <div class="sources-header">
       <h3 id="sources-heading" tabindex="-1" #sourcesHeading>

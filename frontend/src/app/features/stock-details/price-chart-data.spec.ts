@@ -7,6 +7,7 @@ import {
   pricesForPreset,
   pricesInRange,
   subtractMonths,
+  yearlyTickIndexes,
 } from './price-chart-data';
 
 function price(date: string, adjusted = '100'): Price {
@@ -29,6 +30,25 @@ describe('Price chart ranges and presentation', () => {
     ['2024-01-31', 6, '2023-07-31'],
   ])('clamps %s minus %i months to the valid calendar date %s', (end, months, expected) => {
     expect(subtractMonths(end, months)).toBe(expected);
+  });
+
+  it('labels a long axis at equal steps of years, ending with the last year', () => {
+    // N32: automatic skipping gave 2015, 2016, 2017, 2019, 2020, 2021, 2023, 2024.
+    const years = Array.from({ length: 11 }, (_, index) => 2015 + index);
+    const prices = years.flatMap((year) => [price(`${year}-01-05`), price(`${year}-06-05`)]);
+    const yearsAt = (indexes: number[] | null) =>
+      indexes?.map((index) => Number(prices[index].date.slice(0, 4)));
+
+    expect(yearsAt(yearlyTickIndexes(prices, 8))).toEqual([2015, 2017, 2019, 2021, 2023, 2025]);
+    expect(yearsAt(yearlyTickIndexes(prices, 4))).toEqual([2016, 2019, 2022, 2025]);
+    expect(yearsAt(yearlyTickIndexes(prices, 11))).toEqual(years);
+  });
+
+  it('leaves a series within one calendar year to automatic ticks', () => {
+    const oneYear = [price('2025-01-05'), price('2025-06-05')];
+
+    expect(yearlyTickIndexes(oneYear, 8)).toBeNull();
+    expect(yearlyTickIndexes([], 8)).toBeNull();
   });
 
   it('anchors every preset to the last source date rather than today', () => {

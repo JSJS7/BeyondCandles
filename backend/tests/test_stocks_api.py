@@ -498,6 +498,82 @@ class StockApiTests(unittest.TestCase):
         # The rebuild used for the comparison was rolled back.
         self.assertEqual(after_check, stale)
 
+    def test_stored_facts_must_equal_those_from_the_sources(self):
+        """A fact changed after import fails verification, even with a rebuilt history.
+
+        The check used to only count facts, so a changed value stored together with a
+        history rebuilt from it passed: the history always agreed with the wrong fact.
+        """
+        from app.data_pipeline.sec import verify_stored_facts
+        from app.models import FinancialFact
+
+        self.insert_restated_income()
+        facts = FinancialFact.__table__
+        with self.database.connect() as connection:
+            rows = connection.execute(facts.select()).mappings().all()
+        expected = [
+            {k: v for k, v in row.items() if k not in ("id", "company_id")}
+            for row in rows
+        ]
+        entry = {"cik": "0000320193"}
+        prepared = {"AAPL": (entry, expected, None)}
+        with self.database.begin() as connection:
+            connection.execute(
+                Company.__table__.update()
+                .where(Company.id == 1)
+                .values(cik=entry["cik"])
+            )
+
+        with patch(
+            "app.data_pipeline.sec.prepare_all_company_facts", return_value=prepared
+        ):
+            with self.database.connect() as connection:
+                self.assertEqual(verify_stored_facts(connection), len(rows))
+
+            with self.database.begin() as connection:
+                connection.execute(
+                    facts.update()
+                    .where(facts.c.id == rows[0]["id"])
+                    .values(value=rows[0]["value"] + 1)
+                )
+            self.build_history()
+
+            with self.database.connect() as connection:
+                with self.assertRaisesRegex(ValueError, "1 changed"):
+                    verify_stored_facts(connection)
+
+    def test_current_cell_status_uses_the_latest_version(self):
+        """An unconfirmed earlier version is allowed; an unready latest one is not."""
+        from app.data_pipeline.metric_history import current_cell_statuses
+        from app.models import AnnualMetricVersion
+
+        self.insert_restated_income()
+        self.build_history()
+        versions = AnnualMetricVersion.__table__
+        with self.database.connect() as connection:
+            rows = (
+                connection.execute(
+                    versions.select()
+                    .where(versions.c.metric == "net_income")
+                    .order_by(versions.c.known_from)
+                )
+                .mappings()
+                .all()
+            )
+            statuses = current_cell_statuses(connection)
+        self.assertEqual(rows[0]["status"], "needs_review")
+        self.assertEqual(rows[-1]["status"], "ready")
+        cell = ("AAPL", rows[-1]["period_start"], rows[-1]["period_end"], "net_income")
+        self.assertEqual(statuses[cell], "ready")
+
+        with self.database.begin() as connection:
+            connection.execute(
+                versions.update()
+                .where(versions.c.id == rows[-1]["id"])
+                .values(status="needs_review", value=None)
+            )
+            self.assertEqual(current_cell_statuses(connection)[cell], "needs_review")
+
     def test_as_of_rejects_future_dates_and_missing_history(self):
         """A future date is invalid; an unbuilt history must not look like no data."""
         self.insert_restated_income()

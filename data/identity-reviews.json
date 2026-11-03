@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "method": "Flags of the identity checks explained by a person. A review covers one company, check and range of years up to a deviation in percent; a larger deviation flags again.",
+  "reviews": [
+    {
+      "ticker": "ADP",
+      "check": "balance_sheet",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "20.2",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (3,977), the served value is the restated one (4,984.1, ASC 606)."
+    },
+    {
+      "ticker": "AFL",
+      "check": "balance_sheet",
+      "from_year": 2021,
+      "to_year": 2021,
+      "max_deviation_percent": "95.2",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (33,253), the served value is the restated one (17,031, LDTI)."
+    },
+    {
+      "ticker": "AMAT",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "2.6",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (7,217), the served value is the restated one (7,413)."
+    },
+    {
+      "ticker": "AMAT",
+      "check": "balance_sheet",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "2.9",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (9,349), the served value is the restated one (9,630)."
+    },
+    {
+      "ticker": "BLK",
+      "check": "balance_sheet",
+      "from_year": 2018,
+      "to_year": 2025,
+      "max_deviation_percent": "9.7",
+      "note": "Redeemable noncontrolling interests of consolidated funds lie between liabilities and equity under a tag this check does not read (2018 balance sheet: 32,374 + 59 + 1,107 = assets minus liabilities). Later years have the same structure; only 2018 and 2019 rows were read."
+    },
+    {
+      "ticker": "BX",
+      "check": "balance_sheet",
+      "from_year": 2015,
+      "to_year": 2017,
+      "max_deviation_percent": "103.7",
+      "note": "Partners' capital includes noncontrolling interests in Blackstone Holdings, not tagged as MinorityInterest. 2016 and 2017 summary rows: total partners' capital plus redeemable interests equals assets minus liabilities."
+    },
+    {
+      "ticker": "CB",
+      "check": "balance_sheet",
+      "from_year": 2021,
+      "to_year": 2021,
+      "max_deviation_percent": "2.4",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (59,714), the served value is the restated one (58,328)."
+    },
+    {
+      "ticker": "CRM",
+      "check": "balance_sheet",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "8.9",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (7,500.1), the served value is the restated one (8,230, ASC 606)."
+    },
+    {
+      "ticker": "D",
+      "check": "balance_sheet",
+      "from_year": 2021,
+      "to_year": 2021,
+      "max_deviation_percent": "6.0",
+      "note": "Assets minus liabilities 28,918 = first reported shareholders' equity 27,308 + Series A preferred 1,610 reclassified to mezzanine equity; the served 26,759 is the restated row of the equity statement in the later 10-K."
+    },
+    {
+      "ticker": "DLR",
+      "check": "balance_sheet",
+      "from_year": 2022,
+      "to_year": 2025,
+      "max_deviation_percent": "8.6",
+      "note": "Redeemable noncontrolling interests (2022: 1,514.7; 2023: 1,394.8) lie outside equity under a tag this check does not read. 2024 and 2025 have the same structure, rows not read."
+    },
+    {
+      "ticker": "INTU",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2017,
+      "max_deviation_percent": "22.2",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (1,161 and 1,354), the served value is the restated one (1,492 and 1,699, ASC 606)."
+    },
+    {
+      "ticker": "KKR",
+      "check": "balance_sheet",
+      "from_year": 2015,
+      "to_year": 2016,
+      "max_deviation_percent": "788.4",
+      "note": "Noncontrolling interests of consolidated funds (2015: 43,732; 2016: 10,546) are not tagged as MinorityInterest; with redeemable interests the sum equals assets minus liabilities."
+    },
+    {
+      "ticker": "MSFT",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "13.4",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (71,997), the served value is the restated one (83,090, ASC 606)."
+    },
+    {
+      "ticker": "NOW",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "28.5",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (387), the served value is the restated one (541.1)."
+    },
+    {
+      "ticker": "PAYX",
+      "check": "balance_sheet",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "12.2",
+      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (1,955.3), the served value is the restated one (2,227.2)."
+    },
+    {
+      "ticker": "SPG",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2025,
+      "max_deviation_percent": "16.3",
+      "note": "Limited partners' preferred interest and noncontrolling redeemable interests lie outside equity (2021: 547.7; 2022: 212.2, both read); other years have the same structure, rows not read."
+    },
+    {
+      "ticker": "ABBV",
+      "check": "cash_flow",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "4.0",
+      "note": "The statement's exchange effect row (-300) is not tagged with a tag this check reads; with it the sum is exact."
+    },
+    {
+      "ticker": "AMD",
+      "check": "cash_flow",
+      "from_year": 2021,
+      "to_year": 2021,
+      "max_deviation_percent": "146.6",
+      "note": "The filing tags investing -686 and financing -1,895 with positive signs; with the statement's signs the sum 3,521 - 686 - 1,895 = 940 is exact."
+    },
+    {
+      "ticker": "BAC",
+      "check": "cash_flow",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "2.1",
+      "note": "The statement's exchange effect row (-597) is not tagged with a tag this check reads; with it the sum is exact."
+    },
+    {
+      "ticker": "C",
+      "check": "cash_flow",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "2.7",
+      "note": "The statement's exchange effect row (-1,055) is not tagged with a tag this check reads; with it the sum is exact."
+    },
+    {
+      "ticker": "CAT",
+      "check": "cash_flow",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "2.5",
+      "note": "The statement's exchange effect row (-169) is not tagged with a tag this check reads; with it the sum is exact."
+    },
+    {
+      "ticker": "DE",
+      "check": "cash_flow",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "5.0",
+      "note": "The statement's exchange effect row (-187.3) is not tagged with a tag this check reads; with it the sum is exact."
+    },
+    {
+      "ticker": "JCI",
+      "check": "cash_flow",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "3.2",
+      "note": "Residual 61 on operating cash flow of 1,908, within what cash held for sale could explain; not traced to one row. The value stands in the statement row (document check)."
+    },
+    {
+      "ticker": "JCI",
+      "check": "cash_flow",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "821.0",
+      "note": "Statement row: change in cash held for sale 2,123, which no tag read here covers; the served 100 is the total of 371 continuing and -271 discontinued."
+    },
+    {
+      "ticker": "JCI",
+      "check": "cash_flow",
+      "from_year": 2025,
+      "to_year": 2025,
+      "max_deviation_percent": "18.2",
+      "note": "Statement row: change in cash held for sale -255, which no tag read here covers."
+    },
+    {
+      "ticker": "MCK",
+      "check": "cash_flow",
+      "from_year": 2022,
+      "to_year": 2023,
+      "max_deviation_percent": "12.2",
+      "note": "Statement row: cash classified as assets held for sale (-540 in 2022, 470 in 2023), which no tag read here covers; the sum is exact."
+    },
+    {
+      "ticker": "MET",
+      "check": "cash_flow",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "2.6",
+      "note": "Residual 323 should be the exchange effect row, which this filing splits by segment; the amount was not traced to one row."
+    },
+    {
+      "ticker": "MET",
+      "check": "cash_flow",
+      "from_year": 2021,
+      "to_year": 2024,
+      "max_deviation_percent": "3.9",
+      "note": "Exchange effect rows (2021: 478; 2022: 397; 2024: 545, all of the size of the residual) are not tagged with a tag this check reads."
+    },
+    {
+      "ticker": "RTX",
+      "check": "cash_flow",
+      "from_year": 2020,
+      "to_year": 2020,
+      "max_deviation_percent": "2.1",
+      "note": "Statement row: exchange effect of discontinued operations -76, not tagged with a tag this check reads; the sum is exact."
+    },
+    {
+      "ticker": "SPGI",
+      "check": "cash_flow",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "27.3",
+      "note": "The statement's exchange effect row (-67) is not tagged with a tag this check reads; with it the sum is exact."
+    },
+    {
+      "ticker": "BX",
+      "check": "eps_shares",
+      "from_year": 2015,
+      "to_year": 2018,
+      "max_deviation_percent": "79.4",
+      "note": "Diluted EPS assumes the exchange of Blackstone Holdings units: 2016 numerator 1,867.1 = net income 1,039.0 + incremental 828.1, and 1,867.1 / 1,195.1 = 1.56. The 2015 and 2018 tables were not read one by one."
+    },
+    {
+      "ticker": "CHTR",
+      "check": "eps_shares",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "6.3",
+      "note": "Numerator after assumed conversions 3,744 = net income 3,522 + convertible preferred units and others; 3,744 / 234.8 = 15.94."
+    },
+    {
+      "ticker": "PNC",
+      "check": "eps_shares",
+      "from_year": 2018,
+      "to_year": 2020,
+      "max_deviation_percent": "5.0",
+      "note": "Numerator of diluted shareholders by continuing and discontinued rows: 4,255 + 776 = 5,031 (2018), 4,284 + 814 = 5,098 (2019), 2,716 + 4,531 = 7,247 (2020), each equal to EPS x shares; net income also pays preferred dividends the filing tags differently."
+    },
+    {
+      "ticker": "TDG",
+      "check": "eps_shares",
+      "from_year": 2017,
+      "to_year": 2025,
+      "max_deviation_percent": "26.7",
+      "note": "Dividend equivalent payments reduce the EPS numerator: 2017 income applicable to common stock 437.6 = 7.88 x 55.5 against net income 596.9. Other years have the same row; 2018 read, the rest not one by one."
+    }
+  ]
+}

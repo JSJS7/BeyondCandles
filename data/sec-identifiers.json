@@ -103,6 +103,16 @@
         },
         "predecessors": [
           {
+            "cik": "0001441634",
+            "name": "Avago Technologies LTD",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0001441634.json",
+              "sha256": "59341b3e9a173da0e93550bd8054725c89bf3996743b2c26d9e202037253884e",
+              "file": "59341b3e9a173da0e93550bd8054725c89bf3996743b2c26d9e202037253884e.json"
+            },
+            "current_view": false
+          },
+          {
             "cik": "0001649338",
             "name": "Broadcom Pte. Ltd.",
             "submissions": {
@@ -1278,7 +1288,42 @@
         "file": "fb8b7c19a808dc54dd14097c491a0d7aec9f2f05de5640739dd50d94efc4b2f2.json"
       },
       "verification": "verified_submission",
-      "evidence": null
+      "evidence": null,
+      "history": {
+        "status": "reviewed",
+        "note": "The 10-K filed in 2026 tags NetIncomeLoss also in its pay-versus-performance table, rounded to millions, and SEC data keep those rounded amounts for 2020, 2021 and 2023. The audited statements of earlier 10-Ks show 2,105.2, 2,636.4 and 3,226.2. For 2023 the group row of the same filing goes with it, so the 10-K filed in 2025 stays the latest source of that year.",
+        "primary": {},
+        "excluded_facts": [
+          {
+            "accession": "0001156375-26-000009",
+            "tag": "NetIncomeLoss",
+            "period_end": "2020-12-31"
+          },
+          {
+            "accession": "0001156375-26-000009",
+            "tag": "NetIncomeLoss",
+            "period_end": "2021-12-31"
+          },
+          {
+            "accession": "0001156375-26-000009",
+            "tag": "NetIncomeLoss",
+            "period_end": "2023-12-31"
+          },
+          {
+            "accession": "0001156375-26-000009",
+            "tag": "ProfitLoss",
+            "period_end": "2023-12-31"
+          }
+        ],
+        "predecessors": [],
+        "evidence": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637526000009/cme-20251231.htm",
+            "sha256": "067b707d75e44b3be57185974d2c8b382f9ac40ba14bc95aef3ec08987c6f25a",
+            "file": "067b707d75e44b3be57185974d2c8b382f9ac40ba14bc95aef3ec08987c6f25a.htm"
+          }
+        ]
+      }
     },
     "AMT": {
       "cik": "0001053507",
@@ -2052,7 +2097,18 @@
         "primary": {
           "filed_from": "2016-09-02"
         },
-        "predecessors": [],
+        "predecessors": [
+          {
+            "cik": "0000053669",
+            "name": "JOHNSON CONTROLS INC",
+            "submissions": {
+              "url": "https://data.sec.gov/submissions/CIK0000053669.json",
+              "sha256": "56fb168935fafee0f9135489e85ed273323326d3cfc5c19ecef314a129122e5e",
+              "file": "56fb168935fafee0f9135489e85ed273323326d3cfc5c19ecef314a129122e5e.json"
+            },
+            "current_view": false
+          }
+        ],
         "evidence": [
           {
             "url": "https://www.sec.gov/Archives/edgar/data/833444/000083344417000007/q1fy1710-q.htm",

@@ -10,6 +10,7 @@ from typing import cast
 
 from app.data_pipeline.sec import (
     CACHE,
+    METRICS,
     WINDOW_END,
     WINDOW_START,
     XBRLDI,
@@ -25,6 +26,7 @@ SUPPLEMENT_INDEX = CACHE / "revenue-facts-index.json"
 CUSTOM_REVENUE_TAGS = {
     ("bac", "RevenuesNetOfInterestExpenseBeforeProvisionForLoanLoss"),
     ("xom", "SalesAndOtherOperatingRevenueIncludingSalesBasedTaxes"),
+    ("xom", "TotalRevenuesAndOtherIncome"),
     ("bk", "TotalRevenuesIncludingRevenueGeneratedByVariableInterestEntities"),
     ("amp", "NetRevenues"),
     # American Express 10-Ks for 2015 and 2016, before the us-gaap concept.
@@ -132,6 +134,90 @@ def supplemental_facts(ciks):
                 concepts,
             )
         )
+    return result
+
+
+def instance_balances(body, cik, metadata, tags):
+    """Consolidated USD balances of an original instance, as extract_facts stores equity."""
+    namespaces = dict(
+        value for _, value in ET.iterparse(io.BytesIO(body), events=("start-ns",))
+    )
+    root = ET.fromstring(body)
+    days = {}
+    for context in root.findall(XBRLI + "context"):
+        identifier = context.find(XBRLI + "entity/" + XBRLI + "identifier")
+        if identifier is None or (identifier.text or "").strip().zfill(10) != cik:
+            continue
+        if (
+            context.find(".//" + XBRLDI + "explicitMember") is not None
+            or context.find(".//" + XBRLDI + "typedMember") is not None
+        ):
+            continue
+        instant = context.findtext(XBRLI + "period/" + XBRLI + "instant")
+        if instant:
+            days[context.attrib["id"]] = date.fromisoformat(instant)
+    usd_units = usd_unit_ids(root, namespaces)
+    gaap = "{" + namespaces["us-gaap"] + "}"
+    # An instance repeats one balance in several statements, under separate contexts.
+    result = {}
+    for tag in tags:
+        for element in root.findall(gaap + tag):
+            day = days.get(element.get("contextRef"))
+            if day is None or element.get("unitRef") not in usd_units:
+                continue
+            if element.get(XSI + "nil") == "true":
+                continue
+            value = Decimal((element.text or "").strip())
+            key = (tag, day)
+            if key in result and result[key]["value"] != value:
+                raise ValueError(f"Conflicting consolidated XBRL balances: {key}")
+            result[key] = {
+                "source_cik": cik,
+                "metric": "equity",
+                "taxonomy": "us-gaap",
+                "tag": tag,
+                "unit": "USD",
+                "value": value,
+                "period_start": day,
+                "period_end": day,
+                "period_kind": "instant",
+                **metadata,
+            }
+    return list(result.values())
+
+
+def timeline_filing_facts(ciks):
+    """Facts of reviewed filings that SEC companyfacts omit, from the original instance.
+
+    Only the listed period is read: these filings date that period's first version and
+    must not change which report is the latest for the earlier years they also show.
+    """
+    from app.data_pipeline.eps import instance_eps
+    from app.data_pipeline.sec_catalogue import verify_reference
+    from app.timeline import timeline_rules
+
+    result = []
+    for filing in timeline_rules()["filings"]:
+        cik = filing["cik"]
+        if cik not in ciks:
+            continue
+        metadata = {
+            "accession": filing["accession"],
+            "filed": date.fromisoformat(filing["filed"]),
+            "form": filing["form"],
+            "fiscal_period": filing["fiscal_period"],
+        }
+        body = verify_reference(filing["instance"]).read_bytes()
+        facts = instance_balances(body, cik, metadata, METRICS["equity"])
+        for metric in ("revenue", "net_income", "operating_cash_flow"):
+            concepts = {("us-gaap", tag) for tag in METRICS[metric]}
+            for fact in instance_facts(body, cik, metadata, concepts):
+                facts.append({**fact, "metric": metric})
+        for fact in instance_eps(body, cik, metadata):
+            if fact["tag"] in METRICS["eps_diluted"]:
+                facts.append(fact)
+        period_end = date.fromisoformat(filing["period_end"])
+        result.extend(fact for fact in facts if fact["period_end"] == period_end)
     return result
 
 

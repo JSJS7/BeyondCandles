@@ -125,6 +125,31 @@ def verify_history(engine):
     return stored
 
 
+def current_cell_statuses(connection):
+    """Return the status of each cell's latest version, by ticker, period and metric.
+
+    Earlier versions may stay unconfirmed: BK's first 2015 revenue is one, and the API
+    leaves it out of history rather than serving it. The latest version is what the
+    current view serves, so it must be ready.
+    """
+    rows = connection.execute(
+        select(
+            Company.ticker,
+            AnnualMetricVersion.period_start,
+            AnnualMetricVersion.period_end,
+            AnnualMetricVersion.metric,
+            AnnualMetricVersion.known_from,
+            AnnualMetricVersion.status,
+        )
+        .join(Company, Company.id == AnnualMetricVersion.company_id)
+        .order_by(AnnualMetricVersion.known_from)
+    )
+    latest = {}
+    for row in rows:
+        latest[(row.ticker, row.period_start, row.period_end, row.metric)] = row.status
+    return latest
+
+
 def build_history():
     """Standalone rebuild, e.g. after reviewed rules change without new SEC facts."""
     from app.database import engine, lock_data_imports

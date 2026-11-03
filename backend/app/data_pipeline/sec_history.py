@@ -9,6 +9,7 @@ from itertools import pairwise
 from app.data_pipeline.sec import CACHE, WINDOW_YEARS, extract_facts
 from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.source_files import ROOT, read_json, write_json
+from app.timeline import is_timeline_filing, timeline_rules, within_bounds
 
 HISTORY_INDEX = CACHE / "history-index.json"
 RULE_FIELDS = ("filed_from", "filed_to", "period_end_from", "period_end_to")
@@ -57,9 +58,25 @@ def validate_history_catalogue(issuers):
             validate_rules(source.get("eligibility", {}))
 
 
+def is_excluded_fact(fact, history):
+    """A reviewed fact that repeats a number outside the statements, e.g. in a pay table."""
+    if not history:
+        return False
+    return any(
+        fact["accession"] == excluded["accession"]
+        and fact["tag"] == excluded["tag"]
+        and str(fact["period_end"]) == excluded["period_end"]
+        for excluded in history.get("excluded_facts", [])
+    )
+
+
 def history_eligible(fact, primary_cik, history):
     """Evaluate source and date bounds; the filing date and fact period are independent."""
     if history and history["status"] != "reviewed":
+        return False
+    if is_timeline_filing(fact, timeline_rules()):
+        return False
+    if is_excluded_fact(fact, history):
         return False
     source_cik = fact["source_cik"]
     if source_cik == primary_cik:
@@ -67,17 +84,10 @@ def history_eligible(fact, primary_cik, history):
     else:
         sources = history.get("predecessors", []) if history else []
         source = next((item for item in sources if item["cik"] == source_cik), None)
-        if source is None:
+        if source is None or not source.get("current_view", True):
             return False
         rules = source.get("eligibility", {})
-    for field, value in rules.items():
-        column, bound = field.rsplit("_", 1)
-        boundary = date.fromisoformat(value)
-        if bound == "from" and fact[column] < boundary:
-            return False
-        if bound == "to" and fact[column] > boundary:
-            return False
-    return True
+    return within_bounds(fact, rules)
 
 
 def read_predecessor(source, index):
@@ -130,6 +140,11 @@ def prepare_company_facts(entry, body, history, index):
     for fact in supplemental_eps({cik for cik, _ in sources}):
         fact["history_eligible"] = history_eligible(fact, entry["cik"], history)
         result.append(fact)
+    from .revenue_facts import timeline_filing_facts
+
+    for fact in timeline_filing_facts({cik for cik, _ in sources}):
+        fact["history_eligible"] = False
+        result.append(fact)
     return result
 
 
@@ -167,6 +182,11 @@ def fetch_history_sources(issuers, refresh=False):
             }
             read_predecessor(source, result)
             print(f"Cached SEC predecessor: {ticker} {cik}", flush=True)
+    for filing in timeline_rules()["filings"]:
+        instance = filing["instance"]
+        downloaded = cached(instance["url"], instance, json_response=False)
+        if downloaded["sha256"] != instance["sha256"]:
+            raise ValueError(f"Reviewed XBRL instance changed: {filing['accession']}")
     if result["issuers"]:
         write_json(HISTORY_INDEX, result)
     return len(result["issuers"])
