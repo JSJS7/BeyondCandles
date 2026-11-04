@@ -78,6 +78,35 @@ AUTOMATIC_ROW_LABELS = {
     "preferred_value": r"preferred|preference",
     "preferred_dividends": r"preferred|preference|dividend",
 }
+# A number that only comes close confirms a value in a row of the same quantity alone.
+# The wide labels above are safe for an exact match, not for "near enough": they fit
+# "Net realized capital gains" (AIG capex) and "Expected return on plan assets" (BRK-B).
+TOLERANCE_ROW_LABELS = {
+    "assets": r"^total assets|^assets\b",
+    "capex": r"capital expenditure|productive assets|(additions? to|purchases? of"
+    r"|payments? (for|to acquire)|acquisitions? of|investments? in)"
+    r".*(property|plant|equipment)",
+    "operating_income": r"operating (income|profit|earnings|loss)"
+    r"|(income|profit|earnings|loss)( \(loss\))? from operations",
+    "shares_diluted": r"dilut|weighted|average",
+    "preferred_value": r"(preferred|preference) (stock|shares)",
+    "preferred_dividends": r"(preferred|preference).*dividend"
+    r"|dividend.*(preferred|preference)",
+}
+# Not NOT_GAAP: "adjusted weighted average shares" is the GAAP diluted denominator.
+TOLERANCE_EXCLUDED_ROW_LABELS = (
+    r"non-gaap|non gaap|pro forma|adjusted(?! weighted)|redemption|segment"
+)
+# Rows of each metric that hold its words but another quantity. Basic shares lie close to
+# diluted ones, so such a row would confirm a wrong count.
+TOLERANCE_EXCLUDED_BY_METRIC = {
+    "assets": r"held for sale|under management",
+    "capex": r"accrued|payable",
+    "operating_income": r"non-?operating|other operating",
+    "shares_diluted": r"basic|price|dividend|per share",
+    "preferred_value": r"proceeds|issuance|dividend",
+    "preferred_dividends": r"proceeds|issuance",
+}
 # Rows that contain a metric's words but report something else.
 EXCLUDED_ROW_LABELS = {
     # "Total revenue, net of interest expense" is revenue; a row of expenses is not.
@@ -573,7 +602,7 @@ class Filing:
                     return best
         return best
 
-    def closest_in_period(self, value, task, label_pattern):
+    def closest_in_period(self, value, task, label_pattern, excluded_pattern):
         """The number nearest to a value among rows of this label and period, or None."""
         target = abs(value)
         closest = None
@@ -589,6 +618,8 @@ class Filing:
                     label_at = label_index(cells)
                     label = cells[label_at].lower() if label_at is not None else ""
                     if not re.search(label_pattern, label):
+                        continue
+                    if re.search(excluded_pattern, label):
                         continue
                     previous = self.previous_table(document_index, table_index)
                     if period_fits(
@@ -700,7 +731,13 @@ def check_automatic_version(task, filing):
     for candidate in (value, -value):
         if filing.find(candidate, AMOUNT_SCALES, task, pattern, None)[0] == FULL_MATCH:
             return "pass_direct"
-    closest = filing.closest_in_period(value, task, pattern)
+    metric_exclusions = TOLERANCE_EXCLUDED_BY_METRIC[task["metric"]]
+    closest = filing.closest_in_period(
+        value,
+        task,
+        TOLERANCE_ROW_LABELS[task["metric"]],
+        f"{TOLERANCE_EXCLUDED_ROW_LABELS}|{metric_exclusions}",
+    )
     if closest is None:
         return "queue_no_row"
     tolerance = largest_tolerated_difference(task["metric"], value, task["revenue"])

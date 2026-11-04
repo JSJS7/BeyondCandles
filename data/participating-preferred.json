@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "method": "Companies whose reported diluted share count already holds their preferred stock as converted. Deducting that stock from equity for P/B and ROE would count it twice, so it stays in common equity. Each entry names the report that states this.",
+  "companies": [
+    {
+      "ticker": "V",
+      "accession": "0001403161-18-000055",
+      "evidence": "Note 12 of the 10-K for fiscal 2018: diluted earnings per share divide by shares outstanding, participating securities and class A equivalents; weighted-average diluted shares are calculated on an as-converted basis; preferred stock is included within participating securities (32 million as-converted UK&I and 44 million as-converted Europe for fiscal 2018)."
+    }
+  ]
+}

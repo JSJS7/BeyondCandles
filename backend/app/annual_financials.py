@@ -7,7 +7,6 @@ from sqlalchemy import select
 from app.eps import select_eps
 from app.equity import select_equity
 from app.fiscal_periods import canonical_period, fiscal_rules, period_metadata
-from app.models import FinancialFact
 from app.net_income import select_net_income
 from app.operating_cash_flow import select_cash_flow
 from app.revenue import select_revenue
@@ -24,6 +23,10 @@ def reviewed_facts_query(company_id):
     The order is explicit because a selection may list its sources as they arrive, and
     the stored history must not depend on how the database happens to read the rows.
     """
+    # Inside the function: models need database settings, and offline commands import
+    # this module without any.
+    from app.models import FinancialFact
+
     return (
         select(FinancialFact.__table__)
         .where(

@@ -55,6 +55,16 @@ def price_basis_factor(ticker, day, rules):
     return factor
 
 
+def price_comparable_to_period(ticker, period_end):
+    """False while a period's financials belong to a company other than the price's.
+
+    JCI's prices after the merger are the new company's, but a period ending before it
+    still reports the old one, so a ratio joining them compares two different companies.
+    """
+    other_company_until = OTHER_COMPANY_PRICES_UNTIL.get(ticker)
+    return other_company_until is None or period_end > other_company_until
+
+
 def share_basis_price(ticker, day, price, rules=None):
     """Return the price on the EPS share basis, or None when it is another company's price.
 

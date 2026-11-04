@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import OperationalError
 
+from app.screener import router as screener_router
 from app.stocks import router as stocks_router
 
 app = FastAPI(title="BeyondCandles API", version="0.2.0")
@@ -14,6 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(stocks_router)
+app.include_router(screener_router)
 
 
 @app.exception_handler(OperationalError)

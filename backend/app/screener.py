@@ -1,0 +1,321 @@
+"""Ratios of all companies as known on one valuation date.
+
+Reads stored cell versions directly, so nothing is recalculated from facts at request
+time except growth. The selection follows `periods_as_of`: a cell shows its latest version
+known on the date, and that version may be empty when it is not confirmed.
+"""
+
+from collections import defaultdict
+from datetime import date, timedelta
+from decimal import Decimal
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import func, select
+from sqlalchemy.engine import Connection
+
+from app.annual_financials import METRIC_NAMES
+from app.database import get_connection
+from app.eps_splits import split_rules
+from app.fiscal_periods import fiscal_rules
+from app.growth import (
+    Growth,
+    SeriesCell,
+    annual_report_columns,
+    one_report_growth,
+    source_coefficients,
+)
+from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
+from app.price_share_basis import price_comparable_to_period, share_basis_price
+from app.ratios import (
+    PeriodValues,
+    calculate_ratios,
+    participating_preferred_tickers,
+    shares_for_ratios,
+)
+from app.schemas.screener import PeriodRatios, Ratios, ScreenerResponse, ScreenerRow
+
+router = APIRouter(prefix="/screener", tags=["screener"])
+DatabaseConnection = Annotated[Connection, Depends(get_connection)]
+
+# The last date with prices, and the first with an annual report for every company.
+LATEST_VALUATION_DATE = date(2025, 12, 31)
+EARLIEST_VALUATION_DATE = date(2016, 3, 31)
+# Longer than any market closure in the window; an older price is not a price of that day.
+PRICE_LOOKBACK_DAYS = 7
+SMALLEST_YEAR_DAYS = 350
+LARGEST_YEAR_DAYS = 380
+FACT_PERIOD_END_MARGIN_DAYS = 31
+RATIO_PRECISION = Decimal("0.000001")
+GROWTH_METRICS = {"revenue": "revenue_growth", "eps_diluted": "eps_growth"}
+
+
+def oldest_needed_period_end(connection, day):
+    """The oldest period end among every company's latest two years known on the date.
+
+    The whole history of 200 companies takes most of the screener's response time, and
+    only these two years are used. None when no report is known yet.
+    """
+    versions = AnnualMetricVersion.__table__
+    query = (
+        select(func.max(versions.c.period_end))
+        .where(versions.c.known_from <= day, versions.c.metric.in_(METRIC_NAMES))
+        .group_by(versions.c.company_id)
+    )
+    latest_ends = connection.execute(query).scalars().all()
+    if not latest_ends:
+        return None
+    return min(latest_ends) - timedelta(days=LARGEST_YEAR_DAYS)
+
+
+def known_periods(connection, day, company_id=None, since=None):
+    """Return {company id: {(start, end): {metric: version}}} as known on the date.
+
+    A period exists from the first report of a reviewed metric; automatic measures join
+    such a period and never create one. `since` leaves out periods ending before it.
+    """
+    versions = AnnualMetricVersion.__table__
+    query = select(
+        versions.c.company_id,
+        versions.c.period_start,
+        versions.c.period_end,
+        versions.c.metric,
+        versions.c.known_from,
+        versions.c.status,
+        versions.c.value,
+        versions.c.details,
+    ).where(versions.c.known_from <= day)
+    if company_id is not None:
+        query = query.where(versions.c.company_id == company_id)
+    if since is not None:
+        query = query.where(versions.c.period_end >= since)
+    # Ascending, so the latest version known on the date overwrites earlier ones.
+    query = query.order_by(versions.c.known_from)
+
+    companies = defaultdict(lambda: defaultdict(dict))
+    for version in connection.execute(query).mappings():
+        period = (version["period_start"], version["period_end"])
+        companies[version["company_id"]][period][version["metric"]] = version
+
+    result = {}
+    for identifier, periods in companies.items():
+        result[identifier] = {
+            period: cells
+            for period, cells in periods.items()
+            if any(metric in cells for metric in METRIC_NAMES)
+        }
+    return result
+
+
+def cell_value(cells, metric):
+    """The value of a confirmed cell; a version needing review stays empty."""
+    version = cells.get(metric)
+    if version is None or version["status"] != "ready":
+        return None
+    return version["value"]
+
+
+def cell_detail(cells, metric, field):
+    version = cells.get(metric)
+    if version is None or version["status"] != "ready":
+        return None
+    return version["details"].get(field)
+
+
+def series_cell(cells, metric, period_end):
+    """The cell as the growth calculation reads it, or None when it is not confirmed."""
+    value = cell_value(cells, metric)
+    if value is None:
+        return None
+    sources = cells[metric]["details"].get("selected_sources") or []
+    return SeriesCell(period_end, value, source_coefficients(value, sources))
+
+
+def period_values(cells):
+    return PeriodValues(
+        revenue=cell_value(cells, "revenue"),
+        net_income=cell_value(cells, "net_income"),
+        eps=cell_value(cells, "eps_diluted"),
+        equity=cell_value(cells, "equity"),
+        operating_cash_flow=cell_value(cells, "operating_cash_flow"),
+        ocf_scope=cell_detail(cells, "operating_cash_flow", "scope"),
+        shares=cell_value(cells, "shares_diluted"),
+        assets=cell_value(cells, "assets"),
+        capex=cell_value(cells, "capex"),
+        operating_income=cell_value(cells, "operating_income"),
+        preferred_value=cell_value(cells, "preferred_value"),
+        preferred_dividends=cell_value(cells, "preferred_dividends"),
+    )
+
+
+def year_before(periods, period):
+    """The period that ended about a year earlier; fiscal-year labels are not compared."""
+    _, period_end = period
+    for candidate in periods:
+        days_between = (period_end - candidate[1]).days
+        if SMALLEST_YEAR_DAYS <= days_between <= LARGEST_YEAR_DAYS:
+            return candidate
+    return None
+
+
+def latest_closes(connection, day, company_id=None):
+    """Return {company id: (session, close)} for the last session on or before the date."""
+    prices = DailyPrice.__table__
+    query = select(prices.c.company_id, prices.c.date, prices.c.close).where(
+        prices.c.date <= day,
+        prices.c.date >= day - timedelta(days=PRICE_LOOKBACK_DAYS),
+    )
+    if company_id is not None:
+        query = query.where(prices.c.company_id == company_id)
+    closes = {}
+    for row in connection.execute(query.order_by(prices.c.date)).mappings():
+        closes[row["company_id"]] = (row["date"], row["close"])
+    return closes
+
+
+def growth_reports(connection, day, company_id=None, since=None):
+    """Return {(company id, metric): annual reports, newest first} known on the date."""
+    facts = FinancialFact.__table__
+    query = select(
+        facts.c.company_id,
+        facts.c.metric,
+        facts.c.tag,
+        facts.c.value,
+        facts.c.period_start,
+        facts.c.period_end,
+        facts.c.filed,
+        facts.c.accession,
+        facts.c.form,
+        facts.c.period_kind,
+        facts.c.source_cik,
+        facts.c.history_eligible,
+    ).where(facts.c.metric.in_(GROWTH_METRICS), facts.c.filed <= day)
+    if company_id is not None:
+        query = query.where(facts.c.company_id == company_id)
+    if since is not None:
+        # A fact's own period end can differ from the canonical one by some days.
+        earliest_fact_end = since - timedelta(days=FACT_PERIOD_END_MARGIN_DAYS)
+        query = query.where(facts.c.period_end >= earliest_fact_end)
+    grouped = defaultdict(list)
+    for fact in connection.execute(query.order_by(facts.c.id)).mappings():
+        grouped[(fact["company_id"], fact["metric"])].append(fact)
+    rules = fiscal_rules()
+    return {
+        key: annual_report_columns(metric_facts, rules)
+        for key, metric_facts in grouped.items()
+    }
+
+
+def period_growth(reports, company_id, metric, period, earlier_period, periods):
+    """Growth of one metric; empty in the first known year or for an unconfirmed cell."""
+    if earlier_period is None:
+        return Growth(None, False)
+    later = series_cell(periods[period], metric, period[1])
+    earlier = series_cell(periods[earlier_period], metric, earlier_period[1])
+    if later is None or earlier is None:
+        return Growth(None, False)
+    return one_report_growth(reports.get((company_id, metric), []), earlier, later)
+
+
+def rounded(value):
+    return None if value is None else value.quantize(RATIO_PRECISION)
+
+
+def valued_period(
+    ticker,
+    company_id,
+    period,
+    periods,
+    close,
+    reports,
+    split_policy,
+    participating,
+):
+    """Assemble the ratios of one period valued at the given (session, close)."""
+    cells = periods[period]
+    values = period_values(cells)
+    earlier_period = year_before(periods, period)
+    previous = (
+        None if earlier_period is None else period_values(periods[earlier_period])
+    )
+
+    session, price = None, None
+    if close is not None and price_comparable_to_period(ticker, period[1]):
+        session = close[0]
+        price = share_basis_price(ticker, session, close[1], split_policy)
+
+    ratios = calculate_ratios(values, previous, price, ticker in participating)
+    growth = {
+        metric: period_growth(
+            reports, company_id, metric, period, earlier_period, periods
+        )
+        for metric in GROWTH_METRICS
+    }
+    for metric, name in GROWTH_METRICS.items():
+        ratios[name] = growth[metric].value
+    _, shares_basis = shares_for_ratios(values)
+    return PeriodRatios(
+        period_start=period[0],
+        period_end=period[1],
+        price_date=session,
+        price=rounded(price),
+        eps_basis=cell_detail(cells, "eps_diluted", "eps_basis"),
+        ocf_scope=values.ocf_scope,
+        shares_basis=shares_basis,
+        revenue_basis_break=growth["revenue"].basis_break,
+        eps_basis_break=growth["eps_diluted"].basis_break,
+        ratios=Ratios(**{name: rounded(value) for name, value in ratios.items()}),
+    )
+
+
+@router.get("", response_model=ScreenerResponse)
+def get_screener(
+    connection: DatabaseConnection,
+    valuation_date: Annotated[date, Query(alias="date")] = LATEST_VALUATION_DATE,
+):
+    """Every company's latest annual period known on the date, at that date's close."""
+    if not EARLIEST_VALUATION_DATE <= valuation_date <= LATEST_VALUATION_DATE:
+        raise HTTPException(
+            422,
+            detail=(
+                f"date must be between {EARLIEST_VALUATION_DATE} "
+                f"and {LATEST_VALUATION_DATE}."
+            ),
+        )
+    companies = connection.execute(
+        select(Company.__table__)
+        .where(Company.cik.is_not(None))
+        .order_by(Company.ticker)
+    ).mappings()
+    since = oldest_needed_period_end(connection, valuation_date)
+    periods_by_company = known_periods(connection, valuation_date, since=since)
+    closes = latest_closes(connection, valuation_date)
+    reports = growth_reports(connection, valuation_date, since=since)
+    split_policy = split_rules()
+    participating = participating_preferred_tickers()
+
+    rows = []
+    for company in companies:
+        periods = periods_by_company.get(company["id"], {})
+        latest = None
+        if periods:
+            newest = max(periods, key=lambda period: period[1])
+            latest = valued_period(
+                company["ticker"],
+                company["id"],
+                newest,
+                periods,
+                closes.get(company["id"]),
+                reports,
+                split_policy,
+                participating,
+            )
+        rows.append(
+            ScreenerRow(
+                ticker=company["ticker"],
+                name=company["name"],
+                sector=company["sector"],
+                latest=latest,
+            )
+        )
+    return ScreenerResponse(valuation_date=valuation_date, rows=rows)

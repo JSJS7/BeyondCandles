@@ -291,6 +291,74 @@ class AutomaticVersionTests(unittest.TestCase):
         """Nothing to compare with is reported, not counted as agreement."""
         self.assertEqual(self.verdict("assets", "1000000000"), "queue_no_row")
 
+    def test_tolerance_needs_a_row_of_the_same_quantity(self):
+        """Regression M31: a near number in an unrelated row confirmed nothing.
+
+        A wide label fits "Net realized capital gains" and "Expected return on plan
+        assets", which AIG's capex and Berkshire's assets were once passed against.
+        """
+        unrelated_rows = (
+            ("capex", ["Net realized capital gains", "304", "290"], "310000000"),
+            ("assets", ["Expected return on plan assets", "975", "900"], "990000000"),
+        )
+        for metric, row, value in unrelated_rows:
+            with self.subTest(metric=metric):
+                table = [["Year Ended December 31", "2025", "2024"], row]
+                task = revenue_task(value, metric=metric, revenue=None)
+
+                verdict = check_automatic_version(task, filing_of(table))
+
+                self.assertEqual(verdict, "queue_no_row")
+
+    def test_tolerance_rejects_rows_of_another_quantity_with_the_same_words(self):
+        """Basic shares normally lie within 5% of diluted, so they would hide a wrong count."""
+        rows = (
+            ("shares_diluted", "Weighted average shares outstanding - basic"),
+            ("shares_diluted", "Average price per share"),
+            ("operating_income", "Other non-operating income"),
+            ("operating_income", "Total other operating income"),
+            ("preferred_value", "Proceeds from issuance of preferred stock"),
+            ("preferred_value", "Preferred stock dividends"),
+            ("assets", "Assets held for sale"),
+            ("assets", "Total assets under management"),
+            ("capex", "Capital expenditures accrued in accounts payable"),
+        )
+        for metric, label in rows:
+            with self.subTest(label=label):
+                table = [
+                    ["Year Ended December 31", "2025", "2024"],
+                    [label, "1,000", "900"],
+                ]
+                task = revenue_task("1030000000", metric=metric, revenue=None)
+
+                verdict = check_automatic_version(task, filing_of(table))
+
+                self.assertEqual(verdict, "queue_no_row")
+
+    def test_tolerance_rejects_measures_outside_gaap(self):
+        """Regression M31: an adjusted figure near the value does not confirm it."""
+        table = [
+            ["Year Ended December 31", "2025", "2024"],
+            ["Adjusted operating income", "2,000", "1,800"],
+        ]
+        task = revenue_task("2040000000", metric="operating_income", revenue=None)
+
+        verdict = check_automatic_version(task, filing_of(table))
+
+        self.assertEqual(verdict, "queue_no_row")
+
+    def test_adjusted_share_denominator_counts_as_its_row(self):
+        """ "Adjusted weighted average" is the GAAP diluted denominator (Citigroup, D.R. Horton)."""
+        table = [
+            ["Year Ended December 31", "2025", "2024"],
+            ["Adjusted weighted average common shares", "1,000", "990"],
+        ]
+        task = revenue_task("1000000000", metric="shares_diluted", revenue=None)
+
+        verdict = check_automatic_version(task, filing_of(table))
+
+        self.assertEqual(verdict, "pass_within_tolerance")
+
     def test_missing_report_is_listed(self):
         """A filing that was never downloaded cannot confirm anything."""
         task = revenue_task(metric="assets", revenue=None)
