@@ -16,7 +16,7 @@ import {
   tap,
 } from 'rxjs';
 import { LoadState } from '../../models/load-state';
-import { AnnualPeriod, Price, Stock } from '../../models/stock';
+import { AnnualPeriod, exchangeName, Price, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
 import { AnnualFinancials } from './annual-financials';
 import { PriceChart } from './price-chart';
@@ -39,15 +39,7 @@ export class StockDetailsComponent implements OnInit {
   readonly priceSeriesDescription = PRICE_SERIES_DESCRIPTION;
   readonly ticker = signal('Unknown');
   readonly stock = signal<Stock | null>(null);
-  readonly exchangeName = computed(() => {
-    const exchange = this.stock()?.exchange ?? '';
-    // Preserve source codes in the API; translate them only for presentation.
-    const exchangeLabels: Record<string, string> = {
-      NMS: 'NASDAQ',
-      NYQ: 'NYSE',
-    };
-    return exchangeLabels[exchange] ?? exchange;
-  });
+  readonly exchangeName = computed(() => exchangeName(this.stock()?.exchange ?? ''));
   readonly prices = signal<Price[]>([]);
   readonly annualFinancials = signal<AnnualPeriod[]>([]);
   readonly stockLoadState = signal<LoadState>({ status: 'idle' });

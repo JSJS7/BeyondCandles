@@ -253,6 +253,7 @@ class FiscalYearExplanationTests(unittest.TestCase):
         self.assertEqual(self.explain(amounts, "0.25"), "single_payment")
 
     def test_unrelated_total_is_mismatch(self):
+        """A reported total that no run of payments explains stays a mismatch."""
         amounts = ["0.50", "0.50", "0.50", "0.50", "0.50", "0.50"]
 
         self.assertEqual(self.explain(amounts, "3.10"), "mismatch")

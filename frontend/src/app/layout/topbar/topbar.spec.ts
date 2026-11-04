@@ -53,6 +53,16 @@ describe('Topbar', () => {
     expect(component.filteredStocks().map((stock) => stock.ticker)).toEqual(['AAPL']);
   });
 
+  it('shows the readable exchange name in search results, not the source code', () => {
+    http.expectOne(catalogueUrl).flush(catalogue);
+    component.onSearchInput('apple');
+    fixture.detectChanges();
+
+    const exchange = fixture.nativeElement.querySelector('.result-exchange');
+
+    expect(exchange.textContent.trim()).toBe('NASDAQ');
+  });
+
   it('limits suggestions to ten and clears results for empty or unmatched queries', () => {
     http.expectOne(catalogueUrl).flush(catalogue);
     component.onSearchInput('example');

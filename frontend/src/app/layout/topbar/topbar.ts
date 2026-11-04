@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { Stock } from '../../models/stock';
+import { exchangeName, Stock } from '../../models/stock';
 import { LoadState } from '../../models/load-state';
 import { StockService } from '../../services/stock.service';
 import { ThemeService } from '../../services/theme.service';
@@ -42,6 +42,7 @@ export class TopbarComponent implements OnInit {
   readonly menuOpen = input(false);
   readonly menuRequested = output<HTMLElement>();
   readonly theme = inject(ThemeService);
+  readonly exchangeLabel = exchangeName;
   private readonly stockService = inject(StockService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);

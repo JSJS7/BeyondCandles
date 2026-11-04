@@ -25,7 +25,7 @@ the engineering details of the import are kept with the code.
   labels follow each company's own reports, so a fiscal year can end in the next
   calendar year. FY2025 of HD, LOW, TGT, ROST, LULU and KR ends in 2026 and is outside
   the range; WMT, NVDA, CRM, TJX and ADSK, which name a year by its end, also stop at a
-  period ending in early 2025. The last period of 19 companies ends before July 2025, so
+  period ending in early 2025. The last period of 24 companies ends by 30 June 2025, so
   a cross-section by "FY2025" joins periods up to 11 months apart.
 - **Company changes:** where an issuer changed through a reorganisation or merger
   (JCI, BLK, AVGO, DIS, LIN, CI), earlier periods follow the reviewed accounting
@@ -62,8 +62,9 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   against the original filing.
 - **Banks:** AXP, BAC, BK, C, COF, GS, JPM, MS, PNC, SCHW, TFC, USB and WFC show net
   revenue: their own net revenue line, or *net interest income + noninterest income*
-  from the same filing where no such line exists (WFC, USB, COF and TFC, marked
-  *Calculated*). A few issuers use their own tags (e.g. BAC, BK, AMP).
+  from the same filing (WFC, USB, COF and TFC, marked *Calculated*; Wells Fargo's later
+  reports print the same sum as *Total revenue*). A few issuers use their own tags (e.g.
+  BAC, BK, AMP).
 - **One line per group:** a group of similar companies uses one line when they show it,
   and every other company shows its own revenue total. A line a company does not show
   is not calculated only to compare it with others. Differences between lines up to 5%
@@ -105,7 +106,9 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   only for an executive pay table is not used; the audited statements decide (CME's 10-K
   filed in 2026).
 - **Watch out:** net income is before preferred dividends, while EPS is after them, so
-  net income ÷ EPS is not always the share count (e.g. BDX 2018, KMI 2017).
+  net income ÷ EPS is not always the share count (e.g. BDX 2018, KMI 2017; at Wells Fargo
+  in 2020 net income is 3,377 mln and EPS × diluted shares about 1,778 mln). Use EPS for
+  per-share ratios and net income for company-level ratios, without mixing them.
 
 ### EPS (earnings per share)
 - **Shown:** **diluted** EPS, restated for later stock splits.
@@ -142,8 +145,12 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   differences stay below the correction threshold: Lilly's 2024 and 2025 equity includes
   non-controlling interests, and Southern's 2015 and 2016 equity includes preferred stock
   of subsidiaries.
-- **Watch out:** because preferred equity is included, ROE and price-to-book for
-  companies with large preferred stock (banks) are not based on *common* equity.
+- **Watch out:** because preferred equity is included, this value is not *common* equity,
+  so price-to-book and ROE of common shareholders must not be read from it directly. This
+  goes beyond banks: preferred stock reached about 53% of equity at Occidental (2020), 47%
+  at Public Storage (2025), 27% at Schwab and 20% at Digital Realty. The ratios planned for
+  the app deduct it; a company that tags no preferred stock counts as zero, so they will
+  be approximate.
 
 ### Operating cash flow
 - **Shown:** net cash from operating activities of the **whole company**, including
@@ -248,7 +255,9 @@ under one rule for all companies:
   per company, exceeds 1%.
 - **Artificial one-session jump:** over 5%.
 - **Financial value:** the difference exceeds the larger of 5% of the value and 0.5% of the
-  company's annual revenue; for EPS, the larger of 5% and 2 cents.
+  company's annual revenue; for EPS, the larger of 5% and 2 cents. For data added later,
+  the revenue part for net income, equity and cash flow is capped at 25% of the value, so
+  a low-margin company cannot have a tolerance larger than the value itself.
 - **Always:** wrong company, scale, sign, period, or data used before it was published.
 
 A reliable value comes from an SEC filing, then a company or exchange statement, then two
@@ -330,9 +339,16 @@ an audit and do not make companies comparable with each other.
 
 ## Known limitations
 
-- Survivorship bias: the 200 companies were large at the end of 2024, so
-  backtests on this fixed universe overstate absolute returns and are best used for
-  relative comparisons. Only 200 companies; US-listed, USD only.
+- Survivorship bias: the 200 companies were large at the end of 2024, and only 4 of them
+  lost money over 2015–2024. Backtests on this fixed universe overstate absolute returns,
+  and relative comparisons are affected too: a signal favouring cheap or beaten-down
+  companies only meets those that later recovered. Compare results with an equal-weight
+  basket of the same companies, and do not read them as beating the market. Only 200
+  companies; US-listed, USD only.
+- Backtest window: financials start with periods ending in 2015, so all 200 companies have
+  a known annual value only from 31 Mar 2016, and two values, needed for growth, from
+  31 Mar 2017. The FY2025 reports of 150 companies were filed after prices end
+  (31 Dec 2025), so they cannot drive a trade in the window.
 - Annual data only. The point-in-time view (`as_of`) shows an earlier version only
   when it is confirmed; one earlier version (BK revenue for 2015 as first reported)
   has no value, because that filing tags only a segment total.

@@ -586,6 +586,7 @@ class AsOfSourceListTests(unittest.TestCase):
     """
 
     def test_reviewed_source_replaces_the_same_stored_fact(self):
+        """The fact appears once among the variants and keeps its statement position."""
         from app.metric_history import periods_as_of
 
         period = {
