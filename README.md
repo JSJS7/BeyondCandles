@@ -8,6 +8,8 @@ and annual financial statements from SEC EDGAR.
   fiscal years ending 1 Jan 2015 to 31 Dec 2025.
 - **Interface:** responsive layout, light and dark themes, preset chart periods,
   and selection of a custom date range.
+- **API only so far:** `/screener` returns ratios of all companies as known on a chosen
+  date; the app has no screener page yet.
 - **Stack:** Angular, TypeScript, Chart.js, FastAPI, SQLAlchemy, Alembic,
   and PostgreSQL.
 

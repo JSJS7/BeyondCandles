@@ -36,7 +36,7 @@
     <dt><span class="metric-label">Continuing ops</span></dt>
     <dd>Operating cash flow of continuing operations, excluding discontinued operations.</dd>
     <dt><span class="metric-label">Split-adjusted</span></dt>
-    <dd>Reported EPS divided for stock splits after the filing.</dd>
+    <dd>Reported EPS restated for stock splits after the filing.</dd>
     <dt><span class="metric-label">Calculated</span></dt>
     <dd>Calculated from values reported in one filing, not one reported figure.</dd>
     <dt><span class="review">Needs review</span></dt>
@@ -184,7 +184,7 @@
       <div class="share-basis">
         <p>Reported in the filing: {{ formatExact(shareBasis.reported_value) }} USD per share.</p>
         @if (shareBasis.applied_splits.length > 0) {
-          <p>Divided for later stock splits:</p>
+          <p>Restated for later stock splits:</p>
           <ul>
             @for (split of shareBasis.applied_splits; track split.date) {
               <li>
