@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "method": "Share counts whose XBRL tag carries the digits of the report's table without its unit. Each entry names the first report of the period; its statement shows exactly these digits in the stated unit. The source fact stays unchanged. A rule that no longer matches its fact stops the history build.",
+  "corrections": [
+    {
+      "ticker": "COP",
+      "accession": "0001193125-16-472901",
+      "period_end": "2015-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "1241919",
+      "multiplier": 1000,
+      "evidence": "Earnings per share table, average common shares outstanding (in thousands), Diluted: 1,241,919"
+    },
+    {
+      "ticker": "COP",
+      "accession": "0001193125-17-050077",
+      "period_end": "2016-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "1245440",
+      "multiplier": 1000,
+      "evidence": "Earnings per share table, average common shares outstanding (in thousands), Diluted: 1,245,440"
+    },
+    {
+      "ticker": "COP",
+      "accession": "0001193125-18-049729",
+      "period_end": "2017-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "1221038",
+      "multiplier": 1000,
+      "evidence": "Earnings per share table, average common shares outstanding (in thousands), Diluted: 1,221,038"
+    },
+    {
+      "ticker": "COP",
+      "accession": "0001193125-19-043841",
+      "period_end": "2018-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "1175538",
+      "multiplier": 1000,
+      "evidence": "Earnings per share table, average common shares outstanding (in thousands), Diluted: 1,175,538"
+    },
+    {
+      "ticker": "MCD",
+      "accession": "0000063908-24-000072",
+      "period_end": "2023-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "732.3",
+      "multiplier": 1000000,
+      "evidence": "Consolidated statement of income (in millions, except per share data), weighted-average shares outstanding, diluted: 732.3"
+    },
+    {
+      "ticker": "MCD",
+      "accession": "0000063908-25-000012",
+      "period_end": "2024-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "721.9",
+      "multiplier": 1000000,
+      "evidence": "Consolidated statement of income (in millions, except per share data), weighted-average shares outstanding, diluted: 721.9"
+    },
+    {
+      "ticker": "MCD",
+      "accession": "0000063908-26-000035",
+      "period_end": "2025-12-31",
+      "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "reported_value": "716.4",
+      "multiplier": 1000000,
+      "evidence": "Consolidated statement of income (in millions, except per share data), weighted-average shares outstanding, diluted: 716.4"
+    }
+  ]
+}

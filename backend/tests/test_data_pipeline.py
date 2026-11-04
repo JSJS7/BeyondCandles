@@ -25,6 +25,7 @@ class FactDifferenceTests(unittest.TestCase):
     def fact(self, accession="A1", value="10", eligible=True):
         return {
             "source_cik": "0000000001",
+            "metric": "revenue",
             "taxonomy": "us-gaap",
             "tag": "Revenues",
             "unit": "USD",

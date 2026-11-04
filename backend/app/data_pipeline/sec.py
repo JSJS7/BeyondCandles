@@ -10,6 +10,7 @@ from typing import cast
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from app.automatic_metrics import BALANCE_METRICS, SHARE_METRIC
 from app.data_pipeline.source_files import ROOT, read_json, sha256, write_json
 from app.data_pipeline.validation import number
 
@@ -162,7 +163,11 @@ def extract_facts(body, metrics=None):
             tags = tags + REVENUE_SOURCE_TAGS.get(
                 str(body.get("cik", "")).zfill(10), ()
             )
-        expected_unit = "USD/shares" if metric == "eps_diluted" else "USD"
+        expected_unit = "USD"
+        if metric == "eps_diluted":
+            expected_unit = "USD/shares"
+        elif metric == SHARE_METRIC:
+            expected_unit = "shares"
         for tag in tags:
             units = taxonomy.get(tag, {}).get("units", {})
             for unit, items in units.items():
@@ -185,7 +190,7 @@ def extract_facts(body, metrics=None):
                         continue
                     end = date.fromisoformat(fact["end"])
                     filed = date.fromisoformat(fact["filed"])
-                    instant = metric == "equity"
+                    instant = metric == "equity" or metric in BALANCE_METRICS
                     if not instant and not fact.get("start"):
                         warnings.append(f"Missing start: {tag} {fact.get('accn')}")
                         continue
@@ -338,6 +343,7 @@ def fact_key(fact):
     """Identify a reported fact independently of its download or numeric value."""
     return (
         fact["source_cik"],
+        fact["metric"],
         fact["taxonomy"],
         fact["tag"],
         fact["unit"],
@@ -350,7 +356,11 @@ def fact_key(fact):
 def prepare_all_company_facts():
     """Return the facts the cached SEC files and rules define, by company."""
     from .sec_catalogue import identifiers, load_all_sec
-    from .sec_history import HISTORY_INDEX, prepare_company_facts
+    from .sec_history import (
+        HISTORY_INDEX,
+        prepare_automatic_facts,
+        prepare_company_facts,
+    )
 
     issuers = identifiers()
     history_index = (
@@ -365,6 +375,7 @@ def prepare_all_company_facts():
                 raise ValueError("Primary CIK differs from approved identifiers")
             history = approved.get("history")
             facts = prepare_company_facts(entry, body, history, history_index)
+            facts += prepare_automatic_facts(entry, body, history, history_index)
         except ValueError as exc:
             raise ValueError(f"{ticker}: {exc}") from exc
         prepared[ticker] = (entry, facts, history)

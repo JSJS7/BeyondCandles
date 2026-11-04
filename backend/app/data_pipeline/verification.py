@@ -55,7 +55,12 @@ def inspect_db():
 def verify_db():
     from sqlalchemy import text
 
-    from app.data_pipeline.metric_history import current_cell_statuses, verify_history
+    from app.annual_financials import METRIC_NAMES
+    from app.data_pipeline.metric_history import (
+        current_cell_statuses,
+        history_fingerprint,
+        verify_history,
+    )
     from app.data_pipeline.sec import verify_stored_facts
     from app.database import engine
 
@@ -87,6 +92,9 @@ def verify_db():
     versions, history = verify_history(engine)
     with engine.connect() as connection:
         statuses = current_cell_statuses(connection)
+        reviewed_versions, reviewed_history = history_fingerprint(
+            connection, METRIC_NAMES
+        )
     not_ready = [cell for cell, status in statuses.items() if status != "ready"]
     if not_ready:
         raise ValueError(
@@ -101,6 +109,8 @@ def verify_db():
         "metric_versions": versions,
         "current_metric_cells": len(statuses),
         "metric_history_fingerprint": history,
+        "reviewed_metric_versions": reviewed_versions,
+        "reviewed_metric_history_fingerprint": reviewed_history,
         "period_start": validated["period_start"],
         "period_end": validated["period_end"],
     }

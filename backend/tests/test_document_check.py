@@ -7,6 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.data_pipeline.document_check import (
     Filing,
+    check_automatic_version,
     check_version,
     confirmed_elsewhere,
     number,
@@ -254,6 +255,47 @@ class VersionCheckTests(unittest.TestCase):
         self.assertEqual(
             check_version(revenue_task(), Filing([]))[0], "queue_no_primary_document"
         )
+
+
+class AutomaticVersionTests(unittest.TestCase):
+    """Values taken by rule, against the tables of their own report."""
+
+    INCOME_STATEMENT = [
+        ["Year Ended December 31", "2025", "2024"],
+        ["Income from operations", "2,000", "1,800"],
+        ["Purchases of property and equipment", "(500)", "(400)"],
+    ]
+
+    def verdict(self, metric, value, revenue=None):
+        task = revenue_task(value, metric=metric, revenue=revenue)
+        return check_automatic_version(task, filing_of(self.INCOME_STATEMENT))
+
+    def test_value_in_its_row_and_year_passes(self):
+        """Cash flow rows show outflows in brackets, so both signs are tried."""
+        self.assertEqual(self.verdict("operating_income", "2000000000"), "pass_direct")
+        self.assertEqual(self.verdict("capex", "500000000"), "pass_direct")
+
+    def test_value_of_another_year_is_not_a_match(self):
+        """1,800 stands in the table, but for 2024, and differs from 2,000 by 10%."""
+        self.assertEqual(
+            self.verdict("operating_income", "1800000000"), "queue_other_number"
+        )
+
+    def test_small_difference_passes_within_the_tolerance(self):
+        """A difference of 2% is under the threshold of the correction rule."""
+        self.assertEqual(
+            self.verdict("operating_income", "2040000000"), "pass_within_tolerance"
+        )
+
+    def test_report_without_a_fitting_row_is_listed(self):
+        """Nothing to compare with is reported, not counted as agreement."""
+        self.assertEqual(self.verdict("assets", "1000000000"), "queue_no_row")
+
+    def test_missing_report_is_listed(self):
+        """A filing that was never downloaded cannot confirm anything."""
+        task = revenue_task(metric="assets", revenue=None)
+
+        self.assertEqual(check_automatic_version(task, None), "queue_no_document")
 
 
 class ConfirmationTests(unittest.TestCase):

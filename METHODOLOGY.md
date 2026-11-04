@@ -170,6 +170,37 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   client and balance-sheet movements and says little about earnings quality. Free cash
   flow cannot be computed yet (capital expenditure is not included).
 
+## Automatic measures
+
+Six further annual measures are stored for the ratios planned for the app, which does
+not show them yet: weighted diluted share count, total assets, capital expenditure,
+operating income, preferred stock and preferred dividends. They are taken by fixed rules
+and are not reviewed value by value, unlike the five metrics above. Each value keeps its
+source, tag and filing date, and joins an annual period of the five metrics; it never
+creates a period of its own.
+
+- **Selection:** tags are tried in a fixed order and a backup tag counts only while the
+  main one is unknown. A new version starts when the value changes.
+- **Share count:** diluted, then a combined basic and diluted row, then basic with a label
+  (ExxonMobil, Gallagher), on the same split basis as EPS. Counts by share class are not
+  summed, so Visa, Berkshire Hathaway, KKR and part of Alphabet's history stay empty.
+- **Capital expenditure:** the purchase of property, plant and equipment, then a company's
+  own wider line for productive assets, which may include software. Banks and most real
+  estate companies have no such figure.
+- **Operating income:** only the tag `OperatingIncomeLoss`, so many companies have no value,
+  banks and also IBM or Eli Lilly, because their statements show no such row. It stays empty
+  for companies whose tag holds a sum of segments or an adjusted measure
+  (`data/operating-income-exclusions.json`). The list comes from a screen of row labels, so
+  a sum of segments under a plain label can remain.
+- **Preferred stock:** the first plausible value among the standard tags, ending with the
+  liquidation preference. See *Equity* for how it is deducted.
+- **Wrong units in tags:** some companies tag the digits of their table without its unit
+  (McDonald's tags 732.3 for 732.3 million shares). A share count under 1% of the
+  company's largest count is dropped. Where the first report's own table shows the same
+  digits in a stated unit, the unit is corrected (`data/share-scale-corrections.json`).
+- **Dates:** a value counts from the first report that contains it. When SEC data lacks that
+  report, the date is later than the truth, which never brings future knowledge forward.
+
 ## Prices and per-share values
 
 EPS is restated for later stock splits up to 13 Oct 2026, the last date in the vendor's
@@ -331,12 +362,15 @@ Two commands repeat the essential part of these checks on the stored data:
   period, value or row, not a choice between two real rows, so it does not confirm
   that a definition is the right one.
 - `check-identities` tests EPS against shares and income, the cash flow statement
-  against the change in cash, and the balance sheet against equity. Its tolerances
-  catch gross errors only, and the balance-sheet test depends little on the served equity,
-  because it also accepts the group total. Not every period can be tested, because companies do not
-  tag every number, and a value in a later filing's equity statement may be compared
-  with an earlier balance sheet. Explained differences are listed in
-  `data/identity-reviews.json`.
+  against the change in cash, the balance sheet against equity, and EPS times the served
+  share count against served net income less preferred dividends. Its tolerances catch gross
+  errors only: a planted 10% error in equity passes in about one period in eight. Not every
+  period can be tested, because companies do not tag every number, and a value in a later
+  filing's equity statement may be compared with an earlier balance sheet. Explained
+  differences are listed in `data/identity-reviews.json`.
+- `check-automatic` looks for each automatic value in the row and period of its own report.
+  It screens broad row labels and lists what it cannot find, so it shows that a number stands
+  in the report, not that it means what its tag says.
 
 They show that the numbers match the filings and the stated definitions. They are not
 an audit and do not make companies comparable with each other.

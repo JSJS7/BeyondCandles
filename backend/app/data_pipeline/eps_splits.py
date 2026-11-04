@@ -9,7 +9,7 @@ from itertools import pairwise
 
 from sqlalchemy import select
 
-from app.annual_financials import annual_periods
+from app.annual_financials import annual_periods, reviewed_facts_query
 from app.data_pipeline.benjaminpo import ALIASES
 from app.data_pipeline.sec import CACHE as SEC_CACHE
 from app.data_pipeline.sec_statements import DocumentText
@@ -27,7 +27,7 @@ from app.eps_splits import (
     sources_fingerprint,
     split_rules,
 )
-from app.models import Company, FinancialFact
+from app.models import Company
 
 CACHE = ROOT / "data/raw/eps-splits"
 # The vendor may restate its latest sessions for a split before the first split-adjusted
@@ -260,15 +260,7 @@ def stored_companies(connection, policy):
 
 
 def stored_facts(connection, company):
-    return (
-        connection.execute(
-            select(FinancialFact.__table__).where(
-                FinancialFact.company_id == company["id"]
-            )
-        )
-        .mappings()
-        .all()
-    )
+    return connection.execute(reviewed_facts_query(company["id"])).mappings().all()
 
 
 def approve_eps_splits(approved_through):

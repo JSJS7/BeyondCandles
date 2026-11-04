@@ -2,15 +2,38 @@
 
 from collections import defaultdict
 
+from sqlalchemy import select
+
 from app.eps import select_eps
 from app.equity import select_equity
 from app.fiscal_periods import canonical_period, fiscal_rules, period_metadata
+from app.models import FinancialFact
 from app.net_income import select_net_income
 from app.operating_cash_flow import select_cash_flow
 from app.revenue import select_revenue
 from app.schemas.stock import AnnualPeriod, FilingValue
 
+# The reviewed metrics of the annual table. Other metrics share the storage tables, so
+# every reader of this table's inputs selects these names in its database query.
 METRIC_NAMES = ("revenue", "net_income", "eps_diluted", "equity", "operating_cash_flow")
+
+
+def reviewed_facts_query(company_id):
+    """The facts of the reviewed metrics in their import order.
+
+    The order is explicit because a selection may list its sources as they arrive, and
+    the stored history must not depend on how the database happens to read the rows.
+    """
+    return (
+        select(FinancialFact.__table__)
+        .where(
+            FinancialFact.company_id == company_id,
+            FinancialFact.metric.in_(METRIC_NAMES),
+        )
+        .order_by(FinancialFact.id)
+    )
+
+
 ANNUAL_REPORT_FORMS = ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
 QUARTERLY_REPORT_FORMS = ("10-Q", "10-Q/A")
 

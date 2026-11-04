@@ -19,22 +19,6 @@
       "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (33,253), the served value is the restated one (17,031, LDTI)."
     },
     {
-      "ticker": "AMAT",
-      "check": "balance_sheet",
-      "from_year": 2016,
-      "to_year": 2016,
-      "max_deviation_percent": "2.6",
-      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (7,217), the served value is the restated one (7,413)."
-    },
-    {
-      "ticker": "AMAT",
-      "check": "balance_sheet",
-      "from_year": 2017,
-      "to_year": 2017,
-      "max_deviation_percent": "2.9",
-      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (9,349), the served value is the restated one (9,630)."
-    },
-    {
       "ticker": "BLK",
       "check": "balance_sheet",
       "from_year": 2018,
@@ -51,14 +35,6 @@
       "note": "Partners' capital includes noncontrolling interests in Blackstone Holdings, not tagged as MinorityInterest. 2016 and 2017 summary rows: total partners' capital plus redeemable interests equals assets minus liabilities."
     },
     {
-      "ticker": "CB",
-      "check": "balance_sheet",
-      "from_year": 2021,
-      "to_year": 2021,
-      "max_deviation_percent": "2.4",
-      "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (59,714), the served value is the restated one (58,328)."
-    },
-    {
       "ticker": "CRM",
       "check": "balance_sheet",
       "from_year": 2017,
@@ -71,7 +47,7 @@
       "check": "balance_sheet",
       "from_year": 2021,
       "to_year": 2021,
-      "max_deviation_percent": "6.0",
+      "max_deviation_percent": "8.1",
       "note": "Assets minus liabilities 28,918 = first reported shareholders' equity 27,308 + Series A preferred 1,610 reclassified to mezzanine equity; the served 26,759 is the restated row of the equity statement in the later 10-K."
     },
     {
@@ -273,6 +249,142 @@
       "to_year": 2025,
       "max_deviation_percent": "26.7",
       "note": "Dividend equivalent payments reduce the EPS numerator: 2017 income applicable to common stock 437.6 = 7.88 x 55.5 against net income 596.9. Other years have the same row; 2018 read, the rest not one by one."
+    },
+    {
+      "ticker": "BX",
+      "check": "balance_sheet",
+      "from_year": 2018,
+      "to_year": 2025,
+      "max_deviation_percent": "147.9",
+      "note": "Noncontrolling interests in Blackstone Holdings have no MinorityInterest tag, as in 2015-2017. 2018: assets minus liabilities 13,754 = group equity tag 13,612 + redeemable interests 142; the served 6,379 is the row Total Stockholders' Equity of The Blackstone Group Inc."
+    },
+    {
+      "ticker": "GE",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "8.1",
+      "note": "Only a later, restated filing has both totals: 80,515 = group equity tag 77,491 + temporary equity 3,025. The served 70,162 is the row GE shareowners' equity."
+    },
+    {
+      "ticker": "JCI",
+      "check": "balance_sheet",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "60.6",
+      "note": "The filing with both totals gives 4,076 for the accounting predecessor Tyco; the served 10,335 is Johnson Controls before the merger, the row Shareholders' equity attributable to Johnson Controls. Known mismatch, see METHODOLOGY."
+    },
+    {
+      "ticker": "LMT",
+      "check": "balance_sheet",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "9.3",
+      "note": "Only a later, restated filing has both totals: 1,606 = its group equity tag. The served 1,382 is the row Balance at December 31, 2016 of the statement of equity, with noncontrolling interests 95 beside it."
+    },
+    {
+      "ticker": "MET",
+      "check": "balance_sheet",
+      "from_year": 2021,
+      "to_year": 2021,
+      "max_deviation_percent": "35.7",
+      "note": "The filing with both totals gives 67,749 = its group equity tag; the served 49,746 is the later row Balance at December 31, 2021 of the statement of equity. Restatement assumed to be the insurance accounting standard (LDTI), not read."
+    },
+    {
+      "ticker": "SO",
+      "check": "balance_sheet",
+      "from_year": 2018,
+      "to_year": 2018,
+      "max_deviation_percent": "17.5",
+      "note": "A later filing gives 29,330 = group equity tag 29,039 + temporary equity 291; the served 24,723 is the parent's equity, whose noncontrolling interests have no MinorityInterest tag."
+    },
+    {
+      "ticker": "SO",
+      "check": "balance_sheet",
+      "from_year": 2025,
+      "to_year": 2025,
+      "max_deviation_percent": "7.9",
+      "note": "Assets minus liabilities 38,867 = group equity tag; the served 36,016 is the parent's equity, whose noncontrolling interests have no MinorityInterest tag."
+    },
+    {
+      "ticker": "ACN",
+      "check": "shares_income",
+      "from_year": 2015,
+      "to_year": 2015,
+      "max_deviation_percent": "5.8",
+      "note": "The filing tags diluted income of 3,232.5 against net income of 3,053.6; EPS x shares = 3,230.9. Its diluted numerator is above net income."
+    },
+    {
+      "ticker": "AVGO",
+      "check": "shares_income",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "7.0",
+      "note": "The filing tags diluted income of -1,861 against net income of -1,739; EPS x shares = -1,861.4."
+    },
+    {
+      "ticker": "BX",
+      "check": "shares_income",
+      "from_year": 2015,
+      "to_year": 2018,
+      "max_deviation_percent": "79.4",
+      "note": "Diluted EPS assumes the exchange of Blackstone Holdings units, as in the eps_shares review: 2016 numerator 1,867.1 against net income 1,039.0."
+    },
+    {
+      "ticker": "CHTR",
+      "check": "shares_income",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "6.3",
+      "note": "EPS x shares = 3,742.6 against net income 3,522, in the year of the Time Warner Cable merger; numerator not read."
+    },
+    {
+      "ticker": "OXY",
+      "check": "shares_income",
+      "from_year": 2023,
+      "to_year": 2023,
+      "max_deviation_percent": "5.4",
+      "note": "The filing tags income to common of 3,752 against net income 4,696 less preferred dividends 736; EPS x shares = 3,747.5. Preferred redemption premiums lie between them, not read."
+    },
+    {
+      "ticker": "RCL",
+      "check": "shares_income",
+      "from_year": 2023,
+      "to_year": 2024,
+      "max_deviation_percent": "6.1",
+      "note": "The filing tags diluted income of 1,785 (2023) and 3,052 (2024) against net income 1,697 and 2,877; EPS x shares agrees with the tags. Convertible notes interest added back, not read."
+    },
+    {
+      "ticker": "SO",
+      "check": "shares_income",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "5.3",
+      "note": "Income to common tag 842 = net income: subsidiaries' preferred dividends are already deducted, so the check deducts 38 once too often."
+    },
+    {
+      "ticker": "TDG",
+      "check": "shares_income",
+      "from_year": 2017,
+      "to_year": 2025,
+      "max_deviation_percent": "26.7",
+      "note": "Net income applicable to common stock is after dividend equivalent payments: 2017 row 437,630 = EPS x shares against net income 596.9 million. Other years have the same structure, rows not read."
+    },
+    {
+      "ticker": "TSLA",
+      "check": "shares_income",
+      "from_year": 2020,
+      "to_year": 2020,
+      "max_deviation_percent": "5.4",
+      "note": "The filing tags income to common of 690 against net income 721; EPS x shares = 682.3 with rounded EPS."
+    },
+    {
+      "ticker": "WFC",
+      "check": "shares_income",
+      "from_year": 2020,
+      "to_year": 2020,
+      "max_deviation_percent": "14.8",
+      "note": "The filing tags income to common of 1,786; EPS x shares = 1,777.7. Its deduction for preferred dividends and other is larger than the dividend tag 1,290."
     }
   ]
 }

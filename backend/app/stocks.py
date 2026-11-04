@@ -7,11 +7,15 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.engine import Connection
 
-from app.annual_financials import annual_periods
+from app.annual_financials import (
+    METRIC_NAMES,
+    annual_periods,
+    reviewed_facts_query,
+)
 from app.database import get_connection
 from app.eps_splits import normalize_eps
 from app.metric_history import periods_as_of
-from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
+from app.models import AnnualMetricVersion, Company, DailyPrice
 from app.schemas.stock import AnnualPeriod, Price, Stock
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
@@ -69,15 +73,13 @@ def get_annual_financials(
     if as_of is not None and as_of > date.today():
         raise HTTPException(422, detail="as_of must not be a future date.")
     company = find_company(connection, ticker)
-    query = select(FinancialFact.__table__).where(
-        FinancialFact.company_id == company["id"]
-    )
-    facts = connection.execute(query).mappings().all()
+    facts = connection.execute(reviewed_facts_query(company["id"])).mappings().all()
     if as_of is None:
         return normalize_eps(company["ticker"], annual_periods(facts))
 
     versions_query = select(AnnualMetricVersion.__table__).where(
-        AnnualMetricVersion.company_id == company["id"]
+        AnnualMetricVersion.company_id == company["id"],
+        AnnualMetricVersion.metric.in_(METRIC_NAMES),
     )
     stored_versions = connection.execute(versions_query).mappings().all()
     if facts and not stored_versions:

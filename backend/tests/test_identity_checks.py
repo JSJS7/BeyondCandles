@@ -9,6 +9,7 @@ from app.data_pipeline.identity_checks import (
     check_balance,
     check_cash,
     check_eps,
+    check_shares,
     collect_facts,
     filing_value,
     separate_reviewed_flags,
@@ -189,6 +190,34 @@ class BalanceTests(unittest.TestCase):
 
         self.assertEqual(self.check("3500000000", facts), 0)
 
+    def test_group_equity_tag_does_not_excuse_a_wrong_value(self):
+        """W24: the sum was compared with the filing's own tag, so any value passed.
+
+        A planted 10% error went unnoticed in 70% of the checked periods.
+        """
+        facts = self.facts(
+            StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest=[
+                balance(4000000000)
+            ]
+        )
+
+        self.assertEqual(self.check("4400000000", facts), Decimal("9.1"))
+
+    def test_another_filing_does_not_excuse_the_values_own_filing(self):
+        """A restated balance in a later report must not confirm a different number."""
+        facts = {
+            "Assets": [
+                balance(10000000000),
+                balance(10000000000, accession="later"),
+            ],
+            "Liabilities": [
+                balance(6000000000),
+                balance(5000000000, accession="later"),
+            ],
+        }
+
+        self.assertEqual(self.check("5000000000", facts), Decimal("20.0"))
+
     def test_any_filing_with_both_totals_may_confirm(self):
         """A value from a later equity statement is checked on an earlier balance sheet."""
         facts = {
@@ -250,6 +279,42 @@ class ReviewTests(unittest.TestCase):
         review = self.review()
 
         self.assertEqual(separate_reviewed_flags([], [review]), ([], [review]))
+
+
+class SharesIncomeTests(unittest.TestCase):
+    """EPS x shares against served income, also the only test of served net income."""
+
+    def check(
+        self, net_income="1000000000", preferred=None, eps="2.00", shares="500000000"
+    ):
+        return check_shares(
+            Decimal(eps),
+            Decimal(shares),
+            Decimal(net_income),
+            Decimal(preferred) if preferred else None,
+        )
+
+    def test_product_equal_to_income_passes(self):
+        """2.00 x 500 million = 1,000 million."""
+        self.assertEqual(self.check(), 0)
+
+    def test_wrong_net_income_is_flagged(self):
+        """A planted 10% error in net income, which no other check would notice."""
+        self.assertEqual(self.check(net_income="1100000000"), Decimal("9.1"))
+
+    def test_preferred_dividends_are_deducted(self):
+        """OXY 2021: EPS is after preferred dividends, net income before them."""
+        self.assertEqual(self.check(net_income="1200000000", preferred="200000000"), 0)
+
+    def test_wrong_share_count_is_flagged(self):
+        """A share count in another scale, as in MCD's tag, is far from the income."""
+        self.assertGreater(self.check(shares="500000"), 0)
+
+    def test_small_eps_is_rounded_not_flagged(self):
+        """EPS of 0.02 is rounded to a cent, so the product is uncertain by 25%."""
+        self.assertEqual(
+            self.check(net_income="12000000", eps="0.02", shares="500000000"), 0
+        )
 
 
 if __name__ == "__main__":

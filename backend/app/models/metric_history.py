@@ -26,7 +26,8 @@ class AnnualMetricVersion(Base):
         CheckConstraint("period_start <= period_end", name="ck_version_period"),
         CheckConstraint(
             "metric IN ('revenue', 'net_income', 'eps_diluted', 'equity', "
-            "'operating_cash_flow')",
+            "'operating_cash_flow', 'shares_diluted', 'assets', 'capex', "
+            "'operating_income', 'preferred_value', 'preferred_dividends')",
             name="ck_version_metric",
         ),
         CheckConstraint(
@@ -35,7 +36,7 @@ class AnnualMetricVersion(Base):
         ),
         CheckConstraint(
             "confirmation IN ('approved', 'identical', 'rounding', 'split', "
-            "'reviewed')",
+            "'reviewed', 'automatic')",
             name="ck_version_confirmation",
         ),
         # A value is served only when it is confirmed, and every ready cell has one.

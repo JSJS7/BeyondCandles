@@ -436,6 +436,45 @@ class DatabaseImportTests(unittest.TestCase):
                         before_failure,
                     )
 
+    def test_reviewed_checks_skip_automatic_versions(self):
+        """Document and identity checks read only the reviewed metrics.
+
+        An automatic version has no reviewed sources to compare, so reading it would
+        fail these checks. The insert also proves the migrated constraints accept it.
+        """
+        from sqlalchemy import text
+
+        from app.data_pipeline.document_check import version_tasks
+        from app.data_pipeline.identity_checks import served_periods
+
+        self.alembic("upgrade", "head")
+        with self.db.connect() as connection:
+            transaction = connection.begin()
+            try:
+                connection.execute(
+                    text(
+                        "INSERT INTO companies (ticker,name,exchange,sector,currency,cik) "
+                        "VALUES ('ZZZ','Test Inc.','NMS','Technology','USD','0000000001')"
+                    )
+                )
+                connection.execute(
+                    text("""
+                    INSERT INTO annual_metric_versions
+                        (company_id,period_start,period_end,metric,known_from,accession,
+                         form,status,confirmation,value,details)
+                    SELECT id,'2020-01-01','2020-12-31','capex','2021-02-01','a','10-K',
+                           'ready','automatic',100,'{}' FROM companies WHERE ticker='ZZZ'
+                """)
+                )
+
+                tasks = version_tasks(connection)
+                periods = served_periods(connection)
+
+                self.assertNotIn("ZZZ", {task["ticker"] for task in tasks})
+                self.assertNotIn("ZZZ", {ticker for ticker, _, _ in periods})
+            finally:
+                transaction.rollback()
+
 
 if __name__ == "__main__":
     unittest.main()

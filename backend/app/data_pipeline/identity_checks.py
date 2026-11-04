@@ -5,7 +5,8 @@ it agrees with numbers it did not come from:
 
 - EPS x weighted shares = income available to common shareholders;
 - operating + investing + financing cash flow + exchange effect = change in cash;
-- assets - liabilities = equity + noncontrolling interests + temporary equity.
+- assets - liabilities = equity + noncontrolling interests + temporary equity;
+- EPS x the served share count = served net income - preferred dividends.
 
 Filers tag these other numbers less carefully than the statements and many companies
 have items the sums do not cover, so the tolerances catch gross errors only: a wrong row
@@ -17,6 +18,7 @@ from collections import Counter, defaultdict
 from datetime import date
 from decimal import Decimal
 
+from app.annual_financials import METRIC_NAMES
 from app.data_pipeline.source_files import ROOT, read_json, write_json
 
 REVIEWS = ROOT / "data/identity-reviews.json"
@@ -31,8 +33,11 @@ EPS_ROUNDING_PER_SHARE = Decimal("0.006")
 SHARE_SCALES = (Decimal(1), Decimal(1000), Decimal(1000000))
 CASH_RELATIVE_TOLERANCE = Decimal("0.02")
 CASH_ABSOLUTE_TOLERANCE = Decimal("50000000")
-BALANCE_RELATIVE_TOLERANCE = Decimal("0.02")
+# The threshold of a large error (project-principles.md, 5.1): a planted error of 10%
+# in equity is caught in 87% of the checked periods.
+BALANCE_RELATIVE_TOLERANCE = Decimal("0.05")
 BALANCE_ABSOLUTE_TOLERANCE = Decimal("50000000")
+SHARES_RELATIVE_TOLERANCE = Decimal("0.05")
 
 DILUTED_SHARES = (
     "WeightedAverageNumberOfDilutedSharesOutstanding",
@@ -77,9 +82,6 @@ DISCONTINUED_CASH = (
 DISCONTINUED_CASH_TOTAL = ("NetCashProvidedByUsedInDiscontinuedOperations",)
 ASSETS = ("Assets",)
 LIABILITIES = ("Liabilities",)
-EQUITY_WITH_NONCONTROLLING = (
-    "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
-)
 NONCONTROLLING = ("MinorityInterest",)
 TEMPORARY_EQUITY = (
     "RedeemableNoncontrollingInterestEquityCarryingAmount",
@@ -87,6 +89,8 @@ TEMPORARY_EQUITY = (
     "TemporaryEquityCarryingAmountAttributableToParent",
     "TemporaryEquityCarryingAmountAttributableToNoncontrollingInterest",
 )
+# The reviewed metrics and the two automatic measures their checks compare with.
+CHECKED_METRICS = (*METRIC_NAMES, "shares_diluted", "preferred_dividends")
 TAGS = {
     *DILUTED_SHARES,
     *INCOME_TO_COMMON,
@@ -101,7 +105,6 @@ TAGS = {
     *DISCONTINUED_CASH_TOTAL,
     *ASSETS,
     *LIABILITIES,
-    *EQUITY_WITH_NONCONTROLLING,
     *NONCONTROLLING,
     *TEMPORARY_EQUITY,
 }
@@ -255,13 +258,15 @@ def check_balance(equity, facts, accession, end):
 
     A value served from a later filing's equity statement often has no balance sheet
     there, so any filing with both totals may confirm it. Returns 0 when one does, the
-    smallest residual otherwise, or None when no filing reports both totals.
+    smallest residual otherwise, or None when no filing reports both totals. The value's
+    own filing comes alone when it has a balance sheet: another filing's restated
+    numbers must not excuse it.
     """
     filings = filings_with_balance_totals(facts, end)
     if not filings:
         return None
     if accession in filings:
-        filings = [accession, *filings]
+        filings = [accession]
     deviations = [balance_deviation(equity, facts, filing, end) for filing in filings]
     return min(deviations)
 
@@ -277,12 +282,9 @@ def balance_deviation(equity, facts, accession, end):
     ]
     # Filers repeat one amount under several tags, so each distinct amount counts once.
     temporary = sum({part for part in temporary_parts if part is not None}, Decimal(0))
-    with_noncontrolling = filing_value(
-        facts, EQUITY_WITH_NONCONTROLLING, accession, None, end
-    )
+    # Every candidate contains the served equity. Comparing with the filing's own group
+    # equity tag instead made this sum true whatever was served (W24).
     bases = [equity, equity + (noncontrolling or Decimal(0))]
-    if with_noncontrolling is not None:
-        bases.append(with_noncontrolling)
     candidates = []
     for base in bases:
         candidates.append(net_assets - base)
@@ -294,6 +296,24 @@ def balance_deviation(equity, facts, accession, end):
     if abs(residual) <= tolerance:
         return Decimal(0)
     return percent_of(residual, equity)
+
+
+def check_shares(eps, shares, net_income, preferred_dividends):
+    """Compare EPS x shares with served income; also the only test of served net income.
+
+    Both inputs share one split basis, so the product does not depend on later splits.
+    Returns the deviation in percent of income, 0 when within tolerance.
+    """
+    income = net_income - (preferred_dividends or Decimal(0))
+    deviation = abs(eps * shares - income)
+    tolerance = max(
+        abs(income) * SHARES_RELATIVE_TOLERANCE,
+        EPS_ABSOLUTE_TOLERANCE,
+        shares * EPS_ROUNDING_PER_SHARE,
+    )
+    if deviation <= tolerance:
+        return Decimal(0)
+    return percent_of(deviation, income)
 
 
 def check_period(period, facts):
@@ -311,6 +331,15 @@ def check_period(period, facts):
             eps_cell["accession"],
             start,
             end,
+        )
+    shares_cell = period["metrics"].get("shares_diluted")
+    if eps_cell and income_cell and shares_cell and eps_cell["eps_basis"] != "basic":
+        dividends_cell = period["metrics"].get("preferred_dividends")
+        results["shares_income"] = check_shares(
+            eps_cell["value"],
+            shares_cell["value"],
+            income_cell["value"],
+            dividends_cell["value"] if dividends_cell else None,
         )
     cash_cell = period["metrics"].get("operating_cash_flow")
     if cash_cell:
@@ -356,7 +385,7 @@ def separate_reviewed_flags(flags, reviews):
 
 def served_periods(connection):
     """The latest version of every ready cell, grouped by company and fiscal period."""
-    from sqlalchemy import text
+    from sqlalchemy import bindparam, text
 
     rows = (
         connection.execute(
@@ -365,9 +394,10 @@ def served_periods(connection):
                    co.ticker, v.metric, v.period_start, v.period_end, v.value,
                    v.accession, v.status, v.details
             FROM annual_metric_versions v JOIN companies co ON co.id = v.company_id
+            WHERE v.metric IN :metrics
             ORDER BY v.company_id, v.period_start, v.period_end, v.metric,
                      v.known_from DESC
-        """)
+        """).bindparams(bindparam("metrics", CHECKED_METRICS, expanding=True))
         )
         .mappings()
         .all()

@@ -119,6 +119,10 @@ def run_command(args):
         from .document_check import check_documents
 
         result = check_documents(fetch_missing=args.fetch)
+    elif args.command == "check-automatic":
+        from .document_check import check_automatic
+
+        result = check_automatic(fetch_missing=args.fetch)
     elif args.command == "control-documents":
         from .document_check import control_documents
 
@@ -168,6 +172,7 @@ def main():
             "import-sec",
             "build-history",
             "check-documents",
+            "check-automatic",
             "control-documents",
             "check-identities",
             "inspect-db",

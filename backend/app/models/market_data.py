@@ -50,6 +50,7 @@ class FinancialFact(Base):
         UniqueConstraint(
             "company_id",
             "source_cik",
+            "metric",
             "taxonomy",
             "tag",
             "unit",

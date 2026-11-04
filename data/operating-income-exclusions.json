@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "method": "Companies whose OperatingIncomeLoss tag holds a sum of segments or an adjusted measure instead of a company-wide figure. The cell stays empty because the company reports no such figure and no reliable value exists. The source facts stay stored. A rule without facts stops the history build.",
+  "exclusions": [
+    {
+      "ticker": "AFL",
+      "evidence": "The tag equals Pretax operating earnings (2015-2017) and Pretax adjusted earnings (2018-2022), measures that exclude investment results."
+    },
+    {
+      "ticker": "DIS",
+      "evidence": "The tag equals Total segment operating income, before corporate costs."
+    },
+    {
+      "ticker": "ELV",
+      "evidence": "The tag equals Reportable segments operating gain."
+    },
+    {
+      "ticker": "ETN",
+      "evidence": "The tag equals Total segment operating profit, before corporate costs."
+    },
+    {
+      "ticker": "HON",
+      "evidence": "The tag equals Total Segment profit, before corporate costs."
+    },
+    {
+      "ticker": "MET",
+      "evidence": "The tag equals Total consolidated adjusted earnings, an adjusted measure."
+    },
+    {
+      "ticker": "PH",
+      "period_end_to": "2017-06-30",
+      "evidence": "Through fiscal 2017 the tag equals Total segment operating income. From 2018 it equals Income before interest expense and other expense, a company-wide row."
+    },
+    {
+      "ticker": "SHW",
+      "evidence": "The tag equals Segment profit, summed over the reportable segments."
+    },
+    {
+      "ticker": "SLB",
+      "evidence": "The tag equals Pretax operating income or Pretax segment operating income of the segment table, before charges."
+    },
+    {
+      "ticker": "TJX",
+      "evidence": "The tag equals the total of the segment profit table."
+    }
+  ]
+}

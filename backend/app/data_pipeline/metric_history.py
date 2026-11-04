@@ -2,9 +2,16 @@
 
 import hashlib
 
-from sqlalchemy import delete, insert, select, text
+from sqlalchemy import bindparam, delete, insert, select, text
 
 from app import eps_splits
+from app.annual_financials import METRIC_NAMES, reviewed_facts_query
+from app.automatic_metrics import (
+    AUTOMATIC_METRICS,
+    automatic_versions,
+    operating_income_exclusions,
+    share_scale_corrections,
+)
 from app.fiscal_periods import fiscal_rules
 from app.metric_history import company_versions, version_reviews
 from app.models import AnnualMetricVersion, Company, FinancialFact
@@ -18,8 +25,10 @@ CANONICAL_ROWS = text("""
            v.accession, v.form, v.status, v.confirmation, v.value,
            CAST(v.details AS TEXT)
     FROM annual_metric_versions v JOIN companies c ON c.id = v.company_id
+    WHERE v.metric IN :metrics
     ORDER BY c.ticker, v.period_start, v.period_end, v.metric, v.known_from
-""")
+""").bindparams(bindparam("metrics", expanding=True))
+ALL_METRICS = (*METRIC_NAMES, *AUTOMATIC_METRICS)
 
 
 def version_row(company_id, version):
@@ -39,11 +48,15 @@ def version_row(company_id, version):
     }
 
 
-def history_fingerprint(connection):
-    """SHA-256 of the whole table in a fixed order; equal content gives equal output."""
+def history_fingerprint(connection, metrics=ALL_METRICS):
+    """SHA-256 of the chosen metrics in a fixed order; equal content gives equal output.
+
+    With METRIC_NAMES it proves that the automatic measures left the reviewed ones
+    untouched: the result stays equal to the fingerprint from before they existed.
+    """
     digest = hashlib.sha256()
     rows = 0
-    for row in connection.execute(CANONICAL_ROWS):
+    for row in connection.execute(CANONICAL_ROWS, {"metrics": list(metrics)}):
         fields = []
         for field in row:
             if field is None:
@@ -63,6 +76,8 @@ def rebuild_history(connection):
     # Read through the module so the API and the build always use the same policy.
     split_policy = eps_splits.split_rules()
     reviews = version_reviews()
+    scale_corrections = share_scale_corrections()
+    income_exclusions = operating_income_exclusions()
     companies = connection.execute(
         select(Company.id, Company.ticker).where(Company.cik.is_not(None))
     ).all()
@@ -70,16 +85,30 @@ def rebuild_history(connection):
     statuses = {}
     confirmations = {}
     for company_id, ticker in sorted(companies, key=lambda company: company.ticker):
-        facts = (
+        facts = connection.execute(reviewed_facts_query(company_id)).mappings().all()
+        versions = company_versions(ticker, facts, split_policy, period_rules, reviews)
+        automatic_facts = (
             connection.execute(
-                select(FinancialFact.__table__).where(
-                    FinancialFact.company_id == company_id
+                select(FinancialFact.__table__)
+                .where(
+                    FinancialFact.company_id == company_id,
+                    FinancialFact.metric.in_(AUTOMATIC_METRICS),
                 )
+                .order_by(FinancialFact.id)
             )
             .mappings()
             .all()
         )
-        versions = company_versions(ticker, facts, split_policy, period_rules, reviews)
+        periods = {(version.period_start, version.period_end) for version in versions}
+        versions += automatic_versions(
+            ticker,
+            automatic_facts,
+            periods,
+            split_policy,
+            period_rules,
+            scale_corrections,
+            income_exclusions,
+        )
         rows = [version_row(company_id, version) for version in versions]
         for row in rows:
             statuses[row["status"]] = statuses.get(row["status"], 0) + 1
@@ -90,12 +119,15 @@ def rebuild_history(connection):
                 insert(AnnualMetricVersion), rows[offset : offset + 1000]
             )
     count, fingerprint = history_fingerprint(connection)
+    reviewed_count, reviewed_fingerprint = history_fingerprint(connection, METRIC_NAMES)
     return {
         "companies": len(companies),
         "versions": count,
         "statuses": statuses,
         "confirmations": confirmations,
         "fingerprint": fingerprint,
+        "reviewed_versions": reviewed_count,
+        "reviewed_fingerprint": reviewed_fingerprint,
     }
 
 

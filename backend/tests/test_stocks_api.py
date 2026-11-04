@@ -542,6 +542,116 @@ class StockApiTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "1 changed"):
                     verify_stored_facts(connection)
 
+    def test_other_metrics_stay_out_of_the_reviewed_views(self):
+        """Rows of new measures must not change the table, its dates or its checks.
+
+        The measures share the storage tables. Without a filter, a capex fact creates
+        a period of its own (JCI, FY2015) and an earlier filing moves the date on which
+        a reviewed value counts as known.
+        """
+        from app.annual_financials import METRIC_NAMES
+        from app.data_pipeline.metric_history import history_fingerprint
+        from app.models import AnnualMetricVersion, FinancialFact
+
+        self.insert_restated_income()
+        self.build_history()
+        as_of_dates = ("2018-02-27", "2019-02-08")
+
+        def reviewed_views():
+            with self.database.connect() as connection:
+                fingerprint = history_fingerprint(connection, METRIC_NAMES)
+            return (
+                self.client.get("/stocks/AAPL/financials/annual").json(),
+                [self.annual_as_of(day).json() for day in as_of_dates],
+                fingerprint,
+            )
+
+        before = reviewed_views()
+
+        capex = {
+            "metric": "capex",
+            "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+            "company_id": 1,
+        }
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                [
+                    # A period no reviewed metric has.
+                    reported_fact(
+                        **capex,
+                        period_start=date(2016, 1, 1),
+                        period_end=date(2016, 12, 31),
+                        filed=date(2017, 2, 1),
+                        accession="capex-2016",
+                    ),
+                    # Filed before the first report of the reviewed period.
+                    reported_fact(
+                        **capex,
+                        period_start=date(2017, 1, 1),
+                        period_end=date(2017, 12, 30),
+                        filed=date(2018, 1, 15),
+                        accession="capex-2017",
+                    ),
+                ],
+            )
+        self.build_history()
+
+        self.assertEqual(reviewed_views(), before)
+
+        # The capex of the shared period is stored as a version of its own, and the
+        # view stays the same with it; the period no reviewed metric has gets nothing.
+        with self.database.connect() as connection:
+            automatic = (
+                connection.execute(
+                    AnnualMetricVersion.__table__.select().where(
+                        AnnualMetricVersion.metric == "capex"
+                    )
+                )
+                .mappings()
+                .all()
+            )
+        self.assertEqual(
+            [(row["accession"], row["confirmation"]) for row in automatic],
+            [("capex-2017", "automatic")],
+        )
+
+    def test_reviewed_facts_have_a_fixed_order(self):
+        """The stored history must not depend on how the database reads the rows.
+
+        Real case (04.11.2026): a rebuild from zero listed PM's two revenue sources in
+        the other order after the metric filter changed how the rows were read.
+        """
+        from app.annual_financials import reviewed_facts_query
+
+        query = str(reviewed_facts_query(1))
+
+        self.assertIn("ORDER BY financial_facts.id", query)
+
+    def test_one_source_fact_may_serve_two_metrics(self):
+        """A preferred dividend tag is a net income position and a measure of its own.
+
+        208 stored facts have such a tag under net_income, so the key must include the
+        metric, or importing the measure would collide with them.
+        """
+        from app.data_pipeline.sec import fact_differences
+        from app.models import FinancialFact
+
+        shared = {"tag": "PreferredStockDividendsIncomeStatementImpact"}
+        supporting = reported_fact(**shared)
+        measure = reported_fact(**shared, metric="preferred_dividends")
+
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                [dict(fact, company_id=1) for fact in (supporting, measure)],
+            )
+
+        differences = fact_differences([supporting, measure], [supporting])
+        self.assertEqual(len(differences["missing"]), 1)
+        self.assertEqual(differences["missing"][0][1], "preferred_dividends")
+        self.assertEqual(differences["unexpected"], [])
+
     def test_current_cell_status_uses_the_latest_version(self):
         """An unconfirmed earlier version is allowed; an unready latest one is not."""
         from app.data_pipeline.metric_history import current_cell_statuses

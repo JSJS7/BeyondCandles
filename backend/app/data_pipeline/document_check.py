@@ -22,6 +22,8 @@ from decimal import Decimal, InvalidOperation
 from html import unescape
 from html.parser import HTMLParser
 
+from app.annual_financials import METRIC_NAMES
+from app.automatic_metrics import largest_tolerated_difference
 from app.data_pipeline.sec import fetch
 from app.data_pipeline.sec_cache import user_agent
 from app.data_pipeline.source_files import ROOT, read_json, write_json
@@ -31,6 +33,7 @@ REVIEWS = ROOT / "data/document-check-reviews.json"
 REPORT = ROOT / "data/processed/document-check-report.json"
 RESULTS = ROOT / "data/processed/document-check-results.csv"
 CONTROL_REPORT = ROOT / "data/processed/document-check-control.json"
+AUTOMATIC_REPORT = ROOT / "data/processed/automatic-check-report.json"
 EXAMPLES_PER_METRIC = 40
 SMALLEST_PLANTED_AMOUNT = Decimal(100)
 
@@ -66,6 +69,14 @@ ROW_LABELS = {
     "equity": r"equity|deficit|deficiency|investment|capital|balance|net assets|end of"
     r"|^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d",
     "operating_cash_flow": r"operat",
+}
+AUTOMATIC_ROW_LABELS = {
+    "assets": r"assets",
+    "capex": r"capital|purchase|addition|property|plant|equipment|productive assets",
+    "operating_income": r"operat|income from|earnings from|profit|income \(loss\)|income$",
+    "shares_diluted": r"dilut|shares|average|units",
+    "preferred_value": r"preferred|preference",
+    "preferred_dividends": r"preferred|preference|dividend",
 }
 # Rows that contain a metric's words but report something else.
 EXCLUDED_ROW_LABELS = {
@@ -562,6 +573,31 @@ class Filing:
                     return best
         return best
 
+    def closest_in_period(self, value, task, label_pattern):
+        """The number nearest to a value among rows of this label and period, or None."""
+        target = abs(value)
+        closest = None
+        for number_in_cell, positions in self.cells_by_value.items():
+            for scale in AMOUNT_SCALES:
+                candidate = abs(number_in_cell) * scale
+                if closest is not None:
+                    if abs(candidate - target) >= abs(closest - target):
+                        continue
+                for document_index, table_index, row_index, column_index in positions:
+                    table = self.documents[document_index]["tables"][table_index]
+                    cells = table[row_index]
+                    label_at = label_index(cells)
+                    label = cells[label_at].lower() if label_at is not None else ""
+                    if not re.search(label_pattern, label):
+                        continue
+                    previous = self.previous_table(document_index, table_index)
+                    if period_fits(
+                        task, table, row_index, column_index, cells, previous
+                    ):
+                        closest = candidate
+                        break
+        return closest
+
     def rows_with_value(self, value, scales, task):
         """(document, table, row) of every occurrence of the value in its period."""
         rows = set()
@@ -653,6 +689,133 @@ def check_version(task, filing):
     return f"queue_level_{direct[0]}", direct[1]
 
 
+def check_automatic_version(task, filing):
+    """Find an automatic value in its report: exact, within the 5.1 tolerance, or not."""
+    if filing is None:
+        return "queue_no_document"
+    if not filing.documents:
+        return "queue_no_primary_document"
+    value = Decimal(task["value"])
+    pattern = AUTOMATIC_ROW_LABELS[task["metric"]]
+    for candidate in (value, -value):
+        if filing.find(candidate, AMOUNT_SCALES, task, pattern, None)[0] == FULL_MATCH:
+            return "pass_direct"
+    closest = filing.closest_in_period(value, task, pattern)
+    if closest is None:
+        return "queue_no_row"
+    tolerance = largest_tolerated_difference(task["metric"], value, task["revenue"])
+    if abs(closest - abs(value)) <= tolerance:
+        return "pass_within_tolerance"
+    return "queue_other_number"
+
+
+def automatic_tasks(connection):
+    """Every automatic version with what its check needs; a zero has no row to find."""
+    from sqlalchemy import text
+
+    revenue_of_period = {
+        (row.company_id, row.period_end): row.value
+        for row in connection.execute(
+            text("""
+            SELECT DISTINCT ON (company_id, period_end) company_id, period_end, value
+            FROM annual_metric_versions
+            WHERE metric = 'revenue' AND status = 'ready'
+            ORDER BY company_id, period_end, known_from DESC
+        """)
+        )
+    }
+    rows = connection.execute(
+        text("""
+        SELECT v.company_id, co.ticker, v.metric, v.accession, v.form, v.known_from,
+               v.period_start, v.period_end, v.value, v.details
+        FROM annual_metric_versions v JOIN companies co ON co.id = v.company_id
+        WHERE v.confirmation = 'automatic' AND v.value <> 0
+        ORDER BY co.ticker, v.metric, v.period_end, v.known_from
+    """)
+    ).mappings()
+    tasks = []
+    for row in rows:
+        share_basis = row["details"].get("eps_share_basis") or {}
+        tasks.append(
+            {
+                "ticker": row["ticker"],
+                "cik": int(row["details"]["selected_sources"][0]["source_cik"]),
+                "metric": row["metric"],
+                "tag": row["details"].get("selected_tag"),
+                "form": row["form"],
+                "accession": row["accession"],
+                "known_from": str(row["known_from"]),
+                "period_start": str(row["period_start"]),
+                "period_end": str(row["period_end"]),
+                # As the report states it, before split normalisation.
+                "value": str(share_basis.get("reported_value") or row["value"]),
+                "reported_eps": None,
+                "revenue": revenue_of_period.get(
+                    (row["company_id"], row["period_end"])
+                ),
+            }
+        )
+    return tasks
+
+
+def check_automatic(fetch_missing=False):
+    """Screen automatic values against their reports; nothing here needs a review file.
+
+    The values are taken by rule, so this reports how many stand in their own report
+    and lists the others for the rare look over the thresholds of project-principles 5.1.
+    """
+    from app.database import engine
+
+    with engine.connect() as connection:
+        tasks = automatic_tasks(connection)
+    groups = group_by_filing(tasks)
+    fetched = 0
+    if fetch_missing:
+        for accession, group in groups.items():
+            if not extract_path(accession).exists():
+                fetch_extract(group[0]["cik"], accession, group[0]["form"])
+                fetched += 1
+    outcomes = []
+    for accession, group in groups.items():
+        filing = load_filing(accession)
+        for task in group:
+            outcomes.append((task, check_automatic_version(task, filing)))
+    passed = [task for task, verdict in outcomes if verdict.startswith("pass")]
+    queued = [task for task, verdict in outcomes if not verdict.startswith("pass")]
+    elsewhere = {id(task) for task in confirmed_elsewhere(queued, passed)}
+    verdicts = defaultdict(Counter)
+    queue = []
+    for task, verdict in outcomes:
+        if id(task) in elsewhere:
+            verdict = "pass_same_value_in_other_filing"
+        verdicts[task["metric"]][verdict] += 1
+        if not verdict.startswith("pass"):
+            queue.append(
+                {
+                    **{
+                        key: task[key]
+                        for key in task
+                        if key not in ("cik", "reported_eps")
+                    },
+                    "revenue": str(task["revenue"]),
+                    "verdict": verdict,
+                }
+            )
+    result = {
+        "status": "screened",
+        "versions": len(tasks),
+        "filings": len(groups),
+        "extracts_fetched": fetched,
+        "verdicts": {
+            metric: dict(sorted(counts.items()))
+            for metric, counts in sorted(verdicts.items())
+        },
+        "queue": len(queue),
+    }
+    write_json(AUTOMATIC_REPORT, {**result, "queue": queue})
+    return result
+
+
 def extract_path(accession):
     return EXTRACTS / f"{accession}.json.gz"
 
@@ -717,7 +880,7 @@ def fetch_extract(cik, accession, form):
 
 def version_tasks(connection):
     """Every served version with what its check needs; newest filings are not preferred."""
-    from sqlalchemy import text
+    from sqlalchemy import bindparam, text
 
     rows = (
         connection.execute(
@@ -725,9 +888,9 @@ def version_tasks(connection):
             SELECT co.ticker, co.cik, v.metric, v.confirmation, v.form, v.accession,
                    v.known_from, v.period_start, v.period_end, v.value, v.details
             FROM annual_metric_versions v JOIN companies co ON co.id = v.company_id
-            WHERE v.status = 'ready'
+            WHERE v.status = 'ready' AND v.metric IN :metrics
             ORDER BY co.ticker, v.metric, v.period_end, v.known_from
-        """)
+        """).bindparams(bindparam("metrics", METRIC_NAMES, expanding=True))
         )
         .mappings()
         .all()

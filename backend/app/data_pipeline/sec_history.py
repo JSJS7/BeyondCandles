@@ -6,6 +6,7 @@ from datetime import date, datetime, timezone
 from decimal import Decimal
 from itertools import pairwise
 
+from app.automatic_metrics import AUTOMATIC_METRICS
 from app.data_pipeline.sec import CACHE, WINDOW_YEARS, extract_facts
 from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.source_files import ROOT, read_json, write_json
@@ -110,8 +111,8 @@ def read_predecessor(source, index):
     return body
 
 
-def prepare_company_facts(entry, body, history, index):
-    """Retain all source facts and separately mark membership in the approved history."""
+def company_sources(entry, body, history, index):
+    """The company's SEC facts by issuer: its own and those of reviewed predecessors."""
     sources = [(entry["cik"], body)]
     if history:
         from .sec_catalogue import verify_reference
@@ -120,6 +121,27 @@ def prepare_company_facts(entry, body, history, index):
             verify_reference(evidence)
         for source in history.get("predecessors", []):
             sources.append((source["cik"], read_predecessor(source, index)))
+    return sources
+
+
+def prepare_automatic_facts(entry, body, history, index):
+    """Source facts of the automatic measures, kept apart from the reviewed metrics.
+
+    Rule reviews and audits call prepare_company_facts and must not see these facts.
+    """
+    result = []
+    for cik, response in company_sources(entry, body, history, index):
+        facts, _ = extract_facts(response, metrics=AUTOMATIC_METRICS)
+        for fact in facts:
+            fact["source_cik"] = cik
+            fact["history_eligible"] = history_eligible(fact, entry["cik"], history)
+            result.append(fact)
+    return result
+
+
+def prepare_company_facts(entry, body, history, index):
+    """Retain all source facts and separately mark membership in the approved history."""
+    sources = company_sources(entry, body, history, index)
     from .net_income import supporting_facts
 
     result = []
