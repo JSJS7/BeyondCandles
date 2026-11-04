@@ -5,9 +5,11 @@ from datetime import date
 from decimal import Decimal
 
 from app.automatic_metrics import (
+    AUTOMATIC_METRICS,
     automatic_versions,
     largest_tolerated_difference,
     preferred_deduction,
+    value_corrections,
 )
 
 PERIOD = (date(2022, 1, 1), date(2022, 12, 31))
@@ -409,6 +411,120 @@ class PreferredValueTests(unittest.TestCase):
             [(version.known_from, version.value.value) for version in versions],
             [(date(2023, 2, 15), Decimal("6")), (date(2024, 2, 15), Decimal("5795"))],
         )
+
+
+def value_correction(**changes):
+    correction = {
+        "ticker": "TEST",
+        "metric": "capex",
+        "period_end": str(PERIOD[1]),
+        "value": "5691300000",
+        "known_from": "2018-02-23",
+        "accession": "report",
+        "form": "10-K",
+        "source_cik": "0000000001",
+        "unit": "USD",
+        "finding": "W28",
+        "sources": [
+            {
+                "taxonomy": "statement",
+                "tag": "Construction Expenditures",
+                "value": "5691300000",
+            }
+        ],
+    }
+    correction.update(changes)
+    return correction
+
+
+class ValueCorrectionTests(unittest.TestCase):
+    """A listed cell shows the value its report states, not what its tag holds (W28)."""
+
+    CAPEX_TAG = "PaymentsToAcquirePropertyPlantAndEquipment"
+
+    def corrected(self, facts, corrections):
+        versions = automatic_versions(
+            "TEST",
+            facts,
+            (PERIOD,),
+            NO_SPLITS,
+            NO_ALIASES,
+            value_corrections=corrections,
+        )
+        return [version for version in versions if version.metric == "capex"]
+
+    def test_every_wrong_tag_version_gives_way_to_one_corrected_version(self):
+        # AEP tagged 6.8 million and later zero against 5,691.3 million in its statement.
+        facts = [
+            fact("capex", self.CAPEX_TAG, "6800000", date(2018, 2, 23), "first"),
+            fact("capex", self.CAPEX_TAG, "0", date(2020, 2, 20), "later"),
+        ]
+
+        versions = self.corrected(facts, [value_correction()])
+
+        self.assertEqual(len(versions), 1)
+        self.assertEqual(versions[0].value.value, Decimal("5691300000"))
+        self.assertEqual(versions[0].known_from, date(2018, 2, 23))
+        self.assertEqual(versions[0].accession, "report")
+
+    def test_cell_without_any_tag_gets_the_value_of_its_report(self):
+        # LIN's first true assets come from the predecessor, whose facts are not eligible.
+        versions = self.corrected([], [value_correction()])
+
+        self.assertEqual(versions[0].value.value, Decimal("5691300000"))
+
+    def test_components_are_kept_and_described_as_a_calculation(self):
+        # URI: the tag held non-rental equipment; capex is both rows of the statement.
+        correction = value_correction(
+            value="1636000000",
+            sources=[
+                {"taxonomy": "statement", "tag": "Rental", "value": "1534000000"},
+                {"taxonomy": "statement", "tag": "Non-rental", "value": "102000000"},
+            ],
+        )
+
+        metric = self.corrected([], [correction])[0].value
+
+        self.assertEqual(metric.calculation, "Rental + Non-rental")
+        self.assertEqual(len(metric.selected_sources), 2)
+        self.assertIsNone(metric.selected_tag)
+
+    def test_components_that_do_not_add_up_stop_the_build(self):
+        # A typing error in the list must not become a served value.
+        with self.assertRaises(ValueError):
+            self.corrected([], [value_correction(value="1")])
+
+    def test_rule_without_its_period_stops_the_build(self):
+        # The period disappearing means the rule's evidence no longer applies.
+        with self.assertRaises(ValueError):
+            self.corrected([], [value_correction(period_end="2021-12-31")])
+
+    def test_other_companies_and_other_measures_ignore_the_rule(self):
+        facts = [fact("capex", self.CAPEX_TAG, "5")]
+
+        other_company = self.corrected(facts, [value_correction(ticker="AEP")])
+        other_measure = automatic_versions(
+            "TEST",
+            [fact("assets", "Assets", "7"), *facts],
+            (PERIOD,),
+            NO_SPLITS,
+            NO_ALIASES,
+            value_corrections=[value_correction()],
+        )
+
+        self.assertEqual(other_company[0].value.value, Decimal(5))
+        assets = [item for item in other_measure if item.metric == "assets"]
+        self.assertEqual(assets[0].value.value, Decimal(7))
+
+    def test_listed_corrections_add_up_and_name_known_measures(self):
+        # The real file is read by every rebuild, so an error here stops the data build.
+        corrections = value_corrections()
+
+        self.assertTrue(corrections)
+        for correction in corrections:
+            total = sum(Decimal(source["value"]) for source in correction["sources"])
+            self.assertEqual(total, Decimal(correction["value"]), correction["ticker"])
+            self.assertIn(correction["metric"], AUTOMATIC_METRICS)
 
 
 class OperatingIncomeExclusionTests(unittest.TestCase):

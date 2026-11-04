@@ -24,6 +24,9 @@ SCALE_CORRECTIONS_PATH = (
 OPERATING_INCOME_EXCLUSIONS_PATH = (
     Path(__file__).resolve().parents[2] / "data/operating-income-exclusions.json"
 )
+VALUE_CORRECTIONS_PATH = (
+    Path(__file__).resolve().parents[2] / "data/automatic-value-corrections.json"
+)
 CONFIRMED_AUTOMATIC = "automatic"
 AUTOMATIC_METRICS = {
     "shares_diluted": (
@@ -83,6 +86,11 @@ def operating_income_exclusions():
     """Companies whose operating income tag is not a company-wide figure."""
     policy = load_policy(OPERATING_INCOME_EXCLUSIONS_PATH, "operating-income")
     return policy["exclusions"]
+
+
+def value_corrections():
+    """Cells whose tag is wrong above the thresholds, with the value their report states."""
+    return load_policy(VALUE_CORRECTIONS_PATH, "value-corrections")["corrections"]
 
 
 def without_excluded_operating_income(facts, ticker, exclusions):
@@ -317,6 +325,77 @@ def facts_by_cell(facts, periods, period_rules):
     return cells
 
 
+def corrected_version(correction, period):
+    """The one version of a listed cell; its components must add up to the value."""
+    start, end = period
+    value = Decimal(correction["value"])
+    known_from = date.fromisoformat(correction["known_from"])
+    sources = [
+        FilingValue(
+            source_cik=correction["source_cik"],
+            taxonomy=source["taxonomy"],
+            tag=source["tag"],
+            unit=correction["unit"],
+            value=Decimal(source["value"]),
+            period_start=end if correction["metric"] in BALANCE_METRICS else start,
+            period_end=end,
+            filed=known_from,
+            accession=correction["accession"],
+            form=correction["form"],
+        )
+        for source in correction["sources"]
+    ]
+    if sum(source.value for source in sources) != value:
+        raise ValueError(f"Value correction does not add up: {correction}")
+    is_calculated = len(sources) > 1
+    metric = AnnualMetric(
+        status="ready",
+        value=value,
+        variants=[],
+        selected_tag=None if is_calculated else sources[0].tag,
+        selected_sources=sources,
+        calculation=(
+            " + ".join(source.tag for source in sources) if is_calculated else None
+        ),
+        selection_note=(
+            "Taken from the report, because the tag holds another number "
+            f"({correction['finding']})."
+        ),
+    )
+    return MetricVersion(
+        period_start=start,
+        period_end=end,
+        metric=correction["metric"],
+        known_from=known_from,
+        accession=correction["accession"],
+        form=correction["form"],
+        confirmation=CONFIRMED_AUTOMATIC,
+        value=metric,
+    )
+
+
+def with_value_corrections(versions, ticker, periods, corrections):
+    """Replace every version of a listed cell; a rule without its period stops the build."""
+    result = list(versions)
+    for correction in corrections:
+        if correction["ticker"] != ticker:
+            continue
+        matching = [
+            period for period in periods if str(period[1]) == correction["period_end"]
+        ]
+        if len(matching) != 1:
+            raise ValueError(f"Value correction matches no period: {correction}")
+        period = matching[0]
+        result = [
+            version
+            for version in result
+            if version.metric != correction["metric"]
+            or (version.period_start, version.period_end) != period
+        ]
+        result.append(corrected_version(correction, period))
+    return result
+
+
 def automatic_versions(
     ticker,
     facts,
@@ -325,6 +404,7 @@ def automatic_versions(
     period_rules,
     scale_corrections=(),
     income_exclusions=(),
+    value_corrections=(),
 ):
     """Build every automatic cell history of one company for its reviewed periods."""
     versions = []
@@ -377,4 +457,4 @@ def automatic_versions(
                         value=cell,
                     )
                 )
-    return versions
+    return with_value_corrections(versions, ticker, periods, value_corrections)

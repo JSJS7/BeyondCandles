@@ -68,11 +68,11 @@ EPS is reported), *Continuing ops* (no whole-company cash flow is reported), *Sp
   Berkshire Hathaway). A count far below the company's largest is dropped as a scale error of the
   tag. Where the first report's table shows the same digits in a stated unit, the unit is corrected.
 - **Share count and equity can differ in scope:** a diluted count can include units exchangeable
-  into shares while equity excludes their holders, which overstates price-to-book (Blackstone
-  2015–2018).
+  into shares while equity excludes their holders. Blackstone's 2015, 2016 and 2018 therefore use its
+  basic common units, as its diluted count does in the other years.
 - **Capital expenditure:** banks and most real estate companies have none. A tag can hold only part
-  of the cash spent, so the value can be far too low and the free cash flow margin too high
-  (American Electric Power; United Rentals before 2021). These values stay as tagged.
+  of the cash spent; where we found this, the value comes from the cash flow statement instead
+  (American Electric Power; United Rentals, purchases of rental and other equipment).
 - **Operating income:** many companies have no such row, including banks. It stays empty where the
   tag holds a sum of segments or an adjusted measure (`data/operating-income-exclusions.json`).
   That list comes from a screen of row labels, so a sum of segments under a plain label can remain.
@@ -157,9 +157,11 @@ standard.
 - **Below the thresholds** the source value stays, so the data contains known small vendor errors.
 - **Missing values:** a missing price session is filled, because all companies share one calendar. A
   missing financial value stays empty.
-- **Automatic measures** are corrected only by a rule that applies to all companies, for a wrong
-  company, scale or period. A tag that holds a different quantity is described here as a class, and the
-  cell stays as tagged or, for the operating income list above, empty.
+- **Automatic measures** are not reviewed value by value. A value found wrong above these thresholds
+  is replaced by the figure its report states, listed with its evidence in
+  `data/automatic-value-corrections.json`. Where the company reports no such figure, the cell stays empty
+  (the operating income list above). More such cases may remain, because we do not search for them
+  one company at a time.
 
 ## How the data was checked
 

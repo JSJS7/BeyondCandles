@@ -11,6 +11,7 @@ from app.automatic_metrics import (
     automatic_versions,
     operating_income_exclusions,
     share_scale_corrections,
+    value_corrections,
 )
 from app.fiscal_periods import fiscal_rules
 from app.metric_history import company_versions, version_reviews
@@ -78,6 +79,7 @@ def rebuild_history(connection):
     reviews = version_reviews()
     scale_corrections = share_scale_corrections()
     income_exclusions = operating_income_exclusions()
+    corrections = value_corrections()
     companies = connection.execute(
         select(Company.id, Company.ticker).where(Company.cik.is_not(None))
     ).all()
@@ -108,6 +110,7 @@ def rebuild_history(connection):
             period_rules,
             scale_corrections,
             income_exclusions,
+            corrections,
         )
         rows = [version_row(company_id, version) for version in versions]
         for row in rows:
