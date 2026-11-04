@@ -149,8 +149,12 @@ of writing all 11,005 values (2,201 periods × 5 metrics) have a reviewed value.
   so price-to-book and ROE of common shareholders must not be read from it directly. This
   goes beyond banks: preferred stock reached about 53% of equity at Occidental (2020), 47%
   at Public Storage (2025), 27% at Schwab and 20% at Digital Realty. The ratios planned for
-  the app deduct it; a company that tags no preferred stock counts as zero, so they will
-  be approximate.
+  the app deduct it. Reported balance-sheet lines are not always usable: Boeing and GE show
+  only par value, Morgan Stanley's line has no standard tag, and American Express shows none.
+  So the deduction uses the first plausible value among the standard tags, ending with
+  the liquidation preference, and rejects a value when annual preferred dividends exceed
+  25% of it. Without a value it is zero only if there are no preferred dividends or they
+  are at most 0.2% of equity; otherwise common-share P/B and ROE stay empty.
 
 ### Operating cash flow
 - **Shown:** net cash from operating activities of the **whole company**, including
@@ -256,8 +260,8 @@ under one rule for all companies:
 - **Artificial one-session jump:** over 5%.
 - **Financial value:** the difference exceeds the larger of 5% of the value and 0.5% of the
   company's annual revenue; for EPS, the larger of 5% and 2 cents. For data added later,
-  the revenue part for net income, equity and cash flow is capped at 25% of the value, so
-  a low-margin company cannot have a tolerance larger than the value itself.
+  the revenue part for every USD value is capped at 25% of the value, so a small item
+  cannot have a tolerance larger than the value itself, and share counts use 5% alone.
 - **Always:** wrong company, scale, sign, period, or data used before it was published.
 
 A reliable value comes from an SEC filing, then a company or exchange statement, then two
@@ -346,8 +350,8 @@ an audit and do not make companies comparable with each other.
   basket of the same companies, and do not read them as beating the market. Only 200
   companies; US-listed, USD only.
 - Backtest window: financials start with periods ending in 2015, so all 200 companies have
-  a known annual value only from 31 Mar 2016, and two values, needed for growth, from
-  31 Mar 2017. The FY2025 reports of 150 companies were filed after prices end
+  a known annual value only from 7 Mar 2016, and two values, needed for growth, from
+  6 Mar 2017, so a backtest starts on 31 Mar of those years. The FY2025 reports of 150 companies were filed after prices end
   (31 Dec 2025), so they cannot drive a trade in the window.
 - Annual data only. The point-in-time view (`as_of`) shows an earlier version only
   when it is confirmed; one earlier version (BK revenue for 2015 as first reported)
