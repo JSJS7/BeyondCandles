@@ -1,0 +1,113 @@
+<section class="criteria" aria-labelledby="criteria-heading">
+  <div class="criteria-header">
+    <h2 id="criteria-heading">Criteria</h2>
+    <!-- In the heading row, so that it stays in place while criteria are added below. -->
+    <div class="add-criterion">
+      <label class="visually-hidden" for="add-criterion">Add a criterion</label>
+      <select
+        #addSelect
+        id="add-criterion"
+        class="add-select"
+        [disabled]="available().length === 0"
+        (change)="add(addSelect.value); addSelect.value = ''"
+      >
+        <option value="">+ Add criterion</option>
+        @for (column of available(); track column.key) {
+          <option [value]="column.key">{{ column.label }}</option>
+        }
+      </select>
+    </div>
+    @if (views().length > 0) {
+      <button class="clear-button" type="button" (click)="cleared.emit()">Clear criteria</button>
+    }
+  </div>
+
+  @if (views().length === 0) {
+    <p class="criteria-hint">
+      Add a range for any ratio to keep only the companies inside it, for example P/E up to 20 or
+      ROE from 15%. Leave one side empty for no limit.
+    </p>
+  } @else {
+    <ul class="criteria-list">
+      @for (view of views(); track view.key) {
+        <li class="criterion">
+          <div class="criterion-head">
+            <span class="criterion-label">{{ view.label }}</span>
+            <button
+              type="button"
+              class="remove-button"
+              [attr.aria-label]="'Remove the ' + view.label + ' criterion'"
+              (click)="removed.emit(view.key)"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="range">
+            <div class="bound">
+              <input
+                #minInput
+                class="bound-input"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                placeholder="Min"
+                [id]="'criterion-min-' + view.key"
+                [attr.aria-label]="view.label + ' minimum'"
+                [attr.aria-invalid]="view.minInvalid"
+                [value]="view.min"
+                (input)="changeBound(view.key, 'min', minInput.value)"
+              />
+              <span class="unit" aria-hidden="true">{{ view.unit }}</span>
+            </div>
+            <span class="range-dash" aria-hidden="true">–</span>
+            <div class="bound">
+              <input
+                #maxInput
+                class="bound-input"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                placeholder="Max"
+                [attr.aria-label]="view.label + ' maximum'"
+                [attr.aria-invalid]="view.maxInvalid"
+                [value]="view.max"
+                (input)="changeBound(view.key, 'max', maxInput.value)"
+              />
+              <span class="unit" aria-hidden="true">{{ view.unit }}</span>
+            </div>
+          </div>
+
+          @if (view.stats; as stats) {
+            <p
+              class="criterion-stats"
+              [title]="'Based on ' + stats.count + ' companies with a value'"
+            >
+              <span
+                >Median <strong>{{ stats.median }}</strong></span
+              >
+              <span
+                >80% between <strong>{{ stats.p10 }}</strong> and
+                <strong>{{ stats.p90 }}</strong></span
+              >
+            </p>
+          }
+          <div class="criterion-notes" aria-live="polite">
+            @if (view.minInvalid || view.maxInvalid) {
+              <p class="review">Enter a plain number, for example 15 or 0.5.</p>
+            }
+            @if (view.reversed) {
+              <p class="review">The minimum is above the maximum, so no company can match.</p>
+            }
+            @if (view.leftOut > 0) {
+              <p class="muted">
+                {{ view.leftOut }} {{ view.leftOut === 1 ? 'company has' : 'companies have' }} no
+                {{ view.label }} value and {{ view.leftOut === 1 ? 'is' : 'are' }} left out.
+              </p>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

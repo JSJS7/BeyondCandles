@@ -1,8 +1,9 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HealthService } from '../../services/health.service';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',
   templateUrl: './dashboard.html',

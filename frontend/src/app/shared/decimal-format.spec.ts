@@ -1,10 +1,10 @@
 import {
-  filingIndexUrl,
   formatExact,
+  formatFixed,
   formatMillions,
   formatPerShare,
   roundDecimal,
-} from './financial-format';
+} from './decimal-format';
 
 describe('Financial value formatting', () => {
   it('keeps every reported digit in the exact form', () => {
@@ -52,11 +52,10 @@ describe('Financial value formatting', () => {
     expect(formatPerShare('1234.5')).toBe('1,234.50');
   });
 
-  it('builds the EDGAR filing folder from a CIK and an accession number', () => {
-    expect(filingIndexUrl('0000320193', '0000320193-25-000079')).toBe(
-      'https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/',
-    );
-    // Identifiers that are not EDGAR numbers produce no link rather than a broken one.
-    expect(filingIndexUrl('0000320193', 'original')).toBeNull();
+  it('rounds to a fixed number of decimals with separators and no negative zero', () => {
+    expect(formatFixed('1234.5', 2)).toBe('1,234.50');
+    expect(formatFixed('36.442357', 2)).toBe('36.44');
+    expect(formatFixed('-0.001', 2)).toBe('0.00');
+    expect(formatFixed('1999.5', 0)).toBe('2,000');
   });
 });

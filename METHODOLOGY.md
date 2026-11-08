@@ -79,9 +79,9 @@ EPS is reported), *Continuing ops* (no whole-company cash flow is reported), *Sp
 
 ## Ratios
 
-The `/screener` API returns them; the app's pages do not show them yet. Values are plain ratios
-(0.25 means 25%), rounded to six decimals. A ratio is empty when an input is missing or the result has
-no meaning, never zero. Price ratios are also empty without a comparable price.
+The app's Screener page shows them, from the `/screener` API; company pages do not show them yet. The
+API returns plain ratios (0.25 means 25%), rounded to six decimals. A ratio is empty when an input is
+missing or the result has no meaning, never zero. Price ratios are also empty without a comparable price.
 
 | Ratio | Formula | Also empty when |
 |---|---|---|

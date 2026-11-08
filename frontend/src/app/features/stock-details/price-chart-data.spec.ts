@@ -2,7 +2,6 @@ import { Price } from '../../models/stock';
 import {
   formatPeriodChange,
   formatPrice,
-  formatPriceDate,
   periodChange,
   pricesForPreset,
   pricesInRange,
@@ -97,9 +96,8 @@ describe('Price chart ranges and presentation', () => {
     expect(formatPeriodChange(null)).toBe('Not available');
   });
 
-  it('formats USD and UTC dates consistently and avoids a negative rounded zero', () => {
+  it('formats USD and avoids a negative rounded zero', () => {
     expect(formatPrice(1234.5)).toBe('$1,234.50');
-    expect(formatPriceDate('2024-12-20')).toBe('20 Dec 2024');
     expect(formatPeriodChange(-0.0001)).toBe('0.00%');
   });
 });

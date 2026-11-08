@@ -1,0 +1,427 @@
+:host {
+  display: block;
+}
+
+.screener {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bc-page-gap);
+}
+
+.page-description {
+  margin: var(--bc-space-xs) 0 0;
+  color: var(--bc-muted);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bc-space-m) var(--bc-space-l);
+}
+
+.field {
+  display: flex;
+  flex: 1 1 8.5rem;
+  flex-direction: column;
+  gap: var(--bc-space-xs);
+  min-width: 0;
+  max-width: 15rem;
+}
+
+.field-label {
+  font-weight: 600;
+}
+
+.date-input {
+  width: 100%;
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) 10px;
+  border: 1px solid var(--bc-control-border);
+  border-radius: var(--bc-radius-control);
+  background: var(--bc-surface);
+  color: var(--bc-text);
+}
+
+.date-input[aria-invalid='true'] {
+  border-color: var(--bc-warning);
+}
+
+.field-help {
+  margin: 0;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+}
+
+.field-error {
+  color: var(--bc-warning);
+}
+
+/* Positioned, so that the sector panel can take the width of this field on a phone. */
+.sector-field {
+  position: relative;
+}
+
+/* Note and reading guide */
+.comparability-note {
+  margin: 0;
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-left: 3px solid var(--bc-secondary);
+  border-radius: 0 var(--bc-radius-control) var(--bc-radius-control) 0;
+  background: var(--bc-subtle);
+}
+
+.reading-guide-toggle {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-height: var(--bc-control-height);
+  color: var(--bc-primary);
+  cursor: pointer;
+}
+
+.guide-list {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr);
+  gap: 6px var(--bc-space-l);
+  max-width: 48rem;
+  margin: var(--bc-space-s) 0 var(--bc-space-l);
+}
+
+.guide-list dt {
+  color: var(--bc-muted);
+}
+
+.guide-list dd {
+  margin: 0;
+}
+
+/* Search, columns and download above the table, grouped on the left. Positioned, so that
+   the column panel can open from the left edge of this row. */
+.results-toolbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bc-space-s) var(--bc-space-m);
+}
+
+.search-field {
+  flex: 0 1 16rem;
+  min-width: 0;
+}
+
+.search-input {
+  width: 100%;
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) 10px;
+  border: 1px solid var(--bc-control-border);
+  border-radius: var(--bc-radius-control);
+  background: var(--bc-surface);
+  color: var(--bc-text);
+}
+
+.column-picker {
+  flex: 0 0 auto;
+}
+
+.action-button {
+  min-width: var(--bc-control-height);
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) 14px;
+  border: 1px solid var(--bc-primary);
+  border-radius: var(--bc-radius-control);
+  background: transparent;
+  color: var(--bc-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background: var(--bc-subtle);
+}
+
+.action-button:disabled {
+  border-color: var(--bc-border);
+  color: var(--bc-muted);
+  cursor: default;
+}
+
+/* Loading, error and empty results */
+.state-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bc-space-m);
+  padding: var(--bc-panel-padding);
+  border: 1px solid var(--bc-border);
+  border-radius: var(--bc-radius-panel);
+  background: var(--bc-surface);
+}
+
+.state-text {
+  margin: 0;
+}
+
+.summary p {
+  margin: 0;
+}
+
+.missing-count {
+  color: var(--bc-muted);
+}
+
+/* Table */
+.scroll-hint {
+  display: none;
+  margin: 0;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+}
+
+.table-scroll {
+  /* Own scrolling in both directions: the header row and the company column stay visible.
+     The height leaves room for the top bar, so the whole table fits on the screen. */
+  position: relative;
+  max-height: calc(100dvh - 110px);
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--bc-border);
+  border-radius: var(--bc-radius-panel);
+  background: var(--bc-surface);
+}
+
+.table-scroll:focus-visible {
+  outline-offset: -2px;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--bc-text-table);
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--bc-border);
+  text-align: right;
+  vertical-align: top;
+}
+
+tbody tr:last-child th,
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+thead th {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  padding: 0;
+  background: var(--bc-subtle);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+td {
+  padding: var(--bc-space-s) 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.text-column {
+  min-width: 6.5rem;
+  text-align: left;
+}
+
+/* The company stays visible while the ratios scroll sideways. */
+.company-column {
+  position: sticky;
+  z-index: 1;
+  left: 0;
+  width: 9.5rem;
+  min-width: 9.5rem;
+  max-width: 9.5rem;
+  border-right: 1px solid var(--bc-border);
+  text-align: left;
+}
+
+thead .company-column {
+  z-index: 3;
+}
+
+tbody .company-column {
+  padding: 0;
+  background: var(--bc-surface);
+  font-weight: 400;
+}
+
+tbody tr:hover td {
+  background: var(--bc-subtle);
+}
+
+tbody tr:hover .company-column {
+  background: var(--bc-subtle);
+}
+
+.sort-button {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: var(--bc-space-xs);
+  width: 100%;
+  min-width: var(--bc-control-height);
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) 6px;
+  border: 0;
+  background: transparent;
+  color: var(--bc-text);
+  font-size: var(--bc-text-table);
+  font-weight: 600;
+  text-align: right;
+  cursor: pointer;
+}
+
+.sort-button:hover {
+  color: var(--bc-primary);
+}
+
+.sort-button:focus-visible {
+  outline: 2px solid var(--bc-primary);
+  outline-offset: -2px;
+}
+
+.company-sort {
+  justify-content: flex-start;
+  padding-inline: 10px;
+  text-align: left;
+}
+
+.text-sort {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.sort-indicator {
+  flex-shrink: 0;
+  color: var(--bc-primary);
+  font-size: 10px;
+  line-height: 19px;
+}
+
+.company-link {
+  display: block;
+  min-height: var(--bc-control-height);
+  padding: 6px 10px;
+  text-decoration: none;
+}
+
+.company-link:focus-visible {
+  outline: 2px solid var(--bc-primary);
+  outline-offset: -2px;
+}
+
+.ticker {
+  display: block;
+  color: var(--bc-primary);
+  font-weight: 700;
+}
+
+.company-link:hover .ticker {
+  text-decoration: underline;
+}
+
+.company-name {
+  display: block;
+  overflow: hidden;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cell-value {
+  white-space: nowrap;
+}
+
+.text-column .cell-value {
+  white-space: normal;
+}
+
+.no-value {
+  color: var(--bc-muted);
+}
+
+.metric-label {
+  display: block;
+  color: var(--bc-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Touch screens hide the scrollbar, so nothing else says that more columns exist. */
+@media (hover: none), (max-width: 767px) {
+  .scroll-hint {
+    display: block;
+  }
+}
+
+/* On a large screen the table takes the remaining height, so the page itself does not scroll
+   and only one vertical scrollbar exists. An opened reading guide makes the page scroll again. */
+@media (min-width: 768px) and (min-height: 640px) {
+  :host {
+    height: 100%;
+  }
+
+  .screener {
+    height: 100%;
+  }
+
+  .table-scroll {
+    flex: 1 1 auto;
+    min-height: 16rem;
+    max-height: none;
+  }
+}
+
+@media (max-width: 767px) {
+  /* A full row, so that the sector panel under it has the width of the screen. */
+  .sector-field {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .search-field {
+    flex: 1 1 12rem;
+  }
+
+  .guide-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .guide-list dd {
+    margin-bottom: var(--bc-space-s);
+  }
+
+  /* Narrow, so that the pinned column leaves room for the ratios. */
+  .company-column {
+    width: 7.5rem;
+    min-width: 7.5rem;
+    max-width: 7.5rem;
+  }
+
+  .table-scroll {
+    max-height: calc(100dvh - 90px);
+  }
+}

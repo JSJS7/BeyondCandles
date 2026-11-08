@@ -8,7 +8,7 @@ describe('App', () => {
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('creates the root component, which holds the page router', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();

@@ -1,0 +1,54 @@
+<details
+  #picker
+  class="picker"
+  [open]="open()"
+  (toggle)="onToggle(picker.open)"
+  (keydown.escape)="closeAndFocus(pickerSummary); $event.stopPropagation()"
+>
+  <summary #pickerSummary class="picker-summary">
+    <span class="visually-hidden">{{ name() }}: </span>{{ summary() }}
+  </summary>
+  <div class="picker-panel">
+    <fieldset class="option-list">
+      <legend class="visually-hidden">{{ name() }}</legend>
+      @for (option of options(); track option.key) {
+        <label class="check-row">
+          <input
+            #optionBox
+            class="check-box"
+            type="checkbox"
+            [checked]="isChosen(option.key)"
+            (change)="toggled.emit({ key: option.key, chosen: optionBox.checked })"
+          />
+          <span class="check-label">{{ option.label }}</span>
+          @if (option.count !== undefined) {
+            <span class="option-count">{{ option.count }}</span>
+          }
+        </label>
+      }
+    </fieldset>
+    <div class="picker-actions">
+      @if (excludeLabel(); as label) {
+        <label class="check-row">
+          <input
+            #excludeBox
+            class="check-box"
+            type="checkbox"
+            [checked]="exclude()"
+            [disabled]="selected().length === 0"
+            (change)="excludeChange.emit(excludeBox.checked)"
+          />
+          <span class="check-label">{{ label }}</span>
+        </label>
+      }
+      <button
+        type="button"
+        class="reset-button"
+        [disabled]="resetDisabled()"
+        (click)="reset.emit()"
+      >
+        {{ resetLabel() }}
+      </button>
+    </div>
+  </div>
+</details>

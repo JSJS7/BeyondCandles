@@ -179,7 +179,7 @@ describe('Price chart interaction', () => {
   });
 
   it('applies typed dates and keeps the previous range when both dates match one session', () => {
-    fixture.nativeElement.querySelector('.select-range').click();
+    fixture.nativeElement.querySelector('.select-range-button').click();
     fixture.detectChanges();
     const inputs: NodeListOf<HTMLInputElement> = fixture.nativeElement.querySelectorAll('input');
     inputs[0].value = prices[2].date;

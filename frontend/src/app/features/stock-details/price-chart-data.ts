@@ -42,15 +42,6 @@ export function formatPrice(value: number): string {
   return Number.isFinite(value) ? priceFormatter.format(value) : 'Not available';
 }
 
-export function formatPriceDate(value: string): string {
-  return new Intl.DateTimeFormat('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(new Date(`${value}T00:00:00Z`));
-}
-
 export function subtractMonths(date: string, months: number): string {
   const source = new Date(`${date}T00:00:00Z`);
   const target = new Date(Date.UTC(source.getUTCFullYear(), source.getUTCMonth() - months, 1));
@@ -64,9 +55,18 @@ export function pricesInRange(prices: Price[], range: PriceRange | null): Price[
   return prices.filter((price) => price.date >= range.start && price.date <= range.end);
 }
 
+const PRESET_MONTHS: Record<Exclude<PricePreset, 'All'>, number> = {
+  '1M': 1,
+  '6M': 6,
+  '1Y': 12,
+  '5Y': 60,
+};
+
 export function pricesForPreset(prices: Price[], preset: PricePreset): Price[] {
-  if (preset === 'All' || prices.length === 0) return prices;
-  const months = { '1M': 1, '6M': 6, '1Y': 12, '5Y': 60 }[preset];
+  if (preset === 'All' || prices.length === 0) {
+    return prices;
+  }
+  const months = PRESET_MONTHS[preset];
   const end = prices[prices.length - 1].date;
   return pricesInRange(prices, { start: subtractMonths(end, months), end });
 }

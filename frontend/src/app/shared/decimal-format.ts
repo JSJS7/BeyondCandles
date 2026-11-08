@@ -1,5 +1,5 @@
-// Financial values arrive as decimal strings. They are formatted with string and
-// BigInt arithmetic so that no digit is lost to floating-point conversion.
+// Financial values arrive as decimal strings. They are formatted with string and BigInt
+// arithmetic, so that no digit is lost to floating-point conversion.
 
 interface DecimalParts {
   negative: boolean;
@@ -36,7 +36,21 @@ export function roundDecimal(value: string, places: number): string {
   const roundedInteger = digits.slice(0, digits.length - places);
   const roundedFraction = digits.slice(digits.length - places);
   const sign = negative && scaled !== 0n ? '-' : '';
-  return places > 0 ? `${sign}${roundedInteger}.${roundedFraction}` : `${sign}${roundedInteger}`;
+  if (places === 0) {
+    return `${sign}${roundedInteger}`;
+  }
+  return `${sign}${roundedInteger}.${roundedFraction}`;
+}
+
+/** A rounded value with exactly `places` decimals and separators, e.g. 1234.5 → "1,234.50". */
+export function formatFixed(value: string, places: number): string {
+  const { negative, integer, fraction } = decimalParts(roundDecimal(value, places));
+  const sign = negative ? '-' : '';
+  const grouped = groupThousands(integer);
+  if (places === 0) {
+    return `${sign}${grouped}`;
+  }
+  return `${sign}${grouped}.${fraction}`;
 }
 
 /** Drop trailing zeros beyond `minimumDecimals`; keep every significant digit. */
@@ -55,7 +69,10 @@ export function formatExact(value: string): string {
   const isZero = /^0*$/.test(integer) && significantFraction === '';
   const sign = negative && !isZero ? '-' : '';
   const grouped = groupThousands(integer.replace(/^0+(?=\d)/, ''));
-  return significantFraction ? `${sign}${grouped}.${significantFraction}` : `${sign}${grouped}`;
+  if (significantFraction === '') {
+    return `${sign}${grouped}`;
+  }
+  return `${sign}${grouped}.${significantFraction}`;
 }
 
 /** The same amount expressed in millions, exact (the decimal point moves six places). */
@@ -69,8 +86,8 @@ function inMillions(value: string): string {
 
 /**
  * A USD amount in whole millions for the summary table, e.g. 391035000000 → "391,035".
- * A non-zero amount below half a million keeps its exact digits instead of
- * rounding to 0, so that it can never be mistaken for zero.
+ * A non-zero amount below half a million keeps its exact digits instead of rounding to 0,
+ * so that it can never be mistaken for zero.
  */
 export function formatMillions(value: string): string {
   const millions = inMillions(value);
@@ -84,24 +101,13 @@ export function formatMillions(value: string): string {
 }
 
 /**
- * A per-share amount for the summary table: at least two decimals (6.00), at most
- * four. Split-adjusted EPS can have a repeating fraction (e.g. a third), so the
- * table rounds it; the exact value stays in the source details.
+ * A per-share amount for the summary table: at least two decimals (6.00), at most four.
+ * Split-adjusted EPS can have a repeating fraction (e.g. a third), so the table rounds it;
+ * the exact value stays in the source details.
  */
 export function formatPerShare(value: string): string {
   const rounded = roundDecimal(value, 4);
   const { negative, integer, fraction } = decimalParts(rounded);
   const sign = negative ? '-' : '';
   return `${sign}${groupThousands(integer)}.${trimFraction(fraction, 2)}`;
-}
-
-/** The EDGAR folder of one filing, e.g. CIK 0000320193 + 0000320193-25-000079. */
-export function filingIndexUrl(sourceCik: string, accession: string): string | null {
-  const cikNumber = sourceCik.replace(/^0+/, '');
-  const accessionDigits = accession.replace(/-/g, '');
-  const looksLikeEdgarIds = /^\d+$/.test(cikNumber) && /^\d{18}$/.test(accessionDigits);
-  if (!looksLikeEdgarIds) {
-    return null;
-  }
-  return `https://www.sec.gov/Archives/edgar/data/${cikNumber}/${accessionDigits}/`;
 }

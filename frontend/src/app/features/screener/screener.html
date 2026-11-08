@@ -1,0 +1,304 @@
+<section class="screener">
+  <header class="page-header">
+    <h1>Screener</h1>
+    <p class="page-description">
+      Ratios on a chosen date: that day's price and each company's latest annual report known then.
+    </p>
+  </header>
+
+  <div class="controls">
+    <div class="field">
+      <label class="field-label" for="valuation-date">Valuation date</label>
+      <input
+        #dateInput
+        id="valuation-date"
+        class="date-input"
+        type="date"
+        aria-describedby="valuation-date-help"
+        [attr.aria-invalid]="dateInvalid()"
+        [min]="earliestDate"
+        [max]="latestDate"
+        [value]="date()"
+        (change)="onDateChange(dateInput.value)"
+      />
+      <p id="valuation-date-help" class="field-help" [class.field-error]="dateInvalid()">
+        @if (dateInvalid()) {
+          <span role="alert">Choose a date from {{ dateRangeLabel }}.</span>
+        } @else {
+          {{ dateRangeLabel }}
+        }
+      </p>
+    </div>
+
+    <div class="field sector-field">
+      <span class="field-label" aria-hidden="true">Sector</span>
+      <app-option-picker
+        data-picker="sectors"
+        name="Sector"
+        resetLabel="All sectors"
+        excludeLabel="Exclude the selected sectors"
+        [summary]="sectorSummary()"
+        [options]="sectorOptions()"
+        [selected]="state().sectors"
+        [exclude]="state().excludeSectors"
+        [resetDisabled]="state().sectors.length === 0"
+        (toggled)="onSectorToggled($event)"
+        (excludeChange)="onExcludeSectorsChange($event)"
+        (reset)="clearSectors()"
+      />
+    </div>
+  </div>
+
+  <app-criteria-editor
+    [views]="criterionViews()"
+    [available]="availableCriteria()"
+    (added)="addCriterion($event)"
+    (boundChanged)="setBound($event.key, $event.bound, $event.text)"
+    (removed)="removeCriterion($event)"
+    (cleared)="clearCriteria()"
+  />
+
+  <p class="comparability-note">
+    Ratios are not comparable across all businesses, such as banks and distributors, so compare
+    similar companies (<a
+      href="https://github.com/JSJS7/BeyondCandles/blob/main/METHODOLOGY.md"
+      target="_blank"
+      rel="noopener noreferrer"
+      >methodology</a
+    >). Historical data for learning, not investment advice.
+  </p>
+
+  <details class="reading-guide">
+    <summary class="reading-guide-toggle">How to read this table</summary>
+    <dl class="guide-list">
+      <dt>Price</dt>
+      <dd>
+        Close of the valuation date, or the last close within 7 days before it, in USD. Converted to
+        the share basis of EPS, so it can differ from the price quoted on that day.
+      </dd>
+      <dt>Period end</dt>
+      <dd>End of the annual period used. Periods of different companies can differ by months.</dd>
+      <dt>P/E</dt>
+      <dd>Price ÷ EPS. Empty when EPS is not positive.</dd>
+      <dt>P/B</dt>
+      <dd>Price × shares ÷ common equity. Empty when common equity is not positive.</dd>
+      <dt>P/S</dt>
+      <dd>Price × shares ÷ revenue.</dd>
+      <dt>ROE</dt>
+      <dd>(Net income − preferred dividends) ÷ average common equity.</dd>
+      <dt>ROA</dt>
+      <dd>Net income ÷ average assets.</dd>
+      <dt>Net margin</dt>
+      <dd>Net income ÷ revenue.</dd>
+      <dt>Operating margin</dt>
+      <dd>Operating income ÷ revenue. Many companies, including banks, report no such row.</dd>
+      <dt>FCF margin</dt>
+      <dd>(Operating cash flow − capital expenditure) ÷ revenue.</dd>
+      <dt>Revenue, EPS growth</dt>
+      <dd>Later ÷ earlier − 1, both years from one report; otherwise empty.</dd>
+      <dt>OCF / net income</dt>
+      <dd>Operating cash flow ÷ net income. Empty when net income is not positive.</dd>
+      <dt>Equity / assets</dt>
+      <dd>Reported equity ÷ assets. Not a measure of debt.</dd>
+    </dl>
+    <dl class="guide-list">
+      <dt>Criteria</dt>
+      <dd>
+        A range keeps the companies whose ratio lies inside it, limits included. A percentage is
+        typed as a number of percent (15 means 15%). Companies with no value for a criterion are
+        left out, because an empty value is not zero.
+      </dd>
+      <dt>Median, 80% between</dt>
+      <dd>
+        Under each criterion: half of the companies with a value are below the median. The 80% range
+        leaves out the lowest 10% and the highest 10%, so a few extreme values do not hide where
+        most companies lie. These are the 10th and 90th percentile, and each is the real value of
+        one company.
+      </dd>
+      <dt>Columns</dt>
+      <dd>
+        Use the Columns button above the table to hide what you do not need. A criterion on a hidden
+        column still applies, and the CSV keeps every column.
+      </dd>
+      <dt>CSV</dt>
+      <dd>
+        The companies as shown, in the shown order. Ratios are plain fractions (0.15 is 15%), and an
+        empty field means no value, never zero.
+      </dd>
+      <dt><span class="no-value">—</span></dt>
+      <dd>No value: an input is missing or the result has no meaning. It never means zero.</dd>
+      <dt><span class="metric-label">Basic</span></dt>
+      <dd>Uses basic EPS, because no diluted EPS is reported.</dd>
+      <dt><span class="metric-label">Calculated</span></dt>
+      <dd>The share count is calculated as (net income − preferred dividends) ÷ EPS.</dd>
+      <dt><span class="metric-label">Series break</span></dt>
+      <dd>The company's series changes definition here, so compare growth over time with care.</dd>
+      <dt><span class="metric-label">Continuing ops</span></dt>
+      <dd>Uses operating cash flow of continuing operations only.</dd>
+    </dl>
+  </details>
+
+  @if (result()) {
+    <div class="results-toolbar">
+      <div class="search-field">
+        <label class="visually-hidden" for="company-search">Find a company</label>
+        <input
+          #searchBox
+          id="company-search"
+          class="search-input"
+          type="search"
+          autocomplete="off"
+          placeholder="Find a ticker or name"
+          [value]="state().search"
+          (input)="onSearchInput(searchBox.value)"
+        />
+      </div>
+      <app-option-picker
+        class="column-picker"
+        data-picker="columns"
+        name="Columns"
+        resetLabel="Show all"
+        [anchorToContainer]="true"
+        [summary]="columnSummary()"
+        [options]="columnOptions"
+        [selected]="shownColumnKeys()"
+        [resetDisabled]="state().hiddenColumns.length === 0"
+        (toggled)="onColumnToggled($event)"
+        (reset)="showAllColumns()"
+      />
+      <button
+        type="button"
+        class="action-button"
+        [disabled]="visibleRows().length === 0"
+        (click)="downloadCsv()"
+      >
+        Download CSV
+      </button>
+    </div>
+  }
+
+  @let loading = loadState();
+  @if (loading.status === 'loading') {
+    <div class="state-panel">
+      <p class="state-text" role="status">Loading ratios for {{ date() }}...</p>
+    </div>
+  } @else if (loading.status === 'error') {
+    <div class="state-panel" role="alert">
+      <p class="state-text">{{ loading.message }}</p>
+      <button class="action-button" type="button" (click)="retry()">Try again</button>
+    </div>
+  } @else if (result() && totalCount() === 0) {
+    <div class="state-panel">
+      <p class="state-text">No companies are available for this date.</p>
+    </div>
+  } @else if (result() && sectorRows().length === 0) {
+    <div class="state-panel">
+      <p class="state-text">No companies in the selected sectors.</p>
+      <button class="action-button" type="button" (click)="clearSectors()">Show all sectors</button>
+    </div>
+  } @else if (result() && matchingRows().length === 0) {
+    <div class="state-panel">
+      <p class="state-text" role="status">
+        No companies match these criteria. Widen a range or remove a criterion.
+      </p>
+      <button class="action-button" type="button" (click)="clearCriteria()">Clear criteria</button>
+    </div>
+  } @else if (result() && visibleRows().length === 0) {
+    <div class="state-panel">
+      <p class="state-text" role="status">No company matches "{{ state().search }}".</p>
+      <button class="action-button" type="button" (click)="clearSearch()">Clear search</button>
+    </div>
+  } @else if (result()) {
+    <div class="summary" role="status">
+      <p>
+        <strong>{{ visibleRows().length }}</strong> of {{ totalCount() }} companies{{
+          filtersActive() ? ' match' : ''
+        }}, valued at {{ valuationDateLabel() }}.
+        @if (earlierSessionLabel(); as session) {
+          No trading that day: prices from {{ session }}.
+        }
+      </p>
+      @if (missingCount() > 0) {
+        <p class="missing-count">
+          {{ missingCount() }} of {{ visibleRows().length }} have no {{ sortedColumnLabel() }} value
+          and are listed last.
+        </p>
+      }
+    </div>
+
+    <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all ratios.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Screener results">
+      <table class="results-table">
+        <caption class="visually-hidden">
+          Ratios of each company on the valuation date. Column buttons sort the table.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="company-column" [attr.aria-sort]="ariaSort('company')">
+              <button
+                type="button"
+                class="sort-button company-sort"
+                (click)="toggleSort('company')"
+              >
+                Company
+                <span class="sort-indicator" aria-hidden="true">{{
+                  sortIndicator('company')
+                }}</span>
+              </button>
+            </th>
+            @for (column of shownColumns(); track column.key) {
+              <th
+                scope="col"
+                [class.text-column]="column.kind === 'text'"
+                [attr.aria-sort]="ariaSort(column.key)"
+              >
+                <button
+                  type="button"
+                  class="sort-button"
+                  [class.text-sort]="column.kind === 'text'"
+                  [title]="column.label"
+                  (click)="toggleSort(column.key)"
+                >
+                  @if (column.shortLabel) {
+                    <span aria-hidden="true">{{ column.shortLabel }}</span>
+                    <span class="visually-hidden">{{ column.label }}</span>
+                  } @else {
+                    {{ column.label }}
+                  }
+                  <span class="sort-indicator" aria-hidden="true">{{
+                    sortIndicator(column.key)
+                  }}</span>
+                </button>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of visibleRows(); track row.ticker) {
+            <tr>
+              <th scope="row" class="company-column">
+                <a class="company-link" [routerLink]="['/stocks', row.ticker]" [title]="row.name">
+                  <span class="ticker">{{ row.ticker }}</span>
+                  <span class="company-name">{{ row.name }}</span>
+                </a>
+              </th>
+              @for (column of shownColumns(); track column.key) {
+                <td [class.text-column]="column.kind === 'text'">
+                  @if (cellText(row, column); as text) {
+                    <span class="cell-value">{{ text }}</span>
+                  } @else {
+                    <span class="no-value" aria-hidden="true">—</span>
+                    <span class="visually-hidden">No value</span>
+                  }
+                  @for (label of cellLabels(row.latest, column.key); track label) {
+                    <span class="metric-label">{{ label }}</span>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

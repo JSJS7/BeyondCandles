@@ -46,6 +46,7 @@
   </dl>
   <p>
     <a
+      class="methodology-link"
       href="https://github.com/JSJS7/BeyondCandles/blob/main/METHODOLOGY.md"
       target="_blank"
       rel="noopener noreferrer"
@@ -211,7 +212,7 @@
       <p class="muted">Period note: {{ details.period.period_note }}</p>
     }
 
-    <h4>SEC sources ({{ details.sources.length }})</h4>
+    <h4 class="sources-count">SEC sources ({{ details.sources.length }})</h4>
     <ol class="source-list">
       @for (
         source of details.sources;

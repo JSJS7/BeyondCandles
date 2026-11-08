@@ -28,7 +28,7 @@ import { PRICE_SERIES_DESCRIPTION } from './price-chart-data';
   templateUrl: './stock-details.html',
   styleUrl: './stock-details.css',
 })
-export class StockDetailsComponent implements OnInit {
+export class StockDetails implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly stockService = inject(StockService);
   private readonly destroyRef = inject(DestroyRef);

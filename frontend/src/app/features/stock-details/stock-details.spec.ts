@@ -3,10 +3,10 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { StockDetailsComponent } from './stock-details';
+import { StockDetails } from './stock-details';
 
 describe('Stock details', () => {
-  let fixture: ComponentFixture<StockDetailsComponent>;
+  let fixture: ComponentFixture<StockDetails>;
   let http: HttpTestingController;
   let routeParams: BehaviorSubject<ReturnType<typeof convertToParamMap>>;
 
@@ -14,7 +14,7 @@ describe('Stock details', () => {
     routeParams = new BehaviorSubject(convertToParamMap({ ticker: 'AAPL' }));
 
     await TestBed.configureTestingModule({
-      imports: [StockDetailsComponent],
+      imports: [StockDetails],
       providers: [
         provideRouter([]),
         provideHttpClient(),
@@ -25,7 +25,7 @@ describe('Stock details', () => {
 
     vi.spyOn(console, 'error').mockImplementation(() => {});
     http = TestBed.inject(HttpTestingController);
-    fixture = TestBed.createComponent(StockDetailsComponent);
+    fixture = TestBed.createComponent(StockDetails);
     fixture.detectChanges();
   });
 

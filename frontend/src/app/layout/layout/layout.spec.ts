@@ -1,19 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { LayoutComponent } from './layout';
+import { provideRouter } from '@angular/router';
+import { Layout } from './layout';
 
 describe('Layout', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+  let component: Layout;
+  let fixture: ComponentFixture<Layout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LayoutComponent],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      imports: [Layout],
+      providers: [
+        provideRouter([{ path: 'screener', children: [] }]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(Layout);
     component = fixture.componentInstance;
     fixture.detectChanges();
     TestBed.inject(HttpTestingController).expectOne('http://127.0.0.1:8000/stocks').flush([]);
@@ -79,6 +84,18 @@ describe('Layout', () => {
     expect(component.menuOpen()).toBe(false);
   });
 
+  it('closes the mobile menu after a navigation link inside it is used', () => {
+    // The menu covers the page, so the user would not see the new page behind it.
+    const dialog = mockDialog();
+    fixture.nativeElement.querySelector('.menu-button').click();
+    expect(component.menuOpen()).toBe(true);
+
+    dialog.querySelector<HTMLAnchorElement>('a[href="/screener"]')?.click();
+
+    expect(dialog.open).toBe(false);
+    expect(component.menuOpen()).toBe(false);
+  });
+
   it('closes an open mobile menu when the viewport changes to desktop width', () => {
     const dialog = mockDialog();
     const opener: HTMLButtonElement = fixture.nativeElement.querySelector('.menu-button');
@@ -92,16 +109,22 @@ describe('Layout', () => {
     const dialog = mockDialog();
     fixture.nativeElement.querySelector('.menu-button').click();
     const closeButton = dialog.querySelector<HTMLButtonElement>('.menu-close');
-    for (const shiftKey of [false, true]) {
-      const key = new KeyboardEvent('keydown', {
-        key: 'Tab',
-        shiftKey,
-        bubbles: true,
-        cancelable: true,
-      });
-      closeButton?.dispatchEvent(key);
-      expect(key.defaultPrevented).toBe(true);
-      expect(document.activeElement).toBe(closeButton);
-    }
+    // The last control is the last real link: placeholders without an address take no focus.
+    const lastLink = dialog.querySelector<HTMLAnchorElement>('a[href="/screener"]');
+
+    const shiftTab = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    closeButton?.dispatchEvent(shiftTab);
+    expect(shiftTab.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(lastLink);
+
+    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    lastLink?.dispatchEvent(tab);
+    expect(tab.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(closeButton);
   });
 });

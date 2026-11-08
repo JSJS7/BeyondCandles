@@ -35,6 +35,31 @@
   --bc-backdrop: rgba(0, 0, 0, 0.6);
 }
 
+/* Shared sizes, the same in both themes. Every page and component takes its spacing, corners,
+   control height and small text from here, so that they look alike. */
+:root {
+  --bc-space-xs: 4px;
+  --bc-space-s: 8px;
+  --bc-space-m: 12px;
+  --bc-space-l: 16px;
+  --bc-space-xl: 24px;
+
+  /* Between the blocks of a page: title, panels, controls, table. */
+  --bc-page-gap: 16px;
+  /* Inside a panel; narrower on a phone. */
+  --bc-panel-padding: 24px;
+
+  --bc-radius-control: 8px;
+  --bc-radius-panel: 12px;
+
+  /* Buttons and fields are at least this tall, a comfortable touch target. */
+  --bc-control-height: 44px;
+
+  --bc-text-small: 12px;
+  --bc-text-table: 13px;
+  --bc-text-body: 14px;
+}
+
 *,
 *::before,
 *::after {
@@ -57,8 +82,41 @@ body {
     BlinkMacSystemFont,
     'Segoe UI',
     sans-serif;
-  font-size: 14px;
+  font-size: var(--bc-text-body);
   line-height: 1.5;
+}
+
+/* Headings look the same on every page; components only add spacing where they need it. */
+h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  overflow-wrap: anywhere;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+h4 {
+  margin: 0;
+  font-size: var(--bc-text-body);
+  font-weight: 600;
+}
+
+a {
+  color: var(--bc-primary);
 }
 
 button,
@@ -73,7 +131,12 @@ textarea {
   outline-offset: 3px;
 }
 
-app-root {
-  display: block;
-  height: 100%;
+@media (max-width: 767px) {
+  :root {
+    --bc-panel-padding: 12px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
 }

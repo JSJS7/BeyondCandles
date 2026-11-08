@@ -8,13 +8,26 @@
     <div class="nav-section">
       <div class="nav-section-title">DISCOVER</div>
 
-      <a class="nav-item active">
-        <span class="nav-icon">⌂</span>
+      <a
+        class="nav-item"
+        routerLink="/"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="navigated.emit()"
+      >
+        <span class="nav-icon" aria-hidden="true">⌂</span>
         <span>Dashboard</span>
       </a>
 
-      <a class="nav-item">
-        <span class="nav-icon">⌕</span>
+      <a
+        class="nav-item"
+        routerLink="/screener"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="navigated.emit()"
+      >
+        <span class="nav-icon" aria-hidden="true">⌕</span>
         <span>Screener</span>
       </a>
     </div>

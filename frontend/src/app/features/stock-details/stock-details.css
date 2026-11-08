@@ -1,78 +1,68 @@
 .stock-details {
-  padding: 16px;
-  color: var(--bc-text);
-  background: var(--bc-page);
-  border-radius: 12px;
-  font-family: system-ui, sans-serif;
-}
-.company-header {
-  margin-bottom: 24px;
-}
-.company-meta {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 12px 0;
+  flex-direction: column;
+  gap: var(--bc-page-gap);
+}
+
+.muted {
   color: var(--bc-muted);
 }
-.company-meta strong {
-  color: var(--bc-primary);
-}
-h1 {
-  margin: 0;
-  font-size: 32px;
-  overflow-wrap: anywhere;
-}
-h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
+
 .eyebrow {
   color: var(--bc-primary);
   font-weight: 700;
 }
-.muted {
+
+.company-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bc-space-s);
+  margin: var(--bc-space-m) 0;
   color: var(--bc-muted);
 }
+
+.company-ticker {
+  color: var(--bc-primary);
+}
+
 .panel {
-  margin-bottom: 24px;
-  padding: 24px;
+  padding: var(--bc-panel-padding);
   border: 1px solid var(--bc-border);
-  border-radius: 12px;
+  border-radius: var(--bc-radius-panel);
   background: var(--bc-surface);
 }
-a {
-  color: var(--bc-primary);
+
+.panel-heading {
+  margin-bottom: var(--bc-space-m);
 }
+
+.panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bc-space-l);
+}
+
 .retry-button {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 8px 14px;
-  margin-right: 16px;
+  min-width: var(--bc-control-height);
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) 14px;
   border: 1px solid var(--bc-primary);
-  border-radius: 8px;
+  border-radius: var(--bc-radius-control);
   background: transparent;
   color: var(--bc-primary);
-  font: inherit;
   font-weight: 600;
   cursor: pointer;
 }
+
 .retry-button:hover {
   background: var(--bc-subtle);
 }
-:focus-visible {
-  outline: 2px solid var(--bc-primary);
-  outline-offset: 3px;
-}
-@media (max-width: 767px) {
-  .stock-details {
-    padding: 0;
-  }
-  .panel {
-    padding: 12px;
-  }
-  h1 {
-    font-size: 28px;
-  }
+
+/* A link on its own line is a touch target too. */
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--bc-control-height);
 }

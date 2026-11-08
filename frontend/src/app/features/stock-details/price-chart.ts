@@ -3,7 +3,6 @@ import {
   computed,
   effect,
   ElementRef,
-  HostListener,
   inject,
   input,
   OnChanges,
@@ -13,10 +12,10 @@ import {
 } from '@angular/core';
 import { Price } from '../../models/stock';
 import { ThemeService } from '../../services/theme.service';
+import { formatDate } from '../../shared/date-format';
 import {
   formatPeriodChange,
   formatPrice,
-  formatPriceDate,
   periodChange,
   PRICE_SERIES_DESCRIPTION,
   PricePreset,
@@ -42,6 +41,7 @@ interface SelectionBox {
   selector: 'app-price-chart',
   templateUrl: './price-chart.html',
   styleUrl: './price-chart.css',
+  host: { '(document:keydown.escape)': 'cancelSelection()' },
 })
 export class PriceChart implements OnChanges, OnDestroy {
   private readonly themeService = inject(ThemeService);
@@ -71,7 +71,7 @@ export class PriceChart implements OnChanges, OnDestroy {
     const last = this.lastPrice();
     return last ? formatPrice(Number(last.adjusted_close)) : 'Not available';
   });
-  readonly formatDate = formatPriceDate;
+  readonly formatDate = formatDate;
   readonly seriesDescription = PRICE_SERIES_DESCRIPTION;
 
   constructor() {
@@ -124,19 +124,18 @@ export class PriceChart implements OnChanges, OnDestroy {
       this.cancelSelection();
       return;
     }
-    if (event.button !== 0) return;
-    if (event.pointerType === 'touch' && !this.selectingRange()) return;
-    const point = this.pointerPosition(event);
-    const area = this.chart?.chartArea;
-    if (
-      !point ||
-      !area ||
-      point.x < area.left ||
-      point.x > area.right ||
-      point.y < area.top ||
-      point.y > area.bottom
-    )
+    if (event.button !== 0) {
       return;
+    }
+    // On touch screens a finger scrolls the page, unless Select range is switched on.
+    if (event.pointerType === 'touch' && !this.selectingRange()) {
+      return;
+    }
+    const point = this.pointerPosition(event);
+    if (!point || !this.isInsideChartArea(point)) {
+      return;
+    }
+
     this.message.set('');
     const index = this.indexAt(point.x);
     this.pressedPoint = {
@@ -152,10 +151,17 @@ export class PriceChart implements OnChanges, OnDestroy {
 
   onPointerMove(event: PointerEvent): void {
     const point = this.pointerPosition(event);
-    if (this.anchorIndex === null || !point) return;
-    if (this.pressedPoint && this.pressedPoint.pointerId !== event.pointerId) return;
+    if (this.anchorIndex === null || !point) {
+      return;
+    }
+    // Another finger or pen does not move a selection that the first one started.
+    if (this.pressedPoint && this.pressedPoint.pointerId !== event.pointerId) {
+      return;
+    }
     const index = this.indexAt(point.x);
-    if (index === this.endIndex) return;
+    if (index === this.endIndex) {
+      return;
+    }
     this.endIndex = index;
     this.refreshPointSelection();
   }
@@ -163,8 +169,11 @@ export class PriceChart implements OnChanges, OnDestroy {
   onPointerUp(event: PointerEvent): void {
     const pressed = this.pressedPoint;
     const point = this.pointerPosition(event);
-    if (!pressed || pressed.pointerId !== event.pointerId || !point || this.anchorIndex === null)
+    const isSamePointer = pressed !== null && pressed.pointerId === event.pointerId;
+    if (!pressed || !isSamePointer || !point || this.anchorIndex === null) {
       return;
+    }
+
     this.endIndex = this.indexAt(point.x);
     this.releasePointer();
     if (pressed.continuingSelection || this.endIndex !== pressed.index) {
@@ -178,10 +187,11 @@ export class PriceChart implements OnChanges, OnDestroy {
   }
 
   onPointerCancelled(event: PointerEvent): void {
-    if (this.pressedPoint?.pointerId === event.pointerId) this.cancelSelection();
+    if (this.pressedPoint?.pointerId === event.pointerId) {
+      this.cancelSelection();
+    }
   }
 
-  @HostListener('document:keydown.escape')
   cancelSelection(): void {
     const restoreFocus = this.selectingRange();
     this.clearPointSelection();
@@ -200,14 +210,11 @@ export class PriceChart implements OnChanges, OnDestroy {
   }
 
   private setRange(prices: Price[], preset: PricePreset | 'Custom'): void {
-    this.range.set(
-      prices.length
-        ? {
-            start: prices[0].date,
-            end: prices[prices.length - 1].date,
-          }
-        : null,
-    );
+    if (prices.length === 0) {
+      this.range.set(null);
+    } else {
+      this.range.set({ start: prices[0].date, end: prices[prices.length - 1].date });
+    }
     this.selectedPreset.set(preset);
   }
 
@@ -219,6 +226,16 @@ export class PriceChart implements OnChanges, OnDestroy {
       x: ((event.clientX - bounds.left) * this.chart.width) / bounds.width,
       y: ((event.clientY - bounds.top) * this.chart.height) / bounds.height,
     };
+  }
+
+  private isInsideChartArea(point: { x: number; y: number }): boolean {
+    const area = this.chart?.chartArea;
+    if (!area) {
+      return false;
+    }
+    const insideHorizontally = point.x >= area.left && point.x <= area.right;
+    const insideVertically = point.y >= area.top && point.y <= area.bottom;
+    return insideHorizontally && insideVertically;
   }
 
   private indexAt(x: number): number {

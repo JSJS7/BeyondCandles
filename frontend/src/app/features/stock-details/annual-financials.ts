@@ -11,8 +11,9 @@ import {
   viewChild,
 } from '@angular/core';
 import { AnnualMetric, AnnualPeriod, FilingValue } from '../../models/stock';
-import { filingIndexUrl, formatExact, formatMillions, formatPerShare } from './financial-format';
-import { formatPriceDate } from './price-chart-data';
+import { formatDate } from '../../shared/date-format';
+import { formatExact, formatMillions, formatPerShare } from '../../shared/decimal-format';
+import { filingIndexUrl } from './sec-filing';
 
 interface MetricColumn {
   key: string;
@@ -152,7 +153,7 @@ export class AnnualFinancials {
   }
 
   formatDate(value: string): string {
-    return formatPriceDate(value);
+    return formatDate(value);
   }
 
   /** The rounded value shown in the table. */

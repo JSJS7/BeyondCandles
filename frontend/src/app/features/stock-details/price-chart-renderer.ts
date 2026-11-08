@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-  Chart,
   CategoryScale,
+  Chart,
   LinearScale,
   LineController,
   LineElement,
@@ -9,10 +9,33 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Price } from '../../models/stock';
-import { formatPrice, formatPriceDate, yearlyTickIndexes } from './price-chart-data';
+import { formatDate } from '../../shared/date-format';
+import { formatPrice, yearlyTickIndexes } from './price-chart-data';
 
 Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip);
 export type PriceLineChart = Chart<'line', number[], string>;
+
+const MILLISECONDS_PER_DAY = 86_400_000;
+// Up to about three months the axis names days; up to about five years, months; beyond, years.
+const DAY_LABELS_UP_TO_DAYS = 92;
+const MONTH_LABELS_UP_TO_DAYS = 1830;
+// A narrower chart, such as on a phone, has room for fewer axis labels.
+const NARROW_CHART_WIDTH = 500;
+const NARROW_CHART_TICKS = 4;
+const WIDE_CHART_TICKS = 8;
+
+function tickLimit(chartWidth: number): number {
+  return chartWidth < NARROW_CHART_WIDTH ? NARROW_CHART_TICKS : WIDE_CHART_TICKS;
+}
+
+function daysCovered(prices: Price[]): number {
+  if (prices.length < 2) {
+    return 0;
+  }
+  const first = Date.parse(prices[0].date);
+  const last = Date.parse(prices[prices.length - 1].date);
+  return (last - first) / MILLISECONDS_PER_DAY;
+}
 
 @Injectable({ providedIn: 'root' })
 export class PriceChartRenderer {
@@ -22,21 +45,26 @@ export class PriceChartRenderer {
     isSelectedPoint: (index: number) => boolean,
   ): PriceLineChart | null {
     const context = canvas.getContext('2d');
-    if (!context) return null;
+    if (!context) {
+      return null;
+    }
+
+    // The chart reads the palette of the current theme, so it is drawn again when it changes.
     const theme = getComputedStyle(canvas);
     const color = (role: string) => theme.getPropertyValue(`--bc-${role}`).trim();
-    const days =
-      prices.length > 1
-        ? (Date.parse(prices[prices.length - 1].date) - Date.parse(prices[0].date)) / 86400000
-        : 0;
+
+    const days = daysCovered(prices);
+    const showsDays = days <= DAY_LABELS_UP_TO_DAYS;
+    const showsMonths = days <= MONTH_LABELS_UP_TO_DAYS;
     const axisDateFormatter = new Intl.DateTimeFormat('en-GB', {
-      day: days <= 92 ? 'numeric' : undefined,
-      month: days <= 1830 ? 'short' : undefined,
-      year: days > 92 ? 'numeric' : undefined,
+      day: showsDays ? 'numeric' : undefined,
+      month: showsMonths ? 'short' : undefined,
+      year: showsDays ? undefined : 'numeric',
       timeZone: 'UTC',
     });
     // Years only on the axis: automatic skipping would repeat or drop years unevenly.
-    const labelsYears = days > 1830;
+    const labelsYears = !showsMonths;
+
     return new Chart(context, {
       type: 'line',
       data: {
@@ -47,8 +75,8 @@ export class PriceChartRenderer {
             data: prices.map((price) => Number(price.adjusted_close)),
             borderColor: color('primary'),
             borderWidth: 2,
-            pointRadius: (context) => (isSelectedPoint(context.dataIndex) ? 5 : 0),
-            pointHoverRadius: (context) => (isSelectedPoint(context.dataIndex) ? 5 : 0),
+            pointRadius: (point) => (isSelectedPoint(point.dataIndex) ? 5 : 0),
+            pointHoverRadius: (point) => (isSelectedPoint(point.dataIndex) ? 5 : 0),
             pointBackgroundColor: color('primary'),
             pointBorderColor: color('surface'),
             pointBorderWidth: 2,
@@ -63,7 +91,9 @@ export class PriceChartRenderer {
         interaction: { intersect: false, mode: 'index' },
         onResize(chart, size) {
           const ticks = chart.options.scales?.['x']?.ticks;
-          if (ticks) ticks.maxTicksLimit = size.width < 500 ? 4 : 8;
+          if (ticks) {
+            ticks.maxTicksLimit = tickLimit(size.width);
+          }
         },
         plugins: {
           tooltip: {
@@ -73,8 +103,7 @@ export class PriceChartRenderer {
             borderColor: color('border'),
             borderWidth: 1,
             callbacks: {
-              title: (items) =>
-                items.length ? formatPriceDate(prices[items[0].dataIndex].date) : '',
+              title: (items) => (items.length ? formatDate(prices[items[0].dataIndex].date) : ''),
               label: (item) =>
                 item.parsed.y === null ? 'Not available' : formatPrice(item.parsed.y),
             },
@@ -84,13 +113,17 @@ export class PriceChartRenderer {
           x: {
             // Read at every layout: the canvas has its real width only after the first one.
             afterBuildTicks: (axis) => {
-              if (!labelsYears) return;
-              const indexes = yearlyTickIndexes(prices, axis.chart.width < 500 ? 4 : 8);
-              if (indexes) axis.ticks = indexes.map((value) => ({ value }));
+              if (!labelsYears) {
+                return;
+              }
+              const indexes = yearlyTickIndexes(prices, tickLimit(axis.chart.width));
+              if (indexes) {
+                axis.ticks = indexes.map((value) => ({ value }));
+              }
             },
             ticks: {
               autoSkip: !labelsYears,
-              maxTicksLimit: canvas.clientWidth < 500 ? 4 : 8,
+              maxTicksLimit: tickLimit(canvas.clientWidth),
               maxRotation: 0,
               color: color('muted'),
               callback: (value) => {

@@ -10,16 +10,18 @@
   >
     <span aria-hidden="true">☰</span>
   </button>
+
   <div class="global-search" (keydown.escape)="dismissSearchResults()">
-    <span class="search-icon">⌕</span>
+    <span class="search-icon" aria-hidden="true">⌕</span>
 
     <input
       #searchInput
+      class="search-input"
       type="text"
       role="combobox"
       aria-label="Search companies"
       aria-autocomplete="list"
-      aria-controls="search-options"
+      [attr.aria-controls]="optionsVisible() ? 'search-options' : null"
       [attr.aria-expanded]="optionsVisible()"
       [attr.aria-activedescendant]="activeOptionId()"
       placeholder="Search companies..."
@@ -35,7 +37,7 @@
       @switch (loadState.status) {
         @case ('loading') {
           <div class="search-results">
-            <div class="no-results search-loading" role="status">
+            <div class="search-loading" role="status">
               <span>Loading companies</span
               ><span class="loading-dots" aria-hidden="true"
                 ><span>.</span><span>.</span><span>.</span></span
@@ -46,7 +48,7 @@
 
         @case ('error') {
           <div class="search-results search-error">
-            <p role="alert">{{ loadState.message }}</p>
+            <p class="search-error-message" role="alert">{{ loadState.message }}</p>
             <button class="retry-button" type="button" (click)="loadStocks()">Try again</button>
           </div>
         }
@@ -66,8 +68,8 @@
                   (click)="selectStock(stock)"
                 >
                   <div class="result-main">
-                    <strong>{{ stock.ticker }}</strong>
-                    <span>{{ stock.name }}</span>
+                    <strong class="result-ticker">{{ stock.ticker }}</strong>
+                    <span class="result-name">{{ stock.name }}</span>
                   </div>
 
                   <span class="result-exchange">
@@ -88,7 +90,7 @@
 
   <div class="topbar-actions">
     <button
-      class="icon-button"
+      class="theme-button"
       type="button"
       [attr.aria-label]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
       [title]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
@@ -97,6 +99,7 @@
       <span aria-hidden="true">{{ theme.mode() === 'dark' ? '☀' : '☾' }}</span>
     </button>
 
-    <div class="user-avatar">U</div>
+    <!-- A placeholder until accounts exist (N24); it says nothing to assistive technology. -->
+    <div class="user-avatar" aria-hidden="true">U</div>
   </div>
 </header>

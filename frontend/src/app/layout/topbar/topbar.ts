@@ -2,7 +2,6 @@ import {
   Component,
   computed,
   DestroyRef,
-  HostListener,
   inject,
   input,
   OnInit,
@@ -11,10 +10,12 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { exchangeName, Stock } from '../../models/stock';
 import { LoadState } from '../../models/load-state';
+import { exchangeName, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
 import { ThemeService } from '../../services/theme.service';
+
+const MAX_SUGGESTIONS = 10;
 
 /**
  * How well a company matches a lower-case query; lower is better, null is no match.
@@ -24,39 +25,47 @@ import { ThemeService } from '../../services/theme.service';
 function matchRank(stock: Stock, query: string): number | null {
   const ticker = stock.ticker.toLowerCase();
   const name = stock.name.toLowerCase();
-  if (ticker === query) return 0;
-  if (ticker.startsWith(query)) return 1;
+  if (ticker === query) {
+    return 0;
+  }
+  if (ticker.startsWith(query)) {
+    return 1;
+  }
   const nameWords = name.split(/[\s,.&()'/-]+/);
-  if (name.startsWith(query) || nameWords.some((word) => word.startsWith(query))) return 2;
-  if (ticker.includes(query) || name.includes(query)) return 3;
+  const nameWordStarts = name.startsWith(query) || nameWords.some((word) => word.startsWith(query));
+  if (nameWordStarts) {
+    return 2;
+  }
+  if (ticker.includes(query) || name.includes(query)) {
+    return 3;
+  }
   return null;
 }
 
 @Component({
   selector: 'app-topbar',
-  imports: [],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
+  host: { '(document:pointerdown)': 'onDocumentPointerDown($event)' },
 })
-export class TopbarComponent implements OnInit {
-  readonly menuOpen = input(false);
-  readonly menuRequested = output<HTMLElement>();
-  readonly theme = inject(ThemeService);
-  readonly exchangeLabel = exchangeName;
+export class Topbar implements OnInit {
   private readonly stockService = inject(StockService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
+  readonly menuOpen = input(false);
+  readonly menuRequested = output<HTMLElement>();
+  readonly theme = inject(ThemeService);
+  readonly exchangeLabel = exchangeName;
+
   readonly searchQuery = signal('');
   readonly searchResultsOpen = signal(false);
   readonly stocks = signal<Stock[]>([]);
-  readonly stocksLoadState = signal<LoadState>({
-    status: 'idle',
-  });
+  readonly stocksLoadState = signal<LoadState>({ status: 'idle' });
+  readonly activeOption = signal(-1);
 
   readonly filteredStocks = computed(() => {
     const query = this.searchQuery().trim().toLowerCase();
-
     if (!query) {
       return [];
     }
@@ -64,23 +73,26 @@ export class TopbarComponent implements OnInit {
     const matches: { stock: Stock; rank: number }[] = [];
     for (const stock of this.stocks()) {
       const rank = matchRank(stock, query);
-      if (rank !== null) matches.push({ stock, rank });
+      if (rank !== null) {
+        matches.push({ stock, rank });
+      }
     }
     // The sort is stable, so equal ranks keep the catalogue order (alphabetical by ticker).
     matches.sort((first, second) => first.rank - second.rank);
-    return matches.slice(0, 10).map((match) => match.stock);
+    return matches.slice(0, MAX_SUGGESTIONS).map((match) => match.stock);
   });
 
-  readonly activeOption = signal(-1);
-  readonly optionsVisible = computed(
-    () =>
-      this.searchResultsOpen() &&
-      this.stocksLoadState().status === 'ready' &&
-      this.filteredStocks().length > 0,
-  );
+  readonly optionsVisible = computed(() => {
+    const isReady = this.stocksLoadState().status === 'ready';
+    return this.searchResultsOpen() && isReady && this.filteredStocks().length > 0;
+  });
+
   readonly activeOptionId = computed(() => {
     const active = this.activeOption();
-    return this.optionsVisible() && active >= 0 ? this.optionId(active) : null;
+    if (!this.optionsVisible() || active < 0) {
+      return null;
+    }
+    return this.optionId(active);
   });
 
   ngOnInit(): void {
@@ -91,10 +103,7 @@ export class TopbarComponent implements OnInit {
     if (this.stocksLoadState().status === 'loading') {
       return;
     }
-
-    this.stocksLoadState.set({
-      status: 'loading',
-    });
+    this.stocksLoadState.set({ status: 'loading' });
 
     this.stockService
       .getStocks()
@@ -102,9 +111,7 @@ export class TopbarComponent implements OnInit {
       .subscribe({
         next: (stocks) => {
           this.stocks.set(stocks);
-          this.stocksLoadState.set({
-            status: 'ready',
-          });
+          this.stocksLoadState.set({ status: 'ready' });
         },
         error: (error: unknown) => {
           console.error('Failed to load the stock list.', error);
@@ -118,7 +125,6 @@ export class TopbarComponent implements OnInit {
 
   onSearchFocus(): void {
     this.searchResultsOpen.set(true);
-
     if (this.stocksLoadState().status === 'error') {
       this.loadStocks();
     }
@@ -133,10 +139,13 @@ export class TopbarComponent implements OnInit {
   /** Focus stays in the input; the arrow keys only mark an option (aria-activedescendant). */
   onSearchKeydown(event: KeyboardEvent): void {
     const options = this.filteredStocks();
+
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       // Keeps the caret in place and the page from scrolling, also with no options.
       event.preventDefault();
-      if (!options.length) return;
+      if (!options.length) {
+        return;
+      }
       if (!this.searchResultsOpen()) {
         this.searchResultsOpen.set(true);
         return;
@@ -147,7 +156,9 @@ export class TopbarComponent implements OnInit {
       const start = current < 0 && step < 0 ? 0 : current;
       this.activeOption.set((start + step + options.length) % options.length);
     } else if (event.key === 'Enter') {
-      if (!this.optionsVisible()) return;
+      if (!this.optionsVisible()) {
+        return;
+      }
       event.preventDefault();
       this.selectStock(options[Math.max(this.activeOption(), 0)]);
     } else if (event.key === 'Tab') {
@@ -155,10 +166,11 @@ export class TopbarComponent implements OnInit {
     }
   }
 
-  @HostListener('document:pointerdown', ['$event'])
   onDocumentPointerDown(event: Event): void {
     const target = event.target;
-    if (target instanceof Element && target.closest('.global-search')) return;
+    if (target instanceof Element && target.closest('.global-search')) {
+      return;
+    }
     this.dismissSearchResults();
   }
 

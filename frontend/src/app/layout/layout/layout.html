@@ -18,5 +18,5 @@
   (keydown)="trapMenuFocus($event)"
 >
   <button class="menu-close" type="button" autofocus (click)="closeMenu()">Close menu ×</button>
-  <app-sidebar />
+  <app-sidebar (navigated)="closeMenu()" />
 </dialog>

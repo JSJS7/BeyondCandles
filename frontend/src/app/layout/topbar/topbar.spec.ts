@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter, Router } from '@angular/router';
-import { TopbarComponent } from './topbar';
+import { Topbar } from './topbar';
 
 describe('Topbar', () => {
   const catalogueUrl = 'http://127.0.0.1:8000/stocks';
@@ -15,18 +15,18 @@ describe('Topbar', () => {
       sector: null,
     })),
   ];
-  let component: TopbarComponent;
-  let fixture: ComponentFixture<TopbarComponent>;
+  let component: Topbar;
+  let fixture: ComponentFixture<Topbar>;
   let http: HttpTestingController;
 
   beforeEach(async () => {
     localStorage.removeItem('beyondcandles-theme');
     await TestBed.configureTestingModule({
-      imports: [TopbarComponent],
+      imports: [Topbar],
       providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TopbarComponent);
+    fixture = TestBed.createComponent(Topbar);
     component = fixture.componentInstance;
     http = TestBed.inject(HttpTestingController);
     vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -290,7 +290,7 @@ describe('Topbar', () => {
   it('switches the page theme using the labelled toolbar button', () => {
     http.expectOne(catalogueUrl).flush(catalogue);
     const previousTheme = component.theme.mode();
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('.icon-button');
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('.theme-button');
     button.click();
     fixture.detectChanges();
 

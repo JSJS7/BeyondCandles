@@ -7,14 +7,16 @@
       <p class="eyebrow">Unable to load stock</p>
       <h1>{{ ticker() }}</h1>
       <p>{{ stockState.message }}</p>
-      <button class="retry-button" type="button" (click)="retryStock()">Try again</button>
-      <a routerLink="/">Go to dashboard</a>
+      <div class="panel-actions">
+        <button class="retry-button" type="button" (click)="retryStock()">Try again</button>
+        <a class="home-link" routerLink="/">Go to dashboard</a>
+      </div>
     </div>
   } @else if (stock(); as company) {
     <header class="company-header">
       <h1>{{ company.name }}</h1>
       <p class="company-meta">
-        <strong>{{ company.ticker }}</strong>
+        <strong class="company-ticker">{{ company.ticker }}</strong>
         <span aria-hidden="true">·</span>
         <span>{{ exchangeName() }}</span>
         @if (company.sector) {
@@ -31,7 +33,7 @@
     <section class="panel" aria-labelledby="price-heading">
       @let priceState = pricesLoadState();
       @if (priceState.status !== 'ready' || prices().length === 0) {
-        <h2 id="price-heading">Adjusted closing price</h2>
+        <h2 id="price-heading" class="panel-heading">Adjusted closing price</h2>
         <p class="muted">{{ priceSeriesDescription }}</p>
       }
       @if (priceState.status === 'loading') {
@@ -47,7 +49,7 @@
     </section>
 
     <section class="panel" aria-labelledby="financial-heading">
-      <h2 id="financial-heading">Annual financials</h2>
+      <h2 id="financial-heading" class="panel-heading">Annual financials</h2>
       @if (company.financial_history_note) {
         <p class="muted">{{ company.financial_history_note }}</p>
       }
