@@ -38,6 +38,7 @@ function company(ticker: string, sector: string, ratios: Partial<Ratios>): Scree
       shares_basis: 'reported',
       revenue_basis_break: false,
       eps_basis_break: false,
+      spin_offs: [],
       ratios: { ...NO_RATIOS, ...ratios },
     },
   };
@@ -88,7 +89,9 @@ describe('Screener page', () => {
   function headerButton(label: string): HTMLButtonElement {
     const buttons = [...page().querySelectorAll<HTMLButtonElement>('.sort-button')];
     const button = buttons.find((candidate) => candidate.textContent?.trim().startsWith(label));
-    if (!button) throw new Error(`No sort button ${label}`);
+    if (!button) {
+      throw new Error(`No sort button ${label}`);
+    }
     return button;
   }
 
@@ -99,7 +102,9 @@ describe('Screener page', () => {
 
   async function changeControl(selector: string, value: string): Promise<void> {
     const control = page().querySelector<HTMLInputElement | HTMLSelectElement>(selector);
-    if (!control) throw new Error(`No control ${selector}`);
+    if (!control) {
+      throw new Error(`No control ${selector}`);
+    }
     control.value = value;
     control.dispatchEvent(new Event('change'));
     await settle();
@@ -157,7 +162,9 @@ describe('Screener page', () => {
   // The page has two pickers; each test names the one it means.
   function picker(name: 'sectors' | 'columns'): HTMLElement {
     const element = page().querySelector<HTMLElement>(`[data-picker="${name}"]`);
-    if (!element) throw new Error(`No picker ${name}`);
+    if (!element) {
+      throw new Error(`No picker ${name}`);
+    }
     return element;
   }
 
@@ -169,7 +176,9 @@ describe('Screener page', () => {
       (candidate) => candidate.querySelector('.check-label')?.textContent === label,
     );
     const box = row?.querySelector<HTMLInputElement>('input');
-    if (!box) throw new Error(`No option ${label} in ${name}`);
+    if (!box) {
+      throw new Error(`No option ${label} in ${name}`);
+    }
     return box;
   }
 
@@ -530,7 +539,9 @@ describe('Screener page', () => {
 
   function criterionInput(label: string, bound: 'minimum' | 'maximum'): HTMLInputElement {
     const input = page().querySelector<HTMLInputElement>(`input[aria-label="${label} ${bound}"]`);
-    if (!input) throw new Error(`No input ${label} ${bound}`);
+    if (!input) {
+      throw new Error(`No input ${label} ${bound}`);
+    }
     return input;
   }
 

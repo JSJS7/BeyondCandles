@@ -4,7 +4,6 @@ import {
   cellText,
   columnSummary,
   formatMultiple,
-  formatPercent,
   SCREENER_COLUMNS,
   ScreenerColumn,
   visibleColumns,
@@ -25,21 +24,6 @@ describe('Screener number formats', () => {
     expect(formatMultiple('9.80192')).toBe('9.80');
     expect(formatMultiple('1234.565')).toBe('1,234.57');
     expect(formatMultiple('-0.125')).toBe('-0.13');
-  });
-
-  it('writes a ratio as a percent with one decimal, moving the point as text', () => {
-    expect(formatPercent('0.269151')).toBe('26.9%');
-    expect(formatPercent('1.714224')).toBe('171.4%');
-    expect(formatPercent('0.25')).toBe('25.0%');
-    expect(formatPercent('2')).toBe('200.0%');
-    expect(formatPercent('-0.042')).toBe('-4.2%');
-    // 12.3456 × 100 stays exact; a float would turn 0.07 into 7.000000000000001.
-    expect(formatPercent('0.07')).toBe('7.0%');
-    expect(formatPercent('12.3456')).toBe('1,234.6%');
-  });
-
-  it('shows no minus sign on a value that rounds to zero', () => {
-    expect(formatPercent('-0.0001')).toBe('0.0%');
   });
 });
 
@@ -83,6 +67,22 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'fcf_margin')).toEqual(['Continuing ops']);
     expect(cellLabels(latest, 'roe')).toEqual([]);
     expect(cellLabels(latest, 'sector')).toEqual([]);
+  });
+
+  it('marks only the price ratios after a spin-off, next to their other labels', () => {
+    const latest = period(
+      {
+        eps_basis: 'basic',
+        spin_offs: [{ event_date: '2020-04-03', separated_fraction: '0.370673' }],
+      },
+      { pe: '10', pb: '2', ps: '1', roe: '0.1' },
+    );
+
+    expect(cellLabels(latest, 'pe')).toEqual(['Basic', 'Spin-off']);
+    expect(cellLabels(latest, 'pb')).toEqual(['Spin-off']);
+    expect(cellLabels(latest, 'ps')).toEqual(['Spin-off']);
+    expect(cellLabels(latest, 'roe')).toEqual([]);
+    expect(cellLabels(latest, 'price')).toEqual([]);
   });
 
   it('puts no input label on an empty ratio, but keeps a series break on empty growth', () => {

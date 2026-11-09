@@ -1,12 +1,21 @@
 // CSV export of the screener: the values as the API returns them, so that the file is fit for
 // further analysis.
-import { ScreenerRow } from '../../models/screener';
+import { ScreenerRow, SpinOff } from '../../models/screener';
 import { columnValue } from './screener-columns';
 import { CRITERION_COLUMNS } from './screener-filters';
 
 interface CsvColumn {
   header: string;
   value: (row: ScreenerRow) => string | boolean | null;
+}
+
+/** One part of every spin-off in one field, separated by semicolons; empty when none. */
+function spinOffField(row: ScreenerRow, part: (spinOff: SpinOff) => string): string | null {
+  if (row.latest === null) {
+    return null;
+  }
+  const parts = row.latest.spin_offs.map(part);
+  return parts.join(';');
 }
 
 const CSV_COLUMNS: CsvColumn[] = [
@@ -26,6 +35,14 @@ const CSV_COLUMNS: CsvColumn[] = [
   { header: 'ocf_scope', value: (row) => row.latest?.ocf_scope ?? null },
   { header: 'revenue_series_break', value: (row) => row.latest?.revenue_basis_break ?? null },
   { header: 'eps_series_break', value: (row) => row.latest?.eps_basis_break ?? null },
+  {
+    header: 'spin_off_dates',
+    value: (row) => spinOffField(row, (spinOff) => spinOff.event_date),
+  },
+  {
+    header: 'spin_off_fractions',
+    value: (row) => spinOffField(row, (spinOff) => spinOff.separated_fraction),
+  },
 ];
 
 /** One CSV field: quoted when it holds a separator, a quote or a line break (RFC 4180). */

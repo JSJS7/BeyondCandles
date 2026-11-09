@@ -43,7 +43,9 @@ export class CriteriaEditor {
 
   add(key: string): void {
     const column = this.available().find((candidate) => candidate.key === key);
-    if (!column) return;
+    if (!column) {
+      return;
+    }
 
     this.added.emit(column.key);
     // The next thing to do is typing a limit, so the focus goes to the new minimum field.

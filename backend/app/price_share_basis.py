@@ -18,6 +18,9 @@ CONVERSION = "vendor_corporate_action_conversion_not_an_ordinary_share_split"
 # financials describe different companies, so no comparable price exists (METHODOLOGY.md).
 OTHER_COMPANY_PRICES_UNTIL = {"JCI": date(2016, 9, 2)}
 
+# A smaller separation moves price ratios less than the rounding of a typical ratio (M34).
+SPIN_OFF_MARKER_THRESHOLD = Fraction(3, 100)
+
 
 def price_basis_factor(ticker, day, rules):
     """Return the factor that turns a vendor price on this day into the EPS share basis.
@@ -53,6 +56,52 @@ def price_basis_factor(ticker, day, rules):
             raise ValueError(f"Vendor price event is not reviewed for prices: {ticker}")
         factor *= Fraction(event["vendor_new_shares"], event["vendor_old_shares"])
     return factor
+
+
+def spin_offs(ticker, rules):
+    """Return [(date, separated fraction)] of events that took a business out of the price.
+
+    A share split changes the vendor price and EPS alike. When the vendor's ratio exceeds
+    the share-count ratio, the vendor also scaled earlier prices down by the value of a
+    business that left the company, so 1 − 1 / (vendor ratio ÷ share ratio) is the part
+    of the price that business held. Only parts above the marker threshold are returned;
+    an event that raised earlier prices (the JCI merger) is not a separation.
+    """
+    price_factors = []
+    for action in rules["actions"]:
+        if action["ticker"] != ticker:
+            continue
+        vendor_ratio = Fraction(
+            action["vendor_new_shares"], action["vendor_old_shares"]
+        )
+        share_ratio = Fraction(action["new_shares"], action["old_shares"])
+        price_factors.append((action["date"], vendor_ratio / share_ratio))
+    for event in rules["excluded_vendor_events"]:
+        if event["ticker"] != ticker or event["reason"] != CONVERSION:
+            continue
+        vendor_ratio = Fraction(event["vendor_new_shares"], event["vendor_old_shares"])
+        price_factors.append((event["date"], vendor_ratio))
+
+    separations = []
+    for day, price_factor in price_factors:
+        separated_fraction = 1 - 1 / price_factor
+        if separated_fraction > SPIN_OFF_MARKER_THRESHOLD:
+            separations.append((date.fromisoformat(day), separated_fraction))
+    return sorted(separations)
+
+
+def spin_offs_after_period(ticker, period_end, price_day, rules):
+    """Spin-offs after the period end and on or before the price day.
+
+    The price of that day no longer includes the separated business, while the period's
+    financials still do, so price ratios join two different scopes until a report for a
+    period ending after the event is known.
+    """
+    result = []
+    for event_day, separated_fraction in spin_offs(ticker, rules):
+        if period_end < event_day <= price_day:
+            result.append((event_day, separated_fraction))
+    return result
 
 
 def price_comparable_to_period(ticker, period_end):

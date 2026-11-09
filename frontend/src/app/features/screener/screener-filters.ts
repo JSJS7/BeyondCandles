@@ -1,6 +1,7 @@
 // Which rows the screener shows: sectors, search and ranges of ratios. Rows are filtered in the
 // browser, because every company is already loaded for the valuation date.
 import { ScreenerRow } from '../../models/screener';
+import { EXACT_TICKER, matchRank } from '../../shared/search-match';
 import {
   ColumnKey,
   columnValue,
@@ -168,17 +169,30 @@ export function filterBySector(
   });
 }
 
-/** Rows whose ticker or name contains the text, ignoring case; empty text keeps every row. */
+/**
+ * Rows whose ticker or name contains the text, ignoring case; empty text keeps every row.
+ * The same companies as the top search finds (M35). The table keeps its own sort order.
+ */
 export function filterBySearch(rows: ScreenerRow[], text: string): ScreenerRow[] {
-  const needle = text.trim().toLowerCase();
-  if (needle === '') {
+  const query = text.trim().toLowerCase();
+  if (query === '') {
     return rows;
   }
   return rows.filter((row) => {
-    const tickerMatches = row.ticker.toLowerCase().includes(needle);
-    const nameMatches = row.name.toLowerCase().includes(needle);
-    return tickerMatches || nameMatches;
+    const rank = matchRank(row.ticker, row.name, query);
+    return rank !== null;
   });
+}
+
+/** The same rows with the company whose ticker is exactly the text moved to the top. */
+export function exactTickerFirst(rows: ScreenerRow[], text: string): ScreenerRow[] {
+  const query = text.trim().toLowerCase();
+  if (query === '') {
+    return rows;
+  }
+  const exact = rows.filter((row) => matchRank(row.ticker, row.name, query) === EXACT_TICKER);
+  const others = rows.filter((row) => !exact.includes(row));
+  return [...exact, ...others];
 }
 
 /** The short text of the sector control, e.g. "All sectors", "Energy" or "All except 2 sectors". */

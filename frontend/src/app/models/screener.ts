@@ -17,6 +17,13 @@ export interface Ratios {
 
 export type RatioKey = keyof Ratios;
 
+// A business separated after the period: the price excludes it, the period's results do not.
+export interface SpinOff {
+  event_date: string;
+  // The part of the price the business held, from the vendor's ratio (0.06 is 6%).
+  separated_fraction: string;
+}
+
 export interface PeriodRatios {
   period_start: string;
   period_end: string;
@@ -27,6 +34,8 @@ export interface PeriodRatios {
   shares_basis: 'reported' | 'calculated' | null;
   revenue_basis_break: boolean;
   eps_basis_break: boolean;
+  // Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.
+  spin_offs: SpinOff[];
   ratios: Ratios;
 }
 

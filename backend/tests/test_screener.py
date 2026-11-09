@@ -11,6 +11,7 @@ from sqlalchemy.pool import StaticPool
 from app.database import Base, get_connection
 from app.fiscal_periods import fiscal_rules
 from app.growth import (
+    ReportYears,
     SeriesCell,
     annual_report_columns,
     one_report_growth,
@@ -66,6 +67,13 @@ class GrowthTests(unittest.TestCase):
 
         self.assertEqual(growth.value, Decimal("0.1"))
         self.assertTrue(growth.basis_break)
+        # The restated 90 is kept for the page, which shows it next to the table's 100.
+        self.assertEqual(
+            growth.report,
+            ReportYears(
+                "new", date(2024, 2, 1), "0000000001", Decimal(90), Decimal(99)
+            ),
+        )
 
     def test_no_marker_when_series_agrees_with_the_report(self):
         """No restatement: series and report show the same change."""
@@ -218,6 +226,39 @@ class GrowthTests(unittest.TestCase):
 
         self.assertEqual(source_coefficients(Decimal(100), sources), {})
 
+    def test_balance_sheet_instants_of_one_report_give_growth(self):
+        """Equity is a balance at a date, and an annual report states two year ends, so
+        its change is read from one report like a full-year amount."""
+        facts = [
+            dict(
+                report_fact("StockholdersEquity", end, value, "new", date(2024, 2, 1)),
+                metric="equity",
+                period_kind="instant",
+                period_start=end,
+            )
+            for end, value in ((self.EARLIER_END, "200"), (self.LATER_END, "250"))
+        ]
+
+        growth = one_report_growth(
+            self.reports(*facts),
+            SeriesCell(self.EARLIER_END, Decimal(200), {"StockholdersEquity": 1}),
+            SeriesCell(self.LATER_END, Decimal(250), {"StockholdersEquity": 1}),
+        )
+
+        self.assertEqual(growth.value, Decimal("0.25"))
+        self.assertEqual(growth.report.accession, "new")
+
+    def test_sources_sharing_one_tag_give_no_coefficients(self):
+        """ABBV's parent equity is group equity minus its noncontrolling part, and both
+        sources carry the group-equity tag (the part is a statement position). A report
+        column holds one value per tag, so it cannot rebuild the cell. Before this rule
+        the two signs merged into {tag: -1}, the report value turned negative and every
+        such year was marked as a series break."""
+        tag = "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+        sources = [{"tag": tag, "value": "3364"}, {"tag": tag, "value": "39"}]
+
+        self.assertEqual(source_coefficients(Decimal(3325), sources), {})
+
     def test_ineligible_and_non_annual_facts_are_left_out(self):
         """A predecessor's report that dates versions does not define growth."""
         predecessor = {
@@ -247,6 +288,7 @@ class ScreenerApiTests(unittest.TestCase):
                     self.company(1, "TEST", "0000000001"),
                     self.company(2, "JCI", "0000000002"),
                     self.company(3, "HIDDEN", None),
+                    self.company(4, "RTX", "0000000004"),
                 ],
             )
 
@@ -426,6 +468,37 @@ class ScreenerApiTests(unittest.TestCase):
 
         self.assertIsNone(before_report["latest"]["ratios"]["pe"])
         self.assertEqual(after_report["latest"]["ratios"]["pe"], "20")
+
+    def test_spin_off_is_marked_until_a_period_after_it_is_known(self):
+        """RTX separated Carrier and Otis on 03.04.2020 (37% of the price by the vendor's
+        ratio). FY2019 results with a later price are marked, ratios unchanged; the
+        FY2020 report, whose period includes the event, ends the mark."""
+        fiscal_2019 = (date(2019, 1, 1), date(2019, 12, 31))
+        fiscal_2020 = (date(2020, 1, 1), date(2020, 12, 31))
+        self.add_year(date(2020, 2, 7), fiscal_2019, company=4)
+        self.add_year(date(2021, 2, 8), fiscal_2020, company=4)
+        for day in (date(2020, 3, 31), date(2020, 6, 30), date(2021, 3, 31)):
+            self.add_close(day, company=4)
+
+        before_event = self.row("RTX", date="2020-03-31")
+        in_window = self.row("RTX", date="2020-06-30")
+        after_report = self.row("RTX", date="2021-03-31")
+
+        self.assertEqual(before_event["latest"]["spin_offs"], [])
+        self.assertEqual(
+            in_window["latest"]["spin_offs"],
+            [{"event_date": "2020-04-03", "separated_fraction": "0.370673"}],
+        )
+        self.assertEqual(in_window["latest"]["ratios"]["pe"], "20")
+        self.assertEqual(after_report["latest"]["spin_offs"], [])
+
+    def test_spin_off_without_a_price_is_not_marked(self):
+        """With no price of the date there are no price ratios to distort."""
+        self.add_year(date(2020, 2, 7), (date(2019, 1, 1), date(2019, 12, 31)), 4)
+
+        row = self.row("RTX", date="2020-06-30")
+
+        self.assertEqual(row["latest"]["spin_offs"], [])
 
     def test_date_outside_the_window_is_rejected(self):
         """Before every company has a report, or after prices end, there is no screen."""

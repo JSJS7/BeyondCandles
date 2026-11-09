@@ -14,33 +14,9 @@ import { LoadState } from '../../models/load-state';
 import { exchangeName, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
 import { ThemeService } from '../../services/theme.service';
+import { matchRank } from '../../shared/search-match';
 
 const MAX_SUGGESTIONS = 10;
-
-/**
- * How well a company matches a lower-case query; lower is better, null is no match.
- * An exact ticker comes first, so one-letter tickers such as V or T are not buried
- * under every name that contains the letter.
- */
-function matchRank(stock: Stock, query: string): number | null {
-  const ticker = stock.ticker.toLowerCase();
-  const name = stock.name.toLowerCase();
-  if (ticker === query) {
-    return 0;
-  }
-  if (ticker.startsWith(query)) {
-    return 1;
-  }
-  const nameWords = name.split(/[\s,.&()'/-]+/);
-  const nameWordStarts = name.startsWith(query) || nameWords.some((word) => word.startsWith(query));
-  if (nameWordStarts) {
-    return 2;
-  }
-  if (ticker.includes(query) || name.includes(query)) {
-    return 3;
-  }
-  return null;
-}
 
 @Component({
   selector: 'app-topbar',
@@ -72,7 +48,7 @@ export class Topbar implements OnInit {
 
     const matches: { stock: Stock; rank: number }[] = [];
     for (const stock of this.stocks()) {
-      const rank = matchRank(stock, query);
+      const rank = matchRank(stock.ticker, stock.name, query);
       if (rank !== null) {
         matches.push({ stock, rank });
       }
@@ -162,6 +138,19 @@ export class Topbar implements OnInit {
       event.preventDefault();
       this.selectStock(options[Math.max(this.activeOption(), 0)]);
     } else if (event.key === 'Tab') {
+      // N38: in the error panel, Tab moves forward to "Try again", so the panel must stay.
+      // The options are not Tab stops, and the other panels have nothing to reach.
+      const errorShown = this.stocksLoadState().status === 'error';
+      const movesToRetryButton = errorShown && !event.shiftKey;
+      if (!movesToRetryButton) {
+        this.dismissSearchResults();
+      }
+    }
+  }
+
+  /** Tab forward from "Try again" leaves the search; Shift+Tab goes back to the input. */
+  onRetryKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Tab' && !event.shiftKey) {
       this.dismissSearchResults();
     }
   }

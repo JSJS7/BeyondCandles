@@ -1,7 +1,7 @@
 // The columns of the screener table: what each one holds and how its values are shown.
 import { PeriodRatios, RatioKey, ScreenerRow } from '../../models/screener';
 import { formatDate } from '../../shared/date-format';
-import { formatFixed } from '../../shared/decimal-format';
+import { formatFixed, formatPercent } from '../../shared/decimal-format';
 
 type ColumnKind = 'text' | 'date' | 'price' | 'multiple' | 'percent';
 export type ColumnKey = 'sector' | 'price' | 'period_end' | RatioKey;
@@ -55,19 +55,6 @@ export function columnValue(row: ScreenerRow, key: ColumnKey): string | null {
   return row.latest.ratios[key];
 }
 
-/** The same decimal multiplied by 100, moved as text so that no digit is lost. */
-function timesHundred(value: string): string {
-  const negative = value.startsWith('-');
-  const unsigned = negative ? value.slice(1) : value;
-  const [integer, fraction = ''] = unsigned.split('.');
-  const padded = fraction.padEnd(2, '0');
-  return `${negative ? '-' : ''}${integer}${padded.slice(0, 2)}.${padded.slice(2)}`;
-}
-
-export function formatPercent(value: string): string {
-  return `${formatFixed(timesHundred(value), 1)}%`;
-}
-
 export function formatMultiple(value: string): string {
   return formatFixed(value, 2);
 }
@@ -119,17 +106,22 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): string[
   if (!hasValue || latest.ratios[key] === null) {
     return [];
   }
+  const labels: string[] = [];
   if (key === 'pe' && latest.eps_basis === 'basic') {
-    return ['Basic'];
+    labels.push('Basic');
   }
   const usesShareCount = key === 'pb' || key === 'ps';
   if (usesShareCount && latest.shares_basis === 'calculated') {
-    return ['Calculated'];
+    labels.push('Calculated');
   }
   if (key === 'fcf_margin' && latest.ocf_scope === 'continuing') {
-    return ['Continuing ops'];
+    labels.push('Continuing ops');
   }
-  return [];
+  const usesPrice = key === 'pe' || key === 'pb' || key === 'ps';
+  if (usesPrice && latest.spin_offs.length > 0) {
+    labels.push('Spin-off');
+  }
+  return labels;
 }
 
 /** The columns to show, in table order, without the hidden ones. */

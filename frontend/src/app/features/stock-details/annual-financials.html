@@ -39,6 +39,12 @@
     <dd>Reported EPS restated for stock splits after the filing.</dd>
     <dt><span class="metric-label">Calculated</span></dt>
     <dd>Calculated from values reported in one filing, not one reported figure.</dd>
+    <dt><span class="metric-label">Series break</span></dt>
+    <dd>
+      This year and the year before come from different definitions, so the change between them in
+      this table is misleading. Select the value to compare both years with the report that states
+      them in one definition.
+    </dd>
     <dt><span class="review">Needs review</span></dt>
     <dd>An unverified definition or conflicting values; no value is shown.</dd>
     <dt><span class="muted">Not available</span></dt>
@@ -179,6 +185,57 @@
       </p>
     } @else {
       <p class="muted">Not available: no value matching the definition was imported.</p>
+    }
+
+    @if (growthText(cell); as growth) {
+      <p>
+        {{ growth }}
+        @if (growthReportUrl(cell); as reportUrl) {
+          <a [href]="reportUrl" target="_blank" rel="noopener noreferrer"
+            >Open this report on SEC EDGAR</a
+          >
+        }
+      </p>
+    }
+
+    @if (details.growthComparison; as comparison) {
+      <div class="growth-comparison">
+        <table class="growth-comparison-table">
+          <caption class="growth-comparison-caption">
+            Series break: both years in this table and in the report,
+            {{
+              comparison.unit
+            }}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" class="growth-comparison-heading">Values</th>
+              <th scope="col" class="growth-comparison-number-heading">
+                {{ comparison.earlierLabel }}
+              </th>
+              <th scope="col" class="growth-comparison-number-heading">
+                {{ comparison.laterLabel }}
+              </th>
+              <th scope="col" class="growth-comparison-number-heading">Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of comparison.rows; track row.label) {
+              <tr>
+                <th scope="row" class="growth-comparison-source">{{ row.label }}</th>
+                <td class="growth-comparison-value">{{ row.earlier }}</td>
+                <td class="growth-comparison-value">{{ row.later }}</td>
+                <td class="growth-comparison-value">{{ row.change }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        @if (comparison.reportBeforeSplits) {
+          <p class="growth-comparison-note muted">
+            The report states EPS as filed, before later stock splits; compare the changes.
+          </p>
+        }
+      </div>
     }
 
     @if (cell.eps_share_basis; as shareBasis) {

@@ -37,6 +37,7 @@ import {
   criterionStats,
   criterionStatus,
   criterionUnit,
+  exactTickerFirst,
   filterBySearch,
   filterBySector,
   filterRows,
@@ -151,7 +152,11 @@ export class Screener implements OnInit {
   });
   readonly matchingRows = computed(() => filterRows(this.sectorRows(), this.state().criteria));
   readonly searchedRows = computed(() => filterBySearch(this.matchingRows(), this.state().search));
-  readonly visibleRows = computed(() => sortRows(this.searchedRows(), this.state().sort));
+  readonly visibleRows = computed(() => {
+    const sorted = sortRows(this.searchedRows(), this.state().sort);
+    // A searched ticker stays on top whatever the sort, as in the top search.
+    return exactTickerFirst(sorted, this.state().search);
+  });
 
   readonly totalCount = computed(() => this.result()?.rows.length ?? 0);
   readonly sortedColumnLabel = computed(() => sortKeyLabel(this.state().sort.key));

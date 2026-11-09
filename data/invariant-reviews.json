@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "method": "Flags of the invariant checks explained by a documented corporate event. A review covers one company, check and range of years up to a deviation in percent; a larger deviation flags again. Impossible values (equity above assets, negative capex) are data errors and get no review.",
+  "reviews": [
+    {
+      "ticker": "AIG",
+      "check": "assets_change",
+      "from_year": 2024,
+      "to_year": 2024,
+      "max_deviation_percent": "234.3",
+      "note": "Deconsolidation of Corebridge Financial in June 2024."
+    },
+    {
+      "ticker": "AMD",
+      "check": "assets_change",
+      "from_year": 2022,
+      "to_year": 2022,
+      "max_deviation_percent": "444.2",
+      "note": "Acquisition of Xilinx in February 2022."
+    },
+    {
+      "ticker": "BMY",
+      "check": "assets_change",
+      "from_year": 2019,
+      "to_year": 2019,
+      "max_deviation_percent": "271.4",
+      "note": "Acquisition of Celgene in November 2019."
+    },
+    {
+      "ticker": "CHTR",
+      "check": "assets_change",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "279.2",
+      "note": "Acquisitions of Time Warner Cable and Bright House Networks in May 2016."
+    },
+    {
+      "ticker": "CHTR",
+      "check": "shares_change",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "132.1",
+      "note": "Shares issued for Time Warner Cable and Bright House Networks in May 2016."
+    },
+    {
+      "ticker": "CI",
+      "check": "shares_change",
+      "from_year": 2019,
+      "to_year": 2019,
+      "max_deviation_percent": "51.8",
+      "note": "Shares issued for Express Scripts in December 2018; 2019 is the first full year."
+    },
+    {
+      "ticker": "CME",
+      "check": "net_income_over_revenue",
+      "from_year": 2017,
+      "to_year": 2017,
+      "max_deviation_percent": "11.5",
+      "note": "Deferred tax benefit from the Tax Cuts and Jobs Act of December 2017."
+    },
+    {
+      "ticker": "FANG",
+      "check": "shares_change",
+      "from_year": 2019,
+      "to_year": 2019,
+      "max_deviation_percent": "56.1",
+      "note": "Shares issued for Energen in November 2018; 2019 is the first full year."
+    },
+    {
+      "ticker": "FI",
+      "check": "assets_change",
+      "from_year": 2019,
+      "to_year": 2019,
+      "max_deviation_percent": "588.5",
+      "note": "Acquisition of First Data in July 2019."
+    },
+    {
+      "ticker": "LIN",
+      "check": "assets_change",
+      "from_year": 2018,
+      "to_year": 2018,
+      "max_deviation_percent": "357.0",
+      "note": "Business combination of Praxair and Linde AG under Linde plc on 31.10.2018; 2017 is Praxair alone."
+    },
+    {
+      "ticker": "LIN",
+      "check": "shares_change",
+      "from_year": 2019,
+      "to_year": 2019,
+      "max_deviation_percent": "63.2",
+      "note": "Linde plc shares from 31.10.2018; 2019 is the first full year of the combined company."
+    },
+    {
+      "ticker": "MAR",
+      "check": "assets_change",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "296.9",
+      "note": "Acquisition of Starwood Hotels & Resorts in September 2016."
+    },
+    {
+      "ticker": "PSA",
+      "check": "net_income_over_revenue",
+      "from_year": 2022,
+      "to_year": 2022,
+      "max_deviation_percent": "4.0",
+      "note": "Gain on the sale of the interest in PS Business Parks in July 2022."
+    },
+    {
+      "ticker": "RCL",
+      "check": "capex_over_revenue",
+      "from_year": 2021,
+      "to_year": 2021,
+      "max_deviation_percent": "45.6",
+      "note": "Cruises suspended for most of 2021 (COVID-19) while new ships were delivered."
+    },
+    {
+      "ticker": "RTX",
+      "check": "shares_change",
+      "from_year": 2020,
+      "to_year": 2020,
+      "max_deviation_percent": "57.2",
+      "note": "Merger of United Technologies and Raytheon Company in April 2020."
+    },
+    {
+      "ticker": "SNPS",
+      "check": "assets_change",
+      "from_year": 2025,
+      "to_year": 2025,
+      "max_deviation_percent": "268.9",
+      "note": "Acquisition of Ansys in July 2025."
+    },
+    {
+      "ticker": "SPGI",
+      "check": "assets_change",
+      "from_year": 2022,
+      "to_year": 2022,
+      "max_deviation_percent": "311.2",
+      "note": "Merger with IHS Markit in February 2022."
+    },
+    {
+      "ticker": "TFC",
+      "check": "shares_change",
+      "from_year": 2020,
+      "to_year": 2020,
+      "max_deviation_percent": "66.6",
+      "note": "Merger of BB&T and SunTrust in December 2019; 2020 is the first full year."
+    }
+  ]
+}

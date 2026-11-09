@@ -272,6 +272,47 @@ td.selected .cell-button:hover {
   margin-right: 10px;
 }
 
+/* Series break: the table's two years next to the same years in the growth report. */
+.growth-comparison {
+  max-width: 36rem;
+  margin: var(--bc-space-m) 0;
+  overflow-x: auto;
+}
+
+.growth-comparison-table {
+  background: var(--bc-surface);
+}
+
+.growth-comparison-caption {
+  padding-bottom: var(--bc-space-s);
+}
+
+.growth-comparison-heading {
+  padding: var(--bc-space-s) var(--bc-space-m);
+}
+
+.growth-comparison-number-heading {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.growth-comparison-source {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  font-weight: 400;
+}
+
+.growth-comparison-value {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.growth-comparison-note {
+  margin: var(--bc-space-s) 0 0;
+  font-size: var(--bc-text-small);
+}
+
 .share-basis {
   max-width: 48rem;
   overflow-wrap: anywhere;
@@ -378,5 +419,24 @@ td.selected .cell-button:hover {
 
   .sources-panel {
     padding: var(--bc-space-m);
+  }
+
+  /* At 320 px the four columns fit only with narrower gaps and wrapped year headings
+     (measured: 28 px too wide). */
+  .growth-comparison-heading {
+    padding-inline: var(--bc-space-s);
+  }
+
+  .growth-comparison-number-heading {
+    padding-inline: var(--bc-space-s);
+    white-space: normal;
+  }
+
+  .growth-comparison-source {
+    padding-inline: var(--bc-space-s);
+  }
+
+  .growth-comparison-value {
+    padding-inline: var(--bc-space-s);
   }
 }

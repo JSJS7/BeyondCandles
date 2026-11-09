@@ -228,6 +228,51 @@ describe('Topbar', () => {
     expect(fixture.nativeElement.querySelector('.search-results')).toBeNull();
   });
 
+  it('keeps the error panel open while Tab moves to Try again, and closes it after the button', () => {
+    // N38: Tab in the input closed the error panel before focus reached the retry button.
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    input.value = 'aapl';
+    input.dispatchEvent(new Event('input'));
+    failCatalogue();
+
+    press(input, 'Tab');
+    const retryButton: HTMLButtonElement = fixture.nativeElement.querySelector('.retry-button');
+    expect(retryButton).not.toBeNull();
+
+    // Tab from the button leaves the search, so the panel closes behind it.
+    retryButton.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }),
+    );
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.search-error')).toBeNull();
+    expect(component.searchQuery()).toBe('aapl');
+  });
+
+  it('closes the error panel when Shift+Tab leaves the input backwards', () => {
+    // Backwards there is no element of the panel to reach, so the panel should not linger.
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    input.value = 'aapl';
+    input.dispatchEvent(new Event('input'));
+    failCatalogue();
+
+    input.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true, cancelable: true }),
+    );
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.search-error')).toBeNull();
+  });
+
+  it('closes the "No companies found" panel with Tab', () => {
+    // Only the error panel has a control to reach; other panels close as before.
+    const input = openedSearch('unknown');
+    expect(fixture.nativeElement.querySelector('.no-results')).not.toBeNull();
+
+    press(input, 'Tab');
+
+    expect(fixture.nativeElement.querySelector('.no-results')).toBeNull();
+  });
+
   it('marks options with the arrow keys, wrapping at both ends, without moving focus', () => {
     const input = openedSearch('example');
     expect(input.getAttribute('aria-activedescendant')).toBeNull();

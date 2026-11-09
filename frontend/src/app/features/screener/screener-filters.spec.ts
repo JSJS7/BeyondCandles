@@ -4,6 +4,7 @@ import {
   criterionStats,
   criterionStatus,
   criterionUnit,
+  exactTickerFirst,
   filterBySearch,
   filterBySector,
   filterRows,
@@ -33,10 +34,33 @@ describe('Screener sector and search filters', () => {
 
   it('finds a ticker or a part of the name, ignoring case and surrounding spaces', () => {
     expect(tickers(filterBySearch(rows, ' aapl '))).toEqual(['AAPL']);
-    // row() names companies "<TICKER> Inc.", so "inc" matches all of them.
+    // row() names companies "<TICKER> Inc.", so "inc" is in every name.
     expect(tickers(filterBySearch(rows, 'INC'))).toHaveLength(4);
     expect(tickers(filterBySearch(rows, ''))).toHaveLength(4);
     expect(tickers(filterBySearch(rows, 'zzz'))).toEqual([]);
+  });
+
+  it('keeps the same companies as the top search, also text inside a word (M35)', () => {
+    const companies = [
+      { ...row('BA'), name: 'The Boeing Company' },
+      { ...row('MSFT'), name: 'Microsoft Corporation' },
+      { ...row('WMT'), name: 'Walmart Inc.' },
+      { ...row('XOM'), name: 'Exxon Mobil Corporation' },
+    ];
+
+    // "soft" and "mart" are inside a word: the top search finds them, so the screener does too.
+    expect(tickers(filterBySearch(companies, 'soft'))).toEqual(['MSFT']);
+    expect(tickers(filterBySearch(companies, 'mart'))).toEqual(['WMT']);
+    expect(tickers(filterBySearch(companies, 'boeing co'))).toEqual(['BA']);
+    expect(tickers(filterBySearch(companies, 'apple'))).toEqual([]);
+  });
+
+  it('moves the exact ticker to the top and keeps the order of the others', () => {
+    const sorted = [row('BA'), row('TGT'), row('T'), row('TMUS')];
+
+    expect(tickers(exactTickerFirst(sorted, ' T '))).toEqual(['T', 'BA', 'TGT', 'TMUS']);
+    expect(tickers(exactTickerFirst(sorted, 'tg'))).toEqual(['BA', 'TGT', 'T', 'TMUS']);
+    expect(tickers(exactTickerFirst(sorted, ''))).toEqual(['BA', 'TGT', 'T', 'TMUS']);
   });
 
   it('summarises the sector choice in a few words', () => {

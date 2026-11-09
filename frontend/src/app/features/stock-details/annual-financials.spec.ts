@@ -143,6 +143,194 @@ describe('Annual financials table', () => {
     expect(panel.textContent).not.toContain('Selected value');
   });
 
+  it('marks a series break and compares both years with the report that states them', () => {
+    // GE 2022 (real data): the table joins 2021 before the GE Vernova spin-off with 2022
+    // restated without it (-48.4%); the 2023 report states both years alike (+2.9%).
+    const report2022 = filingValue({ value: '29139000000', period_start: '2022-01-01' });
+    const report2021 = filingValue({ value: '56469000000', period_start: '2021-01-01' });
+    render([
+      period(
+        {
+          revenue: {
+            status: 'ready',
+            value: '29139000000',
+            variants: [report2022],
+            selected_sources: [report2022],
+            growth: '0.028883',
+            growth_report: {
+              accession: '0000040545-24-000027',
+              filed: '2024-02-02',
+              source_cik: '0000040545',
+              earlier_period_end: '2021-12-31',
+              earlier_value: '56469000000',
+              later_value: '58100000000',
+            },
+            series_break: true,
+          },
+        },
+        { fiscal_year: 2022, period_start: '2022-01-01', period_end: '2022-12-31' },
+      ),
+      period(
+        {
+          revenue: {
+            status: 'ready',
+            value: '56469000000',
+            variants: [report2021],
+            selected_sources: [report2021],
+          },
+        },
+        { fiscal_year: 2021, period_start: '2021-01-01', period_end: '2021-12-31' },
+      ),
+    ]);
+
+    expect(cell('revenue').textContent).toContain('Series break');
+    const panel = openSources('revenue');
+    expect(panel.textContent).toContain(
+      'Change from the previous year: +2.9%, both years from annual report 0000040545-24-000027.',
+    );
+
+    const comparison = panel.querySelector('.growth-comparison-table')!;
+    expect(comparison.querySelector('caption')?.textContent).toContain('USD millions');
+    const headers = Array.from(comparison.querySelectorAll('thead th')).map((header) =>
+      header.textContent?.trim(),
+    );
+    expect(headers).toEqual(['Values', 'FY 2021', 'FY 2022', 'Change']);
+    const rows = Array.from(comparison.querySelectorAll('tbody tr')).map((row) =>
+      Array.from(row.children).map((field) => field.textContent?.trim()),
+    );
+    expect(rows).toEqual([
+      ['This table', '56,469', '29,139', '-48.4%'],
+      ['Annual report filed 2 Feb 2024', '56,469', '58,100', '+2.9%'],
+    ]);
+    expect(panel.querySelector('.growth-comparison-note')).toBeNull();
+  });
+
+  it('links the growth report and shows no comparison without a series break', () => {
+    // N91: the report number opens on SEC EDGAR like every source below it.
+    const source = filingValue();
+    render([
+      period({
+        revenue: {
+          status: 'ready',
+          value: '100000000',
+          variants: [source],
+          selected_sources: [source],
+          growth: '0.1',
+          growth_report: {
+            accession: '0000320193-21-000010',
+            filed: '2021-02-01',
+            source_cik: '0000320193',
+            earlier_period_end: '2019-12-31',
+            earlier_value: '90909091',
+            later_value: '100000000',
+          },
+          series_break: false,
+        },
+      }),
+    ]);
+
+    const panel = openSources('revenue');
+    const reportLink = Array.from(panel.querySelectorAll('a')).find(
+      (link) => link.textContent?.trim() === 'Open this report on SEC EDGAR',
+    );
+    expect(reportLink?.getAttribute('href')).toBe(
+      'https://www.sec.gov/Archives/edgar/data/320193/000032019321000010/',
+    );
+    expect(panel.querySelector('.growth-comparison-table')).toBeNull();
+  });
+
+  it('warns that the report states EPS before later splits when the table is adjusted', () => {
+    // A 4-for-1 split after the report: the table shows 1.00 and 1.25, the report 4.00 and
+    // 4.80. The levels differ by the split, so only the two changes are comparable.
+    const splitBasis = {
+      as_of: '2026-10-13',
+      reported_value: '5',
+      new_shares: 4,
+      old_shares: 1,
+      applied_splits: [
+        {
+          date: '2024-01-01',
+          new_shares: 4,
+          old_shares: 1,
+          source_url: 'https://www.sec.gov/Archives/split.htm',
+        },
+      ],
+    };
+    const source = filingValue({ tag: 'EarningsPerShareDiluted', unit: 'USD/shares' });
+    render([
+      period({
+        eps_diluted: {
+          status: 'ready',
+          value: '1.25',
+          variants: [source],
+          selected_sources: [source],
+          eps_share_basis: splitBasis,
+          growth: '0.2',
+          growth_report: {
+            accession: '0000320193-21-000010',
+            filed: '2021-02-01',
+            source_cik: '0000320193',
+            earlier_period_end: '2019-12-31',
+            earlier_value: '4',
+            later_value: '4.8',
+          },
+          series_break: true,
+        },
+      }),
+      period(
+        { eps_diluted: { status: 'ready', value: '1', variants: [source] } },
+        { fiscal_year: 2019, period_start: '2019-01-01', period_end: '2019-12-31' },
+      ),
+    ]);
+
+    const panel = openSources('eps_diluted');
+    const rows = Array.from(panel.querySelectorAll('.growth-comparison-table tbody tr')).map(
+      (row) => Array.from(row.children).map((field) => field.textContent?.trim()),
+    );
+    expect(rows[0]).toEqual(['This table', '1.00', '1.25', '+25.0%']);
+    expect(rows[1]).toEqual(['Annual report filed 1 Feb 2021', '4.00', '4.80', '+20.0%']);
+    expect(panel.querySelector('.growth-comparison-caption')?.textContent).toContain(
+      'USD per share',
+    );
+    expect(panel.querySelector('.growth-comparison-note')?.textContent).toContain(
+      'before later stock splits',
+    );
+  });
+
+  it('explains a missing change across a loss and shows nothing without a report', () => {
+    const source = filingValue({ tag: 'NetIncomeLoss', value: '-5000000' });
+    render([
+      period({
+        net_income: {
+          status: 'ready',
+          value: '-5000000',
+          variants: [source],
+          selected_sources: [source],
+          growth: null,
+          growth_report: {
+            accession: '0000320193-21-000010',
+            filed: '2021-02-01',
+            source_cik: '0000320193',
+            earlier_period_end: '2019-12-31',
+            earlier_value: '3000000',
+            later_value: '-5000000',
+          },
+          series_break: false,
+        },
+        revenue: {
+          status: 'ready',
+          value: '100000000',
+          variants: [filingValue()],
+          selected_sources: [filingValue()],
+        },
+      }),
+    ]);
+
+    expect(cell('net_income').textContent).not.toContain('Series break');
+    expect(openSources('net_income').textContent).toContain('not shown, because a year is zero');
+    expect(openSources('revenue').textContent).not.toContain('Change from the previous year');
+  });
+
   it('uses the verified fiscal year instead of the calendar year of the end date', () => {
     // FY2015 can end in January 2016 and must not be reported as missing FY2015.
     const element = render([

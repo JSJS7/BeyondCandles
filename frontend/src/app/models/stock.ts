@@ -57,6 +57,16 @@ export interface EpsShareBasis {
   }[];
 }
 
+/** The annual report growth was read from, with both years as it states them. */
+export interface GrowthReport {
+  accession: string;
+  filed: string;
+  source_cik: string;
+  earlier_period_end: string;
+  earlier_value: string;
+  later_value: string;
+}
+
 export interface AnnualMetric {
   status: FinancialStatus;
   value: string | null;
@@ -68,6 +78,11 @@ export interface AnnualMetric {
   eps_basis?: 'basic' | 'diluted' | null;
   eps_share_basis?: EpsShareBasis | null;
   scope?: 'total' | 'continuing' | null;
+  // Change from the year before, both years from one annual report (0.05 is 5%).
+  growth?: string | null;
+  growth_report?: GrowthReport | null;
+  // The table's two values come from different definitions; the change above does not.
+  series_break?: boolean;
 }
 
 export interface AnnualPeriod {

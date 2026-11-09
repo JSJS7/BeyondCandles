@@ -35,7 +35,9 @@ describe('Stock details', () => {
       (request) => request.url.endsWith('/prices') || request.url.endsWith('/financials/annual'),
     );
     for (const request of sectionRequests) {
-      if (!request.cancelled) request.flush([]);
+      if (!request.cancelled) {
+        request.flush([]);
+      }
     }
     http.verify();
     vi.restoreAllMocks();

@@ -30,10 +30,14 @@ export function yearlyTickIndexes(prices: Price[], maxTicks: number): number[] |
   const firstSessions = new Map<string, number>();
   prices.forEach((price, index) => {
     const year = price.date.slice(0, 4);
-    if (!firstSessions.has(year)) firstSessions.set(year, index);
+    if (!firstSessions.has(year)) {
+      firstSessions.set(year, index);
+    }
   });
   const indexes = [...firstSessions.values()];
-  if (indexes.length < 2) return null;
+  if (indexes.length < 2) {
+    return null;
+  }
   const step = Math.ceil(indexes.length / maxTicks);
   return indexes.filter((_, position) => (indexes.length - 1 - position) % step === 0);
 }
@@ -51,7 +55,9 @@ export function subtractMonths(date: string, months: number): string {
 }
 
 export function pricesInRange(prices: Price[], range: PriceRange | null): Price[] {
-  if (!range) return prices;
+  if (!range) {
+    return prices;
+  }
   return prices.filter((price) => price.date >= range.start && price.date <= range.end);
 }
 
@@ -72,16 +78,22 @@ export function pricesForPreset(prices: Price[], preset: PricePreset): Price[] {
 }
 
 export function periodChange(prices: Price[]): number | null {
-  if (prices.length < 2) return null;
+  if (prices.length < 2) {
+    return null;
+  }
   const first = Number(prices[0].adjusted_close);
   const last = Number(prices[prices.length - 1].adjusted_close);
-  if (!Number.isFinite(first) || !Number.isFinite(last) || first <= 0) return null;
+  if (!Number.isFinite(first) || !Number.isFinite(last) || first <= 0) {
+    return null;
+  }
   const change = (last / first - 1) * 100;
   return Number.isFinite(change) ? change : null;
 }
 
 export function formatPeriodChange(change: number | null): string {
-  if (change === null) return 'Not available';
+  if (change === null) {
+    return 'Not available';
+  }
   // Choose the sign after rounding so a tiny decline does not display as -0.00%.
   const rounded = Math.round(change * 100) / 100;
   return `${rounded > 0 ? '+' : ''}${rounded.toFixed(2)}%`;

@@ -111,3 +111,17 @@ export function formatPerShare(value: string): string {
   const sign = negative ? '-' : '';
   return `${sign}${groupThousands(integer)}.${trimFraction(fraction, 2)}`;
 }
+
+/** The same decimal multiplied by 100, moved as text so that no digit is lost. */
+function timesHundred(value: string): string {
+  const negative = value.startsWith('-');
+  const unsigned = negative ? value.slice(1) : value;
+  const [integer, fraction = ''] = unsigned.split('.');
+  const padded = fraction.padEnd(2, '0');
+  return `${negative ? '-' : ''}${integer}${padded.slice(0, 2)}.${padded.slice(2)}`;
+}
+
+/** A plain ratio (0.15) as a percent with one decimal (15.0%). */
+export function formatPercent(value: string): string {
+  return `${formatFixed(timesHundred(value), 1)}%`;
+}

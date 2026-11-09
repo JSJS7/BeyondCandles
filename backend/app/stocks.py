@@ -14,6 +14,8 @@ from app.annual_financials import (
 )
 from app.database import get_connection
 from app.eps_splits import normalize_eps
+from app.fiscal_periods import fiscal_rules
+from app.growth import add_table_growth
 from app.metric_history import periods_as_of
 from app.models import AnnualMetricVersion, Company, DailyPrice
 from app.schemas.stock import AnnualPeriod, Price, Stock
@@ -69,13 +71,18 @@ def get_prices(
 def get_annual_financials(
     ticker: str, connection: DatabaseConnection, as_of: date | None = None
 ):
-    """Latest values by default; with as_of, the values known on that filing date."""
+    """Latest values by default; with as_of, the values known on that filing date.
+
+    Growth comes from one annual report filed by the same date, never from the series.
+    """
     if as_of is not None and as_of > date.today():
         raise HTTPException(422, detail="as_of must not be a future date.")
     company = find_company(connection, ticker)
     facts = connection.execute(reviewed_facts_query(company["id"])).mappings().all()
     if as_of is None:
-        return normalize_eps(company["ticker"], annual_periods(facts))
+        periods = normalize_eps(company["ticker"], annual_periods(facts))
+        add_table_growth(periods, facts, fiscal_rules())
+        return periods
 
     versions_query = select(AnnualMetricVersion.__table__).where(
         AnnualMetricVersion.company_id == company["id"],
@@ -85,4 +92,7 @@ def get_annual_financials(
     if facts and not stored_versions:
         # An empty history would silently look like "nothing was reported yet".
         raise HTTPException(503, detail="Point-in-time history has not been built.")
-    return periods_as_of(facts, stored_versions, as_of)
+    periods = periods_as_of(facts, stored_versions, as_of)
+    known_facts = [fact for fact in facts if fact["filed"] <= as_of]
+    add_table_growth(periods, known_facts, fiscal_rules())
+    return periods

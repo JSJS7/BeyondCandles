@@ -684,6 +684,96 @@ class StockApiTests(unittest.TestCase):
             )
             self.assertEqual(current_cell_statuses(connection)[cell], "needs_review")
 
+    def test_growth_comes_from_one_report_and_marks_a_restated_year(self):
+        """The 2021 report restates 2020 from 120 to 108. The table joins 2019 = 100 from
+        the 2020 report with 108, which looks like +8%, while the 2020 report itself
+        shows +20%: a break. 2021 grows +20.37% within one report, without a break;
+        the first year has no earlier year and no growth."""
+        facts = [
+            reported_fact(
+                period_start=start,
+                period_end=end,
+                value=Decimal(value),
+                filed=filed,
+                accession=accession,
+            )
+            for start, end, value, filed, accession in (
+                (date(2019, 1, 1), date(2019, 12, 31), "100", date(2021, 2, 1), "y20"),
+                (date(2020, 1, 1), date(2020, 12, 31), "120", date(2021, 2, 1), "y20"),
+                (date(2020, 1, 1), date(2020, 12, 31), "108", date(2022, 2, 1), "y21"),
+                (date(2021, 1, 1), date(2021, 12, 31), "130", date(2022, 2, 1), "y21"),
+            )
+        ]
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                [dict(fact, company_id=1) for fact in facts],
+            )
+
+        response = self.client.get("/stocks/AAPL/financials/annual")
+        income = [period["metrics"]["net_income"] for period in response.json()]
+
+        self.assertEqual(income[0]["growth"], "0.203704")
+        self.assertEqual(income[0]["growth_report"]["accession"], "y21")
+        self.assertFalse(income[0]["series_break"])
+        self.assertEqual(income[1]["growth"], "0.2")
+        self.assertTrue(income[1]["series_break"])
+        # N91: both years as the 2020 report states them, so the page can show 120
+        # next to the table's restated 108, and link the report on SEC EDGAR.
+        self.assertEqual(
+            income[1]["growth_report"],
+            {
+                "accession": "y20",
+                "filed": "2021-02-01",
+                "source_cik": "0000320193",
+                "earlier_period_end": "2019-12-31",
+                "earlier_value": "100",
+                "later_value": "120",
+            },
+        )
+        self.assertIsNone(income[2]["growth"])
+        self.assertIsNone(income[2]["growth_report"])
+        self.assertFalse(income[2]["series_break"])
+
+    def test_as_of_growth_uses_only_reports_filed_by_that_date(self):
+        """K13: both reports state 2019 and 2020 alike, so every cell is confirmed, but on
+        30.06.2021 only the 2020 report exists. Its growth must come from that report;
+        the 2021 report, filed in 2022, would be knowledge from the future."""
+        facts = [
+            reported_fact(
+                period_start=start,
+                period_end=end,
+                value=Decimal(value),
+                filed=filed,
+                accession=accession,
+            )
+            for start, end, value, filed, accession in (
+                (date(2019, 1, 1), date(2019, 12, 31), "100", date(2021, 2, 1), "y20"),
+                (date(2020, 1, 1), date(2020, 12, 31), "120", date(2021, 2, 1), "y20"),
+                (date(2019, 1, 1), date(2019, 12, 31), "100", date(2022, 2, 1), "y21"),
+                (date(2020, 1, 1), date(2020, 12, 31), "120", date(2022, 2, 1), "y21"),
+                (date(2021, 1, 1), date(2021, 12, 31), "130", date(2022, 2, 1), "y21"),
+            )
+        ]
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                [dict(fact, company_id=1) for fact in facts],
+            )
+        self.build_history()
+
+        as_of = self.annual_as_of("2021-06-30").json()
+        latest = self.client.get("/stocks/AAPL/financials/annual").json()
+
+        income_as_of = as_of[0]["metrics"]["net_income"]
+        self.assertEqual(as_of[0]["period_end"], "2020-12-31")
+        self.assertEqual(income_as_of["growth"], "0.2")
+        self.assertEqual(income_as_of["growth_report"]["accession"], "y20")
+        # Today the newest report stating both years is the 2021 one.
+        income_latest = latest[1]["metrics"]["net_income"]
+        self.assertEqual(latest[1]["period_end"], "2020-12-31")
+        self.assertEqual(income_latest["growth_report"]["accession"], "y21")
+
     def test_as_of_rejects_future_dates_and_missing_history(self):
         """A future date is invalid; an unbuilt history must not look like no data."""
         self.insert_restated_income()

@@ -23,6 +23,14 @@ class Ratios(BaseModel):
     equity_to_assets: DecimalValue | None = None
 
 
+class SpinOff(BaseModel):
+    """A business separated after the period: the price excludes it, the period does not."""
+
+    event_date: date
+    # The part of the price the business held, from the vendor's ratio (0.06 is 6%).
+    separated_fraction: DecimalValue
+
+
 class PeriodRatios(BaseModel):
     """One annual period valued on one session, with what is needed to read its ratios."""
 
@@ -35,6 +43,8 @@ class PeriodRatios(BaseModel):
     shares_basis: Literal["reported", "calculated"] | None = None
     revenue_basis_break: bool = False
     eps_basis_break: bool = False
+    # Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.
+    spin_offs: list[SpinOff] = []
     ratios: Ratios
 
 

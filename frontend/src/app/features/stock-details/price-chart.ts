@@ -79,7 +79,9 @@ export class PriceChart implements OnChanges, OnDestroy {
       this.themeService.mode();
       const prices = this.visiblePrices();
       const canvas = this.canvas()?.nativeElement;
-      if (!canvas) return;
+      if (!canvas) {
+        return;
+      }
       this.clearPointSelection(false);
       this.chart?.destroy();
       this.chart = this.renderer.create(canvas, prices, (index) => this.isSelectedPoint(index));
@@ -143,7 +145,9 @@ export class PriceChart implements OnChanges, OnDestroy {
       index,
       continuingSelection: this.anchorIndex !== null,
     };
-    if (this.anchorIndex === null) this.anchorIndex = index;
+    if (this.anchorIndex === null) {
+      this.anchorIndex = index;
+    }
     this.endIndex = index;
     this.refreshPointSelection();
     this.canvas()?.nativeElement.setPointerCapture(event.pointerId);
@@ -197,7 +201,9 @@ export class PriceChart implements OnChanges, OnDestroy {
     this.clearPointSelection();
     this.selectingRange.set(false);
     this.message.set('');
-    if (restoreFocus) this.rangeToggle()?.nativeElement.focus({ preventScroll: true });
+    if (restoreFocus) {
+      this.rangeToggle()?.nativeElement.focus({ preventScroll: true });
+    }
   }
 
   private commitCustomRange(prices: Price[]): void {
@@ -220,7 +226,9 @@ export class PriceChart implements OnChanges, OnDestroy {
 
   private pointerPosition(event: PointerEvent): { x: number; y: number } | null {
     const canvas = this.canvas()?.nativeElement;
-    if (!canvas || !this.chart) return null;
+    if (!canvas || !this.chart) {
+      return null;
+    }
     const bounds = canvas.getBoundingClientRect();
     return {
       x: ((event.clientX - bounds.left) * this.chart.width) / bounds.width,
@@ -264,7 +272,9 @@ export class PriceChart implements OnChanges, OnDestroy {
   }
 
   private isSelectedPoint(index: number): boolean {
-    if (this.anchorIndex !== null) return index === this.anchorIndex || index === this.endIndex;
+    if (this.anchorIndex !== null) {
+      return index === this.anchorIndex || index === this.endIndex;
+    }
     return (
       this.selectedPreset() === 'Custom' &&
       (index === 0 || index === this.visiblePrices().length - 1)
@@ -273,7 +283,9 @@ export class PriceChart implements OnChanges, OnDestroy {
 
   private refreshPointSelection(): void {
     const chart = this.chart;
-    if (!chart || this.anchorIndex === null || this.endIndex === null) return;
+    if (!chart || this.anchorIndex === null || this.endIndex === null) {
+      return;
+    }
     this.setTooltipEnabled(false);
     chart.update('none');
     // Both edges use the actual session positions, never the raw mouse coordinates.
@@ -289,7 +301,9 @@ export class PriceChart implements OnChanges, OnDestroy {
 
   private setTooltipEnabled(enabled: boolean): void {
     const tooltip = this.chart?.options.plugins?.tooltip;
-    if (!tooltip || tooltip.enabled === enabled) return;
+    if (!tooltip || tooltip.enabled === enabled) {
+      return;
+    }
     tooltip.enabled = enabled;
   }
 

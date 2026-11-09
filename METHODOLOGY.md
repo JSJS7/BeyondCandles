@@ -110,7 +110,12 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   par value or a scale error. Companies whose diluted count already holds preferred stock as converted
   do not deduct it (`data/participating-preferred.json`).
 - **Growth marker:** when the table's series implies a change more than 5% away from the report's own,
-  or a value changes sign between the sources, the row is marked as a break in the series.
+  or a value changes sign between the sources, the row is marked as a break in the series. The company
+  page uses the same rule for all five reviewed measures and shows the change as one report states it;
+  at a break it shows both years as the table has them and as that report states them.
+  Equity is read from the two year-end balances of one report. A value built from two positions under
+  one tag (parent equity as group equity minus a noncontrolling part) cannot be rebuilt from a report's
+  columns, so it has no growth and no marker.
 
 ## Prices
 
@@ -129,7 +134,7 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
 
 The app shows the latest filed version of every value, and companies restate earlier years. So two
 adjacent years in the table can come from different reports and definitions, and growth computed from
-the table can be wrong. The table does not mark such breaks yet.
+the table can be wrong. Such years are marked as a series break (see Growth marker above).
 
 The API can return the table as known on a date (`as_of`). A year appears from the filing date of its
 first annual report. A value is known from the day its report was filed, and filings carry no time of
@@ -189,8 +194,11 @@ do not make companies comparable.
 - **End of the window:** some companies' last period ends by mid-2025, so a cross-section by "FY2025" joins
   periods up to 11 months apart. Compare by period end or `as_of`, not by label.
 - **Price ratios after a spin-off:** the price no longer includes the separated business, while the latest
-  annual report does until the next one, so price-to-earnings and price-to-sales read too low for up to a
-  year (RTX in 2020, AT&T in 2022).
+  annual report does until the next one, so P/E, P/B and P/S read too low for up to a year (RTX in 2020,
+  AT&T in 2022). The values stay and are marked *Spin-off*: a vendor event that removed more than 3% of
+  the price beyond any share split, after the period end and by the price date. The mark ends when a
+  report for a period ending after the event is known; in that year net income can still include the
+  separated business until the event, as discontinued operations.
 - **Spin-off values** follow the vendor's ratios. RTX in April 2020 is the largest uncertainty: the company's
   own figures put the vendor's earlier level about 4–7% too low, and no single reliable value exists.
 - **Scope:** 200 companies, US-listed, USD only, GAAP figures without adjustments.

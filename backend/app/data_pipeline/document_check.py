@@ -17,6 +17,7 @@ import hashlib
 import json
 import re
 from collections import Counter, defaultdict
+from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from html import unescape
@@ -720,17 +721,25 @@ def check_version(task, filing):
     return f"queue_level_{direct[0]}", direct[1]
 
 
+@dataclass(frozen=True)
+class AutomaticVerdict:
+    """The verdict and, when a row was compared, the report's number (without sign)."""
+
+    verdict: str
+    document_value: Decimal | None = None
+
+
 def check_automatic_version(task, filing):
     """Find an automatic value in its report: exact, within the 5.1 tolerance, or not."""
     if filing is None:
-        return "queue_no_document"
+        return AutomaticVerdict("queue_no_document")
     if not filing.documents:
-        return "queue_no_primary_document"
+        return AutomaticVerdict("queue_no_primary_document")
     value = Decimal(task["value"])
     pattern = AUTOMATIC_ROW_LABELS[task["metric"]]
     for candidate in (value, -value):
         if filing.find(candidate, AMOUNT_SCALES, task, pattern, None)[0] == FULL_MATCH:
-            return "pass_direct"
+            return AutomaticVerdict("pass_direct", abs(value))
     metric_exclusions = TOLERANCE_EXCLUDED_BY_METRIC[task["metric"]]
     closest = filing.closest_in_period(
         value,
@@ -739,11 +748,38 @@ def check_automatic_version(task, filing):
         f"{TOLERANCE_EXCLUDED_ROW_LABELS}|{metric_exclusions}",
     )
     if closest is None:
-        return "queue_no_row"
+        return AutomaticVerdict("queue_no_row")
     tolerance = largest_tolerated_difference(task["metric"], value, task["revenue"])
     if abs(closest - abs(value)) <= tolerance:
-        return "pass_within_tolerance"
-    return "queue_other_number"
+        return AutomaticVerdict("pass_within_tolerance", closest)
+    return AutomaticVerdict("queue_other_number", closest)
+
+
+def tolerance_entry(task, document_value):
+    """How far a value lies from the report's number, in percent of that number and of
+    revenue.
+
+    The thresholds of 5.1 let these values pass; the sizes show whether a tighter rule
+    would change a ratio (M36).
+    """
+    value = abs(Decimal(task["value"]))
+    difference = abs(document_value - value)
+    of_value = (difference / document_value * 100).quantize(Decimal("0.01"))
+    of_revenue = None
+    if task["revenue"]:
+        share_of_revenue = difference / abs(task["revenue"]) * 100
+        of_revenue = str(share_of_revenue.quantize(Decimal("0.001")))
+    return {
+        "ticker": task["ticker"],
+        "metric": task["metric"],
+        "period_end": task["period_end"],
+        "known_from": task["known_from"],
+        "accession": task["accession"],
+        "value": str(value),
+        "document_value": str(document_value),
+        "difference_percent_of_value": str(of_value),
+        "difference_percent_of_revenue": of_revenue,
+    }
 
 
 def automatic_tasks(connection):
@@ -816,16 +852,20 @@ def check_automatic(fetch_missing=False):
     for accession, group in groups.items():
         filing = load_filing(accession)
         for task in group:
-            outcomes.append((task, check_automatic_version(task, filing)))
-    passed = [task for task, verdict in outcomes if verdict.startswith("pass")]
-    queued = [task for task, verdict in outcomes if not verdict.startswith("pass")]
+            found = check_automatic_version(task, filing)
+            outcomes.append((task, found.verdict, found.document_value))
+    passed = [task for task, verdict, _ in outcomes if verdict.startswith("pass")]
+    queued = [task for task, verdict, _ in outcomes if not verdict.startswith("pass")]
     elsewhere = {id(task) for task in confirmed_elsewhere(queued, passed)}
     verdicts = defaultdict(Counter)
     queue = []
-    for task, verdict in outcomes:
+    within_tolerance = []
+    for task, verdict, document_value in outcomes:
         if id(task) in elsewhere:
             verdict = "pass_same_value_in_other_filing"
         verdicts[task["metric"]][verdict] += 1
+        if verdict == "pass_within_tolerance":
+            within_tolerance.append(tolerance_entry(task, document_value))
         if not verdict.startswith("pass"):
             queue.append(
                 {
@@ -836,6 +876,9 @@ def check_automatic(fetch_missing=False):
                     },
                     "revenue": str(task["revenue"]),
                     "verdict": verdict,
+                    "document_value": None
+                    if document_value is None
+                    else str(document_value),
                 }
             )
     result = {
@@ -848,8 +891,15 @@ def check_automatic(fetch_missing=False):
             for metric, counts in sorted(verdicts.items())
         },
         "queue": len(queue),
+        "within_tolerance": len(within_tolerance),
     }
-    write_json(AUTOMATIC_REPORT, {**result, "queue": queue})
+    within_tolerance.sort(
+        key=lambda entry: Decimal(entry["difference_percent_of_value"]), reverse=True
+    )
+    write_json(
+        AUTOMATIC_REPORT,
+        {**result, "queue": queue, "within_tolerance": within_tolerance},
+    )
     return result
 
 

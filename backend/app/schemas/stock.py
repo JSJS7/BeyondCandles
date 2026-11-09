@@ -73,6 +73,19 @@ class EpsShareBasis(BaseModel):
     applied_splits: list[EpsSplit]
 
 
+class GrowthReport(BaseModel):
+    """The annual report growth was read from, with both years as it states them."""
+
+    accession: str
+    filed: date
+    source_cik: str
+    earlier_period_end: date
+    earlier_value: DecimalValue = Field(
+        description="The earlier year as this report states it, restated if it was."
+    )
+    later_value: DecimalValue
+
+
 class AnnualMetric(BaseModel):
     status: Literal["ready", "not_available", "needs_review"]
     value: DecimalValue | None = None
@@ -89,6 +102,24 @@ class AnnualMetric(BaseModel):
     scope: Literal["total", "continuing"] | None = Field(
         default=None,
         description="OCF scope; null for other metrics or unresolved values.",
+    )
+    growth: DecimalValue | None = Field(
+        default=None,
+        description=(
+            "Change from the period about a year earlier, both years read from one "
+            "annual report (0.05 is 5%); null without such a report or across a loss."
+        ),
+    )
+    growth_report: GrowthReport | None = Field(
+        default=None,
+        description="The annual report the growth was read from; null without one.",
+    )
+    series_break: bool = Field(
+        default=False,
+        description=(
+            "The table's values for this and the earlier year imply a change over 5% "
+            "away from the report's own, because the definition changed between them."
+        ),
     )
 
 

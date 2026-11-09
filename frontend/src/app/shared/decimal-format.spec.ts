@@ -2,6 +2,7 @@ import {
   formatExact,
   formatFixed,
   formatMillions,
+  formatPercent,
   formatPerShare,
   roundDecimal,
 } from './decimal-format';
@@ -57,5 +58,20 @@ describe('Financial value formatting', () => {
     expect(formatFixed('36.442357', 2)).toBe('36.44');
     expect(formatFixed('-0.001', 2)).toBe('0.00');
     expect(formatFixed('1999.5', 0)).toBe('2,000');
+  });
+
+  it('writes a ratio as a percent with one decimal, moving the point as text', () => {
+    expect(formatPercent('0.269151')).toBe('26.9%');
+    expect(formatPercent('1.714224')).toBe('171.4%');
+    expect(formatPercent('0.25')).toBe('25.0%');
+    expect(formatPercent('2')).toBe('200.0%');
+    expect(formatPercent('-0.042')).toBe('-4.2%');
+    // 12.3456 × 100 stays exact; a float would turn 0.07 into 7.000000000000001.
+    expect(formatPercent('0.07')).toBe('7.0%');
+    expect(formatPercent('12.3456')).toBe('1,234.6%');
+  });
+
+  it('shows no minus sign on a value that rounds to zero', () => {
+    expect(formatPercent('-0.0001')).toBe('0.0%');
   });
 });

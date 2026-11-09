@@ -131,6 +131,10 @@ def run_command(args):
         from .identity_checks import check_identities
 
         result = check_identities()
+    elif args.command == "check-invariants":
+        from .invariant_checks import check_invariants
+
+        result = check_invariants()
     elif args.command == "inspect-db":
         from .verification import inspect_db
 
@@ -175,6 +179,7 @@ def main():
             "check-automatic",
             "control-documents",
             "check-identities",
+            "check-invariants",
             "inspect-db",
             "verify-db",
         ),

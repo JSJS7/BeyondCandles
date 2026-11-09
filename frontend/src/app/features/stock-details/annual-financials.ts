@@ -12,7 +12,12 @@ import {
 } from '@angular/core';
 import { AnnualMetric, AnnualPeriod, FilingValue } from '../../models/stock';
 import { formatDate } from '../../shared/date-format';
-import { formatExact, formatMillions, formatPerShare } from '../../shared/decimal-format';
+import {
+  formatExact,
+  formatMillions,
+  formatPercent,
+  formatPerShare,
+} from '../../shared/decimal-format';
 import { filingIndexUrl } from './sec-filing';
 
 interface MetricColumn {
@@ -34,15 +39,52 @@ interface SourceEntry {
   filingUrl: string | null;
 }
 
+interface GrowthComparisonRow {
+  label: string;
+  earlier: string;
+  later: string;
+  change: string;
+}
+
+/** At a series break: the table's two values and the same years in the growth report. */
+interface GrowthComparison {
+  earlierLabel: string;
+  laterLabel: string;
+  unit: string;
+  rows: GrowthComparisonRow[];
+  // Split-adjusted EPS in the table, while the report states EPS as filed.
+  reportBeforeSplits: boolean;
+}
+
 interface SelectedCell {
   period: AnnualPeriod;
   column: MetricColumn;
   cell: AnnualMetric;
   sources: SourceEntry[];
+  growthComparison: GrowthComparison | null;
 }
 
 const FIRST_FISCAL_YEAR = 2015;
 const LAST_FISCAL_YEAR = 2025;
+// Decimal places of a computed change, as the API gives growth (0.028883).
+const CHANGE_DECIMALS = 6;
+
+/** A change written with its sign, e.g. +2.9% or -48.4%. */
+function signedPercent(ratio: string): string {
+  const sign = ratio.startsWith('-') ? '' : '+';
+  return `${sign}${formatPercent(ratio)}`;
+}
+
+/** The change between two values; none from or into a loss, as for growth. */
+function changeText(earlier: string, later: string): string {
+  const earlierNumber = Number(earlier);
+  const laterNumber = Number(later);
+  if (earlierNumber <= 0 || laterNumber <= 0) {
+    return 'Not shown';
+  }
+  const ratio = laterNumber / earlierNumber - 1;
+  return signedPercent(ratio.toFixed(CHANGE_DECIMALS));
+}
 
 @Component({
   selector: 'app-annual-financials',
@@ -77,11 +119,15 @@ export class AnnualFinancials {
 
   readonly missingFiscalYears = computed(() => {
     // Without verified labels, a missing year cannot be told from a mislabelled one.
-    if (this.hasUnverifiedFiscalYears()) return [];
+    if (this.hasUnverifiedFiscalYears()) {
+      return [];
+    }
     const reportedYears = new Set(this.periods().map((period) => period.fiscal_year));
     const missingYears: number[] = [];
     for (let year = FIRST_FISCAL_YEAR; year <= LAST_FISCAL_YEAR; year++) {
-      if (!reportedYears.has(year)) missingYears.push(year);
+      if (!reportedYears.has(year)) {
+        missingYears.push(year);
+      }
     }
     return missingYears;
   });
@@ -98,7 +144,9 @@ export class AnnualFinancials {
   // Looked up again in the current periods, so new data never shows stale sources.
   readonly selected = computed<SelectedCell | null>(() => {
     const key = this.selectedKey();
-    if (key === null) return null;
+    if (key === null) {
+      return null;
+    }
 
     const period = this.periods().find(
       (candidate) =>
@@ -106,9 +154,17 @@ export class AnnualFinancials {
     );
     const column = this.columns.find((candidate) => candidate.key === key.metricKey);
     const cell = period?.metrics[key.metricKey];
-    if (!period || !column || !cell) return null;
+    if (!period || !column || !cell) {
+      return null;
+    }
 
-    return { period, column, cell, sources: this.sourceEntries(cell) };
+    return {
+      period,
+      column,
+      cell,
+      sources: this.sourceEntries(cell),
+      growthComparison: this.growthComparison(period, column, cell),
+    };
   });
 
   isSelected(period: AnnualPeriod, column: MetricColumn): boolean {
@@ -173,7 +229,9 @@ export class AnnualFinancials {
 
   /** Short labels that change how a value may be compared or used. */
   cellLabels(column: MetricColumn, cell: AnnualMetric): string[] {
-    if (cell.status !== 'ready') return [];
+    if (cell.status !== 'ready') {
+      return [];
+    }
 
     const labels: string[] = [];
     if (column.key === 'eps_diluted' && cell.eps_basis === 'basic') {
@@ -182,14 +240,86 @@ export class AnnualFinancials {
     if (column.key === 'operating_cash_flow' && cell.scope === 'continuing') {
       labels.push('Continuing ops');
     }
-    const splitAdjusted = (cell.eps_share_basis?.applied_splits.length ?? 0) > 0;
-    if (splitAdjusted) {
+    if (this.isSplitAdjusted(cell)) {
       labels.push('Split-adjusted');
     } else if (cell.calculation) {
       // A split adjustment is also a calculation; it already has its own label.
       labels.push('Calculated');
     }
+    if (cell.series_break) {
+      labels.push('Series break');
+    }
     return labels;
+  }
+
+  /** The change from the year before as one annual report states it, or null without one. */
+  growthText(cell: AnnualMetric): string | null {
+    const report = cell.growth_report;
+    if (!report) {
+      return null;
+    }
+    const source = `both years from annual report ${report.accession}`;
+    if (cell.growth == null) {
+      return `Change from the previous year: not shown, because a year is zero or negative (${source}).`;
+    }
+    return `Change from the previous year: ${signedPercent(cell.growth)}, ${source}.`;
+  }
+
+  /** N91: the growth report opens on SEC EDGAR like the sources below it. */
+  growthReportUrl(cell: AnnualMetric): string | null {
+    const report = cell.growth_report;
+    if (!report) {
+      return null;
+    }
+    return filingIndexUrl(report.source_cik, report.accession);
+  }
+
+  private isSplitAdjusted(cell: AnnualMetric): boolean {
+    const appliedSplits = cell.eps_share_basis?.applied_splits.length ?? 0;
+    return appliedSplits > 0;
+  }
+
+  /**
+   * At a series break, the table's two values next to the same years in the report that
+   * states both. The reader sees which year was restated, not only two percentages.
+   */
+  private growthComparison(
+    period: AnnualPeriod,
+    column: MetricColumn,
+    cell: AnnualMetric,
+  ): GrowthComparison | null {
+    const report = cell.growth_report;
+    if (!cell.series_break || !report || cell.value === null) {
+      return null;
+    }
+    const earlierPeriod = this.periods().find(
+      (candidate) => candidate.period_end === report.earlier_period_end,
+    );
+    const earlierCell = earlierPeriod?.metrics[column.key];
+    if (!earlierPeriod || !earlierCell || earlierCell.value === null) {
+      return null;
+    }
+
+    const tableRow: GrowthComparisonRow = {
+      label: 'This table',
+      earlier: this.tableValue(column, earlierCell.value),
+      later: this.tableValue(column, cell.value),
+      change: changeText(earlierCell.value, cell.value),
+    };
+    const reportRow: GrowthComparisonRow = {
+      label: `Annual report filed ${formatDate(report.filed)}`,
+      earlier: this.tableValue(column, report.earlier_value),
+      later: this.tableValue(column, report.later_value),
+      change: changeText(report.earlier_value, report.later_value),
+    };
+    const tableSplitAdjusted = this.isSplitAdjusted(cell) || this.isSplitAdjusted(earlierCell);
+    return {
+      earlierLabel: this.fiscalYearLabel(earlierPeriod),
+      laterLabel: this.fiscalYearLabel(period),
+      unit: column.perShare ? 'USD per share' : 'USD millions',
+      rows: [tableRow, reportRow],
+      reportBeforeSplits: column.perShare && tableSplitAdjusted,
+    };
   }
 
   private sourceEntries(cell: AnnualMetric): SourceEntry[] {
@@ -205,7 +335,9 @@ export class AnnualFinancials {
   }
 
   private sourceRole(cell: AnnualMetric, variant: FilingValue): SourceEntry['role'] {
-    if (cell.status !== 'ready') return null;
+    if (cell.status !== 'ready') {
+      return null;
+    }
 
     const isSelected = (cell.selected_sources ?? []).some(
       (source) =>
@@ -219,7 +351,9 @@ export class AnnualFinancials {
         source.statement_column === variant.statement_column &&
         source.statement_label === variant.statement_label,
     );
-    if (!isSelected) return null;
+    if (!isSelected) {
+      return null;
+    }
     return cell.calculation ? 'Calculation component' : 'Selected value';
   }
 }

@@ -15,6 +15,7 @@ from app.data_pipeline.document_check import (
     period_fits,
     separate_reviewed,
     shifted_task,
+    tolerance_entry,
     wrong_row_task,
     wrong_row_values,
     wrong_rows_of_filing,
@@ -268,7 +269,7 @@ class AutomaticVersionTests(unittest.TestCase):
 
     def verdict(self, metric, value, revenue=None):
         task = revenue_task(value, metric=metric, revenue=revenue)
-        return check_automatic_version(task, filing_of(self.INCOME_STATEMENT))
+        return check_automatic_version(task, filing_of(self.INCOME_STATEMENT)).verdict
 
     def test_value_in_its_row_and_year_passes(self):
         """Cash flow rows show outflows in brackets, so both signs are tried."""
@@ -286,6 +287,22 @@ class AutomaticVersionTests(unittest.TestCase):
         self.assertEqual(
             self.verdict("operating_income", "2040000000"), "pass_within_tolerance"
         )
+
+    def test_a_pass_within_tolerance_reports_its_size(self):
+        """M36: the report keeps the document's number, so the sizes of differences
+        that the thresholds let pass can be measured. 2,040 against 2,000 is 2% of the
+        report's value and 0.4% of revenue 10,000."""
+        task = revenue_task(
+            "2040000000", metric="operating_income", revenue=Decimal("10000000000")
+        )
+
+        found = check_automatic_version(task, filing_of(self.INCOME_STATEMENT))
+        entry = tolerance_entry(task, found.document_value)
+
+        self.assertEqual(found.verdict, "pass_within_tolerance")
+        self.assertEqual(found.document_value, Decimal("2000000000"))
+        self.assertEqual(entry["difference_percent_of_value"], "2.00")
+        self.assertEqual(entry["difference_percent_of_revenue"], "0.400")
 
     def test_report_without_a_fitting_row_is_listed(self):
         """Nothing to compare with is reported, not counted as agreement."""
@@ -306,7 +323,7 @@ class AutomaticVersionTests(unittest.TestCase):
                 table = [["Year Ended December 31", "2025", "2024"], row]
                 task = revenue_task(value, metric=metric, revenue=None)
 
-                verdict = check_automatic_version(task, filing_of(table))
+                verdict = check_automatic_version(task, filing_of(table)).verdict
 
                 self.assertEqual(verdict, "queue_no_row")
 
@@ -331,7 +348,7 @@ class AutomaticVersionTests(unittest.TestCase):
                 ]
                 task = revenue_task("1030000000", metric=metric, revenue=None)
 
-                verdict = check_automatic_version(task, filing_of(table))
+                verdict = check_automatic_version(task, filing_of(table)).verdict
 
                 self.assertEqual(verdict, "queue_no_row")
 
@@ -343,7 +360,7 @@ class AutomaticVersionTests(unittest.TestCase):
         ]
         task = revenue_task("2040000000", metric="operating_income", revenue=None)
 
-        verdict = check_automatic_version(task, filing_of(table))
+        verdict = check_automatic_version(task, filing_of(table)).verdict
 
         self.assertEqual(verdict, "queue_no_row")
 
@@ -355,7 +372,7 @@ class AutomaticVersionTests(unittest.TestCase):
         ]
         task = revenue_task("1000000000", metric="shares_diluted", revenue=None)
 
-        verdict = check_automatic_version(task, filing_of(table))
+        verdict = check_automatic_version(task, filing_of(table)).verdict
 
         self.assertEqual(verdict, "pass_within_tolerance")
 
@@ -363,7 +380,9 @@ class AutomaticVersionTests(unittest.TestCase):
         """A filing that was never downloaded cannot confirm anything."""
         task = revenue_task(metric="assets", revenue=None)
 
-        self.assertEqual(check_automatic_version(task, None), "queue_no_document")
+        self.assertEqual(
+            check_automatic_version(task, None).verdict, "queue_no_document"
+        )
 
 
 class ConfirmationTests(unittest.TestCase):

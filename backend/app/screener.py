@@ -19,21 +19,33 @@ from app.database import get_connection
 from app.eps_splits import split_rules
 from app.fiscal_periods import fiscal_rules
 from app.growth import (
+    LARGEST_YEAR_DAYS,
     Growth,
     SeriesCell,
     annual_report_columns,
     one_report_growth,
     source_coefficients,
+    year_before,
 )
 from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
-from app.price_share_basis import price_comparable_to_period, share_basis_price
+from app.price_share_basis import (
+    price_comparable_to_period,
+    share_basis_price,
+    spin_offs_after_period,
+)
 from app.ratios import (
     PeriodValues,
     calculate_ratios,
     participating_preferred_tickers,
     shares_for_ratios,
 )
-from app.schemas.screener import PeriodRatios, Ratios, ScreenerResponse, ScreenerRow
+from app.schemas.screener import (
+    PeriodRatios,
+    Ratios,
+    ScreenerResponse,
+    ScreenerRow,
+    SpinOff,
+)
 
 router = APIRouter(prefix="/screener", tags=["screener"])
 DatabaseConnection = Annotated[Connection, Depends(get_connection)]
@@ -43,8 +55,6 @@ LATEST_VALUATION_DATE = date(2025, 12, 31)
 EARLIEST_VALUATION_DATE = date(2016, 3, 31)
 # Longer than any market closure in the window; an older price is not a price of that day.
 PRICE_LOOKBACK_DAYS = 7
-SMALLEST_YEAR_DAYS = 350
-LARGEST_YEAR_DAYS = 380
 FACT_PERIOD_END_MARGIN_DAYS = 31
 RATIO_PRECISION = Decimal("0.000001")
 GROWTH_METRICS = {"revenue": "revenue_growth", "eps_diluted": "eps_growth"}
@@ -148,16 +158,6 @@ def period_values(cells):
     )
 
 
-def year_before(periods, period):
-    """The period that ended about a year earlier; fiscal-year labels are not compared."""
-    _, period_end = period
-    for candidate in periods:
-        days_between = (period_end - candidate[1]).days
-        if SMALLEST_YEAR_DAYS <= days_between <= LARGEST_YEAR_DAYS:
-            return candidate
-    return None
-
-
 def latest_closes(connection, day, company_id=None):
     """Return {company id: (session, close)} for the last session on or before the date."""
     prices = DailyPrice.__table__
@@ -221,6 +221,20 @@ def rounded(value):
     return None if value is None else value.quantize(RATIO_PRECISION)
 
 
+def period_spin_offs(ticker, period_end, session, split_policy):
+    """Spin-offs that the price of the session excludes and the period includes."""
+    events = spin_offs_after_period(ticker, period_end, session, split_policy)
+    result = []
+    for event_date, fraction in events:
+        separated_fraction = Decimal(fraction.numerator) / Decimal(fraction.denominator)
+        result.append(
+            SpinOff(
+                event_date=event_date, separated_fraction=rounded(separated_fraction)
+            )
+        )
+    return result
+
+
 def valued_period(
     ticker,
     company_id,
@@ -244,6 +258,11 @@ def valued_period(
         session = close[0]
         price = share_basis_price(ticker, session, close[1], split_policy)
 
+    # Without a price there are no price ratios for a spin-off to distort.
+    spin_offs = []
+    if price is not None:
+        spin_offs = period_spin_offs(ticker, period[1], session, split_policy)
+
     ratios = calculate_ratios(values, previous, price, ticker in participating)
     growth = {
         metric: period_growth(
@@ -264,6 +283,7 @@ def valued_period(
         shares_basis=shares_basis,
         revenue_basis_break=growth["revenue"].basis_break,
         eps_basis_break=growth["eps_diluted"].basis_break,
+        spin_offs=spin_offs,
         ratios=Ratios(**{name: rounded(value) for name, value in ratios.items()}),
     )
 

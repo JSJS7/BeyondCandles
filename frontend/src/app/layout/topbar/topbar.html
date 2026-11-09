@@ -49,7 +49,14 @@
         @case ('error') {
           <div class="search-results search-error">
             <p class="search-error-message" role="alert">{{ loadState.message }}</p>
-            <button class="retry-button" type="button" (click)="loadStocks()">Try again</button>
+            <button
+              class="retry-button"
+              type="button"
+              (click)="loadStocks()"
+              (keydown)="onRetryKeydown($event)"
+            >
+              Try again
+            </button>
           </div>
         }
 

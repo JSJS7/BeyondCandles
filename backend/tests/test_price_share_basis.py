@@ -3,9 +3,14 @@
 import unittest
 from datetime import date
 from decimal import Decimal
+from fractions import Fraction
 
 from app.eps_splits import split_rules
-from app.price_share_basis import share_basis_price
+from app.price_share_basis import (
+    share_basis_price,
+    spin_offs,
+    spin_offs_after_period,
+)
 
 CONVERSION = "vendor_corporate_action_conversion_not_an_ordinary_share_split"
 
@@ -121,6 +126,92 @@ class ShareBasisArithmeticTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "not reviewed for prices"):
             share_basis_price("HON", date(2014, 6, 6), Decimal("100"), policy)
+
+
+class SpinOffTests(unittest.TestCase):
+    def test_separated_fraction_comes_from_the_vendor_and_share_ratios(self):
+        """A conversion of 1589:1000 means the separated business held 589/1589 of the
+        price. In a composite 1907:2000 ratio with a 1:2 reverse split the price factor is
+        1.907, so the business held 907/1907."""
+        policy = rules(
+            actions=[action("2026-06-29", 1, 2, 1907, 2000)],
+            excluded=[excluded("2020-04-03", 1589, 1000)],
+        )
+
+        events = spin_offs("HON", policy)
+
+        self.assertEqual(
+            events,
+            [
+                (date(2020, 4, 3), Fraction(589, 1589)),
+                (date(2026, 6, 29), Fraction(907, 1907)),
+            ],
+        )
+
+    def test_splits_small_events_and_price_raising_events_are_not_spin_offs(self):
+        """A plain split moves price and EPS alike; 1.1% is below the 3% threshold; a
+        ratio below 1 raised earlier prices, as in the JCI merger, so nothing separated."""
+        policy = rules(
+            actions=[action("2024-06-10", 10, 1, 10, 1)],
+            excluded=[
+                excluded("2018-10-01", 1011, 1000),
+                excluded("2016-09-06", 955, 1000),
+            ],
+        )
+
+        self.assertEqual(spin_offs("HON", policy), [])
+
+    def test_only_events_after_the_period_and_by_the_price_day_count(self):
+        """The price on the event day already excludes the business; an event on the
+        period end or after the price day does not mix scopes."""
+        policy = rules(
+            excluded=[
+                excluded("2019-12-31", 1100, 1000),
+                excluded("2020-04-03", 1589, 1000),
+                excluded("2020-06-30", 1100, 1000),
+            ]
+        )
+
+        events = spin_offs_after_period(
+            "HON", date(2019, 12, 31), date(2020, 4, 3), policy
+        )
+
+        self.assertEqual(events, [(date(2020, 4, 3), Fraction(589, 1589))])
+
+    def test_snapshot_spin_offs_in_the_price_window_are_the_known_separations(self):
+        """Every event above 3% from 2015 to 2025 is a documented separation, named after
+        the business that left; the JCI merger and HON's 1.1% Garrett spin-off are not."""
+        known_separations = {
+            ("APD", date(2016, 10, 3)),  # Versum Materials
+            ("DHR", date(2016, 7, 5)),  # Fortive
+            ("DHR", date(2023, 10, 2)),  # Veralto
+            ("GE", date(2019, 2, 26)),  # transportation business, merged into Wabtec
+            ("GE", date(2023, 1, 4)),  # GE HealthCare
+            ("GE", date(2024, 4, 2)),  # GE Vernova
+            ("HLT", date(2017, 1, 4)),  # Park Hotels & Resorts, Hilton Grand Vacations
+            ("HON", date(2018, 10, 29)),  # Resideo
+            ("HON", date(2025, 10, 30)),  # Solstice Advanced Materials
+            ("IBM", date(2021, 11, 4)),  # Kyndryl
+            ("MET", date(2017, 8, 7)),  # Brighthouse Financial
+            ("MMM", date(2024, 4, 1)),  # Solventum
+            ("MRK", date(2021, 6, 3)),  # Organon
+            ("O", date(2021, 11, 15)),  # Orion Office REIT
+            ("PFE", date(2020, 11, 17)),  # Upjohn, merged into Viatris
+            ("RTX", date(2020, 4, 3)),  # Carrier, Otis
+            ("T", date(2022, 4, 11)),  # WarnerMedia
+            ("TT", date(2020, 3, 2)),  # industrial business, merged into Gardner Denver
+        }
+        policy = split_rules()
+        tickers = {item["ticker"] for item in policy["actions"]}
+        tickers |= {item["ticker"] for item in policy["excluded_vendor_events"]}
+
+        found = set()
+        for ticker in tickers:
+            for event_day, _ in spin_offs(ticker, policy):
+                if date(2015, 1, 2) <= event_day <= date(2025, 12, 31):
+                    found.add((ticker, event_day))
+
+        self.assertEqual(found, known_separations)
 
 
 class FrozenSnapshotReferenceTests(unittest.TestCase):
