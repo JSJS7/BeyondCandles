@@ -37,32 +37,25 @@
   margin-bottom: var(--bc-space-m);
 }
 
-.panel-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--bc-space-l);
+/* The message and its actions below the ticker of a company that failed to load. */
+.stock-error {
+  margin-top: var(--bc-space-m);
 }
 
-.retry-button {
-  min-width: var(--bc-control-height);
+/* Looks like the Try again button beside it and like the same link on the 404 page (N95). */
+.home-link {
+  display: inline-flex;
+  align-items: center;
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 14px;
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;
   color: var(--bc-primary);
   font-weight: 600;
-  cursor: pointer;
+  text-decoration: none;
 }
 
-.retry-button:hover {
+.home-link:hover {
   background: var(--bc-subtle);
-}
-
-/* A link on its own line is a touch target too. */
-.home-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--bc-control-height);
 }

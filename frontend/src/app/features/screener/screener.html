@@ -202,35 +202,36 @@
 
   @let loading = loadState();
   @if (loading.status === 'loading') {
-    <div class="state-panel">
-      <p class="state-text" role="status">Loading ratios for {{ loadingDateLabel() }}...</p>
-    </div>
+    <app-state-message kind="loading" [framed]="true" [text]="loadingText()" />
   } @else if (loading.status === 'error') {
-    <div class="state-panel" role="alert">
-      <p class="state-text">{{ loading.message }}</p>
-      <button class="action-button" type="button" (click)="retry()">Try again</button>
-    </div>
+    <app-state-message kind="error" [framed]="true" (retry)="retry()" [text]="loading.message" />
   } @else if (result() && totalCount() === 0) {
-    <div class="state-panel">
-      <p class="state-text">No companies are available for this date.</p>
-    </div>
+    <app-state-message
+      kind="empty"
+      [framed]="true"
+      text="No companies are available for this date."
+    />
   } @else if (result() && sectorRows().length === 0) {
-    <div class="state-panel">
-      <p class="state-text">No companies in the selected sectors.</p>
-      <button class="action-button" type="button" (click)="clearSectors()">Show all sectors</button>
-    </div>
+    <app-state-message kind="empty" [framed]="true" text="No companies in the selected sectors."
+      ><button stateAction class="action-button" type="button" (click)="clearSectors()">
+        Show all sectors
+      </button></app-state-message
+    >
   } @else if (result() && matchingRows().length === 0) {
-    <div class="state-panel">
-      <p class="state-text" role="status">
-        No companies match these criteria. Widen a range or remove a criterion.
-      </p>
-      <button class="action-button" type="button" (click)="clearCriteria()">Clear criteria</button>
-    </div>
+    <app-state-message
+      kind="empty"
+      [framed]="true"
+      text="No companies match these criteria. Widen a range or remove a criterion."
+      ><button stateAction class="action-button" type="button" (click)="clearCriteria()">
+        Clear criteria
+      </button></app-state-message
+    >
   } @else if (result() && visibleRows().length === 0) {
-    <div class="state-panel">
-      <p class="state-text" role="status">No company matches "{{ state().search }}".</p>
-      <button class="action-button" type="button" (click)="clearSearch()">Clear search</button>
-    </div>
+    <app-state-message kind="empty" [framed]="true" [text]="noSearchMatchText()"
+      ><button stateAction class="action-button" type="button" (click)="clearSearch()">
+        Clear search
+      </button></app-state-message
+    >
   } @else if (result()) {
     <div class="summary" role="status">
       <p>

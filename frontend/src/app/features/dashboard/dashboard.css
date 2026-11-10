@@ -18,9 +18,9 @@
 .quick-card {
   display: flex;
   align-items: flex-start;
-  gap: 15px;
+  gap: var(--bc-space-l);
   min-height: 120px;
-  padding: 20px;
+  padding: var(--bc-panel-padding);
   border: 1px solid var(--bc-border);
   border-radius: var(--bc-radius-panel);
   background: var(--bc-surface);
@@ -46,20 +46,20 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 9px;
+  border-radius: var(--bc-radius-control);
   background: var(--bc-subtle);
   color: var(--bc-primary);
-  font-size: 20px;
+  font-size: var(--bc-text-title);
 }
 
 /* The card titles follow the h1 as h2 (N99), with the size they had as h3. */
 .card-title {
-  font-size: 16px;
+  font-size: var(--bc-text-large);
   line-height: 1.5;
 }
 
 .card-text {
-  margin: 6px 0 0;
+  margin: var(--bc-space-s) 0 0;
   color: var(--bc-muted);
   font-size: var(--bc-text-small);
 }
@@ -73,7 +73,7 @@
 }
 
 .workspace-header {
-  padding: 22px var(--bc-panel-padding);
+  padding: var(--bc-space-xl) var(--bc-panel-padding);
   border-bottom: 1px solid var(--bc-border);
 }
 
@@ -93,11 +93,11 @@
   justify-content: center;
   width: 54px;
   height: 54px;
-  margin-bottom: 18px;
-  border-radius: 14px;
+  margin-bottom: var(--bc-space-l);
+  border-radius: var(--bc-radius-panel);
   background: var(--bc-subtle);
   color: var(--bc-primary);
-  font-size: 25px;
+  font-size: var(--bc-text-display);
 }
 
 .placeholder-text {

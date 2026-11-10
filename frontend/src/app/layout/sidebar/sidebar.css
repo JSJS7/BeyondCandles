@@ -19,9 +19,9 @@
   display: flex;
   align-items: center;
   gap: var(--bc-space-m);
-  height: 76px;
-  padding: 0 18px;
-  font-size: 18px;
+  height: var(--bc-topbar-height);
+  padding: 0 var(--bc-space-l);
+  font-size: var(--bc-text-title);
   font-weight: 700;
   letter-spacing: -0.3px;
 }
@@ -32,17 +32,17 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: var(--bc-radius-control);
   background: var(--bc-subtle);
   color: var(--bc-primary);
-  font-size: 18px;
+  font-size: var(--bc-text-large);
   font-weight: 700;
 }
 
 .navigation {
   flex: 1;
   min-height: 0;
-  padding: 10px var(--bc-space-m);
+  padding: var(--bc-space-s) var(--bc-space-m);
   overflow-y: auto;
 }
 
@@ -54,7 +54,7 @@
   margin-bottom: var(--bc-space-s);
   padding: 0 var(--bc-space-m);
   color: var(--bc-muted);
-  font-size: 10px;
+  font-size: var(--bc-text-small);
   font-weight: 700;
   letter-spacing: 0.12em;
   /* Capitals come from here, so a screen reader reads a word, not letters (N99). */
@@ -66,7 +66,7 @@
   align-items: center;
   gap: var(--bc-space-m);
   height: var(--bc-control-height);
-  margin-bottom: 3px;
+  margin-bottom: var(--bc-space-xs);
   padding: 0 var(--bc-space-m);
   border-left: 2px solid transparent;
   border-radius: var(--bc-radius-control);
@@ -92,7 +92,7 @@
 
 .nav-icon {
   width: 18px;
-  font-size: 17px;
+  font-size: var(--bc-text-large);
   text-align: center;
   opacity: 0.9;
 }

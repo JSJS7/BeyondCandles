@@ -9,7 +9,7 @@
 .error-code {
   margin: 0;
   color: var(--bc-primary);
-  font-size: 16px;
+  font-size: var(--bc-text-large);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -27,8 +27,8 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--bc-control-height);
-  margin-top: 28px;
-  padding: var(--bc-space-s) 14px;
+  margin-top: var(--bc-space-xl);
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;

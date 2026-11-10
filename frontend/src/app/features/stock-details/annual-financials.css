@@ -27,7 +27,7 @@
 .reading-guide dl {
   display: grid;
   grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr);
-  gap: 6px var(--bc-space-l);
+  gap: var(--bc-space-s) var(--bc-space-l);
   max-width: 48rem;
   margin: var(--bc-space-s) 0 var(--bc-space-l);
 }
@@ -80,7 +80,7 @@ td {
 }
 
 thead th {
-  padding: 10px var(--bc-space-m);
+  padding: var(--bc-space-s) var(--bc-space-m);
   background: var(--bc-subtle);
   font-weight: 600;
   vertical-align: bottom;
@@ -112,7 +112,7 @@ thead .period-column {
 }
 
 tbody .period-column {
-  padding: 10px var(--bc-space-m);
+  padding: var(--bc-space-s) var(--bc-space-m);
   background: var(--bc-surface);
   font-weight: 400;
 }
@@ -150,7 +150,7 @@ td.selected {
   gap: 2px;
   width: 100%;
   min-height: 52px;
-  padding: 10px var(--bc-space-m);
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 0;
   background: transparent;
   color: var(--bc-text);
@@ -177,7 +177,7 @@ td.selected .cell-button:hover {
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
-  padding: 10px var(--bc-space-m);
+  padding: var(--bc-space-s) var(--bc-space-m);
   text-align: right;
 }
 
@@ -188,17 +188,8 @@ td.selected .cell-button:hover {
 
 .metric-label {
   color: var(--bc-secondary);
-  font-size: 11px;
+  font-size: var(--bc-text-small);
   font-weight: 600;
-  white-space: nowrap;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
   white-space: nowrap;
 }
 
@@ -213,7 +204,7 @@ td.selected .cell-button:hover {
 
 /* Sources panel */
 .sources-panel {
-  margin-top: 20px;
+  margin-top: var(--bc-space-l);
   padding: var(--bc-space-l);
   border: 1px solid var(--bc-border);
   border-radius: var(--bc-radius-panel);
@@ -241,7 +232,7 @@ td.selected .cell-button:hover {
   flex-shrink: 0;
   min-width: var(--bc-control-height);
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 14px;
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;
@@ -261,7 +252,7 @@ td.selected .cell-button:hover {
 
 .exact-value {
   margin-bottom: var(--bc-space-xs);
-  font-size: 18px;
+  font-size: var(--bc-text-title);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
@@ -269,7 +260,7 @@ td.selected .cell-button:hover {
 
 .sources-panel > .metric-label {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: var(--bc-space-s);
 }
 
 /* Series break: the table's two years next to the same years in the growth report. */
@@ -319,7 +310,7 @@ td.selected .cell-button:hover {
 }
 
 .share-basis ul {
-  padding-left: 20px;
+  padding-left: var(--bc-space-xl);
 }
 
 .share-basis a {
@@ -330,7 +321,7 @@ td.selected .cell-button:hover {
 }
 
 .sources-count {
-  margin: 20px 0 var(--bc-space-s);
+  margin: var(--bc-space-l) 0 var(--bc-space-s);
 }
 
 .source-list {
@@ -366,7 +357,7 @@ td.selected .cell-button:hover {
 }
 
 .source-list dt {
-  margin-top: 6px;
+  margin-top: var(--bc-space-s);
   color: var(--bc-muted);
   font-size: var(--bc-text-small);
 }

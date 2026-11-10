@@ -114,7 +114,7 @@ describe('Topbar', () => {
     retryButton.click();
     fixture.detectChanges();
 
-    const loading = fixture.nativeElement.querySelector('.search-loading');
+    const loading = fixture.nativeElement.querySelector('app-state-message[kind="loading"]');
     expect(loading.textContent).toContain('Loading companies');
     expect(loading.querySelectorAll('.loading-dots span')).toHaveLength(3);
     expect(loading.querySelector('.loading-dots').getAttribute('aria-hidden')).toBe('true');
@@ -244,7 +244,7 @@ describe('Topbar', () => {
       new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }),
     );
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.search-error')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-state-message[kind="error"]')).toBeNull();
     expect(component.searchQuery()).toBe('aapl');
   });
 
@@ -260,17 +260,17 @@ describe('Topbar', () => {
     );
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('.search-error')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-state-message[kind="error"]')).toBeNull();
   });
 
   it('closes the "No companies found" panel with Tab', () => {
     // Only the error panel has a control to reach; other panels close as before.
     const input = openedSearch('unknown');
-    expect(fixture.nativeElement.querySelector('.no-results')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('app-state-message[kind="empty"]')).not.toBeNull();
 
     press(input, 'Tab');
 
-    expect(fixture.nativeElement.querySelector('.no-results')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-state-message[kind="empty"]')).toBeNull();
   });
 
   it('marks options with the arrow keys, wrapping at both ends, without moving focus', () => {

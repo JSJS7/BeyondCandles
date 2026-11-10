@@ -348,7 +348,7 @@ describe('Screener page', () => {
     // The search box stays, so the search can be changed.
     expect(page().querySelector('#company-search')).not.toBeNull();
 
-    const clear = [...page().querySelectorAll<HTMLButtonElement>('.state-panel button')];
+    const clear = [...page().querySelectorAll<HTMLButtonElement>('app-state-message button')];
     await clickAndSettle(clear[0]);
     expect(shownTickers()).toEqual(['AAA', 'BBB', 'CCC']);
     expect(TestBed.inject(Router).url).not.toContain('q=');
@@ -603,7 +603,7 @@ describe('Screener page', () => {
       'Failed to load the screener.',
     );
 
-    page().querySelector<HTMLButtonElement>('.action-button')?.click();
+    page().querySelector<HTMLButtonElement>('app-state-message .retry-button')?.click();
     harness.detectChanges();
     expect(page().querySelector('[role="status"]')?.textContent).toContain('Loading');
 
@@ -621,7 +621,7 @@ describe('Screener page', () => {
     // The unknown sector stays visible in the control, with no companies.
     expect(sectorBox('Unknown').checked).toBe(true);
 
-    page().querySelector<HTMLButtonElement>('.state-panel .action-button')?.click();
+    page().querySelector<HTMLButtonElement>('app-state-message .action-button')?.click();
     await settle();
 
     expect(shownTickers()).toEqual(['AAA', 'BBB', 'CCC']);

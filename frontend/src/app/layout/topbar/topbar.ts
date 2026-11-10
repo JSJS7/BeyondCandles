@@ -15,11 +15,13 @@ import { exchangeName, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
 import { ThemeService } from '../../services/theme.service';
 import { matchRank } from '../../shared/search-match';
+import { StateMessage } from '../../shared/state-message/state-message';
 
 const MAX_SUGGESTIONS = 10;
 
 @Component({
   selector: 'app-topbar',
+  imports: [StateMessage],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
   host: { '(document:pointerdown)': 'onDocumentPointerDown($event)' },

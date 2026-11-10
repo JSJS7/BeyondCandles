@@ -37,26 +37,20 @@
       @switch (loadState.status) {
         @case ('loading') {
           <div class="search-results">
-            <div class="search-loading" role="status">
-              <span>Loading companies</span
-              ><span class="loading-dots" aria-hidden="true"
-                ><span>.</span><span>.</span><span>.</span></span
-              >
-            </div>
+            <app-state-message class="search-state" kind="loading" text="Loading companies" />
           </div>
         }
 
         @case ('error') {
-          <div class="search-results search-error">
-            <p class="search-error-message" role="alert">{{ loadState.message }}</p>
-            <button
-              class="retry-button"
-              type="button"
-              (click)="loadStocks()"
+          <div class="search-results">
+            <!-- Try again is the only control here; Tab from it leaves the search (N38). -->
+            <app-state-message
+              class="search-state"
+              kind="error"
+              (retry)="loadStocks()"
               (keydown)="onRetryKeydown($event)"
-            >
-              Try again
-            </button>
+              [text]="loadState.message"
+            />
           </div>
         }
 
@@ -87,7 +81,7 @@
             </div>
           } @else {
             <div class="search-results">
-              <div class="no-results">No companies found</div>
+              <app-state-message class="search-state" kind="empty" text="No companies found" />
             </div>
           }
         }

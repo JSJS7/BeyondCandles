@@ -1,0 +1,18 @@
+<!-- An error interrupts the reader; loading and an empty result are only announced. The dots
+     touch the text, so that no space appears between them. -->
+<p
+  class="state-text"
+  [class.loading-text]="kind() === 'loading'"
+  [attr.role]="kind() === 'error' ? 'alert' : 'status'"
+>
+  {{ text()
+  }}<span class="loading-dots" aria-hidden="true" [hidden]="kind() !== 'loading'"
+    ><span>.</span><span>.</span><span>.</span></span
+  >
+</p>
+<div class="state-actions">
+  @if (kind() === 'error') {
+    <button class="retry-button" type="button" (click)="retry.emit()">Try again</button>
+  }
+  <ng-content select="[stateAction]" />
+</div>

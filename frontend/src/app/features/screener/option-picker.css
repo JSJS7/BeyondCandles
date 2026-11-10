@@ -10,7 +10,7 @@
   justify-content: space-between;
   gap: var(--bc-space-s);
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 10px;
+  padding: var(--bc-space-s);
   border: 1px solid var(--bc-control-border);
   border-radius: var(--bc-radius-control);
   background: var(--bc-surface);
@@ -57,7 +57,7 @@
   gap: var(--bc-space-s);
   min-height: var(--bc-control-height);
   padding: 0 var(--bc-space-s);
-  border-radius: 6px;
+  border-radius: var(--bc-radius-control);
   cursor: pointer;
 }
 
@@ -96,7 +96,7 @@
 .reset-button {
   min-width: var(--bc-control-height);
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 14px;
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;
@@ -105,7 +105,7 @@
   cursor: pointer;
 }
 
-.reset-button:hover {
+.reset-button:hover:not(:disabled) {
   background: var(--bc-subtle);
 }
 
@@ -113,15 +113,6 @@
   border-color: var(--bc-border);
   color: var(--bc-muted);
   cursor: default;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 /* A control at the left of a toolbar opens its panel from the left edge of that toolbar, the

@@ -9,7 +9,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--bc-space-l);
-  margin-bottom: 20px;
+  margin-bottom: var(--bc-space-l);
 }
 
 .chart-heading {
@@ -27,7 +27,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 6px;
+  gap: var(--bc-space-s);
   margin-left: auto;
 }
 
@@ -70,7 +70,7 @@
 .chart-summary {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 40px;
+  gap: var(--bc-space-l) 40px;
   margin-bottom: var(--bc-space-m);
 }
 
@@ -86,13 +86,13 @@
 }
 
 .price-value {
-  font-size: 24px;
+  font-size: var(--bc-text-display);
   font-variant-numeric: tabular-nums;
 }
 
 .change-value {
   color: var(--bc-primary);
-  font-size: 24px;
+  font-size: var(--bc-text-display);
   font-variant-numeric: tabular-nums;
 }
 
@@ -135,7 +135,7 @@
   width: 100%;
   min-width: 0;
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 10px;
+  padding: var(--bc-space-s);
   border: 1px solid var(--bc-control-border);
   border-radius: var(--bc-radius-control);
   background: var(--bc-surface);
@@ -150,7 +150,7 @@
 .form-button {
   min-width: var(--bc-control-height);
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 14px;
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;

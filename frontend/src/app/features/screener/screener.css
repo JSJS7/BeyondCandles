@@ -36,7 +36,7 @@
 .date-input {
   width: 100%;
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 10px;
+  padding: var(--bc-space-s);
   border: 1px solid var(--bc-control-border);
   border-radius: var(--bc-radius-control);
   background: var(--bc-surface);
@@ -83,7 +83,7 @@
 .guide-list {
   display: grid;
   grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr);
-  gap: 6px var(--bc-space-l);
+  gap: var(--bc-space-s) var(--bc-space-l);
   max-width: 48rem;
   margin: var(--bc-space-s) 0 var(--bc-space-l);
 }
@@ -114,7 +114,7 @@
 .search-input {
   width: 100%;
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 10px;
+  padding: var(--bc-space-s);
   border: 1px solid var(--bc-control-border);
   border-radius: var(--bc-radius-control);
   background: var(--bc-surface);
@@ -128,7 +128,7 @@
 .action-button {
   min-width: var(--bc-control-height);
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 14px;
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;
@@ -137,7 +137,7 @@
   cursor: pointer;
 }
 
-.action-button:hover {
+.action-button:hover:not(:disabled) {
   background: var(--bc-subtle);
 }
 
@@ -148,21 +148,6 @@
 }
 
 /* Loading, error and empty results */
-.state-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--bc-space-m);
-  padding: var(--bc-panel-padding);
-  border: 1px solid var(--bc-border);
-  border-radius: var(--bc-radius-panel);
-  background: var(--bc-surface);
-}
-
-.state-text {
-  margin: 0;
-}
-
 .summary p {
   margin: 0;
 }
@@ -183,7 +168,7 @@
   /* Own scrolling in both directions: the header row and the company column stay visible.
      The height leaves room for the top bar, so the whole table fits on the screen. */
   position: relative;
-  max-height: calc(100dvh - 110px);
+  max-height: calc(100dvh - var(--bc-topbar-height) - 2 * var(--bc-main-padding));
   overflow: auto;
   overscroll-behavior-x: contain;
   border: 1px solid var(--bc-border);
@@ -225,7 +210,7 @@ thead th {
 }
 
 td {
-  padding: var(--bc-space-s) 6px;
+  padding: var(--bc-space-s) var(--bc-space-xs);
   font-variant-numeric: tabular-nums;
 }
 
@@ -272,7 +257,7 @@ tbody tr:hover .company-column {
   width: 100%;
   min-width: var(--bc-control-height);
   min-height: var(--bc-control-height);
-  padding: var(--bc-space-s) 6px;
+  padding: var(--bc-space-s) var(--bc-space-xs);
   border: 0;
   background: transparent;
   color: var(--bc-text);
@@ -293,7 +278,7 @@ tbody tr:hover .company-column {
 
 .company-sort {
   justify-content: flex-start;
-  padding-inline: 10px;
+  padding-inline: var(--bc-space-s);
   text-align: left;
 }
 
@@ -305,14 +290,14 @@ tbody tr:hover .company-column {
 .sort-indicator {
   flex-shrink: 0;
   color: var(--bc-primary);
-  font-size: 10px;
+  font-size: var(--bc-text-small);
   line-height: 19px;
 }
 
 .company-link {
   display: block;
   min-height: var(--bc-control-height);
-  padding: 6px 10px;
+  padding: var(--bc-space-s);
   text-decoration: none;
 }
 
@@ -355,17 +340,8 @@ tbody tr:hover .company-column {
 .metric-label {
   display: block;
   color: var(--bc-secondary);
-  font-size: 11px;
+  font-size: var(--bc-text-small);
   font-weight: 600;
-  white-space: nowrap;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
   white-space: nowrap;
 }
 
@@ -419,9 +395,5 @@ tbody tr:hover .company-column {
     width: 7.5rem;
     min-width: 7.5rem;
     max-width: 7.5rem;
-  }
-
-  .table-scroll {
-    max-height: calc(100dvh - 90px);
   }
 }

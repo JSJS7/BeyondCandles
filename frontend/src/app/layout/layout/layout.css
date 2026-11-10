@@ -19,7 +19,7 @@
 main {
   flex: 1;
   min-height: 0;
-  padding: var(--bc-space-xl);
+  padding: var(--bc-main-padding);
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -54,7 +54,7 @@ main {
   min-width: var(--bc-control-height);
   min-height: var(--bc-control-height);
   margin: var(--bc-space-s);
-  padding: var(--bc-space-s) 14px;
+  padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
   background: transparent;
@@ -79,7 +79,6 @@ main {
   }
 
   main {
-    padding: var(--bc-space-m);
     scrollbar-gutter: auto;
   }
 }

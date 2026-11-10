@@ -17,6 +17,7 @@ import { LoadState } from '../../models/load-state';
 import { ScreenerResponse } from '../../models/screener';
 import { ScreenerService } from '../../services/screener.service';
 import { formatDate } from '../../shared/date-format';
+import { StateMessage } from '../../shared/state-message/state-message';
 import { CriteriaEditor, CriterionView } from './criteria-editor';
 import { OptionPicker, OptionToggle, PickerOption } from './option-picker';
 import {
@@ -77,7 +78,7 @@ function pageState(query: ScreenerQuery): PageState {
 
 @Component({
   selector: 'app-screener',
-  imports: [RouterLink, OptionPicker, CriteriaEditor],
+  imports: [RouterLink, OptionPicker, CriteriaEditor, StateMessage],
   templateUrl: './screener.html',
   styleUrl: './screener.css',
 })
@@ -185,7 +186,8 @@ export class Screener implements OnInit {
     this.state().criteria.map((criterion) => this.criterionView(criterion)),
   );
 
-  readonly loadingDateLabel = computed(() => formatDate(this.date()));
+  readonly loadingText = computed(() => `Loading ratios for ${formatDate(this.date())}`);
+  readonly noSearchMatchText = computed(() => `No company matches "${this.state().search}".`);
 
   readonly valuationDateLabel = computed(() => {
     const result = this.result();

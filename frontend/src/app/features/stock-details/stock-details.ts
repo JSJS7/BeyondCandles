@@ -20,13 +20,14 @@ import { LoadState } from '../../models/load-state';
 import { AnnualPeriod, exchangeName, Price, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
 import { pageTitle } from '../../shared/page-title';
+import { StateMessage } from '../../shared/state-message/state-message';
 import { AnnualFinancials } from './annual-financials';
 import { PriceChart } from './price-chart';
 import { PRICE_SERIES_DESCRIPTION } from './price-chart-data';
 
 @Component({
   selector: 'app-stock-details',
-  imports: [RouterLink, PriceChart, AnnualFinancials],
+  imports: [RouterLink, PriceChart, AnnualFinancials, StateMessage],
   templateUrl: './stock-details.html',
   styleUrl: './stock-details.css',
 })

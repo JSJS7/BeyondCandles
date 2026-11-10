@@ -1,0 +1,107 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bc-space-m);
+}
+
+:host(.framed) {
+  padding: var(--bc-panel-padding);
+  border: 1px solid var(--bc-border);
+  border-radius: var(--bc-radius-panel);
+  background: var(--bc-surface);
+}
+
+.state-text {
+  margin: 0;
+}
+
+.loading-text {
+  color: var(--bc-muted);
+}
+
+.loading-dots {
+  display: inline-flex;
+  width: 1.1em;
+  text-align: left;
+}
+
+/* Its display would otherwise override the hidden attribute outside loading. */
+.loading-dots[hidden] {
+  display: none;
+}
+
+.loading-dots span:nth-child(1) {
+  animation: first-dot 2.8s step-end infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation: second-dot 2.8s step-end infinite;
+}
+
+.loading-dots span:nth-child(3) {
+  animation: third-dot 2.8s step-end infinite;
+}
+
+.state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bc-space-m);
+}
+
+/* Loading and most empty results have no action; an empty row would add a gap. */
+.state-actions:empty {
+  display: none;
+}
+
+.retry-button {
+  min-width: var(--bc-control-height);
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border: 1px solid var(--bc-primary);
+  border-radius: var(--bc-radius-control);
+  background: transparent;
+  color: var(--bc-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  background: var(--bc-subtle);
+}
+
+@keyframes first-dot {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+}
+
+@keyframes second-dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes third-dot {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-dots span:nth-child(1),
+  .loading-dots span:nth-child(2),
+  .loading-dots span:nth-child(3) {
+    animation: none;
+  }
+}
