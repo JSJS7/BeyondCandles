@@ -20,6 +20,16 @@ import {
 } from '../../shared/decimal-format';
 import { filingIndexUrl } from './sec-filing';
 
+/** Every label a table cell can carry; the reading guide above the table explains each (K15). */
+export const ANNUAL_CELL_LABELS = [
+  'Basic',
+  'Continuing ops',
+  'Split-adjusted',
+  'Calculated',
+  'Series break',
+] as const;
+type AnnualCellLabel = (typeof ANNUAL_CELL_LABELS)[number];
+
 interface MetricColumn {
   key: string;
   label: string;
@@ -228,12 +238,12 @@ export class AnnualFinancials {
   }
 
   /** Short labels that change how a value may be compared or used. */
-  cellLabels(column: MetricColumn, cell: AnnualMetric): string[] {
+  cellLabels(column: MetricColumn, cell: AnnualMetric): AnnualCellLabel[] {
     if (cell.status !== 'ready') {
       return [];
     }
 
-    const labels: string[] = [];
+    const labels: AnnualCellLabel[] = [];
     if (column.key === 'eps_diluted' && cell.eps_basis === 'basic') {
       labels.push('Basic');
     }

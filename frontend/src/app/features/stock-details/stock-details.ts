@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   catchError,
@@ -18,6 +19,7 @@ import {
 import { LoadState } from '../../models/load-state';
 import { AnnualPeriod, exchangeName, Price, Stock } from '../../models/stock';
 import { StockService } from '../../services/stock.service';
+import { pageTitle } from '../../shared/page-title';
 import { AnnualFinancials } from './annual-financials';
 import { PriceChart } from './price-chart';
 import { PRICE_SERIES_DESCRIPTION } from './price-chart-data';
@@ -32,6 +34,7 @@ export class StockDetails implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly stockService = inject(StockService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly title = inject(Title);
   private readonly stockRetry = new Subject<void>();
   private readonly pricesRetry = new Subject<void>();
   private readonly financialsRetry = new Subject<void>();
@@ -97,6 +100,8 @@ export class StockDetails implements OnInit {
       tap((stock) => {
         this.stock.set(stock);
         this.stockLoadState.set({ status: 'ready' });
+        // The route gave the tab the ticker; the name is what the page heading shows.
+        this.title.setTitle(pageTitle(`${stock.name} (${stock.ticker})`));
       }),
       catchError((error: unknown) => {
         const message =

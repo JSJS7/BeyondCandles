@@ -1,6 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { StockDetails } from './stock-details';
@@ -90,6 +91,16 @@ describe('Stock details', () => {
     expect(header.querySelector('h1').textContent).toBe('Apple Inc.');
     expect(metadata).toBe('AAPL·NASDAQ·Technology');
     expect(header.textContent).not.toContain('USD');
+  });
+
+  it('names the browser tab after the company once it has loaded', () => {
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+      ticker: 'AAPL',
+      name: 'Apple Inc.',
+      exchange: 'NMS',
+    });
+
+    expect(TestBed.inject(Title).getTitle()).toBe('Apple Inc. (AAPL) · BeyondCandles');
   });
 
   it('cancels the old request when the selected ticker changes', () => {

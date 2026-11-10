@@ -25,6 +25,7 @@ export interface OptionToggle {
   host: {
     '[class.container-anchored]': 'anchorToContainer()',
     '(document:pointerdown)': 'onDocumentPointerDown($event)',
+    '(focusout)': 'onFocusOut($event)',
   },
 })
 export class OptionPicker {
@@ -66,6 +67,22 @@ export class OptionPicker {
     }
     const target = event.target;
     if (target instanceof Node && this.host.nativeElement.contains(target)) {
+      return;
+    }
+    this.open.set(false);
+  }
+
+  /**
+   * W35: Tab out of the panel closes it, so that it does not lie over the control that now has
+   * the focus. Only a known element outside counts: a click on the panel's padding, or on a
+   * checkbox in Safari, which does not focus it, leaves no element to go to and keeps it open.
+   */
+  onFocusOut(event: FocusEvent): void {
+    if (!this.open()) {
+      return;
+    }
+    const next = event.relatedTarget;
+    if (!(next instanceof Node) || this.host.nativeElement.contains(next)) {
       return;
     }
     this.open.set(false);

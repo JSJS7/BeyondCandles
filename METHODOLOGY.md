@@ -36,9 +36,11 @@ Other outside inputs and the price corrections are listed in the [README](README
 | Preferred dividends | First value among the standard tags | Automatic |
 
 **Reviewed** values were each compared with the company's original filing. **Automatic** values
-come from a fixed tag order and are screened in bulk, so they are less certain. The table in the
-app labels values that need care: *Calculated* (from items of one filing), *Basic* (no diluted
-EPS is reported), *Continuing ops* (no whole-company cash flow is reported), *Split-adjusted*.
+come from a fixed tag order and are screened in bulk, so they are less certain. The app labels
+values that need care: *Calculated* (from items of one filing, such as a share count from net income
+and EPS), *Basic* (no diluted EPS is reported), *Continuing ops* (no whole-company cash flow is
+reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in the screener,
+*Spin-off* (see Known limitations).
 
 ### Reviewed measures
 

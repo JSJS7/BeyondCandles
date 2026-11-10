@@ -2,7 +2,7 @@
 
 <div class="main-content">
   <app-topbar [menuOpen]="menuOpen()" (menuRequested)="openMenu($event)" />
-  <main>
+  <main #main>
     <router-outlet />
   </main>
 </div>
@@ -17,6 +17,8 @@
   (close)="onMenuClosed()"
   (keydown)="trapMenuFocus($event)"
 >
-  <button class="menu-close" type="button" autofocus (click)="closeMenu()">Close menu ×</button>
+  <button class="menu-close" type="button" autofocus (click)="closeMenu()">
+    Close menu <span aria-hidden="true">×</span>
+  </button>
   <app-sidebar (navigated)="closeMenu()" />
 </dialog>

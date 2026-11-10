@@ -50,7 +50,7 @@ describe('Screener cells', () => {
     const company = row('AAPL');
     company.latest = period({ price: '271.859985', period_end: '2025-09-27' });
 
-    expect(cellText(company, column('price'))).toBe('271.86');
+    expect(cellText(company, column('price'))).toBe('$271.86');
     expect(cellText(company, column('period_end'))).toBe('27 Sep 2025');
   });
 

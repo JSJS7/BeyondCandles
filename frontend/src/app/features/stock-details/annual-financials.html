@@ -32,7 +32,7 @@
   </dl>
   <dl>
     <dt><span class="metric-label">Basic</span></dt>
-    <dd>Basic EPS, used where no verified diluted EPS exists.</dd>
+    <dd>Basic EPS, because no diluted EPS is reported.</dd>
     <dt><span class="metric-label">Continuing ops</span></dt>
     <dd>Operating cash flow of continuing operations, excluding discontinued operations.</dd>
     <dt><span class="metric-label">Split-adjusted</span></dt>
@@ -41,9 +41,9 @@
     <dd>Calculated from values reported in one filing, not one reported figure.</dd>
     <dt><span class="metric-label">Series break</span></dt>
     <dd>
-      This year and the year before come from different definitions, so the change between them in
-      this table is misleading. Select the value to compare both years with the report that states
-      them in one definition.
+      This year and the year before come from different definitions, or a value has a different sign
+      in the report, so the change between them in this table is misleading. Select the value to
+      compare both years with the report that states them in one definition.
     </dd>
     <dt><span class="review">Needs review</span></dt>
     <dd>An unverified definition or conflicting values; no value is shown.</dd>
@@ -56,7 +56,7 @@
       href="https://github.com/JSJS7/BeyondCandles/blob/main/METHODOLOGY.md"
       target="_blank"
       rel="noopener noreferrer"
-      >Full methodology</a
+      >Full methodology<span class="visually-hidden"> (opens in a new tab)</span></a
     >
   </p>
 </details>
@@ -192,7 +192,9 @@
         {{ growth }}
         @if (growthReportUrl(cell); as reportUrl) {
           <a [href]="reportUrl" target="_blank" rel="noopener noreferrer"
-            >Open this report on SEC EDGAR</a
+            >Open this report on SEC EDGAR<span class="visually-hidden">
+              (opens in a new tab)</span
+            ></a
           >
         }
       </p>
@@ -246,9 +248,9 @@
           <ul>
             @for (split of shareBasis.applied_splits; track split.date) {
               <li>
-                <a [href]="split.source_url" target="_blank" rel="noopener noreferrer">{{
-                  formatDate(split.date)
-                }}</a
+                <a [href]="split.source_url" target="_blank" rel="noopener noreferrer"
+                  >{{ formatDate(split.date)
+                  }}<span class="visually-hidden"> (opens in a new tab)</span></a
                 >: {{ split.new_shares }} new shares for {{ split.old_shares }} old
               </li>
             }
@@ -297,9 +299,9 @@
               <dd>{{ variant.statement_column }}</dd>
             }
             <dt>Period</dt>
-            <dd>{{ variant.period_start }} to {{ variant.period_end }}</dd>
+            <dd>{{ formatDate(variant.period_start) }} – {{ formatDate(variant.period_end) }}</dd>
             <dt>Filed</dt>
-            <dd>{{ variant.filed }} · {{ variant.form }}</dd>
+            <dd>{{ formatDate(variant.filed) }} · {{ variant.form }}</dd>
             <dt>Accession</dt>
             <dd>{{ variant.accession }}</dd>
             @if (variant.source_cik) {
@@ -311,12 +313,14 @@
             <p class="source-links">
               @if (variant.statement_url) {
                 <a [href]="variant.statement_url" target="_blank" rel="noopener noreferrer"
-                  >Open SEC statement</a
+                  >Open SEC statement<span class="visually-hidden"> (opens in a new tab)</span></a
                 >
               }
               @if (source.filingUrl) {
                 <a [href]="source.filingUrl" target="_blank" rel="noopener noreferrer"
-                  >Open filing on SEC EDGAR</a
+                  >Open filing on SEC EDGAR<span class="visually-hidden">
+                    (opens in a new tab)</span
+                  ></a
                 >
               }
             </p>

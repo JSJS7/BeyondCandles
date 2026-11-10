@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { Layout } from './layout';
 
 describe('Layout', () => {
@@ -12,7 +12,10 @@ describe('Layout', () => {
     await TestBed.configureTestingModule({
       imports: [Layout],
       providers: [
-        provideRouter([{ path: 'screener', children: [] }]),
+        provideRouter([
+          { path: 'screener', children: [] },
+          { path: 'other', children: [] },
+        ]),
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
@@ -30,6 +33,27 @@ describe('Layout', () => {
   it('renders the layout with a theme switch independently of a running backend', () => {
     expect(component).toBeTruthy();
     expect(fixture.nativeElement.querySelector('button[aria-label*="mode"]')).not.toBeNull();
+  });
+
+  it('starts a new page at the top, but keeps the place when only the query changes', async () => {
+    // W34: pages scroll inside <main>, which the router does not reset, so a new page opened
+    // part way down. The screener writes its state to the query on every keystroke.
+    const router = TestBed.inject(Router);
+    const main: HTMLElement = fixture.nativeElement.querySelector('main');
+    let scrollTop = 0;
+    Object.defineProperty(main, 'scrollTop', {
+      configurable: true,
+      get: () => scrollTop,
+      set: (value: number) => (scrollTop = value),
+    });
+    await router.navigateByUrl('/screener');
+
+    scrollTop = 600;
+    await router.navigateByUrl('/screener?q=micro');
+    expect(scrollTop).toBe(600);
+
+    await router.navigateByUrl('/other');
+    expect(scrollTop).toBe(0);
   });
 
   function mockDialog(): HTMLDialogElement {

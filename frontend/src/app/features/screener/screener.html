@@ -19,7 +19,10 @@
         [min]="earliestDate"
         [max]="latestDate"
         [value]="date()"
+        (pointerdown)="onDatePointerDown()"
+        (keydown)="onDateKeydown($event, dateInput.value)"
         (change)="onDateChange(dateInput.value)"
+        (blur)="onDateBlur(dateInput.value)"
       />
       <p id="valuation-date-help" class="field-help" [class.field-error]="dateInvalid()">
         @if (dateInvalid()) {
@@ -64,7 +67,7 @@
       href="https://github.com/JSJS7/BeyondCandles/blob/main/METHODOLOGY.md"
       target="_blank"
       rel="noopener noreferrer"
-      >methodology</a
+      >methodology<span class="visually-hidden"> (opens in a new tab)</span></a
     >). Historical data for learning, not investment advice.
   </p>
 
@@ -126,15 +129,29 @@
         empty field means no value, never zero.
       </dd>
       <dt><span class="no-value">—</span></dt>
-      <dd>No value: an input is missing or the result has no meaning. It never means zero.</dd>
+      <dd>
+        No value: an input is missing or the result has no meaning. It never means zero. A ratio is
+        also empty when what it divides by is not positive (EPS for P/E, revenue for P/S and the
+        margins, net income for OCF / net income), when common equity is not positive (P/B; ROE in
+        either year), when growth starts or ends at a value that is not positive or no report states
+        both years, when only continuing operations' cash flow is reported (OCF / net income), and
+        for price ratios without a comparable price (JCI until September 2016).
+      </dd>
       <dt><span class="metric-label">Basic</span></dt>
-      <dd>Uses basic EPS, because no diluted EPS is reported.</dd>
+      <dd>Basic EPS, because no diluted EPS is reported.</dd>
       <dt><span class="metric-label">Calculated</span></dt>
-      <dd>The share count is calculated as (net income − preferred dividends) ÷ EPS.</dd>
+      <dd>
+        Calculated from values reported in one filing, not one reported figure. Here it is the share
+        count: (net income − preferred dividends) ÷ EPS.
+      </dd>
       <dt><span class="metric-label">Series break</span></dt>
-      <dd>The company's series changes definition here, so compare growth over time with care.</dd>
+      <dd>
+        The company's yearly series changes definition here, or a value changes sign. Growth still
+        comes from one report that states both years, so it is comparable; the company page shows
+        both versions.
+      </dd>
       <dt><span class="metric-label">Continuing ops</span></dt>
-      <dd>Uses operating cash flow of continuing operations only.</dd>
+      <dd>Operating cash flow of continuing operations, excluding discontinued operations.</dd>
       <dt><span class="metric-label">Spin-off</span></dt>
       <dd>
         The price no longer includes a business the company spun off after the period, while the
@@ -154,7 +171,7 @@
           class="search-input"
           type="search"
           autocomplete="off"
-          placeholder="Find a ticker or name"
+          placeholder="Search ticker or name"
           [value]="state().search"
           (input)="onSearchInput(searchBox.value)"
         />
@@ -186,7 +203,7 @@
   @let loading = loadState();
   @if (loading.status === 'loading') {
     <div class="state-panel">
-      <p class="state-text" role="status">Loading ratios for {{ date() }}...</p>
+      <p class="state-text" role="status">Loading ratios for {{ loadingDateLabel() }}...</p>
     </div>
   } @else if (loading.status === 'error') {
     <div class="state-panel" role="alert">

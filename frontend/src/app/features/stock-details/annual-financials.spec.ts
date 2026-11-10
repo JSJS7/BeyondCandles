@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AnnualMetric, AnnualPeriod, FilingValue } from '../../models/stock';
-import { AnnualFinancials } from './annual-financials';
+import { ANNUAL_CELL_LABELS, AnnualFinancials } from './annual-financials';
 
 const METRIC_ORDER = ['revenue', 'net_income', 'eps_diluted', 'equity', 'operating_cash_flow'];
 
@@ -65,6 +65,30 @@ describe('Annual financials table', () => {
     fixture.detectChanges();
     return fixture.nativeElement.querySelector('.sources-panel');
   }
+
+  it('explains every label that a cell can carry in the reading guide', () => {
+    // K15: the type of cellLabels allows only these labels, and a label that the guide does
+    // not explain tells the reader nothing.
+    const page = render([period({})]);
+
+    const guideLabels = page.querySelectorAll('.reading-guide dt .metric-label');
+    const explained = [...guideLabels].map((label) => label.textContent?.trim());
+    for (const label of ANNUAL_CELL_LABELS) {
+      expect(explained).toContain(label);
+    }
+  });
+
+  it('shows source periods and filing dates as readable dates, not ISO text', () => {
+    // N103: the rest of the page writes "1 Feb 2021", so the sources do too.
+    render([
+      period({ revenue: { status: 'ready', value: '100000000', variants: [filingValue()] } }),
+    ]);
+
+    const panelText = openSources('revenue').textContent ?? '';
+    expect(panelText).toContain('1 Jan 2020 – 31 Dec 2020');
+    expect(panelText).toContain('1 Feb 2021 · 10-K');
+    expect(panelText).not.toContain('2021-02-01');
+  });
 
   it('shows amounts in whole USD millions and the exact value in the sources', () => {
     // The table is for reading trends; the exact reported digits stay one click away.
@@ -230,8 +254,8 @@ describe('Annual financials table', () => {
     ]);
 
     const panel = openSources('revenue');
-    const reportLink = Array.from(panel.querySelectorAll('a')).find(
-      (link) => link.textContent?.trim() === 'Open this report on SEC EDGAR',
+    const reportLink = Array.from(panel.querySelectorAll('a')).find((link) =>
+      link.textContent?.trim().startsWith('Open this report on SEC EDGAR'),
     );
     expect(reportLink?.getAttribute('href')).toBe(
       'https://www.sec.gov/Archives/edgar/data/320193/000032019321000010/',
@@ -396,7 +420,7 @@ describe('Annual financials table', () => {
     expect(panel.querySelector('.exact-value')).toBeNull();
     expect(panel.textContent).toContain('ProfitLoss');
     expect(panel.textContent).toContain('99,000,000 USD');
-    expect(panel.textContent).toContain('2021-02-01');
+    expect(panel.textContent).toContain('1 Feb 2021');
     expect(panel.textContent).toContain('0000320193-21-000010');
     expect(panel.textContent).toContain('0000320193');
     // Nothing is presented as the used value of an unresolved cell.
@@ -476,7 +500,8 @@ describe('Annual financials table', () => {
     expect(sources[0].textContent).toContain('Parent [Member]');
     expect(sources[1].textContent).not.toContain('Selected value');
     const statementLink = sources[0].querySelector('a');
-    expect(statementLink?.textContent).toBe('Open SEC statement');
+    // The hidden note tells a screen reader that the link leaves the page (N99).
+    expect(statementLink?.textContent).toBe('Open SEC statement (opens in a new tab)');
     expect(statementLink?.getAttribute('href')).toBe(parent.statement_url);
   });
 

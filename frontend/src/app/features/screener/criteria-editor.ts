@@ -41,6 +41,44 @@ export class CriteriaEditor {
   readonly removed = output<ColumnKey>();
   readonly cleared = output<void>();
 
+  // W31: in some browsers (Chrome on Windows) an arrow key changes a closed list at once and
+  // reports it as a change. Adding there would move the focus away while the reader is still
+  // browsing (WCAG 3.2.2), so a choice made with the keyboard waits for Enter. A choice made
+  // with a mouse or a finger in the open list is final and adds at once.
+  private choosingWithKeyboard = false;
+
+  onSelectPointerDown(): void {
+    this.choosingWithKeyboard = false;
+  }
+
+  onSelectKeydown(event: KeyboardEvent, select: HTMLSelectElement): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.addChosen(select);
+      return;
+    }
+    this.choosingWithKeyboard = true;
+  }
+
+  onSelectChange(select: HTMLSelectElement): void {
+    if (this.choosingWithKeyboard) {
+      return;
+    }
+    this.addChosen(select);
+  }
+
+  /** A ratio browsed to but not confirmed is not added; the list returns to its prompt. */
+  onSelectBlur(select: HTMLSelectElement): void {
+    select.value = '';
+    this.choosingWithKeyboard = false;
+  }
+
+  private addChosen(select: HTMLSelectElement): void {
+    const key = select.value;
+    select.value = '';
+    this.add(key);
+  }
+
   add(key: string): void {
     const column = this.available().find((candidate) => candidate.key === key);
     if (!column) {

@@ -24,7 +24,7 @@
       [attr.aria-controls]="optionsVisible() ? 'search-options' : null"
       [attr.aria-expanded]="optionsVisible()"
       [attr.aria-activedescendant]="activeOptionId()"
-      placeholder="Search companies..."
+      placeholder="Search ticker or name"
       [value]="searchQuery()"
       (focus)="onSearchFocus()"
       (input)="onSearchInput(searchInput.value)"

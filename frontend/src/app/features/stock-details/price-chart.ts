@@ -41,9 +41,10 @@ interface SelectionBox {
   selector: 'app-price-chart',
   templateUrl: './price-chart.html',
   styleUrl: './price-chart.css',
-  host: { '(document:keydown.escape)': 'cancelSelection()' },
+  host: { '(document:keydown.escape)': 'onDocumentEscape($event)' },
 })
 export class PriceChart implements OnChanges, OnDestroy {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly themeService = inject(ThemeService);
   private readonly renderer = inject(PriceChartRenderer);
   private readonly rangeToggle = viewChild<ElementRef<HTMLButtonElement>>('rangeToggle');
@@ -194,6 +195,21 @@ export class PriceChart implements OnChanges, OnDestroy {
     if (this.pressedPoint?.pointerId === event.pointerId) {
       this.cancelSelection();
     }
+  }
+
+  /**
+   * Escape cancels a selection from anywhere on the page, because a mouse selection leaves the
+   * focus on the page itself. An Escape meant for a control outside the chart, such as the top
+   * search or the menu, is left to that control (W33): it moved the focus to Select range.
+   */
+  onDocumentEscape(event: Event): void {
+    const target = event.target;
+    const pageItself = target === document || target === document.body;
+    const insideChart = target instanceof Node && this.host.nativeElement.contains(target);
+    if (!pageItself && !insideChart) {
+      return;
+    }
+    this.cancelSelection();
   }
 
   cancelSelection(): void {

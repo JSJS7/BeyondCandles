@@ -90,6 +90,12 @@ export class Screener implements OnInit {
   // The address that this page wrote last. Any other address came from outside, such as the
   // Screener link in the menu, and replaces the page state.
   private writtenAddress: string | null = null;
+  // W32: the browser reports every finished part of a typed date (month, day, each digit of the
+  // year) as a change, which loaded a date nobody chose on each keystroke and flashed an error
+  // while the year was half typed. A typed date waits for Enter or for leaving the field; a date
+  // picked in the calendar with a mouse or a finger applies at once.
+  private dateTypedWithKeyboard = false;
+  private pendingDate: string | null = null;
 
   readonly earliestDate = EARLIEST_VALUATION_DATE;
   readonly latestDate = LATEST_VALUATION_DATE;
@@ -179,6 +185,8 @@ export class Screener implements OnInit {
     this.state().criteria.map((criterion) => this.criterionView(criterion)),
   );
 
+  readonly loadingDateLabel = computed(() => formatDate(this.date()));
+
   readonly valuationDateLabel = computed(() => {
     const result = this.result();
     return result ? formatDate(result.valuation_date) : '';
@@ -233,8 +241,36 @@ export class Screener implements OnInit {
     this.retryRequests.next();
   }
 
-  /** An incomplete or out-of-range date sends no request; the table keeps naming its own date. */
+  onDatePointerDown(): void {
+    this.dateTypedWithKeyboard = false;
+  }
+
+  onDateKeydown(event: KeyboardEvent, value: string): void {
+    if (event.key === 'Enter') {
+      this.applyDate(value);
+      return;
+    }
+    this.dateTypedWithKeyboard = true;
+  }
+
   onDateChange(value: string): void {
+    if (this.dateTypedWithKeyboard) {
+      this.pendingDate = value;
+      return;
+    }
+    this.applyDate(value);
+  }
+
+  onDateBlur(value: string): void {
+    if (this.pendingDate !== null) {
+      this.applyDate(value);
+    }
+    this.dateTypedWithKeyboard = false;
+  }
+
+  /** An incomplete or out-of-range date sends no request; the table keeps naming its own date. */
+  private applyDate(value: string): void {
+    this.pendingDate = null;
     const valid = isValidValuationDate(value);
     this.dateInvalid.set(!valid);
     if (valid) {

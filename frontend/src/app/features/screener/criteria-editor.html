@@ -4,12 +4,19 @@
     <!-- In the heading row, so that it stays in place while criteria are added below. -->
     <div class="add-criterion">
       <label class="visually-hidden" for="add-criterion">Add a criterion</label>
+      <span id="add-criterion-help" class="visually-hidden"
+        >Choose a ratio with the arrow keys, then press Enter to add it.</span
+      >
       <select
         #addSelect
         id="add-criterion"
         class="add-select"
+        aria-describedby="add-criterion-help"
         [disabled]="available().length === 0"
-        (change)="add(addSelect.value); addSelect.value = ''"
+        (pointerdown)="onSelectPointerDown()"
+        (keydown)="onSelectKeydown($event, addSelect)"
+        (change)="onSelectChange(addSelect)"
+        (blur)="onSelectBlur(addSelect)"
       >
         <option value="">+ Add criterion</option>
         @for (column of available(); track column.key) {

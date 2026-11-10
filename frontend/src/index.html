@@ -6,6 +6,21 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      // W36: the theme is set before the first paint, so a dark system theme never shows a light
+      // page while the app loads. Same storage key and rule as ThemeService, which takes over.
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem('beyondcandles-theme');
+        } catch (error) {
+          // Storage can be blocked; the system preference still applies.
+        }
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var dark = saved === 'dark' || (saved !== 'light' && systemDark);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      })();
+    </script>
   </head>
   <body>
     <app-root></app-root>

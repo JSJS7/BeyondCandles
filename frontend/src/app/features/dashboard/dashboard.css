@@ -52,6 +52,12 @@
   font-size: 20px;
 }
 
+/* The card titles follow the h1 as h2 (N99), with the size they had as h3. */
+.card-title {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 .card-text {
   margin: 6px 0 0;
   color: var(--bc-muted);

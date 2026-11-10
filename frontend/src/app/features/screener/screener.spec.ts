@@ -5,6 +5,7 @@ import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { Ratios, ScreenerResponse, ScreenerRow } from '../../models/screener';
 import { Screener } from './screener';
+import { SCREENER_CELL_LABELS } from './screener-columns';
 
 const API = 'http://127.0.0.1:8000/screener';
 
@@ -117,6 +118,27 @@ describe('Screener page', () => {
     expect(page().querySelector('tbody a')?.getAttribute('href')).toBe('/stocks/AAA');
     expect(page().textContent).toContain('3 of 3 companies, valued at 31 Dec 2025');
     expect(page().querySelector<HTMLInputElement>('#valuation-date')?.value).toBe('2025-12-31');
+  });
+
+  it('explains every label that a cell can carry in the reading guide', async () => {
+    // K15: the type of cellLabels allows only these labels, and a label that the guide does
+    // not explain tells the reader nothing.
+    await open();
+
+    const guideLabels = page().querySelectorAll('.reading-guide dt .metric-label');
+    const explained = [...guideLabels].map((label) => label.textContent?.trim());
+    for (const label of SCREENER_CELL_LABELS) {
+      expect(explained).toContain(label);
+    }
+  });
+
+  it('names the valuation date as a readable date while the ratios load', async () => {
+    // N103: the rest of the page writes "31 Mar 2021", never the ISO text of the address.
+    harness = await RouterTestingHarness.create('/screener?date=2021-03-31');
+    harness.detectChanges();
+
+    expect(page().textContent).toContain('Loading ratios for 31 Mar 2021...');
+    http.expectOne(`${API}?date=2021-03-31`).flush(THREE_COMPANIES);
   });
 
   it('links the comparability note to the methodology', async () => {
@@ -276,6 +298,28 @@ describe('Screener page', () => {
     await settle();
     expect(details.open).toBe(false);
     expect(document.activeElement?.classList.contains('picker-summary')).toBe(true);
+  });
+
+  it('closes the sector panel when Tab moves the focus out of it', async () => {
+    // W35: the panel stayed open over the page while the focus was already on the next control.
+    await open();
+    const host = picker('sectors');
+    const details = host.querySelector<HTMLDetailsElement>('details')!;
+    details.open = true;
+    details.dispatchEvent(new Event('toggle'));
+    await settle();
+    const firstBox = host.querySelector<HTMLInputElement>('.check-box')!;
+    const outside = page().querySelector<HTMLSelectElement>('#add-criterion')!;
+
+    // Within the panel, or with no element to go to (a click on its padding), it stays open.
+    firstBox.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: host }));
+    firstBox.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
+    await settle();
+    expect(details.open).toBe(true);
+
+    firstBox.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: outside }));
+    await settle();
+    expect(details.open).toBe(false);
   });
 
   it('restores date, sector and sort from the address', async () => {
@@ -438,7 +482,7 @@ describe('Screener page', () => {
     await changeControl('#valuation-date', '2021-03-31');
 
     expect(shownTickers()).toEqual([]);
-    expect(page().querySelector('[role="status"]')?.textContent).toContain('2021-03-31');
+    expect(page().querySelector('[role="status"]')?.textContent).toContain('31 Mar 2021');
     expect(TestBed.inject(Router).url).toContain('date=2021-03-31');
 
     const response: ScreenerResponse = {
@@ -484,6 +528,52 @@ describe('Screener page', () => {
 
     await changeControl('#valuation-date', '2025-12-31');
     expect(page().querySelector('[role="alert"]')).toBeNull();
+  });
+
+  it('applies a typed date on Enter or on leaving the field, not on each part of it', async () => {
+    // W32: Chrome reports every finished part of a typed date as a change. Each one loaded a
+    // date nobody chose, hid the table, and the half-typed year (0002) flashed an error.
+    await open();
+    const input = page().querySelector<HTMLInputElement>('#valuation-date')!;
+    const typeKey = (key: string) =>
+      input.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+
+    typeKey('2');
+    await changeControl('#valuation-date', '0002-03-31');
+    typeKey('0');
+    await changeControl('#valuation-date', '2020-03-31');
+
+    http.expectNone(() => true);
+    expect(page().querySelector('[role="alert"]')).toBeNull();
+    expect(shownTickers()).toEqual(['AAA', 'BBB', 'CCC']);
+
+    input.dispatchEvent(new Event('blur'));
+    await settle();
+    http
+      .expectOne(`${API}?date=2020-03-31`)
+      .flush({ ...THREE_COMPANIES, valuation_date: '2020-03-31' });
+    harness.detectChanges();
+    expect(page().textContent).toContain('valued at 31 Mar 2020');
+
+    typeKey('1');
+    await changeControl('#valuation-date', '2021-03-31');
+    http.expectNone(() => true);
+    typeKey('Enter');
+    await settle();
+    http.expectOne(`${API}?date=2021-03-31`).flush(THREE_COMPANIES);
+  });
+
+  it('shows the range error for a typed date only when the field is left', async () => {
+    await open();
+    const input = page().querySelector<HTMLInputElement>('#valuation-date')!;
+
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: '0', bubbles: true }));
+    await changeControl('#valuation-date', '');
+    expect(page().querySelector('[role="alert"]')).toBeNull();
+
+    input.dispatchEvent(new Event('blur'));
+    await settle();
+    expect(page().querySelector('[role="alert"]')?.textContent).toContain('Choose a date from');
   });
 
   it('says so when the chosen day had no session', async () => {
@@ -564,6 +654,49 @@ describe('Screener page', () => {
     const options = [...page().querySelectorAll('#add-criterion option')];
     expect(options.map((option) => option.textContent)).not.toContain('P/E');
     expect(page().querySelector<HTMLSelectElement>('#add-criterion')?.value).toBe('');
+  });
+
+  it('waits for Enter before adding a criterion browsed to with the arrow keys', async () => {
+    // W31: Chrome on Windows reports each arrow key on a closed list as a change. Adding there
+    // moved the focus to the new field while the reader was still browsing (WCAG 3.2.2).
+    await open();
+    const select = page().querySelector<HTMLSelectElement>('#add-criterion')!;
+
+    select.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    await changeControl('#add-criterion', 'pe');
+
+    expect(page().querySelector('.criterion')).toBeNull();
+    expect(select.value).toBe('pe');
+
+    select.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await settle();
+
+    expect(page().querySelector('.criterion-label')?.textContent).toBe('P/E');
+    expect(document.activeElement?.id).toBe('criterion-min-pe');
+  });
+
+  it('adds nothing when the reader browses the list and leaves it without Enter', async () => {
+    await open();
+    const select = page().querySelector<HTMLSelectElement>('#add-criterion')!;
+
+    select.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    await changeControl('#add-criterion', 'roe');
+    select.dispatchEvent(new Event('blur'));
+    await settle();
+
+    expect(page().querySelector('.criterion')).toBeNull();
+    expect(select.value).toBe('');
+  });
+
+  it('adds a criterion picked with the pointer at once, also after keyboard use', async () => {
+    await open();
+    const select = page().querySelector<HTMLSelectElement>('#add-criterion')!;
+    select.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+
+    select.dispatchEvent(new Event('pointerdown'));
+    await changeControl('#add-criterion', 'roe');
+
+    expect(page().querySelector('.criterion-label')?.textContent).toBe('ROE');
   });
 
   it('filters by a typed range, counts the result and names who was left out', async () => {

@@ -5,11 +5,12 @@
   --bc-surface: #f8f9fa;
   --bc-subtle: #e6e9ed;
   --bc-text: #252a33;
-  --bc-muted: #626975;
+  /* Muted and secondary text keep 4.5:1 also on --bc-selection, the selected table cell (N98). */
+  --bc-muted: #5a606b;
   --bc-border: #d1d6de;
   --bc-control-border: #7c8491;
   --bc-primary: #6b4aa5;
-  --bc-secondary: #286b70;
+  --bc-secondary: #26666b;
   --bc-warning: #855715;
   --bc-shadow: 0 12px 30px rgba(25, 30, 40, 0.12);
   --bc-focus-ring: 0 0 0 3px rgba(107, 74, 165, 0.2);

@@ -67,7 +67,8 @@ export function formatValue(column: ScreenerColumn, value: string): string {
     case 'date':
       return formatDate(value);
     case 'price':
-      return formatFixed(value, 2);
+      // In dollars, as the price on the company page; prices are never negative.
+      return `$${formatFixed(value, 2)}`;
     case 'multiple':
       return formatMultiple(value);
     case 'percent':
@@ -84,8 +85,18 @@ export function cellText(row: ScreenerRow, column: ScreenerColumn): string | nul
   return formatValue(column, value);
 }
 
+/** Every label a screener cell can carry; the page's reading guide explains each one (K15). */
+export const SCREENER_CELL_LABELS = [
+  'Basic',
+  'Calculated',
+  'Series break',
+  'Continuing ops',
+  'Spin-off',
+] as const;
+export type ScreenerCellLabel = (typeof SCREENER_CELL_LABELS)[number];
+
 /** Short labels that change how a value may be read; the same words as the financials table. */
-export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): string[] {
+export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): ScreenerCellLabel[] {
   if (latest === null) {
     return [];
   }
@@ -95,7 +106,7 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): string[
     return latest.revenue_basis_break ? ['Series break'] : [];
   }
   if (key === 'eps_growth') {
-    const labels = latest.eps_basis_break ? ['Series break'] : [];
+    const labels: ScreenerCellLabel[] = latest.eps_basis_break ? ['Series break'] : [];
     if (latest.ratios.eps_growth !== null && latest.eps_basis === 'basic') {
       labels.push('Basic');
     }
@@ -106,7 +117,7 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): string[
   if (!hasValue || latest.ratios[key] === null) {
     return [];
   }
-  const labels: string[] = [];
+  const labels: ScreenerCellLabel[] = [];
   if (key === 'pe' && latest.eps_basis === 'basic') {
     labels.push('Basic');
   }

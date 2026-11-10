@@ -178,6 +178,23 @@ describe('Price chart interaction', () => {
     expect(component.visiblePrices()).toEqual(prices);
   });
 
+  it('leaves an Escape meant for a control outside the chart to that control', () => {
+    // W33: Escape in the top search closed its suggestions and also the range selection,
+    // and moved the focus from the search field to Select range.
+    const search = document.createElement('input');
+    document.body.appendChild(search);
+    component.toggleRangeSelection();
+    fixture.detectChanges();
+    search.focus();
+
+    search.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    fixture.detectChanges();
+
+    expect(component.selectingRange()).toBe(true);
+    expect(document.activeElement).toBe(search);
+    search.remove();
+  });
+
   it('applies typed dates and keeps the previous range when both dates match one session', () => {
     fixture.nativeElement.querySelector('.select-range-button').click();
     fixture.detectChanges();

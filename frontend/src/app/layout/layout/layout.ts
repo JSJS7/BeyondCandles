@@ -1,5 +1,7 @@
-import { Component, ElementRef, signal, viewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { Sidebar } from '../sidebar/sidebar';
 import { Topbar } from '../topbar/topbar';
 
@@ -15,8 +17,30 @@ const DESKTOP_MIN_WIDTH = 768;
 })
 export class Layout {
   private readonly mobileMenu = viewChild<ElementRef<HTMLDialogElement>>('mobileMenu');
+  private readonly main = viewChild<ElementRef<HTMLElement>>('main');
   private menuOpener: HTMLElement | null = null;
+  private currentPath: string | null = null;
   readonly menuOpen = signal(false);
+
+  constructor() {
+    // W34: pages scroll inside <main>, not the window, so the router cannot reset the place.
+    // A new page starts at the top. A change of the query string alone keeps the place: the
+    // screener writes its state there on every keystroke.
+    inject(Router)
+      .events.pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe((event) => {
+        const path = event.urlAfterRedirects.split(/[?#]/)[0];
+        const pathChanged = this.currentPath !== null && path !== this.currentPath;
+        const main = this.main()?.nativeElement;
+        if (pathChanged && main) {
+          main.scrollTop = 0;
+        }
+        this.currentPath = path;
+      });
+  }
 
   openMenu(opener: HTMLElement): void {
     const dialog = this.mobileMenu()?.nativeElement;
