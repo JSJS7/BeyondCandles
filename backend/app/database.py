@@ -21,7 +21,17 @@ database_url = URL.create(
     database=settings.postgres_db,
 )
 
-engine = create_engine(database_url, connect_args={"connect_timeout": 5})
+
+def create_database_engine(url: URL):
+    """An engine whose pool checks each connection before handing it out.
+
+    After PostgreSQL restarts, every pooled connection is dead; without the check, the
+    first request on each of them would fail with 503 (N3, measured 11.11.2026).
+    """
+    return create_engine(url, connect_args={"connect_timeout": 5}, pool_pre_ping=True)
+
+
+engine = create_database_engine(database_url)
 
 
 def get_connection() -> Iterator[Connection]:
