@@ -6,16 +6,6 @@ export interface Stock {
   financial_history_note?: string | null;
 }
 
-// The API preserves source codes; they are translated only for presentation.
-const EXCHANGE_NAMES: Record<string, string> = {
-  NMS: 'NASDAQ',
-  NYQ: 'NYSE',
-};
-
-export function exchangeName(code: string): string {
-  return EXCHANGE_NAMES[code] ?? code;
-}
-
 export interface Price {
   date: string;
   open: string;

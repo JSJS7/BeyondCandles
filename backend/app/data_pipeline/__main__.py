@@ -135,6 +135,10 @@ def run_command(args):
         from .invariant_checks import check_invariants
 
         result = check_invariants()
+    elif args.command == "check-ratios":
+        from .ratio_reference import check_ratios
+
+        result = check_ratios()
     elif args.command == "inspect-db":
         from .verification import inspect_db
 
@@ -180,6 +184,7 @@ def main():
             "control-documents",
             "check-identities",
             "check-invariants",
+            "check-ratios",
             "inspect-db",
             "verify-db",
         ),

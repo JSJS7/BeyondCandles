@@ -17,7 +17,15 @@ import {
   tap,
 } from 'rxjs';
 import { LoadState } from '../../models/load-state';
-import { AnnualPeriod, exchangeName, Price, Stock } from '../../models/stock';
+import { AnnualPeriod, Price, Stock } from '../../models/stock';
+import {
+  FIRST_PERIOD_YEAR,
+  FIRST_PRICE_DATE,
+  LAST_PERIOD_YEAR,
+  LAST_PRICE_DATE,
+} from '../../shared/data-window';
+import { formatDate } from '../../shared/date-format';
+import { exchangeName } from '../../shared/exchange-name';
 import { StockService } from '../../services/stock.service';
 import { pageTitle } from '../../shared/page-title';
 import { StateMessage } from '../../shared/state-message/state-message';
@@ -41,6 +49,8 @@ export class StockDetails implements OnInit {
   private readonly financialsRetry = new Subject<void>();
 
   readonly priceSeriesDescription = PRICE_SERIES_DESCRIPTION;
+  readonly priceRangeText = `${formatDate(FIRST_PRICE_DATE)} to ${formatDate(LAST_PRICE_DATE)}`;
+  readonly periodYearsText = `${FIRST_PERIOD_YEAR}–${LAST_PERIOD_YEAR}`;
   readonly ticker = signal('Unknown');
   readonly stock = signal<Stock | null>(null);
   readonly exchangeName = computed(() => exchangeName(this.stock()?.exchange ?? ''));

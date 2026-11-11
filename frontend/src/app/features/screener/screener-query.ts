@@ -1,13 +1,10 @@
 // The state of the screener page as kept in its address, so that Back and a shared link
 // restore it. Anything unknown in the address falls back to the default.
 import { ParamMap, Params } from '@angular/router';
+import { EARLIEST_VALUATION_DATE, LATEST_VALUATION_DATE } from '../../shared/data-window';
 import { ColumnKey, findColumn, SCREENER_COLUMNS } from './screener-columns';
 import { CRITERION_COLUMNS, CriterionInput, isNumberText } from './screener-filters';
 import { DEFAULT_SORT, defaultDirection, ScreenerSort, SortKey } from './screener-sort';
-
-// The range accepted by GET /screener; the backend validates it as well.
-export const EARLIEST_VALUATION_DATE = '2016-03-31';
-export const LATEST_VALUATION_DATE = '2025-12-31';
 
 export interface ScreenerQuery {
   date: string;

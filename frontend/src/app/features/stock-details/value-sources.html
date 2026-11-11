@@ -1,0 +1,169 @@
+<section class="sources-panel" aria-labelledby="sources-heading">
+  <div class="sources-header">
+    <h3 id="sources-heading" tabindex="-1" #sourcesHeading>
+      {{ column().label }} · {{ fiscalYearLabel(period()) }}
+    </h3>
+    <button type="button" class="close-button" (click)="closed.emit()">Close</button>
+  </div>
+  <p class="muted">
+    {{ formatDate(period().period_start) }} –
+    {{ formatDate(period().period_end) }}
+  </p>
+
+  @let metric = cell();
+  @if (metric.status === 'ready' && metric.value !== null) {
+    <p class="exact-value">{{ exactValueWithUnit(column(), metric.value) }}</p>
+    @for (label of labels(); track label) {
+      <span class="metric-label">{{ label }}</span>
+    }
+  } @else if (metric.status === 'needs_review') {
+    <p class="review">
+      Needs review: the sources below disagree or their definition is not verified, so no value is
+      shown.
+    </p>
+  } @else {
+    <p class="muted">Not available: no value matching the definition was imported.</p>
+  }
+
+  @if (growthText(metric); as growth) {
+    <p>
+      {{ growth }}
+      @if (growthReportUrl(metric); as reportUrl) {
+        <a [href]="reportUrl" target="_blank" rel="noopener noreferrer"
+          >Open this report on SEC EDGAR<span class="visually-hidden">
+            (opens in a new tab)</span
+          ></a
+        >
+      }
+    </p>
+  }
+
+  @if (growthComparison(); as comparison) {
+    <div class="growth-comparison">
+      <table class="growth-comparison-table">
+        <caption class="growth-comparison-caption">
+          Series break: both years in this table and in the report,
+          {{
+            comparison.unit
+          }}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="growth-comparison-heading">Values</th>
+            <th scope="col" class="growth-comparison-number-heading">
+              {{ comparison.earlierLabel }}
+            </th>
+            <th scope="col" class="growth-comparison-number-heading">
+              {{ comparison.laterLabel }}
+            </th>
+            <th scope="col" class="growth-comparison-number-heading">Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of comparison.rows; track row.label) {
+            <tr>
+              <th scope="row" class="growth-comparison-source">{{ row.label }}</th>
+              <td class="growth-comparison-value">{{ row.earlier }}</td>
+              <td class="growth-comparison-value">{{ row.later }}</td>
+              <td class="growth-comparison-value">{{ row.change }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (comparison.reportBeforeSplits) {
+        <p class="growth-comparison-note muted">
+          The report states EPS as filed, before later stock splits; compare the changes.
+        </p>
+      }
+    </div>
+  }
+
+  @if (metric.eps_share_basis; as shareBasis) {
+    <div class="share-basis">
+      <p>Reported in the filing: {{ formatExact(shareBasis.reported_value) }} USD per share.</p>
+      @if (shareBasis.applied_splits.length > 0) {
+        <p>Restated for later stock splits:</p>
+        <ul>
+          @for (split of shareBasis.applied_splits; track split.date) {
+            <li>
+              <a [href]="split.source_url" target="_blank" rel="noopener noreferrer"
+                >{{ formatDate(split.date)
+                }}<span class="visually-hidden"> (opens in a new tab)</span></a
+              >: {{ split.new_shares }} new shares for {{ split.old_shares }} old
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>The filing already reflects every reviewed split.</p>
+      }
+      <p class="muted">Share count basis: {{ formatDate(shareBasis.as_of) }}.</p>
+    </div>
+  }
+  @if (metric.calculation) {
+    <p>Calculation: {{ metric.calculation }}</p>
+  }
+  @if (metric.selection_note) {
+    <p class="muted">{{ metric.selection_note }}</p>
+  }
+  @if (period().period_note) {
+    <p class="muted">Period note: {{ period().period_note }}</p>
+  }
+
+  <h4 class="sources-count">SEC sources ({{ sources().length }})</h4>
+  <ol class="source-list">
+    @for (
+      source of sources();
+      track source.variant.tag +
+        source.variant.accession +
+        source.variant.unit +
+        source.variant.source_cik +
+        source.variant.statement_column +
+        source.variant.statement_label
+    ) {
+      @let variant = source.variant;
+      <li [class.used-source]="source.role !== null">
+        @if (source.role) {
+          <p class="source-role">{{ source.role }}</p>
+        }
+        <dl>
+          <dt>Reported value</dt>
+          <dd>{{ formatExact(variant.value) }} {{ variant.unit }}</dd>
+          <dt>Definition</dt>
+          <dd>{{ variant.taxonomy }}:{{ variant.tag }}</dd>
+          @if (variant.statement_column) {
+            <dt>Statement position</dt>
+            <dd>{{ variant.statement_label }}</dd>
+            <dt>Statement column</dt>
+            <dd>{{ variant.statement_column }}</dd>
+          }
+          <dt>Period</dt>
+          <dd>{{ formatDate(variant.period_start) }} – {{ formatDate(variant.period_end) }}</dd>
+          <dt>Filed</dt>
+          <dd>{{ formatDate(variant.filed) }} · {{ variant.form }}</dd>
+          <dt>Accession</dt>
+          <dd>{{ variant.accession }}</dd>
+          @if (variant.source_cik) {
+            <dt>SEC issuer (CIK)</dt>
+            <dd>{{ variant.source_cik }}</dd>
+          }
+        </dl>
+        @if (variant.statement_url || source.filingUrl) {
+          <p class="source-links">
+            @if (variant.statement_url) {
+              <a [href]="variant.statement_url" target="_blank" rel="noopener noreferrer"
+                >Open SEC statement<span class="visually-hidden"> (opens in a new tab)</span></a
+              >
+            }
+            @if (source.filingUrl) {
+              <a [href]="source.filingUrl" target="_blank" rel="noopener noreferrer"
+                >Open filing on SEC EDGAR<span class="visually-hidden">
+                  (opens in a new tab)</span
+                ></a
+              >
+            }
+          </p>
+        }
+      </li>
+    }
+  </ol>
+</section>

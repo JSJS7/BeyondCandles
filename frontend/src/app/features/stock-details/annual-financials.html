@@ -31,31 +31,19 @@
     <dd>Whole company, unless marked Continuing ops.</dd>
   </dl>
   <dl>
-    <dt><span class="metric-label">Basic</span></dt>
-    <dd>Basic EPS, because no diluted EPS is reported.</dd>
-    <dt><span class="metric-label">Continuing ops</span></dt>
-    <dd>Operating cash flow of continuing operations, excluding discontinued operations.</dd>
-    <dt><span class="metric-label">Split-adjusted</span></dt>
-    <dd>Reported EPS restated for stock splits after the filing.</dd>
-    <dt><span class="metric-label">Calculated</span></dt>
-    <dd>Calculated from values reported in one filing, not one reported figure.</dd>
-    <dt><span class="metric-label">Series break</span></dt>
-    <dd>
-      This year and the year before come from different definitions, or a value has a different sign
-      in the report, so the change between them in this table is misleading. Select the value to
-      compare both years with the report that states them in one definition.
-    </dd>
+    @for (entry of cellLabelGuide; track entry.label) {
+      <dt>
+        <span class="metric-label">{{ entry.label }}</span>
+      </dt>
+      <dd>{{ entry.text }}</dd>
+    }
     <dt><span class="review">Needs review</span></dt>
     <dd>An unverified definition or conflicting values; no value is shown.</dd>
     <dt><span class="muted">Not available</span></dt>
     <dd>No matching value was imported.</dd>
   </dl>
   <p>
-    <a
-      class="methodology-link"
-      href="https://github.com/JSJS7/BeyondCandles/blob/main/METHODOLOGY.md"
-      target="_blank"
-      rel="noopener noreferrer"
+    <a class="methodology-link" [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
       >Full methodology<span class="visually-hidden"> (opens in a new tab)</span></a
     >
   </p>
@@ -63,8 +51,8 @@
 
 @if (missingFiscalYears().length > 0) {
   <p>
-    Not available: {{ missingFiscalYearsLabel() }}. The imported data covers periods ending from 1
-    Jan 2015 to 31 Dec 2025, so fiscal years ending outside that range are not included.
+    Not available: {{ missingFiscalYearsLabel() }}. The imported data covers periods ending from
+    {{ periodRangeText }}, so fiscal years ending outside that range are not included.
   </p>
 }
 @if (hasUnverifiedFiscalYears()) {
@@ -77,7 +65,10 @@
 <div class="table-scroll" tabindex="0" role="region" aria-label="Annual financial statements">
   <table>
     <caption>
-      Annual values for periods ending in 2015–2025
+      Annual values for periods ending in
+      {{
+        periodYearsText
+      }}
     </caption>
     <thead>
       <tr>
@@ -156,177 +147,12 @@
 }
 
 @if (selected(); as details) {
-  <section
-    class="sources-panel"
-    aria-labelledby="sources-heading"
-    (keydown.escape)="closeSources(); $event.stopPropagation()"
-  >
-    <div class="sources-header">
-      <h3 id="sources-heading" tabindex="-1" #sourcesHeading>
-        {{ details.column.label }} · {{ fiscalYearLabel(details.period) }}
-      </h3>
-      <button type="button" class="close-button" (click)="closeSources()">Close</button>
-    </div>
-    <p class="muted">
-      {{ formatDate(details.period.period_start) }} –
-      {{ formatDate(details.period.period_end) }}
-    </p>
-
-    @let cell = details.cell;
-    @if (cell.status === 'ready' && cell.value !== null) {
-      <p class="exact-value">{{ exactValueWithUnit(details.column, cell.value) }}</p>
-      @for (label of cellLabels(details.column, cell); track label) {
-        <span class="metric-label">{{ label }}</span>
-      }
-    } @else if (cell.status === 'needs_review') {
-      <p class="review">
-        Needs review: the sources below disagree or their definition is not verified, so no value is
-        shown.
-      </p>
-    } @else {
-      <p class="muted">Not available: no value matching the definition was imported.</p>
-    }
-
-    @if (growthText(cell); as growth) {
-      <p>
-        {{ growth }}
-        @if (growthReportUrl(cell); as reportUrl) {
-          <a [href]="reportUrl" target="_blank" rel="noopener noreferrer"
-            >Open this report on SEC EDGAR<span class="visually-hidden">
-              (opens in a new tab)</span
-            ></a
-          >
-        }
-      </p>
-    }
-
-    @if (details.growthComparison; as comparison) {
-      <div class="growth-comparison">
-        <table class="growth-comparison-table">
-          <caption class="growth-comparison-caption">
-            Series break: both years in this table and in the report,
-            {{
-              comparison.unit
-            }}
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col" class="growth-comparison-heading">Values</th>
-              <th scope="col" class="growth-comparison-number-heading">
-                {{ comparison.earlierLabel }}
-              </th>
-              <th scope="col" class="growth-comparison-number-heading">
-                {{ comparison.laterLabel }}
-              </th>
-              <th scope="col" class="growth-comparison-number-heading">Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (row of comparison.rows; track row.label) {
-              <tr>
-                <th scope="row" class="growth-comparison-source">{{ row.label }}</th>
-                <td class="growth-comparison-value">{{ row.earlier }}</td>
-                <td class="growth-comparison-value">{{ row.later }}</td>
-                <td class="growth-comparison-value">{{ row.change }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        @if (comparison.reportBeforeSplits) {
-          <p class="growth-comparison-note muted">
-            The report states EPS as filed, before later stock splits; compare the changes.
-          </p>
-        }
-      </div>
-    }
-
-    @if (cell.eps_share_basis; as shareBasis) {
-      <div class="share-basis">
-        <p>Reported in the filing: {{ formatExact(shareBasis.reported_value) }} USD per share.</p>
-        @if (shareBasis.applied_splits.length > 0) {
-          <p>Restated for later stock splits:</p>
-          <ul>
-            @for (split of shareBasis.applied_splits; track split.date) {
-              <li>
-                <a [href]="split.source_url" target="_blank" rel="noopener noreferrer"
-                  >{{ formatDate(split.date)
-                  }}<span class="visually-hidden"> (opens in a new tab)</span></a
-                >: {{ split.new_shares }} new shares for {{ split.old_shares }} old
-              </li>
-            }
-          </ul>
-        } @else {
-          <p>The filing already reflects every reviewed split.</p>
-        }
-        <p class="muted">Share count basis: {{ formatDate(shareBasis.as_of) }}.</p>
-      </div>
-    }
-    @if (cell.calculation) {
-      <p>Calculation: {{ cell.calculation }}</p>
-    }
-    @if (cell.selection_note) {
-      <p class="muted">{{ cell.selection_note }}</p>
-    }
-    @if (details.period.period_note) {
-      <p class="muted">Period note: {{ details.period.period_note }}</p>
-    }
-
-    <h4 class="sources-count">SEC sources ({{ details.sources.length }})</h4>
-    <ol class="source-list">
-      @for (
-        source of details.sources;
-        track source.variant.tag +
-          source.variant.accession +
-          source.variant.unit +
-          source.variant.source_cik +
-          source.variant.statement_column +
-          source.variant.statement_label
-      ) {
-        @let variant = source.variant;
-        <li [class.used-source]="source.role !== null">
-          @if (source.role) {
-            <p class="source-role">{{ source.role }}</p>
-          }
-          <dl>
-            <dt>Reported value</dt>
-            <dd>{{ formatExact(variant.value) }} {{ variant.unit }}</dd>
-            <dt>Definition</dt>
-            <dd>{{ variant.taxonomy }}:{{ variant.tag }}</dd>
-            @if (variant.statement_column) {
-              <dt>Statement position</dt>
-              <dd>{{ variant.statement_label }}</dd>
-              <dt>Statement column</dt>
-              <dd>{{ variant.statement_column }}</dd>
-            }
-            <dt>Period</dt>
-            <dd>{{ formatDate(variant.period_start) }} – {{ formatDate(variant.period_end) }}</dd>
-            <dt>Filed</dt>
-            <dd>{{ formatDate(variant.filed) }} · {{ variant.form }}</dd>
-            <dt>Accession</dt>
-            <dd>{{ variant.accession }}</dd>
-            @if (variant.source_cik) {
-              <dt>SEC issuer (CIK)</dt>
-              <dd>{{ variant.source_cik }}</dd>
-            }
-          </dl>
-          @if (variant.statement_url || source.filingUrl) {
-            <p class="source-links">
-              @if (variant.statement_url) {
-                <a [href]="variant.statement_url" target="_blank" rel="noopener noreferrer"
-                  >Open SEC statement<span class="visually-hidden"> (opens in a new tab)</span></a
-                >
-              }
-              @if (source.filingUrl) {
-                <a [href]="source.filingUrl" target="_blank" rel="noopener noreferrer"
-                  >Open filing on SEC EDGAR<span class="visually-hidden">
-                    (opens in a new tab)</span
-                  ></a
-                >
-              }
-            </p>
-          }
-        </li>
-      }
-    </ol>
-  </section>
+  <app-value-sources
+    [period]="details.period"
+    [column]="details.column"
+    [cell]="details.cell"
+    [labels]="cellLabels(details.column, details.cell)"
+    [periods]="periods()"
+    (closed)="closeSources()"
+  />
 }

@@ -17,7 +17,10 @@ import { LoadState } from '../../models/load-state';
 import { ScreenerResponse } from '../../models/screener';
 import { ScreenerService } from '../../services/screener.service';
 import { formatDate } from '../../shared/date-format';
+import { EARLIEST_VALUATION_DATE, LATEST_VALUATION_DATE } from '../../shared/data-window';
+import { METHODOLOGY_URL } from '../../shared/links';
 import { StateMessage } from '../../shared/state-message/state-message';
+import { labelGuide } from '../../shared/value-labels';
 import { CriteriaEditor, CriterionView } from './criteria-editor';
 import { OptionPicker, OptionToggle, PickerOption } from './option-picker';
 import {
@@ -27,6 +30,7 @@ import {
   columnSummary,
   findColumn,
   formatValue,
+  SCREENER_CELL_LABELS,
   SCREENER_COLUMNS,
   ScreenerColumn,
   visibleColumns,
@@ -46,9 +50,7 @@ import {
 } from './screener-filters';
 import {
   addressKey,
-  EARLIEST_VALUATION_DATE,
   isValidValuationDate,
-  LATEST_VALUATION_DATE,
   parseScreenerQuery,
   ScreenerQuery,
   screenerQueryParams,
@@ -103,6 +105,13 @@ export class Screener implements OnInit {
   readonly dateRangeLabel = `${formatDate(EARLIEST_VALUATION_DATE)} to ${formatDate(LATEST_VALUATION_DATE)}`;
   readonly cellText = cellText;
   readonly cellLabels = cellLabels;
+  readonly methodologyUrl = METHODOLOGY_URL;
+  readonly cellLabelGuide = labelGuide(SCREENER_CELL_LABELS, {
+    Calculated: 'Here it is the share count: (net income − preferred dividends) ÷ EPS.',
+    'Series break':
+      'Growth still comes from one report that states both years, so it is comparable; the ' +
+      'company page shows both versions.',
+  });
 
   // The valuation date is read from the address, because a new date loads new data.
   readonly date = toSignal(

@@ -1,0 +1,233 @@
+:host {
+  display: block;
+}
+
+.muted {
+  color: var(--bc-muted);
+}
+
+.review {
+  color: var(--bc-warning);
+}
+
+.sources-panel {
+  margin-top: var(--bc-space-l);
+  padding: var(--bc-space-l);
+  border: 1px solid var(--bc-border);
+  border-radius: var(--bc-radius-panel);
+  background: var(--bc-page);
+}
+
+.sources-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bc-space-m);
+}
+
+/* The heading takes the focus when the panel opens; only a keyboard user sees the ring. */
+.sources-header h3:focus {
+  outline: none;
+}
+
+.sources-header h3:focus-visible {
+  outline: 2px solid var(--bc-primary);
+  outline-offset: 3px;
+}
+
+.close-button {
+  flex-shrink: 0;
+  min-width: var(--bc-control-height);
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border: 1px solid var(--bc-primary);
+  border-radius: var(--bc-radius-control);
+  background: transparent;
+  color: var(--bc-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background: var(--bc-subtle);
+}
+
+.sources-panel > p {
+  max-width: 48rem;
+  overflow-wrap: anywhere;
+}
+
+.exact-value {
+  margin-bottom: var(--bc-space-xs);
+  font-size: var(--bc-text-title);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.metric-label {
+  display: inline-block;
+  margin-right: var(--bc-space-s);
+  color: var(--bc-secondary);
+  font-size: var(--bc-text-small);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Series break: the table's two years next to the same years in the growth report. */
+.growth-comparison {
+  max-width: 36rem;
+  margin: var(--bc-space-m) 0;
+  overflow-x: auto;
+}
+
+.growth-comparison-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bc-surface);
+  font-size: var(--bc-text-table);
+}
+
+.growth-comparison-caption {
+  padding-bottom: var(--bc-space-s);
+  color: var(--bc-muted);
+  text-align: left;
+}
+
+.growth-comparison-heading {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-border);
+  background: var(--bc-subtle);
+  font-weight: 600;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.growth-comparison-number-heading {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-border);
+  background: var(--bc-subtle);
+  font-weight: 600;
+  text-align: right;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.growth-comparison-source {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-border);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+}
+
+.growth-comparison-value {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-border);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.growth-comparison-note {
+  margin: var(--bc-space-s) 0 0;
+  font-size: var(--bc-text-small);
+}
+
+.share-basis {
+  max-width: 48rem;
+  overflow-wrap: anywhere;
+}
+
+.share-basis ul {
+  padding-left: var(--bc-space-xl);
+}
+
+.share-basis a {
+  display: inline-block;
+  min-height: var(--bc-control-height);
+  padding-block: var(--bc-space-m);
+  line-height: 20px;
+}
+
+.sources-count {
+  margin: var(--bc-space-l) 0 var(--bc-space-s);
+}
+
+.source-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: var(--bc-space-m);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.source-list li {
+  min-width: 0;
+  padding: var(--bc-space-m);
+  border: 1px solid var(--bc-border);
+  border-radius: var(--bc-radius-control);
+  background: var(--bc-surface);
+}
+
+.source-list li.used-source {
+  border-color: var(--bc-secondary);
+}
+
+.source-role {
+  margin: 0 0 var(--bc-space-xs);
+  color: var(--bc-secondary);
+  font-weight: 600;
+}
+
+.source-list dl {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-list dt {
+  margin-top: var(--bc-space-s);
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+}
+
+.source-list dd {
+  margin: 0;
+}
+
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--bc-space-l);
+  margin: var(--bc-space-s) 0 0;
+}
+
+.source-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--bc-control-height);
+}
+
+@media (max-width: 767px) {
+  .sources-panel {
+    padding: var(--bc-space-m);
+  }
+
+  /* At 320 px the four columns fit only with narrower gaps and wrapped year headings
+     (measured: 28 px too wide). The header cells keep their gaps: before N100 a rule of
+     the annual table overrode their narrower gaps, and the look stays as it was. */
+  .growth-comparison-number-heading {
+    white-space: normal;
+  }
+
+  .growth-comparison-source {
+    padding-inline: var(--bc-space-s);
+  }
+
+  .growth-comparison-value {
+    padding-inline: var(--bc-space-s);
+  }
+}

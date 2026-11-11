@@ -123,15 +123,22 @@ class CommonEquityTests(unittest.TestCase):
 
 
 class ExchangeableUnitTests(unittest.TestCase):
-    def test_recorded_companies_and_their_last_periods(self):
-        """M42: Blackstone still has Holdings units; KKR exchanged its units in 2022."""
+    def test_recorded_companies_and_their_affected_periods(self):
+        """M42: Blackstone still has Holdings units; KKR exchanged its units in 2022.
+        N115: Charter's diluted count includes the Advance/Newhouse units in 2016 and
+        2017 and leaves them out from 2018, so only periods from 2018 are affected."""
         self.assertEqual(
-            exchangeable_unit_periods(), {"BX": None, "KKR": date(2021, 12, 31)}
+            exchangeable_unit_periods(),
+            {
+                "BX": (None, None),
+                "KKR": (None, date(2021, 12, 31)),
+                "CHTR": (date(2018, 12, 31), None),
+            },
         )
 
     def test_period_is_marked_up_to_and_including_the_last_listed_period(self):
         """The last listed period is affected; the next one and other tickers are not."""
-        unit_periods = {"OPEN": None, "CLOSED": date(2021, 12, 31)}
+        unit_periods = {"OPEN": (None, None), "CLOSED": (None, date(2021, 12, 31))}
 
         self.assertTrue(
             ps_excludes_exchangeable_units("OPEN", date(2025, 12, 31), unit_periods)
@@ -144,6 +151,21 @@ class ExchangeableUnitTests(unittest.TestCase):
         )
         self.assertFalse(
             ps_excludes_exchangeable_units("OTHER", date(2021, 12, 31), unit_periods)
+        )
+
+    def test_period_is_marked_from_and_including_the_first_listed_period(self):
+        """A period before the first listed one is not affected (its diluted count
+        already includes the units); the first listed period and later ones are."""
+        unit_periods = {"LATE": (date(2018, 12, 31), None)}
+
+        self.assertFalse(
+            ps_excludes_exchangeable_units("LATE", date(2017, 12, 31), unit_periods)
+        )
+        self.assertTrue(
+            ps_excludes_exchangeable_units("LATE", date(2018, 12, 31), unit_periods)
+        )
+        self.assertTrue(
+            ps_excludes_exchangeable_units("LATE", date(2025, 12, 31), unit_periods)
         )
 
 

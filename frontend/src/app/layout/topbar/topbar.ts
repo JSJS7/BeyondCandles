@@ -11,7 +11,8 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { LoadState } from '../../models/load-state';
-import { exchangeName, Stock } from '../../models/stock';
+import { Stock } from '../../models/stock';
+import { exchangeName } from '../../shared/exchange-name';
 import { StockService } from '../../services/stock.service';
 import { ThemeService } from '../../services/theme.service';
 import { matchRank } from '../../shared/search-match';

@@ -1,18 +1,27 @@
 {
   "version": 1,
-  "method": "Companies where part of the owners hold units of a holding partnership exchangeable into the listed shares, while the share count covers only the listed shares. Revenue is the whole group's, so P/S reads too low; net income, EPS and equity belong to the listed shares, so P/E and P/B stay consistent. The screener marks P/S of the listed periods (M42). last_period_end is the last affected annual period, or null while the units still exist. Ordinary minority stakes in subsidiaries are not listed: market value over consolidated revenue is the usual convention there.",
+  "method": "Companies where part of the owners hold units of a holding partnership exchangeable into the listed shares, while the share count covers only the listed shares. Revenue is the whole group's, so P/S reads too low; net income, EPS and equity belong to the listed shares, so P/E and P/B stay consistent. The screener marks P/S of the listed periods (M42). first_period_end is the first affected annual period, or null from the start of the data; last_period_end is the last affected annual period, or null while the units still exist. A year whose diluted count already includes the units is not affected. Ordinary minority stakes in subsidiaries are not listed: market value over consolidated revenue is the usual convention there.",
   "companies": [
     {
       "ticker": "BX",
+      "first_period_end": null,
       "last_period_end": null,
       "accession": "0001193125-25-042469",
       "evidence": "10-K for 2024: equity attributable to Blackstone Inc. against non-controlling interests in Blackstone Holdings, whose partnership units are exchangeable into Blackstone common stock. Measured on 10.11.2026 for every year from 2015: the parent holds 40-47% of that equity and 44-58% of net income, while the share count (diluted, or basic common units in 2015, 2016 and 2018) holds only Blackstone's own shares. P/S on 31.12.2024 is 16.2, about 26 with the Holdings units."
     },
     {
       "ticker": "KKR",
+      "first_period_end": null,
       "last_period_end": "2021-12-31",
       "accession": "0001404912-22-000004",
       "evidence": "10-K for 2021: KKR Holdings units exchangeable into KKR Class A common stock. Measured on 10.11.2026: the parent holds 30-40% of equity from 2015 to 2021. KKR tags no share count, so the count is (net income - preferred dividends) / EPS, which covers only the listed shares. The 2022 reorganisation exchanged the KKR Holdings units, so periods from 2022 are not affected."
+    },
+    {
+      "ticker": "CHTR",
+      "first_period_end": "2018-12-31",
+      "last_period_end": null,
+      "accession": "0001091667-26-000017",
+      "evidence": "Checked year by year on 11.11.2026 in the earnings per share note of every 10-K from 2016 to 2025. Charter Holdings common units held by Advance/Newhouse are exchangeable into Charter Class A common stock; they exist since the Bright House transaction of 18.05.2016. The diluted count includes them in 2016 and 2017 (19.3 and 26.6 million weighted common units plus 5.8 and 9.3 million convertible preferred units), so P/S of those years is not affected. From 2018 they are excluded as antidilutive: 31, 29, 26, 19, 20, 18, 17 and 16 million units for 2018 to 2025, against diluted counts of 235.5 to 137.7 million, so P/S reads 9-12% too low (2018: 0001091667-19-000029; 2021: 0001091667-22-000024; 2025: 0001091667-26-000017)."
     }
   ]
 }

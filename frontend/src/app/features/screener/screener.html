@@ -64,10 +64,7 @@
 
   <p class="comparability-note">
     Ratios are not comparable across all businesses, such as banks and distributors, so compare
-    similar companies (<a
-      href="https://github.com/JSJS7/BeyondCandles/blob/main/METHODOLOGY.md"
-      target="_blank"
-      rel="noopener noreferrer"
+    similar companies (<a [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
       >methodology<span class="visually-hidden"> (opens in a new tab)</span></a
     >). Historical data for learning, not investment advice.
   </p>
@@ -138,33 +135,12 @@
         both years, when only continuing operations' cash flow is reported (OCF / net income), and
         for price ratios without a comparable price (JCI until September 2016).
       </dd>
-      <dt><span class="metric-label">Basic</span></dt>
-      <dd>Basic EPS, because no diluted EPS is reported.</dd>
-      <dt><span class="metric-label">Calculated</span></dt>
-      <dd>
-        Calculated from values reported in one filing, not one reported figure. Here it is the share
-        count: (net income − preferred dividends) ÷ EPS.
-      </dd>
-      <dt><span class="metric-label">Series break</span></dt>
-      <dd>
-        The company's yearly series changes definition here, or a value changes sign. Growth still
-        comes from one report that states both years, so it is comparable; the company page shows
-        both versions.
-      </dd>
-      <dt><span class="metric-label">Continuing ops</span></dt>
-      <dd>Operating cash flow of continuing operations, excluding discontinued operations.</dd>
-      <dt><span class="metric-label">Spin-off</span></dt>
-      <dd>
-        The price no longer includes a business the company spun off after the period, while the
-        period's results still do, so P/E, P/B and P/S can read too low until the next annual
-        report.
-      </dd>
-      <dt><span class="metric-label">Exchangeable units</span></dt>
-      <dd>
-        Part of the owners hold units exchangeable into the listed shares. The market value covers
-        only the listed shares, while revenue is the whole group's, so P/S reads too low (by about
-        40% for Blackstone, and for KKR until 2021). P/E and P/B are not affected.
-      </dd>
+      @for (entry of cellLabelGuide; track entry.label) {
+        <dt>
+          <span class="metric-label">{{ entry.label }}</span>
+        </dt>
+        <dd>{{ entry.text }}</dd>
+      }
     </dl>
   </details>
 

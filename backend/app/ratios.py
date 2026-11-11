@@ -48,20 +48,26 @@ def participating_preferred_tickers():
     return {entry["ticker"] for entry in policy["companies"]}
 
 
-def exchangeable_unit_periods():
-    """Return {ticker: last affected period end, or None while the units still exist}.
+def optional_date(text):
+    if text is None:
+        return None
+    return date.fromisoformat(text)
 
-    In these companies part of the owners hold units exchangeable into the listed
-    shares, so P/S divides the listed shares' value by the whole group's revenue (M42).
+
+def exchangeable_unit_periods():
+    """Return {ticker: (first affected period end, last affected period end)}.
+
+    None as the first end means every period from the start of the data, and None as
+    the last end means the units still exist. In these companies part of the owners
+    hold units exchangeable into the listed shares, and the share count leaves them out,
+    so P/S divides the listed shares' value by the whole group's revenue (M42, N115).
     """
     policy = load_policy(EXCHANGEABLE_UNITS_PATH, "exchangeable-units")
     result = {}
     for entry in policy["companies"]:
-        last_period_end = entry["last_period_end"]
-        if last_period_end is None:
-            result[entry["ticker"]] = None
-        else:
-            result[entry["ticker"]] = date.fromisoformat(last_period_end)
+        first_period_end = optional_date(entry["first_period_end"])
+        last_period_end = optional_date(entry["last_period_end"])
+        result[entry["ticker"]] = (first_period_end, last_period_end)
     return result
 
 
@@ -69,10 +75,12 @@ def ps_excludes_exchangeable_units(ticker, period_end, unit_periods):
     """Whether P/S of this period leaves the exchangeable units out of its market value."""
     if ticker not in unit_periods:
         return False
-    last_period_end = unit_periods[ticker]
-    if last_period_end is None:
-        return True
-    return period_end <= last_period_end
+    first_period_end, last_period_end = unit_periods[ticker]
+    if first_period_end is not None and period_end < first_period_end:
+        return False
+    if last_period_end is not None and period_end > last_period_end:
+        return False
+    return True
 
 
 def income_to_common(values):

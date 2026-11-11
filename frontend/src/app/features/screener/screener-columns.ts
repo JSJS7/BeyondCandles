@@ -2,16 +2,17 @@
 import { PeriodRatios, RatioKey, ScreenerRow } from '../../models/screener';
 import { formatDate } from '../../shared/date-format';
 import { formatFixed, formatPercent } from '../../shared/decimal-format';
+import { RATIO_DEFINITIONS, RatioKind } from '../../shared/ratio-definitions';
+import { ValueLabel } from '../../shared/value-labels';
 
-type ColumnKind = 'text' | 'date' | 'price' | 'multiple' | 'percent';
+type ColumnKind = 'text' | 'date' | 'price' | RatioKind;
 export type ColumnKey = 'sector' | 'price' | 'period_end' | RatioKey;
 
 export interface ScreenerColumn {
   key: ColumnKey;
   label: string;
   kind: ColumnKind;
-  // A shorter table header, so that the table fits a laptop screen; `label` stays the name
-  // everywhere else and is what assistive technology reads.
+  // A shorter table header (see RatioDefinition).
   shortLabel?: string;
 }
 
@@ -19,18 +20,7 @@ export const SCREENER_COLUMNS: ScreenerColumn[] = [
   { key: 'sector', label: 'Sector', kind: 'text' },
   { key: 'price', label: 'Price', kind: 'price' },
   { key: 'period_end', label: 'Period end', kind: 'date' },
-  { key: 'pe', label: 'P/E', kind: 'multiple' },
-  { key: 'pb', label: 'P/B', kind: 'multiple' },
-  { key: 'ps', label: 'P/S', kind: 'multiple' },
-  { key: 'roe', label: 'ROE', kind: 'percent' },
-  { key: 'roa', label: 'ROA', kind: 'percent' },
-  { key: 'net_margin', label: 'Net margin', kind: 'percent' },
-  { key: 'operating_margin', label: 'Operating margin', kind: 'percent', shortLabel: 'Op. margin' },
-  { key: 'fcf_margin', label: 'FCF margin', kind: 'percent' },
-  { key: 'revenue_growth', label: 'Revenue growth', kind: 'percent', shortLabel: 'Rev. growth' },
-  { key: 'eps_growth', label: 'EPS growth', kind: 'percent' },
-  { key: 'ocf_to_net_income', label: 'OCF / net income', kind: 'multiple' },
-  { key: 'equity_to_assets', label: 'Equity / assets', kind: 'percent' },
+  ...RATIO_DEFINITIONS,
 ];
 
 /** The column with this key, or undefined for any other text (e.g. from the address). */
@@ -93,7 +83,7 @@ export const SCREENER_CELL_LABELS = [
   'Continuing ops',
   'Spin-off',
   'Exchangeable units',
-] as const;
+] as const satisfies readonly ValueLabel[];
 export type ScreenerCellLabel = (typeof SCREENER_CELL_LABELS)[number];
 
 /** Short labels that change how a value may be read; the same words as the financials table. */

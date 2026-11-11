@@ -71,7 +71,8 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   tag. Where the first report's table shows the same digits in a stated unit, the unit is corrected.
 - **Share count and equity can differ in scope:** a diluted count can include units exchangeable
   into shares while equity excludes their holders. Blackstone's 2015, 2016 and 2018 therefore use its
-  basic common units, as its diluted count does in the other years.
+  basic common units, as its diluted count does in the other years. Charter's 2016 and 2017 still use
+  a diluted count with such units, so their P/B reads about 12% too high until the next data rebuild.
 - **Capital expenditure:** banks and most real estate companies have none. A tag can hold only part
   of the cash spent; where we found this, the value comes from the cash flow statement instead
   (American Electric Power; United Rentals, purchases of rental and other equipment).
@@ -109,11 +110,13 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   It is the weighted average of the year, not the count on the valuation date, so it lags after an
   acquisition or large buyback.
 - **P/S with exchangeable units:** where part of the owners hold units exchangeable into the listed
-  shares, the market value covers the listed shares only, while revenue is the whole group's. P/S then
-  reads too low, by about 40% for Blackstone in every year and for KKR until its 2022 reorganisation.
-  P/E and P/B stay consistent, as net income and equity also belong to the listed shares. The values
-  stay and are marked *Exchangeable units* (`data/exchangeable-units.json`). Ordinary minority stakes
-  in subsidiaries follow the usual convention of market value over consolidated revenue.
+  shares and the share count leaves them out, the market value covers the listed shares only, while
+  revenue is the whole group's. P/S then reads too low, by about 40% for Blackstone in every year and
+  for KKR until its 2022 reorganisation, and by about 10% where the units are a smaller stake. A year
+  whose diluted count includes the units is not affected. P/E and P/B stay consistent, as net income
+  and equity also belong to the listed shares. The values stay and are marked *Exchangeable units*
+  (`data/exchangeable-units.json`). Ordinary minority stakes in subsidiaries follow the usual
+  convention of market value over consolidated revenue.
 - **Common equity:** equity minus preferred stock. Without a value, the deduction is zero only if there
   are no preferred dividends or they are at most 0.2% of equity; otherwise common-share ratios stay
   empty. A value is rejected when annual preferred dividends exceed 25% of it, because it is then only
