@@ -76,6 +76,14 @@ class ParsingTests(unittest.TestCase):
         self.assertEqual(number("$ 12"), Decimal(12))
         self.assertIsNone(number("Total"))
 
+    def test_numbers_read_a_dollar_sign_before_the_bracket(self):
+        """N37: many statements print "$(2.08)" or "$ (1,234)" (VRTX EPS 2024); about
+        9,200 cells in 270 extracts were unreadable before."""
+        self.assertEqual(number("$(2.08)"), Decimal("-2.08"))
+        self.assertEqual(number("$ (1,234)"), Decimal("-1234"))
+        self.assertEqual(number("$-2.08"), Decimal("-2.08"))
+        self.assertEqual(number("$(4) (a)"), Decimal("-4"))
+
 
 class VersionCheckTests(unittest.TestCase):
     def test_value_in_its_row_and_column_passes(self):

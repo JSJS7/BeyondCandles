@@ -38,8 +38,9 @@ AUTOMATIC_REPORT = ROOT / "data/processed/automatic-check-report.json"
 EXAMPLES_PER_METRIC = 40
 SMALLEST_PLANTED_AMOUNT = Decimal(100)
 
+# The dollar sign may stand before or after the minus or bracket: "($2.08)", "$(2.08)" (N37).
 NUMBER = re.compile(
-    r"^(?P<neg>\(|-|−|–)?\s*\$?\s*(?P<n>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?|\.\d+)"
+    r"^\$?\s*(?P<neg>\(|-|−|–)?\s*\$?\s*(?P<n>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?|\.\d+)"
     r"\s*\)?\s*(?:\([a-z0-9]{1,2}\)|\*)*\s*$",
     re.I,
 )
