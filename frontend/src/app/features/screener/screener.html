@@ -2,7 +2,8 @@
   <header class="page-header">
     <h1>Screener</h1>
     <p class="page-description">
-      Ratios on a chosen date: that day's price and each company's latest annual report known then.
+      Ratios on a chosen date: that day's price and each company's latest annual report filed before
+      that session.
     </p>
   </header>
 
@@ -157,6 +158,12 @@
         The price no longer includes a business the company spun off after the period, while the
         period's results still do, so P/E, P/B and P/S can read too low until the next annual
         report.
+      </dd>
+      <dt><span class="metric-label">Exchangeable units</span></dt>
+      <dd>
+        Part of the owners hold units exchangeable into the listed shares. The market value covers
+        only the listed shares, while revenue is the whole group's, so P/S reads too low (by about
+        40% for Blackstone, and for KKR until 2021). P/E and P/B are not affected.
       </dd>
     </dl>
   </details>

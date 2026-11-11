@@ -32,6 +32,7 @@ export function period(
     revenue_basis_break: false,
     eps_basis_break: false,
     spin_offs: [],
+    exchangeable_units: false,
     ...overrides,
     ratios: { ...EMPTY_RATIOS, ...ratios },
   };

@@ -6,6 +6,7 @@ with an estimate, an industry average or an earlier year (project-principles.md,
 """
 
 from dataclasses import dataclass
+from datetime import date
 from decimal import Decimal
 from pathlib import Path
 from typing import Literal
@@ -15,6 +16,9 @@ from app.policy_files import load_policy
 
 PARTICIPATING_PREFERRED_PATH = (
     Path(__file__).resolve().parents[2] / "data/participating-preferred.json"
+)
+EXCHANGEABLE_UNITS_PATH = (
+    Path(__file__).resolve().parents[2] / "data/exchangeable-units.json"
 )
 REPORTED_SHARES = "reported"
 CALCULATED_SHARES = "calculated"
@@ -42,6 +46,33 @@ def participating_preferred_tickers():
     """Companies that count their preferred stock, as converted, in their share count."""
     policy = load_policy(PARTICIPATING_PREFERRED_PATH, "participating-preferred")
     return {entry["ticker"] for entry in policy["companies"]}
+
+
+def exchangeable_unit_periods():
+    """Return {ticker: last affected period end, or None while the units still exist}.
+
+    In these companies part of the owners hold units exchangeable into the listed
+    shares, so P/S divides the listed shares' value by the whole group's revenue (M42).
+    """
+    policy = load_policy(EXCHANGEABLE_UNITS_PATH, "exchangeable-units")
+    result = {}
+    for entry in policy["companies"]:
+        last_period_end = entry["last_period_end"]
+        if last_period_end is None:
+            result[entry["ticker"]] = None
+        else:
+            result[entry["ticker"]] = date.fromisoformat(last_period_end)
+    return result
+
+
+def ps_excludes_exchangeable_units(ticker, period_end, unit_periods):
+    """Whether P/S of this period leaves the exchangeable units out of its market value."""
+    if ticker not in unit_periods:
+        return False
+    last_period_end = unit_periods[ticker]
+    if last_period_end is None:
+        return True
+    return period_end <= last_period_end
 
 
 def income_to_common(values):

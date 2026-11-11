@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "method": "Companies where part of the owners hold units of a holding partnership exchangeable into the listed shares, while the share count covers only the listed shares. Revenue is the whole group's, so P/S reads too low; net income, EPS and equity belong to the listed shares, so P/E and P/B stay consistent. The screener marks P/S of the listed periods (M42). last_period_end is the last affected annual period, or null while the units still exist. Ordinary minority stakes in subsidiaries are not listed: market value over consolidated revenue is the usual convention there.",
+  "companies": [
+    {
+      "ticker": "BX",
+      "last_period_end": null,
+      "accession": "0001193125-25-042469",
+      "evidence": "10-K for 2024: equity attributable to Blackstone Inc. against non-controlling interests in Blackstone Holdings, whose partnership units are exchangeable into Blackstone common stock. Measured on 10.11.2026 for every year from 2015: the parent holds 40-47% of that equity and 44-58% of net income, while the share count (diluted, or basic common units in 2015, 2016 and 2018) holds only Blackstone's own shares. P/S on 31.12.2024 is 16.2, about 26 with the Holdings units."
+    },
+    {
+      "ticker": "KKR",
+      "last_period_end": "2021-12-31",
+      "accession": "0001404912-22-000004",
+      "evidence": "10-K for 2021: KKR Holdings units exchangeable into KKR Class A common stock. Measured on 10.11.2026: the parent holds 30-40% of equity from 2015 to 2021. KKR tags no share count, so the count is (net income - preferred dividends) / EPS, which covers only the listed shares. The 2022 reorganisation exchanged the KKR Holdings units, so periods from 2022 are not affected."
+    }
+  ]
+}

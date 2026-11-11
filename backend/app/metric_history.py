@@ -419,6 +419,10 @@ def first_reports(facts, rules):
     return first
 
 
+class HistoryOutOfDate(Exception):
+    """Stored versions do not match the facts and rules; build-history must run."""
+
+
 def periods_as_of(facts, stored_versions, as_of, period_rules=None):
     """Assemble the annual table as it was known on a date from stored versions.
 
@@ -452,9 +456,16 @@ def periods_as_of(facts, stored_versions, as_of, period_rules=None):
     for start, end in periods:
         metrics = {}
         for metric in METRIC_NAMES:
-            stored = current[(start, end, metric)]
+            # A consistent build gives every period all metrics, and the facts that
+            # stored it; a gap means facts or rules changed without build-history (N108).
+            stored = current.get((start, end, metric))
+            period_variants = variants.get((start, end))
+            if stored is None or period_variants is None:
+                raise HistoryOutOfDate(
+                    f"No stored {metric} or facts for the period ending {end}."
+                )
             value = AnnualMetric.model_validate(
-                {**stored["details"], "variants": variants[(start, end)][metric]}
+                {**stored["details"], "variants": period_variants[metric]}
             )
             # As in the equity and OCF selection: a statement position used by the
             # value is listed with the variants, although it is not a stored fact.

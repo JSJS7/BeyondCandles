@@ -85,6 +85,15 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'price')).toEqual([]);
   });
 
+  it('marks only P/S of a company with exchangeable units', () => {
+    // Net income, EPS and equity belong to the listed shares, so P/E and P/B stay consistent.
+    const latest = period({ exchangeable_units: true }, { pe: '10', pb: '2', ps: '1' });
+
+    expect(cellLabels(latest, 'ps')).toEqual(['Exchangeable units']);
+    expect(cellLabels(latest, 'pe')).toEqual([]);
+    expect(cellLabels(latest, 'pb')).toEqual([]);
+  });
+
   it('puts no input label on an empty ratio, but keeps a series break on empty growth', () => {
     // A break can be the reason why growth is empty, so it stays visible.
     const latest = period({

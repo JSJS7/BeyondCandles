@@ -92,6 +92,7 @@ export const SCREENER_CELL_LABELS = [
   'Series break',
   'Continuing ops',
   'Spin-off',
+  'Exchangeable units',
 ] as const;
 export type ScreenerCellLabel = (typeof SCREENER_CELL_LABELS)[number];
 
@@ -131,6 +132,9 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): Screene
   const usesPrice = key === 'pe' || key === 'pb' || key === 'ps';
   if (usesPrice && latest.spin_offs.length > 0) {
     labels.push('Spin-off');
+  }
+  if (key === 'ps' && latest.exchangeable_units) {
+    labels.push('Exchangeable units');
   }
   return labels;
 }

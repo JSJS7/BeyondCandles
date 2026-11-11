@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import unittest
+from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
@@ -8,7 +9,9 @@ from app.ratios import (
     PeriodValues,
     calculate_ratios,
     common_equity,
+    exchangeable_unit_periods,
     participating_preferred_tickers,
+    ps_excludes_exchangeable_units,
     shares_for_ratios,
 )
 
@@ -117,6 +120,31 @@ class CommonEquityTests(unittest.TestCase):
     def test_visa_is_the_recorded_participating_company(self):
         """The rule file names Visa; a report must back every entry."""
         self.assertEqual(participating_preferred_tickers(), {"V"})
+
+
+class ExchangeableUnitTests(unittest.TestCase):
+    def test_recorded_companies_and_their_last_periods(self):
+        """M42: Blackstone still has Holdings units; KKR exchanged its units in 2022."""
+        self.assertEqual(
+            exchangeable_unit_periods(), {"BX": None, "KKR": date(2021, 12, 31)}
+        )
+
+    def test_period_is_marked_up_to_and_including_the_last_listed_period(self):
+        """The last listed period is affected; the next one and other tickers are not."""
+        unit_periods = {"OPEN": None, "CLOSED": date(2021, 12, 31)}
+
+        self.assertTrue(
+            ps_excludes_exchangeable_units("OPEN", date(2025, 12, 31), unit_periods)
+        )
+        self.assertTrue(
+            ps_excludes_exchangeable_units("CLOSED", date(2021, 12, 31), unit_periods)
+        )
+        self.assertFalse(
+            ps_excludes_exchangeable_units("CLOSED", date(2022, 12, 31), unit_periods)
+        )
+        self.assertFalse(
+            ps_excludes_exchangeable_units("OTHER", date(2021, 12, 31), unit_periods)
+        )
 
 
 class RatioTests(unittest.TestCase):

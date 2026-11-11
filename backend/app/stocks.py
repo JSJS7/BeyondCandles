@@ -1,5 +1,6 @@
 """Read the published company catalogue, prices and reported annual financials."""
 
+import re
 from datetime import date
 from typing import Annotated
 
@@ -16,21 +17,33 @@ from app.database import get_connection
 from app.eps_splits import normalize_eps
 from app.fiscal_periods import fiscal_rules
 from app.growth import add_table_growth
-from app.metric_history import periods_as_of
+from app.metric_history import HistoryOutOfDate, periods_as_of
 from app.models import AnnualMetricVersion, Company, DailyPrice
 from app.schemas.stock import AnnualPeriod, Price, Stock
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
 DatabaseConnection = Annotated[Connection, Depends(get_connection)]
 
+# Catalogue tickers are letters with an optional class suffix (BRK-B); exchanges allow a dot.
+LONGEST_TICKER = 10
+TICKER_PATTERN = re.compile(r"[A-Za-z0-9.\-]+")
+
 
 def find_company(connection, ticker):
+    """The published company, or 404 for any ticker outside the catalogue.
+
+    The reply does not repeat the input (N107): a path can be arbitrarily long text, and a
+    text that cannot be a ticker is not looked up at all.
+    """
+    not_found = HTTPException(404, detail="Stock was not found.")
+    if len(ticker) > LONGEST_TICKER or TICKER_PATTERN.fullmatch(ticker) is None:
+        raise not_found
     query = select(Company.__table__).where(
         Company.ticker == ticker.upper(), Company.cik.is_not(None)
     )
     company = connection.execute(query).mappings().first()
     if company is None:
-        raise HTTPException(404, detail=f"Stock '{ticker.upper()}' was not found.")
+        raise not_found
     return company
 
 
@@ -89,10 +102,16 @@ def get_annual_financials(
         AnnualMetricVersion.metric.in_(METRIC_NAMES),
     )
     stored_versions = connection.execute(versions_query).mappings().all()
+    history_missing = HTTPException(
+        503, detail="Point-in-time history has not been built."
+    )
     if facts and not stored_versions:
         # An empty history would silently look like "nothing was reported yet".
-        raise HTTPException(503, detail="Point-in-time history has not been built.")
-    periods = periods_as_of(facts, stored_versions, as_of)
+        raise history_missing
+    try:
+        periods = periods_as_of(facts, stored_versions, as_of)
+    except HistoryOutOfDate as error:
+        raise history_missing from error
     known_facts = [fact for fact in facts if fact["filed"] <= as_of]
     add_table_growth(periods, known_facts, fiscal_rules())
     return periods

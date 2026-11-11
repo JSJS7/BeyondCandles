@@ -40,7 +40,7 @@ come from a fixed tag order and are screened in bulk, so they are less certain. 
 values that need care: *Calculated* (from items of one filing, such as a share count from net income
 and EPS), *Basic* (no diluted EPS is reported), *Continuing ops* (no whole-company cash flow is
 reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in the screener,
-*Spin-off* (see Known limitations).
+*Spin-off* (see Known limitations) and *Exchangeable units* (see Ratios).
 
 ### Reviewed measures
 
@@ -94,18 +94,26 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
 | ROA | Net income ÷ average assets | |
 | Net margin | Net income ÷ revenue | Revenue not positive |
 | Operating margin | Operating income ÷ revenue | Revenue not positive |
-| Free cash flow margin | (Operating cash flow − capital expenditure) ÷ revenue | Revenue not positive |
+| Free cash flow margin | (Operating cash flow − capital expenditure) ÷ revenue; with *Continuing ops* the cash flow and revenue cover continuing operations, capital expenditure as reported | Revenue not positive |
 | Operating cash flow ÷ net income | As named | Net income not positive, or continuing-only cash flow |
 | Equity ÷ assets | Reported equity ÷ assets; not a measure of debt | |
 | Revenue growth, EPS growth | Later ÷ earlier − 1, both years from one report | No report states both years, or a value is not positive |
 
-- **Valuation date:** from 31 Mar 2016 to 31 Dec 2025 (default). Each company shows its latest annual
-  report known that day, at that day's close, or the last close within 7 days before it.
+- **Valuation date:** from 31 Mar 2016 to 31 Dec 2025 (default). Each company is valued at that day's
+  close, or the last close within 7 days before it, with its latest annual report filed before that
+  session. A filing date has no time of day and most annual reports arrive after the market closes, so
+  a report filed on the session's own day counts only from the next session.
 - **Earlier year:** the period that ended 350 to 380 days before; fiscal-year labels are not compared.
   Averages use the two year-end balances.
 - **Share count:** the tag, otherwise (net income − preferred dividends) ÷ EPS, marked as calculated.
   It is the weighted average of the year, not the count on the valuation date, so it lags after an
   acquisition or large buyback.
+- **P/S with exchangeable units:** where part of the owners hold units exchangeable into the listed
+  shares, the market value covers the listed shares only, while revenue is the whole group's. P/S then
+  reads too low, by about 40% for Blackstone in every year and for KKR until its 2022 reorganisation.
+  P/E and P/B stay consistent, as net income and equity also belong to the listed shares. The values
+  stay and are marked *Exchangeable units* (`data/exchangeable-units.json`). Ordinary minority stakes
+  in subsidiaries follow the usual convention of market value over consolidated revenue.
 - **Common equity:** equity minus preferred stock. Without a value, the deduction is zero only if there
   are no preferred dividends or they are at most 0.2% of equity; otherwise common-share ratios stay
   empty. A value is rejected when annual preferred dividends exceed 25% of it, because it is then only

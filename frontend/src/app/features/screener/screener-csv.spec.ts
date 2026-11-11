@@ -13,11 +13,12 @@ describe('Screener CSV', () => {
       'valuation_date,ticker,name,sector,price_date,price,period_start,period_end,' +
         'pe,pb,ps,roe,roa,net_margin,operating_margin,fcf_margin,revenue_growth,eps_growth,' +
         'ocf_to_net_income,equity_to_assets,eps_basis,shares_basis,ocf_scope,' +
-        'revenue_series_break,eps_series_break,spin_off_dates,spin_off_fractions',
+        'revenue_series_break,eps_series_break,spin_off_dates,spin_off_fractions,' +
+        'exchangeable_units',
     );
     expect(lines[1]).toBe(
       '2025-12-31,AAPL,AAPL Inc.,Technology,2025-12-31,271.859985,2024-01-01,2024-12-31,' +
-        '36.442357,,,1.714224,,,,,,,,,diluted,calculated,total,false,false,,',
+        '36.442357,,,1.714224,,,,,,,,,diluted,calculated,total,false,false,,,false',
     );
     // The file ends with a line break, so the last line is empty.
     expect(lines).toHaveLength(3);
@@ -37,7 +38,16 @@ describe('Screener CSV', () => {
 
     const fields = screenerCsv([company], '2024-06-28').split('\r\n')[1].split(',');
 
-    expect(fields.slice(-2)).toEqual(['2023-01-04;2024-04-02', '0.21936;0.202077']);
+    expect(fields.slice(-3, -1)).toEqual(['2023-01-04;2024-04-02', '0.21936;0.202077']);
+  });
+
+  it('writes the exchangeable units mark, so that P/S of those rows can be left out', () => {
+    const company = row('BX');
+    company.latest = { ...company.latest!, exchangeable_units: true };
+
+    const fields = screenerCsv([company], '2024-12-31').split('\r\n')[1].split(',');
+
+    expect(fields.at(-1)).toBe('true');
   });
 
   it('quotes a field that holds a comma or a quote', () => {

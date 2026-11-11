@@ -45,6 +45,12 @@ class CatalogueCacheTests(unittest.TestCase):
             patch(
                 "app.data_pipeline.sec_catalogue.identifiers", return_value=self.issuers
             ),
+            # The real predecessor step reads the local SEC cache and downloads what it
+            # lacks, so without this a run outside the author's machine would call SEC.
+            # The test of that step replaces it with its own patch.
+            patch(
+                "app.data_pipeline.sec_history.fetch_history_sources", return_value=0
+            ),
         ]
         for item in self.patches:
             item.start()

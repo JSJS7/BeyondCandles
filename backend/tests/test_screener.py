@@ -274,13 +274,18 @@ class GrowthTests(unittest.TestCase):
 
 
 class ScreenerApiTests(unittest.TestCase):
-    def setUp(self):
-        self.database = create_engine(
+    def make_database(self):
+        """An empty in-memory schema; test_api_postgres runs these tests on PostgreSQL."""
+        database = create_engine(
             "sqlite://",
             poolclass=StaticPool,
             connect_args={"check_same_thread": False},
         )
-        Base.metadata.create_all(self.database)
+        Base.metadata.create_all(database)
+        return database
+
+    def setUp(self):
+        self.database = self.make_database()
         with self.database.begin() as connection:
             connection.execute(
                 Company.__table__.insert(),
@@ -289,6 +294,7 @@ class ScreenerApiTests(unittest.TestCase):
                     self.company(2, "JCI", "0000000002"),
                     self.company(3, "HIDDEN", None),
                     self.company(4, "RTX", "0000000004"),
+                    self.company(5, "KKR", "0000000005"),
                 ],
             )
 
@@ -406,6 +412,34 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertEqual(row["latest"]["period_end"], "2022-12-31")
         self.assertEqual(row["latest"]["ratios"]["net_margin"], "0.1")
 
+    def test_report_filed_on_the_session_counts_from_the_next_session(self):
+        """M41: most annual reports are accepted after the close, and a filing date has
+        no time of day, so the close of the filing day cannot reflect the report. The
+        earlier year is valued that day; the new report counts from the next session."""
+        self.add_year(date(2023, 2, 1), FIRST_YEAR)
+        self.add_year(date(2024, 3, 27), SECOND_YEAR)
+        self.add_close(date(2024, 3, 27))
+        self.add_close(date(2024, 3, 28))
+
+        filing_day = self.row(date="2024-03-27")
+        next_session = self.row(date="2024-03-28")
+
+        self.assertEqual(filing_day["latest"]["period_end"], "2022-12-31")
+        self.assertEqual(filing_day["latest"]["price_date"], "2024-03-27")
+        self.assertEqual(next_session["latest"]["period_end"], "2023-12-31")
+
+    def test_weekend_date_uses_reports_filed_before_the_last_session(self):
+        """On a Sunday the price is Friday's close, so a report filed on Friday after the
+        close must not be paired with it."""
+        self.add_year(date(2023, 2, 1), FIRST_YEAR)
+        self.add_year(date(2024, 3, 22), SECOND_YEAR)
+        self.add_close(date(2024, 3, 22))
+
+        sunday = self.row(date="2024-03-24")
+
+        self.assertEqual(sunday["latest"]["price_date"], "2024-03-22")
+        self.assertEqual(sunday["latest"]["period_end"], "2022-12-31")
+
     def test_previous_year_is_found_by_date_for_average_ratios(self):
         """ROE averages closing equity of the year that ended about a year earlier."""
         self.add_year(date(2023, 2, 1), FIRST_YEAR)
@@ -499,6 +533,28 @@ class ScreenerApiTests(unittest.TestCase):
         row = self.row("RTX", date="2020-06-30")
 
         self.assertEqual(row["latest"]["spin_offs"], [])
+
+    def test_exchangeable_units_mark_ps_until_the_last_listed_period(self):
+        """M42: KKR Holdings units were exchangeable into KKR shares until the 2022
+        reorganisation, so P/S of FY2021 reads too low and is marked, value unchanged.
+        FY2022 is after the rule's last period, and other companies are never marked."""
+        fiscal_2021 = (date(2021, 1, 1), date(2021, 12, 31))
+        fiscal_2022 = (date(2022, 1, 1), date(2022, 12, 31))
+        self.add_year(date(2022, 2, 28), fiscal_2021, company=5)
+        self.add_year(date(2023, 2, 27), fiscal_2022, company=5)
+        self.add_year(date(2022, 2, 28), fiscal_2021, company=1)
+        for day in (date(2022, 3, 31), date(2023, 3, 31)):
+            self.add_close(day, company=5)
+            self.add_close(day, company=1)
+
+        listed_period = self.row("KKR", date="2022-03-31")
+        after_reorganisation = self.row("KKR", date="2023-03-31")
+        other_company = self.row("TEST", date="2022-03-31")
+
+        self.assertTrue(listed_period["latest"]["exchangeable_units"])
+        self.assertEqual(listed_period["latest"]["ratios"]["ps"], "2")
+        self.assertFalse(after_reorganisation["latest"]["exchangeable_units"])
+        self.assertFalse(other_company["latest"]["exchangeable_units"])
 
     def test_date_outside_the_window_is_rejected(self):
         """Before every company has a report, or after prices end, there is no screen."""

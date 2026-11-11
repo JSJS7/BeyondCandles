@@ -40,6 +40,7 @@ function company(ticker: string, sector: string, ratios: Partial<Ratios>): Scree
       revenue_basis_break: false,
       eps_basis_break: false,
       spin_offs: [],
+      exchangeable_units: false,
       ratios: { ...NO_RATIOS, ...ratios },
     },
   };

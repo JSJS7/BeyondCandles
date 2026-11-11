@@ -36,7 +36,9 @@ from app.price_share_basis import (
 from app.ratios import (
     PeriodValues,
     calculate_ratios,
+    exchangeable_unit_periods,
     participating_preferred_tickers,
+    ps_excludes_exchangeable_units,
     shares_for_ratios,
 )
 from app.schemas.screener import (
@@ -173,6 +175,22 @@ def latest_closes(connection, day, company_id=None):
     return closes
 
 
+def last_known_filing_day(valuation_date, closes):
+    """The last filing date whose reports the valued close can already reflect (M41).
+
+    A filing date carries no time of day, and most annual reports are accepted after the
+    market closes (1016 of 1609 measured on 10.11.2026). A report therefore counts only
+    from the session after its filing date. Every company trades on the same sessions in
+    the window, so the latest session among the closes is the session of the date.
+    Without any close there is no price to mislead, and reports filed that day count.
+    """
+    if not closes:
+        return valuation_date
+    sessions = [session for session, _ in closes.values()]
+    market_session = max(sessions)
+    return market_session - timedelta(days=1)
+
+
 def growth_reports(connection, day, company_id=None, since=None):
     """Return {(company id, metric): annual reports, newest first} known on the date."""
     facts = FinancialFact.__table__
@@ -244,6 +262,7 @@ def valued_period(
     reports,
     split_policy,
     participating,
+    unit_periods,
 ):
     """Assemble the ratios of one period valued at the given (session, close)."""
     cells = periods[period]
@@ -284,6 +303,9 @@ def valued_period(
         revenue_basis_break=growth["revenue"].basis_break,
         eps_basis_break=growth["eps_diluted"].basis_break,
         spin_offs=spin_offs,
+        exchangeable_units=ps_excludes_exchangeable_units(
+            ticker, period[1], unit_periods
+        ),
         ratios=Ratios(**{name: rounded(value) for name, value in ratios.items()}),
     )
 
@@ -293,7 +315,7 @@ def get_screener(
     connection: DatabaseConnection,
     valuation_date: Annotated[date, Query(alias="date")] = LATEST_VALUATION_DATE,
 ):
-    """Every company's latest annual period known on the date, at that date's close."""
+    """Every company's latest annual period known before the date's session, at its close."""
     if not EARLIEST_VALUATION_DATE <= valuation_date <= LATEST_VALUATION_DATE:
         raise HTTPException(
             422,
@@ -307,12 +329,14 @@ def get_screener(
         .where(Company.cik.is_not(None))
         .order_by(Company.ticker)
     ).mappings()
-    since = oldest_needed_period_end(connection, valuation_date)
-    periods_by_company = known_periods(connection, valuation_date, since=since)
     closes = latest_closes(connection, valuation_date)
-    reports = growth_reports(connection, valuation_date, since=since)
+    known_through = last_known_filing_day(valuation_date, closes)
+    since = oldest_needed_period_end(connection, known_through)
+    periods_by_company = known_periods(connection, known_through, since=since)
+    reports = growth_reports(connection, known_through, since=since)
     split_policy = split_rules()
     participating = participating_preferred_tickers()
+    unit_periods = exchangeable_unit_periods()
 
     rows = []
     for company in companies:
@@ -329,6 +353,7 @@ def get_screener(
                 reports,
                 split_policy,
                 participating,
+                unit_periods,
             )
         rows.append(
             ScreenerRow(

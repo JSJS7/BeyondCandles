@@ -36,6 +36,9 @@ export interface PeriodRatios {
   eps_basis_break: boolean;
   // Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.
   spin_offs: SpinOff[];
+  // P/S reads too low: units exchangeable into the listed shares are outside the share count,
+  // while revenue is the whole group's.
+  exchangeable_units: boolean;
   ratios: Ratios;
 }
 

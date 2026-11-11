@@ -246,13 +246,18 @@ class AnnualFinancialTests(unittest.TestCase):
 
 
 class StockApiTests(unittest.TestCase):
-    def setUp(self):
-        self.database = create_engine(
+    def make_database(self):
+        """An empty in-memory schema; test_api_postgres runs these tests on PostgreSQL."""
+        database = create_engine(
             "sqlite://",
             poolclass=StaticPool,
             connect_args={"check_same_thread": False},
         )
-        Base.metadata.create_all(self.database)
+        Base.metadata.create_all(database)
+        return database
+
+    def setUp(self):
+        self.database = self.make_database()
         with self.database.begin() as connection:
             connection.execute(
                 Company.__table__.insert(),
@@ -362,6 +367,16 @@ class StockApiTests(unittest.TestCase):
                     self.assertEqual(
                         self.client.get(f"/stocks/{ticker}{suffix}").status_code, 404
                     )
+
+    def test_text_that_cannot_be_a_ticker_is_not_repeated_in_the_reply(self):
+        """N107: a long or odd path gives the same short 404 as an unknown ticker, so
+        arbitrary input does not travel back in the response."""
+        for ticker in ("A" * 5000, "AAPL<script>", "BRK-B-AND-MORE"):
+            with self.subTest(length=len(ticker)):
+                response = self.client.get(f"/stocks/{ticker}")
+
+                self.assertEqual(response.status_code, 404)
+                self.assertEqual(response.json(), {"detail": "Stock was not found."})
 
     def test_price_range_sorting_and_decimal_strings(self):
         """Return sorted decimal strings, apply inclusive bounds and allow empty ranges."""
@@ -781,6 +796,24 @@ class StockApiTests(unittest.TestCase):
         self.assertEqual(self.annual_as_of("2999-01-01").status_code, 422)
         self.assertEqual(self.annual_as_of("bad").status_code, 422)
         self.assertEqual(self.annual_as_of("2020-01-01").status_code, 503)
+
+    def test_as_of_with_a_partly_missing_history_returns_503(self):
+        """N108: versions left from an older build (here one metric of a period deleted)
+        give the same 503 as an unbuilt history, not a server error without a contract."""
+        from app.models import AnnualMetricVersion
+
+        self.insert_restated_income()
+        self.build_history()
+        versions = AnnualMetricVersion.__table__
+        with self.database.begin() as connection:
+            connection.execute(versions.delete().where(versions.c.metric == "revenue"))
+
+        response = self.annual_as_of("2020-01-01")
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(
+            response.json(), {"detail": "Point-in-time history has not been built."}
+        )
 
     def test_annual_endpoint_returns_a_quarterly_revision_as_a_decimal_string(self):
         """Read the revised full-year fact through HTTP with its original filing details."""
