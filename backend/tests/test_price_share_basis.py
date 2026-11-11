@@ -53,6 +53,17 @@ class ShareBasisArithmeticTests(unittest.TestCase):
 
         self.assertEqual(converted, Decimal("190.7000000000"))
 
+    def test_split_on_the_price_day_is_already_in_that_price(self):
+        """K11: the close of a split's first trading day is quoted on the new basis, so
+        the split converts only earlier prices; the day before still needs it."""
+        policy = rules(actions=[action("2026-06-29", 1, 2, 1907, 2000)])
+
+        day_before = share_basis_price("HON", date(2026, 6, 26), Decimal("100"), policy)
+        split_day = share_basis_price("HON", date(2026, 6, 29), Decimal("100"), policy)
+
+        self.assertEqual(day_before, Decimal("190.7000000000"))
+        self.assertEqual(split_day, Decimal("100"))
+
     def test_conversions_multiply_and_only_later_events_apply(self):
         """Each conversion after the price date restores its vendor factor; an event on
         the price date is already in that price and is not applied again."""

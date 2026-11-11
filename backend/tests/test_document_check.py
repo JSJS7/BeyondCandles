@@ -93,6 +93,22 @@ class VersionCheckTests(unittest.TestCase):
         self.assertEqual(verdict, "pass_direct")
         self.assertIn("Total revenue", evidence)
 
+    def test_column_headed_by_a_full_date_must_match_the_period_end(self):
+        """K11: a header such as "December 31, 2024" fits only a period ending within a
+        week of it, so the earlier year's number is not taken for the later year."""
+        statement = [
+            ["Year Ended", "December 31, 2025", "December 31, 2024"],
+            ["Total revenue", "9,467", "9,256"],
+        ]
+
+        own_year, _ = check_version(revenue_task(), filing_of(statement))
+        earlier_year, _ = check_version(
+            revenue_task(value="9256000000"), filing_of(statement)
+        )
+
+        self.assertEqual(own_year, "pass_direct")
+        self.assertNotEqual(earlier_year, "pass_direct")
+
     def test_total_liabilities_of_the_same_amount_is_rejected(self):
         """Regression for M14: the old label "total" accepted this ZTS row of liabilities."""
         task = revenue_task(value="9467000000", period_end="2024-12-31")

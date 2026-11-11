@@ -373,6 +373,44 @@ class ShareBasisTests(unittest.TestCase):
             reported, {("2018-01-01", "2018-12-31"): [Decimal("2.80"), Decimal("2.80")]}
         )
 
+    def test_filing_on_the_split_date_is_already_on_the_new_share_count(self):
+        """K11: as for EPS, a report filed on the split date states the amount per new
+        share, so the 4-for-1 split still restores it to the period-end basis."""
+        rules = {
+            "actions": [
+                {
+                    "ticker": "TEST",
+                    "date": "2020-08-31",
+                    "new_shares": 4,
+                    "old_shares": 1,
+                }
+            ],
+            "excluded_vendor_events": [],
+        }
+        body = {
+            "facts": {
+                "us-gaap": {
+                    "CommonStockDividendsPerShareDeclared": {
+                        "units": {
+                            "USD/shares": [
+                                {
+                                    "start": "2018-01-01",
+                                    "end": "2018-12-31",
+                                    "val": "0.70",
+                                    "form": "10-K",
+                                    "filed": "2020-08-31",
+                                },
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+
+        reported = reported_dividends("TEST", [body], rules)
+
+        self.assertEqual(reported, {("2018-01-01", "2018-12-31"): [Decimal("2.80")]})
+
 
 class ReviewedFlagTests(unittest.TestCase):
     def test_review_covers_only_the_values_it_saw(self):

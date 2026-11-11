@@ -227,6 +227,22 @@ class BalanceTests(unittest.TestCase):
 
         self.assertEqual(self.check("4000000000", facts), 0)
 
+    def test_the_best_matching_other_filing_counts(self):
+        """K11: without the value's own balance sheet, one other filing that confirms the
+        value is enough; a third filing with restated totals does not flag it."""
+        facts = {
+            "Assets": [
+                balance(10000000000, accession="earlier"),
+                balance(10000000000, accession="restated"),
+            ],
+            "Liabilities": [
+                balance(6000000000, accession="earlier"),
+                balance(5000000000, accession="restated"),
+            ],
+        }
+
+        self.assertEqual(self.check("4000000000", facts), 0)
+
     def test_no_filing_with_both_totals_is_not_available(self):
         """Many companies do not tag total liabilities at all."""
         self.assertIsNone(self.check("4000000000", {"Assets": [balance(1)]}))

@@ -3,12 +3,13 @@
 import unittest
 from datetime import date
 from decimal import Decimal
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from test_stocks_api import reported_fact
 
 from app.annual_financials import METRIC_NAMES, annual_periods
-from app.data_pipeline.revenue_facts import instance_balances
+from app.data_pipeline.revenue_facts import instance_balances, timeline_filing_facts
 from app.data_pipeline.sec_history import history_eligible
 from app.metric_history import company_versions, periods_as_of
 from app.schemas.stock import AnnualMetric
@@ -213,6 +214,54 @@ class InstanceTests(unittest.TestCase):
         facts = [predecessor_fact(), successor_fact()]
 
         self.assertEqual(timeline_facts(facts, RULES), [facts[0]])
+
+
+class TimelineFilingTests(unittest.TestCase):
+    INSTANCE = b"""<xbrl xmlns="http://www.xbrl.org/2003/instance"
+      xmlns:us-gaap="http://fasb.org/us-gaap/2024"
+      xmlns:iso4217="http://www.xbrl.org/2003/iso4217">
+      <context id="listed">
+        <entity><identifier scheme="cik">0000064040</identifier></entity>
+        <period><instant>2024-12-31</instant></period>
+      </context>
+      <context id="earlier">
+        <entity><identifier scheme="cik">0000064040</identifier></entity>
+        <period><instant>2023-12-31</instant></period>
+      </context>
+      <unit id="usd"><measure>iso4217:USD</measure></unit>
+      <us-gaap:StockholdersEquity contextRef="listed" unitRef="usd">33159</us-gaap:StockholdersEquity>
+      <us-gaap:StockholdersEquity contextRef="earlier" unitRef="usd">30000</us-gaap:StockholdersEquity>
+    </xbrl>"""
+    RULES = {
+        "filings": [
+            {
+                "cik": "0000064040",
+                "accession": "a",
+                "filed": "2025-02-11",
+                "form": "10-K",
+                "fiscal_period": "FY",
+                "period_end": "2024-12-31",
+                "instance": {"url": "https://www.sec.gov/example.xml"},
+            }
+        ]
+    }
+
+    def test_only_the_listed_period_is_read_from_the_filing(self):
+        """K11: a listed filing dates the first version of its own period (SPGI). The
+        earlier year it also shows must not become a newer version of that year."""
+        instance = SimpleNamespace(read_bytes=lambda: self.INSTANCE)
+
+        with (
+            patch("app.timeline.timeline_rules", return_value=self.RULES),
+            patch(
+                "app.data_pipeline.sec_catalogue.verify_reference",
+                return_value=instance,
+            ),
+        ):
+            facts = timeline_filing_facts({"0000064040"})
+
+        self.assertEqual([fact["period_end"] for fact in facts], [date(2024, 12, 31)])
+        self.assertEqual(facts[0]["value"], Decimal(33159))
 
 
 if __name__ == "__main__":

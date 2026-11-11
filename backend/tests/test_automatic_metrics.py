@@ -164,6 +164,19 @@ class ShareCountTests(unittest.TestCase):
         self.assertEqual(cell.eps_share_basis.reported_value, Decimal("100"))
         self.assertEqual(cell.calculation, "Reported shares × 2 / 1")
 
+    def test_report_filed_on_the_split_date_is_already_split(self):
+        """K11, N61: as for EPS, a report filed on the split date counts new shares, so
+        the split does not double its count again."""
+        filed_on_split_day = fact(
+            "shares_diluted", self.TAG, "200", date(2023, 6, 1), "split-day"
+        )
+
+        versions = versions_of([filed_on_split_day], "shares_diluted", self.SPLIT)
+
+        cell = versions[0].value
+        self.assertEqual(cell.value, Decimal("200"))
+        self.assertIsNone(cell.eps_share_basis)
+
     def test_restating_a_split_does_not_create_a_version(self):
         """The later report shows 200 already split, which is the same number."""
         facts = [

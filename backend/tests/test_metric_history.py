@@ -18,6 +18,7 @@ from app.metric_history import (
     cell_versions,
     differs_only_by_rounding,
     source_key,
+    split_scale,
 )
 from app.schemas.stock import AnnualMetric, FilingValue
 
@@ -250,6 +251,15 @@ class AmdRevisionTests(unittest.TestCase):
 
 class NvdaSplitTests(unittest.TestCase):
     """NVDA FY2021 EPS: 6.90 before the 4:1 split, later restated as 1.73."""
+
+    def test_report_filed_on_the_split_date_already_uses_the_new_share_count(self):
+        """K11: as in apply_share_basis, only splits after the filing date restate a
+        report's EPS; a report filed on the split date needs no 10:1 restatement."""
+        filed_day_before = split_scale("NVDA", date(2024, 6, 7), policy=NVDA_SPLITS)
+        filed_on_split_day = split_scale("NVDA", date(2024, 6, 10), policy=NVDA_SPLITS)
+
+        self.assertEqual(filed_day_before, Decimal("0.1"))
+        self.assertEqual(filed_on_split_day, Decimal(1))
 
     def test_split_and_cent_rounding_is_not_a_revision(self):
         """6.90 / 40 = 0.1725 and 1.73 / 10 = 0.173 describe the same EPS."""
