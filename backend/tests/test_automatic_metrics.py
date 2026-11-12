@@ -165,6 +165,69 @@ class VersionTests(unittest.TestCase):
         self.assertEqual(versions_of(facts, "capex"), [])
 
 
+class CapexTests(unittest.TestCase):
+    """N121: capex from an "other" tag or from two oil and gas lines, never from a part."""
+
+    MAIN = "PaymentsToAcquirePropertyPlantAndEquipment"
+    OTHER_PPE = "PaymentsToAcquireOtherPropertyPlantAndEquipment"
+    OTHER_PRODUCTIVE = "PaymentsToAcquireOtherProductiveAssets"
+    OIL_AND_GAS = "PaymentsToAcquireOilAndGasPropertyAndEquipment"
+
+    def test_other_tag_counts_when_it_is_the_only_purchase_line(self):
+        """LLY tags its only line, purchases of property and equipment, as "other"."""
+        versions = versions_of([fact("capex", self.OTHER_PPE, "5058")], "capex")
+
+        self.assertEqual(versions[-1].value.value, Decimal("5058"))
+        self.assertEqual(versions[-1].value.selected_tag, self.OTHER_PPE)
+
+    def test_main_tag_still_wins_over_an_other_tag(self):
+        """URI 2015 has both; the other tag is a different line (rental equipment)."""
+        facts = [
+            fact("capex", self.MAIN, "102"),
+            fact("capex", self.OTHER_PPE, "1534"),
+        ]
+
+        versions = versions_of(facts, "capex")
+
+        self.assertEqual(versions[-1].value.value, Decimal("102"))
+
+    def test_other_tag_next_to_a_separate_asset_line_is_only_a_part(self):
+        """FANG 2018 tags 7 million as other productive assets, while its drilling line
+        holds 1359 million. The cell stays empty rather than hold the small part."""
+        facts = [
+            fact("capex", self.OTHER_PRODUCTIVE, "7"),
+            fact("capex", "PaymentsToExploreAndDevelopOilAndGasProperties", "1359"),
+        ]
+
+        self.assertEqual(versions_of(facts, "capex"), [])
+
+    def test_two_oil_and_gas_lines_of_one_report_add_up(self):
+        """EOG 2024: 5353 for oil and gas properties and 1019 for other equipment, with no
+        total row. A tag from the notes (146) does not change the sum."""
+        facts = [
+            fact("capex", self.OIL_AND_GAS, "5353"),
+            fact("capex", self.OTHER_PPE, "1019"),
+            fact("capex", "PaymentsToAcquireOilAndGasProperty", "146"),
+        ]
+
+        cell = versions_of(facts, "capex")[-1].value
+
+        self.assertEqual(cell.value, Decimal("6372"))
+        self.assertIsNone(cell.selected_tag)
+        self.assertEqual(cell.calculation, f"{self.OIL_AND_GAS} + {self.OTHER_PPE}")
+        self.assertEqual(len(cell.selected_sources), 2)
+
+    def test_oil_and_gas_line_alone_gives_no_value(self):
+        """Without its other line, or with it only in another report, the sum is unknown."""
+        alone = [fact("capex", self.OIL_AND_GAS, "5353")]
+        other_report = alone + [
+            fact("capex", self.OTHER_PPE, "1019", date(2024, 2, 15), "second")
+        ]
+
+        self.assertEqual(versions_of(alone, "capex"), [])
+        self.assertEqual(versions_of(other_report, "capex"), [])
+
+
 class ShareCountTests(unittest.TestCase):
     TAG = "WeightedAverageNumberOfDilutedSharesOutstanding"
     SPLIT = {

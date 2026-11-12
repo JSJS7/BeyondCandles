@@ -2,8 +2,8 @@
 
 Each cell (company, annual period, metric) gets a version whenever its selected value
 changes. Tags are tried in the listed order, so a backup tag counts only while the main
-one is unknown. These cells join the annual periods of the reviewed metrics and never
-create a period of their own.
+one is unknown; capex has its own order in select_capex. These cells join the annual
+periods of the reviewed metrics and never create a period of their own.
 """
 
 from collections import defaultdict
@@ -28,6 +28,33 @@ VALUE_CORRECTIONS_PATH = (
     Path(__file__).resolve().parents[2] / "data/automatic-value-corrections.json"
 )
 CONFIRMED_AUTOMATIC = "automatic"
+# Capex is the purchase of property, plant and equipment, then a wider productive-assets
+# line. The main tags hold the whole line.
+MAIN_CAPEX_TAGS = (
+    "PaymentsToAcquirePropertyPlantAndEquipment",
+    "PaymentsToAcquireProductiveAssets",
+)
+# An "other" tag holds the whole line only when the report shows no separate line for a
+# kind of asset: LLY and ADP tag their only purchase line this way, and VZ and ROP moved
+# their capex line to the second tag in 2019 (N121).
+OTHER_PPE_TAG = "PaymentsToAcquireOtherPropertyPlantAndEquipment"
+OTHER_CAPEX_TAGS = (OTHER_PPE_TAG, "PaymentsToAcquireOtherProductiveAssets")
+# Oil and gas producers can show their capex in two lines without a total row: EOG has
+# additions to oil and gas properties and additions to other property and equipment.
+OIL_AND_GAS_ADDITIONS_TAG = "PaymentsToAcquireOilAndGasPropertyAndEquipment"
+# Purchases of a kind of asset that a report can show on its own line. Next to one of
+# them an "other" line is only the rest: 5–16% of EOG's capex, and 1–23 million at FANG,
+# whose drilling line is in billions. These tags are read, never selected on their own.
+SEPARATE_ASSET_PURCHASE_TAGS = (
+    OIL_AND_GAS_ADDITIONS_TAG,
+    "PaymentsToAcquireOilAndGasProperty",
+    "PaymentsToAcquireOilAndGasEquipment",
+    "PaymentsToExploreAndDevelopOilAndGasProperties",
+    "PaymentsForConstructionInProcess",
+    "PaymentsToAcquireEquipmentOnLease",
+    "PaymentsToAcquireRealEstate",
+)
+# The tags imported for each metric; all but capex are selected in this order.
 AUTOMATIC_METRICS = {
     "shares_diluted": (
         "WeightedAverageNumberOfDilutedSharesOutstanding",
@@ -36,8 +63,9 @@ AUTOMATIC_METRICS = {
     ),
     "assets": ("Assets",),
     "capex": (
-        "PaymentsToAcquirePropertyPlantAndEquipment",
-        "PaymentsToAcquireProductiveAssets",
+        *MAIN_CAPEX_TAGS,
+        *OTHER_CAPEX_TAGS,
+        *SEPARATE_ASSET_PURCHASE_TAGS,
     ),
     "operating_income": ("OperatingIncomeLoss",),
     "preferred_value": (
@@ -167,6 +195,52 @@ def select_by_tag_order(facts, metric):
         if selected is not None:
             return selected
     return None
+
+
+def same_report_fact(facts, reported, tag):
+    """The fact of this tag in the report of another fact, or None."""
+    for fact in facts:
+        if fact["accession"] == reported["accession"] and fact["tag"] == tag:
+            return fact
+    return None
+
+
+def has_separate_asset_line(facts, reported):
+    """Whether the report of a fact shows a purchase line for a kind of asset."""
+    for fact in facts:
+        same_report = fact["accession"] == reported["accession"]
+        if same_report and fact["tag"] in SEPARATE_ASSET_PURCHASE_TAGS:
+            return True
+    return False
+
+
+def select_capex(facts):
+    """The facts that add up to capex in the newest report stating it, or an empty list.
+
+    A main tag counts first. Then the two lines of an oil and gas producer, which must
+    both come from one report. Then an "other" tag, if its report shows no separate line
+    for a kind of asset; otherwise the cell stays empty rather than holding a part.
+    """
+    for tag in MAIN_CAPEX_TAGS:
+        selected = latest_of_tag(facts, tag)
+        if selected is not None:
+            return [selected]
+
+    oil_and_gas = latest_of_tag(facts, OIL_AND_GAS_ADDITIONS_TAG)
+    if oil_and_gas is not None:
+        other = same_report_fact(facts, oil_and_gas, OTHER_PPE_TAG)
+        if other is None:
+            return []
+        return [oil_and_gas, other]
+
+    for tag in OTHER_CAPEX_TAGS:
+        selected = latest_of_tag(facts, tag)
+        if selected is None:
+            continue
+        if has_separate_asset_line(facts, selected):
+            continue
+        return [selected]
+    return []
 
 
 def select_preferred_value(facts, dividends):
@@ -300,6 +374,25 @@ def cell_metric(metric, fact, ticker, split_policy):
     )
 
 
+def summed_cell_metric(parts):
+    """A cell added up from lines of one report that shows no total row."""
+    with localcontext() as context:
+        context.prec = 50
+        value = sum((part["value"] for part in parts), Decimal(0))
+    return AnnualMetric(
+        status="ready",
+        value=value,
+        variants=[],
+        selected_tag=None,
+        selected_sources=[source_of(part) for part in parts],
+        calculation=" + ".join(part["tag"] for part in parts),
+        selection_note=(
+            "Selected automatically, not reviewed value by value. Added up from lines "
+            "of one report, which shows no total."
+        ),
+    )
+
+
 def facts_by_cell(facts, periods, period_rules):
     """Group usable facts by (metric, start, end); other periods are left out."""
     periods_by_end = defaultdict(list)
@@ -428,6 +521,7 @@ def automatic_versions(
             current_form = None
             for report_date in sorted(report_dates):
                 known = [fact for fact in cell_facts if fact["filed"] <= report_date]
+                capex_parts = None
                 if metric == "preferred_value":
                     known_dividends = [
                         fact for fact in dividend_facts if fact["filed"] <= report_date
@@ -438,11 +532,17 @@ def automatic_versions(
                     selected = select_preferred_value(
                         known, dividend["value"] if dividend else None
                     )
+                elif metric == "capex":
+                    capex_parts = select_capex(known)
+                    selected = capex_parts[0] if capex_parts else None
                 else:
                     selected = select_by_tag_order(known, metric)
                 if selected is None:
                     continue
-                cell = cell_metric(metric, selected, ticker, split_policy)
+                if capex_parts is not None and len(capex_parts) > 1:
+                    cell = summed_cell_metric(capex_parts)
+                else:
+                    cell = cell_metric(metric, selected, ticker, split_policy)
                 # An annual report repeating a value first known from a 10-Q is
                 # recorded too: readers that prefer annual reports (W39) must see
                 # that the 10-K confirmed it, or they would fall back to an older value.

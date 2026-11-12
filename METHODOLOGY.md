@@ -76,7 +76,11 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   as its diluted count does in the other years. How ratios treat the units is described under Ratios.
 - **Capital expenditure:** banks and most real estate companies have none. A tag can hold only part
   of the cash spent; where we found this, the value comes from the cash flow statement instead
-  (American Electric Power; United Rentals, purchases of rental and other equipment).
+  (American Electric Power; United Rentals, purchases of rental and other equipment). Some companies
+  tag their only purchase line as "other" property or productive assets (Eli Lilly, Verizon from 2019).
+  Such a line counts only when the same report shows no separate line for a kind of asset, so a part
+  is never taken for the whole. An oil and gas producer whose cash flow statement shows additions to
+  oil and gas properties and to other equipment without a total has the two lines added up (EOG). Companies that report capital expenditure only under their own tags stay empty.
 - **Operating income:** many companies have no such row, including banks. It stays empty where the
   tag holds a sum of segments or an adjusted measure (`data/operating-income-exclusions.json`).
   That list comes from a screen of row labels, so a sum of segments under a plain label can remain.
