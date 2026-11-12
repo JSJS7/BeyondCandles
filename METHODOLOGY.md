@@ -34,13 +34,14 @@ Other outside inputs and the price corrections are listed in the [README](README
 | Operating income | The `OperatingIncomeLoss` tag | Automatic |
 | Preferred stock | First plausible value among the standard tags, ending with liquidation preference | Automatic |
 | Preferred dividends | First value among the standard tags | Automatic |
+| Discontinued operations | Their part of net income, the parent's share first; only labels ratios | Automatic |
 
 **Reviewed** values were each compared with the company's original filing. **Automatic** values
 come from a fixed tag order and are screened in bulk, so they are less certain. The app labels
 values that need care: *Calculated* (from items of one filing, such as a share count from net income
 and EPS), *Basic* (no diluted EPS is reported), *Continuing ops* (no whole-company cash flow is
 reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in the screener,
-*Spin-off* (see Known limitations) and *Exchangeable units* (see Ratios).
+*Spin-off* and *Discontinued ops* (see Known limitations) and *Exchangeable units* (see Ratios).
 
 ### Reviewed measures
 
@@ -57,7 +58,8 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
 - **Net income and EPS:** net income is before preferred dividends and EPS is after them, so net
   income divided by EPS is not always the share count.
 - **EPS:** only real changes in share count restate it, up to 13 Oct 2026, the last date in the
-  vendor's files. It is GAAP, so one-off items are included.
+  vendor's files. It is GAAP, so one-off items are included, also the result of discontinued
+  operations (see Known limitations).
 - **Equity:** because it includes preferred equity, it is not common equity. Ratios deduct
   preferred stock (see below). Negative equity is valid.
 - **Operating cash flow:** for banks and asset managers it is dominated by balance-sheet movements
@@ -230,6 +232,12 @@ do not make companies comparable.
   recorded as a distribution rather than a ratio, is marked for Johnson Controls in the same way. The mark ends when a
   report for a period ending after the event is known; in that year net income can still include the
   separated business until the event, as discontinued operations.
+- **Discontinued operations:** net income and EPS include the result of a business sold, spun off or
+  held for sale, as on analysis sites that use GAAP EPS (StockAnalysis's P/E of Johnson & Johnson for
+  2023 includes Kenvue). Where that result is larger than 5% of net income, P/E, ROE, ROA, net margin,
+  OCF / net income and EPS growth are marked *Discontinued ops* in the screener; the values stay. A
+  one-off gain then makes a company look cheap or very profitable, so a backtest should leave marked
+  values out. The amount comes from the standard tags; a company that tags it otherwise is not marked.
 - **Spin-off values** follow the vendor's ratios. RTX in April 2020 is the largest uncertainty: the company's
   own figures put the vendor's earlier level about 4–7% too low, and no single reliable value exists.
 - **Scope:** 200 companies, US-listed, USD only, GAAP figures without adjustments.

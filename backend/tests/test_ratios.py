@@ -12,6 +12,7 @@ from app.ratios import (
     calculate_ratios,
     common_equity,
     exchangeable_units,
+    has_material_discontinued_operations,
     market_values,
     participating_preferred_tickers,
     shares_for_ratios,
@@ -302,6 +303,53 @@ class RatioTests(unittest.TestCase):
         ratios = calculate_ratios(period(shares=None), None, Decimal(40))
 
         self.assertEqual(ratios["pb"], Decimal(4))
+
+
+class DiscontinuedOperationsTests(unittest.TestCase):
+    def test_more_than_five_percent_of_net_income_marks_the_period(self):
+        """M46: 5% of net income is the limit itself; anything above it marks."""
+        at_limit = period(discontinued_income=Decimal(5))
+        above_limit = period(discontinued_income=Decimal("5.01"))
+
+        self.assertFalse(has_material_discontinued_operations(at_limit))
+        self.assertTrue(has_material_discontinued_operations(above_limit))
+
+    def test_a_loss_counts_by_its_size(self):
+        """A loss from discontinued operations flatters P/E of the continuing business as
+        a gain distorts it the other way; both mark. Against a net loss the sizes are
+        compared: AIG 2018 lost 42 million in discontinued operations, 6 in total."""
+        loss = period(discontinued_income=Decimal(-6))
+        both_losses = period(net_income=Decimal(-6), discontinued_income=Decimal(-42))
+
+        self.assertTrue(has_material_discontinued_operations(loss))
+        self.assertTrue(has_material_discontinued_operations(both_losses))
+
+    def test_zero_net_income_is_marked_by_any_discontinued_result(self):
+        """With net income of zero every discontinued amount is above 5% of it."""
+        values = period(net_income=Decimal(0), discontinued_income=Decimal(1))
+
+        self.assertTrue(has_material_discontinued_operations(values))
+
+    def test_missing_or_zero_amounts_do_not_mark(self):
+        """A reported zero or an unknown value is not evidence of discontinued
+        operations, and without net income there is nothing they distort."""
+        cases = {
+            "zero": period(discontinued_income=Decimal(0)),
+            "unknown": period(),
+            "no net income": period(net_income=None, discontinued_income=Decimal(50)),
+        }
+        for name, values in cases.items():
+            with self.subTest(name):
+                self.assertFalse(has_material_discontinued_operations(values))
+
+    def test_ratios_are_unchanged(self):
+        """The amount only marks the period; no ratio uses it."""
+        without = calculate_ratios(period(), None, Decimal(40))
+        with_amount = calculate_ratios(
+            period(discontinued_income=Decimal(62)), None, Decimal(40)
+        )
+
+        self.assertEqual(without, with_amount)
 
 
 if __name__ == "__main__":

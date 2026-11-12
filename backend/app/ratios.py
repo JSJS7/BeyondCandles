@@ -24,6 +24,9 @@ EXCHANGEABLE_UNITS_PATH = (
 )
 REPORTED_SHARES = "reported"
 CALCULATED_SHARES = "calculated"
+# Discontinued operations above this share of net income mark the ratios built on net
+# income (M46), the same 5% that makes a difference material in project-principles 5.1.
+MATERIAL_DISCONTINUED_SHARE = Decimal("0.05")
 
 
 @dataclass(frozen=True)
@@ -42,6 +45,24 @@ class PeriodValues:
     operating_income: Decimal | None
     preferred_value: Decimal | None
     preferred_dividends: Decimal | None
+    # Part of net income; it only marks ratios and enters no calculation.
+    discontinued_income: Decimal | None = None
+
+
+def has_material_discontinued_operations(values):
+    """Whether net income includes discontinued operations above 5% of it (M46).
+
+    Net income and EPS are GAAP and include the result of a business sold or spun off,
+    so P/E, ROE, ROA, net margin, OCF / net income and EPS growth can read a one-off
+    gain or loss as earnings (JNJ 2023: 62% of net income from Kenvue). A loss counts
+    as a gain does, and against a net loss the shares are compared in size.
+    """
+    if values.net_income is None or values.discontinued_income is None:
+        return False
+    discontinued_size = abs(values.discontinued_income)
+    if discontinued_size == 0:
+        return False
+    return discontinued_size > abs(values.net_income) * MATERIAL_DISCONTINUED_SHARE
 
 
 def participating_preferred_tickers():

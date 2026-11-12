@@ -79,6 +79,7 @@ AUTOMATIC_ROW_LABELS = {
     "shares_diluted": r"dilut|shares|average|units",
     "preferred_value": r"preferred|preference",
     "preferred_dividends": r"preferred|preference|dividend",
+    "discontinued_income": r"discontinued",
 }
 # A number that only comes close confirms a value in a row of the same quantity alone.
 # The wide labels above are safe for an exact match, not for "near enough": they fit
@@ -94,6 +95,7 @@ TOLERANCE_ROW_LABELS = {
     "preferred_value": r"(preferred|preference) (stock|shares)",
     "preferred_dividends": r"(preferred|preference).*dividend"
     r"|dividend.*(preferred|preference)",
+    "discontinued_income": r"discontinued operations",
 }
 # Not NOT_GAAP: "adjusted weighted average shares" is the GAAP diluted denominator.
 TOLERANCE_EXCLUDED_ROW_LABELS = (
@@ -108,6 +110,7 @@ TOLERANCE_EXCLUDED_BY_METRIC = {
     "shares_diluted": r"basic|price|dividend|per share",
     "preferred_value": r"proceeds|issuance|dividend",
     "preferred_dividends": r"proceeds|issuance",
+    "discontinued_income": r"before|tax (expense|benefit|provision)|per share|cash",
 }
 # Rows that contain a metric's words but report something else.
 EXCLUDED_ROW_LABELS = {

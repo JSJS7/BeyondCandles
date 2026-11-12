@@ -135,6 +135,28 @@ class VersionTests(unittest.TestCase):
         self.assertEqual(both[-1].value.value, Decimal("537"))
         self.assertEqual(only_backup[-1].value.selected_tag, backup)
 
+    def test_discontinued_income_takes_the_parents_share_first(self):
+        """M46: net income is the parent's share, so its discontinued part is too; the
+        total with noncontrolling interests counts only where nothing else is tagged."""
+        parent = (
+            "IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"
+        )
+        total = "IncomeLossFromDiscontinuedOperationsNetOfTax"
+
+        both = versions_of(
+            [
+                fact("discontinued_income", total, "-130"),
+                fact("discontinued_income", parent, "-125"),
+            ],
+            "discontinued_income",
+        )
+        only_total = versions_of(
+            [fact("discontinued_income", total, "-130")], "discontinued_income"
+        )
+
+        self.assertEqual(both[-1].value.value, Decimal("-125"))
+        self.assertEqual(only_total[-1].value.selected_tag, total)
+
     def test_facts_never_create_a_period(self):
         """JCI has capex for a period no reviewed metric has; it stays out."""
         facts = [

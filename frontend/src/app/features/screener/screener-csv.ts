@@ -44,6 +44,10 @@ const CSV_COLUMNS: CsvColumn[] = [
     value: (row) => spinOffField(row, (spinOff) => spinOff.separated_fraction),
   },
   { header: 'exchangeable_units', value: (row) => row.latest?.exchangeable_units ?? null },
+  {
+    header: 'discontinued_operations',
+    value: (row) => row.latest?.discontinued_operations ?? null,
+  },
 ];
 
 /** One CSV field: quoted when it holds a separator, a quote or a line break (RFC 4180). */

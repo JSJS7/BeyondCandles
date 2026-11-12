@@ -18,6 +18,10 @@ export const VALUE_LABEL_MEANINGS = {
     '2022, Charter, Simon Property, Broadcom in 2017). P/S counts the market value of shares ' +
     "and units, because revenue is the whole group's; P/B counts only the listed shares, " +
     'because equity is theirs. P/E is not affected.',
+  'Discontinued ops':
+    'Net income and EPS include the result of discontinued operations (a business sold, spun ' +
+    'off or held for sale) larger than 5% of net income, so ratios built on them can read a ' +
+    'one-off gain or loss as earnings.',
 } as const;
 
 export type ValueLabel = keyof typeof VALUE_LABEL_MEANINGS;

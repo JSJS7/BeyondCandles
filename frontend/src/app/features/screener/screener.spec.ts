@@ -41,6 +41,7 @@ function company(ticker: string, sector: string, ratios: Partial<Ratios>): Scree
       eps_basis_break: false,
       spin_offs: [],
       exchangeable_units: false,
+      discontinued_operations: false,
       ratios: { ...NO_RATIOS, ...ratios },
     },
   };

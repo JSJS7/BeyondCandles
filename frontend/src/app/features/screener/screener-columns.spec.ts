@@ -94,6 +94,34 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'pb')).toEqual([]);
   });
 
+  it('marks every ratio built on net income or EPS when discontinued operations are large', () => {
+    // M46: JNJ 2023, 62% of net income from Kenvue. Ratios without net income stay unmarked.
+    const latest = period(
+      { discontinued_operations: true },
+      {
+        pe: '10',
+        roe: '0.3',
+        roa: '0.2',
+        net_margin: '0.4',
+        ocf_to_net_income: '0.6',
+        eps_growth: '1.5',
+        pb: '5',
+        ps: '4',
+        operating_margin: '0.25',
+      },
+    );
+
+    const marked = ['pe', 'roe', 'roa', 'net_margin', 'ocf_to_net_income', 'eps_growth'] as const;
+    for (const key of marked) {
+      expect(cellLabels(latest, key)).toEqual(['Discontinued ops']);
+    }
+    expect(cellLabels(latest, 'pb')).toEqual([]);
+    expect(cellLabels(latest, 'ps')).toEqual([]);
+    expect(cellLabels(latest, 'operating_margin')).toEqual([]);
+    // An empty ratio carries no input label.
+    expect(cellLabels(latest, 'fcf_margin')).toEqual([]);
+  });
+
   it('puts no input label on an empty ratio, but keeps a series break on empty growth', () => {
     // A break can be the reason why growth is empty, so it stays visible.
     const latest = period({

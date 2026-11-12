@@ -83,6 +83,7 @@ export const SCREENER_CELL_LABELS = [
   'Continuing ops',
   'Spin-off',
   'Exchangeable units',
+  'Discontinued ops',
 ] as const satisfies readonly ValueLabel[];
 export type ScreenerCellLabel = (typeof SCREENER_CELL_LABELS)[number];
 
@@ -100,6 +101,9 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): Screene
     const labels: ScreenerCellLabel[] = latest.eps_basis_break ? ['Series break'] : [];
     if (latest.ratios.eps_growth !== null && latest.eps_basis === 'basic') {
       labels.push('Basic');
+    }
+    if (latest.ratios.eps_growth !== null && latest.discontinued_operations) {
+      labels.push('Discontinued ops');
     }
     return labels;
   }
@@ -125,6 +129,15 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): Screene
   }
   if (key === 'ps' && latest.exchangeable_units) {
     labels.push('Exchangeable units');
+  }
+  const usesNetIncome =
+    key === 'pe' ||
+    key === 'roe' ||
+    key === 'roa' ||
+    key === 'net_margin' ||
+    key === 'ocf_to_net_income';
+  if (usesNetIncome && latest.discontinued_operations) {
+    labels.push('Discontinued ops');
   }
   return labels;
 }

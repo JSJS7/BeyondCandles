@@ -28,3 +28,12 @@ export const RATIO_DEFINITIONS: RatioDefinition[] = [
   { key: 'ocf_to_net_income', label: 'OCF / net income', kind: 'multiple' },
   { key: 'equity_to_assets', label: 'Equity / assets', kind: 'percent' },
 ];
+
+// Which ratios stand on automatic measures (N116). Every page that shows ratios shows this
+// sentence in its reading guide, so it is written once here.
+export const AUTOMATIC_MEASURES_NOTE =
+  'The share count (P/B, P/S), assets (ROA, Equity / assets), operating income (Operating ' +
+  'margin), capital expenditure (FCF margin) and preferred stock with its dividends (P/B, ROE) ' +
+  'are automatic measures: selected from SEC data by fixed rules and screened in bulk, not ' +
+  'compared with each filing, so these ratios are less certain than those built only on ' +
+  'reviewed values.';

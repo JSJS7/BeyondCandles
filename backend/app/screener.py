@@ -37,6 +37,7 @@ from app.ratios import (
     PeriodValues,
     calculate_ratios,
     exchangeable_units,
+    has_material_discontinued_operations,
     participating_preferred_tickers,
     shares_for_ratios,
 )
@@ -171,6 +172,7 @@ def period_values(cells):
         operating_income=cell_value(cells, "operating_income"),
         preferred_value=cell_value(cells, "preferred_value"),
         preferred_dividends=cell_value(cells, "preferred_dividends"),
+        discontinued_income=cell_value(cells, "discontinued_income"),
     )
 
 
@@ -319,6 +321,7 @@ def valued_period(
         eps_basis_break=growth["eps_diluted"].basis_break,
         spin_offs=spin_offs,
         exchangeable_units=units is not None,
+        discontinued_operations=has_material_discontinued_operations(values),
         ratios=Ratios(**{name: rounded(value) for name, value in ratios.items()}),
     )
 

@@ -48,6 +48,9 @@ class PeriodRatios(BaseModel):
     # Part of the owners hold units exchangeable into the listed shares: P/S counts shares
     # and units, P/B only the listed shares (data/exchangeable-units.json, M52).
     exchangeable_units: bool = False
+    # Net income includes discontinued operations above 5% of it, so the ratios built on
+    # net income or EPS can read a one-off result as earnings (M46).
+    discontinued_operations: bool = False
     ratios: Ratios
 
 

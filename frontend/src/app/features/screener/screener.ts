@@ -19,6 +19,7 @@ import { ScreenerService } from '../../services/screener.service';
 import { formatDate } from '../../shared/date-format';
 import { EARLIEST_VALUATION_DATE, LATEST_VALUATION_DATE } from '../../shared/data-window';
 import { METHODOLOGY_URL } from '../../shared/links';
+import { AUTOMATIC_MEASURES_NOTE } from '../../shared/ratio-definitions';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { labelGuide } from '../../shared/value-labels';
 import { CriteriaEditor, CriterionView } from './criteria-editor';
@@ -106,6 +107,7 @@ export class Screener implements OnInit {
   readonly cellText = cellText;
   readonly cellLabels = cellLabels;
   readonly methodologyUrl = METHODOLOGY_URL;
+  readonly automaticMeasuresNote = AUTOMATIC_MEASURES_NOTE;
   readonly cellLabelGuide = labelGuide(SCREENER_CELL_LABELS, {
     Calculated: 'Here it is the share count: (net income − preferred dividends) ÷ EPS.',
     'Series break':

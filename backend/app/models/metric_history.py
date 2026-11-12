@@ -27,7 +27,8 @@ class AnnualMetricVersion(Base):
         CheckConstraint(
             "metric IN ('revenue', 'net_income', 'eps_diluted', 'equity', "
             "'operating_cash_flow', 'shares_diluted', 'assets', 'capex', "
-            "'operating_income', 'preferred_value', 'preferred_dividends')",
+            "'operating_income', 'preferred_value', 'preferred_dividends', "
+            "'discontinued_income')",
             name="ck_version_metric",
         ),
         CheckConstraint(

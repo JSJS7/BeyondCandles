@@ -88,6 +88,12 @@ AUTOMATIC_METRICS = {
         "DividendsPreferredStockStock",
         "ConvertiblePreferredDividendsNetOfTax",
     ),
+    # Net income from discontinued operations, the parent's share first, as net income
+    # is. Only marks the ratios built on net income (M46); no ratio uses its value.
+    "discontinued_income": (
+        "IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity",
+        "IncomeLossFromDiscontinuedOperationsNetOfTax",
+    ),
 }
 BALANCE_METRICS = ("assets", "preferred_value")
 SHARE_METRIC = "shares_diluted"

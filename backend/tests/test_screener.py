@@ -672,6 +672,22 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertFalse(other_company["latest"]["exchangeable_units"])
         self.assertEqual(other_company["latest"]["ratios"]["ps"], "2")
 
+    def test_discontinued_operations_mark_the_period_from_their_report(self):
+        """M46: JNJ's FY2023 net income held 62% from Kenvue. The mark follows the value
+        known on the date (a restating report adds it later) and changes no ratio."""
+        self.add_year(date(2024, 2, 16))
+        self.add_version("discontinued_income", "4", date(2024, 2, 16))
+        self.add_version("discontinued_income", "62", date(2024, 5, 1), form="10-K/A")
+        for day in (date(2024, 3, 28), date(2024, 6, 28)):
+            self.add_close(day)
+
+        below_limit = self.row(date="2024-03-29")
+        above_limit = self.row(date="2024-06-28")
+
+        self.assertFalse(below_limit["latest"]["discontinued_operations"])
+        self.assertTrue(above_limit["latest"]["discontinued_operations"])
+        self.assertEqual(above_limit["latest"]["ratios"]["pe"], "20")
+
     def test_date_outside_the_window_is_rejected(self):
         """Before every company has a report, or after prices end, there is no screen."""
         for day in ("2016-03-30", "2026-01-01"):
