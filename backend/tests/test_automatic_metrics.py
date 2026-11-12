@@ -7,6 +7,7 @@ from decimal import Decimal
 from app.automatic_metrics import (
     AUTOMATIC_METRICS,
     automatic_versions,
+    is_whole_preferred_value,
     largest_tolerated_difference,
     preferred_deduction,
     value_corrections,
@@ -472,8 +473,10 @@ class PreferredValueTests(unittest.TestCase):
             preferred_value([fact("preferred_dividends", self.DIVIDENDS, "345")])
         )
 
-    def test_scale_error_is_rejected(self):
-        """AVGO 2020 tags a 3.7 billion preference as 4 million, with 297 of dividends."""
+    def test_scale_error_is_kept_for_the_ratios_to_reject(self):
+        """AVGO 2020 tags a 3.7 billion preference as 4 million, with 297 of dividends.
+        The cell keeps the positive value; with 23,976 of equity the ratios treat it as
+        missing, so P/B stays empty as it did when the cell held the reported zero."""
         cell = preferred_value(
             [
                 fact("preferred_dividends", self.DIVIDENDS, "297"),
@@ -486,26 +489,42 @@ class PreferredValueTests(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(cell.value, Decimal("0"))
+        self.assertEqual(cell.value, Decimal("4"))
+        self.assertIsNone(preferred_deduction(cell.value, Decimal(297), Decimal(23976)))
 
-    def test_dividends_up_to_a_quarter_of_the_value_keep_it(self):
-        """K19: a value is plausible while annual dividends are at most 25% of it;
-        above that it is taken for par value and the reported zero remains."""
+    def test_plausible_value_comes_first_in_tag_order(self):
+        """K19: a value keeps its place in tag order while dividends are at most 25% of
+        it. Above that every value is contradicted and the largest one is kept."""
+        liquidation_tag = "PreferredStockLiquidationPreferenceValue"
         at_limit = preferred_value(
             [
                 fact("preferred_dividends", self.DIVIDENDS, "25"),
                 fact("preferred_value", self.VALUE, "100"),
+                fact("preferred_value", liquidation_tag, "120"),
             ]
         )
         above_limit = preferred_value(
             [
                 fact("preferred_dividends", self.DIVIDENDS, "26"),
                 fact("preferred_value", self.VALUE, "100"),
+                fact("preferred_value", liquidation_tag, "103"),
             ]
         )
 
         self.assertEqual(at_limit.value, Decimal("100"))
-        self.assertIsNone(above_limit)
+        self.assertEqual(above_limit.value, Decimal("103"))
+
+    def test_esop_shares_with_the_common_dividend_keep_their_value(self):
+        """PG FY2024: 798 of ESOP preferred stock and 284 of dividends (36%). The cell
+        keeps 798; the ratios accept it as 1.6% of equity (M49)."""
+        cell = preferred_value(
+            [
+                fact("preferred_dividends", self.DIVIDENDS, "284"),
+                fact("preferred_value", self.VALUE, "798"),
+            ]
+        )
+
+        self.assertEqual(cell.value, Decimal("798"))
 
     def test_value_without_dividends_is_accepted(self):
         """V reports a value and no dividend tag; nothing contradicts the value."""
@@ -533,6 +552,75 @@ class PreferredValueTests(unittest.TestCase):
             [(version.known_from, version.value.value) for version in versions],
             [(date(2023, 2, 15), Decimal("6")), (date(2024, 2, 15), Decimal("5795"))],
         )
+
+
+class PreferredColumnTests(unittest.TestCase):
+    """M49: values read from the equity statement column of an instance."""
+
+    ENTRY = {
+        "ticker": "TEST",
+        "cik": "0000000001",
+        "period_end": str(PERIOD[1]),
+        "accession": "annual",
+        "filed": "2023-02-20",
+        "form": "10-K",
+        "value": "8750",
+        "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+        "member": "PreferredStockMember",
+        "instance": {"url": "https://www.sec.gov/i.xml", "sha256": "0", "file": "x"},
+    }
+
+    def column_versions(self, facts, entries=(ENTRY,)):
+        versions = automatic_versions(
+            "TEST", facts, (PERIOD,), NO_SPLITS, NO_ALIASES, preferred_columns=entries
+        )
+        selected = [
+            version for version in versions if version.metric == "preferred_value"
+        ]
+        return sorted(selected, key=lambda version: version.known_from)
+
+    def test_column_fills_a_cell_without_a_value_tag(self):
+        """MS 2023 has no value tag in companyfacts; its column shows 8,750, known from
+        the filing date of the annual report and linked to the instance."""
+        facts = [fact("preferred_dividends", "DividendsPreferredStock", "557")]
+
+        versions = self.column_versions(facts)
+
+        self.assertEqual(len(versions), 1)
+        self.assertEqual(versions[0].value.value, Decimal("8750"))
+        self.assertEqual(versions[0].known_from, date(2023, 2, 20))
+        source = versions[0].value.selected_sources[0]
+        self.assertEqual(source.statement_url, "https://www.sec.gov/i.xml")
+        self.assertEqual(source.statement_column, "PreferredStockMember")
+
+    def test_plausible_tag_comes_before_the_column(self):
+        """A tag that dividends leave plausible keeps its place in front of the column."""
+        facts = [
+            fact("preferred_dividends", "DividendsPreferredStock", "557"),
+            fact("preferred_value", "PreferredStockValue", "9000"),
+        ]
+
+        versions = self.column_versions(facts)
+
+        self.assertEqual(versions[-1].value.value, Decimal("9000"))
+
+    def test_column_replaces_par_value_of_a_tag(self):
+        """PNC 2018 tags 0.5 million of par value; the column holds 3,986 million."""
+        entry = dict(self.ENTRY, value="3986000000")
+        facts = [
+            fact("preferred_dividends", "DividendsPreferredStockCash", "236000000"),
+            fact("preferred_value", "PreferredStockValue", "500000"),
+        ]
+
+        versions = self.column_versions(facts, (entry,))
+
+        self.assertEqual(versions[-1].value.value, Decimal("3986000000"))
+
+    def test_entries_of_other_companies_are_ignored(self):
+        """An entry applies only to its own ticker."""
+        entry = dict(self.ENTRY, ticker="OTHER")
+
+        self.assertEqual(self.column_versions([], (entry,)), [])
 
 
 def value_correction(**changes):
@@ -736,6 +824,33 @@ class OperatingIncomeExclusionTests(unittest.TestCase):
 
 class PreferredDeductionTests(unittest.TestCase):
     """Rule M27 on numbers from the reports, in millions."""
+
+    def test_esop_preferred_stock_is_deducted(self):
+        """PG FY2024: dividends are 36% of 798, but 798 is 1.6% of 50,287 of equity, far
+        more than par value; analysis sites deduct it as well (M49)."""
+        deduction = preferred_deduction(Decimal(798), Decimal(284), Decimal(50287))
+
+        self.assertEqual(deduction, Decimal(798))
+
+    def test_par_value_counts_as_missing(self):
+        """BA 2025 shows 6 of par value against 345 of dividends and 5,454 of equity:
+        the amount is unknown, so P/B stays empty."""
+        self.assertIsNone(preferred_deduction(Decimal(6), Decimal(345), Decimal(5454)))
+
+    def test_whole_value_limits(self):
+        """Dividends up to 25% of the value, or a value of at least 0.5% of equity, mean
+        the whole amount; both limits are inclusive, and negative equity proves nothing."""
+        self.assertTrue(is_whole_preferred_value(Decimal(100), Decimal(25), None))
+        self.assertFalse(is_whole_preferred_value(Decimal(100), Decimal(26), None))
+        self.assertTrue(
+            is_whole_preferred_value(Decimal(100), Decimal(26), Decimal(20000))
+        )
+        self.assertFalse(
+            is_whole_preferred_value(Decimal(100), Decimal(26), Decimal(20001))
+        )
+        self.assertFalse(
+            is_whole_preferred_value(Decimal(100), Decimal(26), Decimal(-3908))
+        )
 
     def test_a_plausible_value_is_deducted(self):
         """JPM 2024: the balance sheet shows 20,050."""

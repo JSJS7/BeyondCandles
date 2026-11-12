@@ -1,0 +1,1384 @@
+{
+  "version": 1,
+  "method": "Preferred stock of periods whose preferred dividends exceed 0.2% of equity while companyfacts has no positive preferred value of which the dividends are at most 25%. Each value is the balance at the period end of the one column of the statement of changes in equity whose StatementEquityComponentsAxis member names preferred stock, in the original XBRL instance of the first annual report of the period, with no other dimension. Periods without such a positive balance are listed with the reason.",
+  "values": [
+    {
+      "ticker": "BAC",
+      "cik": "0000070858",
+      "period_end": "2015-12-31",
+      "accession": "0000070858-16-000137",
+      "filed": "2016-02-24",
+      "form": "10-K",
+      "value": "22273000000",
+      "concept": "StockholdersEquity",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085816000137/bac-20151231.xml",
+        "sha256": "3c43efc50cc2ee3995d31d91bcc7b7288bff3f56dd16a8d4f513556448206fc2",
+        "file": "3c43efc50cc2ee3995d31d91bcc7b7288bff3f56dd16a8d4f513556448206fc2.htm"
+      }
+    },
+    {
+      "ticker": "BAC",
+      "cik": "0000070858",
+      "period_end": "2016-12-31",
+      "accession": "0000070858-17-000013",
+      "filed": "2017-02-23",
+      "form": "10-K",
+      "value": "25220000000",
+      "concept": "StockholdersEquity",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085817000013/bac-20161231.xml",
+        "sha256": "928e78a9ebca22211d5c4274714417ca23f170a9f7f805cb96f1be3f388a4fa0",
+        "file": "928e78a9ebca22211d5c4274714417ca23f170a9f7f805cb96f1be3f388a4fa0.htm"
+      }
+    },
+    {
+      "ticker": "BAC",
+      "cik": "0000070858",
+      "period_end": "2017-12-31",
+      "accession": "0000070858-18-000009",
+      "filed": "2018-02-22",
+      "form": "10-K",
+      "value": "22323000000",
+      "concept": "StockholdersEquity",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085818000009/bac-20171231.xml",
+        "sha256": "036ed8ffbce69f6630bd7ea1423ec498298b2f1778d144972cdcbfb8908ddb18",
+        "file": "036ed8ffbce69f6630bd7ea1423ec498298b2f1778d144972cdcbfb8908ddb18.htm"
+      }
+    },
+    {
+      "ticker": "DLR",
+      "cik": "0001297996",
+      "period_end": "2015-12-31",
+      "accession": "0001297996-16-000124",
+      "filed": "2016-02-29",
+      "form": "10-K",
+      "value": "1290135000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1297996/000129799616000124/dlr-20151231.xml",
+        "sha256": "14bff6a40d36ec60c0895206234e684f52271c1a21e569a5008dcc42930b5b9b",
+        "file": "14bff6a40d36ec60c0895206234e684f52271c1a21e569a5008dcc42930b5b9b.htm"
+      }
+    },
+    {
+      "ticker": "DUK",
+      "cik": "0001326160",
+      "period_end": "2020-12-31",
+      "accession": "0001326160-21-000063",
+      "filed": "2021-02-25",
+      "form": "10-K",
+      "value": "1962000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616021000063/duk-20201231_htm.xml",
+        "sha256": "a1af6afa0b9392b9268ec02f4ecc40c85cf8ad4f157d0b9e3dd0a7c5d4ee5370",
+        "file": "a1af6afa0b9392b9268ec02f4ecc40c85cf8ad4f157d0b9e3dd0a7c5d4ee5370.htm"
+      }
+    },
+    {
+      "ticker": "DUK",
+      "cik": "0001326160",
+      "period_end": "2021-12-31",
+      "accession": "0001326160-22-000072",
+      "filed": "2022-02-24",
+      "form": "10-K",
+      "value": "1962000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616022000072/duk-20211231_htm.xml",
+        "sha256": "52f6912212da2c479a3077be8b2a898fa1951cfbf6be719a7a3efd458a2d1f67",
+        "file": "52f6912212da2c479a3077be8b2a898fa1951cfbf6be719a7a3efd458a2d1f67.htm"
+      }
+    },
+    {
+      "ticker": "DUK",
+      "cik": "0001326160",
+      "period_end": "2022-12-31",
+      "accession": "0001326160-23-000073",
+      "filed": "2023-02-27",
+      "form": "10-K",
+      "value": "1962000000",
+      "concept": "StockholdersEquity",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616023000073/duk-20221231_htm.xml",
+        "sha256": "f029532e9a8961369b899c980d1819182a7d6e3e268941be6cc30af12b801d12",
+        "file": "f029532e9a8961369b899c980d1819182a7d6e3e268941be6cc30af12b801d12.htm"
+      }
+    },
+    {
+      "ticker": "DUK",
+      "cik": "0001326160",
+      "period_end": "2023-12-31",
+      "accession": "0001326160-24-000037",
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "value": "1962000000",
+      "concept": "StockholdersEquity",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616024000037/duk-20231231_htm.xml",
+        "sha256": "c91b0a19ee557025831432c9d442193a13c931762129ce85c2897069240df8f8",
+        "file": "c91b0a19ee557025831432c9d442193a13c931762129ce85c2897069240df8f8.htm"
+      }
+    },
+    {
+      "ticker": "DUK",
+      "cik": "0001326160",
+      "period_end": "2024-12-31",
+      "accession": "0001326160-25-000072",
+      "filed": "2025-02-27",
+      "form": "10-K",
+      "value": "973000000",
+      "concept": "StockholdersEquity",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616025000072/duk-20241231_htm.xml",
+        "sha256": "dda3acae4be152e73d094c729240adf7972082fb230a337d5b6f1477651905bb",
+        "file": "dda3acae4be152e73d094c729240adf7972082fb230a337d5b6f1477651905bb.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2015-12-31",
+      "accession": "0001193125-16-473553",
+      "filed": "2016-02-23",
+      "form": "10-K",
+      "value": "7520000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000119312516473553/ms-20151231.xml",
+        "sha256": "3657da4452996449087c9aad672fd43846220baa704973e4e5d8da6173549d26",
+        "file": "3657da4452996449087c9aad672fd43846220baa704973e4e5d8da6173549d26.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2016-12-31",
+      "accession": "0001193125-17-059212",
+      "filed": "2017-02-27",
+      "form": "10-K",
+      "value": "7520000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000119312517059212/ms-20161231.xml",
+        "sha256": "4913e27f8d32db18c76dbaae97bc86b1921088a18ef5b3cd38308472618d5a30",
+        "file": "4913e27f8d32db18c76dbaae97bc86b1921088a18ef5b3cd38308472618d5a30.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-060831",
+      "filed": "2018-02-27",
+      "form": "10-K",
+      "value": "8520000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000119312518060831/ms-20171231.xml",
+        "sha256": "b37355a0f32eef4d71f3086dd443aa6e587fcc8d8347c1ac90228f084f3b6f0a",
+        "file": "b37355a0f32eef4d71f3086dd443aa6e587fcc8d8347c1ac90228f084f3b6f0a.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-051943",
+      "filed": "2019-02-26",
+      "form": "10-K",
+      "value": "8520000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000119312519051943/ms-20181231.xml",
+        "sha256": "b4262f8909676336e73a048cc27475be37dc7f789bd3affbe4c400017c7f0818",
+        "file": "b4262f8909676336e73a048cc27475be37dc7f789bd3affbe4c400017c7f0818.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2019-12-31",
+      "accession": "0000895421-20-000265",
+      "filed": "2020-02-27",
+      "form": "10-K",
+      "value": "8520000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542120000265/msq4201910k_htm.xml",
+        "sha256": "ba4d5485c5eb538d68eb01103852d4c7d4c649071c53dbd8ee4b7325754aa046",
+        "file": "ba4d5485c5eb538d68eb01103852d4c7d4c649071c53dbd8ee4b7325754aa046.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2020-12-31",
+      "accession": "0000895421-21-000286",
+      "filed": "2021-02-26",
+      "form": "10-K",
+      "value": "9250000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542121000286/ms-20201231_htm.xml",
+        "sha256": "7512f71e5c56bb8d34931714dadfb032b879f4d318f2b20e93355254b19863d2",
+        "file": "7512f71e5c56bb8d34931714dadfb032b879f4d318f2b20e93355254b19863d2.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2021-12-31",
+      "accession": "0000895421-22-000400",
+      "filed": "2022-02-24",
+      "form": "10-K",
+      "value": "7750000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542122000400/ms-20211231_htm.xml",
+        "sha256": "3493603569ee47706e4e4cfa89ce53eb2194c7b9d153cb169daec895f3febff7",
+        "file": "3493603569ee47706e4e4cfa89ce53eb2194c7b9d153cb169daec895f3febff7.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2022-12-31",
+      "accession": "0000895421-23-000284",
+      "filed": "2023-02-24",
+      "form": "10-K",
+      "value": "8750000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542123000284/ms-20221231_htm.xml",
+        "sha256": "58ecf5049be7dc052609bf0fc470f6d01f9909099a9afbbe1f9554a2eab3a9a6",
+        "file": "58ecf5049be7dc052609bf0fc470f6d01f9909099a9afbbe1f9554a2eab3a9a6.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2023-12-31",
+      "accession": "0000895421-24-000300",
+      "filed": "2024-02-22",
+      "form": "10-K",
+      "value": "8750000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542124000300/ms-20231231_htm.xml",
+        "sha256": "178021f65cc9c5c8e02e02e36237ae6a5f2bce634d97a9a9f9ca46189b30725c",
+        "file": "178021f65cc9c5c8e02e02e36237ae6a5f2bce634d97a9a9f9ca46189b30725c.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2024-12-31",
+      "accession": "0000895421-25-000304",
+      "filed": "2025-02-21",
+      "form": "10-K",
+      "value": "9750000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542125000304/ms-20241231_htm.xml",
+        "sha256": "f7c52f21f80c188c2cdcceaf9ec3ed267ac8fe31430821a71bf018f54f051efe",
+        "file": "f7c52f21f80c188c2cdcceaf9ec3ed267ac8fe31430821a71bf018f54f051efe.htm"
+      }
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "period_end": "2025-12-31",
+      "accession": "0000895421-26-000086",
+      "filed": "2026-02-19",
+      "form": "10-K",
+      "value": "9750000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000086/ms-20251231_htm.xml",
+        "sha256": "64826c27e64d01943397ba04bc5dfd7970941acc669ce6ba35d8fee0005fe235",
+        "file": "64826c27e64d01943397ba04bc5dfd7970941acc669ce6ba35d8fee0005fe235.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2018-06-30",
+      "accession": "0000080424-18-000055",
+      "filed": "2018-08-07",
+      "form": "10-K",
+      "value": "967000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042418000055/fy171810-kreport_htm.xml",
+        "sha256": "a817cbe23aa76f4201a7a111466269c72ec25b7ba1b81a940d670058600079f9",
+        "file": "a817cbe23aa76f4201a7a111466269c72ec25b7ba1b81a940d670058600079f9.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2019-06-30",
+      "accession": "0000080424-19-000050",
+      "filed": "2019-08-06",
+      "form": "10-K",
+      "value": "928000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042419000050/fy181910-kreport_htm.xml",
+        "sha256": "b73a4aeca14290498a3244faca2d635a09c497f91fbd7880e7f6d1f041dfd122",
+        "file": "b73a4aeca14290498a3244faca2d635a09c497f91fbd7880e7f6d1f041dfd122.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2020-06-30",
+      "accession": "0000080424-20-000053",
+      "filed": "2020-08-06",
+      "form": "10-K",
+      "value": "897000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042420000053/pg-20200630_htm.xml",
+        "sha256": "4e445ef9d13b74eafcd09fce65b20f20996ce42c13f2ffb69fc4071621f39224",
+        "file": "4e445ef9d13b74eafcd09fce65b20f20996ce42c13f2ffb69fc4071621f39224.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2021-06-30",
+      "accession": "0000080424-21-000100",
+      "filed": "2021-08-06",
+      "form": "10-K",
+      "value": "870000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042421000100/pg-20210630_htm.xml",
+        "sha256": "b55bedbbbf08b616d18284b6127f540a6a9a514c7b28c0193b48b5bb1aac81d4",
+        "file": "b55bedbbbf08b616d18284b6127f540a6a9a514c7b28c0193b48b5bb1aac81d4.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2022-06-30",
+      "accession": "0000080424-22-000064",
+      "filed": "2022-08-05",
+      "form": "10-K",
+      "value": "843000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042422000064/pg-20220630_htm.xml",
+        "sha256": "985daccfb27a2962ed5399277b56601db238823d9ce9448100e3c11fec68439c",
+        "file": "985daccfb27a2962ed5399277b56601db238823d9ce9448100e3c11fec68439c.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2023-06-30",
+      "accession": "0000080424-23-000073",
+      "filed": "2023-08-04",
+      "form": "10-K",
+      "value": "819000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042423000073/pg-20230630_htm.xml",
+        "sha256": "061d82d98325de22e5cf3503b1bb702edbe662026807dddfa411aa432b4a6804",
+        "file": "061d82d98325de22e5cf3503b1bb702edbe662026807dddfa411aa432b4a6804.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2024-06-30",
+      "accession": "0000080424-24-000083",
+      "filed": "2024-08-05",
+      "form": "10-K",
+      "value": "798000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042424000083/pg-20240630_htm.xml",
+        "sha256": "3390446858021fe178864417ca1adf49debf65b4da6f626122ce4fcd8af5ba2e",
+        "file": "3390446858021fe178864417ca1adf49debf65b4da6f626122ce4fcd8af5ba2e.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2025-06-30",
+      "accession": "0000080424-25-000076",
+      "filed": "2025-08-04",
+      "form": "10-K",
+      "value": "777000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042425000076/pg-20250630_htm.xml",
+        "sha256": "c77f0f8b2c710c17c180a3fc5586032f3b2e82f8b80e4d947f716aee9fc387e7",
+        "file": "c77f0f8b2c710c17c180a3fc5586032f3b2e82f8b80e4d947f716aee9fc387e7.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2015-12-31",
+      "accession": "0001193125-16-482577",
+      "filed": "2016-02-29",
+      "form": "10-K",
+      "value": "3452000000",
+      "concept": "AdditionalPaidInCapitalPreferredStock",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000119312516482577/pnc-20151231.xml",
+        "sha256": "f2f9ff4d8c658108e3f1ec6aa6f0ab40e76e16a8b6eab8a548dde676c6d77ffe",
+        "file": "f2f9ff4d8c658108e3f1ec6aa6f0ab40e76e16a8b6eab8a548dde676c6d77ffe.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2016-12-31",
+      "accession": "0001193125-17-062524",
+      "filed": "2017-02-28",
+      "form": "10-K",
+      "value": "3977000000",
+      "concept": "AdditionalPaidInCapitalPreferredStock",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000119312517062524/pnc-20161231.xml",
+        "sha256": "04e163f7dcb913c284e88782029e97ed25d843b65639852b56d353605c4960ba",
+        "file": "04e163f7dcb913c284e88782029e97ed25d843b65639852b56d353605c4960ba.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2017-12-31",
+      "accession": "0000713676-18-000032",
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "value": "3985000000",
+      "concept": "AdditionalPaidInCapitalPreferredStock",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367618000032/pnc-20171231.xml",
+        "sha256": "e30402ba91c83402647e89de6ae96437868a64cfb9096f3d6e1acedf0d189ea9",
+        "file": "e30402ba91c83402647e89de6ae96437868a64cfb9096f3d6e1acedf0d189ea9.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2018-12-31",
+      "accession": "0000713676-19-000015",
+      "filed": "2019-03-01",
+      "form": "10-K",
+      "value": "3986000000",
+      "concept": "AdditionalPaidInCapitalPreferredStock",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367619000015/pnc-20181231.xml",
+        "sha256": "26045ccf13b24f903dd0f8825d55f596e41c10d09b4088755fbed2570bfac48e",
+        "file": "26045ccf13b24f903dd0f8825d55f596e41c10d09b4088755fbed2570bfac48e.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2019-12-31",
+      "accession": "0000713676-20-000042",
+      "filed": "2020-03-02",
+      "form": "10-K",
+      "value": "3993000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367620000042/pnc201910-k_htm.xml",
+        "sha256": "c408ded4b720645d808a421d00095865a0a76edf1a016c59d6f35834092991ed",
+        "file": "c408ded4b720645d808a421d00095865a0a76edf1a016c59d6f35834092991ed.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2020-12-31",
+      "accession": "0000713676-21-000025",
+      "filed": "2021-02-26",
+      "form": "10-K",
+      "value": "3517000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367621000025/pnc-20201231_htm.xml",
+        "sha256": "3393f25625804b29af23582cda0e3fb3976a5b4d8a0936a246895737b8c812f9",
+        "file": "3393f25625804b29af23582cda0e3fb3976a5b4d8a0936a246895737b8c812f9.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2021-12-31",
+      "accession": "0000713676-22-000019",
+      "filed": "2022-02-25",
+      "form": "10-K",
+      "value": "5009000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367622000019/pnc-20211231_htm.xml",
+        "sha256": "f6bc963d536132534fcd8d838497fe66a878c3a3ec324349e87a1f26e8d92869",
+        "file": "f6bc963d536132534fcd8d838497fe66a878c3a3ec324349e87a1f26e8d92869.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2022-12-31",
+      "accession": "0000713676-23-000020",
+      "filed": "2023-02-22",
+      "form": "10-K",
+      "value": "5746000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367623000020/pnc-20221231_htm.xml",
+        "sha256": "6d2e5eaecf4d218e911d898b0dc91dd11f4a668092b563096c2ccc73ab63e0c5",
+        "file": "6d2e5eaecf4d218e911d898b0dc91dd11f4a668092b563096c2ccc73ab63e0c5.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2023-12-31",
+      "accession": "0000713676-24-000028",
+      "filed": "2024-02-21",
+      "form": "10-K",
+      "value": "6241000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367624000028/pnc-20231231_htm.xml",
+        "sha256": "63b66f9a6c7b36453fe5e66fcf184e9390ee48fd9d33465d6e6ef1424f88cc24",
+        "file": "63b66f9a6c7b36453fe5e66fcf184e9390ee48fd9d33465d6e6ef1424f88cc24.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2024-12-31",
+      "accession": "0000713676-25-000027",
+      "filed": "2025-02-21",
+      "form": "10-K",
+      "value": "5749000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367625000027/pnc-20241231_htm.xml",
+        "sha256": "5a5a1726243340b58c0d5881cab03c16dd2ea1d4736fdab8408024ff1bf42271",
+        "file": "5a5a1726243340b58c0d5881cab03c16dd2ea1d4736fdab8408024ff1bf42271.htm"
+      }
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "period_end": "2025-12-31",
+      "accession": "0000713676-26-000020",
+      "filed": "2026-02-20",
+      "form": "10-K",
+      "value": "5758000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockIncludingAdditionalPaidInCapitalMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367626000020/pnc-20251231_htm.xml",
+        "sha256": "1d8bd105ee0cc06542787d065b858f216c304be8b022f7bbc88414fb7529834d",
+        "file": "1d8bd105ee0cc06542787d065b858f216c304be8b022f7bbc88414fb7529834d.htm"
+      }
+    },
+    {
+      "ticker": "SO",
+      "cik": "0000092122",
+      "period_end": "2015-12-31",
+      "accession": "0000092122-16-000126",
+      "filed": "2016-02-26",
+      "form": "10-K",
+      "value": "609000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredAndPreferenceStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212216000126/so-20151231.xml",
+        "sha256": "87b22f9aef6f82c3cb51a654e80143208cbed409964d5180a3a49cbcf56ac120",
+        "file": "87b22f9aef6f82c3cb51a654e80143208cbed409964d5180a3a49cbcf56ac120.htm"
+      }
+    },
+    {
+      "ticker": "SRE",
+      "cik": "0001032208",
+      "period_end": "2018-12-31",
+      "accession": "0000086521-19-000014",
+      "filed": "2019-02-26",
+      "form": "10-K",
+      "value": "2258000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000008652119000014/sre20181231form10k_htm.xml",
+        "sha256": "4dc636125207a16702b788507d94eeac80fa593f209ed89cf72c077caa9960e5",
+        "file": "4dc636125207a16702b788507d94eeac80fa593f209ed89cf72c077caa9960e5.htm"
+      }
+    },
+    {
+      "ticker": "SRE",
+      "cik": "0001032208",
+      "period_end": "2019-12-31",
+      "accession": "0001032208-20-000006",
+      "filed": "2020-02-27",
+      "form": "10-K",
+      "value": "2258000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220820000006/sre20191231form10k_htm.xml",
+        "sha256": "1dd9b0104f609f2770bed880184ffe4c22d5e7e5802c2b2758cd94bed71daf4f",
+        "file": "1dd9b0104f609f2770bed880184ffe4c22d5e7e5802c2b2758cd94bed71daf4f.htm"
+      }
+    },
+    {
+      "ticker": "SRE",
+      "cik": "0001032208",
+      "period_end": "2020-12-31",
+      "accession": "0001032208-21-000007",
+      "filed": "2021-02-25",
+      "form": "10-K",
+      "value": "3147000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220821000007/sre-20201231_htm.xml",
+        "sha256": "f55689d0b99fb1ea708db0e039a5d1f97d21a6a9dc483456f32da10aa0763510",
+        "file": "f55689d0b99fb1ea708db0e039a5d1f97d21a6a9dc483456f32da10aa0763510.htm"
+      }
+    },
+    {
+      "ticker": "SRE",
+      "cik": "0001032208",
+      "period_end": "2021-12-31",
+      "accession": "0001032208-22-000007",
+      "filed": "2022-02-25",
+      "form": "10-K",
+      "value": "889000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220822000007/sre-20211231_htm.xml",
+        "sha256": "8e60e7e2795637e6582f2b1fe96133929b24258c1ac946e9fbf59e6137767705",
+        "file": "8e60e7e2795637e6582f2b1fe96133929b24258c1ac946e9fbf59e6137767705.htm"
+      }
+    }
+  ],
+  "without_value": [
+    {
+      "ticker": "AMT",
+      "cik": "0001053507",
+      "period_end": "2015-12-31",
+      "accession": "0001053507-16-000018",
+      "filed": "2016-02-26",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1053507/000105350716000018/amt-20151231.xml",
+        "sha256": "ccf7036504a890a1f1922868a6748f6baf8242bd795c6057dd25a439b15d0f58",
+        "file": "ccf7036504a890a1f1922868a6748f6baf8242bd795c6057dd25a439b15d0f58.htm"
+      }
+    },
+    {
+      "ticker": "AMT",
+      "cik": "0001053507",
+      "period_end": "2016-12-31",
+      "accession": "0001053507-17-000009",
+      "filed": "2017-02-27",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1053507/000105350717000009/amt-20161231.xml",
+        "sha256": "0cb281c8f661ddd451dd32f2490fb3d2fb2b6e25d0941e56fa50e417400f3a40",
+        "file": "0cb281c8f661ddd451dd32f2490fb3d2fb2b6e25d0941e56fa50e417400f3a40.htm"
+      }
+    },
+    {
+      "ticker": "AMT",
+      "cik": "0001053507",
+      "period_end": "2017-12-31",
+      "accession": "0001053507-18-000006",
+      "filed": "2018-02-28",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1053507/000105350718000006/amt-20171231.xml",
+        "sha256": "c3154f3bb830ae9ea12feb73fe1e393a236b88ccd39c41f7497ef911feebdb6f",
+        "file": "c3154f3bb830ae9ea12feb73fe1e393a236b88ccd39c41f7497ef911feebdb6f.htm"
+      }
+    },
+    {
+      "ticker": "AMT",
+      "cik": "0001053507",
+      "period_end": "2018-12-31",
+      "accession": "0001053507-19-000012",
+      "filed": "2019-02-27",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1053507/000105350719000012/amt-20181231.xml",
+        "sha256": "0cc7be4460e27a2ec5df0ba2551e8f396392f9690a12b0c73b93fd2d836fd824",
+        "file": "0cc7be4460e27a2ec5df0ba2551e8f396392f9690a12b0c73b93fd2d836fd824.htm"
+      }
+    },
+    {
+      "ticker": "AVGO",
+      "cik": "0001730168",
+      "period_end": "2022-10-30",
+      "accession": "0001730168-22-000118",
+      "filed": "2022-12-16",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016822000118/avgo-20221030_htm.xml",
+        "sha256": "4a327ea93a7fd9ea53cca2b40caf32761f8640f0c0b04c82554c979ae5977373",
+        "file": "4a327ea93a7fd9ea53cca2b40caf32761f8640f0c0b04c82554c979ae5977373.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2015-12-31",
+      "accession": "0001193125-16-469798",
+      "filed": "2016-02-19",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000119312516469798/axp-20151231.xml",
+        "sha256": "87b0b128c0a42abb32ddcdc0af290c59347ea5a3f217358b7ba7845a24aef694",
+        "file": "87b0b128c0a42abb32ddcdc0af290c59347ea5a3f217358b7ba7845a24aef694.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2016-12-31",
+      "accession": "0001193125-17-047588",
+      "filed": "2017-02-17",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000119312517047588/axp-20161231.xml",
+        "sha256": "f63f0746ccffa4f617464f3c43d8d8c73dce9a0d6a9f957e640ca40f502f9d6e",
+        "file": "f63f0746ccffa4f617464f3c43d8d8c73dce9a0d6a9f957e640ca40f502f9d6e.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2017-12-31",
+      "accession": "0000004962-18-000032",
+      "filed": "2018-02-16",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496218000032/axp-20171231.xml",
+        "sha256": "0c401243927ec7d52059d8cf0dd688730ab8768f3f0c3cf38f370fb25a6a4bc9",
+        "file": "0c401243927ec7d52059d8cf0dd688730ab8768f3f0c3cf38f370fb25a6a4bc9.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2018-12-31",
+      "accession": "0000004962-19-000018",
+      "filed": "2019-02-13",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496219000018/axp-20181231.xml",
+        "sha256": "5b4a8040459e4d9cedf1683577c08c298217b51f565dbff2341e7816ecf09e3e",
+        "file": "5b4a8040459e4d9cedf1683577c08c298217b51f565dbff2341e7816ecf09e3e.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2019-12-31",
+      "accession": "0000004962-20-000030",
+      "filed": "2020-02-13",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496220000030/axp-20191231_htm.xml",
+        "sha256": "2ee98741a876dc1dcd2bafb4f4447133eaffbb0b3ab3a6e0062fad1f6faf8b52",
+        "file": "2ee98741a876dc1dcd2bafb4f4447133eaffbb0b3ab3a6e0062fad1f6faf8b52.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2020-12-31",
+      "accession": "0000004962-21-000013",
+      "filed": "2021-02-12",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496221000013/axp-20201231_htm.xml",
+        "sha256": "d1e940d8c42fd2cd90402e2853663c9e443eb9412129b1c32bff3e4344079c23",
+        "file": "d1e940d8c42fd2cd90402e2853663c9e443eb9412129b1c32bff3e4344079c23.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2021-12-31",
+      "accession": "0000004962-22-000008",
+      "filed": "2022-02-11",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496222000008/axp-20211231_htm.xml",
+        "sha256": "af0e5d43138a26c1576fc0016b2df4fe90d9eb82ba0c3afda87318e619faefcb",
+        "file": "af0e5d43138a26c1576fc0016b2df4fe90d9eb82ba0c3afda87318e619faefcb.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2022-12-31",
+      "accession": "0000004962-23-000006",
+      "filed": "2023-02-10",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496223000006/axp-20221231_htm.xml",
+        "sha256": "d212cf4b19be2f995586c5b644a3bb12e4053e03c4ca81de642dc74e824884f6",
+        "file": "d212cf4b19be2f995586c5b644a3bb12e4053e03c4ca81de642dc74e824884f6.htm"
+      }
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "period_end": "2023-12-31",
+      "accession": "0000004962-24-000013",
+      "filed": "2024-02-09",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496224000013/axp-20231231_htm.xml",
+        "sha256": "5e5f6d2beea3f22d15247045132e620a90acdd1b4eb2bd56b3ef3cb4934ad673",
+        "file": "5e5f6d2beea3f22d15247045132e620a90acdd1b4eb2bd56b3ef3cb4934ad673.htm"
+      }
+    },
+    {
+      "ticker": "BA",
+      "cik": "0000012927",
+      "period_end": "2024-12-31",
+      "accession": "0000012927-25-000015",
+      "filed": "2025-02-03",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/12927/000001292725000015/ba-20241231_htm.xml",
+        "sha256": "83262330244a64635b757f86eff823ed6fe8c9389def0d6e3527f130c06fb13e",
+        "file": "83262330244a64635b757f86eff823ed6fe8c9389def0d6e3527f130c06fb13e.htm"
+      }
+    },
+    {
+      "ticker": "BA",
+      "cik": "0000012927",
+      "period_end": "2025-12-31",
+      "accession": "0001628280-26-004357",
+      "filed": "2026-01-30",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/12927/000162828026004357/ba-20251231_htm.xml",
+        "sha256": "e17b081dadba9d454816fd16820c964ef8d3dc267bfd450c919808555cd86672",
+        "file": "e17b081dadba9d454816fd16820c964ef8d3dc267bfd450c919808555cd86672.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2017-09-30",
+      "accession": "0000010795-17-000021",
+      "filed": "2017-11-22",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000001079517000021/bdx-20170930.xml",
+        "sha256": "02a1a95ac7ef1e80e11fbf22f527557fe704bab0ffca3ec36d1b7de8a8d44328",
+        "file": "02a1a95ac7ef1e80e11fbf22f527557fe704bab0ffca3ec36d1b7de8a8d44328.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2018-09-30",
+      "accession": "0000010795-18-000036",
+      "filed": "2018-11-21",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000001079518000036/bdx-20180930.xml",
+        "sha256": "86d9a0c6daabc4c39a72dc1efa4947137a428634dc148da0df5576d1c22effdf",
+        "file": "86d9a0c6daabc4c39a72dc1efa4947137a428634dc148da0df5576d1c22effdf.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2019-09-30",
+      "accession": "0000010795-19-000044",
+      "filed": "2019-11-27",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000001079519000044/bdx2019-09x3010xk_htm.xml",
+        "sha256": "2701a4b2aa8bf989e7d674e7fa0e1fd89eac9771de0fe887f91824a6bdec6ac8",
+        "file": "2701a4b2aa8bf989e7d674e7fa0e1fd89eac9771de0fe887f91824a6bdec6ac8.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2020-09-30",
+      "accession": "0000010795-20-000055",
+      "filed": "2020-11-25",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000001079520000055/bdx-20200930_htm.xml",
+        "sha256": "e0759273f8346debc0ccaf26715c03813cbcfdcef6da3f7388d9bc348bd5071e",
+        "file": "e0759273f8346debc0ccaf26715c03813cbcfdcef6da3f7388d9bc348bd5071e.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2021-09-30",
+      "accession": "0000010795-21-000091",
+      "filed": "2021-11-24",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000001079521000091/bdx-20210930_htm.xml",
+        "sha256": "73515a8258e39db14ed32df4de54d20584a5c12c6a9b003dbe269c41f27137dc",
+        "file": "73515a8258e39db14ed32df4de54d20584a5c12c6a9b003dbe269c41f27137dc.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2022-09-30",
+      "accession": "0001628280-22-030686",
+      "filed": "2022-11-22",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000162828022030686/bdx-20220930_htm.xml",
+        "sha256": "ac1c394b08befcafb8951537b39c95f5f0ea577e64989e27124fc8372b378372",
+        "file": "ac1c394b08befcafb8951537b39c95f5f0ea577e64989e27124fc8372b378372.htm"
+      }
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "period_end": "2023-09-30",
+      "accession": "0000010795-23-000098",
+      "filed": "2023-11-21",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/10795/000001079523000098/bdx-20230930_htm.xml",
+        "sha256": "43ccb30bec2d0fa58211513be2a12399d4d44e73aa335a88743afb1037527707",
+        "file": "43ccb30bec2d0fa58211513be2a12399d4d44e73aa335a88743afb1037527707.htm"
+      }
+    },
+    {
+      "ticker": "BSX",
+      "cik": "0000885725",
+      "period_end": "2020-12-31",
+      "accession": "0000885725-21-000008",
+      "filed": "2021-02-23",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572521000008/bsx-20201231_htm.xml",
+        "sha256": "be1e71a36da083d16627785819822a0357f428692e2ff070aaba598f05cd6b8e",
+        "file": "be1e71a36da083d16627785819822a0357f428692e2ff070aaba598f05cd6b8e.htm"
+      }
+    },
+    {
+      "ticker": "BSX",
+      "cik": "0000885725",
+      "period_end": "2021-12-31",
+      "accession": "0000885725-22-000006",
+      "filed": "2022-02-23",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572522000006/bsx-20211231_htm.xml",
+        "sha256": "859599699d631fb2677144be60f116ee7f8689ccde193421aa9dadf8f6eb7935",
+        "file": "859599699d631fb2677144be60f116ee7f8689ccde193421aa9dadf8f6eb7935.htm"
+      }
+    },
+    {
+      "ticker": "BSX",
+      "cik": "0000885725",
+      "period_end": "2022-12-31",
+      "accession": "0000885725-23-000008",
+      "filed": "2023-02-23",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/885725/000088572523000008/bsx-20221231_htm.xml",
+        "sha256": "35872ac69de0e071e86ee4cb3ad151d5903e3c7f8e22eb448ca9f3070db590e9",
+        "file": "35872ac69de0e071e86ee4cb3ad151d5903e3c7f8e22eb448ca9f3070db590e9.htm"
+      }
+    },
+    {
+      "ticker": "FCX",
+      "cik": "0000831259",
+      "period_end": "2015-12-31",
+      "accession": "0000831259-16-000062",
+      "filed": "2016-02-26",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125916000062/fcx-20151231.xml",
+        "sha256": "64f69cff01163f1b6f6fee0e771692623d802699d948733202256f96a2d67a34",
+        "file": "64f69cff01163f1b6f6fee0e771692623d802699d948733202256f96a2d67a34.htm"
+      }
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "period_end": "2016-12-31",
+      "accession": "0000040545-17-000010",
+      "filed": "2017-02-24",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054517000010/ge-20161231.xml",
+        "sha256": "aa058affb6ee6be156cb7734ccbf59a2504080ff11a34bda84208c6e66cb6890",
+        "file": "aa058affb6ee6be156cb7734ccbf59a2504080ff11a34bda84208c6e66cb6890.htm"
+      }
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "period_end": "2017-12-31",
+      "accession": "0000040545-18-000014",
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054518000014/ge-20171231.xml",
+        "sha256": "733beb1137b777f101fc2d4ccc86220f51ee14198a6d6412669265b64f2fe4e1",
+        "file": "733beb1137b777f101fc2d4ccc86220f51ee14198a6d6412669265b64f2fe4e1.htm"
+      }
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "period_end": "2018-12-31",
+      "accession": "0000040545-19-000014",
+      "filed": "2019-02-26",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054519000014/ge-20181231.xml",
+        "sha256": "117c1fcb1cc8cf8990f6a4f385f8b2cfc702c2bd720896496d93a457c7d8ebff",
+        "file": "117c1fcb1cc8cf8990f6a4f385f8b2cfc702c2bd720896496d93a457c7d8ebff.htm"
+      }
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "period_end": "2019-12-31",
+      "accession": "0000040545-20-000009",
+      "filed": "2020-02-24",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054520000009/ge10-k2019_htm.xml",
+        "sha256": "fa68e9901eeb1d60b2322cad0f23bd9d3721477ba694726bf92bd4cd88a7a957",
+        "file": "fa68e9901eeb1d60b2322cad0f23bd9d3721477ba694726bf92bd4cd88a7a957.htm"
+      }
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "period_end": "2020-12-31",
+      "accession": "0000040545-21-000011",
+      "filed": "2021-02-12",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054521000011/ge-20201231_htm.xml",
+        "sha256": "0ee40042d2c1bc192564a9aa4e6739a4b6a678f58ebb31117b438d47c494d9ec",
+        "file": "0ee40042d2c1bc192564a9aa4e6739a4b6a678f58ebb31117b438d47c494d9ec.htm"
+      }
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "period_end": "2023-12-31",
+      "accession": "0000040545-24-000027",
+      "filed": "2024-02-02",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/40545/000004054524000027/ge-20231231_htm.xml",
+        "sha256": "7618594c40e4be909d5bc5bd96270e53fc5c298013bf6dc3a23518f273ad28f8",
+        "file": "7618594c40e4be909d5bc5bd96270e53fc5c298013bf6dc3a23518f273ad28f8.htm"
+      }
+    },
+    {
+      "ticker": "GM",
+      "cik": "0001467858",
+      "period_end": "2018-12-31",
+      "accession": "0001467858-19-000033",
+      "filed": "2019-02-06",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785819000033/gm-20181231.xml",
+        "sha256": "ba9e50ba00471a938d8d4be95a688d79e380ec8c2c10c095e8b4504c937a1b06",
+        "file": "ba9e50ba00471a938d8d4be95a688d79e380ec8c2c10c095e8b4504c937a1b06.htm"
+      }
+    },
+    {
+      "ticker": "GM",
+      "cik": "0001467858",
+      "period_end": "2019-12-31",
+      "accession": "0001467858-20-000028",
+      "filed": "2020-02-05",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785820000028/gm201910k_htm.xml",
+        "sha256": "74bd3637d6d3d938c8c69e62b6905ec17b3b57ceb049965ea396f17347d2e784",
+        "file": "74bd3637d6d3d938c8c69e62b6905ec17b3b57ceb049965ea396f17347d2e784.htm"
+      }
+    },
+    {
+      "ticker": "GM",
+      "cik": "0001467858",
+      "period_end": "2020-12-31",
+      "accession": "0001467858-21-000037",
+      "filed": "2021-02-10",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785821000037/gm-20201231_htm.xml",
+        "sha256": "9712794a8c7d77a2e41527ad5aa20f7b76d4f4af69f0d8283c2173de64a8729d",
+        "file": "9712794a8c7d77a2e41527ad5aa20f7b76d4f4af69f0d8283c2173de64a8729d.htm"
+      }
+    },
+    {
+      "ticker": "GM",
+      "cik": "0001467858",
+      "period_end": "2021-12-31",
+      "accession": "0001467858-22-000034",
+      "filed": "2022-02-02",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785822000034/gm-20211231_htm.xml",
+        "sha256": "fe5b7ab385e31e952d68cd1da87a47670ce59b8d8a9f47f8c9a9e4bd33974180",
+        "file": "fe5b7ab385e31e952d68cd1da87a47670ce59b8d8a9f47f8c9a9e4bd33974180.htm"
+      }
+    },
+    {
+      "ticker": "GM",
+      "cik": "0001467858",
+      "period_end": "2022-12-31",
+      "accession": "0001467858-23-000029",
+      "filed": "2023-01-31",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785823000029/gm-20221231_htm.xml",
+        "sha256": "defdf9cad744dda47d9cb97b52a9cf992f5bc4d53c0e869fba826220bb8b6722",
+        "file": "defdf9cad744dda47d9cb97b52a9cf992f5bc4d53c0e869fba826220bb8b6722.htm"
+      }
+    },
+    {
+      "ticker": "GOOGL",
+      "cik": "0001652044",
+      "period_end": "2015-12-31",
+      "accession": "0001652044-16-000012",
+      "filed": "2016-02-11",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204416000012/goog-20151231.xml",
+        "sha256": "d4444b4196d721b4bfc547aa41227a50aab43454169757b95a2c60bc833a07c0",
+        "file": "d4444b4196d721b4bfc547aa41227a50aab43454169757b95a2c60bc833a07c0.htm"
+      }
+    },
+    {
+      "ticker": "KKR",
+      "cik": "0001404912",
+      "period_end": "2016-12-31",
+      "accession": "0001404912-17-000005",
+      "filed": "2017-02-24",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491217000005/kkr-20161231.xml",
+        "sha256": "588c8ec1df52ab6d6dd5ff6b601ca93f13bc3d3bc7159f493f77588a58616814",
+        "file": "588c8ec1df52ab6d6dd5ff6b601ca93f13bc3d3bc7159f493f77588a58616814.htm"
+      }
+    },
+    {
+      "ticker": "KKR",
+      "cik": "0001404912",
+      "period_end": "2017-12-31",
+      "accession": "0001404912-18-000005",
+      "filed": "2018-02-23",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491218000005/kkr-20171231.xml",
+        "sha256": "7a5501957de20afd3c9143a3d5e4f9520d8d012bb10d907165f4b5f92a4dd227",
+        "file": "7a5501957de20afd3c9143a3d5e4f9520d8d012bb10d907165f4b5f92a4dd227.htm"
+      }
+    },
+    {
+      "ticker": "KKR",
+      "cik": "0001404912",
+      "period_end": "2021-12-31",
+      "accession": "0001404912-22-000004",
+      "filed": "2022-02-28",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491222000004/kkr-20211231_htm.xml",
+        "sha256": "eefbc1561bc2421fa8d9584633422cd51eb4e4b4f54f327c7b3f3e4510f8a5d6",
+        "file": "eefbc1561bc2421fa8d9584633422cd51eb4e4b4f54f327c7b3f3e4510f8a5d6.htm"
+      }
+    },
+    {
+      "ticker": "KMI",
+      "cik": "0001506307",
+      "period_end": "2016-12-31",
+      "accession": "0001506307-17-000008",
+      "filed": "2017-02-10",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630717000008/kmi-20161231.xml",
+        "sha256": "94c868cb8556a5a8ec686d23a9a50c7f8cd0550ee3760e45fb22b8716d5e9ecf",
+        "file": "94c868cb8556a5a8ec686d23a9a50c7f8cd0550ee3760e45fb22b8716d5e9ecf.htm"
+      }
+    },
+    {
+      "ticker": "KMI",
+      "cik": "0001506307",
+      "period_end": "2017-12-31",
+      "accession": "0001506307-18-000010",
+      "filed": "2018-02-09",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630718000010/kmi-20171231.xml",
+        "sha256": "7e6b32f05f665efb529515df405ff953616130b050c3006ff7443b0a1d213a52",
+        "file": "7e6b32f05f665efb529515df405ff953616130b050c3006ff7443b0a1d213a52.htm"
+      }
+    },
+    {
+      "ticker": "KMI",
+      "cik": "0001506307",
+      "period_end": "2018-12-31",
+      "accession": "0001506307-19-000033",
+      "filed": "2019-02-08",
+      "form": "10-K",
+      "reason": "zero",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630719000033/kmi-20181231.xml",
+        "sha256": "f729baa4e4811f8113446e483c4b93b2caaac7f4bb724c0e12cd5497596feb58",
+        "file": "f729baa4e4811f8113446e483c4b93b2caaac7f4bb724c0e12cd5497596feb58.htm"
+      }
+    },
+    {
+      "ticker": "T",
+      "cik": "0000732717",
+      "period_end": "2022-12-31",
+      "accession": "0000732717-23-000011",
+      "filed": "2023-02-13",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/732717/000073271723000011/t-20221231_htm.xml",
+        "sha256": "6e0de5992712989ee62130a8969610665c38eb6c8671be4381fdff7d14b9e0f1",
+        "file": "6e0de5992712989ee62130a8969610665c38eb6c8671be4381fdff7d14b9e0f1.htm"
+      }
+    },
+    {
+      "ticker": "T",
+      "cik": "0000732717",
+      "period_end": "2023-12-31",
+      "accession": "0000732717-24-000009",
+      "filed": "2024-02-23",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/732717/000073271724000009/t-20231231_htm.xml",
+        "sha256": "759d23131740a8ae517ac4e5e9040feda773e43513be4142e1c25d16274cb10b",
+        "file": "759d23131740a8ae517ac4e5e9040feda773e43513be4142e1c25d16274cb10b.htm"
+      }
+    },
+    {
+      "ticker": "TMUS",
+      "cik": "0001283699",
+      "period_end": "2017-12-31",
+      "accession": "0001283699-18-000011",
+      "filed": "2018-02-08",
+      "form": "10-K",
+      "reason": "no preferred column",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1283699/000128369918000011/tmus-20171231.xml",
+        "sha256": "da3c3b961ee6f564e10560022e2cb7d34f2432304eb4cfe34fa28bae00466845",
+        "file": "da3c3b961ee6f564e10560022e2cb7d34f2432304eb4cfe34fa28bae00466845.htm"
+      }
+    }
+  ]
+}

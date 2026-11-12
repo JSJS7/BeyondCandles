@@ -10,6 +10,7 @@ from app.automatic_metrics import (
     AUTOMATIC_METRICS,
     automatic_versions,
     operating_income_exclusions,
+    preferred_equity_values,
     share_scale_corrections,
     value_corrections,
 )
@@ -80,6 +81,7 @@ def rebuild_history(connection):
     scale_corrections = share_scale_corrections()
     income_exclusions = operating_income_exclusions()
     corrections = value_corrections()
+    preferred_columns = preferred_equity_values()
     companies = connection.execute(
         select(Company.id, Company.ticker).where(Company.cik.is_not(None))
     ).all()
@@ -111,6 +113,7 @@ def rebuild_history(connection):
             scale_corrections,
             income_exclusions,
             corrections,
+            preferred_columns,
         )
         rows = [version_row(company_id, version) for version in versions]
         for row in rows:

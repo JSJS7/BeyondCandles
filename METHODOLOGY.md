@@ -127,11 +127,16 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   annual report states (`data/exchangeable-units.json`), for companies whose units exceed 5% of the
   share count; the ratios are marked *Exchangeable units*. Ordinary minority stakes in subsidiaries
   follow the usual convention of market value over consolidated revenue.
-- **Common equity:** equity minus preferred stock. Without a value, the deduction is zero only if there
-  are no preferred dividends or they are at most 0.2% of equity; otherwise common-share ratios stay
-  empty. A value is rejected when annual preferred dividends exceed 25% of it, because it is then only
-  par value or a scale error. Companies whose diluted count already holds preferred stock as converted
-  do not deduct it (`data/participating-preferred.json`).
+- **Common equity:** equity minus preferred stock, as analysis sites deduct it. The value comes from the
+  preferred stock tags, or else from the preferred stock column of the statement of changes in equity
+  in the XBRL instance of the period's first annual report, which companyfacts does not hold (Morgan
+  Stanley, PNC; `data/preferred-equity-values.json`). When annual preferred dividends exceed 25% of a
+  value, it may be only par value or a scale error, and it counts only if it is at least 0.5% of equity
+  (Procter & Gamble's employee preferred shares receive the common dividend). Without a usable value,
+  the deduction is zero only if there are no preferred dividends or they are at most 0.2% of equity;
+  otherwise common-share ratios stay empty, as for companies that hold preferred stock within paid-in
+  capital. Companies whose diluted count already holds preferred stock as converted do not deduct it
+  (`data/participating-preferred.json`).
 - **Growth marker:** when the table's series implies a change more than 5% away from the report's own,
   or a value changes sign between the sources, the row is marked as a break in the series. The company
   page uses the same rule for all five reviewed measures and shows the change as one report states it;

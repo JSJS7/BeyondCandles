@@ -22,6 +22,7 @@ CHECKABLE_COMMANDS = (
     "review-operating-cash-flow",
     "review-sec-periods",
     "review-versions",
+    "review-preferred-equity",
 )
 
 
@@ -115,6 +116,10 @@ def run_command(args):
         from .version_reviews import review_versions
 
         result = review_versions(fetch=args.fetch)
+    elif args.command == "review-preferred-equity":
+        from .preferred_equity import review_preferred_equity
+
+        result = review_preferred_equity(fetch_missing=args.fetch)
     elif args.command == "check-documents":
         from .document_check import check_documents
 
@@ -185,6 +190,7 @@ def main():
             "review-operating-cash-flow",
             "review-sec-periods",
             "review-versions",
+            "review-preferred-equity",
             "import-sec",
             "build-history",
             "check-documents",

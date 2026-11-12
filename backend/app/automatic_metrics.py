@@ -2,8 +2,9 @@
 
 Each cell (company, annual period, metric) gets a version whenever its selected value
 changes. Tags are tried in the listed order, so a backup tag counts only while the main
-one is unknown; capex has its own order in select_capex. These cells join the annual
-periods of the reviewed metrics and never create a period of their own.
+one is unknown; capex and preferred stock have their own order in select_capex and
+select_preferred_value. These cells join the annual periods of the reviewed metrics and
+never create a period of their own.
 """
 
 from collections import defaultdict
@@ -26,6 +27,9 @@ OPERATING_INCOME_EXCLUSIONS_PATH = (
 )
 VALUE_CORRECTIONS_PATH = (
     Path(__file__).resolve().parents[2] / "data/automatic-value-corrections.json"
+)
+PREFERRED_EQUITY_VALUES_PATH = (
+    Path(__file__).resolve().parents[2] / "data/preferred-equity-values.json"
 )
 CONFIRMED_AUTOMATIC = "automatic"
 # Capex is the purchase of property, plant and equipment, then a wider productive-assets
@@ -88,10 +92,14 @@ AUTOMATIC_METRICS = {
 BALANCE_METRICS = ("assets", "preferred_value")
 SHARE_METRIC = "shares_diluted"
 BASIC_SHARES_TAG = "WeightedAverageNumberOfSharesOutstandingBasic"
-# Annual dividends above this share of a preferred value mean the value is only par
+# Annual dividends above this share of a preferred value mean the value may be only par
 # value or a scale error: GE shows 6 million against a 5795 million preference. Stated
 # dividend rates in the catalogue stay below 10%.
 LARGEST_PREFERRED_DIVIDEND_RATE = Decimal("0.25")
+# Such a value is still the whole amount when it is at least this share of equity. Par
+# value alone stays far below: BA 0.11%, GE, BDX and AMT about 0.01%. PG's ESOP shares
+# receive the common dividend, 27–37% of their value, and are 1.5–1.9% of equity (M49).
+SMALLEST_WHOLE_PREFERRED_SHARE_OF_EQUITY = Decimal("0.005")
 # A count under this share of the company's largest count is a scale error of the tag,
 # compared after splits: MCD tags 732.3 million as 732.3 shares, and its report and those
 # of DLR, COP, PCAR, COR and AMT show the true number. No real count falls that far.
@@ -119,6 +127,11 @@ def operating_income_exclusions():
 def value_corrections():
     """Cells whose tag is wrong above the thresholds, with the value their report states."""
     return load_policy(VALUE_CORRECTIONS_PATH, "value-corrections")["corrections"]
+
+
+def preferred_equity_values():
+    """Preferred stock read from the equity statement column of a report's instance."""
+    return load_policy(PREFERRED_EQUITY_VALUES_PATH, "preferred-equity")["values"]
 
 
 def without_excluded_operating_income(facts, ticker, exclusions):
@@ -243,32 +256,64 @@ def select_capex(facts):
     return []
 
 
-def select_preferred_value(facts, dividends):
-    """The first plausible positive value; a reported zero only if there is none."""
-    reported_zero = None
+def preferred_candidates(facts):
+    """The newest fact of each value tag in order, then the equity statement column."""
+    candidates = []
     for tag in AUTOMATIC_METRICS["preferred_value"]:
         selected = latest_of_tag(facts, tag)
-        if selected is None:
-            continue
-        value = selected["value"]
+        if selected is not None:
+            candidates.append(selected)
+    columns = [fact for fact in facts if fact.get("equity_column")]
+    if columns:
+        newest_column = max(
+            columns, key=lambda fact: (fact["filed"], fact["accession"])
+        )
+        candidates.append(newest_column)
+    return candidates
+
+
+def select_preferred_value(facts, dividends):
+    """The first positive value that dividends do not contradict.
+
+    If dividends contradict every positive value, the largest one is kept, because only
+    the ratios know equity and can tell a whole amount from par value (preferred_deduction).
+    A reported zero is kept only when there is no positive value at all.
+    """
+    reported_zero = None
+    contradicted = []
+    for candidate in preferred_candidates(facts):
+        value = candidate["value"]
         if value == 0:
-            reported_zero = reported_zero or selected
+            reported_zero = reported_zero or candidate
             continue
         if value < 0:
             continue
         if dividends is None or dividends <= value * LARGEST_PREFERRED_DIVIDEND_RATE:
-            return selected
+            return candidate
+        contradicted.append(candidate)
+    if contradicted:
+        return max(contradicted, key=lambda candidate: candidate["value"])
     return reported_zero
+
+
+def is_whole_preferred_value(value, dividends, equity):
+    """Whether a positive value is the whole preferred amount rather than par value."""
+    if dividends is None or dividends <= value * LARGEST_PREFERRED_DIVIDEND_RATE:
+        return True
+    if equity is None or equity <= 0:
+        return False
+    return value >= equity * SMALLEST_WHOLE_PREFERRED_SHARE_OF_EQUITY
 
 
 def preferred_deduction(value, dividends, equity):
     """What P/B and ROE of common shareholders subtract from equity; None leaves them empty.
 
-    A positive value was already tested against dividends when its cell was selected.
-    A missing or zero value proves nothing while the company pays preferred dividends.
+    A value that may be only par value counts as missing. A missing or zero value proves
+    nothing while the company pays preferred dividends.
     """
     if value is not None and value > 0:
-        return value
+        if is_whole_preferred_value(value, dividends, equity):
+            return value
     if dividends is None or dividends <= 0:
         return Decimal(0)
     if equity is not None and equity > 0:
@@ -343,6 +388,8 @@ def source_of(fact):
         filed=fact["filed"],
         accession=fact["accession"],
         form=fact["form"],
+        statement_url=fact.get("statement_url"),
+        statement_column=fact.get("statement_column"),
     )
 
 
@@ -362,6 +409,11 @@ def cell_metric(metric, fact, ticker, split_policy):
         note += " The tag lacks the unit that the report's own table states."
     if fact["tag"] == BASIC_SHARES_TAG:
         note += " Basic share count: the company reports no diluted count."
+    if fact.get("equity_column"):
+        note += (
+            " Read from the preferred stock column of the statement of changes in"
+            " equity in the report's XBRL instance, which companyfacts does not hold."
+        )
     return AnnualMetric(
         status="ready",
         value=value,
@@ -489,6 +541,36 @@ def with_value_corrections(versions, ticker, periods, corrections):
     return result
 
 
+def preferred_column_facts(entries, ticker):
+    """Facts for the preferred values that review-preferred-equity read from instances."""
+    facts = []
+    for entry in entries:
+        if entry["ticker"] != ticker:
+            continue
+        period_end = date.fromisoformat(entry["period_end"])
+        facts.append(
+            {
+                "source_cik": entry["cik"],
+                "metric": "preferred_value",
+                "taxonomy": "us-gaap",
+                "tag": entry["concept"],
+                "unit": "USD",
+                "value": Decimal(entry["value"]),
+                "period_start": period_end,
+                "period_end": period_end,
+                "filed": date.fromisoformat(entry["filed"]),
+                "accession": entry["accession"],
+                "form": entry["form"],
+                "period_kind": "instant",
+                "history_eligible": True,
+                "statement_url": entry["instance"]["url"],
+                "statement_column": entry["member"],
+                "equity_column": True,
+            }
+        )
+    return facts
+
+
 def automatic_versions(
     ticker,
     facts,
@@ -498,10 +580,12 @@ def automatic_versions(
     scale_corrections=(),
     income_exclusions=(),
     value_corrections=(),
+    preferred_columns=(),
 ):
     """Build every automatic cell history of one company for its reviewed periods."""
     versions = []
     periods = set(periods)
+    facts = [*facts, *preferred_column_facts(preferred_columns, ticker)]
     facts = without_excluded_operating_income(facts, ticker, income_exclusions)
     facts = with_scale_corrections(facts, ticker, scale_corrections)
     facts = without_share_scale_errors(facts, ticker, split_policy)
