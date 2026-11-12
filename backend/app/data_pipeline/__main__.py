@@ -139,6 +139,14 @@ def run_command(args):
         from .ratio_reference import check_ratios
 
         result = check_ratios()
+    elif args.command == "save-screener-grid":
+        from .screener_grid import save_screener_grid
+
+        result = save_screener_grid()
+    elif args.command == "compare-screener-grid":
+        from .screener_grid import compare_screener_grid
+
+        result = compare_screener_grid()
     elif args.command == "inspect-db":
         from .verification import inspect_db
 
@@ -185,6 +193,8 @@ def main():
             "check-identities",
             "check-invariants",
             "check-ratios",
+            "save-screener-grid",
+            "compare-screener-grid",
             "inspect-db",
             "verify-db",
         ),

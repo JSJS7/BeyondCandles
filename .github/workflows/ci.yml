@@ -1,6 +1,7 @@
 # Checks every push to main and every pull request: lint, formatting, types and tests.
-# Database tests and data checks need PostgreSQL and the local data/raw files, so they stay
-# manual (AGENTS.md, section 6).
+# The database tests run on a PostgreSQL service (K23); they create and drop their own
+# databases. Data checks need the local data/raw files, so they stay manual
+# (AGENTS.md, section 6).
 name: CI
 
 on:
@@ -17,12 +18,28 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    services:
+      postgres:
+        # The same major version as compose.yaml.
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: ci
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     env:
-      # Placeholders for the required settings: the API tests use SQLite, and the PostgreSQL
-      # tests are skipped without BC_RUN_DB_TESTS. No SEC_USER_AGENT, so nothing can call SEC.
+      # Settings of the CI database only. No SEC_USER_AGENT, so nothing can call SEC.
       POSTGRES_DB: ci
       POSTGRES_USER: ci
       POSTGRES_PASSWORD: ci
+      POSTGRES_HOST: 127.0.0.1
+      BC_RUN_DB_TESTS: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

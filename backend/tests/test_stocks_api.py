@@ -789,6 +789,42 @@ class StockApiTests(unittest.TestCase):
         self.assertEqual(latest[1]["period_end"], "2020-12-31")
         self.assertEqual(income_latest["growth_report"]["accession"], "y21")
 
+    def test_as_of_on_the_filing_day_uses_that_report_for_growth(self):
+        """K21: a version is known from its filing day inclusive, so growth on that day
+        must come from the same report. Excluding the filing day would show the 2021
+        period without growth and read 2020 from the older report."""
+        facts = [
+            reported_fact(
+                period_start=start,
+                period_end=end,
+                value=Decimal(value),
+                filed=filed,
+                accession=accession,
+            )
+            for start, end, value, filed, accession in (
+                (date(2019, 1, 1), date(2019, 12, 31), "100", date(2021, 2, 1), "y20"),
+                (date(2020, 1, 1), date(2020, 12, 31), "120", date(2021, 2, 1), "y20"),
+                (date(2019, 1, 1), date(2019, 12, 31), "100", date(2022, 2, 1), "y21"),
+                (date(2020, 1, 1), date(2020, 12, 31), "120", date(2022, 2, 1), "y21"),
+                (date(2021, 1, 1), date(2021, 12, 31), "150", date(2022, 2, 1), "y21"),
+            )
+        ]
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                [dict(fact, company_id=1) for fact in facts],
+            )
+        self.build_history()
+
+        filing_day = self.annual_as_of("2022-02-01").json()
+
+        income_2021 = filing_day[0]["metrics"]["net_income"]
+        self.assertEqual(filing_day[0]["period_end"], "2021-12-31")
+        self.assertEqual(income_2021["growth"], "0.25")
+        self.assertEqual(income_2021["growth_report"]["accession"], "y21")
+        income_2020 = filing_day[1]["metrics"]["net_income"]
+        self.assertEqual(income_2020["growth_report"]["accession"], "y21")
+
     def test_as_of_rejects_future_dates_and_missing_history(self):
         """A future date is invalid; an unbuilt history must not look like no data."""
         self.insert_restated_income()

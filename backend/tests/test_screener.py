@@ -3,6 +3,7 @@
 import unittest
 from datetime import date
 from decimal import Decimal
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -16,9 +17,11 @@ from app.growth import (
     annual_report_columns,
     one_report_growth,
     source_coefficients,
+    year_before,
 )
 from app.main import app
-from app.models import AnnualMetricVersion, Company, DailyPrice
+from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
+from app.ratios import ExchangeableUnits
 
 FIRST_YEAR = (date(2022, 1, 1), date(2022, 12, 31))
 SECOND_YEAR = (date(2023, 1, 1), date(2023, 12, 31))
@@ -46,6 +49,24 @@ class GrowthTests(unittest.TestCase):
 
     def reports(self, *facts):
         return annual_report_columns(list(facts), fiscal_rules())
+
+    def test_earlier_year_ends_350_to_380_days_before(self):
+        """K19: both limits count, one day outside does not. Every period of the data
+        is 364-371 days apart, so the window holds 52/53-week years and never two."""
+        later = (date(2024, 1, 1), date(2024, 12, 31))
+
+        def earlier_than_later_by(days):
+            end = date.fromordinal(later[1].toordinal() - days)
+            return (date(end.year, 1, 1), end)
+
+        for days, found in ((349, False), (350, True), (380, True), (381, False)):
+            with self.subTest(days=days):
+                candidate = earlier_than_later_by(days)
+                periods = [candidate, later]
+
+                result = year_before(periods, later)
+
+                self.assertEqual(result, candidate if found else None)
 
     def test_growth_comes_from_one_report_and_marks_the_series_break(self):
         """Later report restates 2022 to 90 and states 2023 as 99, so growth is +10%.
@@ -322,7 +343,14 @@ class ScreenerApiTests(unittest.TestCase):
         }
 
     def add_version(
-        self, metric, value, known_from, period=SECOND_YEAR, company=1, status="ready"
+        self,
+        metric,
+        value,
+        known_from,
+        period=SECOND_YEAR,
+        company=1,
+        status="ready",
+        form="10-K",
     ):
         details = {"status": status, "selected_sources": [{"tag": "Tag"}]}
         if metric == "operating_cash_flow":
@@ -339,7 +367,7 @@ class ScreenerApiTests(unittest.TestCase):
                     "metric": metric,
                     "known_from": known_from,
                     "accession": "a",
-                    "form": "10-K",
+                    "form": form,
                     "status": status,
                     "confirmation": "approved" if status == "ready" else None,
                     "value": None if value is None else Decimal(value),
@@ -373,6 +401,30 @@ class ScreenerApiTests(unittest.TestCase):
                     "close": Decimal(close),
                     "adjusted_close": Decimal(close),
                     "volume": 1,
+                },
+            )
+
+    def add_revenue_fact(self, period, value, accession, filed):
+        """A revenue fact of one annual report, under the tag the stored cells name."""
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                {
+                    "company_id": 1,
+                    "source_cik": "0000000001",
+                    "history_eligible": True,
+                    "metric": "revenue",
+                    "taxonomy": "us-gaap",
+                    "tag": "Tag",
+                    "unit": "USD",
+                    "value": Decimal(value),
+                    "period_start": period[0],
+                    "period_end": period[1],
+                    "filed": filed,
+                    "accession": accession,
+                    "form": "10-K",
+                    "fiscal_period": "FY",
+                    "period_kind": "annual",
                 },
             )
 
@@ -440,6 +492,48 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertEqual(sunday["latest"]["price_date"], "2024-03-22")
         self.assertEqual(sunday["latest"]["period_end"], "2022-12-31")
 
+    def test_growth_never_reads_a_report_filed_after_the_date(self):
+        """K21: growth comes from the newest report known before the session. A later
+        report that restates the earlier year (800 instead of 1000) would turn 0% into
+        +25%: knowledge from the future that no stored version reveals."""
+        self.add_year(date(2023, 2, 1), FIRST_YEAR)
+        self.add_year(date(2024, 2, 1), SECOND_YEAR)
+        self.add_revenue_fact(FIRST_YEAR, "1000", "known", date(2024, 2, 1))
+        self.add_revenue_fact(SECOND_YEAR, "1000", "known", date(2024, 2, 1))
+        self.add_revenue_fact(FIRST_YEAR, "800", "later", date(2025, 2, 1))
+        self.add_revenue_fact(SECOND_YEAR, "1000", "later", date(2025, 2, 1))
+        self.add_close(date(2024, 3, 28))
+
+        row = self.row(date="2024-03-29")
+
+        self.assertEqual(row["latest"]["ratios"]["revenue_growth"], "0")
+        self.assertFalse(row["latest"]["revenue_basis_break"])
+
+    def test_quarterly_restatement_does_not_replace_the_annual_report(self):
+        """W39: a 10-Q restating equity under a new standard (500 to 1000) arrives
+        months before the 10-K restates income, so ratios keep the annual report's
+        equity until then: P/B stays 2000 / 500 and equity / assets 500 / 2000."""
+        self.add_year(date(2024, 2, 1))
+        self.add_version("equity", "1000", date(2024, 4, 30), form="10-Q")
+        self.add_close(date(2024, 6, 28))
+
+        row = self.row(date="2024-06-28")
+
+        self.assertEqual(row["latest"]["ratios"]["pb"], "4")
+        self.assertEqual(row["latest"]["ratios"]["equity_to_assets"], "0.25")
+
+    def test_value_known_only_from_a_quarterly_report_is_used(self):
+        """A cell without any annual version (a predecessor filed the 10-K) takes the
+        10-Q value, so the ratio is not left empty for a year."""
+        self.add_year(date(2024, 2, 1))
+        self.add_version("capex", "40", date(2024, 4, 30), form="10-Q")
+        self.add_close(date(2024, 6, 28))
+
+        row = self.row(date="2024-06-28")
+
+        # (150 - 40) / 1000
+        self.assertEqual(row["latest"]["ratios"]["fcf_margin"], "0.11")
+
     def test_previous_year_is_found_by_date_for_average_ratios(self):
         """ROE averages closing equity of the year that ended about a year earlier."""
         self.add_year(date(2023, 2, 1), FIRST_YEAR)
@@ -488,6 +582,18 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertIsNone(row["latest"]["ratios"]["pe"])
         self.assertEqual(row["latest"]["ratios"]["net_margin"], "0.1")
 
+    def test_a_close_seven_days_before_the_date_is_still_its_price(self):
+        """K19: the lookback covers seven days (longer than any market closure), so a
+        close exactly a week old counts and one eight days old does not."""
+        self.add_year(date(2024, 2, 1))
+        self.add_close(date(2024, 3, 22))
+
+        week_old = self.row(date="2024-03-29")
+        eight_days_old = self.row(date="2024-03-30")
+
+        self.assertEqual(week_old["latest"]["price_date"], "2024-03-22")
+        self.assertIsNone(eight_days_old["latest"]["price"])
+
     def test_jci_gets_no_price_ratios_until_a_period_after_the_merger(self):
         """JCI's price after 02.09.2016 is the new company's, FY2015 the old company's."""
         fiscal_2015 = (date(2014, 10, 1), date(2015, 9, 30))
@@ -534,10 +640,10 @@ class ScreenerApiTests(unittest.TestCase):
 
         self.assertEqual(row["latest"]["spin_offs"], [])
 
-    def test_exchangeable_units_mark_ps_until_the_last_listed_period(self):
-        """M42: KKR Holdings units were exchangeable into KKR shares until the 2022
-        reorganisation, so P/S of FY2021 reads too low and is marked, value unchanged.
-        FY2022 is after the rule's last period, and other companies are never marked."""
+    def test_exchangeable_units_change_ps_and_pb_of_their_period_only(self):
+        """M52: market value 40 x 50 = 2000. Units outside the count (25) belong to the
+        whole group, so P/S is 40 x 75 / 1000 = 3; units inside it (10) are not listed
+        shares, so P/B is 40 x 40 / 500 = 3.2. Another period and company are unchanged."""
         fiscal_2021 = (date(2021, 1, 1), date(2021, 12, 31))
         fiscal_2022 = (date(2022, 1, 1), date(2022, 12, 31))
         self.add_year(date(2022, 2, 28), fiscal_2021, company=5)
@@ -546,15 +652,25 @@ class ScreenerApiTests(unittest.TestCase):
         for day in (date(2022, 3, 31), date(2023, 3, 31)):
             self.add_close(day, company=5)
             self.add_close(day, company=1)
+        units = {
+            ("KKR", fiscal_2021[1]): ExchangeableUnits(
+                outside_count=Decimal(25), inside_count=Decimal(10)
+            )
+        }
 
-        listed_period = self.row("KKR", date="2022-03-31")
-        after_reorganisation = self.row("KKR", date="2023-03-31")
-        other_company = self.row("TEST", date="2022-03-31")
+        with patch("app.screener.exchangeable_units", return_value=units):
+            listed_period = self.row("KKR", date="2022-03-31")
+            later_period = self.row("KKR", date="2023-03-31")
+            other_company = self.row("TEST", date="2022-03-31")
 
         self.assertTrue(listed_period["latest"]["exchangeable_units"])
-        self.assertEqual(listed_period["latest"]["ratios"]["ps"], "2")
-        self.assertFalse(after_reorganisation["latest"]["exchangeable_units"])
+        self.assertEqual(listed_period["latest"]["ratios"]["ps"], "3")
+        self.assertEqual(listed_period["latest"]["ratios"]["pb"], "3.2")
+        self.assertEqual(listed_period["latest"]["ratios"]["pe"], "20")
+        self.assertFalse(later_period["latest"]["exchangeable_units"])
+        self.assertEqual(later_period["latest"]["ratios"]["ps"], "2")
         self.assertFalse(other_company["latest"]["exchangeable_units"])
+        self.assertEqual(other_company["latest"]["ratios"]["ps"], "2")
 
     def test_date_outside_the_window_is_rejected(self):
         """Before every company has a report, or after prices end, there is no screen."""

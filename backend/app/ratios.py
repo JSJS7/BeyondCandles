@@ -12,7 +12,9 @@ from pathlib import Path
 from typing import Literal
 
 from app.automatic_metrics import preferred_deduction
+from app.eps_splits import share_count_ratio
 from app.policy_files import load_policy
+from app.schemas.stock import EpsSplit
 
 PARTICIPATING_PREFERRED_PATH = (
     Path(__file__).resolve().parents[2] / "data/participating-preferred.json"
@@ -48,39 +50,47 @@ def participating_preferred_tickers():
     return {entry["ticker"] for entry in policy["companies"]}
 
 
-def optional_date(text):
-    if text is None:
-        return None
-    return date.fromisoformat(text)
+@dataclass(frozen=True)
+class ExchangeableUnits:
+    """Units exchangeable one for one into the listed shares, on the share basis of EPS.
 
-
-def exchangeable_unit_periods():
-    """Return {ticker: (first affected period end, last affected period end)}.
-
-    None as the first end means every period from the start of the data, and None as
-    the last end means the units still exist. In these companies part of the owners
-    hold units exchangeable into the listed shares, and the share count leaves them out,
-    so P/S divides the listed shares' value by the whole group's revenue (M42, N115).
+    `outside_count` are units the served share count leaves out, `inside_count` units it
+    already holds (a diluted count that assumed their exchange).
     """
-    policy = load_policy(EXCHANGEABLE_UNITS_PATH, "exchangeable-units")
+
+    outside_count: Decimal
+    inside_count: Decimal
+
+
+def exchangeable_units(split_policy):
+    """Return {(ticker, period end): ExchangeableUnits} from data/exchangeable-units.json.
+
+    Counts are stated on the share basis of their filing, so stock splits after the
+    filing apply as to share counts. In these companies part of the owners hold units of
+    a subsidiary partnership, so the market value of the whole group counts shares and
+    units together (M42, M52).
+    """
+    policy = load_policy(EXCHANGEABLE_UNITS_PATH, "exchangeable-units", versions=(2,))
     result = {}
-    for entry in policy["companies"]:
-        first_period_end = optional_date(entry["first_period_end"])
-        last_period_end = optional_date(entry["last_period_end"])
-        result[entry["ticker"]] = (first_period_end, last_period_end)
+    for company in policy["companies"]:
+        ticker = company["ticker"]
+        for entry in company["periods"]:
+            filed = date.fromisoformat(entry["filed"])
+            pending = [
+                EpsSplit.model_validate(action)
+                for action in split_policy["actions"]
+                if action["ticker"] == ticker
+                and filed < date.fromisoformat(action["date"])
+            ]
+            ratio = share_count_ratio(pending)
+            scale = Decimal(ratio.numerator) / Decimal(ratio.denominator)
+            units = ExchangeableUnits(
+                outside_count=Decimal(entry["units_outside_share_count"]) * scale,
+                inside_count=Decimal(entry["units_in_share_count"]) * scale,
+            )
+            period_end = date.fromisoformat(entry["period_end"])
+            result[(ticker, period_end)] = units
     return result
-
-
-def ps_excludes_exchangeable_units(ticker, period_end, unit_periods):
-    """Whether P/S of this period leaves the exchangeable units out of its market value."""
-    if ticker not in unit_periods:
-        return False
-    first_period_end, last_period_end = unit_periods[ticker]
-    if first_period_end is not None and period_end < first_period_end:
-        return False
-    if last_period_end is not None and period_end > last_period_end:
-        return False
-    return True
 
 
 def income_to_common(values):
@@ -143,17 +153,38 @@ def average_of_positive(first, second):
     return (first + second) / 2
 
 
-def price_ratios(values, price, participating):
-    """P/E, P/B and P/S; the price must be on the share basis of EPS and the share count."""
+def market_values(price, shares, units):
+    """Return (value of the listed shares, value of the whole group).
+
+    Without exchangeable units both are price × shares. With them, the listed shares are
+    the count without the units it holds, and the whole group adds the units it leaves out.
+    """
+    if shares is None:
+        return None, None
+    if units is None:
+        return price * shares, price * shares
+    listed_shares = shares - units.inside_count
+    all_shares = shares + units.outside_count
+    if listed_shares <= 0:
+        return None, price * all_shares
+    return price * listed_shares, price * all_shares
+
+
+def price_ratios(values, price, participating, units=None):
+    """P/E, P/B and P/S; the price must be on the share basis of EPS and the share count.
+
+    P/B compares the listed shares with equity, which belongs to them; P/S compares the
+    whole group with revenue, which is the whole group's, as data services do (M52).
+    """
     if price is None:
         return {"pe": None, "pb": None, "ps": None}
     shares, _ = shares_for_ratios(values)
-    market_value = None if shares is None else price * shares
+    listed_value, group_value = market_values(price, shares, units)
     common = common_equity(values, participating)
     return {
         "pe": divide_by_positive(price, values.eps),
-        "pb": divide_by_positive(market_value, common),
-        "ps": divide_by_positive(market_value, values.revenue),
+        "pb": divide_by_positive(listed_value, common),
+        "ps": divide_by_positive(group_value, values.revenue),
     }
 
 
@@ -184,14 +215,15 @@ def ocf_to_net_income(values):
     return divide_by_positive(values.operating_cash_flow, values.net_income)
 
 
-def calculate_ratios(values, previous, price, participating=False):
+def calculate_ratios(values, previous, price, participating=False, units=None):
     """Return every ratio of one period.
 
     `previous` is the year before (None when unknown). `participating` marks a company
-    whose share count already holds its preferred stock as converted.
+    whose share count already holds its preferred stock as converted. `units` are the
+    period's exchangeable units, if any.
     """
     return {
-        **price_ratios(values, price, participating),
+        **price_ratios(values, price, participating, units),
         **return_ratios(values, previous, participating),
         "net_margin": divide_by_positive(values.net_income, values.revenue),
         "operating_margin": divide_by_positive(values.operating_income, values.revenue),

@@ -5,13 +5,15 @@ from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
+from app.eps_splits import split_rules
 from app.ratios import (
+    ExchangeableUnits,
     PeriodValues,
     calculate_ratios,
     common_equity,
-    exchangeable_unit_periods,
+    exchangeable_units,
+    market_values,
     participating_preferred_tickers,
-    ps_excludes_exchangeable_units,
     shares_for_ratios,
 )
 
@@ -123,50 +125,65 @@ class CommonEquityTests(unittest.TestCase):
 
 
 class ExchangeableUnitTests(unittest.TestCase):
-    def test_recorded_companies_and_their_affected_periods(self):
-        """M42: Blackstone still has Holdings units; KKR exchanged its units in 2022.
-        N115: Charter's diluted count includes the Advance/Newhouse units in 2016 and
-        2017 and leaves them out from 2018, so only periods from 2018 are affected."""
+    def test_recorded_companies_and_periods(self):
+        """M42, M52: units above 5% of the share count, year by year from each 10-K.
+        KKR's 2022 weighted average still holds the units exchanged in May 2022."""
+        units = exchangeable_units(split_rules())
+        periods = {}
+        for ticker, period_end in units:
+            periods.setdefault(ticker, []).append(period_end.year)
+
+        self.assertEqual(set(periods), {"BX", "KKR", "CHTR", "SPG", "AVGO"})
+        self.assertEqual(sorted(periods["BX"]), list(range(2015, 2026)))
+        self.assertEqual(sorted(periods["KKR"]), list(range(2015, 2023)))
+        self.assertEqual(sorted(periods["CHTR"]), list(range(2016, 2026)))
+        self.assertEqual(sorted(periods["SPG"]), list(range(2015, 2026)))
+        self.assertEqual(periods["AVGO"], [2017])
+
+    def test_units_inside_a_diluted_count_are_kept_apart(self):
+        """N115: Charter's 2017 diluted count holds 35,971,096 units; from 2018 they are
+        left out (31 million in 2018)."""
+        units = exchangeable_units(split_rules())
+
+        in_2017 = units[("CHTR", date(2017, 12, 31))]
+        in_2018 = units[("CHTR", date(2018, 12, 31))]
+
+        self.assertEqual(in_2017.inside_count, Decimal(35971096))
+        self.assertEqual(in_2017.outside_count, 0)
+        self.assertEqual(in_2018.outside_count, Decimal(31000000))
+
+    def test_later_split_applies_to_units_as_to_shares(self):
+        """Broadcom's 22 million units of fiscal 2017 are 220 million after the 10-for-1
+        split of 2024, the basis of its share count and EPS."""
+        units = exchangeable_units(split_rules())
+
         self.assertEqual(
-            exchangeable_unit_periods(),
-            {
-                "BX": (None, None),
-                "KKR": (None, date(2021, 12, 31)),
-                "CHTR": (date(2018, 12, 31), None),
-            },
+            units[("AVGO", date(2017, 10, 29))].outside_count, Decimal(220000000)
         )
 
-    def test_period_is_marked_up_to_and_including_the_last_listed_period(self):
-        """The last listed period is affected; the next one and other tickers are not."""
-        unit_periods = {"OPEN": (None, None), "CLOSED": (None, date(2021, 12, 31))}
+    def test_market_values_add_outside_units_and_remove_inside_ones(self):
+        """Listed shares: 50 - 10; whole group: 50 + 25; without units both are 50."""
+        units = ExchangeableUnits(outside_count=Decimal(25), inside_count=Decimal(10))
 
-        self.assertTrue(
-            ps_excludes_exchangeable_units("OPEN", date(2025, 12, 31), unit_periods)
+        self.assertEqual(
+            market_values(Decimal(40), Decimal(50), units),
+            (Decimal(1600), Decimal(3000)),
         )
-        self.assertTrue(
-            ps_excludes_exchangeable_units("CLOSED", date(2021, 12, 31), unit_periods)
-        )
-        self.assertFalse(
-            ps_excludes_exchangeable_units("CLOSED", date(2022, 12, 31), unit_periods)
-        )
-        self.assertFalse(
-            ps_excludes_exchangeable_units("OTHER", date(2021, 12, 31), unit_periods)
+        self.assertEqual(
+            market_values(Decimal(40), Decimal(50), None),
+            (Decimal(2000), Decimal(2000)),
         )
 
-    def test_period_is_marked_from_and_including_the_first_listed_period(self):
-        """A period before the first listed one is not affected (its diluted count
-        already includes the units); the first listed period and later ones are."""
-        unit_periods = {"LATE": (date(2018, 12, 31), None)}
+    def test_units_change_book_and_sales_ratios_but_not_earnings(self):
+        """P/S of the whole group 3000 / 1000, P/B of the listed shares 1600 / 500; P/E,
+        a price per share against EPS, is the same with or without units."""
+        units = ExchangeableUnits(outside_count=Decimal(25), inside_count=Decimal(10))
 
-        self.assertFalse(
-            ps_excludes_exchangeable_units("LATE", date(2017, 12, 31), unit_periods)
-        )
-        self.assertTrue(
-            ps_excludes_exchangeable_units("LATE", date(2018, 12, 31), unit_periods)
-        )
-        self.assertTrue(
-            ps_excludes_exchangeable_units("LATE", date(2025, 12, 31), unit_periods)
-        )
+        ratios = calculate_ratios(period(), None, Decimal(40), units=units)
+
+        self.assertEqual(ratios["ps"], Decimal(3))
+        self.assertEqual(ratios["pb"], Decimal("3.2"))
+        self.assertEqual(ratios["pe"], Decimal(20))
 
 
 class RatioTests(unittest.TestCase):
@@ -227,6 +244,17 @@ class RatioTests(unittest.TestCase):
         self.assertIsNone(current_year["pb"])
         self.assertIsNone(current_year["roe"])
         self.assertEqual(current_year["equity_to_assets"], Decimal("-0.025"))
+        self.assertIsNone(earlier_year["roe"])
+
+    def test_zero_equity_in_either_year_leaves_return_on_equity_empty(self):
+        """K19: METHODOLOGY says "not positive", so a zero balance counts as no average,
+        even when the other year alone would give a positive mean."""
+        zero = period(equity=Decimal(0))
+
+        current_year = calculate_ratios(zero, period(), price=Decimal(40))
+        earlier_year = calculate_ratios(period(), zero, price=Decimal(40))
+
+        self.assertIsNone(current_year["roe"])
         self.assertIsNone(earlier_year["roe"])
 
     def test_without_an_earlier_year_average_ratios_are_empty(self):

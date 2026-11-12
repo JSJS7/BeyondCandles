@@ -8,10 +8,15 @@ in the number of shares. Ratios of price to per-share values need both on one ba
 from datetime import date
 from decimal import Decimal, localcontext
 from fractions import Fraction
+from pathlib import Path
 
 from app.eps_splits import split_rules
+from app.policy_files import load_policy
 
 CONVERSION = "vendor_corporate_action_conversion_not_an_ordinary_share_split"
+DISTRIBUTIONS_PATH = (
+    Path(__file__).resolve().parents[2] / "data/spin-off-distributions.json"
+)
 
 # Through this date the vendor's JCI prices belong to Tyco International, the legal
 # predecessor of JCI plc, while the financials follow Johnson Controls Inc. Price and
@@ -58,15 +63,37 @@ def price_basis_factor(ticker, day, rules):
     return factor
 
 
-def spin_offs(ticker, rules):
+def distribution_spin_offs():
+    """Return {ticker: [(date, separated fraction)]} of spin-offs the vendor recorded as
+    a distribution in Adjusted Close, not as a split-like ratio (JCI and Adient, M50).
+
+    The ratio of Adjusted Close to Close rises on the event day by the part of the price
+    that left: 1 − ratio before ÷ ratio on the day.
+    """
+    policy = load_policy(DISTRIBUTIONS_PATH, "spin-off-distributions")
+    result = {}
+    for entry in policy["distributions"]:
+        before = Fraction(entry["adjusted_to_close_before"])
+        on_date = Fraction(entry["adjusted_to_close_on_date"])
+        separated_fraction = 1 - before / on_date
+        event = (date.fromisoformat(entry["date"]), separated_fraction)
+        result.setdefault(entry["ticker"], []).append(event)
+    return result
+
+
+def spin_offs(ticker, rules, distributions=None):
     """Return [(date, separated fraction)] of events that took a business out of the price.
 
     A share split changes the vendor price and EPS alike. When the vendor's ratio exceeds
     the share-count ratio, the vendor also scaled earlier prices down by the value of a
     business that left the company, so 1 − 1 / (vendor ratio ÷ share ratio) is the part
-    of the price that business held. Only parts above the marker threshold are returned;
-    an event that raised earlier prices (the JCI merger) is not a separation.
+    of the price that business held. A spin-off the vendor recorded as a distribution
+    comes from `distributions` (by default data/spin-off-distributions.json). Only parts
+    above the marker threshold are returned; an event that raised earlier prices (the JCI
+    merger) is not a separation.
     """
+    if distributions is None:
+        distributions = distribution_spin_offs()
     price_factors = []
     for action in rules["actions"]:
         if action["ticker"] != ticker:
@@ -87,6 +114,9 @@ def spin_offs(ticker, rules):
         separated_fraction = 1 - 1 / price_factor
         if separated_fraction > SPIN_OFF_MARKER_THRESHOLD:
             separations.append((date.fromisoformat(day), separated_fraction))
+    for event_day, separated_fraction in distributions.get(ticker, []):
+        if separated_fraction > SPIN_OFF_MARKER_THRESHOLD:
+            separations.append((event_day, separated_fraction))
     return sorted(separations)
 
 

@@ -41,7 +41,7 @@ describe('Screener CSV', () => {
     expect(fields.slice(-3, -1)).toEqual(['2023-01-04;2024-04-02', '0.21936;0.202077']);
   });
 
-  it('writes the exchangeable units mark, so that P/S of those rows can be left out', () => {
+  it('writes the exchangeable units mark, so that P/S counting units can be told apart', () => {
     const company = row('BX');
     company.latest = { ...company.latest!, exchangeable_units: true };
 
@@ -57,6 +57,16 @@ describe('Screener CSV', () => {
     const fields = screenerCsv([company], '2025-12-31').split('\r\n')[1];
 
     expect(fields).toContain(',"Berkshire Hathaway, ""B"" shares",');
+  });
+
+  it('quotes a name whose only special character is a comma', () => {
+    // 75 of the 200 company names contain a comma and no quote, e.g. "Advanced Micro Devices, Inc.".
+    const company = row('AMD', {}, 'Technology');
+    company.name = 'Advanced Micro Devices, Inc.';
+
+    const fields = screenerCsv([company], '2025-12-31').split('\r\n')[1];
+
+    expect(fields).toContain(',"Advanced Micro Devices, Inc.",');
   });
 
   it('keeps every report column empty for a company with no known report', () => {

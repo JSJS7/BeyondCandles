@@ -425,6 +425,7 @@ def automatic_versions(
             if metric == "preferred_value":
                 report_dates |= {fact["filed"] for fact in dividend_facts}
             current = None
+            current_form = None
             for report_date in sorted(report_dates):
                 known = [fact for fact in cell_facts if fact["filed"] <= report_date]
                 if metric == "preferred_value":
@@ -442,9 +443,18 @@ def automatic_versions(
                 if selected is None:
                     continue
                 cell = cell_metric(metric, selected, ticker, split_policy)
-                if current is not None and current == cell.value:
+                # An annual report repeating a value first known from a 10-Q is
+                # recorded too: readers that prefer annual reports (W39) must see
+                # that the 10-K confirmed it, or they would fall back to an older value.
+                annual_confirms_quarterly = (
+                    current_form in QUARTERLY_REPORT_FORMS
+                    and selected["form"] in ANNUAL_REPORT_FORMS
+                )
+                repeated = current is not None and current == cell.value
+                if repeated and not annual_confirms_quarterly:
                     continue
                 current = cell.value
+                current_form = selected["form"]
                 versions.append(
                     MetricVersion(
                         period_start=start,

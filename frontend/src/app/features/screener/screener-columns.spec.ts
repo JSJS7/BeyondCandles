@@ -86,7 +86,7 @@ describe('Screener cells', () => {
   });
 
   it('marks only P/S of a company with exchangeable units', () => {
-    // Net income, EPS and equity belong to the listed shares, so P/E and P/B stay consistent.
+    // P/S counts shares and units; P/B and P/E use the listed shares and need no mark.
     const latest = period({ exchangeable_units: true }, { pe: '10', pb: '2', ps: '1' });
 
     expect(cellLabels(latest, 'ps')).toEqual(['Exchangeable units']);

@@ -23,7 +23,7 @@ Other outside inputs and the price corrections are listed in the [README](README
 
 | Measure | What it is | How it is chosen |
 |---|---|---|
-| Revenue | Total consolidated revenue as reported; net revenue for banks | Reviewed |
+| Revenue | Total consolidated revenue as reported; net revenue for banks and exchanges | Reviewed |
 | Net income | Attributable to the parent's shareholders, before preferred dividends | Reviewed |
 | EPS | Diluted, restated for later stock splits | Reviewed |
 | Equity | Attributable to the parent's owners at period end, including preferred equity | Reviewed |
@@ -48,7 +48,9 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   period is mapped to a reviewed line. A group of similar companies uses one line when they show
   it, and differences between lines up to 5% are accepted. A line a company does not show is not
   calculated to resemble others, and we do not analyse what a company puts in the line, so a total
-  can include items such as derivative results (EOG). Bank and industrial revenue are not comparable.
+  can include items such as derivative results (EOG). Exchanges (ICE, Nasdaq) use their line of
+  revenues less transaction-based expenses, the fees they pass on to traders and regulators, as
+  data services do. Bank and industrial revenue are not comparable.
 - **A changed definition:** we recalculate only when a company itself changed its definition and
   the same calculation reproduces its later restated figures (Philip Morris, excise taxes).
   Otherwise the reported value stays, even if the series changes basis.
@@ -69,10 +71,9 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   reported. Counts by share class are not summed, so some companies have none (Visa,
   Berkshire Hathaway). A count far below the company's largest is dropped as a scale error of the
   tag. Where the first report's table shows the same digits in a stated unit, the unit is corrected.
-- **Share count and equity can differ in scope:** a diluted count can include units exchangeable
-  into shares while equity excludes their holders. Blackstone's 2015, 2016 and 2018 therefore use its
-  basic common units, as its diluted count does in the other years. Charter's 2016 and 2017 still use
-  a diluted count with such units, so their P/B reads about 12% too high until the next data rebuild.
+- **Share count and units exchangeable into shares:** a diluted count can include such units while
+  equity excludes their holders. Blackstone's 2015, 2016 and 2018 therefore use its basic common units,
+  as its diluted count does in the other years. How ratios treat the units is described under Ratios.
 - **Capital expenditure:** banks and most real estate companies have none. A tag can hold only part
   of the cash spent; where we found this, the value comes from the cash flow statement instead
   (American Electric Power; United Rentals, purchases of rental and other equipment).
@@ -89,8 +90,8 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
 | Ratio | Formula | Also empty when |
 |---|---|---|
 | P/E | Price ÷ EPS | EPS not positive |
-| P/B | Price × shares ÷ common equity | Common equity not positive |
-| P/S | Price × shares ÷ revenue | Revenue not positive |
+| P/B | Price × listed shares ÷ common equity | Common equity not positive |
+| P/S | Price × (shares + exchangeable units) ÷ revenue | Revenue not positive |
 | ROE | (Net income − preferred dividends) ÷ average common equity | Either year's common equity not positive |
 | ROA | Net income ÷ average assets | |
 | Net margin | Net income ÷ revenue | Revenue not positive |
@@ -104,19 +105,24 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   close, or the last close within 7 days before it, with its latest annual report filed before that
   session. A filing date has no time of day and most annual reports arrive after the market closes, so
   a report filed on the session's own day counts only from the next session.
+- **Values as annual reports state them:** a quarterly report can restate the previous year's balance
+  sheet (a new accounting standard, a separated business) months before the next annual report restates
+  the income statement. Ratios therefore keep each value as the latest annual report states it, so one
+  ratio never joins a restated balance sheet with an income statement not yet restated. A value known
+  only from a quarterly report is used until an annual report states it.
 - **Earlier year:** the period that ended 350 to 380 days before; fiscal-year labels are not compared.
   Averages use the two year-end balances.
 - **Share count:** the tag, otherwise (net income − preferred dividends) ÷ EPS, marked as calculated.
   It is the weighted average of the year, not the count on the valuation date, so it lags after an
   acquisition or large buyback.
-- **P/S with exchangeable units:** where part of the owners hold units exchangeable into the listed
-  shares and the share count leaves them out, the market value covers the listed shares only, while
-  revenue is the whole group's. P/S then reads too low, by about 40% for Blackstone in every year and
-  for KKR until its 2022 reorganisation, and by about 10% where the units are a smaller stake. A year
-  whose diluted count includes the units is not affected. P/E and P/B stay consistent, as net income
-  and equity also belong to the listed shares. The values stay and are marked *Exchangeable units*
-  (`data/exchangeable-units.json`). Ordinary minority stakes in subsidiaries follow the usual
-  convention of market value over consolidated revenue.
+- **Units exchangeable into shares:** in some companies part of the owners hold units of a subsidiary
+  partnership exchangeable one for one into the listed shares (Blackstone, KKR until 2022, Charter,
+  Simon Property, Broadcom in fiscal 2017). Revenue belongs to the whole group, so P/S counts the market
+  value of shares and units together, as data services do; equity and net income belong to the listed
+  shares, so P/B counts only those and P/E is unchanged. Unit counts are the weighted averages each
+  annual report states (`data/exchangeable-units.json`), for companies whose units exceed 5% of the
+  share count; the ratios are marked *Exchangeable units*. Ordinary minority stakes in subsidiaries
+  follow the usual convention of market value over consolidated revenue.
 - **Common equity:** equity minus preferred stock. Without a value, the deduction is zero only if there
   are no preferred dividends or they are at most 0.2% of equity; otherwise common-share ratios stay
   empty. A value is rejected when annual preferred dividends exceed 25% of it, because it is then only
@@ -153,7 +159,9 @@ The API can return the table as known on a date (`as_of`). A year appears from t
 first annual report. A value is known from the day its report was filed, and filings carry no time of
 day, so a backtest should act on the next session. An earlier version is served only when it is
 confirmed against its own filing. Otherwise it has no value, or a quarterly version is ignored. Part of
-the history therefore stays unavailable rather than possibly wrong. Financials are annual only.
+the history therefore stays unavailable rather than possibly wrong. Financials are annual only. The
+table as of a date also shows a value a quarterly report restated; the screener's ratios use it only
+from the next annual report (see Ratios).
 
 ## What we correct
 
@@ -209,7 +217,8 @@ do not make companies comparable.
 - **Price ratios after a spin-off:** the price no longer includes the separated business, while the latest
   annual report does until the next one, so P/E, P/B and P/S read too low for up to a year (RTX in 2020,
   AT&T in 2022). The values stay and are marked *Spin-off*: a vendor event that removed more than 3% of
-  the price beyond any share split, after the period end and by the price date. The mark ends when a
+  the price beyond any share split, after the period end and by the price date. Adient, which the vendor
+  recorded as a distribution rather than a ratio, is marked for Johnson Controls in the same way. The mark ends when a
   report for a period ending after the event is known; in that year net income can still include the
   separated business until the event, as discontinued operations.
 - **Spin-off values** follow the vendor's ratios. RTX in April 2020 is the largest uncertainty: the company's

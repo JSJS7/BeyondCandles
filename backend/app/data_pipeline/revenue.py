@@ -16,6 +16,7 @@ from app.data_pipeline.sec_catalogue import identifiers, load_all_sec, verify_re
 from app.data_pipeline.sec_history import HISTORY_INDEX, prepare_company_facts
 from app.data_pipeline.sec_statements import (
     matches_rendered_value,
+    normalized_label,
     statement_total,
 )
 from app.data_pipeline.source_files import (
@@ -330,6 +331,42 @@ def verified_net_of_excise_total(html, end_date, group, period):
     }
 
 
+# Exchanges pass part of their transaction fees on (liquidity rebates, routing and
+# regulatory fees) and show "revenues less transaction-based expenses" on the face of
+# the income statement. That row is the revenue they, analysts and data services use,
+# so it is selected like the banks' net revenue (M51, decision 12.11.2026). Each
+# exchange tags it with its own concept; the label must say what the row is.
+EXCHANGE_NET_REVENUE = {
+    "0001120193": ("us-gaap", "GrossProfit"),  # Nasdaq
+    "0001571949": ("ice", "RevenuesLessTransactionBasedExpenses"),  # ICE
+}
+EXCHANGE_NET_REVENUE_LABELS = (
+    "revenues less transaction based expenses",
+    "total revenues less transaction based expenses",
+)
+EXCHANGE_NET_REVENUE_NOTE = (
+    "Revenues less transaction-based expenses, the exchange's own net revenue row on "
+    "the income statement; total revenues before those pass-through costs are retained "
+    "as another source."
+)
+
+
+def verified_exchange_net_revenue(html, end_date, cik):
+    """The net revenue row of an exchange, found by its concept and checked by label."""
+    taxonomy, concept = EXCHANGE_NET_REVENUE[cik]
+    total = statement_total(
+        html,
+        end_date,
+        concept=concept,
+        concept_taxonomy=taxonomy,
+        stop_at_costs=False,
+    )
+    if normalized_label(total["label"]) not in EXCHANGE_NET_REVENUE_LABELS:
+        raise ValueError("Exchange net revenue is not explicitly identified")
+    total["note"] = EXCHANGE_NET_REVENUE_NOTE
+    return total
+
+
 # Exact disclosures reviewed because the primary face omits the consolidated total
 # or a quarterly filing corrects a historical full year only in a revenue note.
 REVIEWED_NOTE_TOTALS = {
@@ -478,9 +515,12 @@ def verify_filing_period(
                     # year uses it rather than the sales row of the earlier reports.
                     "XOM": ("total revenues and other income",),
                 }
-                total = statement_total(
-                    html, end_date, extra_labels=labels.get(ticker, ())
-                )
+                if cik in EXCHANGE_NET_REVENUE:
+                    total = verified_exchange_net_revenue(html, end_date, cik)
+                else:
+                    total = statement_total(
+                        html, end_date, extra_labels=labels.get(ticker, ())
+                    )
                 if total["taxonomy"] != "us-gaap":
                     if fetch:
                         cache_instance(cik, accession, old)
@@ -606,6 +646,7 @@ def review_revenue(fetch=False):
         "definition": (
             "Reported consolidated revenue on the income statement's tax/interest basis. "
             "Reviewed banks use GAAP net interest income plus noninterest income from one filing. "
+            "Exchanges use their revenues less transaction-based expenses row. "
             "One reviewed Philip Morris year deducts excise taxes on the same statement, "
             "matching the definition of its later years. "
             "Overlapping concepts are never summed; different sectors are not normalized."

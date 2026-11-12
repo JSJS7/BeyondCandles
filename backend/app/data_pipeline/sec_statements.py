@@ -208,11 +208,13 @@ def statement_total(
     stop_at_dimensions=False,
     per_share=False,
     past_per_share=False,
+    concept_taxonomy="us-gaap",
 ):
     """Accept exactly one explicit total row; never infer a total from its numeric size.
 
     past_per_share keeps reading after the per-share rows, for a reviewed statement that
-    lists its revenue rows below them.
+    lists its revenue rows below them. concept_taxonomy names the taxonomy of `concept`,
+    for a reviewed custom concept (ICE's revenues less transaction-based expenses).
     """
     parser = StatementRows()
     parser.feed(html)
@@ -279,7 +281,7 @@ def statement_total(
             and row["tags"] == {("us-gaap", "Revenues")}
         )
         if concept is not None:
-            recognized = row["tags"] == {("us-gaap", concept)}
+            recognized = row["tags"] == {(concept_taxonomy, concept)}
         else:
             recognized = (
                 label in TOTAL_LABELS or label in extra_labels or is_section_total

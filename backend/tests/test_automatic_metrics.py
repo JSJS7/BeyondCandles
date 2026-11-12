@@ -74,6 +74,33 @@ class VersionTests(unittest.TestCase):
         self.assertEqual(versions[0].known_from, date(2023, 2, 15))
         self.assertEqual(versions[0].confirmation, "automatic")
 
+    def test_annual_report_confirming_a_quarterly_restatement_is_recorded(self):
+        """W39: ADSK assets on 31.01.2015 were 4913.8 in the 10-K, 4909.7 in a later
+        10-Q, and 4909.7 again in the next 10-K. The screener prefers annual reports, so
+        that 10-K needs its own version, or the screener would go back to 4913.8."""
+        facts = [
+            fact("assets", "Assets", "4913.8"),
+            fact(
+                "assets", "Assets", "4909.7", date(2023, 8, 31), "quarter", form="10-Q"
+            ),
+            fact("assets", "Assets", "4909.7", date(2023, 12, 9), "later", form="10-Q"),
+            fact("assets", "Assets", "4909.7", date(2024, 2, 15), "annual"),
+        ]
+
+        versions = versions_of(facts, "assets")
+
+        self.assertEqual(
+            [
+                (version.known_from, version.form, version.value.value)
+                for version in versions
+            ],
+            [
+                (date(2023, 2, 15), "10-K", Decimal("4913.8")),
+                (date(2023, 8, 31), "10-Q", Decimal("4909.7")),
+                (date(2024, 2, 15), "10-K", Decimal("4909.7")),
+            ],
+        )
+
     def test_restated_value_starts_a_new_version(self):
         """A backtest before the restatement must still see the first number."""
         facts = [
@@ -398,6 +425,25 @@ class PreferredValueTests(unittest.TestCase):
 
         self.assertEqual(cell.value, Decimal("0"))
 
+    def test_dividends_up_to_a_quarter_of_the_value_keep_it(self):
+        """K19: a value is plausible while annual dividends are at most 25% of it;
+        above that it is taken for par value and the reported zero remains."""
+        at_limit = preferred_value(
+            [
+                fact("preferred_dividends", self.DIVIDENDS, "25"),
+                fact("preferred_value", self.VALUE, "100"),
+            ]
+        )
+        above_limit = preferred_value(
+            [
+                fact("preferred_dividends", self.DIVIDENDS, "26"),
+                fact("preferred_value", self.VALUE, "100"),
+            ]
+        )
+
+        self.assertEqual(at_limit.value, Decimal("100"))
+        self.assertIsNone(above_limit)
+
     def test_value_without_dividends_is_accepted(self):
         """V reports a value and no dividend tag; nothing contradicts the value."""
         cell = preferred_value([fact("preferred_value", self.VALUE, "3000")])
@@ -650,6 +696,12 @@ class PreferredDeductionTests(unittest.TestCase):
     def test_immaterial_dividends_deduct_zero(self):
         """OKE pays 1 million on 17,036 of equity: below any threshold of the rule."""
         self.assertEqual(preferred_deduction(None, Decimal(1), Decimal(17036)), 0)
+
+    def test_dividends_up_to_two_tenths_of_a_percent_of_equity_deduct_zero(self):
+        """K19: the limit is inclusive; above it the amount is unknown and P/B stays
+        empty (T 2022 pays 0.208% and is empty, I27)."""
+        self.assertEqual(preferred_deduction(None, Decimal(2), Decimal(1000)), 0)
+        self.assertIsNone(preferred_deduction(None, Decimal("2.01"), Decimal(1000)))
 
     def test_negative_equity_leaves_the_ratio_empty(self):
         """BA 2024: dividends and negative equity give nothing to compare them with."""

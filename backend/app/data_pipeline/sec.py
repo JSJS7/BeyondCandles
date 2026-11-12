@@ -50,6 +50,8 @@ REVENUE_SOURCE_TAGS = {
     "0000927628": ("InterestIncomeExpenseNet", "NoninterestIncome"),
     "0000092230": ("InterestIncomeExpenseNet", "NoninterestIncome"),
     "0001404912": ("InvestmentAdvisoryFees",),
+    # Nasdaq tags its revenues less transaction-based expenses as GrossProfit (M51).
+    "0001120193": ("GrossProfit",),
     # Philip Morris: excise taxes, deducted from FY2015-FY2017 revenues that its filings
     # still showed including them (data_pipeline/revenue.py, NET_OF_EXCISE_FILINGS).
     "0001413329": ("ExciseAndSalesTaxes",),

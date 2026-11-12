@@ -107,6 +107,18 @@ class YearOverYearTests(unittest.TestCase):
         self.assertEqual(scale_error, [("shares_change", Decimal("99900.0"))])
         self.assertEqual(deconsolidation, [("assets_change", Decimal("350.0"))])
 
+    def test_share_change_flags_only_above_one_and_a_half_times(self):
+        """K19: exactly 1.5 times passes, a little more is flagged (CI 2018 at 1.52)."""
+        at_limit = year_over_year_violations(
+            {"shares_diluted": Decimal(1000)}, {"shares_diluted": Decimal(1500)}
+        )
+        above_limit = year_over_year_violations(
+            {"shares_diluted": Decimal(1000)}, {"shares_diluted": Decimal(1520)}
+        )
+
+        self.assertEqual(at_limit, [])
+        self.assertEqual(above_limit, [("shares_change", Decimal("52.0"))])
+
 
 class HistoryTests(unittest.TestCase):
     def test_a_wrong_value_that_lived_only_in_the_history_is_found(self):

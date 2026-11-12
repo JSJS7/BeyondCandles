@@ -111,9 +111,10 @@ TOLERANCE_EXCLUDED_BY_METRIC = {
 }
 # Rows that contain a metric's words but report something else.
 EXCLUDED_ROW_LABELS = {
-    # "Total revenue, net of interest expense" is revenue; a row of expenses is not.
-    "revenue": r"cost|(?<!interest )expens|liabilit|assets|deferred|unearned|per share"
-    r"|percent|% of|margin",
+    # "Total revenue, net of interest expense" is revenue; a row of expenses is not. So
+    # are exchanges' "revenues less transaction-based expenses" (M51).
+    "revenue": r"cost|(?<!interest )(?<!transaction-based )(?<!transaction based )expens"
+    r"|liabilit|assets|deferred|unearned|per share|percent|% of|margin",
     "net_income": r"noncontrolling|non-controlling|minority|cash|premium|per share|before"
     r"|comprehensive|operating|discontinued|gross|retained|undistributed",
     "eps_diluted": r"^(?!.*dilut).*basic|noncontrolling|non-controlling|minority|dividend|book value",

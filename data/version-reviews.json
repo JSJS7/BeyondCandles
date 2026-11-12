@@ -68555,30 +68555,108 @@
         "file": "c5f02afa5b95efefc4890717880d5da52c41865687b8fbaa5682044679fb4850.htm"
       }
     },
-    "ICE:revenue:2016-01-01:2016-12-31:0001571949-17-000003": {
-      "filed": "2017-02-07",
+    "ICE:revenue:2015-01-01:2015-12-31:0001571949-16-000020": {
+      "filed": "2016-02-04",
       "form": "10-K",
-      "value": "5958000000",
+      "value": "3338000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001571949",
-            "taxonomy": "us-gaap",
-            "tag": "Revenues",
+            "taxonomy": "ice",
+            "tag": "RevenuesLessTransactionBasedExpenses",
             "unit": "USD",
-            "value": "5958000000",
+            "value": "3338000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2016-02-04",
+            "accession": "0001571949-16-000020",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194916000020/ice-20151231.xml",
+            "sha256": "e9a7441c1ff1e5207ca42ef92488de1912c6a9daf1ca21bccd4a91264830b9d6",
+            "file": "e9a7441c1ff1e5207ca42ef92488de1912c6a9daf1ca21bccd4a91264830b9d6.htm"
+          }
+        }
+      ],
+      "selected_tag": "RevenuesLessTransactionBasedExpenses",
+      "calculation": null,
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194916000020/R4.htm",
+        "sha256": "5b8df0956dac35928e2b9dfa977ba7c5b4a440be08d697c5e93655bd118adccf",
+        "file": "5b8df0956dac35928e2b9dfa977ba7c5b4a440be08d697c5e93655bd118adccf.htm"
+      }
+    },
+    "ICE:revenue:2015-01-01:2015-12-31:0001571949-17-000003": {
+      "filed": "2017-02-07",
+      "form": "10-K",
+      "value": "3338000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001571949",
+            "taxonomy": "ice",
+            "tag": "RevenuesLessTransactionBasedExpenses",
+            "unit": "USD",
+            "value": "3338000000",
+            "period_start": "2015-01-01",
+            "period_end": "2015-12-31",
+            "filed": "2017-02-07",
+            "accession": "0001571949-17-000003",
+            "form": "10-K"
+          },
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194917000003/ice-20161231.xml",
+            "sha256": "4f95df9a90322b2541fbb431f2acfe4e9d82f04b2e44fc797e924b2f1258ede0",
+            "file": "4f95df9a90322b2541fbb431f2acfe4e9d82f04b2e44fc797e924b2f1258ede0.htm"
+          }
+        }
+      ],
+      "selected_tag": "RevenuesLessTransactionBasedExpenses",
+      "calculation": null,
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
+      "statement": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194917000003/R4.htm",
+        "sha256": "31aab82d31c2b67d419002fb94c64e88d9e4a173936649c72e245bbc8cc7a8b0",
+        "file": "31aab82d31c2b67d419002fb94c64e88d9e4a173936649c72e245bbc8cc7a8b0.htm"
+      }
+    },
+    "ICE:revenue:2016-01-01:2016-12-31:0001571949-17-000003": {
+      "filed": "2017-02-07",
+      "form": "10-K",
+      "value": "4499000000",
+      "components": [
+        {
+          "fact": {
+            "source_cik": "0001571949",
+            "taxonomy": "ice",
+            "tag": "RevenuesLessTransactionBasedExpenses",
+            "unit": "USD",
+            "value": "4499000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2017-02-07",
             "accession": "0001571949-17-000003",
             "form": "10-K"
           },
-          "coefficient": 1
+          "coefficient": 1,
+          "instance_position": true,
+          "instance": {
+            "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194917000003/ice-20161231.xml",
+            "sha256": "4f95df9a90322b2541fbb431f2acfe4e9d82f04b2e44fc797e924b2f1258ede0",
+            "file": "4f95df9a90322b2541fbb431f2acfe4e9d82f04b2e44fc797e924b2f1258ede0.htm"
+          }
         }
       ],
-      "selected_tag": "Revenues",
+      "selected_tag": "RevenuesLessTransactionBasedExpenses",
       "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194917000003/R4.htm",
         "sha256": "31aab82d31c2b67d419002fb94c64e88d9e4a173936649c72e245bbc8cc7a8b0",
@@ -68588,15 +68666,15 @@
     "ICE:revenue:2016-01-01:2016-12-31:0001571949-18-000003": {
       "filed": "2018-02-07",
       "form": "10-K",
-      "value": "5958000000",
+      "value": "4499000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001571949",
-            "taxonomy": "us-gaap",
-            "tag": "Revenues",
+            "taxonomy": "ice",
+            "tag": "RevenuesLessTransactionBasedExpenses",
             "unit": "USD",
-            "value": "5958000000",
+            "value": "4499000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2018-02-07",
@@ -68606,9 +68684,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "Revenues",
+      "selected_tag": "RevenuesLessTransactionBasedExpenses",
       "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194918000003/R4.htm",
         "sha256": "c5f02afa5b95efefc4890717880d5da52c41865687b8fbaa5682044679fb4850",
@@ -68618,15 +68696,15 @@
     "ICE:revenue:2017-01-01:2017-12-31:0001571949-18-000003": {
       "filed": "2018-02-07",
       "form": "10-K",
-      "value": "5834000000",
+      "value": "4629000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001571949",
-            "taxonomy": "us-gaap",
-            "tag": "Revenues",
+            "taxonomy": "ice",
+            "tag": "RevenuesLessTransactionBasedExpenses",
             "unit": "USD",
-            "value": "5834000000",
+            "value": "4629000000",
             "period_start": "2017-01-01",
             "period_end": "2017-12-31",
             "filed": "2018-02-07",
@@ -68636,9 +68714,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "Revenues",
+      "selected_tag": "RevenuesLessTransactionBasedExpenses",
       "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194918000003/R4.htm",
         "sha256": "c5f02afa5b95efefc4890717880d5da52c41865687b8fbaa5682044679fb4850",
@@ -93817,15 +93895,15 @@
     "NDAQ:revenue:2016-01-01:2016-12-31:0001120193-17-000003": {
       "filed": "2017-03-01",
       "form": "10-K",
-      "value": "3705000000",
+      "value": "2277000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001120193",
             "taxonomy": "us-gaap",
-            "tag": "Revenues",
+            "tag": "GrossProfit",
             "unit": "USD",
-            "value": "3705000000",
+            "value": "2277000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2017-03-01",
@@ -93835,9 +93913,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "Revenues",
+      "selected_tag": "GrossProfit",
       "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019317000003/R4.htm",
         "sha256": "8b0364e0ddebd989ce86e76687f762e02e63f3c47b0b1530a4ec489e11603938",
@@ -93847,15 +93925,15 @@
     "NDAQ:revenue:2016-01-01:2016-12-31:0001120193-18-000003": {
       "filed": "2018-02-28",
       "form": "10-K",
-      "value": "3705000000",
+      "value": "2277000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001120193",
             "taxonomy": "us-gaap",
-            "tag": "Revenues",
+            "tag": "GrossProfit",
             "unit": "USD",
-            "value": "3705000000",
+            "value": "2277000000",
             "period_start": "2016-01-01",
             "period_end": "2016-12-31",
             "filed": "2018-02-28",
@@ -93865,9 +93943,9 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "Revenues",
+      "selected_tag": "GrossProfit",
       "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/R4.htm",
         "sha256": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768",
@@ -93877,15 +93955,15 @@
     "NDAQ:revenue:2017-01-01:2017-12-31:0001120193-18-000003": {
       "filed": "2018-02-28",
       "form": "10-K",
-      "value": "3965000000",
+      "value": "2428000000",
       "components": [
         {
           "fact": {
             "source_cik": "0001120193",
             "taxonomy": "us-gaap",
-            "tag": "Revenues",
+            "tag": "GrossProfit",
             "unit": "USD",
-            "value": "3965000000",
+            "value": "2428000000",
             "period_start": "2017-01-01",
             "period_end": "2017-12-31",
             "filed": "2018-02-28",
@@ -93895,103 +93973,13 @@
           "coefficient": 1
         }
       ],
-      "selected_tag": "Revenues",
+      "selected_tag": "GrossProfit",
       "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source.",
       "statement": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/R4.htm",
         "sha256": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768",
         "file": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768.htm"
-      }
-    },
-    "NDAQ:revenue:2019-01-01:2019-12-31:0001120193-20-000004": {
-      "filed": "2020-02-25",
-      "form": "10-K",
-      "value": "4262000000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001120193",
-            "taxonomy": "us-gaap",
-            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-            "unit": "USD",
-            "value": "4262000000",
-            "period_start": "2019-01-01",
-            "period_end": "2019-12-31",
-            "filed": "2020-02-25",
-            "accession": "0001120193-20-000004",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019320000004/R4.htm",
-        "sha256": "8d73861286e2af2e2ee7fa5cb681b3fa5654c1cb6a650345c11f3aa4bea8c9cb",
-        "file": "8d73861286e2af2e2ee7fa5cb681b3fa5654c1cb6a650345c11f3aa4bea8c9cb.htm"
-      }
-    },
-    "NDAQ:revenue:2019-01-01:2019-12-31:0001120193-21-000011": {
-      "filed": "2021-02-23",
-      "form": "10-K",
-      "value": "4262000000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001120193",
-            "taxonomy": "us-gaap",
-            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-            "unit": "USD",
-            "value": "4262000000",
-            "period_start": "2019-01-01",
-            "period_end": "2019-12-31",
-            "filed": "2021-02-23",
-            "accession": "0001120193-21-000011",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/R4.htm",
-        "sha256": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1",
-        "file": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1.htm"
-      }
-    },
-    "NDAQ:revenue:2020-01-01:2020-12-31:0001120193-21-000011": {
-      "filed": "2021-02-23",
-      "form": "10-K",
-      "value": "5627000000",
-      "components": [
-        {
-          "fact": {
-            "source_cik": "0001120193",
-            "taxonomy": "us-gaap",
-            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-            "unit": "USD",
-            "value": "5627000000",
-            "period_start": "2020-01-01",
-            "period_end": "2020-12-31",
-            "filed": "2021-02-23",
-            "accession": "0001120193-21-000011",
-            "form": "10-K"
-          },
-          "coefficient": 1
-        }
-      ],
-      "selected_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "calculation": null,
-      "note": "Reported total: Total revenues. Other candidates are retained separately; values are not summed.",
-      "statement": {
-        "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/R4.htm",
-        "sha256": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1",
-        "file": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1.htm"
       }
     },
     "NEE:eps_diluted:2016-01-01:2016-12-31:0000753308-17-000060": {
@@ -146968,5 +146956,5 @@
       "reason": "Income statement has no unique recognized total-revenue row; No unique same-issuer fact matches this annual column"
     }
   },
-  "reviewed_at": "2026-11-03T10:35:44.488065+00:00"
+  "reviewed_at": "2026-11-12T11:04:01.252071+00:00"
 }

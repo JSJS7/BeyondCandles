@@ -127,6 +127,78 @@ class PriceTests(unittest.TestCase):
         self.assertNotEqual(fingerprint(original), fingerprint(changed))
 
 
+class VerifyDbPriceTests(unittest.TestCase):
+    """K21: verify-db must compare every stored price, not only the number of rows."""
+
+    def run_verification(self, stored_close):
+        from sqlalchemy import create_engine
+        from sqlalchemy.pool import StaticPool
+
+        from app.data_pipeline.verification import verify_db
+        from app.database import Base
+        from app.models import Company, DailyPrice
+
+        database = create_engine("sqlite://", poolclass=StaticPool)
+        Base.metadata.create_all(database)
+        with database.begin() as connection:
+            connection.execute(
+                Company.__table__.insert(),
+                {
+                    "id": 1,
+                    "ticker": "TEST",
+                    "name": "Test",
+                    "exchange": "NYSE",
+                    "currency": "USD",
+                },
+            )
+            connection.execute(
+                DailyPrice.__table__.insert(),
+                {
+                    "company_id": 1,
+                    "date": date(2020, 1, 2),
+                    "open": Decimal(10),
+                    "high": Decimal(12),
+                    "low": Decimal(9),
+                    "close": Decimal(stored_close),
+                    "adjusted_close": Decimal(5),
+                    "volume": 100,
+                },
+            )
+        with TemporaryDirectory(prefix="beyondcandles-verify-test-") as directory:
+            prepared = Path(directory) / "prices.csv"
+            prepared.write_text(
+                "ticker,date,open,high,low,close,adjusted_close,volume\n"
+                "TEST,2020-01-02,10,12,9,11,5,100\n",
+                encoding="utf-8",
+            )
+            summary = {"prices": 1}
+            with (
+                patch(
+                    "app.data_pipeline.verification.validate_prices",
+                    return_value=(prepared, None, summary),
+                ),
+                patch("app.database.engine", database),
+            ):
+                try:
+                    verify_db()
+                except ValueError as error:
+                    return str(error)
+                finally:
+                    database.dispose()
+        return None
+
+    def test_a_changed_price_fails_although_the_row_count_matches(self):
+        message = self.run_verification(stored_close="11.5")
+
+        self.assertEqual(message, "Stored price data does not match validated source")
+
+    def test_equal_prices_pass_the_price_comparison(self):
+        """The next check, 200 companies, stops this one-company fixture instead."""
+        message = self.run_verification(stored_close="11")
+
+        self.assertEqual(message, "Stored company count differs from 200")
+
+
 class SecTests(unittest.TestCase):
     def body(self) -> dict[str, Any]:
         """Build SEC-like data with one repeated fact and a later correction."""
@@ -218,6 +290,30 @@ class SecTests(unittest.TestCase):
         self.assertEqual(period_kind(start, date(2020, 9, 30)), "nine_months_ytd")
         self.assertEqual(period_kind(start, date(2020, 12, 31)), "annual")
         self.assertEqual(period_kind(start, start, True), "instant")
+
+    def test_annual_period_lasts_330_to_380_days(self):
+        """K21: a year of 329 days is no annual period; both limits count. The lower
+        limit keeps 10.5-month transition periods out of the annual table."""
+        start = date(2020, 1, 1)
+
+        def ending_after(days):
+            return date.fromordinal(start.toordinal() + days - 1)
+
+        self.assertEqual(period_kind(start, ending_after(329)), "other_duration")
+        self.assertEqual(period_kind(start, ending_after(330)), "annual")
+        self.assertEqual(period_kind(start, ending_after(380)), "annual")
+        self.assertEqual(period_kind(start, ending_after(381)), "other_duration")
+
+    def test_fact_filed_before_its_period_ended_stops_the_import(self):
+        """K21: a report cannot state a year before it ends, so such a date is a source
+        error that would put knowledge before its time; it is not stored."""
+        body = self.body()
+        reported_facts = body["facts"]["us-gaap"]["NetIncomeLoss"]["units"]["USD"]
+        reported_facts[0]["filed"] = "2020-12-30"
+        reported_facts[1]["filed"] = "2020-12-30"
+
+        with self.assertRaises(ValueError):
+            extract_facts(body)
 
     def test_unknown_identity_is_not_accepted_by_name_guessing(self):
         """Reject an Apple name match when SEC does not confirm the AAPL ticker."""

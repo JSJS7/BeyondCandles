@@ -14,10 +14,10 @@ export const VALUE_LABEL_MEANINGS = {
     "the period's results still do, so P/E, P/B and P/S can read too low until the next " +
     'annual report.',
   'Exchangeable units':
-    'Part of the owners hold units exchangeable into the listed shares. The market value ' +
-    "covers only the listed shares, while revenue is the whole group's, so P/S reads too low " +
-    '(by about 40% for Blackstone, and for KKR until 2021; by about 10% for Charter from ' +
-    '2018). P/E and P/B are not affected.',
+    'Part of the owners hold units exchangeable into the listed shares (Blackstone, KKR until ' +
+    '2022, Charter, Simon Property, Broadcom in 2017). P/S counts the market value of shares ' +
+    "and units, because revenue is the whole group's; P/B counts only the listed shares, " +
+    'because equity is theirs. P/E is not affected.',
 } as const;
 
 export type ValueLabel = keyof typeof VALUE_LABEL_MEANINGS;

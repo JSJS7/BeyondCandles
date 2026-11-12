@@ -207,6 +207,31 @@ class AmdRevisionTests(unittest.TestCase):
             timeline(accepted)[0], (date(2018, 2, 27), "ready", "reviewed")
         )
 
+    def test_review_using_a_later_filing_is_not_served_earlier(self):
+        """K21: a review of the 2018 10-K that points at a fact of the 2019 10-K would
+        serve on 27.02.2018 a number filed a year later. It must stay unconfirmed."""
+        facts = [self.first, self.restated, self.latest]
+        reviews = {
+            self.first["accession"]: {
+                "value": "-33000000",
+                "components": [
+                    {"fact": fact_identity(self.restated), "coefficient": 1}
+                ],
+                "selected_tag": "NetIncomeLoss",
+                "calculation": None,
+                "note": "Checked.",
+            }
+        }
+
+        versions = build(
+            facts, approved_metric(self.latest), "net_income", reviews=reviews
+        )
+
+        self.assertEqual(
+            timeline(versions)[0], (date(2018, 2, 27), "needs_review", None)
+        )
+        self.assertIsNone(versions[0].value.value)
+
     def test_review_of_changed_fact_is_not_used(self):
         """A review pinned to another value no longer describes the stored fact."""
         facts = [self.first, self.restated, self.latest]

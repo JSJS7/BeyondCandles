@@ -95,7 +95,8 @@ The app shows five annual metrics per company. [METHODOLOGY.md](METHODOLOGY.md) 
 each choice, the exceptions and how the data was checked. In short:
 
 - **Revenue:** total consolidated revenue as reported; banks show net revenue, their own
-  line or net interest income plus noninterest income.
+  line or net interest income plus noninterest income, and exchanges their revenues less
+  transaction-based expenses.
 - **Net income:** attributable to the parent's shareholders, before preferred dividends.
 - **EPS:** diluted (basic only where nothing else is reported, and labelled), restated
   to a common share count so years are comparable.

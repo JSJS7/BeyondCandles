@@ -14,7 +14,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, select
 from sqlalchemy.engine import Connection
 
-from app.annual_financials import METRIC_NAMES
+from app.annual_financials import ANNUAL_REPORT_FORMS, METRIC_NAMES
 from app.database import get_connection
 from app.eps_splits import split_rules
 from app.fiscal_periods import fiscal_rules
@@ -36,9 +36,8 @@ from app.price_share_basis import (
 from app.ratios import (
     PeriodValues,
     calculate_ratios,
-    exchangeable_unit_periods,
+    exchangeable_units,
     participating_preferred_tickers,
-    ps_excludes_exchangeable_units,
     shares_for_ratios,
 )
 from app.schemas.screener import (
@@ -85,6 +84,13 @@ def known_periods(connection, day, company_id=None, since=None):
 
     A period exists from the first report of a reviewed metric; automatic measures join
     such a period and never create one. `since` leaves out periods ending before it.
+
+    Each cell shows its latest version from an annual report (W39). A quarterly report
+    can restate the previous year's balance sheet under a new standard or without a
+    separated business months before the next annual report restates the income
+    statement, so taking it would join two bases in one ratio (ROE of MSFT FY2017 fell
+    from 29.4% to 26.6% that way). A quarterly version is used only while the cell has
+    no annual version yet, so a value first known from a 10-Q stays available.
     """
     versions = AnnualMetricVersion.__table__
     query = select(
@@ -93,6 +99,7 @@ def known_periods(connection, day, company_id=None, since=None):
         versions.c.period_end,
         versions.c.metric,
         versions.c.known_from,
+        versions.c.form,
         versions.c.status,
         versions.c.value,
         versions.c.details,
@@ -101,12 +108,19 @@ def known_periods(connection, day, company_id=None, since=None):
         query = query.where(versions.c.company_id == company_id)
     if since is not None:
         query = query.where(versions.c.period_end >= since)
-    # Ascending, so the latest version known on the date overwrites earlier ones.
+    # Ascending, so a later version known on the date overwrites earlier ones.
     query = query.order_by(versions.c.known_from)
 
     companies = defaultdict(lambda: defaultdict(dict))
+    cells_with_annual_version = set()
     for version in connection.execute(query).mappings():
         period = (version["period_start"], version["period_end"])
+        cell = (version["company_id"], period, version["metric"])
+        is_annual = version["form"] in ANNUAL_REPORT_FORMS
+        if not is_annual and cell in cells_with_annual_version:
+            continue
+        if is_annual:
+            cells_with_annual_version.add(cell)
         companies[version["company_id"]][period][version["metric"]] = version
 
     result = {}
@@ -262,7 +276,7 @@ def valued_period(
     reports,
     split_policy,
     participating,
-    unit_periods,
+    units_by_period,
 ):
     """Assemble the ratios of one period valued at the given (session, close)."""
     cells = periods[period]
@@ -282,7 +296,8 @@ def valued_period(
     if price is not None:
         spin_offs = period_spin_offs(ticker, period[1], session, split_policy)
 
-    ratios = calculate_ratios(values, previous, price, ticker in participating)
+    units = units_by_period.get((ticker, period[1]))
+    ratios = calculate_ratios(values, previous, price, ticker in participating, units)
     growth = {
         metric: period_growth(
             reports, company_id, metric, period, earlier_period, periods
@@ -303,9 +318,7 @@ def valued_period(
         revenue_basis_break=growth["revenue"].basis_break,
         eps_basis_break=growth["eps_diluted"].basis_break,
         spin_offs=spin_offs,
-        exchangeable_units=ps_excludes_exchangeable_units(
-            ticker, period[1], unit_periods
-        ),
+        exchangeable_units=units is not None,
         ratios=Ratios(**{name: rounded(value) for name, value in ratios.items()}),
     )
 
@@ -336,7 +349,7 @@ def get_screener(
     reports = growth_reports(connection, known_through, since=since)
     split_policy = split_rules()
     participating = participating_preferred_tickers()
-    unit_periods = exchangeable_unit_periods()
+    units_by_period = exchangeable_units(split_policy)
 
     rows = []
     for company in companies:
@@ -353,7 +366,7 @@ def get_screener(
                 reports,
                 split_policy,
                 participating,
-                unit_periods,
+                units_by_period,
             )
         rows.append(
             ScreenerRow(

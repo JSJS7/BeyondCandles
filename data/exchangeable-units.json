@@ -1,27 +1,364 @@
 {
-  "version": 1,
-  "method": "Companies where part of the owners hold units of a holding partnership exchangeable into the listed shares, while the share count covers only the listed shares. Revenue is the whole group's, so P/S reads too low; net income, EPS and equity belong to the listed shares, so P/E and P/B stay consistent. The screener marks P/S of the listed periods (M42). first_period_end is the first affected annual period, or null from the start of the data; last_period_end is the last affected annual period, or null while the units still exist. A year whose diluted count already includes the units is not affected. Ordinary minority stakes in subsidiaries are not listed: market value over consolidated revenue is the usual convention there.",
+  "version": 2,
+  "method": "Companies where part of the owners hold units of a subsidiary partnership exchangeable one for one into the listed shares. Net income, EPS and equity belong to the listed shares, revenue to the whole group. Like professional data services, P/S counts the market value of shares and units together; P/B counts only the listed shares, because equity excludes the unit holders. Per period, from that period's own 10-K: weighted average units outside the served share count (added for P/S) and units inside it (removed for P/B), as a count of shares on the filing's share basis; later stock splits are applied as to share counts. Listed when units exceed 5% of the share count in some year (project-principles.md, 5.1); a period not listed has no units or fewer than that. Checked 12.11.2026 also for PLD (units already in its diluted count, about 1%), DLR (about 3%), O (about 0.1%) and AVGO 2016 (in the diluted count, about 4%).",
   "companies": [
     {
       "ticker": "BX",
-      "first_period_end": null,
-      "last_period_end": null,
-      "accession": "0001193125-25-042469",
-      "evidence": "10-K for 2024: equity attributable to Blackstone Inc. against non-controlling interests in Blackstone Holdings, whose partnership units are exchangeable into Blackstone common stock. Measured on 10.11.2026 for every year from 2015: the parent holds 40-47% of that equity and 44-58% of net income, while the share count (diluted, or basic common units in 2015, 2016 and 2018) holds only Blackstone's own shares. P/S on 31.12.2024 is 16.2, about 26 with the Holdings units."
+      "units": "Blackstone Holdings partnership units",
+      "periods": [
+        {
+          "period_end": "2015-12-31",
+          "accession": "0001193125-16-481948",
+          "filed": "2016-02-26",
+          "units_outside_share_count": "550754834",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted-Average Blackstone Holdings Partnership Units' (dilutive that year; the served count is basic common units)"
+        },
+        {
+          "period_end": "2016-12-31",
+          "accession": "0001193125-17-056300",
+          "filed": "2017-02-24",
+          "units_outside_share_count": "544194049",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted-Average Blackstone Holdings Partnership Units' (dilutive that year; the served count is basic common units)"
+        },
+        {
+          "period_end": "2017-12-31",
+          "accession": "0001193125-18-067079",
+          "filed": "2018-03-01",
+          "units_outside_share_count": "533982613",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2018-12-31",
+          "accession": "0001193125-19-061011",
+          "filed": "2019-03-01",
+          "units_outside_share_count": "527886114",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted-Average Blackstone Holdings Partnership Units' (dilutive that year; the served count is basic common units)"
+        },
+        {
+          "period_end": "2019-12-31",
+          "accession": "0001193125-20-056733",
+          "filed": "2020-02-28",
+          "units_outside_share_count": "524211887",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2020-12-31",
+          "accession": "0001193125-21-060361",
+          "filed": "2021-02-26",
+          "units_outside_share_count": "504221914",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2021-12-31",
+          "accession": "0001193125-22-054433",
+          "filed": "2022-02-25",
+          "units_outside_share_count": "486157205",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2022-12-31",
+          "accession": "0001193125-23-048733",
+          "filed": "2023-02-24",
+          "units_outside_share_count": "466083269",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2023-12-31",
+          "accession": "0001193125-24-044485",
+          "filed": "2024-02-23",
+          "units_outside_share_count": "460897953",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2024-12-31",
+          "accession": "0001193125-25-042469",
+          "filed": "2025-02-28",
+          "units_outside_share_count": "455306643",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        },
+        {
+          "period_end": "2025-12-31",
+          "accession": "0001193125-26-082531",
+          "filed": "2026-02-27",
+          "units_outside_share_count": "447702475",
+          "units_in_share_count": "0",
+          "source": "EPS note, anti-dilutive securities table, row 'Weighted-Average Blackstone Holdings Partnership Units'"
+        }
+      ]
     },
     {
       "ticker": "KKR",
-      "first_period_end": null,
-      "last_period_end": "2021-12-31",
-      "accession": "0001404912-22-000004",
-      "evidence": "10-K for 2021: KKR Holdings units exchangeable into KKR Class A common stock. Measured on 10.11.2026: the parent holds 30-40% of equity from 2015 to 2021. KKR tags no share count, so the count is (net income - preferred dividends) / EPS, which covers only the listed shares. The 2022 reorganisation exchanged the KKR Holdings units, so periods from 2022 are not affected."
+      "units": "KKR Holdings units, exchanged in the 2022 reorganisation (2022 is a weighted part year)",
+      "periods": [
+        {
+          "period_end": "2015-12-31",
+          "accession": "0001404912-16-000009",
+          "filed": "2016-02-26",
+          "units_outside_share_count": "368399872",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2016-12-31",
+          "accession": "0001404912-17-000005",
+          "filed": "2017-02-24",
+          "units_outside_share_count": "357873788",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2017-12-31",
+          "accession": "0001404912-18-000005",
+          "filed": "2018-02-23",
+          "units_outside_share_count": "344422095",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2018-12-31",
+          "accession": "0001404912-19-000006",
+          "filed": "2019-02-15",
+          "units_outside_share_count": "314458757",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2019-12-31",
+          "accession": "0001404912-20-000006",
+          "filed": "2020-02-18",
+          "units_outside_share_count": "296445196",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2020-12-31",
+          "accession": "0001404912-21-000008",
+          "filed": "2021-02-19",
+          "units_outside_share_count": "283633220",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2021-12-31",
+          "accession": "0001404912-22-000004",
+          "filed": "2022-02-28",
+          "units_outside_share_count": "271719976",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        },
+        {
+          "period_end": "2022-12-31",
+          "accession": "0001404912-23-000005",
+          "filed": "2023-02-27",
+          "units_outside_share_count": "107018025",
+          "units_in_share_count": "0",
+          "source": "EPS note, row 'Weighted Average KKR Holdings Units' (excluded from the diluted count)"
+        }
+      ]
     },
     {
       "ticker": "CHTR",
-      "first_period_end": "2018-12-31",
-      "last_period_end": null,
-      "accession": "0001091667-26-000017",
-      "evidence": "Checked year by year on 11.11.2026 in the earnings per share note of every 10-K from 2016 to 2025. Charter Holdings common units held by Advance/Newhouse are exchangeable into Charter Class A common stock; they exist since the Bright House transaction of 18.05.2016. The diluted count includes them in 2016 and 2017 (19.3 and 26.6 million weighted common units plus 5.8 and 9.3 million convertible preferred units), so P/S of those years is not affected. From 2018 they are excluded as antidilutive: 31, 29, 26, 19, 20, 18, 17 and 16 million units for 2018 to 2025, against diluted counts of 235.5 to 137.7 million, so P/S reads 9-12% too low (2018: 0001091667-19-000029; 2021: 0001091667-22-000024; 2025: 0001091667-26-000017)."
+      "units": "Charter Holdings common and convertible preferred units held by Advance/Newhouse, since 18.05.2016",
+      "periods": [
+        {
+          "period_end": "2016-12-31",
+          "accession": "0001091667-17-000030",
+          "filed": "2017-02-16",
+          "units_outside_share_count": "0",
+          "units_in_share_count": "25163468",
+          "source": "EPS note: weighted average Charter Holdings common units and convertible preferred units included in the diluted count: 19,333,227 + 5,830,241"
+        },
+        {
+          "period_end": "2017-12-31",
+          "accession": "0001091667-18-000025",
+          "filed": "2018-02-02",
+          "units_outside_share_count": "0",
+          "units_in_share_count": "35971096",
+          "source": "EPS note: weighted average Charter Holdings common units and convertible preferred units included in the diluted count: 26,637,596 + 9,333,500"
+        },
+        {
+          "period_end": "2018-12-31",
+          "accession": "0001091667-19-000029",
+          "filed": "2019-01-31",
+          "units_outside_share_count": "31000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (31 million)"
+        },
+        {
+          "period_end": "2019-12-31",
+          "accession": "0001091667-20-000024",
+          "filed": "2020-01-31",
+          "units_outside_share_count": "29000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (29 million)"
+        },
+        {
+          "period_end": "2020-12-31",
+          "accession": "0001091667-21-000022",
+          "filed": "2021-01-29",
+          "units_outside_share_count": "26000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (26 million)"
+        },
+        {
+          "period_end": "2021-12-31",
+          "accession": "0001091667-22-000024",
+          "filed": "2022-01-28",
+          "units_outside_share_count": "19000000",
+          "units_in_share_count": "4321538",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (19 million common units); convertible preferred units in the diluted count: 4,321,538"
+        },
+        {
+          "period_end": "2022-12-31",
+          "accession": "0001091667-23-000024",
+          "filed": "2023-01-27",
+          "units_outside_share_count": "20000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (20 million)"
+        },
+        {
+          "period_end": "2023-12-31",
+          "accession": "0001091667-24-000028",
+          "filed": "2024-02-02",
+          "units_outside_share_count": "18000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (18 million)"
+        },
+        {
+          "period_end": "2024-12-31",
+          "accession": "0001091667-25-000034",
+          "filed": "2025-01-31",
+          "units_outside_share_count": "17000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (17 million)"
+        },
+        {
+          "period_end": "2025-12-31",
+          "accession": "0001091667-26-000017",
+          "filed": "2026-01-30",
+          "units_outside_share_count": "16000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Charter Holdings common (and convertible preferred) units of N million ... were not included in the computation of diluted earnings per share' (16 million)"
+        }
+      ]
+    },
+    {
+      "ticker": "SPG",
+      "units": "Simon Property Group, L.P. units held by limited partners",
+      "periods": [
+        {
+          "period_end": "2015-12-31",
+          "accession": "0001047469-16-010465",
+          "filed": "2016-02-26",
+          "units_outside_share_count": "52141000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 362,244 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 310,103 thousand"
+        },
+        {
+          "period_end": "2016-12-31",
+          "accession": "0001558370-17-000934",
+          "filed": "2017-02-24",
+          "units_outside_share_count": "48836000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 361,527 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 312,691 thousand"
+        },
+        {
+          "period_end": "2017-12-31",
+          "accession": "0001558370-18-000981",
+          "filed": "2018-02-23",
+          "units_outside_share_count": "47260000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 358,777 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 311,517 thousand"
+        },
+        {
+          "period_end": "2018-12-31",
+          "accession": "0001558370-19-000875",
+          "filed": "2019-02-22",
+          "units_outside_share_count": "46893000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 356,520 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 309,627 thousand"
+        },
+        {
+          "period_end": "2019-12-31",
+          "accession": "0001558370-20-001135",
+          "filed": "2020-02-21",
+          "units_outside_share_count": "46774000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 354,724 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 307,950 thousand"
+        },
+        {
+          "period_end": "2020-12-31",
+          "accession": "0001558370-21-001700",
+          "filed": "2021-02-25",
+          "units_outside_share_count": "46544000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 355,282 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 308,738 thousand"
+        },
+        {
+          "period_end": "2021-12-31",
+          "accession": "0001558370-22-001845",
+          "filed": "2022-02-24",
+          "units_outside_share_count": "47280000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 375,867 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 328,587 thousand"
+        },
+        {
+          "period_end": "2022-12-31",
+          "accession": "0001558370-23-001840",
+          "filed": "2023-02-23",
+          "units_outside_share_count": "47295000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 375,112 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 327,817 thousand"
+        },
+        {
+          "period_end": "2023-12-31",
+          "accession": "0001558370-24-001532",
+          "filed": "2024-02-22",
+          "units_outside_share_count": "47782000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 374,590 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 326,808 thousand"
+        },
+        {
+          "period_end": "2024-12-31",
+          "accession": "0001558370-25-001271",
+          "filed": "2025-02-21",
+          "units_outside_share_count": "49338000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 375,435 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 326,097 thousand"
+        },
+        {
+          "period_end": "2025-12-31",
+          "accession": "0001104659-26-019419",
+          "filed": "2026-02-25",
+          "units_outside_share_count": "51558000",
+          "units_in_share_count": "0",
+          "source": "Simon Property Group, L.P. 'Basic and Diluted weighted average shares and units outstanding' 377,925 thousand less Simon Property Group, Inc. 'Basic and Diluted weighted average shares outstanding' 326,367 thousand"
+        }
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "units": "Broadcom Cayman L.P. restricted exchangeable partnership units (Partnership REUs), exchanged in 2018",
+      "periods": [
+        {
+          "period_end": "2017-10-29",
+          "accession": "0001649338-17-000158",
+          "filed": "2017-12-21",
+          "units_outside_share_count": "22000000",
+          "units_in_share_count": "0",
+          "source": "EPS note: 'Diluted net income per share excluded the potentially dilutive effect of the exchange of Partnership REUs for up to 22 million ordinary shares for fiscal year 2017'"
+        }
+      ]
     }
   ]
 }

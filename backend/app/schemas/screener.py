@@ -45,8 +45,8 @@ class PeriodRatios(BaseModel):
     eps_basis_break: bool = False
     # Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.
     spin_offs: list[SpinOff] = []
-    # P/S reads too low: units exchangeable into the listed shares are outside the share
-    # count, while revenue is the whole group's (data/exchangeable-units.json).
+    # Part of the owners hold units exchangeable into the listed shares: P/S counts shares
+    # and units, P/B only the listed shares (data/exchangeable-units.json, M52).
     exchangeable_units: bool = False
     ratios: Ratios
 

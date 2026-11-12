@@ -788,12 +788,20 @@ class RevenueEvidenceTests(unittest.TestCase):
                 )
             return rule
 
-    def test_exchange_uses_total_revenues_not_revenues_less_expenses(self):
-        """Nasdaq shows both; total revenues is the row ICE and CME report as well."""
+    def test_exchange_uses_revenues_less_transaction_based_expenses(self):
+        """M51 (decision 12.11.2026, replacing 02.11.2026): Nasdaq shows both rows, and
+        the net one is its revenue, as data services read it. Its concept GrossProfit is
+        accepted only for this exchange and only under that label."""
         total = reported_fact(
             metric="revenue",
             tag="Revenues",
             value=Decimal("100000000"),
+            source_cik="0001120193",
+        )
+        net = reported_fact(
+            metric="revenue",
+            tag="GrossProfit",
+            value=Decimal("60000000"),
             source_cik="0001120193",
         )
         rows = row("us-gaap_Revenues", "Total revenues") + row(
@@ -802,10 +810,25 @@ class RevenueEvidenceTests(unittest.TestCase):
             ("60", "50"),
         )
 
-        rule = self.verified_rule("NDAQ", [total], rows)
+        rule = self.verified_rule("NDAQ", [total, net], rows)
 
-        self.assertEqual(rule["tag"], "Revenues")
-        self.assertEqual(rule["value"], "100000000")
+        self.assertEqual(rule["tag"], "GrossProfit")
+        self.assertEqual(rule["value"], "60000000")
+        self.assertIn("transaction-based expenses", rule["note"])
+
+    def test_exchange_net_revenue_needs_its_label(self):
+        """A GrossProfit row under another label is not taken for net revenue."""
+        net = reported_fact(
+            metric="revenue",
+            tag="GrossProfit",
+            value=Decimal("60000000"),
+            source_cik="0001120193",
+        )
+        rows = row("us-gaap_Revenues", "Total revenues") + row(
+            "us-gaap_GrossProfit", "Gross profit", ("60", "50")
+        )
+
+        self.assertIsNone(self.verified_rule("NDAQ", [net], rows))
 
     def test_reviewed_note_reads_revenue_rows_after_the_per_share_rows(self):
         """Nasdaq FY2021 lists revenue below EPS, then repeats it for each segment.

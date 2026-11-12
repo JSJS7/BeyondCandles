@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "method": "Spin-offs that the price vendor recorded as a distribution in Adjusted Close instead of a split-like ratio. The vendor's Close stays unchanged, so the share basis of the price is right; only the Spin-off marker needs the event. The separated part of the price is 1 - (Adjusted Close / Close before) / (Adjusted Close / Close on the event day), from the vendor's own series. Found by a scan of every session for a change of that ratio above 3% (Fable 5.2 review, M50); the other changes above 3% are cash dividends.",
+  "distributions": [
+    {
+      "ticker": "JCI",
+      "date": "2016-10-31",
+      "business": "Adient",
+      "adjusted_to_close_before": "0.71907691296550727634",
+      "adjusted_to_close_on_date": "0.80560172024726302132",
+      "evidence": [
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/adient-completion.html",
+          "sha256": "8784a686ec8ecf68eed3309c22d677ecb375999237c696dcc9fae4abb7ac9fdb",
+          "statement": "Adient completed its separation from Johnson Controls International and began trading on the NYSE on 31 Oct 2016."
+        },
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/adient-2016-10k.html",
+          "sha256": "22be0a56290396b8ecbb4090bce2a9e124ba17117ef0b7a82036f3e206ce7043",
+          "statement": "One Adient share for every 10 JCI shares; first regular-way close 45.51, so 4.551 per JCI share against the vendor's 4.70 (price-audit-reviews.json)."
+        }
+      ],
+      "note": "JCI's FY2016 report (period ending 30 Sep 2016) still includes Adient, about 16.8 billion of 37.7 billion revenue, while prices from 31 Oct 2016 exclude it."
+    }
+  ]
+}

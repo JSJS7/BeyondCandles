@@ -189,6 +189,21 @@ class SpinOffTests(unittest.TestCase):
 
         self.assertEqual(events, [(date(2020, 4, 3), Fraction(589, 1589))])
 
+    def test_spin_off_recorded_as_a_distribution_is_marked_too(self):
+        """M50: the vendor booked Adient as a distribution, so no split-like ratio shows
+        it. The rise of Adjusted Close / Close on 31.10.2016 gives 10.7% of the price,
+        the vendor's 4.70 per JCI share against the 43.76 close before."""
+        events = spin_offs("JCI", rules())
+
+        self.assertEqual([event_day for event_day, _ in events], [date(2016, 10, 31)])
+        self.assertAlmostEqual(float(events[0][1]), 0.1074, places=4)
+
+    def test_distribution_below_the_threshold_is_not_a_spin_off(self):
+        """The same 3% threshold as for vendor ratios applies."""
+        small = {"TEST": [(date(2020, 1, 2), Fraction(2, 100))]}
+
+        self.assertEqual(spin_offs("TEST", rules(), small), [])
+
     def test_snapshot_spin_offs_in_the_price_window_are_the_known_separations(self):
         """Every event above 3% from 2015 to 2025 is a documented separation, named after
         the business that left; the JCI merger and HON's 1.1% Garrett spin-off are not."""
@@ -203,6 +218,7 @@ class SpinOffTests(unittest.TestCase):
             ("HON", date(2018, 10, 29)),  # Resideo
             ("HON", date(2025, 10, 30)),  # Solstice Advanced Materials
             ("IBM", date(2021, 11, 4)),  # Kyndryl
+            ("JCI", date(2016, 10, 31)),  # Adient, recorded as a distribution (M50)
             ("MET", date(2017, 8, 7)),  # Brighthouse Financial
             ("MMM", date(2024, 4, 1)),  # Solventum
             ("MRK", date(2021, 6, 3)),  # Organon

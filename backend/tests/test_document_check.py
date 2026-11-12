@@ -84,6 +84,12 @@ class ParsingTests(unittest.TestCase):
         self.assertEqual(number("$-2.08"), Decimal("-2.08"))
         self.assertEqual(number("$(4) (a)"), Decimal("-4"))
 
+    def test_numbers_read_a_dollar_sign_inside_the_bracket(self):
+        """K19: the most common table format puts the sign inside, "($2.08)"; the N37
+        test covered only the sign before the bracket."""
+        self.assertEqual(number("($2.08)"), Decimal("-2.08"))
+        self.assertEqual(number("($ 1,234)"), Decimal("-1234"))
+
 
 class VersionCheckTests(unittest.TestCase):
     def test_value_in_its_row_and_column_passes(self):
@@ -127,6 +133,32 @@ class VersionCheckTests(unittest.TestCase):
         verdict, _ = check_version(revenue_task(), filing_of(table))
 
         self.assertEqual(verdict, "pass_direct")
+
+    def test_exchange_net_revenue_keeps_its_label(self):
+        """M51: exchanges name their net revenue after transaction-based expenses (ICE
+        prints the hyphen, other filings may not); a row of those expenses alone stays
+        excluded, because it does not name revenue."""
+        for label in (
+            "Total revenues, less transaction-based expenses",
+            "Revenues less transaction based expenses",
+        ):
+            with self.subTest(label=label):
+                table = [
+                    ["Year Ended December 31", "2025", "2024"],
+                    [label, "9,467", "9,256"],
+                ]
+
+                verdict, _ = check_version(revenue_task(), filing_of(table))
+
+                self.assertEqual(verdict, "pass_direct")
+        expenses = [
+            ["Year Ended December 31", "2025", "2024"],
+            ["Total transaction-based expenses", "9,467", "9,256"],
+        ]
+
+        verdict, _ = check_version(revenue_task(), filing_of(expenses))
+
+        self.assertFalse(verdict.startswith("pass"))
 
     def test_a_wrong_year_is_rejected(self):
         """The value stands in the table, but under another period."""

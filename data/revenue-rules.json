@@ -2,7 +2,7 @@
   "version": 2,
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "method": "Verify the latest revenue filing separately for every reviewed annual period. Match the primary income-statement total, issuer, annual date column, USD scale and exact source fact within displayed rounding. Pin the accession, filing date and amount; a tag approval never transfers to another filing automatically. Four exact note exceptions verify consolidated totals or historical annual corrections.",
-  "definition": "Reported consolidated revenue on the income statement's tax/interest basis. Reviewed banks use GAAP net interest income plus noninterest income from one filing. One reviewed Philip Morris year deducts excise taxes on the same statement, matching the definition of its later years. Overlapping concepts are never summed; different sectors are not normalized.",
+  "definition": "Reported consolidated revenue on the income statement's tax/interest basis. Reviewed banks use GAAP net interest income plus noninterest income from one filing. Exchanges use their revenues less transaction-based expenses row. One reviewed Philip Morris year deducts excise taxes on the same statement, matching the definition of its later years. Overlapping concepts are never summed; different sectors are not normalized.",
   "periods": {
     "0000001800:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
@@ -30963,11 +30963,11 @@
     },
     "0001120193:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "Revenues",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-18-000003",
       "filed": "2018-02-28",
-      "value": "3403000000",
+      "value": "2090000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/R4.htm",
         "sha256": "2ecadd25667db6b56f3ba515e80088568f3e83753da4a9296165ced651e51768",
@@ -30977,15 +30977,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019318000003/FilingSummary.xml",
         "sha256": "a8cf22e745e464ffa164957a032522e444eedae0df440161039cf9bf6c2405f8",
         "file": "a8cf22e745e464ffa164957a032522e444eedae0df440161039cf9bf6c2405f8.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2016-01-01:2016-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-19-000002",
       "filed": "2019-02-22",
-      "value": "3704000000",
+      "value": "2276000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019319000002/R4.htm",
         "sha256": "ba40073204d50430d87a437ac059ef6c8fc8968b99d246ca5843a77cb6a5152f",
@@ -30995,15 +30996,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019319000002/FilingSummary.xml",
         "sha256": "27dd206aaf807186238baad8a108d7cf5eedb18d57c0a34275234c734322fad4",
         "file": "27dd206aaf807186238baad8a108d7cf5eedb18d57c0a34275234c734322fad4.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2017-01-01:2017-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-20-000004",
       "filed": "2020-02-25",
-      "value": "3948000000",
+      "value": "2411000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019320000004/R4.htm",
         "sha256": "8d73861286e2af2e2ee7fa5cb681b3fa5654c1cb6a650345c11f3aa4bea8c9cb",
@@ -31013,15 +31015,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019320000004/FilingSummary.xml",
         "sha256": "9819f09dc4d0e02685735eba102801ea81242d703a7c656e9b6ddc09a21e9024",
         "file": "9819f09dc4d0e02685735eba102801ea81242d703a7c656e9b6ddc09a21e9024.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2018-01-01:2018-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-21-000011",
       "filed": "2021-02-23",
-      "value": "4277000000",
+      "value": "2526000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/R4.htm",
         "sha256": "45a6629d1e6fe7c5f35f1756213b4d2015a5367eb65410bd80216756a38e92b1",
@@ -31031,15 +31034,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019321000011/FilingSummary.xml",
         "sha256": "7cf1875232322c8cf6251dbca415abdca3ff6bac7d29d905d91caae9cce92d45",
         "file": "7cf1875232322c8cf6251dbca415abdca3ff6bac7d29d905d91caae9cce92d45.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2019-01-01:2019-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-22-000007",
       "filed": "2022-02-23",
-      "value": "4258000000",
+      "value": "2535000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019322000007/R5.htm",
         "sha256": "8394f14f1fd4c12f7b39dfe7b81e75924a828f7bc40af77b4566df0c20f60c01",
@@ -31050,15 +31054,15 @@
         "sha256": "096abdca55abb4119e7ac07b11d8fd500cd64fa8c9b7d96302919eea5c775fd5",
         "file": "096abdca55abb4119e7ac07b11d8fd500cd64fa8c9b7d96302919eea5c775fd5.htm"
       },
-      "note": "Consolidated annual total verified in the same filing's revenue/segment reconciliation, before segment breakdowns. Quarterly and segment amounts are not substituted."
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2020-01-01:2020-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-23-000014",
       "filed": "2023-02-23",
-      "value": "5625000000",
+      "value": "2903000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019323000014/R5.htm",
         "sha256": "1c5558c31219ae1e90c04feb0e46dc85d2c529eb18e221b435a03a7c10404c42",
@@ -31068,15 +31072,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019323000014/FilingSummary.xml",
         "sha256": "be1a63bef78c11fed29d431f62e2a36174311538ddb9af84a3852f42249d163a",
         "file": "be1a63bef78c11fed29d431f62e2a36174311538ddb9af84a3852f42249d163a.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2021-01-01:2021-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-24-000006",
       "filed": "2024-02-21",
-      "value": "5886000000",
+      "value": "3420000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019324000006/R5.htm",
         "sha256": "54411e101fa7c7dc8ab056bd4873b45ea66f4f7abebae7b0112e95deb9dcd40f",
@@ -31086,15 +31091,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019324000006/FilingSummary.xml",
         "sha256": "daa5be33c25aa8b25ba8a2ec773b67c19c1af700c50744060aaf65f67946282f",
         "file": "daa5be33c25aa8b25ba8a2ec773b67c19c1af700c50744060aaf65f67946282f.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2022-01-01:2022-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001120193-25-000008",
       "filed": "2025-02-21",
-      "value": "6226000000",
+      "value": "3582000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019325000008/R5.htm",
         "sha256": "02e2edff17c8cd302d3d9602fb347899f366fe8ffb638b9161b0645962793670",
@@ -31104,15 +31110,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000112019325000008/FilingSummary.xml",
         "sha256": "305d9a906415eaf5c21b67ce913b3b0108d74b046996dcade87e9f42c85e3abb",
         "file": "305d9a906415eaf5c21b67ce913b3b0108d74b046996dcade87e9f42c85e3abb.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2023-01-01:2023-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001628280-26-007703",
       "filed": "2026-02-12",
-      "value": "6064000000",
+      "value": "3895000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/R5.htm",
         "sha256": "61df6561a3a0508c5c9d2cc4d5cc00f53085c8153339c6beef41dbe2c07d6d2c",
@@ -31122,15 +31129,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/FilingSummary.xml",
         "sha256": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182",
         "file": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2024-01-01:2024-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001628280-26-007703",
       "filed": "2026-02-12",
-      "value": "7400000000",
+      "value": "4649000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/R5.htm",
         "sha256": "61df6561a3a0508c5c9d2cc4d5cc00f53085c8153339c6beef41dbe2c07d6d2c",
@@ -31140,15 +31148,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/FilingSummary.xml",
         "sha256": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182",
         "file": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001120193:2025-01-01:2025-12-31": {
       "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "tag": "GrossProfit",
+      "label": "Revenues less transaction-based expenses",
       "accession": "0001628280-26-007703",
       "filed": "2026-02-12",
-      "value": "8262000000",
+      "value": "5249000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/R5.htm",
         "sha256": "61df6561a3a0508c5c9d2cc4d5cc00f53085c8153339c6beef41dbe2c07d6d2c",
@@ -31158,7 +31167,8 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1120193/000162828026007703/FilingSummary.xml",
         "sha256": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182",
         "file": "ea49b5f6f745d9b270e4cb461039b0b1c549834c0565a76ad417a4686e7cb182.htm"
-      }
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001133421:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
@@ -38286,12 +38296,12 @@
       }
     },
     "0001571949:2015-01-01:2015-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "Revenues",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-18-000003",
       "filed": "2018-02-07",
-      "value": "4682000000",
+      "value": "3338000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194918000003/R4.htm",
         "sha256": "c5f02afa5b95efefc4890717880d5da52c41865687b8fbaa5682044679fb4850",
@@ -38301,15 +38311,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194918000003/FilingSummary.xml",
         "sha256": "b6c3768eaa110370485ef93de455315fe7d11c139bc08619a017f8c1572dfd6c",
         "file": "b6c3768eaa110370485ef93de455315fe7d11c139bc08619a017f8c1572dfd6c.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194918000003/ice-20171231.xml",
+        "sha256": "09dde520fb58f88fccdeb0df6ed4be0bf8987412ed53e753676d1f760e341137",
+        "file": "09dde520fb58f88fccdeb0df6ed4be0bf8987412ed53e753676d1f760e341137.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2016-01-01:2016-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-19-000003",
       "filed": "2019-02-07",
-      "value": "5971000000",
+      "value": "4512000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194919000003/R4.htm",
         "sha256": "70215a19c744203b2d543d4121b0cd525903b494748b1579a249449bbbb43246",
@@ -38319,15 +38335,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194919000003/FilingSummary.xml",
         "sha256": "0596654f5a7fa3506631809c1fb60f2ac817365b1ebf6dbe2d417df6fff63335",
         "file": "0596654f5a7fa3506631809c1fb60f2ac817365b1ebf6dbe2d417df6fff63335.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194919000003/ice-20181231.xml",
+        "sha256": "337d45118922f9112061e6d443f77055b999aedbb91bb4ca8716b20dfc94d2e2",
+        "file": "337d45118922f9112061e6d443f77055b999aedbb91bb4ca8716b20dfc94d2e2.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2017-01-01:2017-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-20-000003",
       "filed": "2020-02-06",
-      "value": "5843000000",
+      "value": "4638000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194920000003/R4.htm",
         "sha256": "763dcf0ca4c7a58f69225fdb3ece7cd56891e98e8cf4b1a239d0662a08edceb6",
@@ -38337,15 +38359,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194920000003/FilingSummary.xml",
         "sha256": "799fada944093cc9b3cea9f73920fc40ef104ab0b6c2a8ab45c30d77a95d26ca",
         "file": "799fada944093cc9b3cea9f73920fc40ef104ab0b6c2a8ab45c30d77a95d26ca.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194920000003/ice2019123110k_htm.xml",
+        "sha256": "5797f26e9d2c02ac72c63027233739982caa7740cd27df0f21ac9c56b96c74f1",
+        "file": "5797f26e9d2c02ac72c63027233739982caa7740cd27df0f21ac9c56b96c74f1.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2018-01-01:2018-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-21-000003",
       "filed": "2021-02-04",
-      "value": "6276000000",
+      "value": "4979000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194921000003/R4.htm",
         "sha256": "3719f0846195fbbeedd89c3e253697ceaabe25a6f3c75d39abd6abdb37c7da90",
@@ -38355,15 +38383,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194921000003/FilingSummary.xml",
         "sha256": "991fae949b34bd5f628067ce20429b8777f048922ac818af0a3c6a58025fd446",
         "file": "991fae949b34bd5f628067ce20429b8777f048922ac818af0a3c6a58025fd446.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194921000003/ice-20201231_htm.xml",
+        "sha256": "544d070ee5e2cb4c95c5ab0a8f2c8f1a94a9dfd997f11ff8a2ef7120da91d83d",
+        "file": "544d070ee5e2cb4c95c5ab0a8f2c8f1a94a9dfd997f11ff8a2ef7120da91d83d.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2019-01-01:2019-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-22-000006",
       "filed": "2022-02-03",
-      "value": "6547000000",
+      "value": "5202000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194922000006/R5.htm",
         "sha256": "73ff69a078f01bf13d7738a0c9f7dcb4d4533057601d3836acabde8402b05e03",
@@ -38373,15 +38407,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194922000006/FilingSummary.xml",
         "sha256": "1b4701e3abf6e14a602d22dd11b56cacbde745808a1495296fdb72b7cd12dd90",
         "file": "1b4701e3abf6e14a602d22dd11b56cacbde745808a1495296fdb72b7cd12dd90.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194922000006/ice-20211231_htm.xml",
+        "sha256": "456cef00976cfc01f571f1a83eee93a9d758cee77153c275468ee6f6adcc45c4",
+        "file": "456cef00976cfc01f571f1a83eee93a9d758cee77153c275468ee6f6adcc45c4.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2020-01-01:2020-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-23-000006",
       "filed": "2023-02-02",
-      "value": "8244000000",
+      "value": "6036000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194923000006/R5.htm",
         "sha256": "53fa113681b75e51878a06b29ad88b1cb35062f35b22a5189e11af3b02e97b1e",
@@ -38391,15 +38431,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194923000006/FilingSummary.xml",
         "sha256": "51fcd2501fea509ae4fd0c3e09d5ba1dc57c3e7be357b1dbca811ff095a6e0bd",
         "file": "51fcd2501fea509ae4fd0c3e09d5ba1dc57c3e7be357b1dbca811ff095a6e0bd.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194923000006/ice-20221231_htm.xml",
+        "sha256": "8c686b8f45337ac57b491c597fc7c69e7e32c9c930adba3a459877228c1c4f3c",
+        "file": "8c686b8f45337ac57b491c597fc7c69e7e32c9c930adba3a459877228c1c4f3c.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2021-01-01:2021-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-24-000007",
       "filed": "2024-02-08",
-      "value": "9168000000",
+      "value": "7146000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194924000007/R5.htm",
         "sha256": "e9fc2cac00afe2508bcb768630c902e8d1c729755776a7dbfbd53dd29867374f",
@@ -38409,15 +38455,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194924000007/FilingSummary.xml",
         "sha256": "f6fca11aa528544303cb3880fd6c8df45ce7870b391bacd0f3c1422aa8881173",
         "file": "f6fca11aa528544303cb3880fd6c8df45ce7870b391bacd0f3c1422aa8881173.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194924000007/ice-20231231_htm.xml",
+        "sha256": "834586eee597db5915d5f612d234f954f71ad38376b5851d5a0ea83fdf17a621",
+        "file": "834586eee597db5915d5f612d234f954f71ad38376b5851d5a0ea83fdf17a621.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2022-01-01:2022-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-25-000003",
       "filed": "2025-02-06",
-      "value": "9636000000",
+      "value": "7292000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194925000003/R5.htm",
         "sha256": "99c1ca97ec7fa44ba0e434aa8b40a6ba571482898b45d526ab07c11bbf633484",
@@ -38427,15 +38479,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194925000003/FilingSummary.xml",
         "sha256": "ed55aff31ab3ee23ba87a24e05fad155350642f18afc67fe8751634b4cfe1f2d",
         "file": "ed55aff31ab3ee23ba87a24e05fad155350642f18afc67fe8751634b4cfe1f2d.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194925000003/ice-20241231_htm.xml",
+        "sha256": "9b53ca13a792494061b2d3bb39e4da49cf5b8b165b952e245d1a76515919dfa9",
+        "file": "9b53ca13a792494061b2d3bb39e4da49cf5b8b165b952e245d1a76515919dfa9.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2023-01-01:2023-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-26-000004",
       "filed": "2026-02-05",
-      "value": "9903000000",
+      "value": "7988000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/R5.htm",
         "sha256": "e808760a29821be40d9ed3001c1976869d0eb2609166a3a862411329bb5ea019",
@@ -38445,15 +38503,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/FilingSummary.xml",
         "sha256": "0592415141ba281a3047e0055d11198532172017fca0896eaa59bc20821ec771",
         "file": "0592415141ba281a3047e0055d11198532172017fca0896eaa59bc20821ec771.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/ice-20251231_htm.xml",
+        "sha256": "1bae614a6d6521ecca5355d169664535464af9830815b158dd06e8b55bd760f9",
+        "file": "1bae614a6d6521ecca5355d169664535464af9830815b158dd06e8b55bd760f9.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2024-01-01:2024-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-26-000004",
       "filed": "2026-02-05",
-      "value": "11761000000",
+      "value": "9279000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/R5.htm",
         "sha256": "e808760a29821be40d9ed3001c1976869d0eb2609166a3a862411329bb5ea019",
@@ -38463,15 +38527,21 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/FilingSummary.xml",
         "sha256": "0592415141ba281a3047e0055d11198532172017fca0896eaa59bc20821ec771",
         "file": "0592415141ba281a3047e0055d11198532172017fca0896eaa59bc20821ec771.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/ice-20251231_htm.xml",
+        "sha256": "1bae614a6d6521ecca5355d169664535464af9830815b158dd06e8b55bd760f9",
+        "file": "1bae614a6d6521ecca5355d169664535464af9830815b158dd06e8b55bd760f9.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001571949:2025-01-01:2025-12-31": {
-      "taxonomy": "us-gaap",
-      "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "label": "Total revenues",
+      "taxonomy": "ice",
+      "tag": "RevenuesLessTransactionBasedExpenses",
+      "label": "Total revenues, less transaction-based expenses",
       "accession": "0001571949-26-000004",
       "filed": "2026-02-05",
-      "value": "12640000000",
+      "value": "9931000000",
       "evidence": {
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/R5.htm",
         "sha256": "e808760a29821be40d9ed3001c1976869d0eb2609166a3a862411329bb5ea019",
@@ -38481,7 +38551,13 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/FilingSummary.xml",
         "sha256": "0592415141ba281a3047e0055d11198532172017fca0896eaa59bc20821ec771",
         "file": "0592415141ba281a3047e0055d11198532172017fca0896eaa59bc20821ec771.htm"
-      }
+      },
+      "original_instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/ice-20251231_htm.xml",
+        "sha256": "1bae614a6d6521ecca5355d169664535464af9830815b158dd06e8b55bd760f9",
+        "file": "1bae614a6d6521ecca5355d169664535464af9830815b158dd06e8b55bd760f9.htm"
+      },
+      "note": "Revenues less transaction-based expenses, the exchange's own net revenue row on the income statement; total revenues before those pass-through costs are retained as another source."
     },
     "0001585689:2015-01-01:2015-12-31": {
       "taxonomy": "us-gaap",
@@ -40069,5 +40145,5 @@
     }
   },
   "unresolved": {},
-  "reviewed_at": "2026-11-02T20:48:24.734658+00:00"
+  "reviewed_at": "2026-11-12T10:51:47.931439+00:00"
 }

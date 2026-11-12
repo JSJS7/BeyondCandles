@@ -31,6 +31,8 @@ CUSTOM_REVENUE_TAGS = {
     ("amp", "NetRevenues"),
     # American Express 10-Ks for 2015 and 2016, before the us-gaap concept.
     ("axp", "TotalRevenuesNetOfInterestExpense"),
+    # Intercontinental Exchange: revenues less transaction-based expenses (M51).
+    ("ice", "RevenuesLessTransactionBasedExpenses"),
 }
 
 
