@@ -18,6 +18,7 @@ from app.data_pipeline.eps_splits import (
     checked_reference,
     verify_comparisons,
     verify_price_continuity,
+    verify_ratio_quotes,
 )
 from app.data_pipeline.source_files import sha256
 from app.eps_splits import (
@@ -480,6 +481,63 @@ class EpsSplitTests(unittest.TestCase):
         ):
             with self.subTest(action=action), self.assertRaises(ValueError):
                 verify_price_continuity([action], {"MNST": closes})
+
+    def test_exchange_without_vendor_event_needs_its_price_step(self):
+        """N120: the vendor never restated Charter's history, so its closes must rise by
+        the exchange (203.36 to 227.41) on 18 May and on no other session nearby. A
+        history without that step, or with it on another day, stops the review."""
+        days = [f"2016-05-{day:02d}" for day in (4, 5, 6, 9, 10, 11, 12, 13, 16, 17)]
+        days += ["2016-05-18", "2016-05-19", "2016-05-20", "2016-05-23"]
+        flat = [(day, 210.0) for day in days]
+        stepped = [(day, 203.36 if day < "2016-05-18" else 227.41) for day in days]
+        early = [(day, 203.36 if day < "2016-05-16" else 227.41) for day in days]
+        exchange = {
+            "ticker": "CHTR",
+            "date": "2016-05-18",
+            "new_shares": 9042,
+            "old_shares": 10000,
+            "vendor_new_shares": 1,
+            "vendor_old_shares": 1,
+            "vendor_event": False,
+        }
+
+        result = verify_price_continuity([exchange], {"CHTR": stepped})
+
+        self.assertEqual(result["checked"], 1)
+        for closes in (flat, early):
+            with self.subTest(closes=closes[0]), self.assertRaises(ValueError):
+                verify_price_continuity([exchange], {"CHTR": closes})
+
+    def test_ratio_quotes_must_stand_in_the_filing_and_state_the_ratio(self):
+        """Charter's 10-K states 0.9042 only in the text of its merger note, so the
+        reviewed sentences are searched in the pinned filing instead of an XBRL fact."""
+        filing = (
+            "<html><body><p>multiplying the exchange ratios by 0.9042, which was also"
+            " the exchange ratio for Legacy Charter stockholders</p></body></html>"
+        )
+        action = {
+            "ticker": "CHTR",
+            "new_shares": 9042,
+            "old_shares": 10000,
+            "ratio_evidence": {
+                "quotes": [
+                    "exchange ratios by 0.9042",
+                    "the exchange ratio for Legacy Charter stockholders",
+                ]
+            },
+        }
+        without_ratio = copy.deepcopy(action)
+        without_ratio["ratio_evidence"]["quotes"] = ["the exchange ratio for Legacy"]
+        unstated = copy.deepcopy(action)
+        unstated["ratio_evidence"]["quotes"].append("one for one")
+
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "filing.htm"
+            path.write_text(filing, encoding="utf-8")
+            verify_ratio_quotes(action, path)
+            for broken in (without_ratio, unstated):
+                with self.subTest(broken=broken), self.assertRaises(ValueError):
+                    verify_ratio_quotes(broken, path)
 
     def test_price_continuity_reports_ratios_it_cannot_decide(self):
         """HON's vendor ratio 1907/2000 is a 5% move, like an ordinary session, so the

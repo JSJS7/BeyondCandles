@@ -42,6 +42,54 @@ class PriceAdjustmentTests(unittest.TestCase):
         self.assertEqual(corrected["2020-03-19"], Decimal("19.119999694824220000"))
         self.assertEqual(corrected["2020-03-20"], Decimal(rows[1]["close"]))
 
+    def test_unrecorded_share_exchange_restates_earlier_adjusted_close(self):
+        """N120: the vendor's Adjusted Close rose 11.8% when Charter's old shares became
+        0.9042 new shares, while a holder gained about 1.1%. Earlier sessions are divided
+        by 0.9042; the exchange day and Close keep the source values."""
+        rows = [
+            {"date": "2016-05-16", "close": "203.60", "adjusted_close": "203.60"},
+            {"date": "2016-05-17", "close": "203.36", "adjusted_close": "203.36"},
+            {"date": "2016-05-18", "close": "227.41", "adjusted_close": "227.41"},
+        ]
+        rule = {
+            "method": "unrecorded_share_exchange",
+            "date": "2016-05-18",
+            "new_shares": 9042,
+            "old_shares": 10000,
+        }
+
+        corrected = apply_adjustments(rows, rule)
+        change = corrected["2016-05-18"] / corrected["2016-05-17"] - 1
+
+        self.assertAlmostEqual(float(change), 0.011134, places=6)
+        self.assertEqual(corrected["2016-05-18"], Decimal("227.41"))
+        self.assertEqual(rows[0]["close"], "203.60")
+
+    def test_share_exchange_is_not_applied_where_the_vendor_adjusted_or_no_step_is(
+        self,
+    ):
+        """A vendor factor change on the day means the vendor already restated it, and a
+        flat close means no exchange happened there: both stop the correction."""
+        rule = {
+            "method": "unrecorded_share_exchange",
+            "date": "2016-05-18",
+            "new_shares": 9042,
+            "old_shares": 10000,
+        }
+        adjusted_by_vendor = [
+            {"date": "2016-05-17", "close": "203.36", "adjusted_close": "224.90"},
+            {"date": "2016-05-18", "close": "227.41", "adjusted_close": "227.41"},
+        ]
+        no_step = [
+            {"date": "2016-05-17", "close": "227.00", "adjusted_close": "227.00"},
+            {"date": "2016-05-18", "close": "227.41", "adjusted_close": "227.41"},
+        ]
+
+        with self.assertRaisesRegex(ValueError, "already adjusted"):
+            apply_adjustments(adjusted_by_vendor, rule)
+        with self.assertRaisesRegex(ValueError, "do not step"):
+            apply_adjustments(no_step, rule)
+
     def test_future_dividends_do_not_enter_the_frozen_period(self):
         """Reject an action outside the supplied history instead of silently applying it."""
         rows = [

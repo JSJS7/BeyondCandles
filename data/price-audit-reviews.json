@@ -3,6 +3,13 @@
   "method": "Material Adjusted Close factor changes flagged by audit-prices and reviewed against SEC dividend facts or a reviewed price correction. An entry accepts only the exact ticker, date and factor change; a new or changed event still needs review. Amounts are per share on the vendor's price basis, implied by the factor change and the previous Close.",
   "events": [
     {
+      "ticker": "CHTR",
+      "date": "2016-05-18",
+      "factor_change_percent": "-9.579999999999999999872035450",
+      "kind": "share_exchange",
+      "note": "Reviewed price correction (N120): Legacy Charter shares became 0.9042 Charter shares each; earlier Adj Close is divided by 0.9042 (data/price-adjustments.json, share_exchanges), so the factor falls by 1 - 0.9042 on the exchange day. Not a dividend."
+    },
+    {
       "ticker": "CME",
       "date": "2015-12-23",
       "factor_change_percent": "3.159370988460031187652953200",

@@ -126,6 +126,21 @@ class ShareBasisArithmeticTests(unittest.TestCase):
         self.assertEqual(on_step, Decimal("47.08"))
         self.assertEqual(on_split, Decimal("45.53"))
 
+    def test_share_exchange_without_vendor_event_converts_earlier_prices(self):
+        """N120: Charter's old shares became 0.9042 new shares on 18 May 2016 and the
+        vendor recorded nothing, so its earlier prices are of the old shares. They are
+        divided by 0.9042 to match EPS restated in new shares; later prices stay."""
+        exchange = dict(
+            action("2016-05-18", 9042, 10000, 1, 1, ticker="CHTR"), vendor_event=False
+        )
+        policy = rules(actions=[exchange])
+
+        before = share_basis_price("CHTR", date(2016, 5, 17), Decimal("203.36"), policy)
+        on_day = share_basis_price("CHTR", date(2016, 5, 18), Decimal("227.41"), policy)
+
+        self.assertEqual(before, Decimal("224.9059942491"))
+        self.assertEqual(on_day, Decimal("227.41"))
+
     def test_event_reviewed_only_for_old_eps_sources_is_rejected(self):
         """Exclusions justified by preceding all EPS filings say nothing about prices,
         so a later price must not silently ignore them."""
@@ -171,6 +186,15 @@ class SpinOffTests(unittest.TestCase):
         )
 
         self.assertEqual(spin_offs("HON", policy), [])
+
+    def test_share_exchange_without_vendor_event_is_not_a_spin_off(self):
+        """N120: no vendor ratio means no business left the price; the 9.6% gap between
+        the share ratio and the vendor's none must not read as a separation."""
+        exchange = dict(
+            action("2016-05-18", 9042, 10000, 1, 1, ticker="CHTR"), vendor_event=False
+        )
+
+        self.assertEqual(spin_offs("CHTR", rules(actions=[exchange]), {}), [])
 
     def test_only_events_after_the_period_and_by_the_price_day_count(self):
         """The price on the event day already excludes the business; an event on the

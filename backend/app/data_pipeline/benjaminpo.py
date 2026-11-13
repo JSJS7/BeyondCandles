@@ -517,6 +517,55 @@ def correct_dividend_changes(rows, policy, ticker):
     return len(rule["changes"])
 
 
+def share_exchange_tickers(policy, tickers):
+    """List companies with a reviewed share exchange the vendor never recorded (N120)."""
+    exchanges = policy.get("share_exchanges", {})
+    for ticker, rule in exchanges.items():
+        if rule["method"] != "unrecorded_share_exchange":
+            raise ValueError(
+                f"Unknown share exchange method for {ticker}: {rule['method']}"
+            )
+        if ticker not in tickers:
+            raise ValueError(
+                f"Share exchange rule for a company outside the catalogue: {ticker}"
+            )
+    return sorted(exchanges)
+
+
+def correct_share_exchange(rows, policy, ticker):
+    """Restate Adjusted Close before the exchange; return the number of changed sessions.
+
+    The ratio and its evidence live in data/eps-split-rules.json, the action without a
+    vendor event that EPS and valuation prices use too; this rule must repeat it exactly.
+    """
+    from app.eps_splits import has_vendor_event, split_rules
+
+    from .price_adjustments import apply_adjustments
+
+    rule = policy["share_exchanges"][ticker]
+    if rule["status"] != "reviewed":
+        raise ValueError(f"Unapproved {ticker} share exchange")
+    matching = [
+        action
+        for action in split_rules()["actions"]
+        if action["ticker"] == ticker
+        and action["date"] == rule["date"]
+        and not has_vendor_event(action)
+    ]
+    if len(matching) != 1 or (
+        (matching[0]["new_shares"], matching[0]["old_shares"])
+        != (rule["new_shares"], rule["old_shares"])
+    ):
+        raise ValueError(f"{ticker} share exchange differs from the EPS split rules")
+    corrected = apply_adjustments(rows, rule)
+    changed = 0
+    for row in rows:
+        if corrected[row["date"]] != Decimal(row["adjusted_close"]):
+            row["adjusted_close"] = str(corrected[row["date"]])
+            changed += 1
+    return changed
+
+
 def correct_avgo(rows, manifest):
     """Rebuild verified cash adjustments while retaining the vendor's final anchor."""
     from .price_adjustments import apply_adjustments
@@ -570,10 +619,13 @@ def prepare_prices(*, require_reviewed=False):
     dividend_tickers = []
     change_tickers = []
     changed_dividends = {}
+    exchange_tickers = []
+    restated_exchanges = {}
     if "AVGO" in manifest["reviews"]:
         policy = cash_adjustment_policy(manifest)
         dividend_tickers = missing_dividend_tickers(policy, tickers)
         change_tickers = dividend_change_tickers(policy, tickers)
+        exchange_tickers = share_exchange_tickers(policy, tickers)
     temporary = None
     try:
         with NamedTemporaryFile(
@@ -609,6 +661,10 @@ def prepare_prices(*, require_reviewed=False):
                     )
                 if ticker in change_tickers:
                     changed_dividends[ticker] = correct_dividend_changes(
+                        rows, policy, ticker
+                    )
+                if ticker in exchange_tickers:
+                    restated_exchanges[ticker] = correct_share_exchange(
                         rows, policy, ticker
                     )
                 for row in rows:
@@ -647,6 +703,7 @@ def prepare_prices(*, require_reviewed=False):
         "adjusted_prices_changed": changed,
         "missing_dividends_added": added_dividends,
         "vendor_dividends_changed": changed_dividends,
+        "share_exchanges_restated": restated_exchanges,
         "unresolved": unresolved,
         "events": events,
     }

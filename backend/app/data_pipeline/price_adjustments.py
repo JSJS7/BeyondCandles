@@ -49,6 +49,9 @@ def apply_adjustments(rows, rule):
         if rule["method"] == "reviewed_dividend_changes":
             return change_vendor_dividends(rows, positions, rule["changes"])
 
+        if rule["method"] == "unrecorded_share_exchange":
+            return restate_before_share_exchange(rows, positions, rule)
+
     raise ValueError(f"Unknown price correction method: {rule['method']}")
 
 
@@ -224,6 +227,31 @@ def change_vendor_dividends(rows, positions, changes):
         multipliers[day] = correct_multiplier / vendor_multiplier
 
     return multiply_earlier_sessions(rows, multipliers)
+
+
+def restate_before_share_exchange(rows, positions, rule):
+    """Put Adjusted Close before a share exchange the vendor never recorded on new shares.
+
+    Charter's old shares became 0.9042 new shares each on 18 May 2016 (N120). The vendor
+    has no event that day, so its Adjusted Close rises by the exchange as well as by the
+    market. Earlier sessions are divided by the share ratio, as analysis sites restate
+    such an exchange; Close keeps the traded price of the old shares. The vendor must
+    show no factor change of its own and a step in the direction of the exchange.
+    """
+    day = rule["date"]
+    position = positions.get(day)
+    if position is None or position == 0:
+        raise ValueError(f"Missing share exchange session or prior Close: {day}")
+    if abs(vendor_factor_change(rows, position)) > FACTOR_NOISE:
+        raise ValueError(f"The vendor already adjusted its prices on {day}")
+    ratio = Decimal(rule["new_shares"]) / Decimal(rule["old_shares"])
+    previous_close = number(rows[position - 1]["close"], "prior Close")
+    close = number(rows[position]["close"], "Close")
+    # As review-eps-splits finds the step: the move is closer to the ratio than to none.
+    move = (previous_close / close).ln()
+    if abs(move - ratio.ln()) >= abs(move):
+        raise ValueError(f"Prices do not step by the share exchange on {day}")
+    return multiply_earlier_sessions(rows, {day: 1 / ratio})
 
 
 def multiply_earlier_sessions(rows, multipliers):

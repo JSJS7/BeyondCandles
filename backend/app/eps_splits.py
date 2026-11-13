@@ -87,6 +87,16 @@ def validate_share_exchanges(ticker, approval):
             issuer = successor_of[issuer]
 
 
+def has_vendor_event(action):
+    """Whether the price vendor recorded the action; most actions are its own events.
+
+    A share exchange at another ratio than one for one under the same issuer (Charter's
+    0.9042 in the Time Warner Cable merger) changes the share count without any vendor
+    event, so earlier vendor prices stay those of the old shares.
+    """
+    return action.get("vendor_event", True)
+
+
 @lru_cache(maxsize=1)
 def load_rules(stamps):
     document = json.loads(RULES_PATH.read_text(encoding="utf-8"))
@@ -111,6 +121,12 @@ def load_rules(stamps):
             raise ValueError("Duplicate or future EPS split")
         keys.add(key)
         price_step = action.get("vendor_prices_unadjusted_before")
+        if not has_vendor_event(action):
+            # A share exchange the vendor never recorded (CHTR 2016, N120): its prices
+            # keep the old share count, so the vendor ratio is one and nothing more.
+            vendor_ratio = (action["vendor_new_shares"], action["vendor_old_shares"])
+            if vendor_ratio != (1, 1) or price_step is not None:
+                raise ValueError("An action without a vendor event has no vendor ratio")
         if price_step is not None:
             split_day = date.fromisoformat(action["date"])
             # The vendor cannot have adjusted its prices later than the split itself.

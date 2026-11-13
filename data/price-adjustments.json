@@ -3,7 +3,7 @@
   "source_sha256": "66af2e53fabc82516458b60070a0a5d61f2760003aeefe0539a4f8750a014cbc",
   "selection_sha256": "d3905a3702488f5eab6929248be033eae2fe39d6072ca598275e0f7b03fc20f9",
   "period_end": "2025-12-31",
-  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. For other companies whose Adj Close differs by more than 1% at some date, add only reviewed regular cash dividends that the vendor's Adj Close omits, multiplying earlier Adj Close by (prior Close - amount) / prior Close. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation. Dividends the vendor applied wrongly (another company's, duplicated, or on the wrong scale) and a non-cash distribution it omitted are changed one by one in dividend_changes; each entry names the amount the vendor's series must show.",
+  "methodology": "Rebuild the reviewed AVGO ordinary cash dividends on the source Close share basis, then retain the final Benjaminpo Adj Close / Close anchor. For other companies whose Adj Close differs by more than 1% at some date, add only reviewed regular cash dividends that the vendor's Adj Close omits, multiplying earlier Adj Close by (prior Close - amount) / prior Close. This is an adjusted historical price convention, not a tax-aware portfolio total-return simulation. Dividends the vendor applied wrongly (another company's, duplicated, or on the wrong scale) and a non-cash distribution it omitted are changed one by one in dividend_changes; each entry names the amount the vendor's series must show. A share exchange the vendor never recorded (share_exchanges) divides earlier Adj Close by the exchange ratio of the reviewed action in data/eps-split-rules.json, as analysis sites restate it; Close keeps the traded price.",
   "companies": {
     "AVGO": {
       "status": "reviewed",
@@ -610,6 +610,16 @@
           "split_divisor": "1.324"
         }
       ]
+    }
+  },
+  "share_exchanges": {
+    "CHTR": {
+      "status": "reviewed",
+      "method": "unrecorded_share_exchange",
+      "date": "2016-05-18",
+      "new_shares": 9042,
+      "old_shares": 10000,
+      "note": "N120: Legacy Charter Class A shares became 0.9042 Charter Class A shares each in the Time Warner Cable merger; the vendor has no event, so its Adj Close rose 11.8% that day (203.36 to 227.41) while a holder gained about 1.1% (0.9042 x 227.41 = 205.62). Ratio and evidence: the CHTR action of 2016-05-18 in data/eps-split-rules.json (10-K for 2016)."
     }
   }
 }

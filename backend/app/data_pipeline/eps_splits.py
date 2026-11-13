@@ -23,6 +23,7 @@ from app.data_pipeline.source_files import (
 from app.database import engine
 from app.eps_splits import (
     RULES_PATH,
+    has_vendor_event,
     normalize_eps,
     sources_fingerprint,
     split_rules,
@@ -80,6 +81,10 @@ def verify_evidence(policy):
         key = action["ticker"], action["date"]
         if key in classified:
             raise ValueError("An EPS corporate action is classified twice")
+        if not has_vendor_event(action):
+            if key in observed:
+                raise ValueError(f"The vendor records an event on {key}")
+            continue
         classified[key] = action["vendor_new_shares"], action["vendor_old_shares"]
     if classified != observed:
         raise ValueError("Vendor actions changed; repeat the EPS share-basis review")
@@ -89,6 +94,9 @@ def verify_evidence(policy):
         path = checked_reference(evidence, directory, verified)
         if evidence["cache"] != "sec":
             continue  # Issuer HTML disclosures are curated; their original bytes stay pinned.
+        if "quotes" in evidence:
+            verify_ratio_quotes(action, path)
+            continue
         document = read_json(path)
         if str(document["cik"]).zfill(10) != action["source_cik"]:
             raise ValueError("Split disclosure belongs to a different SEC issuer")
@@ -132,6 +140,25 @@ def verify_evidence(policy):
     return len(verified)
 
 
+def verify_ratio_quotes(action, path):
+    """Require the filing to state every reviewed sentence, one of them with the ratio.
+
+    Used when no XBRL fact holds the ratio, as for Charter's 2016 share exchange, which
+    its 10-K states only in the text of the merger note.
+    """
+    parser = DocumentText()
+    parser.feed(path.read_text(encoding="utf-8"))
+    text = " ".join(" ".join(parser.parts).split())
+    quotes = action["ratio_evidence"]["quotes"]
+    ratio = Decimal(action["new_shares"]) / action["old_shares"]
+    if any(quote not in text for quote in quotes):
+        raise ValueError(
+            f"Filing does not state the reviewed exchange: {action['ticker']}"
+        )
+    if not any(format(ratio.normalize(), "f") in quote for quote in quotes):
+        raise ValueError(f"Reviewed quotes do not state the ratio: {action['ticker']}")
+
+
 def split_price_steps(action, closes):
     """Return sessions near the action whose close moves like an unrestated split.
 
@@ -151,7 +178,11 @@ def split_price_steps(action, closes):
     start = max(first_split_session - SESSIONS_BEFORE_SPLIT - 1, 0)
     end = first_split_session + SESSIONS_AFTER_SPLIT + 1
     window = closes[start:end]
-    expected = math.log(action["vendor_new_shares"] / action["vendor_old_shares"])
+    if has_vendor_event(action):
+        expected = math.log(action["vendor_new_shares"] / action["vendor_old_shares"])
+    else:
+        # Unrestated prices move by the share ratio itself on the exchange day.
+        expected = math.log(action["new_shares"] / action["old_shares"])
     steps = []
     for (_previous_day, previous_close), (day, close) in pairwise(window):
         change = math.log(previous_close / close)
@@ -172,11 +203,16 @@ def verify_price_continuity(actions, closes_by_ticker):
     for action in actions:
         label = f"{action['ticker']} {action['date']}"
         vendor_ratio = action["vendor_new_shares"] / action["vendor_old_shares"]
-        if 1 / MIN_DECISIVE_RATIO < vendor_ratio < MIN_DECISIVE_RATIO:
+        vendor_event = has_vendor_event(action)
+        if vendor_event and 1 / MIN_DECISIVE_RATIO < vendor_ratio < MIN_DECISIVE_RATIO:
             not_decisive.append(label)
             continue
         steps = split_price_steps(action, closes_by_ticker[action["ticker"]])
         marked = action.get("vendor_prices_unadjusted_before")
+        if not vendor_event:
+            # The vendor never restated the history, so the step lies on the exchange
+            # day and on no other session nearby.
+            marked = action["date"]
         expected_steps = [marked] if marked is not None else []
         if steps != expected_steps:
             raise ValueError(

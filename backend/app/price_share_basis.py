@@ -10,7 +10,7 @@ from decimal import Decimal, localcontext
 from fractions import Fraction
 from pathlib import Path
 
-from app.eps_splits import split_rules
+from app.eps_splits import has_vendor_event, split_rules
 from app.policy_files import load_policy
 
 CONVERSION = "vendor_corporate_action_conversion_not_an_ordinary_share_split"
@@ -97,6 +97,9 @@ def spin_offs(ticker, rules, distributions=None):
     price_factors = []
     for action in rules["actions"]:
         if action["ticker"] != ticker:
+            continue
+        if not has_vendor_event(action):
+            # The vendor scaled nothing, so no business left its earlier prices.
             continue
         vendor_ratio = Fraction(
             action["vendor_new_shares"], action["vendor_old_shares"]

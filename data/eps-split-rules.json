@@ -468,6 +468,28 @@
       "note": "Reviewed share-count action; EPS in the frozen selected filings predating this action still uses the earlier share count."
     },
     {
+      "ticker": "CHTR",
+      "date": "2016-05-18",
+      "new_shares": 9042,
+      "old_shares": 10000,
+      "vendor_new_shares": 1,
+      "vendor_old_shares": 1,
+      "vendor_event": false,
+      "ratio_evidence": {
+        "cache": "sec",
+        "url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166717000030/chtr123116-10k.htm",
+        "sha256": "23921ac09971c803d4ea3fdb1b9d8d5f28b26058288725287670c80e337f3031",
+        "file": "23921ac09971c803d4ea3fdb1b9d8d5f28b26058288725287670c80e337f3031.htm",
+        "quotes": [
+          "multiplying the exchange ratios of 0.5409 or 0.4562 specified above by 0.9042",
+          "which was also the exchange ratio that was used to determine the number of shares of Charter Class A common stock that Legacy Charter stockholders received per share of Legacy Charter Class A common stock"
+        ]
+      },
+      "source_cik": "0001091667",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166717000030/chtr123116-10k.htm",
+      "note": "Share exchange without a vendor event (N120): in the Time Warner Cable merger of 18 May 2016 each Legacy Charter Class A share became 0.9042 Charter Class A shares under the same CIK. The vendor recorded no event, so its prices before that day are of the old shares (Close 203.36 on 17 May, 227.41 on 18 May). The 10-K for 2016 restates 2015 in new shares: 101,152,647 diluted shares = 111,869,771 of the 10-K for 2015 x 0.9042, and EPS -2.68 for -2.43."
+    },
+    {
       "ticker": "CMCSA",
       "date": "2017-02-21",
       "new_shares": 2,

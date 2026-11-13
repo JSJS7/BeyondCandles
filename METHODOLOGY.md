@@ -167,6 +167,10 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   real share count. The conversion uses the same reviewed event list as EPS and is accurate to about
   0.1%, because vendor ratios are rounded. Two 2026 splits (Monster Beverage, Amphenol) the vendor
   applied only to the last sessions are handled too.
+- **A share exchange the vendor did not record** is handled like a split. Charter's old shares became
+  0.9042 new shares each in its May 2016 merger, under the same SEC registrant: earlier Adjusted Close
+  is divided by that ratio, as analysis sites restate it, and earlier EPS and share counts are put on
+  the new shares. Close keeps the traded price.
 - **Neither Close nor Adjusted Close can be divided directly by EPS.**
 - **JCI** through 2 Sep 2016 has the prices of Tyco International, whose shares became JCI shares, and
   the financials of Johnson Controls Inc. Those price ratios stay empty.
