@@ -40,7 +40,9 @@ class PeriodRatios(BaseModel):
     price: DecimalValue | None = None
     eps_basis: Literal["basic", "diluted"] | None = None
     ocf_scope: Literal["total", "continuing"] | None = None
-    shares_basis: Literal["reported", "calculated"] | None = None
+    # The share count of P/B and P/S: the report cover, the weighted average of the year
+    # or income to common / EPS (M47).
+    shares_basis: Literal["outstanding", "weighted_average", "calculated"] | None = None
     revenue_basis_break: bool = False
     eps_basis_break: bool = False
     # Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.

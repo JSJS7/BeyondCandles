@@ -47,6 +47,7 @@ def reference_values(inputs):
         operating_income=amount(inputs, "operating_income"),
         preferred_value=amount(inputs, "preferred_value"),
         preferred_dividends=amount(inputs, "preferred_dividends"),
+        shares_outstanding=amount(inputs, "shares_outstanding"),
     )
 
 

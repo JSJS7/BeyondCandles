@@ -277,6 +277,24 @@ class ShareCountTests(unittest.TestCase):
         self.assertEqual(cell.eps_share_basis.reported_value, Decimal("100"))
         self.assertEqual(cell.calculation, "Reported shares × 2 / 1")
 
+    def test_cover_count_is_split_like_the_average(self):
+        """M47: KR's amended 2015 cover shows 491,106,583 shares before its 2:1 split of
+        July 2015, so the stored count is 982,213,166, on the basis of the price."""
+        cover = fact(
+            "shares_outstanding",
+            "EntityCommonStockSharesOutstanding",
+            "491106583",
+            taxonomy="dei",
+            unit="shares",
+        )
+
+        versions = versions_of([cover], "shares_outstanding", self.SPLIT)
+
+        cell = versions[0].value
+        self.assertEqual(cell.value, Decimal("982213166"))
+        self.assertEqual(cell.eps_share_basis.reported_value, Decimal("491106583"))
+        self.assertIn("cover of the annual report", cell.selection_note)
+
     def test_report_filed_on_the_split_date_is_already_split(self):
         """K11, N61: as for EPS, a report filed on the split date counts new shares, so
         the split does not double its count again."""

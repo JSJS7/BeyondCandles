@@ -24,7 +24,7 @@ from html import unescape
 from html.parser import HTMLParser
 
 from app.annual_financials import METRIC_NAMES
-from app.automatic_metrics import largest_tolerated_difference
+from app.automatic_metrics import COVER_SHARE_METRIC, largest_tolerated_difference
 from app.data_pipeline.sec import fetch
 from app.data_pipeline.sec_cache import user_agent
 from app.data_pipeline.source_files import ROOT, read_json, write_json
@@ -813,6 +813,11 @@ def automatic_tasks(connection):
     ).mappings()
     tasks = []
     for row in rows:
+        # The cover count stands on the report's cover page, which the extracts of
+        # statement tables leave out; its check is the weighted average of the same
+        # report (ratios.is_plausible_cover_count).
+        if row["metric"] == COVER_SHARE_METRIC:
+            continue
         share_basis = row["details"].get("eps_share_basis") or {}
         tasks.append(
             {

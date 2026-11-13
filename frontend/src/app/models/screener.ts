@@ -31,7 +31,7 @@ export interface PeriodRatios {
   price: string | null;
   eps_basis: 'basic' | 'diluted' | null;
   ocf_scope: 'total' | 'continuing' | null;
-  shares_basis: 'reported' | 'calculated' | null;
+  shares_basis: 'outstanding' | 'weighted_average' | 'calculated' | null;
   revenue_basis_break: boolean;
   eps_basis_break: boolean;
   // Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.

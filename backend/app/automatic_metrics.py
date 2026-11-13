@@ -94,9 +94,14 @@ AUTOMATIC_METRICS = {
         "IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity",
         "IncomeLossFromDiscontinuedOperationsNetOfTax",
     ),
+    # Shares outstanding on the cover of the annual report, a count on a day shortly
+    # before its filing. P/B and P/S value the shares with it (M47); the cover fact is
+    # a dei fact, read by cover_share_facts rather than with the us-gaap tags.
+    "shares_outstanding": ("EntityCommonStockSharesOutstanding",),
 }
 BALANCE_METRICS = ("assets", "preferred_value")
 SHARE_METRIC = "shares_diluted"
+COVER_SHARE_METRIC = "shares_outstanding"
 BASIC_SHARES_TAG = "WeightedAverageNumberOfSharesOutstandingBasic"
 # Annual dividends above this share of a preferred value mean the value may be only par
 # value or a scale error: GE shows 6 million against a 5795 million preference. Stated
@@ -404,11 +409,16 @@ def cell_metric(metric, fact, ticker, split_policy):
     value = fact["value"]
     basis = None
     calculation = None
-    if metric == SHARE_METRIC:
+    if metric in (SHARE_METRIC, COVER_SHARE_METRIC):
         value, basis = normalized_shares(fact, ticker, split_policy)
         if basis is not None:
             calculation = f"Reported shares × {basis.new_shares} / {basis.old_shares}"
     note = "Selected automatically, not reviewed value by value."
+    if metric == COVER_SHARE_METRIC:
+        note += (
+            " Shares outstanding on the cover of the annual report for this period,"
+            " counted on a day shortly before its filing."
+        )
     if "scale_multiplier" in fact:
         unit_step = f"Tag value × {fact['scale_multiplier']}"
         calculation = f"{unit_step}; {calculation}" if calculation else unit_step

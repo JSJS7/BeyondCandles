@@ -10,7 +10,13 @@ from typing import cast
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from app.automatic_metrics import BALANCE_METRICS, SHARE_METRIC
+from app.annual_financials import ANNUAL_REPORT_FORMS
+from app.automatic_metrics import (
+    AUTOMATIC_METRICS,
+    BALANCE_METRICS,
+    COVER_SHARE_METRIC,
+    SHARE_METRIC,
+)
 from app.data_pipeline.source_files import ROOT, read_json, sha256, write_json
 from app.data_pipeline.validation import number
 
@@ -232,6 +238,87 @@ def extract_facts(body, metrics=None):
                     seen[key] = row
                     facts.append(row)
     return facts, sorted(set(warnings))
+
+
+def filing_years(taxonomy):
+    """Return {accession: (start, end)}, the fiscal year each annual report is for.
+
+    A report repeats earlier years too; its own year is the annual period ending last
+    before the filing. Later periods are forecasts, such as tax benefits expected in the
+    next year (PG's report for FY2019). The facts of that year agree on its start, so
+    the most frequent start is taken.
+    """
+    periods_by_accession = defaultdict(Counter)
+    for tag_facts in taxonomy.values():
+        for items in tag_facts.get("units", {}).values():
+            for fact in items:
+                if fact.get("form") not in ANNUAL_REPORT_FORMS:
+                    continue
+                if not fact.get("start"):
+                    continue
+                if fact["end"] > fact["filed"]:
+                    continue
+                start = date.fromisoformat(fact["start"])
+                end = date.fromisoformat(fact["end"])
+                if period_kind(start, end) == "annual":
+                    periods_by_accession[fact["accn"]][(start, end)] += 1
+    years = {}
+    for accession, counts in periods_by_accession.items():
+        last_end = max(end for _, end in counts)
+        last_periods = [period for period in counts if period[1] == last_end]
+        last_periods.sort(key=lambda period: (-counts[period], period[0]))
+        years[accession] = last_periods[0]
+    return years
+
+
+def cover_share_facts(body):
+    """Cover share counts of annual reports, each as a fact of the report's fiscal year.
+
+    The cover states the shares outstanding on a day shortly before the filing. A cover
+    tagged with several days (ADSK 2020 also tags 31.07.2019) counts with its latest day
+    up to the filing. A report with no annual period of its own, such as an amendment
+    of the cover alone, gives no fact.
+    """
+    tag = AUTOMATIC_METRICS[COVER_SHARE_METRIC][0]
+    taxonomies = body.get("facts", {})
+    cover_tag = taxonomies.get("dei", {}).get(tag, {})
+    covers = cover_tag.get("units", {}).get("shares", [])
+    latest_by_accession = {}
+    for fact in covers:
+        if fact.get("form") not in ANNUAL_REPORT_FORMS:
+            continue
+        if fact["end"] > fact["filed"]:
+            continue
+        current = latest_by_accession.get(fact["accn"])
+        if current is None or fact["end"] > current["end"]:
+            latest_by_accession[fact["accn"]] = fact
+        elif fact["end"] == current["end"] and fact["val"] != current["val"]:
+            raise ValueError(f"Ambiguous cover share counts: {fact['accn']}")
+    years = filing_years(taxonomies.get("us-gaap", {}))
+    facts = []
+    for accession, fact in sorted(latest_by_accession.items()):
+        if accession not in years:
+            continue
+        start, end = years[accession]
+        if not WINDOW_START <= end <= WINDOW_END:
+            continue
+        facts.append(
+            {
+                "metric": COVER_SHARE_METRIC,
+                "taxonomy": "dei",
+                "tag": tag,
+                "unit": "shares",
+                "value": number(str(fact["val"]), tag),
+                "period_start": start,
+                "period_end": end,
+                "filed": date.fromisoformat(fact["filed"]),
+                "accession": accession,
+                "form": fact["form"],
+                "fiscal_period": fact.get("fp"),
+                "period_kind": "annual",
+            }
+        )
+    return facts
 
 
 def audit_sec():

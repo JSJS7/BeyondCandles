@@ -58,11 +58,83 @@ class ImportTests(unittest.TestCase):
 
 class SharesForRatiosTests(unittest.TestCase):
     def test_reported_count_is_preferred(self):
-        """A tagged count is used as it stands, even when net income / EPS differs."""
+        """Without a cover count the tagged average is used as it stands, even when
+        net income / EPS differs."""
         count, basis = shares_for_ratios(period(shares=Decimal(48)))
 
         self.assertEqual(count, Decimal(48))
-        self.assertEqual(basis, "reported")
+        self.assertEqual(basis, "weighted_average")
+
+    def test_cover_count_values_the_shares(self):
+        """M47: LIN's 2018 cover shows 544.9 million shares after the Praxair merger,
+        while the year's weighted average is 334.1 million; the cover is used."""
+        values = period(
+            shares=Decimal("334.1e6"), shares_outstanding=Decimal("544.9e6")
+        )
+
+        count, basis = shares_for_ratios(values)
+
+        self.assertEqual(count, Decimal("544.9e6"))
+        self.assertEqual(basis, "outstanding")
+
+    def test_cover_count_is_used_up_to_both_bounds(self):
+        """A cover from half to 1.75 times the average counts; just outside, the average
+        does. KR's 2015 cover with its treasury shares was 1.92 times the average."""
+        cases = (
+            (Decimal(25), "outstanding"),
+            (Decimal("87.5"), "outstanding"),
+            (Decimal("24.99"), "weighted_average"),
+            (Decimal("87.51"), "weighted_average"),
+            (Decimal("96"), "weighted_average"),
+        )
+        for cover, expected_basis in cases:
+            with self.subTest(cover=cover):
+                values = period(shares=Decimal(50), shares_outstanding=cover)
+
+                _, basis = shares_for_ratios(values)
+
+                self.assertEqual(basis, expected_basis)
+
+    def test_zero_cover_count_is_not_used(self):
+        """A zero or negative cover count is not a count; the average stands in."""
+        for cover in (Decimal(0), Decimal(-50)):
+            with self.subTest(cover=cover):
+                values = period(shares=Decimal(50), shares_outstanding=cover)
+
+                self.assertEqual(
+                    shares_for_ratios(values), (Decimal(50), "weighted_average")
+                )
+
+    def test_period_with_exchangeable_units_keeps_the_average(self):
+        """The units of a period are counted against the weighted average, so the cover
+        count would mix two bases (BX, SPG)."""
+        units = ExchangeableUnits(outside_count=Decimal(25), inside_count=Decimal(0))
+        values = period(shares=Decimal(50), shares_outstanding=Decimal(48))
+
+        self.assertEqual(
+            shares_for_ratios(values, units), (Decimal(50), "weighted_average")
+        )
+        self.assertEqual(shares_for_ratios(values), (Decimal(48), "outstanding"))
+
+    def test_cover_count_without_an_average_is_not_used(self):
+        """A company without a tagged count has share classes; its cover may count one
+        class only, so the count from net income / EPS stays (Visa, Berkshire)."""
+        values = period(shares=None, shares_outstanding=Decimal(10))
+
+        count, basis = shares_for_ratios(values)
+
+        self.assertEqual(count, Decimal(50))
+        self.assertEqual(basis, "calculated")
+
+    def test_price_ratios_value_the_cover_count(self):
+        """P/B and P/S multiply the price by the cover count: 40 × 60 / 500 and / 1000."""
+        values = period(shares=Decimal(50), shares_outstanding=Decimal(60))
+
+        ratios = calculate_ratios(values, None, Decimal(40))
+
+        self.assertEqual(ratios["pb"], Decimal("4.8"))
+        self.assertEqual(ratios["ps"], Decimal("2.4"))
+        self.assertEqual(ratios["pe"], Decimal(20))
 
     def test_visa_count_is_calculated_from_its_report_figures(self):
         """Visa FY2024 has no tag: 19,743 / 9.73 matches 2,029 mln in the 10-K's table."""

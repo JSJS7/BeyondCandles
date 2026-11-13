@@ -29,6 +29,7 @@ Other outside inputs and the price corrections are listed in the [README](README
 | Equity | Attributable to the parent's owners at period end, including preferred equity | Reviewed |
 | Operating cash flow | Net cash from operating activities of the whole company | Reviewed |
 | Share count | Weighted average diluted shares, on the same split basis as EPS | Automatic |
+| Shares outstanding | The count on the annual report's cover, on the same split basis as EPS | Automatic |
 | Assets | Total assets at period end | Automatic |
 | Capital expenditure | Purchase of property, plant and equipment, then a wider productive-assets line | Automatic |
 | Operating income | The `OperatingIncomeLoss` tag | Automatic |
@@ -73,6 +74,10 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   reported. Counts by share class are not summed, so some companies have none (Visa,
   Berkshire Hathaway). A count far below the company's largest is dropped as a scale error of the
   tag. Where the first report's table shows the same digits in a stated unit, the unit is corrected.
+- **Shares outstanding:** the count on the cover of the annual report, on a day shortly before the
+  filing, as a value of the year the report is for. A cover tagged with several days counts with its
+  latest day up to the filing. Companies with several share classes tag it only by class, so they have
+  none (Mastercard, Alphabet).
 - **Share count and units exchangeable into shares:** a diluted count can include such units while
   equity excludes their holders. Blackstone's 2015, 2016 and 2018 therefore use its basic common units,
   as its diluted count does in the other years. How ratios treat the units is described under Ratios.
@@ -118,9 +123,15 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   only from a quarterly report is used until an annual report states it.
 - **Earlier year:** the period that ended 350 to 380 days before; fiscal-year labels are not compared.
   Averages use the two year-end balances.
-- **Share count:** the tag, otherwise (net income − preferred dividends) ÷ EPS, marked as calculated.
-  It is the weighted average of the year, not the count on the valuation date, so it lags after an
-  acquisition or large buyback.
+- **Share count:** P/B and P/S value the shares with the shares outstanding on the latest annual
+  report's cover, the count closest to the valuation date, as analysis sites count shares outstanding
+  rather than the year's average. The weighted average of the year stands in where the cover has no
+  total (several share classes), where the cover is below half or above 1.75 times the average (Kroger's
+  2015 cover also counted treasury shares), and in periods with exchangeable units, which are counted
+  against the average. Without a tagged average, the count is (net income − preferred dividends) ÷ EPS,
+  marked as calculated. A cover count is a few months old by the valuation date and misses later
+  buybacks and issues; the average lags far more after an acquisition (Linde's 2018 cover shows 63% more
+  shares than its average for the year).
 - **Units exchangeable into shares:** in some companies part of the owners hold units of a subsidiary
   partnership exchangeable one for one into the listed shares (Blackstone, KKR until 2022, Charter,
   Simon Property, Broadcom in fiscal 2017). Revenue belongs to the whole group, so P/S counts the market

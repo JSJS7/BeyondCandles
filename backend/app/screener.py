@@ -173,6 +173,7 @@ def period_values(cells):
         preferred_value=cell_value(cells, "preferred_value"),
         preferred_dividends=cell_value(cells, "preferred_dividends"),
         discontinued_income=cell_value(cells, "discontinued_income"),
+        shares_outstanding=cell_value(cells, "shares_outstanding"),
     )
 
 
@@ -308,7 +309,7 @@ def valued_period(
     }
     for metric, name in GROWTH_METRICS.items():
         ratios[name] = growth[metric].value
-    _, shares_basis = shares_for_ratios(values)
+    _, shares_basis = shares_for_ratios(values, units)
     return PeriodRatios(
         period_start=period[0],
         period_end=period[1],

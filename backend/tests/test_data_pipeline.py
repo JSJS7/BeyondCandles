@@ -12,6 +12,7 @@ from urllib.error import HTTPError
 from app.data_pipeline.sec import (
     SecAccessDenied,
     cache_response,
+    cover_share_facts,
     extract_facts,
     fact_differences,
     fetch,
@@ -361,6 +362,125 @@ class SecTests(unittest.TestCase):
 
         self.assertNotIsInstance(raised.exception, SecAccessDenied)
         self.assertEqual(request.call_count, 3)
+
+
+def annual_fact(start, end, filed, accession, value=1):
+    return {
+        "start": start,
+        "end": end,
+        "filed": filed,
+        "val": value,
+        "accn": accession,
+        "form": "10-K",
+    }
+
+
+def cover_fact(end, filed, accession, value, form="10-K"):
+    return {
+        "end": end,
+        "filed": filed,
+        "val": value,
+        "accn": accession,
+        "form": form,
+        "fp": "FY",
+    }
+
+
+def company_with_covers(covers, annual_facts):
+    return {
+        "facts": {
+            "dei": {
+                "EntityCommonStockSharesOutstanding": {"units": {"shares": covers}}
+            },
+            "us-gaap": {"NetIncomeLoss": {"units": {"USD": annual_facts}}},
+        },
+    }
+
+
+class CoverShareFactTests(unittest.TestCase):
+    def test_cover_count_belongs_to_the_year_its_report_is_for(self):
+        """M47: the cover count of a 10-K becomes a fact of the report's own fiscal
+        year, the latest annual period it states, not of the earlier years it repeats."""
+        body = company_with_covers(
+            [cover_fact("2019-02-28", "2019-03-18", "k2018", 544910125)],
+            [
+                annual_fact("2018-01-01", "2018-12-31", "2019-03-18", "k2018"),
+                annual_fact("2017-01-01", "2017-12-31", "2019-03-18", "k2018"),
+            ],
+        )
+
+        [fact] = cover_share_facts(body)
+
+        self.assertEqual(fact["metric"], "shares_outstanding")
+        self.assertEqual(fact["taxonomy"], "dei")
+        self.assertEqual(
+            (fact["period_start"], fact["period_end"]),
+            (date(2018, 1, 1), date(2018, 12, 31)),
+        )
+        self.assertEqual(fact["period_kind"], "annual")
+        self.assertEqual(fact["value"], Decimal(544910125))
+        self.assertEqual(fact["filed"], date(2019, 3, 18))
+
+    def test_forecast_period_does_not_become_the_reports_year(self):
+        """PG's 10-K for FY2019 also states tax benefits expected in FY2020; a period
+        ending after the filing is a forecast, not the year of the report."""
+        body = company_with_covers(
+            [cover_fact("2019-07-31", "2019-08-06", "k2019", 2500)],
+            [
+                annual_fact("2018-07-01", "2019-06-30", "2019-08-06", "k2019"),
+                annual_fact("2019-07-01", "2020-06-30", "2019-08-06", "k2019"),
+            ],
+        )
+
+        [fact] = cover_share_facts(body)
+
+        self.assertEqual(fact["period_end"], date(2019, 6, 30))
+
+    def test_latest_cover_day_up_to_the_filing_counts(self):
+        """ADSK's 2020 report tags a count of 31.07.2019 beside the cover's 13.03.2020;
+        a day after the filing cannot be its cover."""
+        body = company_with_covers(
+            [
+                cover_fact("2019-07-31", "2020-03-19", "k2020", 219800000),
+                cover_fact("2020-03-13", "2020-03-19", "k2020", 219521425),
+                cover_fact("2020-04-30", "2020-03-19", "k2020", 1),
+            ],
+            [annual_fact("2019-02-01", "2020-01-31", "2020-03-19", "k2020")],
+        )
+
+        [fact] = cover_share_facts(body)
+
+        self.assertEqual(fact["value"], Decimal(219521425))
+
+    def test_two_counts_on_one_cover_day_stop_the_import(self):
+        """Two different counts for the same day leave no way to choose one."""
+        body = company_with_covers(
+            [
+                cover_fact("2020-03-13", "2020-03-19", "k2020", 100),
+                cover_fact("2020-03-13", "2020-03-19", "k2020", 200),
+            ],
+            [annual_fact("2019-02-01", "2020-01-31", "2020-03-19", "k2020")],
+        )
+
+        with self.assertRaises(ValueError):
+            cover_share_facts(body)
+
+    def test_cover_without_a_year_or_outside_the_window_is_left_out(self):
+        """An amendment of the cover alone states no year; a quarterly cover and a year
+        before the window give no fact either."""
+        body = company_with_covers(
+            [
+                cover_fact("2021-03-01", "2021-03-05", "cover_only", 10, form="10-K/A"),
+                cover_fact("2021-04-20", "2021-04-25", "q1", 10, form="10-Q"),
+                cover_fact("2014-02-15", "2014-02-25", "k2013", 10),
+            ],
+            [
+                annual_fact("2020-01-01", "2020-12-31", "2021-04-25", "q1"),
+                annual_fact("2013-01-01", "2013-12-31", "2014-02-25", "k2013"),
+            ],
+        )
+
+        self.assertEqual(cover_share_facts(body), [])
 
 
 class CommandLineErrorTests(unittest.TestCase):

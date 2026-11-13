@@ -36,7 +36,7 @@ function company(ticker: string, sector: string, ratios: Partial<Ratios>): Scree
       price: '50.5',
       eps_basis: 'diluted',
       ocf_scope: 'total',
-      shares_basis: 'reported',
+      shares_basis: 'outstanding',
       revenue_basis_break: false,
       eps_basis_break: false,
       spin_offs: [],

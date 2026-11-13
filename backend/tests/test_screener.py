@@ -443,7 +443,7 @@ class ScreenerApiTests(unittest.TestCase):
 
         self.assertEqual(row["latest"]["period_end"], "2023-12-31")
         self.assertEqual(row["latest"]["price_date"], "2024-03-28")
-        self.assertEqual(row["latest"]["shares_basis"], "reported")
+        self.assertEqual(row["latest"]["shares_basis"], "weighted_average")
         self.assertEqual(row["latest"]["ratios"]["pe"], "20")
         self.assertEqual(row["latest"]["ratios"]["pb"], "4")
         self.assertEqual(row["latest"]["ratios"]["net_margin"], "0.1")
@@ -687,6 +687,24 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertFalse(below_limit["latest"]["discontinued_operations"])
         self.assertTrue(above_limit["latest"]["discontinued_operations"])
         self.assertEqual(above_limit["latest"]["ratios"]["pe"], "20")
+
+    def test_cover_count_values_the_shares_from_its_report(self):
+        """M47: the cover count known on the date sets P/B and P/S; an amended cover
+        replaces it from its own report (KR 2015), and P/E does not depend on it."""
+        self.add_year(date(2024, 2, 16))
+        self.add_version("shares_outstanding", "60", date(2024, 2, 16))
+        self.add_version("shares_outstanding", "55", date(2024, 5, 1), form="10-K/A")
+        for day in (date(2024, 3, 28), date(2024, 6, 28)):
+            self.add_close(day)
+
+        first_cover = self.row(date="2024-03-29")["latest"]
+        amended_cover = self.row(date="2024-06-28")["latest"]
+
+        self.assertEqual(first_cover["shares_basis"], "outstanding")
+        self.assertEqual(first_cover["ratios"]["pb"], "4.8")
+        self.assertEqual(first_cover["ratios"]["ps"], "2.4")
+        self.assertEqual(amended_cover["ratios"]["pb"], "4.4")
+        self.assertEqual(amended_cover["ratios"]["pe"], "20")
 
     def test_date_outside_the_window_is_rejected(self):
         """Before every company has a report, or after prices end, there is no screen."""

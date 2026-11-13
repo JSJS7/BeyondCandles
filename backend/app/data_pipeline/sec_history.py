@@ -6,8 +6,13 @@ from datetime import date, datetime, timezone
 from decimal import Decimal
 from itertools import pairwise
 
-from app.automatic_metrics import AUTOMATIC_METRICS
-from app.data_pipeline.sec import CACHE, WINDOW_YEARS, extract_facts
+from app.automatic_metrics import AUTOMATIC_METRICS, COVER_SHARE_METRIC
+from app.data_pipeline.sec import (
+    CACHE,
+    WINDOW_YEARS,
+    cover_share_facts,
+    extract_facts,
+)
 from app.data_pipeline.sec_cache import cached
 from app.data_pipeline.source_files import ROOT, read_json, write_json
 from app.timeline import is_timeline_filing, timeline_rules, within_bounds
@@ -129,9 +134,15 @@ def prepare_automatic_facts(entry, body, history, index):
 
     Rule reviews and audits call prepare_company_facts and must not see these facts.
     """
+    us_gaap_metrics = {
+        metric: tags
+        for metric, tags in AUTOMATIC_METRICS.items()
+        if metric != COVER_SHARE_METRIC
+    }
     result = []
     for cik, response in company_sources(entry, body, history, index):
-        facts, _ = extract_facts(response, metrics=AUTOMATIC_METRICS)
+        facts, _ = extract_facts(response, metrics=us_gaap_metrics)
+        facts += cover_share_facts(response)
         for fact in facts:
             fact["source_cik"] = cik
             fact["history_eligible"] = history_eligible(fact, entry["cik"], history)

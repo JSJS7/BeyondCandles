@@ -22,8 +22,15 @@ PARTICIPATING_PREFERRED_PATH = (
 EXCHANGEABLE_UNITS_PATH = (
     Path(__file__).resolve().parents[2] / "data/exchangeable-units.json"
 )
-REPORTED_SHARES = "reported"
+OUTSTANDING_SHARES = "outstanding"
+WEIGHTED_AVERAGE_SHARES = "weighted_average"
 CALCULATED_SHARES = "calculated"
+# A cover count is used only within these multiples of the weighted average of the same
+# report. Mergers and buybacks moved it from 0.78 (PWR 2015) to 1.65 (TFC 2019) times the
+# average; KR's 2015 cover counted 463 million treasury shares too (1.92), and a cover of
+# one class of several or in a wrong scale would lie further off (M47).
+SMALLEST_COVER_TO_AVERAGE = Decimal("0.5")
+LARGEST_COVER_TO_AVERAGE = Decimal("1.75")
 # Discontinued operations above this share of net income mark the ratios built on net
 # income (M46), the same 5% that makes a difference material in project-principles 5.1.
 MATERIAL_DISCONTINUED_SHARE = Decimal("0.05")
@@ -47,6 +54,8 @@ class PeriodValues:
     preferred_dividends: Decimal | None
     # Part of net income; it only marks ratios and enters no calculation.
     discontinued_income: Decimal | None = None
+    # Shares outstanding on the report's cover, on the same basis as `shares`.
+    shares_outstanding: Decimal | None = None
 
 
 def has_material_discontinued_operations(values):
@@ -128,15 +137,31 @@ def income_to_common(values):
     return values.net_income - dividends
 
 
-def shares_for_ratios(values):
-    """Return the share count and its basis: the tag, otherwise income to common / EPS.
+def is_plausible_cover_count(cover, average):
+    """Whether a cover count lies close enough to the year's weighted average."""
+    if cover is None or cover <= 0:
+        return False
+    ratio = cover / average
+    return SMALLEST_COVER_TO_AVERAGE <= ratio <= LARGEST_COVER_TO_AVERAGE
 
-    Companies with several share classes tag counts only by class (Visa, Berkshire
-    Hathaway), so no total exists. Their EPS already states the income per converted or
-    equivalent share of the listed class, which is the class of the price.
+
+def shares_for_ratios(values, units=None):
+    """Return the share count that values the shares, and its basis.
+
+    The count on the report's cover is the closest to the valuation day, as the counts
+    of data services are; the weighted average of the year lags a merger or a buyback
+    (M47). The average stands in when the cover is missing (several share classes) or
+    implausible, and in a period with exchangeable `units`, which are counted against it.
+
+    Companies that tag counts only by class (Visa, Berkshire Hathaway) have neither.
+    Their EPS already states the income per converted or equivalent share of the listed
+    class, which is the class of the price, so income to common / EPS gives the count.
     """
     if values.shares is not None and values.shares > 0:
-        return values.shares, REPORTED_SHARES
+        cover = values.shares_outstanding
+        if units is None and is_plausible_cover_count(cover, values.shares):
+            return cover, OUTSTANDING_SHARES
+        return values.shares, WEIGHTED_AVERAGE_SHARES
     income = income_to_common(values)
     if income is None or not values.eps:
         return None, None
@@ -199,7 +224,7 @@ def price_ratios(values, price, participating, units=None):
     """
     if price is None:
         return {"pe": None, "pb": None, "ps": None}
-    shares, _ = shares_for_ratios(values)
+    shares, _ = shares_for_ratios(values, units)
     listed_value, group_value = market_values(price, shares, units)
     common = common_equity(values, participating)
     return {
