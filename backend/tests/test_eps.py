@@ -14,6 +14,7 @@ from app.annual_financials import annual_periods
 from app.data_pipeline.eps import (
     eps_position,
     instance_eps,
+    report_column_eps,
     source_fact,
 )
 from app.data_pipeline.sec_statements import matches_rendered_value
@@ -527,3 +528,136 @@ class EpsOriginalSourceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+COMBINED_CIK = "0000000007"
+
+
+def companyfacts_eps(*rows):
+    """Companyfacts with EarningsPerShareBasicAndDiluted in the given filings."""
+    items = [
+        {
+            "start": start,
+            "end": end,
+            "val": value,
+            "accn": accession,
+            "form": form,
+            "filed": filed,
+            "fp": "FY",
+        }
+        for start, end, value, accession, form, filed in rows
+    ]
+    return {
+        "cik": int(COMBINED_CIK),
+        "facts": {"us-gaap": {COMBINED_TAG: {"units": {"USD/shares": items}}}},
+    }
+
+
+def index_record(kind, tag=COMBINED_TAG, accession="0000000007-24-000001", form="10-K"):
+    return {
+        "source_kind": kind,
+        "source": {"url": "u", "sha256": "instance", "file": "f"},
+        "fact": {
+            "source_cik": COMBINED_CIK,
+            "tag": tag,
+            "accession": accession,
+            "filed": "2024-02-15",
+            "form": form,
+            "fiscal_period": "FY",
+        },
+    }
+
+
+class ReportColumnEpsTests(unittest.TestCase):
+    def test_every_annual_report_of_a_reviewed_companyfacts_tag_is_kept(self):
+        """N117: MNST's EPS cells each keep one fact, from the latest report stating
+        the year, so no stored report has two years. Every 10-K's columns of the
+        reviewed tag are kept for growth; a 10-Q is not an annual report."""
+        body = companyfacts_eps(
+            ("2022-01-01", "2022-12-31", "1.0", "a-23", "10-K", "2023-02-15"),
+            ("2021-01-01", "2021-12-31", "0.8", "a-23", "10-K", "2023-02-15"),
+            ("2023-01-01", "2023-12-31", "1.2", "a-24", "10-K", "2024-02-15"),
+            ("2022-01-01", "2022-12-31", "1.0", "a-24", "10-K", "2024-02-15"),
+            ("2023-01-01", "2023-12-31", "1.1", "q-24", "10-Q", "2024-05-01"),
+        )
+
+        facts = report_column_eps(
+            [(COMBINED_CIK, body)], [index_record("companyfacts")], {}
+        )
+
+        kept = {(fact["accession"], str(fact["period_end"])) for fact in facts}
+        self.assertEqual(
+            kept,
+            {
+                ("a-23", "2021-12-31"),
+                ("a-23", "2022-12-31"),
+                ("a-24", "2022-12-31"),
+                ("a-24", "2023-12-31"),
+            },
+        )
+        self.assertEqual({fact["metric"] for fact in facts}, {"eps_report_column"})
+
+    def test_pinned_instance_gives_its_columns_under_the_reviewed_tag(self):
+        """Visa's class A EPS is read from each report's instance. Both years of a
+        pinned instance are kept, other EPS tags of it are not, and an instance pinned
+        only for a 10-Q (AXON's revision) is not read."""
+        instance_facts = [
+            {"tag": DILUTED_TAG, "period_end": date(2023, 12, 31), "value": Decimal(5)},
+            {"tag": DILUTED_TAG, "period_end": date(2022, 12, 31), "value": Decimal(4)},
+            {"tag": BASIC_TAG, "period_end": date(2023, 12, 31), "value": Decimal(6)},
+        ]
+        read = []
+
+        def parse(body, cik, metadata):
+            read.append(metadata["form"])
+            return [
+                dict(
+                    fact,
+                    source_cik=cik,
+                    accession=metadata["accession"],
+                    period_start=date(fact["period_end"].year, 1, 1),
+                )
+                for fact in instance_facts
+            ]
+
+        records = [
+            index_record("instance", DILUTED_TAG),
+            index_record("instance", DILUTED_TAG, "q", form="10-Q"),
+        ]
+        with (
+            patch("app.data_pipeline.eps.verify_reference") as reference,
+            patch("app.data_pipeline.eps.instance_eps", side_effect=parse),
+        ):
+            reference.return_value.read_bytes.return_value = b""
+            facts = report_column_eps([(COMBINED_CIK, {})], records, {})
+
+        self.assertEqual(read, ["10-K"])
+        self.assertEqual(
+            sorted((fact["tag"], fact["value"]) for fact in facts),
+            [(DILUTED_TAG, Decimal(4)), (DILUTED_TAG, Decimal(5))],
+        )
+
+    def test_two_values_for_one_column_stop_the_import(self):
+        """One report states one EPS per year; two values mean a wrong source."""
+        body = companyfacts_eps(
+            ("2023-01-01", "2023-12-31", "1.2", "same", "10-K", "2024-02-15"),
+        )
+        conflicting = {
+            "tag": COMBINED_TAG,
+            "source_cik": COMBINED_CIK,
+            "accession": "same",
+            "period_start": date(2023, 1, 1),
+            "period_end": date(2023, 12, 31),
+            "value": Decimal("1.3"),
+        }
+        records = [
+            index_record("companyfacts"),
+            index_record("instance", accession="same"),
+        ]
+        with (
+            patch("app.data_pipeline.eps.verify_reference") as reference,
+            patch("app.data_pipeline.eps.instance_eps", return_value=[conflicting]),
+        ):
+            reference.return_value.read_bytes.return_value = b""
+            with self.assertRaisesRegex(ValueError, "Conflicting EPS"):
+                report_column_eps([(COMBINED_CIK, body)], records, {})

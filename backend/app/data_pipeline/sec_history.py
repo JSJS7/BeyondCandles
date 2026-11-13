@@ -150,6 +150,17 @@ def prepare_automatic_facts(entry, body, history, index):
     return result
 
 
+def prepare_report_column_facts(entry, body, history, index, records, reviews):
+    """EPS facts that only growth reads (N117), with the same history membership."""
+    from .eps import report_column_eps
+
+    sources = company_sources(entry, body, history, index)
+    facts = report_column_eps(sources, records, reviews)
+    for fact in facts:
+        fact["history_eligible"] = history_eligible(fact, entry["cik"], history)
+    return facts
+
+
 def prepare_company_facts(entry, body, history, index):
     """Retain all source facts and separately mark membership in the approved history."""
     sources = company_sources(entry, body, history, index)

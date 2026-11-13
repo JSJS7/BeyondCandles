@@ -4,12 +4,13 @@ import io
 import json
 import re
 import xml.etree.ElementTree as ET
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import date
 from decimal import Decimal
 from html import escape
 from typing import cast
 
+from app.annual_financials import ANNUAL_REPORT_FORMS
 from app.data_pipeline.revenue_facts import cache_instance
 from app.data_pipeline.sec import (
     CACHE,
@@ -40,6 +41,7 @@ from app.eps import (
 )
 from app.fact_identity import fact_identity, variants_fingerprint
 from app.fiscal_periods import canonical_period, fiscal_rules
+from app.growth import EPS_REPORT_COLUMN_METRIC
 
 EVIDENCE_INDEX = CACHE / "eps-evidence-index.json"
 FACTS_INDEX = CACHE / "eps-facts-index.json"
@@ -442,18 +444,103 @@ def source_fact(record):
     return matches[0]
 
 
-def supplemental_eps(ciks):
-    """Rebuild only reviewed EPS additions offline, retaining their original concepts and dates."""
+def reviewed_eps_records():
+    """The reviewed EPS additions of the EPS facts index; none before review-eps ran."""
     if not FACTS_INDEX.exists():
         return []
     index = read_json(FACTS_INDEX)
     if index["selection_sha256"] != sha256(SELECTION):
         raise ValueError("EPS facts use a different company selection")
+    return list(index["periods"].values())
+
+
+def supplemental_eps(ciks):
+    """Rebuild only reviewed EPS additions offline, retaining their original concepts and dates."""
     return [
         source_fact(record)
-        for record in index["periods"].values()
+        for record in reviewed_eps_records()
         if record["fact"]["source_cik"] in ciks
     ]
+
+
+def report_column_eps(sources, records, reviews):
+    """Every year's EPS as the annual reports behind the reviewed EPS state it (N117).
+
+    Where EPS has another tag than the diluted one or is read from a report's instance,
+    the selection keeps one reviewed fact per year, from the latest report stating it,
+    so no stored report states two years and growth stays empty. These facts repeat the
+    columns of each annual report: for a reviewed companyfacts tag from every report,
+    and for an instance from each instance that the EPS index (`records`) or the
+    version reviews (`reviews`) pinned, under its reviewed tag. They get a metric of
+    their own, which only growth reads. `sources` are (cik, companyfacts body) of the
+    company and its predecessors.
+    """
+    ciks = {cik for cik, _ in sources}
+    companyfacts_tags = defaultdict(set)
+    instances = {}
+
+    def add_instance(reference, fact):
+        key = (reference["sha256"], fact["source_cik"], fact["accession"])
+        if key not in instances:
+            metadata = {
+                "accession": fact["accession"],
+                "filed": date.fromisoformat(fact["filed"]),
+                "form": fact["form"],
+                "fiscal_period": None,
+            }
+            instances[key] = (reference, fact["source_cik"], metadata, set())
+        instances[key][3].add(fact["tag"])
+
+    for record in records:
+        fact = record["fact"]
+        if fact["source_cik"] not in ciks or fact["form"] not in ANNUAL_REPORT_FORMS:
+            continue
+        if record["source_kind"] == "companyfacts":
+            companyfacts_tags[fact["source_cik"]].add(fact["tag"])
+        else:
+            add_instance(record["source"], fact)
+    for key, review in reviews.items():
+        if key.split(":")[1] != "eps_diluted":
+            continue
+        for component in review["components"]:
+            fact = component["fact"]
+            if "instance" not in component or fact["source_cik"] not in ciks:
+                continue
+            if fact["form"] not in ANNUAL_REPORT_FORMS:
+                continue
+            add_instance(component["instance"], fact)
+
+    kept = {}
+
+    def keep(fact):
+        key = (
+            fact["source_cik"],
+            fact["tag"],
+            fact["period_start"],
+            fact["period_end"],
+            fact["accession"],
+        )
+        earlier = kept.get(key)
+        if earlier is not None and earlier["value"] != fact["value"]:
+            raise ValueError(f"Conflicting EPS inside one annual report: {key}")
+        if earlier is None:
+            kept[key] = fact
+
+    for cik, body in sources:
+        tags = companyfacts_tags.get(cik)
+        if not tags:
+            continue
+        facts, _ = extract_facts(body, metrics={"eps_diluted": tuple(sorted(tags))})
+        for fact in facts:
+            if fact["form"] in ANNUAL_REPORT_FORMS and fact["period_kind"] == "annual":
+                keep(dict(fact, source_cik=cik))
+    for reference, cik, metadata, tags in instances.values():
+        body = verify_reference(reference).read_bytes()
+        for fact in instance_eps(body, cik, metadata):
+            if fact["tag"] in tags:
+                keep(fact)
+    ordered = sorted(kept.items(), key=lambda item: tuple(map(str, item[0])))
+    return [dict(fact, metric=EPS_REPORT_COLUMN_METRIC) for _, fact in ordered]
 
 
 AXON_REVISION_KEY = "0001069183:2021-01-01:2021-12-31"

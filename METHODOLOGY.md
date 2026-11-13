@@ -178,7 +178,10 @@ adjacent years in the table can come from different reports and definitions, and
 the table can be wrong. Such years are marked as a series break (see Growth marker above).
 
 The API can return the table as known on a date (`as_of`). A year appears from the filing date of its
-first annual report. A value is known from the day its report was filed, and filings carry no time of
+first annual report. Where a company registered anew with the SEC in a merger or reorganization (Cigna
+in 2018, Disney in 2019), the earlier registrant's reports count from their filing dates for every
+measure and for growth, and the screener keeps a value that only they state, such as the earliest
+balance sheet. A value is known from the day its report was filed, and filings carry no time of
 day, so a backtest should act on the next session. An earlier version is served only when it is
 confirmed against its own filing. Otherwise it has no value, or a quarterly version is ignored. Part of
 the history therefore stays unavailable rather than possibly wrong. Financials are annual only. The

@@ -18,6 +18,7 @@ from app.fiscal_periods import canonical_period
 from app.metric_history import MetricVersion
 from app.policy_files import load_policy
 from app.schemas.stock import AnnualMetric, EpsShareBasis, EpsSplit, FilingValue
+from app.timeline import as_known_then, timeline_rules
 
 SCALE_CORRECTIONS_PATH = (
     Path(__file__).resolve().parents[2] / "data/share-scale-corrections.json"
@@ -597,10 +598,19 @@ def automatic_versions(
     income_exclusions=(),
     value_corrections=(),
     preferred_columns=(),
+    timeline=None,
 ):
-    """Build every automatic cell history of one company for its reviewed periods."""
+    """Build every automatic cell history of one company for its reviewed periods.
+
+    As for the reviewed metrics, the reports of a predecessor in data/timeline-rules.json
+    count from their filing date like any other report (M48), so their values are known
+    before today's issuer states them again. A cell that no later report states keeps
+    the predecessor's value.
+    """
+    timeline = timeline_rules() if timeline is None else timeline
     versions = []
     periods = set(periods)
+    facts = as_known_then(facts, timeline)
     facts = [*facts, *preferred_column_facts(preferred_columns, ticker)]
     facts = without_excluded_operating_income(facts, ticker, income_exclusions)
     facts = with_scale_corrections(facts, ticker, scale_corrections)

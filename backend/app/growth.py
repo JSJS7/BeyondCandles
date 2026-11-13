@@ -13,6 +13,7 @@ from itertools import product
 from app.annual_financials import ANNUAL_REPORT_FORMS
 from app.fiscal_periods import canonical_period
 from app.schemas.stock import GrowthReport
+from app.timeline import on_timeline, timeline_rules
 
 # A definition change above this share gets a marker (project-principles.md, 5.1).
 LARGEST_UNMARKED_DIFFERENCE = Decimal("0.05")
@@ -22,6 +23,16 @@ LARGEST_ROUNDING_GAP = Decimal("0.01")
 SMALLEST_YEAR_DAYS = 350
 LARGEST_YEAR_DAYS = 380
 GROWTH_PRECISION = Decimal("0.000001")
+# Facts that only growth reads, under the metric whose growth they give. Where EPS has
+# another tag than the diluted one or is read from a report's instance, the selection
+# keeps one reviewed fact per year, so no stored report states two years (N117).
+EPS_REPORT_COLUMN_METRIC = "eps_report_column"
+GROWTH_ONLY_METRICS = {EPS_REPORT_COLUMN_METRIC: "eps_diluted"}
+
+
+def growth_metric(metric):
+    """The metric whose growth a fact of this metric gives."""
+    return GROWTH_ONLY_METRICS.get(metric, metric)
 
 
 @dataclass(frozen=True)
@@ -90,19 +101,22 @@ def source_coefficients(value, sources):
     return {}
 
 
-def annual_report_columns(facts, period_rules):
+def annual_report_columns(facts, period_rules, timeline=None):
     """Group facts of one company and metric by annual report, newest report first.
 
-    Facts of predecessor issuers that do not define today's values are left out. Balance
-    sheet values (equity) are instants; a report states at least two year ends.
+    Facts of predecessor issuers that do not define today's values are left out, except
+    the reports that date earlier versions (data/timeline-rules.json): on their filing
+    date they were the report stating both years (M48). Balance sheet values (equity)
+    are instants; a report states at least two year ends.
     """
+    timeline = timeline_rules() if timeline is None else timeline
     reports = {}
     for fact in facts:
         if fact["form"] not in ANNUAL_REPORT_FORMS:
             continue
         if fact["period_kind"] not in ("annual", "instant"):
             continue
-        if not fact["history_eligible"]:
+        if not fact["history_eligible"] and not on_timeline(fact, timeline):
             continue
         accession = fact["accession"]
         if accession not in reports:
@@ -217,10 +231,13 @@ def add_table_growth(periods, facts, period_rules):
     """
     facts_by_metric = defaultdict(list)
     for fact in facts:
-        facts_by_metric[fact["metric"]].append(fact)
+        facts_by_metric[growth_metric(fact["metric"])].append(fact)
+    timeline = timeline_rules()
     reports_by_metric = {}
     for metric, metric_facts in facts_by_metric.items():
-        reports_by_metric[metric] = annual_report_columns(metric_facts, period_rules)
+        reports_by_metric[metric] = annual_report_columns(
+            metric_facts, period_rules, timeline
+        )
 
     by_dates = {(period.period_start, period.period_end): period for period in periods}
     for period in periods:

@@ -444,17 +444,23 @@ def fact_key(fact):
 
 def prepare_all_company_facts():
     """Return the facts the cached SEC files and rules define, by company."""
+    from app.metric_history import version_reviews
+
+    from .eps import reviewed_eps_records
     from .sec_catalogue import identifiers, load_all_sec
     from .sec_history import (
         HISTORY_INDEX,
         prepare_automatic_facts,
         prepare_company_facts,
+        prepare_report_column_facts,
     )
 
     issuers = identifiers()
     history_index = (
         read_json(HISTORY_INDEX) if HISTORY_INDEX.exists() else {"issuers": {}}
     )
+    eps_records = reviewed_eps_records()
+    reviews = version_reviews()
     _, companies = load_all_sec()
     prepared = {}
     for ticker, (entry, body) in companies:
@@ -465,6 +471,9 @@ def prepare_all_company_facts():
             history = approved.get("history")
             facts = prepare_company_facts(entry, body, history, history_index)
             facts += prepare_automatic_facts(entry, body, history, history_index)
+            facts += prepare_report_column_facts(
+                entry, body, history, history_index, eps_records, reviews
+            )
         except ValueError as exc:
             raise ValueError(f"{ticker}: {exc}") from exc
         prepared[ticker] = (entry, facts, history)

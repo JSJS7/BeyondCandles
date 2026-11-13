@@ -165,6 +165,37 @@ class GrowthTests(unittest.TestCase):
         self.assertIsNone(growth.value)
         self.assertFalse(growth.basis_break)
 
+    def test_predecessor_report_on_the_timeline_gives_growth(self):
+        """M48: before today's issuer files, the predecessor's report was the one
+        stating both years (old Cigna in 2017), so it gives growth like any report.
+        A predecessor fact outside the timeline bounds still counts for nothing."""
+        timeline = {
+            "issuers": {
+                "0000000009": {"filed_to": "2024-06-30", "period_end_to": "2023-12-31"}
+            },
+            "filings": [],
+        }
+        predecessor = [
+            dict(fact, source_cik="0000000009", history_eligible=False)
+            for fact in (
+                report_fact(
+                    "Revenues", self.EARLIER_END, "100", "old", date(2024, 2, 1)
+                ),
+                report_fact("Revenues", self.LATER_END, "120", "old", date(2024, 2, 1)),
+            )
+        ]
+        outside = [dict(fact, filed=date(2024, 7, 1)) for fact in predecessor]
+        earlier = SeriesCell(self.EARLIER_END, Decimal(100), {"Revenues": 1})
+        later = SeriesCell(self.LATER_END, Decimal(120), {"Revenues": 1})
+
+        on_timeline = annual_report_columns(predecessor, fiscal_rules(), timeline)
+        off_timeline = annual_report_columns(outside, fiscal_rules(), timeline)
+
+        self.assertEqual(
+            one_report_growth(on_timeline, earlier, later).value, Decimal("0.2")
+        )
+        self.assertIsNone(one_report_growth(off_timeline, earlier, later).value)
+
     def test_non_positive_base_gives_no_growth(self):
         """Change from a loss has no meaningful percentage."""
         reports = self.reports(
@@ -428,6 +459,30 @@ class ScreenerApiTests(unittest.TestCase):
                 },
             )
 
+    def add_eps_report_column(self, period, value, accession, filed):
+        """EPS as one annual report's column states it, stored only for growth (N117)."""
+        with self.database.begin() as connection:
+            connection.execute(
+                FinancialFact.__table__.insert(),
+                {
+                    "company_id": 1,
+                    "source_cik": "0000000001",
+                    "history_eligible": True,
+                    "metric": "eps_report_column",
+                    "taxonomy": "us-gaap",
+                    "tag": "Tag",
+                    "unit": "USD/shares",
+                    "value": Decimal(value),
+                    "period_start": period[0],
+                    "period_end": period[1],
+                    "filed": filed,
+                    "accession": accession,
+                    "form": "10-K",
+                    "fiscal_period": None,
+                    "period_kind": "annual",
+                },
+            )
+
     def row(self, ticker="TEST", **parameters):
         response = self.client.get("/screener", params=parameters)
         self.assertEqual(response.status_code, 200, response.text)
@@ -508,6 +563,24 @@ class ScreenerApiTests(unittest.TestCase):
 
         self.assertEqual(row["latest"]["ratios"]["revenue_growth"], "0")
         self.assertFalse(row["latest"]["revenue_basis_break"])
+
+    def test_eps_report_columns_give_eps_growth(self):
+        """N117: Visa's EPS cells each come from another report, so growth was empty.
+        The columns of the report that first stated the later year (2 and 2.5) give
+        +25%; without them no stored report states both years."""
+        self.add_year(date(2023, 2, 1), FIRST_YEAR)
+        self.add_year(date(2024, 2, 1), SECOND_YEAR)
+        self.add_version("eps_diluted", "2.5", date(2024, 2, 2), SECOND_YEAR)
+        self.add_close(date(2024, 3, 28))
+
+        without_columns = self.row(date="2024-03-29")
+        self.add_eps_report_column(FIRST_YEAR, "2", "second", date(2024, 2, 2))
+        self.add_eps_report_column(SECOND_YEAR, "2.5", "second", date(2024, 2, 2))
+        with_columns = self.row(date="2024-03-29")
+
+        self.assertIsNone(without_columns["latest"]["ratios"]["eps_growth"])
+        self.assertEqual(with_columns["latest"]["ratios"]["eps_growth"], "0.25")
+        self.assertFalse(with_columns["latest"]["eps_basis_break"])
 
     def test_quarterly_restatement_does_not_replace_the_annual_report(self):
         """W39: a 10-Q restating equity under a new standard (500 to 1000) arrives

@@ -16,9 +16,9 @@ from app.annual_financials import (
 from app.database import get_connection
 from app.eps_splits import normalize_eps
 from app.fiscal_periods import fiscal_rules
-from app.growth import add_table_growth
+from app.growth import GROWTH_ONLY_METRICS, add_table_growth
 from app.metric_history import HistoryOutOfDate, periods_as_of
-from app.models import AnnualMetricVersion, Company, DailyPrice
+from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
 from app.schemas.stock import AnnualPeriod, Price, Stock
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
@@ -45,6 +45,19 @@ def find_company(connection, ticker):
     if company is None:
         raise not_found
     return company
+
+
+def growth_only_facts(connection, company_id):
+    """Facts that only growth reads (N117), in their import order."""
+    query = (
+        select(FinancialFact.__table__)
+        .where(
+            FinancialFact.company_id == company_id,
+            FinancialFact.metric.in_(GROWTH_ONLY_METRICS),
+        )
+        .order_by(FinancialFact.id)
+    )
+    return connection.execute(query).mappings().all()
 
 
 @router.get("", response_model=list[Stock])
@@ -92,9 +105,10 @@ def get_annual_financials(
         raise HTTPException(422, detail="as_of must not be a future date.")
     company = find_company(connection, ticker)
     facts = connection.execute(reviewed_facts_query(company["id"])).mappings().all()
+    growth_facts = [*facts, *growth_only_facts(connection, company["id"])]
     if as_of is None:
         periods = normalize_eps(company["ticker"], annual_periods(facts))
-        add_table_growth(periods, facts, fiscal_rules())
+        add_table_growth(periods, growth_facts, fiscal_rules())
         return periods
 
     versions_query = select(AnnualMetricVersion.__table__).where(
@@ -112,6 +126,6 @@ def get_annual_financials(
         periods = periods_as_of(facts, stored_versions, as_of)
     except HistoryOutOfDate as error:
         raise history_missing from error
-    known_facts = [fact for fact in facts if fact["filed"] <= as_of]
+    known_facts = [fact for fact in growth_facts if fact["filed"] <= as_of]
     add_table_growth(periods, known_facts, fiscal_rules())
     return periods

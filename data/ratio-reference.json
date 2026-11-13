@@ -195,13 +195,5 @@
       }
     }
   ],
-  "known_differences": [
-    {
-      "ticker": "BRK-B",
-      "valuation_date": "2025-03-31",
-      "ratio": "eps_growth",
-      "finding": "N117",
-      "reason": "The screener's EPS growth is empty: the Class B EPS facts are stored only under the latest filing that repeats them, so no report known on the valuation date states both years."
-    }
-  ]
+  "known_differences": []
 }

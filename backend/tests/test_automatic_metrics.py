@@ -75,6 +75,45 @@ class VersionTests(unittest.TestCase):
         self.assertEqual(versions[0].known_from, date(2023, 2, 15))
         self.assertEqual(versions[0].confirmation, "automatic")
 
+    def test_predecessor_report_on_the_timeline_dates_the_cell(self):
+        """M48: old Cigna's 10-K of 2017 stated 2016 assets two years before the new
+        Cigna's first 10-K. Like the reviewed metrics, the cell is known from the
+        predecessor's report; the later report of today's issuer gives the restated
+        value. A predecessor report outside the timeline bounds still counts for
+        nothing."""
+        timeline = {
+            "issuers": {"0000000009": {"filed_to": "2023-06-30"}},
+            "filings": [],
+        }
+        predecessor = fact(
+            "assets",
+            "Assets",
+            "90",
+            accession="old",
+            source_cik="0000000009",
+            history_eligible=False,
+        )
+        successor = fact("assets", "Assets", "100", date(2024, 2, 15), "new")
+        outside = dict(predecessor, filed=date(2023, 7, 1))
+
+        def assets(facts):
+            versions = automatic_versions(
+                "TEST", facts, (PERIOD,), NO_SPLITS, NO_ALIASES, timeline=timeline
+            )
+            return [
+                (version.known_from, version.value.value)
+                for version in sorted(versions, key=lambda version: version.known_from)
+                if version.metric == "assets"
+            ]
+
+        self.assertEqual(
+            assets([predecessor, successor]),
+            [(date(2023, 2, 15), Decimal(90)), (date(2024, 2, 15), Decimal(100))],
+        )
+        self.assertEqual(
+            assets([outside, successor]), [(date(2024, 2, 15), Decimal(100))]
+        )
+
     def test_annual_report_confirming_a_quarterly_restatement_is_recorded(self):
         """W39: ADSK assets on 31.01.2015 were 4913.8 in the 10-K, 4909.7 in a later
         10-Q, and 4909.7 again in the next 10-K. The screener prefers annual reports, so

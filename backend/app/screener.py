@@ -19,10 +19,12 @@ from app.database import get_connection
 from app.eps_splits import split_rules
 from app.fiscal_periods import fiscal_rules
 from app.growth import (
+    GROWTH_ONLY_METRICS,
     LARGEST_YEAR_DAYS,
     Growth,
     SeriesCell,
     annual_report_columns,
+    growth_metric,
     one_report_growth,
     source_coefficients,
     year_before,
@@ -48,6 +50,7 @@ from app.schemas.screener import (
     ScreenerRow,
     SpinOff,
 )
+from app.timeline import timeline_rules
 
 router = APIRouter(prefix="/screener", tags=["screener"])
 DatabaseConnection = Annotated[Connection, Depends(get_connection)]
@@ -224,7 +227,10 @@ def growth_reports(connection, day, company_id=None, since=None):
         facts.c.period_kind,
         facts.c.source_cik,
         facts.c.history_eligible,
-    ).where(facts.c.metric.in_(GROWTH_METRICS), facts.c.filed <= day)
+    ).where(
+        facts.c.metric.in_([*GROWTH_METRICS, *GROWTH_ONLY_METRICS]),
+        facts.c.filed <= day,
+    )
     if company_id is not None:
         query = query.where(facts.c.company_id == company_id)
     if since is not None:
@@ -233,10 +239,12 @@ def growth_reports(connection, day, company_id=None, since=None):
         query = query.where(facts.c.period_end >= earliest_fact_end)
     grouped = defaultdict(list)
     for fact in connection.execute(query.order_by(facts.c.id)).mappings():
-        grouped[(fact["company_id"], fact["metric"])].append(fact)
+        key = (fact["company_id"], growth_metric(fact["metric"]))
+        grouped[key].append(fact)
     rules = fiscal_rules()
+    timeline = timeline_rules()
     return {
-        key: annual_report_columns(metric_facts, rules)
+        key: annual_report_columns(metric_facts, rules, timeline)
         for key, metric_facts in grouped.items()
     }
 

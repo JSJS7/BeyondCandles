@@ -19,6 +19,14 @@
       "note": "Acquisition of Xilinx in February 2022."
     },
     {
+      "ticker": "AVGO",
+      "check": "assets_change",
+      "from_year": 2016,
+      "to_year": 2016,
+      "max_deviation_percent": "375.2",
+      "note": "Avago's acquisition of Broadcom Corporation in February 2016; fiscal 2016 assets from Broadcom Limited's 10-K (M48)."
+    },
+    {
       "ticker": "BMY",
       "check": "assets_change",
       "from_year": 2019,
