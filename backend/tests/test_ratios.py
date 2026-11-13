@@ -13,9 +13,13 @@ from app.ratios import (
     common_equity,
     exchangeable_units,
     has_material_discontinued_operations,
+    has_subsidiary_preferred,
+    income_to_common,
     market_values,
     participating_preferred_tickers,
     shares_for_ratios,
+    subsidiary_preferred_periods,
+    without_subsidiary_preferred,
 )
 
 BACKEND = Path(__file__).resolve().parents[1]
@@ -195,6 +199,38 @@ class CommonEquityTests(unittest.TestCase):
     def test_visa_is_the_recorded_participating_company(self):
         """The rule file names Visa; a report must back every entry."""
         self.assertEqual(participating_preferred_tickers(), {"V"})
+
+    def test_southern_is_the_recorded_company_with_subsidiary_preferred(self):
+        """The rule file names Southern Company for the fiscal years its 10-Ks show
+        dividends on preferred stock of subsidiaries (2015-2024)."""
+        covered = subsidiary_preferred_periods()
+
+        self.assertEqual(covered, {"SO": (date(2015, 12, 31), date(2024, 12, 31))})
+
+    def test_subsidiary_preferred_covers_only_its_periods_and_company(self):
+        """Both ends of the range count; a later year or another company does not."""
+        covered = {"SO": (date(2015, 12, 31), date(2024, 12, 31))}
+
+        self.assertTrue(has_subsidiary_preferred(covered, "SO", date(2015, 12, 31)))
+        self.assertTrue(has_subsidiary_preferred(covered, "SO", date(2024, 12, 31)))
+        self.assertFalse(has_subsidiary_preferred(covered, "SO", date(2025, 12, 31)))
+        self.assertFalse(has_subsidiary_preferred(covered, "DUK", date(2020, 12, 31)))
+
+    def test_subsidiary_preferred_is_deducted_neither_from_equity_nor_income(self):
+        """SO 2015 in millions: equity 20 592 already excludes the subsidiaries' 609 of
+        preferred stock, and net income 2 367 is already after their 54 of dividends."""
+        values = period(
+            net_income=Decimal(2367),
+            equity=Decimal(20592),
+            preferred_value=Decimal(609),
+            preferred_dividends=Decimal(54),
+        )
+
+        parent_values = without_subsidiary_preferred(values)
+
+        self.assertEqual(common_equity(parent_values), Decimal(20592))
+        self.assertEqual(income_to_common(parent_values), Decimal(2367))
+        self.assertEqual(common_equity(values), Decimal(19983))
 
 
 class ExchangeableUnitTests(unittest.TestCase):

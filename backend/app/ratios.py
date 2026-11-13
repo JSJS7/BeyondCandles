@@ -5,7 +5,7 @@ missing or the result has no meaning, for example P/E under a loss. It is never 
 with an estimate, an industry average or an earlier year (project-principles.md, 5.2).
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
@@ -18,6 +18,9 @@ from app.schemas.stock import EpsSplit
 
 PARTICIPATING_PREFERRED_PATH = (
     Path(__file__).resolve().parents[2] / "data/participating-preferred.json"
+)
+SUBSIDIARY_PREFERRED_PATH = (
+    Path(__file__).resolve().parents[2] / "data/subsidiary-preferred.json"
 )
 EXCHANGEABLE_UNITS_PATH = (
     Path(__file__).resolve().parents[2] / "data/exchangeable-units.json"
@@ -78,6 +81,40 @@ def participating_preferred_tickers():
     """Companies that count their preferred stock, as converted, in their share count."""
     policy = load_policy(PARTICIPATING_PREFERRED_PATH, "participating-preferred")
     return {entry["ticker"] for entry in policy["companies"]}
+
+
+def subsidiary_preferred_periods():
+    """Return {ticker: (first period end, last period end)} of subsidiaries' preferred.
+
+    In these periods the tagged preferred stock and dividends belong to subsidiaries,
+    so they are neither part of the parent's equity nor deducted from its net income.
+    """
+    policy = load_policy(SUBSIDIARY_PREFERRED_PATH, "subsidiary-preferred")
+    result = {}
+    for entry in policy["companies"]:
+        first_end = date.fromisoformat(entry["period_end_from"])
+        last_end = date.fromisoformat(entry["period_end_to"])
+        result[entry["ticker"]] = (first_end, last_end)
+    return result
+
+
+def has_subsidiary_preferred(covered_periods, ticker, period_end):
+    """Whether the period's tagged preferred stock belongs to the company's subsidiaries."""
+    covered = covered_periods.get(ticker)
+    if covered is None:
+        return False
+    first_end, last_end = covered
+    return first_end <= period_end <= last_end
+
+
+def without_subsidiary_preferred(values):
+    """The period's values with no preferred stock or dividends of the parent itself.
+
+    Southern Company's net income is already after its subsidiaries' preferred dividends,
+    and its common equity excludes their preferred stock, so deducting either would
+    count it twice.
+    """
+    return replace(values, preferred_value=None, preferred_dividends=None)
 
 
 @dataclass(frozen=True)

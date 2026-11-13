@@ -40,8 +40,11 @@ from app.ratios import (
     calculate_ratios,
     exchangeable_units,
     has_material_discontinued_operations,
+    has_subsidiary_preferred,
     participating_preferred_tickers,
     shares_for_ratios,
+    subsidiary_preferred_periods,
+    without_subsidiary_preferred,
 )
 from app.schemas.screener import (
     PeriodRatios,
@@ -278,6 +281,14 @@ def period_spin_offs(ticker, period_end, session, split_policy):
     return result
 
 
+def parent_period_values(periods, period, ticker, subsidiary_preferred):
+    """The period's values, without preferred stock that belongs to subsidiaries."""
+    values = period_values(periods[period])
+    if has_subsidiary_preferred(subsidiary_preferred, ticker, period[1]):
+        return without_subsidiary_preferred(values)
+    return values
+
+
 def valued_period(
     ticker,
     company_id,
@@ -288,14 +299,17 @@ def valued_period(
     split_policy,
     participating,
     units_by_period,
+    subsidiary_preferred,
 ):
     """Assemble the ratios of one period valued at the given (session, close)."""
     cells = periods[period]
-    values = period_values(cells)
+    values = parent_period_values(periods, period, ticker, subsidiary_preferred)
     earlier_period = year_before(periods, period)
-    previous = (
-        None if earlier_period is None else period_values(periods[earlier_period])
-    )
+    previous = None
+    if earlier_period is not None:
+        previous = parent_period_values(
+            periods, earlier_period, ticker, subsidiary_preferred
+        )
 
     session, price = None, None
     if close is not None and price_comparable_to_period(ticker, period[1]):
@@ -362,6 +376,7 @@ def get_screener(
     split_policy = split_rules()
     participating = participating_preferred_tickers()
     units_by_period = exchangeable_units(split_policy)
+    subsidiary_preferred = subsidiary_preferred_periods()
 
     rows = []
     for company in companies:
@@ -379,6 +394,7 @@ def get_screener(
                 split_policy,
                 participating,
                 units_by_period,
+                subsidiary_preferred,
             )
         rows.append(
             ScreenerRow(

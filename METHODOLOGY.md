@@ -2,7 +2,9 @@
 
 BeyondCandles is an educational project. Nothing here is investment advice. This page explains
 what each number means, how it was chosen and what to keep in mind before using it. Every value
-in the app keeps its source filing, tag, period and filing date.
+in the app keeps its source filing, tag, period and filing date. The rules apply to all companies;
+companies with a rule of their own or a known issue are listed under
+[Companies handled differently](#companies-handled-differently).
 
 ## In short
 
@@ -47,50 +49,45 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
 ### Reviewed measures
 
 - **Revenue:** picking the largest number or the first tag gives wrong totals, so each company and
-  period is mapped to a reviewed line. A group of similar companies uses one line when they show
-  it, and differences between lines up to 5% are accepted. A line a company does not show is not
-  calculated to resemble others, and we do not analyse what a company puts in the line, so a total
-  can include items such as derivative results (EOG). Exchanges (ICE, Nasdaq) use their line of
-  revenues less transaction-based expenses, the fees they pass on to traders and regulators, as
-  data services do. Bank and industrial revenue are not comparable.
+  period is mapped to a reviewed line. Banks and exchanges use net revenue, as data services do, and
+  fuel companies their sales line. Differences between similar lines up to 5% are accepted. A line a
+  company does not show is not calculated to resemble others, and we do not analyse what a company
+  puts in its line. Bank and industrial revenue are not comparable.
 - **A changed definition:** we recalculate only when a company itself changed its definition and
-  the same calculation reproduces its later restated figures (Philip Morris, excise taxes).
-  Otherwise the reported value stays, even if the series changes basis.
+  the same calculation reproduces its later restated figures. Otherwise the reported value stays,
+  even if the series changes basis.
 - **Net income and EPS:** net income is before preferred dividends and EPS is after them, so net
   income divided by EPS is not always the share count.
-- **EPS:** only real changes in share count restate it, up to 13 Oct 2026, the last date in the
-  vendor's files. It is GAAP, so one-off items are included, also the result of discontinued
-  operations (see Known limitations).
+- **EPS:** diluted, or basic where a company reports no diluted figure. Only real changes in share
+  count restate it, up to 13 Oct 2026, the last date in the vendor's files. It is GAAP, so one-off
+  items are included, also the result of discontinued operations (see Known limitations).
 - **Equity:** because it includes preferred equity, it is not common equity. Ratios deduct
   preferred stock (see below). Negative equity is valid.
-- **Operating cash flow:** for banks and asset managers it is dominated by balance-sheet movements
-  and says little about earnings quality.
+- **Operating cash flow:** where a company reports only continuing operations, that value is shown
+  and labelled. For banks and asset managers it is dominated by balance-sheet movements and says
+  little about earnings quality.
 
 ### Automatic measures
 
 - **Selection:** a backup tag counts only while the main one is unknown. A value counts from the
   first report that contains it, and joins an annual period of the reviewed measures.
 - **Share count:** diluted, then a combined basic and diluted row, then basic where nothing else is
-  reported. Counts by share class are not summed, so some companies have none (Visa,
-  Berkshire Hathaway). A count far below the company's largest is dropped as a scale error of the
-  tag. Where the first report's table shows the same digits in a stated unit, the unit is corrected.
+  reported. Counts by share class are not summed, so some companies have none. A count far below the
+  company's largest is dropped as a scale error of the tag. Where the first report's table shows the
+  same digits in a stated unit, the unit is corrected.
 - **Shares outstanding:** the count on the cover of the annual report, on a day shortly before the
   filing, as a value of the year the report is for. A cover tagged with several days counts with its
-  latest day up to the filing. Companies with several share classes tag it only by class, so they have
-  none (Mastercard, Alphabet).
-- **Share count and units exchangeable into shares:** a diluted count can include such units while
-  equity excludes their holders. Blackstone's 2015, 2016 and 2018 therefore use its basic common units,
-  as its diluted count does in the other years. How ratios treat the units is described under Ratios.
-- **Capital expenditure:** banks and most real estate companies have none. A tag can hold only part
-  of the cash spent; where we found this, the value comes from the cash flow statement instead
-  (American Electric Power; United Rentals, purchases of rental and other equipment). Some companies
-  tag their only purchase line as "other" property or productive assets (Eli Lilly, Verizon from 2019).
-  Such a line counts only when the same report shows no separate line for a kind of asset, so a part
-  is never taken for the whole. An oil and gas producer whose cash flow statement shows additions to
-  oil and gas properties and to other equipment without a total has the two lines added up (EOG). Companies that report capital expenditure only under their own tags stay empty.
+  latest day up to the filing. Companies with several share classes often tag it only by class, so
+  they have none.
+- **Capital expenditure:** banks and most real estate companies have none. A line tagged as "other"
+  property or productive assets counts only when the same report shows no separate line for a kind of
+  asset, so a part is never taken for the whole. Two lines without a total (additions to oil and gas
+  properties and to other equipment) are added up. Where a tag holds only part of the cash spent, the
+  value comes from the cash flow statement. Companies that report capital expenditure only under their
+  own tags stay empty.
 - **Operating income:** many companies have no such row, including banks. It stays empty where the
-  tag holds a sum of segments or an adjusted measure (`data/operating-income-exclusions.json`).
-  That list comes from a screen of row labels, so a sum of segments under a plain label can remain.
+  tag holds a sum of segments or an adjusted measure. That list comes from a screen of row labels, so
+  a sum of segments under a plain label can remain.
 
 ## Ratios
 
@@ -117,39 +114,34 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   session. A filing date has no time of day and most annual reports arrive after the market closes, so
   a report filed on the session's own day counts only from the next session.
 - **Values as annual reports state them:** a quarterly report can restate the previous year's balance
-  sheet (a new accounting standard, a separated business) months before the next annual report restates
-  the income statement. Ratios therefore keep each value as the latest annual report states it, so one
-  ratio never joins a restated balance sheet with an income statement not yet restated. A value known
-  only from a quarterly report is used until an annual report states it.
+  sheet months before the next annual report restates the income statement. Ratios therefore keep each
+  value as the latest annual report states it, so one ratio never joins a restated balance sheet with an
+  income statement not yet restated. A value known only from a quarterly report is used until an annual
+  report states it.
 - **Earlier year:** the period that ended 350 to 380 days before; fiscal-year labels are not compared.
   Averages use the two year-end balances.
 - **Share count:** P/B and P/S value the shares with the shares outstanding on the latest annual
-  report's cover, the count closest to the valuation date, as analysis sites count shares outstanding
-  rather than the year's average. The weighted average of the year stands in where the cover has no
-  total (several share classes), where the cover is below half or above 1.75 times the average (Kroger's
-  2015 cover also counted treasury shares), and in periods with exchangeable units, which are counted
-  against the average. Without a tagged average, the count is (net income − preferred dividends) ÷ EPS,
-  marked as calculated. A cover count is a few months old by the valuation date and misses later
-  buybacks and issues; the average lags far more after an acquisition (Linde's 2018 cover shows 63% more
-  shares than its average for the year).
+  report's cover, as analysis sites count shares outstanding rather than the year's average. The
+  weighted average of the year stands in where the cover has no total, where the cover is far from the
+  average (a likely error of the cover), and in periods with exchangeable units. Without a tagged
+  average, the count is (net income − preferred dividends) ÷ EPS, marked as calculated. A cover count is
+  a few months old by the valuation date and misses later buybacks and issues; the average lags far
+  more after an acquisition.
 - **Units exchangeable into shares:** in some companies part of the owners hold units of a subsidiary
-  partnership exchangeable one for one into the listed shares (Blackstone, KKR until 2022, Charter,
-  Simon Property, Broadcom in fiscal 2017). Revenue belongs to the whole group, so P/S counts the market
-  value of shares and units together, as data services do; equity and net income belong to the listed
-  shares, so P/B counts only those and P/E is unchanged. Unit counts are the weighted averages each
-  annual report states (`data/exchangeable-units.json`), for companies whose units exceed 5% of the
-  share count; the ratios are marked *Exchangeable units*. Ordinary minority stakes in subsidiaries
-  follow the usual convention of market value over consolidated revenue.
+  partnership exchangeable one for one into the listed shares. Revenue belongs to the whole group, so
+  P/S counts the market value of shares and units together, as data services do; equity and net income
+  belong to the listed shares, so P/B counts only those and P/E is unchanged. Unit counts are the
+  weighted averages each annual report states, for companies whose units exceed 5% of the share count;
+  the ratios are marked *Exchangeable units*. Ordinary minority stakes in subsidiaries follow the usual
+  convention of market value over consolidated revenue.
 - **Common equity:** equity minus preferred stock, as analysis sites deduct it. The value comes from the
   preferred stock tags, or else from the preferred stock column of the statement of changes in equity
-  in the XBRL instance of the period's first annual report, which companyfacts does not hold (Morgan
-  Stanley, PNC; `data/preferred-equity-values.json`). When annual preferred dividends exceed 25% of a
-  value, it may be only par value or a scale error, and it counts only if it is at least 0.5% of equity
-  (Procter & Gamble's employee preferred shares receive the common dividend). Without a usable value,
-  the deduction is zero only if there are no preferred dividends or they are at most 0.2% of equity;
-  otherwise common-share ratios stay empty, as for companies that hold preferred stock within paid-in
-  capital. Companies whose diluted count already holds preferred stock as converted do not deduct it
-  (`data/participating-preferred.json`).
+  in the period's first annual report. A value that may be only par value or a scale error counts only
+  if it is a material part of equity. Without a usable value, the deduction is zero only if preferred
+  dividends are absent or negligible; otherwise common-share ratios stay empty. Companies whose diluted
+  count already holds preferred stock as converted do not deduct it. Preferred stock of subsidiaries is
+  not deducted either, and neither are its dividends: the parent's net income is already after them and
+  its common equity excludes that stock.
 - **Growth marker:** when the table's series implies a change more than 5% away from the report's own,
   or a value changes sign between the sources, the row is marked as a break in the series. The company
   page uses the same rule for all five reviewed measures and shows the change as one report states it;
@@ -165,15 +157,14 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
 - **Valuation ratios use Close converted to the share basis of EPS.** The vendor scales earlier prices
   for some spin-offs, mergers and conversions as if they were splits, while EPS changes only with the
   real share count. The conversion uses the same reviewed event list as EPS and is accurate to about
-  0.1%, because vendor ratios are rounded. Two 2026 splits (Monster Beverage, Amphenol) the vendor
-  applied only to the last sessions are handled too.
-- **A share exchange the vendor did not record** is handled like a split. Charter's old shares became
-  0.9042 new shares each in its May 2016 merger, under the same SEC registrant: earlier Adjusted Close
-  is divided by that ratio, as analysis sites restate it, and earlier EPS and share counts are put on
-  the new shares. Close keeps the traded price.
+  0.1%, because vendor ratios are rounded. Splits the vendor applied only to the last sessions are
+  handled too.
+- **A share exchange the vendor did not record** is handled like a split, with the ratio from the
+  company's annual report: earlier Adjusted Close is divided by it, as analysis sites restate it, and
+  earlier EPS and share counts are put on the new shares. Close keeps the traded price.
 - **Neither Close nor Adjusted Close can be divided directly by EPS.**
-- **JCI** through 2 Sep 2016 has the prices of Tyco International, whose shares became JCI shares, and
-  the financials of Johnson Controls Inc. Those price ratios stay empty.
+- **Prices of another company:** where a ticker's early prices belong to a different company than its
+  financials, those price ratios stay empty.
 
 ## Time
 
@@ -182,15 +173,14 @@ adjacent years in the table can come from different reports and definitions, and
 the table can be wrong. Such years are marked as a series break (see Growth marker above).
 
 The API can return the table as known on a date (`as_of`). A year appears from the filing date of its
-first annual report. Where a company registered anew with the SEC in a merger or reorganization (Cigna
-in 2018, Disney in 2019), the earlier registrant's reports count from their filing dates for every
-measure and for growth, and the screener keeps a value that only they state, such as the earliest
-balance sheet. A value is known from the day its report was filed, and filings carry no time of
-day, so a backtest should act on the next session. An earlier version is served only when it is
-confirmed against its own filing. Otherwise it has no value, or a quarterly version is ignored. Part of
-the history therefore stays unavailable rather than possibly wrong. Financials are annual only. The
-table as of a date also shows a value a quarterly report restated; the screener's ratios use it only
-from the next annual report (see Ratios).
+first annual report. Where a company registered anew with the SEC in a merger or reorganization, the
+earlier registrant's reports count from their filing dates for every measure and for growth, and the
+screener keeps a value that only they state, such as the earliest balance sheet. A value is known from
+the day its report was filed, and filings carry no time of day, so a backtest should act on the next
+session. An earlier version is served only when it is confirmed against its own filing. Otherwise it
+has no value, or a quarterly version is ignored. Part of the history therefore stays unavailable rather
+than possibly wrong. Financials are annual only. The table as of a date also shows a value a quarterly
+report restated; the screener's ratios use it only from the next annual report (see Ratios).
 
 ## What we correct
 
@@ -215,8 +205,8 @@ standard.
 - **Automatic measures** are not reviewed value by value. A value found wrong above these thresholds
   is replaced by the figure its report states, listed with its evidence in
   `data/automatic-value-corrections.json`. Where the company reports no such figure, the cell stays empty
-  (the operating income list above). More such cases may remain, because we do not search for them
-  one company at a time.
+  (as for operating income). More such cases may remain, because we do not search for them one company
+  at a time.
 
 ## How the data was checked
 
@@ -246,18 +236,92 @@ do not make companies comparable.
 - **Price ratios after a spin-off:** the price no longer includes the separated business, while the latest
   annual report does until the next one, so P/E, P/B and P/S read too low for up to a year (RTX in 2020,
   AT&T in 2022). The values stay and are marked *Spin-off*: a vendor event that removed more than 3% of
-  the price beyond any share split, after the period end and by the price date. Adient, which the vendor
-  recorded as a distribution rather than a ratio, is marked for Johnson Controls in the same way. The mark ends when a
+  the price beyond any share split, after the period end and by the price date. The mark ends when a
   report for a period ending after the event is known; in that year net income can still include the
   separated business until the event, as discontinued operations.
+- **Price ratios after a large acquisition:** the reverse case is not marked. Between the deal and the next
+  annual report, the price is already that of the larger company while the financials describe the smaller
+  one, so price ratios join two different companies.
 - **Discontinued operations:** net income and EPS include the result of a business sold, spun off or
   held for sale, as on analysis sites that use GAAP EPS (StockAnalysis's P/E of Johnson & Johnson for
   2023 includes Kenvue). Where that result is larger than 5% of net income, P/E, ROE, ROA, net margin,
   OCF / net income and EPS growth are marked *Discontinued ops* in the screener; the values stay. A
   one-off gain then makes a company look cheap or very profitable, so a backtest should leave marked
   values out. The amount comes from the standard tags; a company that tags it otherwise is not marked.
-- **Spin-off values** follow the vendor's ratios. RTX in April 2020 is the largest uncertainty: the company's
-  own figures put the vendor's earlier level about 4–7% too low, and no single reliable value exists.
+- **Spin-off values** follow the vendor's ratios, even where a company's own figures suggest another level
+  and no single reliable value exists.
 - **Scope:** 200 companies, US-listed, USD only, GAAP figures without adjustments.
 - **Data rights:** price data comes from a third-party vendor and its rights for public display are
   unconfirmed. Publishing this repository grants no right to redistribute the datasets.
+
+## Companies handled differently
+
+Companies with a rule of their own, or with a known issue that the general rules leave in place.
+Classes the app marks automatically (*Spin-off*, *Discontinued ops*, *Series break*) are not listed
+company by company. Years are fiscal years as each company reports them.
+
+### Revenue
+
+| Company | What differs |
+|---|---|
+| Banks: American Express, Bank of America, BNY, Citigroup, Capital One, Goldman Sachs, JPMorgan Chase, Morgan Stanley, PNC, Charles Schwab, Truist, U.S. Bancorp, Wells Fargo | Net revenue: the bank's own net line, or net interest income plus noninterest income |
+| Exchanges: Intercontinental Exchange, Nasdaq | Revenues less transaction-based expenses (rebates and fees passed on to regulators and for routing) |
+| Chevron 2015–2017 | Revenue includes excise taxes, as the company then reported it |
+| Exxon Mobil from 2020 | Revenue includes other income, as in the line the company reports |
+| Altria, Philip Morris | Altria's revenue includes excise taxes, Philip Morris's excludes them; Philip Morris 2015 is recalculated net of excise, as its later reports restate it |
+| EOG Resources | Total revenue as reported, which includes derivative results |
+| GE 2015, KKR 2015 | The year keeps an earlier definition from the company's own reports, so the series changes basis |
+
+### Share count and units
+
+| Company | What differs |
+|---|---|
+| Blackstone 2015, 2016, 2018 | Basic common units, because the diluted count of those years includes units whose holders are outside equity; its diluted count in other years excludes them |
+| Visa, Berkshire Hathaway, KKR | No tagged average for all share classes; the count is (net income − preferred dividends) ÷ EPS, marked *Calculated* |
+| Mastercard, Alphabet, Meta, Comcast | No cover total for all classes; P/B and P/S use the weighted average |
+| Kroger 2015 | Its cover also counted treasury shares; P/B and P/S use the weighted average |
+| ConocoPhillips 2015–2018, McDonald's 2023–2025 | The share count's unit is corrected from the first report's table |
+| Exchangeable units: Blackstone, KKR until 2022, Charter from 2016, Simon Property, Broadcom fiscal 2017 | P/S counts units with shares, P/B only listed shares; marked *Exchangeable units* |
+
+### Preferred stock and common equity
+
+| Company | What differs |
+|---|---|
+| Morgan Stanley, PNC | Preferred stock read from the statement of changes in equity |
+| Procter & Gamble | Employee preferred shares are deducted, as analysis sites do |
+| Visa | Not deducted: its share count already holds them as converted |
+| Southern Company 2015–2024 | Preferred stock and dividends of its subsidiaries are not deducted: its net income is already after them and its common equity excludes that stock. Equity of 2015 and 2016 as reports from 2018 state it includes that stock (609 million, below the thresholds) |
+| American Express, Becton Dickinson, GE, Boeing | P/B and ROE empty in affected years: preferred stock is held within paid-in capital |
+| General Motors | P/B and ROE empty in affected years: the preferred stock is a subsidiary's |
+| Alphabet 2015 | P/B and ROE empty, although the deduction would be small |
+| Broadcom fiscal 2020, Sempra 2018–2019 | Preferred stock or dividends replaced by the figure the report states (a tag error above the thresholds) |
+
+### Capital expenditure and operating income
+
+| Company | What differs |
+|---|---|
+| American Electric Power, United Rentals | From the cash flow statement, because the tag holds only part of the cash spent (United Rentals: purchases of rental and other equipment) |
+| Eli Lilly, ADP, Verizon from 2019, Roper from 2019 | The only purchase line is tagged as "other" assets |
+| EOG Resources | Additions to oil and gas properties and to other equipment added up |
+| Diamondback, Phillips 66, NextEra and some years of others | Capital expenditure empty: reported only under their own tags |
+| Aflac, Disney, Elevance, Eaton, Honeywell, MetLife, Parker-Hannifin, Sherwin-Williams, SLB, TJX | Operating income empty: the tag holds a sum of segments or an adjusted measure |
+| Linde 2017 | Assets replaced by the figure the report states (the tag held the balance sheet of the newly formed, still empty Linde plc) |
+
+### Cash flow and growth
+
+| Company | What differs |
+|---|---|
+| Citigroup, General Dynamics | Operating cash flow of continuing operations, marked *Continuing ops* |
+| Berkshire Hathaway FY2016 (EPS), S&P Global FY2024, Intercontinental Exchange FY2016 (revenue) | Growth empty: no report states both years in a readable form |
+
+### Corporate events and registrants
+
+| Company | What differs |
+|---|---|
+| Charter, May 2016 | Old shares became 0.9042 new shares each in a merger the vendor did not record; handled like a split |
+| Charter, May 2016 to Feb 2017 | Prices of the merged company with the old Charter's financials until its 2016 annual report (see Price ratios after a large acquisition) |
+| Johnson Controls to 2 Sep 2016 | Prices of Tyco International, whose shares became JCI shares, with the financials of Johnson Controls Inc.; price ratios empty. The Adient spin-off, which the vendor recorded as a distribution, is marked *Spin-off* |
+| RTX, April 2020 | The spin-off value follows the vendor, although the company's own figures put the vendor's earlier level about 4–7% too low; no single reliable value exists |
+| Monster Beverage, Amphenol 2026 | Splits the vendor applied only to the last sessions are handled |
+| Broadcom (Avago), BlackRock before 2024, Cigna before 2018, Disney before 2019, Johnson Controls (Johnson Controls Inc.), Linde (Praxair) | Reports of the earlier registrant count from their filing dates |
+| S&P Global FY2024 | The annual report has no facts in SEC companyfacts; its filing date comes from the rule list |

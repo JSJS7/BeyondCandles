@@ -745,6 +745,36 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertFalse(other_company["latest"]["exchangeable_units"])
         self.assertEqual(other_company["latest"]["ratios"]["ps"], "2")
 
+    def test_subsidiary_preferred_is_not_deducted_in_its_periods(self):
+        """Southern Company's tagged preferred stock (609) and dividends (54) in 2015
+        belong to its subsidiaries: its net income is already after those dividends and
+        its common equity excludes that stock. Market value 40 x 50 = 2000. Deducting
+        them gives P/B 2000 / 400 = 5 and ROE (100 - 10) / 400 = 0.225; the covered
+        company keeps P/B 2000 / 500 = 4 and ROE 100 / 500 = 0.2."""
+        for company in (1, 5):
+            for period, known_from in (
+                (FIRST_YEAR, date(2023, 2, 28)),
+                (SECOND_YEAR, date(2024, 2, 28)),
+            ):
+                self.add_year(known_from, period, company)
+                self.add_version("preferred_value", "100", known_from, period, company)
+                self.add_version(
+                    "preferred_dividends", "10", known_from, period, company
+                )
+            self.add_close(date(2024, 3, 28), company=company)
+        covered_periods = {"TEST": (FIRST_YEAR[1], SECOND_YEAR[1])}
+
+        with patch(
+            "app.screener.subsidiary_preferred_periods", return_value=covered_periods
+        ):
+            covered = self.row("TEST", date="2024-03-29")["latest"]["ratios"]
+            other_company = self.row("KKR", date="2024-03-29")["latest"]["ratios"]
+
+        self.assertEqual(covered["pb"], "4")
+        self.assertEqual(covered["roe"], "0.2")
+        self.assertEqual(other_company["pb"], "5")
+        self.assertEqual(other_company["roe"], "0.225")
+
     def test_discontinued_operations_mark_the_period_from_their_report(self):
         """M46: JNJ's FY2023 net income held 62% from Kenvue. The mark follows the value
         known on the date (a restating report adds it later) and changes no ratio."""

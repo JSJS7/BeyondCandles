@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "method": "Companies whose tagged preferred stock and preferred dividends belong to their subsidiaries, not to the parent. The parent's net income is already after those dividends and its common equity excludes that stock, so P/B and ROE deduct neither. Each entry names the reports that state this, for the fiscal years from period_end_from to period_end_to.",
+  "companies": [
+    {
+      "ticker": "SO",
+      "period_end_from": "2015-12-31",
+      "period_end_to": "2024-12-31",
+      "accessions": [
+        "0000092122-16-000126",
+        "0000092122-19-000006",
+        "0000092122-25-000018"
+      ],
+      "evidence": "Every 10-K for fiscal 2015 to 2024 deducts 'Dividends on preferred (and preference) stock of subsidiaries' before 'Net Income Attributable to Southern Company' (fiscal 2015: consolidated net income 2,435, less 54 of those dividends and 14 for noncontrolling interests, gives 2,367 million). The selected financial data of the 10-K for fiscal 2018 give common stockholders' equity of 20,592 million for 2015 and 24,758 million for 2016, with 'Preferred and preference stock of subsidiaries and noncontrolling interests' on a separate line. Southern Company itself has no preferred stock."
+    }
+  ]
+}
