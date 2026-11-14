@@ -100,7 +100,7 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
 | P/E | Price ÷ EPS | EPS not positive |
 | P/B | Price × listed shares ÷ common equity | Common equity not positive |
 | P/S | Price × (shares + exchangeable units) ÷ revenue | Revenue not positive |
-| ROE | (Net income − preferred dividends) ÷ average common equity | Either year's common equity not positive |
+| ROE | (Net income − preferred dividends) ÷ average common equity | Either year's common equity unknown or not positive, so a year without common equity also leaves the next year's ROE empty |
 | ROA | Net income ÷ average assets | |
 | Net margin | Net income ÷ revenue | Revenue not positive |
 | Operating margin | Operating income ÷ revenue | Revenue not positive |
@@ -142,11 +142,10 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   at most 0.2% of equity; otherwise common-share ratios stay empty. Where the period's first annual
   report counts no preferred shares of the company at the period end, the stock was converted or
   redeemed during the year, or belongs only to a subsidiary outside the parent's equity: nothing is
-  deducted from equity, while the year's preferred dividends are still deducted from net income.
-  Companies whose diluted
-  count already holds preferred stock as converted do not deduct it. Preferred stock of subsidiaries is
-  not deducted either, and neither are its dividends: the parent's net income is already after them and
-  its common equity excludes that stock.
+  deducted from equity, while the year's preferred dividends are still deducted from net income, as in
+  earnings per share. A company whose net income is already after its subsidiaries' preferred dividends,
+  and whose common equity excludes that stock, deducts neither the stock nor the dividends. Companies
+  whose diluted count already holds preferred stock as converted do not deduct it.
 - **Growth marker:** when the table's series implies a change more than 5% away from the report's own,
   or a value changes sign between the sources, the row is marked as a break in the series. The company
   page uses the same rule for all five reviewed measures and shows the change as one report states it;
@@ -301,7 +300,7 @@ company by company. Years are fiscal years as each company reports them.
 | Visa | Not deducted: its share count already holds them as converted |
 | Southern Company 2015–2024 | Preferred stock and dividends of its subsidiaries are not deducted: its net income is already after them and its common equity excludes that stock. Equity of 2015 and 2016 as reports from 2018 state it includes that stock (609 million, below the thresholds) |
 | American Express, Becton Dickinson, GE, Boeing, American Tower 2015–2017, Boston Scientific 2020–2022, Kinder Morgan 2016–2017, AT&T 2022–2023 | P/B and ROE empty in affected years: preferred stock is held within paid-in capital |
-| American Tower 2018 | P/B and ROE empty for the year, ROE also for the next: the preferred stock converted into common shares during the year, but the report counts shares only by series, so it does not show that none was left |
+| American Tower 2018 | P/B and ROE empty: the preferred stock converted into common shares during the year, but the report counts shares only by series, so it does not show that none was left |
 | KKR 2016, 2017, 2021 | P/B and ROE empty in affected years: its preferred units have no value under the standard tags or in a preferred stock column |
 | General Motors 2018, Freeport-McMoRan 2015 | P/B and ROE empty: the preferred stock is a subsidiary's, and the report does not count the company's own preferred shares |
 | General Motors 2019–2022 | Nothing deducted from equity, the subsidiary's preferred dividends deducted from net income, as in the company's own earnings per share: the report counts no preferred shares of its own |
