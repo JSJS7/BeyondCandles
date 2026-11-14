@@ -42,6 +42,7 @@ function company(ticker: string, sector: string, ratios: Partial<Ratios>): Scree
       spin_offs: [],
       exchangeable_units: false,
       discontinued_operations: false,
+      previous_discontinued_operations: false,
       ratios: { ...NO_RATIOS, ...ratios },
     },
   };

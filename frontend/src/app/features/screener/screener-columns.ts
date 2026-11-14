@@ -102,7 +102,10 @@ export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): Screene
     if (latest.ratios.eps_growth !== null && latest.eps_basis === 'basic') {
       labels.push('Basic');
     }
-    if (latest.ratios.eps_growth !== null && latest.discontinued_operations) {
+    // Growth compares two years, so discontinued operations in either of them distort it.
+    const eitherYearDiscontinued =
+      latest.discontinued_operations || latest.previous_discontinued_operations;
+    if (latest.ratios.eps_growth !== null && eitherYearDiscontinued) {
       labels.push('Discontinued ops');
     }
     return labels;

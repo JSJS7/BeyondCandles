@@ -48,6 +48,10 @@ const CSV_COLUMNS: CsvColumn[] = [
     header: 'discontinued_operations',
     value: (row) => row.latest?.discontinued_operations ?? null,
   },
+  {
+    header: 'previous_discontinued_operations',
+    value: (row) => row.latest?.previous_discontinued_operations ?? null,
+  },
 ];
 
 /** One CSV field: quoted when it holds a separator, a quote or a line break (RFC 4180). */

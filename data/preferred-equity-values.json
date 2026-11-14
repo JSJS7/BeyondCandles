@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "method": "Preferred stock of periods whose preferred dividends exceed 0.2% of equity while companyfacts has no positive preferred value of which the dividends are at most 25%. Each value is the balance at the period end of the one column of the statement of changes in equity whose StatementEquityComponentsAxis member names preferred stock, in the original XBRL instance of the first annual report of the period, with no other dimension. Periods without such a positive balance are listed with the reason.",
+  "method": "Preferred stock of periods whose preferred dividends exceed 0.2% of equity while companyfacts has no positive preferred value of which the dividends are at most 25% among the facts known on the filing date of the period's first annual report. Each value is the balance at the period end of the one column of the statement of changes in equity whose StatementEquityComponentsAxis member names preferred stock, in the original XBRL instance of the first annual report of the period, with no other dimension. Periods without such a positive balance are listed with the reason; 'no shares outstanding' means every preferred share count of the company at the period end, without dimensions, is zero.",
   "values": [
     {
       "ticker": "BAC",
@@ -64,6 +64,22 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1297996/000129799616000124/dlr-20151231.xml",
         "sha256": "14bff6a40d36ec60c0895206234e684f52271c1a21e569a5008dcc42930b5b9b",
         "file": "14bff6a40d36ec60c0895206234e684f52271c1a21e569a5008dcc42930b5b9b.htm"
+      }
+    },
+    {
+      "ticker": "DLR",
+      "cik": "0001297996",
+      "period_end": "2016-12-31",
+      "accession": "0001297996-17-000020",
+      "filed": "2017-03-01",
+      "form": "10-K",
+      "value": "1012961000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1297996/000129799617000020/dlr-20161231.xml",
+        "sha256": "2cea7e72d6b5916e8733458008cfff30f4ce747dd8e65b9d4f0f5df5844fe496",
+        "file": "2cea7e72d6b5916e8733458008cfff30f4ce747dd8e65b9d4f0f5df5844fe496.htm"
       }
     },
     {
@@ -320,6 +336,54 @@
         "url": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000086/ms-20251231_htm.xml",
         "sha256": "64826c27e64d01943397ba04bc5dfd7970941acc669ce6ba35d8fee0005fe235",
         "file": "64826c27e64d01943397ba04bc5dfd7970941acc669ce6ba35d8fee0005fe235.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2015-06-30",
+      "accession": "0000080424-15-000070",
+      "filed": "2015-08-07",
+      "form": "10-K",
+      "value": "1077000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042415000070/pg-20150630.xml",
+        "sha256": "bf2691e0a113c74baaac4f929682fb90d2c09565ba5db26357950a7db7fdbecb",
+        "file": "bf2691e0a113c74baaac4f929682fb90d2c09565ba5db26357950a7db7fdbecb.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2016-06-30",
+      "accession": "0000080424-16-000212",
+      "filed": "2016-08-09",
+      "form": "10-K",
+      "value": "1038000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042416000212/pg-20160630.xml",
+        "sha256": "5f3d404651c5b60a7712746b833a20715a075693a19602060cabd817a94a6f07",
+        "file": "5f3d404651c5b60a7712746b833a20715a075693a19602060cabd817a94a6f07.htm"
+      }
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "period_end": "2017-06-30",
+      "accession": "0000080424-17-000047",
+      "filed": "2017-08-07",
+      "form": "10-K",
+      "value": "1006000000",
+      "concept": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "member": "PreferredStockMember",
+      "instance": {
+        "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042417000047/pg-20170630.xml",
+        "sha256": "925e5c17618c8b505dadaeb3f5c3e058c2e3b4e849b978a0e68d12abf5717014",
+        "file": "925e5c17618c8b505dadaeb3f5c3e058c2e3b4e849b978a0e68d12abf5717014.htm"
       }
     },
     {
@@ -771,7 +835,7 @@
       "accession": "0001730168-22-000118",
       "filed": "2022-12-16",
       "form": "10-K",
-      "reason": "zero",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016822000118/avgo-20221030_htm.xml",
         "sha256": "4a327ea93a7fd9ea53cca2b40caf32761f8640f0c0b04c82554c979ae5977373",
@@ -1191,7 +1255,7 @@
       "accession": "0001467858-20-000028",
       "filed": "2020-02-05",
       "form": "10-K",
-      "reason": "no preferred column",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785820000028/gm201910k_htm.xml",
         "sha256": "74bd3637d6d3d938c8c69e62b6905ec17b3b57ceb049965ea396f17347d2e784",
@@ -1205,7 +1269,7 @@
       "accession": "0001467858-21-000037",
       "filed": "2021-02-10",
       "form": "10-K",
-      "reason": "no preferred column",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785821000037/gm-20201231_htm.xml",
         "sha256": "9712794a8c7d77a2e41527ad5aa20f7b76d4f4af69f0d8283c2173de64a8729d",
@@ -1219,7 +1283,7 @@
       "accession": "0001467858-22-000034",
       "filed": "2022-02-02",
       "form": "10-K",
-      "reason": "no preferred column",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785822000034/gm-20211231_htm.xml",
         "sha256": "fe5b7ab385e31e952d68cd1da87a47670ce59b8d8a9f47f8c9a9e4bd33974180",
@@ -1233,7 +1297,7 @@
       "accession": "0001467858-23-000029",
       "filed": "2023-01-31",
       "form": "10-K",
-      "reason": "no preferred column",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785823000029/gm-20221231_htm.xml",
         "sha256": "defdf9cad744dda47d9cb97b52a9cf992f5bc4d53c0e869fba826220bb8b6722",
@@ -1247,7 +1311,7 @@
       "accession": "0001652044-16-000012",
       "filed": "2016-02-11",
       "form": "10-K",
-      "reason": "no preferred column",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204416000012/goog-20151231.xml",
         "sha256": "d4444b4196d721b4bfc547aa41227a50aab43454169757b95a2c60bc833a07c0",
@@ -1331,7 +1395,7 @@
       "accession": "0001506307-19-000033",
       "filed": "2019-02-08",
       "form": "10-K",
-      "reason": "zero",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630719000033/kmi-20181231.xml",
         "sha256": "f729baa4e4811f8113446e483c4b93b2caaac7f4bb724c0e12cd5497596feb58",
@@ -1373,7 +1437,7 @@
       "accession": "0001283699-18-000011",
       "filed": "2018-02-08",
       "form": "10-K",
-      "reason": "no preferred column",
+      "reason": "no shares outstanding",
       "instance": {
         "url": "https://www.sec.gov/Archives/edgar/data/1283699/000128369918000011/tmus-20171231.xml",
         "sha256": "da3c3b961ee6f564e10560022e2cb7d34f2432304eb4cfe34fa28bae00466845",

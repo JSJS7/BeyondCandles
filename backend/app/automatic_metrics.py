@@ -2,8 +2,8 @@
 
 Each cell (company, annual period, metric) gets a version whenever its selected value
 changes. Tags are tried in the listed order, so a backup tag counts only while the main
-one is unknown; capex and preferred stock have their own order in select_capex and
-select_preferred_value. These cells join the annual periods of the reviewed metrics and
+one is unknown; capex, preferred stock and discontinued operations have their own order
+in select_capex, select_preferred_value and select_discontinued_income. These cells join the annual periods of the reviewed metrics and
 never create a period of their own.
 """
 
@@ -89,8 +89,9 @@ AUTOMATIC_METRICS = {
         "DividendsPreferredStockStock",
         "ConvertiblePreferredDividendsNetOfTax",
     ),
-    # Net income from discontinued operations, the parent's share first, as net income
-    # is. Only marks the ratios built on net income (M46); no ratio uses its value.
+    # Net income from discontinued operations: the parent's share and the whole amount,
+    # selected together in select_discontinued_income. Only marks the ratios built on
+    # net income (M46); no ratio uses its value.
     "discontinued_income": (
         "IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity",
         "IncomeLossFromDiscontinuedOperationsNetOfTax",
@@ -119,6 +120,9 @@ SMALLEST_SHARE_COUNT_RATIO = Decimal("0.01")
 # Dividends up to this share of equity mean preferred stock below the 5% threshold,
 # assuming a dividend rate of at least 4%. AXP's 3.55% shows it is an assumption.
 IMMATERIAL_DIVIDENDS_OF_EQUITY = Decimal("0.002")
+# The reason review-preferred-equity records when every preferred share count of the
+# first annual report is zero at the period end (N131).
+NO_PREFERRED_SHARES = "no shares outstanding"
 # The correction rule for data added from 03.11.2026 (project-principles.md, 5.1).
 TOLERATED_SHARE_OF_VALUE = Decimal("0.05")
 TOLERATED_SHARE_OF_REVENUE = Decimal("0.005")
@@ -144,6 +148,21 @@ def value_corrections():
 def preferred_equity_values():
     """Preferred stock read from the equity statement column of a report's instance."""
     return load_policy(PREFERRED_EQUITY_VALUES_PATH, "preferred-equity")["values"]
+
+
+def periods_without_preferred_shares():
+    """Return {(ticker, period end)} whose first annual report shows no preferred shares.
+
+    The stock was converted or redeemed during the year, so nothing is left to deduct
+    from year-end equity, although the year's dividends were paid (N131).
+    """
+    document = load_policy(PREFERRED_EQUITY_VALUES_PATH, "preferred-equity")
+    periods = set()
+    for entry in document["without_value"]:
+        if entry["reason"] == NO_PREFERRED_SHARES:
+            period_end = date.fromisoformat(entry["period_end"])
+            periods.add((entry["ticker"], period_end))
+    return periods
 
 
 def without_excluded_operating_income(facts, ticker, exclusions):
@@ -266,6 +285,40 @@ def select_capex(facts):
             continue
         return [selected]
     return []
+
+
+def select_discontinued_income(facts):
+    """The amount in the newest report stating it; of its two tags, the larger one (W41).
+
+    A report can put the parent's tag on a part only: ABT's 2015 10-K tags 65 million
+    from the operations as the parent's share and the total of 1817 million, with the
+    gain on the sale, as the whole amount. A newer report can restate the year under the
+    second tag alone (GE's 2025 10-K after the GE Vernova spin-off). The whole amount
+    can include noncontrolling interests, so a period may be marked a little sooner.
+    """
+    newest = None
+    for tag in AUTOMATIC_METRICS["discontinued_income"]:
+        candidate = latest_of_tag(facts, tag)
+        if candidate is None:
+            continue
+        if newest is None:
+            newest = candidate
+            continue
+        candidate_key = (candidate["filed"], candidate["accession"])
+        if candidate_key > (newest["filed"], newest["accession"]):
+            newest = candidate
+
+    if newest is None:
+        return None
+    selected = None
+    for tag in AUTOMATIC_METRICS["discontinued_income"]:
+        same_report = same_report_fact(facts, newest, tag)
+        if same_report is None:
+            continue
+        # On equal amounts the parent's tag, listed first, stays.
+        if selected is None or abs(same_report["value"]) > abs(selected["value"]):
+            selected = same_report
+    return selected
 
 
 def preferred_candidates(facts):
@@ -645,6 +698,8 @@ def automatic_versions(
                 elif metric == "capex":
                     capex_parts = select_capex(known)
                     selected = capex_parts[0] if capex_parts else None
+                elif metric == "discontinued_income":
+                    selected = select_discontinued_income(known)
                 else:
                     selected = select_by_tag_order(known, metric)
                 if selected is None:

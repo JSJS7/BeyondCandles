@@ -37,7 +37,7 @@ Other outside inputs and the price corrections are listed in the [README](README
 | Operating income | The `OperatingIncomeLoss` tag | Automatic |
 | Preferred stock | First plausible value among the standard tags, ending with liquidation preference | Automatic |
 | Preferred dividends | First value among the standard tags | Automatic |
-| Discontinued operations | Their part of net income, the parent's share first; only labels ratios | Automatic |
+| Discontinued operations | Their part of net income in the newest report, the larger of the parent's share and the whole amount; only labels ratios | Automatic |
 
 **Reviewed** values were each compared with the company's original filing. **Automatic** values
 come from a fixed tag order and are screened in bulk, so they are less certain. The app labels
@@ -122,8 +122,8 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   Averages use the two year-end balances.
 - **Share count:** P/B and P/S value the shares with the shares outstanding on the latest annual
   report's cover, as analysis sites count shares outstanding rather than the year's average. The
-  weighted average of the year stands in where the cover has no total, where the cover is far from the
-  average (a likely error of the cover), and in periods with exchangeable units. Without a tagged
+  weighted average of the year stands in where the cover has no total, where the cover is below half or
+  above 1.75 times the average (a likely error of the cover), and in periods with exchangeable units. Without a tagged
   average, the count is (net income − preferred dividends) ÷ EPS, marked as calculated. A cover count is
   a few months old by the valuation date and misses later buybacks and issues; the average lags far
   more after an acquisition.
@@ -136,9 +136,14 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   convention of market value over consolidated revenue.
 - **Common equity:** equity minus preferred stock, as analysis sites deduct it. The value comes from the
   preferred stock tags, or else from the preferred stock column of the statement of changes in equity
-  in the period's first annual report. A value that may be only par value or a scale error counts only
-  if it is a material part of equity. Without a usable value, the deduction is zero only if preferred
-  dividends are absent or negligible; otherwise common-share ratios stay empty. Companies whose diluted
+  in the period's first annual report. A zero balance is not a value. When annual preferred dividends
+  exceed 25% of a value, it may be only par value or a scale error, and it counts only if it is at least
+  0.5% of equity. Without a usable value, the deduction is zero only if preferred dividends are absent or
+  at most 0.2% of equity; otherwise common-share ratios stay empty. Where the period's first annual
+  report counts no preferred shares of the company at the period end, the stock was converted or
+  redeemed during the year, or belongs only to a subsidiary outside the parent's equity: nothing is
+  deducted from equity, while the year's preferred dividends are still deducted from net income.
+  Companies whose diluted
   count already holds preferred stock as converted do not deduct it. Preferred stock of subsidiaries is
   not deducted either, and neither are its dividends: the parent's net income is already after them and
   its common equity excludes that stock.
@@ -245,9 +250,13 @@ do not make companies comparable.
 - **Discontinued operations:** net income and EPS include the result of a business sold, spun off or
   held for sale, as on analysis sites that use GAAP EPS (StockAnalysis's P/E of Johnson & Johnson for
   2023 includes Kenvue). Where that result is larger than 5% of net income, P/E, ROE, ROA, net margin,
-  OCF / net income and EPS growth are marked *Discontinued ops* in the screener; the values stay. A
+  OCF / net income and EPS growth are marked *Discontinued ops* in the screener; the values stay. EPS
+  growth is also marked when the year before holds such a result, because it is the base of growth. A
   one-off gain then makes a company look cheap or very profitable, so a backtest should leave marked
   values out. The amount comes from the standard tags; a company that tags it otherwise is not marked.
+  Where a report gives both the parent's share and the whole amount, the larger one counts, because a
+  report can tag only part of the result as the parent's share; the whole amount can include
+  noncontrolling interests, so a period may be marked slightly sooner.
 - **Spin-off values** follow the vendor's ratios, even where a company's own figures suggest another level
   and no single reliable value exists.
 - **Scope:** 200 companies, US-listed, USD only, GAAP figures without adjustments.
@@ -257,7 +266,7 @@ do not make companies comparable.
 ## Companies handled differently
 
 Companies with a rule of their own, or with a known issue that the general rules leave in place.
-Classes the app marks automatically (*Spin-off*, *Discontinued ops*, *Series break*) are not listed
+Classes the app marks automatically (*Calculated*, *Spin-off*, *Discontinued ops*, *Series break*) are not listed
 company by company. Years are fiscal years as each company reports them.
 
 ### Revenue
@@ -277,8 +286,8 @@ company by company. Years are fiscal years as each company reports them.
 | Company | What differs |
 |---|---|
 | Blackstone 2015, 2016, 2018 | Basic common units, because the diluted count of those years includes units whose holders are outside equity; its diluted count in other years excludes them |
-| Visa, Berkshire Hathaway, KKR | No tagged average for all share classes; the count is (net income − preferred dividends) ÷ EPS, marked *Calculated* |
-| Mastercard, Alphabet, Meta, Comcast | No cover total for all classes; P/B and P/S use the weighted average |
+| Mastercard, Alphabet, Meta, Comcast, Accenture, CME Group, Nike from 2016, Regeneron, UPS, Charles Schwab 2020–2023 | No cover total for all classes; P/B and P/S use the weighted average |
+| Quanta Services 2017–2018 | No tagged cover count; P/B and P/S use the weighted average |
 | Kroger 2015 | Its cover also counted treasury shares; P/B and P/S use the weighted average |
 | ConocoPhillips 2015–2018, McDonald's 2023–2025 | The share count's unit is corrected from the first report's table |
 | Exchangeable units: Blackstone, KKR until 2022, Charter from 2016, Simon Property, Broadcom fiscal 2017 | P/S counts units with shares, P/B only listed shares; marked *Exchangeable units* |
@@ -287,13 +296,16 @@ company by company. Years are fiscal years as each company reports them.
 
 | Company | What differs |
 |---|---|
-| Morgan Stanley, PNC | Preferred stock read from the statement of changes in equity |
+| Bank of America 2015–2017, Digital Realty 2015–2016, Duke Energy 2020–2024, Morgan Stanley, PNC, Procter & Gamble, Sempra 2018–2021 | Preferred stock read from the statement of changes in equity, at least until a later report tags it |
 | Procter & Gamble | Employee preferred shares are deducted, as analysis sites do |
 | Visa | Not deducted: its share count already holds them as converted |
 | Southern Company 2015–2024 | Preferred stock and dividends of its subsidiaries are not deducted: its net income is already after them and its common equity excludes that stock. Equity of 2015 and 2016 as reports from 2018 state it includes that stock (609 million, below the thresholds) |
-| American Express, Becton Dickinson, GE, Boeing | P/B and ROE empty in affected years: preferred stock is held within paid-in capital |
-| General Motors | P/B and ROE empty in affected years: the preferred stock is a subsidiary's |
-| Alphabet 2015 | P/B and ROE empty, although the deduction would be small |
+| American Express, Becton Dickinson, GE, Boeing, American Tower 2015–2017, Boston Scientific 2020–2022, Kinder Morgan 2016–2017, AT&T 2022–2023 | P/B and ROE empty in affected years: preferred stock is held within paid-in capital |
+| American Tower 2018 | P/B and ROE empty for the year, ROE also for the next: the preferred stock converted into common shares during the year, but the report counts shares only by series, so it does not show that none was left |
+| KKR 2016, 2017, 2021 | P/B and ROE empty in affected years: its preferred units have no value under the standard tags or in a preferred stock column |
+| General Motors 2018, Freeport-McMoRan 2015 | P/B and ROE empty: the preferred stock is a subsidiary's, and the report does not count the company's own preferred shares |
+| General Motors 2019–2022 | Nothing deducted from equity, the subsidiary's preferred dividends deducted from net income, as in the company's own earnings per share: the report counts no preferred shares of its own |
+| Alphabet 2015 | ROE deducts the adjustment payment to Class C holders, tagged with preferred dividends and other adjustments (about 3% of net income), because the share count is calculated with it from Class A earnings per share |
 | Broadcom fiscal 2020, Sempra 2018–2019 | Preferred stock or dividends replaced by the figure the report states (a tag error above the thresholds) |
 
 ### Capital expenditure and operating income

@@ -6,6 +6,7 @@ known on the date, and that version may be empty when it is not confirmed.
 """
 
 from collections import defaultdict
+from dataclasses import replace
 from datetime import date, timedelta
 from decimal import Decimal
 from typing import Annotated
@@ -15,6 +16,7 @@ from sqlalchemy import func, select
 from sqlalchemy.engine import Connection
 
 from app.annual_financials import ANNUAL_REPORT_FORMS, METRIC_NAMES
+from app.automatic_metrics import periods_without_preferred_shares
 from app.database import get_connection
 from app.eps_splits import split_rules
 from app.fiscal_periods import fiscal_rules
@@ -281,11 +283,16 @@ def period_spin_offs(ticker, period_end, session, split_policy):
     return result
 
 
-def parent_period_values(periods, period, ticker, subsidiary_preferred):
-    """The period's values, without preferred stock that belongs to subsidiaries."""
+def parent_period_values(
+    periods, period, ticker, subsidiary_preferred, without_preferred_shares
+):
+    """The period's values, without preferred stock that belongs to subsidiaries or
+    that no longer existed at the period end."""
     values = period_values(periods[period])
     if has_subsidiary_preferred(subsidiary_preferred, ticker, period[1]):
         return without_subsidiary_preferred(values)
+    if (ticker, period[1]) in without_preferred_shares:
+        return replace(values, no_preferred_shares=True)
     return values
 
 
@@ -300,15 +307,22 @@ def valued_period(
     participating,
     units_by_period,
     subsidiary_preferred,
+    without_preferred_shares,
 ):
     """Assemble the ratios of one period valued at the given (session, close)."""
     cells = periods[period]
-    values = parent_period_values(periods, period, ticker, subsidiary_preferred)
+    values = parent_period_values(
+        periods, period, ticker, subsidiary_preferred, without_preferred_shares
+    )
     earlier_period = year_before(periods, period)
     previous = None
     if earlier_period is not None:
         previous = parent_period_values(
-            periods, earlier_period, ticker, subsidiary_preferred
+            periods,
+            earlier_period,
+            ticker,
+            subsidiary_preferred,
+            without_preferred_shares,
         )
 
     session, price = None, None
@@ -332,6 +346,9 @@ def valued_period(
     for metric, name in GROWTH_METRICS.items():
         ratios[name] = growth[metric].value
     _, shares_basis = shares_for_ratios(values, units)
+    previous_discontinued = False
+    if previous is not None:
+        previous_discontinued = has_material_discontinued_operations(previous)
     return PeriodRatios(
         period_start=period[0],
         period_end=period[1],
@@ -345,6 +362,7 @@ def valued_period(
         spin_offs=spin_offs,
         exchangeable_units=units is not None,
         discontinued_operations=has_material_discontinued_operations(values),
+        previous_discontinued_operations=previous_discontinued,
         ratios=Ratios(**{name: rounded(value) for name, value in ratios.items()}),
     )
 
@@ -377,6 +395,7 @@ def get_screener(
     participating = participating_preferred_tickers()
     units_by_period = exchangeable_units(split_policy)
     subsidiary_preferred = subsidiary_preferred_periods()
+    without_preferred_shares = periods_without_preferred_shares()
 
     rows = []
     for company in companies:
@@ -395,6 +414,7 @@ def get_screener(
                 participating,
                 units_by_period,
                 subsidiary_preferred,
+                without_preferred_shares,
             )
         rows.append(
             ScreenerRow(

@@ -59,6 +59,9 @@ class PeriodValues:
     discontinued_income: Decimal | None = None
     # Shares outstanding on the report's cover, on the same basis as `shares`.
     shares_outstanding: Decimal | None = None
+    # The first annual report shows no preferred shares at the period end, so nothing
+    # is deducted from equity although the year's dividends were paid (N131).
+    no_preferred_shares: bool = False
 
 
 def has_material_discontinued_operations(values):
@@ -213,6 +216,8 @@ def common_equity(values, participating=False):
     if values.equity is None:
         return None
     if participating:
+        return values.equity
+    if values.no_preferred_shares:
         return values.equity
     deduction = preferred_deduction(
         values.preferred_value, values.preferred_dividends, values.equity

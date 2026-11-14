@@ -15,6 +15,7 @@ from app.annual_financials import ANNUAL_REPORT_FORMS
 from app.automatic_metrics import (
     IMMATERIAL_DIVIDENDS_OF_EQUITY,
     LARGEST_PREFERRED_DIVIDEND_RATE,
+    NO_PREFERRED_SHARES,
     PREFERRED_EQUITY_VALUES_PATH,
 )
 from app.data_pipeline.eps import parse_with_scopes
@@ -36,19 +37,33 @@ COLUMN_BALANCE_CONCEPTS = (
 # under the paid-in capital concept, which is then the whole column (PNC 2015–2018).
 PAID_IN_CAPITAL_COLUMN = "PreferredStockIncludingAdditionalPaidInCapitalMember"
 PAID_IN_CAPITAL_CONCEPT = "AdditionalPaidInCapitalPreferredStock"
+# Preferred share counts of the whole company at the period end. A zero balance alone
+# proves nothing (AXP and BSX show zero while their stock sits in paid-in capital, with
+# 1,600 and 10 million shares), but zero shares mean the stock was converted or redeemed
+# during the year (AVGO FY2022, TMUS 2017, KMI 2018; N131).
+PREFERRED_SHARE_CONCEPTS = (
+    "PreferredStockSharesOutstanding",
+    "PreferredStockSharesIssued",
+)
 FETCH_INTERVAL = 0.5
 METHOD = (
     "Preferred stock of periods whose preferred dividends exceed 0.2% of equity while "
     "companyfacts has no positive preferred value of which the dividends are at most "
-    "25%. Each value is the balance at the "
+    "25% among the facts known on the filing date of the period's first annual report. "
+    "Each value is the balance at the "
     "period end of the one column of the statement of changes in equity whose "
     "StatementEquityComponentsAxis member names preferred stock, in the original XBRL "
     "instance of the first annual report of the period, with no other dimension. "
-    "Periods without such a positive balance are listed with the reason."
+    "Periods without such a positive balance are listed with the reason; 'no shares "
+    "outstanding' means every preferred share count of the company at the period end, "
+    "without dimensions, is zero."
 )
 
 # Periods in scope: preferred dividends tagged, no tagged value that the dividends leave
-# plausible (PNC tags 0.5 million of par value), and equity from the latest report.
+# plausible (PNC tags 0.5 million of par value) among the facts known when the period's
+# first annual report was filed, and equity from the latest report. A value that only a
+# later quarterly report states would leave the ratios empty until then (N128: PG
+# FY2015–2017 from the October 10-Q).
 PERIODS = text("""
     WITH equity AS (
         SELECT DISTINCT ON (company_id, period_end) company_id, period_end, value
@@ -77,6 +92,7 @@ PERIODS = text("""
         SELECT 1 FROM financial_facts p
         WHERE p.company_id = e.company_id AND p.metric = 'preferred_value'
           AND p.period_end = e.period_end AND p.value > 0
+          AND p.filed <= f.known_from
           AND d.value <= p.value * :largest_rate
     )
     ORDER BY c.ticker, e.period_end
@@ -123,9 +139,53 @@ def preferred_column_contexts(root, scopes, cik, period_end):
     return contexts
 
 
+def preferred_share_counts(root, cik, period_end):
+    """Preferred share counts of the company at the period end, without dimensions."""
+    context_ids = set()
+    for context in root.findall(XBRLI + "context"):
+        identifier = context.findtext(XBRLI + "entity/" + XBRLI + "identifier", "")
+        if identifier.strip().zfill(10) != cik:
+            continue
+        instant = context.findtext(XBRLI + "period/" + XBRLI + "instant", "")
+        if instant.strip() != str(period_end):
+            continue
+        if context.find(".//" + XBRLI + "segment") is not None:
+            continue
+        context_ids.add(context.get("id"))
+    counts = []
+    for element in root:
+        if element.get("contextRef") not in context_ids:
+            continue
+        if element.get(XSI + "nil") == "true" or not (element.text or "").strip():
+            continue
+        namespace, _, concept = element.tag[1:].partition("}")
+        if namespace.startswith(US_GAAP) and concept in PREFERRED_SHARE_CONCEPTS:
+            counts.append(Decimal(element.text.strip()))
+    return counts
+
+
+def has_no_preferred_shares(root, cik, period_end):
+    """Whether the report counts preferred shares at the period end and all are zero."""
+    counts = preferred_share_counts(root, cik, period_end)
+    if not counts:
+        return False
+    return all(count == 0 for count in counts)
+
+
 def preferred_column(body, cik, period_end):
     """The preferred column balance as (value, concept, member), or a reason for none."""
     root, scopes = parse_with_scopes(body)
+    column = preferred_column_balance(root, scopes, cik, period_end)
+    # Only an absent or zero column can mean that no stock is left; disagreeing
+    # columns stay open.
+    if column.get("reason") in ("no preferred column", "zero"):
+        if has_no_preferred_shares(root, cik, period_end):
+            return {"reason": NO_PREFERRED_SHARES}
+    return column
+
+
+def preferred_column_balance(root, scopes, cik, period_end):
+    """The balance of the one preferred column, or a reason for none."""
     usd_units = usd_unit_ids(root, scopes[root])
     contexts = preferred_column_contexts(root, scopes, cik, period_end)
     balances = {}

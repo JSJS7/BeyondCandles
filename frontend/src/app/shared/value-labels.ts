@@ -21,7 +21,8 @@ export const VALUE_LABEL_MEANINGS = {
   'Discontinued ops':
     'Net income and EPS include the result of discontinued operations (a business sold, spun ' +
     'off or held for sale) larger than 5% of net income, so ratios built on them can read a ' +
-    'one-off gain or loss as earnings.',
+    'one-off gain or loss as earnings. EPS growth is marked also when the year before ' +
+    'includes them.',
 } as const;
 
 export type ValueLabel = keyof typeof VALUE_LABEL_MEANINGS;

@@ -791,6 +791,19 @@ class ScreenerApiTests(unittest.TestCase):
         self.assertTrue(above_limit["latest"]["discontinued_operations"])
         self.assertEqual(above_limit["latest"]["ratios"]["pe"], "20")
 
+    def test_discontinued_operations_of_the_year_before_are_reported(self):
+        """W42: JNJ's FY2024 EPS growth of -58% compares with FY2023 EPS that held
+        Kenvue. The year before is marked apart, so that only EPS growth carries it."""
+        self.add_year(date(2023, 2, 28), FIRST_YEAR)
+        self.add_version("discontinued_income", "62", date(2023, 2, 28), FIRST_YEAR)
+        self.add_year(date(2024, 2, 28))
+        self.add_close(date(2024, 3, 28))
+
+        latest = self.row(date="2024-03-29")["latest"]
+
+        self.assertTrue(latest["previous_discontinued_operations"])
+        self.assertFalse(latest["discontinued_operations"])
+
     def test_cover_count_values_the_shares_from_its_report(self):
         """M47: the cover count known on the date sets P/B and P/S; an amended cover
         replaces it from its own report (KR 2015), and P/E does not depend on it."""

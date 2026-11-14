@@ -154,6 +154,73 @@ class PreferredColumnTests(unittest.TestCase):
         )
 
 
+class NoPreferredSharesTests(unittest.TestCase):
+    """N131: a zero balance proves nothing, zero preferred shares at year end do."""
+
+    def test_zero_shares_mean_no_preferred_stock_at_year_end(self):
+        """AVGO FY2022 converted its preferred stock a month before the year end: the
+        report tags zero shares issued and outstanding and a zero balance."""
+        body = instance(
+            [context("plain")],
+            [
+                ("PreferredStockSharesIssued", "plain", "0", "shares"),
+                ("PreferredStockSharesOutstanding", "plain", "0", "shares"),
+                ("PreferredStockValue", "plain", "0", "usd"),
+            ],
+        )
+
+        self.assertEqual(
+            preferred_column(body, CIK, PERIOD_END), {"reason": "no shares outstanding"}
+        )
+
+    def test_shares_left_in_paid_in_capital_keep_the_zero_open(self):
+        """BSX 2020 shows a zero balance, but 10 million shares are issued: the stock
+        sits in paid-in capital, so the amount stays unknown."""
+        body = instance(
+            [context("plain"), context("c1", [PREFERRED])],
+            [
+                ("PreferredStockSharesIssued", "plain", "10062500", "shares"),
+                ("StockholdersEquity", "c1", "0", "usd"),
+            ],
+        )
+
+        self.assertEqual(preferred_column(body, CIK, PERIOD_END), {"reason": "zero"})
+
+    def test_counts_by_series_or_of_another_date_are_not_the_company_total(self):
+        """A series at zero (TMUS tags one by class) or last year's count says nothing
+        about the whole company at the period end; without a total nothing is proved."""
+        series = (
+            "us-gaap:StatementClassOfStockAxis",
+            "us-gaap:SeriesBPreferredStockMember",
+        )
+        body = instance(
+            [context("series", [series]), context("before", instant="2022-12-31")],
+            [
+                ("PreferredStockSharesOutstanding", "series", "0", "shares"),
+                ("PreferredStockSharesOutstanding", "before", "0", "shares"),
+            ],
+        )
+
+        self.assertEqual(
+            preferred_column(body, CIK, PERIOD_END), {"reason": "no preferred column"}
+        )
+
+    def test_one_nonzero_total_keeps_the_amount_open(self):
+        """KMI 2016 tags 2,000,000 and 1,600,000 outstanding; any count above zero
+        means preferred stock exists, whatever the other facts say."""
+        body = instance(
+            [context("plain")],
+            [
+                ("PreferredStockSharesIssued", "plain", "0", "shares"),
+                ("PreferredStockSharesOutstanding", "plain", "1600000", "shares"),
+            ],
+        )
+
+        self.assertEqual(
+            preferred_column(body, CIK, PERIOD_END), {"reason": "no preferred column"}
+        )
+
+
 class ScopeTests(unittest.TestCase):
     def test_only_material_dividends_need_a_value(self):
         """Dividends up to 0.2% of equity deduct zero anyway (rule M27); above that, or

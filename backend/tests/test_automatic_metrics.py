@@ -174,27 +174,56 @@ class VersionTests(unittest.TestCase):
         self.assertEqual(both[-1].value.value, Decimal("537"))
         self.assertEqual(only_backup[-1].value.selected_tag, backup)
 
-    def test_discontinued_income_takes_the_parents_share_first(self):
-        """M46: net income is the parent's share, so its discontinued part is too; the
-        total with noncontrolling interests counts only where nothing else is tagged."""
+    def test_discontinued_income_takes_the_larger_tag_of_one_report(self):
+        """W41: ABT's 2015 10-K tags 65 million from the operations as the parent's
+        share and the total of 1817 million, with the gain on the sale, under the other
+        tag. The larger amount must count, or a 41% share of net income stays unmarked.
+        On equal amounts the parent's tag stays."""
         parent = (
             "IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"
         )
         total = "IncomeLossFromDiscontinuedOperationsNetOfTax"
 
-        both = versions_of(
+        larger_total = versions_of(
             [
-                fact("discontinued_income", total, "-130"),
-                fact("discontinued_income", parent, "-125"),
+                fact("discontinued_income", parent, "65"),
+                fact("discontinued_income", total, "1817"),
             ],
             "discontinued_income",
         )
-        only_total = versions_of(
-            [fact("discontinued_income", total, "-130")], "discontinued_income"
+        equal_loss = versions_of(
+            [
+                fact("discontinued_income", total, "-130"),
+                fact("discontinued_income", parent, "-130"),
+            ],
+            "discontinued_income",
         )
 
-        self.assertEqual(both[-1].value.value, Decimal("-125"))
-        self.assertEqual(only_total[-1].value.selected_tag, total)
+        self.assertEqual(larger_total[-1].value.value, Decimal("1817"))
+        self.assertEqual(larger_total[-1].value.selected_tag, total)
+        self.assertEqual(equal_loss[-1].value.selected_tag, parent)
+
+    def test_discontinued_income_follows_the_newest_report_of_either_tag(self):
+        """W41: GE's 2025 10-K restates 2022 under the whole-amount tag alone (-949
+        million after the GE Vernova spin-off); the parent's tag of the 2024 report
+        (1151) must not keep the cell, as it did while that tag came first."""
+        parent = (
+            "IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"
+        )
+        total = "IncomeLossFromDiscontinuedOperationsNetOfTax"
+
+        versions = versions_of(
+            [
+                fact("discontinued_income", parent, "1151", date(2024, 2, 2), "old"),
+                fact("discontinued_income", total, "-949", date(2025, 2, 3), "new"),
+            ],
+            "discontinued_income",
+        )
+
+        self.assertEqual(
+            [(version.known_from, version.value.value) for version in versions],
+            [(date(2024, 2, 2), Decimal("1151")), (date(2025, 2, 3), Decimal("-949"))],
+        )
 
     def test_facts_never_create_a_period(self):
         """JCI has capex for a period no reviewed metric has; it stays out."""

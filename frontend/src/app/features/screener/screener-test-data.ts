@@ -34,6 +34,7 @@ export function period(
     spin_offs: [],
     exchangeable_units: false,
     discontinued_operations: false,
+    previous_discontinued_operations: false,
     ...overrides,
     ratios: { ...EMPTY_RATIOS, ...ratios },
   };

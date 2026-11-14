@@ -122,6 +122,19 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'fcf_margin')).toEqual([]);
   });
 
+  it('marks only EPS growth when discontinued operations are in the year before', () => {
+    // W42: JNJ's FY2024 growth of -58% compares with FY2023 EPS that held Kenvue; the
+    // ratios of FY2024 itself are not affected.
+    const latest = period(
+      { previous_discontinued_operations: true },
+      { eps_growth: '-0.578', pe: '25', roe: '0.2' },
+    );
+
+    expect(cellLabels(latest, 'eps_growth')).toEqual(['Discontinued ops']);
+    expect(cellLabels(latest, 'pe')).toEqual([]);
+    expect(cellLabels(latest, 'roe')).toEqual([]);
+  });
+
   it('puts no input label on an empty ratio, but keeps a series break on empty growth', () => {
     // A break can be the reason why growth is empty, so it stays visible.
     const latest = period({

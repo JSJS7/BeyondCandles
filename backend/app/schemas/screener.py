@@ -53,6 +53,9 @@ class PeriodRatios(BaseModel):
     # Net income includes discontinued operations above 5% of it, so the ratios built on
     # net income or EPS can read a one-off result as earnings (M46).
     discontinued_operations: bool = False
+    # The same for the year before, the base of EPS growth (W42): JNJ's FY2024 growth of
+    # -58% compares with FY2023 EPS that included Kenvue.
+    previous_discontinued_operations: bool = False
     ratios: Ratios
 
 

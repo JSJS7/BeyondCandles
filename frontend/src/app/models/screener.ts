@@ -42,6 +42,8 @@ export interface PeriodRatios {
   // Net income includes discontinued operations above 5% of it, so the ratios built on net
   // income or EPS can read a one-off result as earnings.
   discontinued_operations: boolean;
+  // The same for the year before, the base of EPS growth.
+  previous_discontinued_operations: boolean;
   ratios: Ratios;
 }
 

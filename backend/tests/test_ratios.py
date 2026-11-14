@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import unittest
+from dataclasses import replace
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
@@ -195,6 +196,24 @@ class CommonEquityTests(unittest.TestCase):
         values = period(preferred_dividends=Decimal(20))
 
         self.assertIsNone(common_equity(values))
+
+    def test_no_preferred_shares_at_year_end_deduct_nothing(self):
+        """Regression N131, AVGO FY2022 in millions: its preferred stock converted into
+        common shares on 30 Sep 2022, a month before the year end, after 272 of
+        dividends. The year-end equity of 22,709 holds no preferred stock, so P/B and
+        ROE were empty only because the dividends left the amount open. The dividends
+        still belong to the preferred holders and are deducted from net income."""
+        values = period(
+            net_income=Decimal(11495),
+            equity=Decimal(22709),
+            preferred_value=Decimal(0),
+            preferred_dividends=Decimal(272),
+        )
+        without_shares = replace(values, no_preferred_shares=True)
+
+        self.assertIsNone(common_equity(values))
+        self.assertEqual(common_equity(without_shares), Decimal(22709))
+        self.assertEqual(income_to_common(without_shares), Decimal(11223))
 
     def test_visa_is_the_recorded_participating_company(self):
         """The rule file names Visa; a report must back every entry."""
