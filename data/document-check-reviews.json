@@ -143,7 +143,7 @@
       "period_end": "2016-12-31",
       "accession": "0000831259-17-000012",
       "value": "-4315000000",
-      "row": "Net loss | (4,025) ... Continuing operations | (227) ... Discontinued operations | (63)",
+      "row": "Net loss | (4,025) | (12,089) | (745) ... Continuing operations | (227) | (27) | (358) ... Discontinued operations | (63) | (79) | (165)",
       "note": "Income statement: -4,025 - 227 - 63 = -4,315, the rule's reviewed calculation before the redemption gain; the rows of noncontrolling interests have the heading above them."
     },
     {
@@ -152,7 +152,7 @@
       "period_end": "2016-12-31",
       "accession": "0000831259-19-000009",
       "value": "-4315000000",
-      "row": "Net loss | (4,025) ... Continuing operations | (227) ... Discontinued operations | (63)",
+      "row": "Net income (loss) | 2,894 | 2,095 | (4,025) ... Continuing operations | (292) | (274) | (227) ... Discontinued operations | \u2014 | (4) | (63)",
       "note": "Income statement: -4,025 - 227 - 63 = -4,315, the rule's reviewed calculation before the redemption gain; the rows of noncontrolling interests have the heading above them."
     },
     {
@@ -161,7 +161,7 @@
       "period_end": "2016-12-31",
       "accession": "0000831259-18-000008",
       "value": "-4315000000",
-      "row": "Net loss | (4,025) ... Continuing operations | (227) ... Discontinued operations | (63)",
+      "row": "Net income (loss) | 2,095 | (4,025) | (12,089) ... Continuing operations | (274) | (227) | (27) ... Discontinued operations | (4) | (63) | (79)",
       "note": "Income statement: -4,025 - 227 - 63 = -4,315, the rule's reviewed calculation before the redemption gain; the rows of noncontrolling interests have the heading above them."
     },
     {

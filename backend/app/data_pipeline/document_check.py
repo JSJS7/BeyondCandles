@@ -287,7 +287,32 @@ def header_tokens(rows):
     return None, None
 
 
-def align_columns(tokens, values, header_text):
+def heading_shows_groups(rows_below_header, group_count):
+    """Whether a heading row names the same columns once for each period.
+
+    "Basic | Dilution | Diluted | Basic | Dilution | Diluted" shows two periods of three
+    values each. The heading may be shorter than the values when a name spans two
+    columns, so only the repetition is compared: its last cells must split into
+    `group_count` equal runs of at least two names.
+    """
+    for row in rows_below_header:
+        if any(number(cell) is not None for cell in row):
+            continue  # a row of values, not a heading
+        names = [" ".join(cell.lower().split()) for cell in row]
+        largest_run = len(names) // group_count
+        for run in range(2, largest_run + 1):
+            tail = names[len(names) - run * group_count :]
+            first_run = tail[:run]
+            repeated = True
+            for start in range(run, len(tail), run):
+                if tail[start : start + run] != first_run:
+                    repeated = False
+            if repeated:
+                return True
+    return False
+
+
+def align_columns(tokens, values, header_text, rows_below_header=()):
     """Header token for each value column, or None when the layout is ambiguous."""
     # A header whose first cell has no period starts with the label column; extra
     # unlabelled cells (e.g. "Year Ended December 31") may precede the periods.
@@ -302,10 +327,19 @@ def align_columns(tokens, values, header_text):
     if len(columns) == len(values):
         return columns
     if len(columns) >= 2 and len(values) % len(columns) == 0:
-        # Several values per period (e.g. amount and percent of revenue).
+        # Several values per period (e.g. amount and percent of revenue), read only
+        # when a heading repeats them per period: otherwise the extra values may be
+        # changes between the periods, and a group would take the wrong year (N36).
+        if not heading_shows_groups(rows_below_header, len(columns)):
+            return None
         group_size = len(values) // len(columns)
         return [columns[index // group_size] for index in range(len(values))]
     # Trailing change columns ("Percent Change", "$ Change") without a period header.
+    # A period named twice ("2017 | 2016 | 2016 | 2015") means pairs of years with
+    # changes between them, not changes at the end (N36).
+    periods = [column for column in columns if column is not None]
+    if len(periods) != len(set(periods)):
+        return None
     extra = len(values) - len(columns)
     if 0 < extra <= 2 and re.search(r"change|%|increase|variance", header_text, re.I):
         return columns + [None] * extra
@@ -453,7 +487,7 @@ def period_fits(task, table, row_index, column_index, cells, previous_table=()):
     header_years = {token for token in tokens if isinstance(token, int)}
     header_rows = rows[max(0, header_index - 2) : header_index + 1]
     header_text = " ".join(" ".join(row) for row in header_rows)
-    columns = align_columns(tokens, values, header_text)
+    columns = align_columns(tokens, values, header_text, rows[header_index + 1 :])
     if columns is None:
         return None
     chosen = columns[position]
@@ -1075,6 +1109,46 @@ def separate_reviewed(queue, reviews):
     return unreviewed, stale
 
 
+def comparable_text(text):
+    """Row text without spacing, case, apostrophes and dashes.
+
+    Extracts keep a curly apostrophe or a dash that was not decoded as "�", so
+    these characters are dropped on both sides rather than matched.
+    """
+    for character in ("'", "’", "—", "–", "�"):
+        text = text.replace(character, "")
+    return " ".join(text.split()).lower()
+
+
+def quote_found(review, filing):
+    """Whether every row a review quotes stands in its filing's tables (N41).
+
+    The quote is what the reviewer read; rows quoted together are joined by " ... ".
+    A filing without tables (a layout by text blocks) cannot be compared, so its
+    quote is accepted as the reviewer's reading of the text.
+    """
+    if filing is None:
+        return False
+    rows = set()
+    for document in filing.documents:
+        for table in document["tables"]:
+            for row in table:
+                rows.add(comparable_text(" | ".join(row)))
+    if not rows:
+        return True
+    fragments = review["row"].split(" ... ")
+    return all(comparable_text(fragment) in rows for fragment in fragments)
+
+
+def reviews_without_their_quote(reviews):
+    """Reviews whose quoted row is missing from the extract of their filing."""
+    missing = []
+    for review in reviews:
+        if not quote_found(review, load_filing(review["accession"])):
+            missing.append(review)
+    return missing
+
+
 def read_reviews():
     document = read_json(REVIEWS)
     if document["version"] != 1:
@@ -1148,8 +1222,10 @@ def check_documents(fetch_missing=False):
 
     reviews = read_reviews()
     unreviewed, stale = separate_reviewed(queue, reviews)
+    without_quote = reviews_without_their_quote(reviews)
+    all_reviewed = not unreviewed and not stale and not without_quote
     result = {
-        "status": "verified" if not unreviewed and not stale else "needs_review",
+        "status": "verified" if all_reviewed else "needs_review",
         "versions": len(tasks),
         "filings": len(groups),
         "extracts_fetched": fetched,
@@ -1157,8 +1233,17 @@ def check_documents(fetch_missing=False):
         "reviewed": len(queue) - len(unreviewed),
         "unreviewed": len(unreviewed),
         "stale_reviews": len(stale),
+        "reviews_without_quoted_row": len(without_quote),
     }
-    write_json(REPORT, {**result, "queue": unreviewed, "stale": stale})
+    write_json(
+        REPORT,
+        {
+            **result,
+            "queue": unreviewed,
+            "stale": stale,
+            "without_quoted_row": without_quote,
+        },
+    )
     return result
 
 

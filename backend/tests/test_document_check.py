@@ -13,6 +13,7 @@ from app.data_pipeline.document_check import (
     number,
     parse_tables,
     period_fits,
+    quote_found,
     separate_reviewed,
     shifted_task,
     tolerance_entry,
@@ -167,6 +168,66 @@ class VersionCheckTests(unittest.TestCase):
         verdict, _ = check_version(task, filing_of(STATEMENT))
 
         self.assertFalse(verdict.startswith("pass"))
+
+    def test_pairs_of_years_with_changes_are_not_read_as_trailing_changes(self):
+        """N36, Mastercard's 10-K for 2017: each pair of years has its own change, so the
+        second 10,776 (fiscal 2016) must not be taken for 2015, the fourth header year."""
+        table = [
+            ["Year Ended December 31", "Increase (Decrease)"],
+            ["2017", "2016", "2016", "2015"],
+            ["Net revenue", "12,497", "10,776", "16", "10,776", "9,667", "11"],
+        ]
+        later_year_for_2015 = revenue_task(value="10776000000", period_end="2015-12-31")
+
+        verdict, _ = check_version(later_year_for_2015, filing_of(table))
+
+        self.assertFalse(verdict.startswith("pass"))
+
+    def test_amounts_with_percents_and_a_change_are_not_split_into_groups(self):
+        """N36, Quanta's 10-K for 2025: six values under two years are amount, percent,
+        amount, percent and the change, not three values per year; 2024 revenue must
+        not be read as 2025."""
+        table = [
+            ["Year Ended December 31,", "Change"],
+            ["2025", "2024"],
+            ["Revenues", "28,479", "100.0", "23,672", "100.0", "4,807", "20.3"],
+        ]
+        earlier_year_as_2025 = revenue_task(value="23672000000")
+
+        verdict, _ = check_version(earlier_year_as_2025, filing_of(table))
+
+        self.assertFalse(verdict.startswith("pass"))
+
+    def test_groups_named_by_a_heading_are_read_per_period(self):
+        """A heading that repeats its column names for each year shows the groups, so
+        each year's amount is found in its own group."""
+        table = [
+            ["Year Ended December 31", "2025", "2024"],
+            ["Revenue by quarter", "Amount", "% of total", "Amount", "% of total"],
+            ["Total revenue", "9,467", "100.0", "9,256", "100.0"],
+        ]
+
+        own_year, _ = check_version(revenue_task(), filing_of(table))
+        earlier_year, _ = check_version(
+            revenue_task(value="9256000000", period_end="2024-12-31"), filing_of(table)
+        )
+
+        self.assertEqual(own_year, "pass_direct")
+        self.assertEqual(earlier_year, "pass_direct")
+
+    def test_a_heading_may_be_shorter_than_its_groups(self):
+        """Arista's statement of equity: "Common Stock" spans the shares and amount
+        columns, so the heading repeats two names per period above three values."""
+        table = [
+            ["Year Ended December 31", "2025", "2024"],
+            ["Components", "Common Stock", "Total", "Common Stock", "Total"],
+            ["Total revenue", "1,254", "0.1", "9,467", "1,249", "0.1", "9,256"],
+        ]
+        task = revenue_task(value="9256000000", period_end="2024-12-31")
+
+        verdict, _ = check_version(task, filing_of(table))
+
+        self.assertEqual(verdict, "pass_direct")
 
     def test_total_row_without_label_takes_the_section_heading(self):
         """Public Storage prints its revenue total as a row of numbers under "Revenues:"."""
@@ -465,6 +526,28 @@ class ConfirmationTests(unittest.TestCase):
         unreviewed, stale = separate_reviewed(queue, [old_value_review])
         self.assertEqual(unreviewed, queue)
         self.assertEqual(stale, [old_value_review])
+
+    def test_review_must_quote_rows_of_its_filing(self):
+        """N41: the quoted row shows what the reviewer read, so it must stand in the
+        filing's tables; fragments joined by " ... " are separate rows, and spacing,
+        case and apostrophes do not matter."""
+        filing = filing_of(STATEMENT)
+        exact = {"row": "Total revenue | 9,467 | 9,256"}
+        fragments = {
+            "row": "total  revenue | 9,467 | 9,256 ... Net income | 2,486 | 2,344"
+        }
+        paraphrase = {"row": "Revenue | 9,467"}
+
+        self.assertTrue(quote_found(exact, filing))
+        self.assertTrue(quote_found(fragments, filing))
+        self.assertFalse(quote_found(paraphrase, filing))
+        self.assertFalse(quote_found(exact, None))
+
+    def test_quote_from_a_filing_without_tables_is_accepted(self):
+        """A report laid out in text blocks has no rows to compare the quote with."""
+        filing = Filing([{"type": "10-K", "tables": []}])
+
+        self.assertTrue(quote_found({"row": "Diluted 6.40"}, filing))
 
 
 class NegativeControlTests(unittest.TestCase):
