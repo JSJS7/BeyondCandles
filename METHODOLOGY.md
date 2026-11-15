@@ -118,8 +118,12 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   that report states it. A later report can restate a year without a business separated afterwards,
   while the year-end price still includes that business, so the latest version would join price and
   results of two different companies. The company's financial table shows the latest versions, so a
-  restated year can differ between the two tables. A year-end price precedes any later spin-off, so these
-  ratios are never marked *Spin-off*.
+  restated year can differ between the two tables. An automatic measure that the first report does not
+  give, for example under a tag outside the reviewed list, is taken from the first later report that
+  states the year with the same revenue, net income and equity; discontinued operations and the cover
+  share count are never taken from a later report. A year-end price precedes any later spin-off, so these
+  ratios are never marked *Spin-off*. The cover share count is dated weeks after the year end, so a large
+  share issue in between, such as an acquisition closing after the year end, raises P/B and P/S.
 - **Values as annual reports state them:** a quarterly report can restate the previous year's balance
   sheet months before the next annual report restates the income statement. Ratios therefore keep each
   value as the latest annual report states it, so one ratio never joins a restated balance sheet with an

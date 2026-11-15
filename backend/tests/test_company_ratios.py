@@ -81,9 +81,8 @@ class AnnualRatioHistoryTests(ScreenerDatabaseTestCase):
         self.assertEqual(history[1]["ratios"]["equity_to_assets"], "0.25")
         self.assertEqual(history[0]["ratios"]["roe"], "0.25")
 
-    def test_value_filed_after_the_first_annual_report_is_not_used(self):
-        """Assets first known from a later filing were unknown at the first report, so
-        ROA and equity to assets stay empty, as the screener showed them then."""
+    def add_year_without_assets(self, known_from):
+        """A reviewed year whose first report gives no assets (a tag outside the list)."""
         for metric, value in (
             ("revenue", "1000"),
             ("net_income", "100"),
@@ -92,13 +91,41 @@ class AnnualRatioHistoryTests(ScreenerDatabaseTestCase):
             ("operating_cash_flow", "150"),
             ("shares_diluted", "50"),
         ):
-            self.add_version(metric, value, date(2024, 2, 1))
+            self.add_version(metric, value, known_from)
+
+    def test_later_report_fills_an_automatic_measure_of_an_unchanged_year(self):
+        """M54 (NVDA FY2022 capex, first stated by the 2024 report): the later report states
+        the year with the same revenue, net income and equity, so its assets of 2000 join
+        the year: equity to assets 500 / 2000 = 0.25 instead of empty."""
+        self.add_year_without_assets(date(2024, 2, 1))
         self.add_version("assets", "2000", date(2025, 2, 1))
+
+        period = self.history()[0]
+
+        self.assertEqual(period["ratios"]["equity_to_assets"], "0.25")
+
+    def test_later_report_that_restates_the_year_does_not_fill_it(self):
+        """The later report restates revenue to 800 (for example without a business sold
+        afterwards), so its assets describe another shape of the company and stay out."""
+        self.add_year_without_assets(date(2024, 2, 1))
+        self.add_version("assets", "2000", date(2025, 2, 1))
+        self.add_version("revenue", "800", date(2025, 2, 1))
 
         period = self.history()[0]
 
         self.assertIsNone(period["ratios"]["equity_to_assets"])
         self.assertEqual(period["ratios"]["net_margin"], "0.1")
+
+    def test_discontinued_operations_are_never_taken_from_a_later_report(self):
+        """Discontinued operations appear later almost only in a restated year, so a later
+        report's 60 does not mark the year, even with revenue, net income and equity
+        unchanged; the first report had no discontinued operations."""
+        self.add_year(date(2024, 2, 1))
+        self.add_version("discontinued_income", "60", date(2025, 2, 1))
+
+        period = self.history()[0]
+
+        self.assertFalse(period["discontinued_operations"])
 
     def test_jci_period_before_the_merger_has_no_price_ratios(self):
         """Prices through 02.09.2016 belong to Tyco International, so FY2015 of Johnson

@@ -9,7 +9,14 @@ includes that business, so the latest version would join two different companies
 
 These are the values the screener showed after that report; the annual financials table
 shows the latest versions instead, so a restated year differs between the two.
+
+An automatic measure that the first report does not give (a tag outside the reviewed list,
+a value tagged only as a later comparative) joins the year from the first later report that
+gives it, but only when that report states the year in the same shape: the same revenue,
+net income and equity (M54). Otherwise it stays empty, as data from another shape would.
 """
+
+from datetime import date
 
 from sqlalchemy import func, select
 
@@ -29,9 +36,74 @@ from app.screener import (
     valued_period,
 )
 
+# A later value joins a year only when the later report states these the same (M54).
+UNCHANGED_SHAPE_METRICS = ("revenue", "net_income", "equity")
+# Never taken from a later report: discontinued operations appear later almost only when a
+# year is restated, and a cover count belongs to the report on whose cover it stands.
+FIRST_REPORT_ONLY_METRICS = {"discontinued_income", "shares_outstanding"}
+
 
 def period_end(period):
     return period[1]
+
+
+def is_confirmed(version):
+    return version is not None and version["status"] == "ready"
+
+
+def same_shape(first_cells, later_cells):
+    """Whether a later report states the year with the first report's main values."""
+    for metric in UNCHANGED_SHAPE_METRICS:
+        first = first_cells.get(metric)
+        later = later_cells.get(metric)
+        if not is_confirmed(first) or not is_confirmed(later):
+            return False
+        if first["value"] != later["value"]:
+            return False
+    return True
+
+
+def cell_first_days(connection, company_id):
+    """Return {(start, end, metric): the day the cell's first version became known}."""
+    versions = AnnualMetricVersion.__table__
+    query = (
+        select(
+            versions.c.period_start,
+            versions.c.period_end,
+            versions.c.metric,
+            func.min(versions.c.known_from),
+        )
+        .where(versions.c.company_id == company_id)
+        .group_by(versions.c.period_start, versions.c.period_end, versions.c.metric)
+    )
+    days = {}
+    for start, end, metric, first_day in connection.execute(query):
+        days[(start, end, metric)] = first_day
+    return days
+
+
+def with_later_automatic_values(period, cells, latest_cells, first_days, periods_on):
+    """The period's cells, with automatic measures that only a later report gives.
+
+    `latest_cells` are the period's cells known today; `periods_on(day)` returns every
+    period's cells as known on a day.
+    """
+    result = dict(cells)
+    for metric, latest_version in latest_cells.items():
+        is_automatic = metric not in METRIC_NAMES
+        if not is_automatic or metric in FIRST_REPORT_ONLY_METRICS:
+            continue
+        if is_confirmed(cells.get(metric)) or not is_confirmed(latest_version):
+            continue
+        later_day = first_days[(period[0], period[1], metric)]
+        later_cells = periods_on(later_day).get(period, {})
+        later_version = later_cells.get(metric)
+        if not is_confirmed(later_version):
+            continue
+        if not same_shape(cells, later_cells):
+            continue
+        result[metric] = later_version
+    return result
 
 
 def first_annual_report_days(connection, company_id):
@@ -84,24 +156,40 @@ def annual_ratio_history(connection, company_id, ticker):
     report_days = first_annual_report_days(connection, company_id)
     fiscal_year = fiscal_year_labels(connection, company_id)
 
-    # Several periods can share a filing day, so each day's versions are read once.
+    # Several periods share filing days, so each day's versions are read once.
     periods_by_day = {}
+
+    def periods_on(day):
+        if day not in periods_by_day:
+            known = known_periods(connection, day, company_id=company_id)
+            periods_by_day[day] = known.get(company_id, {})
+        return periods_by_day[day]
+
     reports_by_day = {}
     for day in set(report_days.values()):
-        known = known_periods(connection, day, company_id=company_id)
-        periods_by_day[day] = known.get(company_id, {})
         reports_by_day[day] = growth_reports(connection, day, company_id=company_id)
+    latest_periods = periods_on(date.max)
+    first_days = cell_first_days(connection, company_id)
 
     history = []
     for period in sorted(report_days, key=period_end, reverse=True):
         day = report_days[period]
+        periods = periods_on(day)
+        cells = with_later_automatic_values(
+            period,
+            periods[period],
+            latest_periods.get(period, {}),
+            first_days,
+            periods_on,
+        )
+        periods_with_later_values = {**periods, period: cells}
         closes = latest_closes(connection, period_end(period), company_id=company_id)
         close = closes.get(company_id)
         valued = valued_period(
             ticker,
             company_id,
             period,
-            periods_by_day[day],
+            periods_with_later_values,
             close,
             reports_by_day[day],
             rules,
