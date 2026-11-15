@@ -6,7 +6,7 @@ known on the date, and that version may be empty when it is not confirmed.
 """
 
 from collections import defaultdict
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from datetime import date, timedelta
 from decimal import Decimal
 from typing import Annotated
@@ -283,60 +283,61 @@ def period_spin_offs(ticker, period_end, session, split_policy):
     return result
 
 
-def parent_period_values(
-    periods, period, ticker, subsidiary_preferred, without_preferred_shares
-):
+@dataclass(frozen=True)
+class RatioRules:
+    """The rule files that valuing a period reads, loaded once per request."""
+
+    split_policy: dict
+    participating: set
+    units_by_period: dict
+    subsidiary_preferred: dict
+    without_preferred_shares: set
+
+
+def load_ratio_rules():
+    split_policy = split_rules()
+    return RatioRules(
+        split_policy=split_policy,
+        participating=participating_preferred_tickers(),
+        units_by_period=exchangeable_units(split_policy),
+        subsidiary_preferred=subsidiary_preferred_periods(),
+        without_preferred_shares=periods_without_preferred_shares(),
+    )
+
+
+def parent_period_values(periods, period, ticker, rules):
     """The period's values, without preferred stock that belongs to subsidiaries or
     that no longer existed at the period end."""
     values = period_values(periods[period])
-    if has_subsidiary_preferred(subsidiary_preferred, ticker, period[1]):
+    if has_subsidiary_preferred(rules.subsidiary_preferred, ticker, period[1]):
         return without_subsidiary_preferred(values)
-    if (ticker, period[1]) in without_preferred_shares:
+    if (ticker, period[1]) in rules.without_preferred_shares:
         return replace(values, no_preferred_shares=True)
     return values
 
 
-def valued_period(
-    ticker,
-    company_id,
-    period,
-    periods,
-    close,
-    reports,
-    split_policy,
-    participating,
-    units_by_period,
-    subsidiary_preferred,
-    without_preferred_shares,
-):
+def valued_period(ticker, company_id, period, periods, close, reports, rules):
     """Assemble the ratios of one period valued at the given (session, close)."""
     cells = periods[period]
-    values = parent_period_values(
-        periods, period, ticker, subsidiary_preferred, without_preferred_shares
-    )
+    values = parent_period_values(periods, period, ticker, rules)
     earlier_period = year_before(periods, period)
     previous = None
     if earlier_period is not None:
-        previous = parent_period_values(
-            periods,
-            earlier_period,
-            ticker,
-            subsidiary_preferred,
-            without_preferred_shares,
-        )
+        previous = parent_period_values(periods, earlier_period, ticker, rules)
 
     session, price = None, None
     if close is not None and price_comparable_to_period(ticker, period[1]):
         session = close[0]
-        price = share_basis_price(ticker, session, close[1], split_policy)
+        price = share_basis_price(ticker, session, close[1], rules.split_policy)
 
     # Without a price there are no price ratios for a spin-off to distort.
     spin_offs = []
     if price is not None:
-        spin_offs = period_spin_offs(ticker, period[1], session, split_policy)
+        spin_offs = period_spin_offs(ticker, period[1], session, rules.split_policy)
 
-    units = units_by_period.get((ticker, period[1]))
-    ratios = calculate_ratios(values, previous, price, ticker in participating, units)
+    units = rules.units_by_period.get((ticker, period[1]))
+    participating = ticker in rules.participating
+    ratios = calculate_ratios(values, previous, price, participating, units)
     growth = {
         metric: period_growth(
             reports, company_id, metric, period, earlier_period, periods
@@ -391,11 +392,7 @@ def get_screener(
     since = oldest_needed_period_end(connection, known_through)
     periods_by_company = known_periods(connection, known_through, since=since)
     reports = growth_reports(connection, known_through, since=since)
-    split_policy = split_rules()
-    participating = participating_preferred_tickers()
-    units_by_period = exchangeable_units(split_policy)
-    subsidiary_preferred = subsidiary_preferred_periods()
-    without_preferred_shares = periods_without_preferred_shares()
+    rules = load_ratio_rules()
 
     rows = []
     for company in companies:
@@ -410,11 +407,7 @@ def get_screener(
                 periods,
                 closes.get(company["id"]),
                 reports,
-                split_policy,
-                participating,
-                units_by_period,
-                subsidiary_preferred,
-                without_preferred_shares,
+                rules,
             )
         rows.append(
             ScreenerRow(

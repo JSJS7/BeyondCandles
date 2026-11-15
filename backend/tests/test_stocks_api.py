@@ -362,7 +362,7 @@ class StockApiTests(unittest.TestCase):
     def test_unknown_company_returns_404_for_every_stock_endpoint(self):
         """Return 404 for unknown or unpublished companies across all read endpoints."""
         for ticker in ("MISSING", "OTHER"):
-            for suffix in ("", "/prices", "/financials/annual"):
+            for suffix in ("", "/prices", "/financials/annual", "/ratios/annual"):
                 with self.subTest(ticker=ticker, suffix=suffix):
                     self.assertEqual(
                         self.client.get(f"/stocks/{ticker}{suffix}").status_code, 404

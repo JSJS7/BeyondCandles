@@ -13,12 +13,14 @@ from app.annual_financials import (
     annual_periods,
     reviewed_facts_query,
 )
+from app.company_ratios import annual_ratio_history
 from app.database import get_connection
 from app.eps_splits import normalize_eps
 from app.fiscal_periods import fiscal_rules
 from app.growth import GROWTH_ONLY_METRICS, add_table_growth
 from app.metric_history import HistoryOutOfDate, periods_as_of
 from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
+from app.schemas.screener import AnnualRatios
 from app.schemas.stock import AnnualPeriod, Price, Stock
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
@@ -129,3 +131,14 @@ def get_annual_financials(
     known_facts = [fact for fact in growth_facts if fact["filed"] <= as_of]
     add_table_growth(periods, known_facts, fiscal_rules())
     return periods
+
+
+@router.get("/{ticker}/ratios/annual", response_model=list[AnnualRatios])
+def get_annual_ratios(ticker: str, connection: DatabaseConnection):
+    """Ratios of every annual period at its fiscal year's last close, newest first.
+
+    Values are those of the period's first annual report (DEC-41), so a year restated
+    later differs from the annual financials table, which shows the latest versions.
+    """
+    company = find_company(connection, ticker)
+    return annual_ratio_history(connection, company["id"], company["ticker"])

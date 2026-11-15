@@ -325,7 +325,9 @@ class GrowthTests(unittest.TestCase):
         self.assertEqual(self.reports(predecessor, quarter), [])
 
 
-class ScreenerApiTests(unittest.TestCase):
+class ScreenerDatabaseTestCase(unittest.TestCase):
+    """An in-memory database with helpers that add stored versions, prices and facts."""
+
     def make_database(self):
         """An empty in-memory schema; test_api_postgres runs these tests on PostgreSQL."""
         database = create_engine(
@@ -483,6 +485,8 @@ class ScreenerApiTests(unittest.TestCase):
                 },
             )
 
+
+class ScreenerApiTests(ScreenerDatabaseTestCase):
     def row(self, ticker="TEST", **parameters):
         response = self.client.get("/screener", params=parameters)
         self.assertEqual(response.status_code, 200, response.text)

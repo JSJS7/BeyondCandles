@@ -12,6 +12,7 @@ import unittest
 from pathlib import Path
 from uuid import uuid4
 
+import test_company_ratios
 import test_screener
 import test_stocks_api
 
@@ -102,6 +103,20 @@ SKIP_REASON = "Set BC_RUN_DB_TESTS=1 to create an isolated PostgreSQL test datab
 
 @unittest.skipUnless(RUN_DATABASE_TESTS, SKIP_REASON)
 class PostgresScreenerApiTests(MigratedPostgres, test_screener.ScreenerApiTests):
+    pass
+
+
+@unittest.skipUnless(RUN_DATABASE_TESTS, SKIP_REASON)
+class PostgresAnnualRatioHistoryTests(
+    MigratedPostgres, test_company_ratios.AnnualRatioHistoryTests
+):
+    pass
+
+
+@unittest.skipUnless(RUN_DATABASE_TESTS, SKIP_REASON)
+class PostgresAnnualRatioApiTests(
+    MigratedPostgres, test_company_ratios.AnnualRatioApiTests
+):
     pass
 
 

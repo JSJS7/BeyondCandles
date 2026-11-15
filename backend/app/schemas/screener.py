@@ -59,6 +59,13 @@ class PeriodRatios(BaseModel):
     ratios: Ratios
 
 
+class AnnualRatios(PeriodRatios):
+    """One annual period on the company page, at its fiscal year's last close (DEC-41)."""
+
+    # As the annual financials table labels the period; null when its sources disagree.
+    fiscal_year: int | None = None
+
+
 class ScreenerRow(BaseModel):
     ticker: str
     name: str
