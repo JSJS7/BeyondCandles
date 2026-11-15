@@ -23,7 +23,8 @@ export const ANNUAL_COLUMNS: MetricColumn[] = [
   },
 ];
 
-export function fiscalYearLabel(period: AnnualPeriod): string {
+// Also labels a row of annual ratios, which carries the same fiscal year.
+export function fiscalYearLabel(period: Pick<AnnualPeriod, 'fiscal_year'>): string {
   if (period.fiscal_year != null) {
     return `FY ${period.fiscal_year}`;
   }

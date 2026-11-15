@@ -91,8 +91,8 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
 
 ## Ratios
 
-The app's Screener page shows them, from the `/screener` API; company pages do not show them yet. The
-API returns plain ratios (0.25 means 25%), rounded to six decimals. A ratio is empty when an input is
+The app's Screener page shows them for all companies on one date, from the `/screener` API; each company
+page shows them for every fiscal year, from `/stocks/{ticker}/ratios/annual`. The API returns plain ratios (0.25 means 25%), rounded to six decimals. A ratio is empty when an input is
 missing or the result has no meaning, never zero. Price ratios are also empty without a comparable price.
 
 | Ratio | Formula | Also empty when |
@@ -113,6 +113,13 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   close, or the last close within 7 days before it, with its latest annual report filed before that
   session. A filing date has no time of day and most annual reports arrive after the market closes, so
   a report filed on the session's own day counts only from the next session.
+- **Company page:** each fiscal year is valued at the last close on or before its end, within 7 days,
+  with the values known when that year's first annual report was filed, including the year before as
+  that report states it. A later report can restate a year without a business separated afterwards,
+  while the year-end price still includes that business, so the latest version would join price and
+  results of two different companies. The company's financial table shows the latest versions, so a
+  restated year can differ between the two tables. A year-end price precedes any later spin-off, so these
+  ratios are never marked *Spin-off*.
 - **Values as annual reports state them:** a quarterly report can restate the previous year's balance
   sheet months before the next annual report restates the income statement. Ratios therefore keep each
   value as the latest annual report states it, so one ratio never joins a restated balance sheet with an

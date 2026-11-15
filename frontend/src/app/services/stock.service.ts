@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AnnualRatios } from '../models/screener';
 import { AnnualPeriod, Price, Stock } from '../models/stock';
 import { ApiService } from './api.service';
 
@@ -22,6 +23,12 @@ export class StockService {
   getAnnualFinancials(ticker: string): Observable<AnnualPeriod[]> {
     return this.apiService.get<AnnualPeriod[]>(
       `/stocks/${encodeURIComponent(ticker)}/financials/annual`,
+    );
+  }
+
+  getAnnualRatios(ticker: string): Observable<AnnualRatios[]> {
+    return this.apiService.get<AnnualRatios[]>(
+      `/stocks/${encodeURIComponent(ticker)}/ratios/annual`,
     );
   }
 }

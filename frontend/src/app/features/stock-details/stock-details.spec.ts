@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { period } from '../screener/screener-test-data';
 import { StockDetails } from './stock-details';
 
 describe('Stock details', () => {
@@ -33,7 +34,10 @@ describe('Stock details', () => {
   afterEach(() => {
     // These tests focus on metadata; complete the independent data sections as empty.
     const sectionRequests = http.match(
-      (request) => request.url.endsWith('/prices') || request.url.endsWith('/financials/annual'),
+      (request) =>
+        request.url.endsWith('/prices') ||
+        request.url.endsWith('/financials/annual') ||
+        request.url.endsWith('/ratios/annual'),
     );
     for (const request of sectionRequests) {
       if (!request.cancelled) {
@@ -314,5 +318,51 @@ describe('Stock details', () => {
     expect(fixture.nativeElement.textContent).toContain(
       'Earlier periods follow a verified accounting predecessor.',
     );
+  });
+
+  it('keeps the other sections usable when ratios fail and retries only the ratios', () => {
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+      ticker: 'AAPL',
+      name: 'Apple',
+      exchange: 'NASDAQ',
+    });
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
+    http
+      .expectOne('http://127.0.0.1:8000/stocks/AAPL/ratios/annual')
+      .flush({}, { status: 503, statusText: 'Unavailable' });
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('Failed to load annual ratios.');
+    expect(fixture.componentInstance.financialsLoadState().status).toBe('ready');
+
+    fixture.nativeElement.querySelector('[aria-labelledby="ratios-heading"] .retry-button').click();
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/ratios/annual').flush([]);
+    http.expectNone('http://127.0.0.1:8000/stocks/AAPL/financials/annual');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('No annual ratios are available');
+  });
+
+  it('shows loaded ratios in the ratio table', () => {
+    // Values travel from the HTTP response into the table component unchanged.
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+      ticker: 'AAPL',
+      name: 'Apple',
+      exchange: 'NASDAQ',
+    });
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
+    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/ratios/annual').flush([
+      {
+        ...period({ period_start: '2023-10-01', period_end: '2024-09-28' }, { pe: '37.46' }),
+        fiscal_year: 2024,
+      },
+    ]);
+    fixture.detectChanges();
+
+    const table = fixture.nativeElement.querySelector('app-annual-ratio-table');
+    expect(table.textContent).toContain('FY 2024');
+    expect(table.textContent).toContain('37.46');
   });
 });

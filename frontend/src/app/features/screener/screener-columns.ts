@@ -1,9 +1,9 @@
 // The columns of the screener table: what each one holds and how its values are shown.
 import { PeriodRatios, RatioKey, ScreenerRow } from '../../models/screener';
 import { formatDate } from '../../shared/date-format';
-import { formatFixed, formatPercent } from '../../shared/decimal-format';
-import { RATIO_DEFINITIONS, RatioKind } from '../../shared/ratio-definitions';
-import { ValueLabel } from '../../shared/value-labels';
+import { formatFixed } from '../../shared/decimal-format';
+import { formatRatio, RATIO_DEFINITIONS, RatioKind } from '../../shared/ratio-definitions';
+import { RATIO_CELL_LABELS, RatioCellLabel, ratioLabels } from '../../shared/ratio-labels';
 
 type ColumnKind = 'text' | 'date' | 'price' | RatioKind;
 export type ColumnKey = 'sector' | 'price' | 'period_end' | RatioKey;
@@ -45,10 +45,6 @@ export function columnValue(row: ScreenerRow, key: ColumnKey): string | null {
   return row.latest.ratios[key];
 }
 
-export function formatMultiple(value: string): string {
-  return formatFixed(value, 2);
-}
-
 /** One value of a column as the table shows it. */
 export function formatValue(column: ScreenerColumn, value: string): string {
   switch (column.kind) {
@@ -60,9 +56,8 @@ export function formatValue(column: ScreenerColumn, value: string): string {
       // In dollars, as the price on the company page; prices are never negative.
       return `$${formatFixed(value, 2)}`;
     case 'multiple':
-      return formatMultiple(value);
     case 'percent':
-      return formatPercent(value);
+      return formatRatio(column.kind, value);
   }
 }
 
@@ -76,73 +71,15 @@ export function cellText(row: ScreenerRow, column: ScreenerColumn): string | nul
 }
 
 /** Every label a screener cell can carry; the page's reading guide explains each one (K15). */
-export const SCREENER_CELL_LABELS = [
-  'Basic',
-  'Calculated',
-  'Series break',
-  'Continuing ops',
-  'Spin-off',
-  'Exchangeable units',
-  'Discontinued ops',
-] as const satisfies readonly ValueLabel[];
-export type ScreenerCellLabel = (typeof SCREENER_CELL_LABELS)[number];
+export const SCREENER_CELL_LABELS = RATIO_CELL_LABELS;
 
 /** Short labels that change how a value may be read; the same words as the financials table. */
-export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): ScreenerCellLabel[] {
-  if (latest === null) {
+export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): RatioCellLabel[] {
+  const isRatio = key !== 'sector' && key !== 'price' && key !== 'period_end';
+  if (latest === null || !isRatio) {
     return [];
   }
-
-  // A break can also be the reason why growth is empty, so it does not depend on the value.
-  if (key === 'revenue_growth') {
-    return latest.revenue_basis_break ? ['Series break'] : [];
-  }
-  if (key === 'eps_growth') {
-    const labels: ScreenerCellLabel[] = latest.eps_basis_break ? ['Series break'] : [];
-    if (latest.ratios.eps_growth !== null && latest.eps_basis === 'basic') {
-      labels.push('Basic');
-    }
-    // Growth compares two years, so discontinued operations in either of them distort it.
-    const eitherYearDiscontinued =
-      latest.discontinued_operations || latest.previous_discontinued_operations;
-    if (latest.ratios.eps_growth !== null && eitherYearDiscontinued) {
-      labels.push('Discontinued ops');
-    }
-    return labels;
-  }
-
-  const hasValue = key !== 'sector' && key !== 'price' && key !== 'period_end';
-  if (!hasValue || latest.ratios[key] === null) {
-    return [];
-  }
-  const labels: ScreenerCellLabel[] = [];
-  if (key === 'pe' && latest.eps_basis === 'basic') {
-    labels.push('Basic');
-  }
-  const usesShareCount = key === 'pb' || key === 'ps';
-  if (usesShareCount && latest.shares_basis === 'calculated') {
-    labels.push('Calculated');
-  }
-  if (key === 'fcf_margin' && latest.ocf_scope === 'continuing') {
-    labels.push('Continuing ops');
-  }
-  const usesPrice = key === 'pe' || key === 'pb' || key === 'ps';
-  if (usesPrice && latest.spin_offs.length > 0) {
-    labels.push('Spin-off');
-  }
-  if (key === 'ps' && latest.exchangeable_units) {
-    labels.push('Exchangeable units');
-  }
-  const usesNetIncome =
-    key === 'pe' ||
-    key === 'roe' ||
-    key === 'roa' ||
-    key === 'net_margin' ||
-    key === 'ocf_to_net_income';
-  if (usesNetIncome && latest.discontinued_operations) {
-    labels.push('Discontinued ops');
-  }
-  return labels;
+  return ratioLabels(latest, key);
 }
 
 /** The columns to show, in table order, without the hidden ones. */

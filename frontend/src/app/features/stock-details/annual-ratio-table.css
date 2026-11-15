@@ -1,0 +1,168 @@
+:host {
+  display: block;
+}
+
+.muted {
+  color: var(--bc-muted);
+}
+
+/* Reading guide */
+.reading-guide {
+  margin-bottom: var(--bc-space-l);
+}
+
+.reading-guide summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--bc-control-height);
+  color: var(--bc-primary);
+  cursor: pointer;
+}
+
+.reading-guide dl {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr);
+  gap: var(--bc-space-s) var(--bc-space-l);
+  max-width: 48rem;
+  margin: var(--bc-space-s) 0 var(--bc-space-l);
+}
+
+.reading-guide dt {
+  color: var(--bc-muted);
+}
+
+.reading-guide dd {
+  margin: 0;
+}
+
+/* A link on its own line is a touch target too. */
+.methodology-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--bc-control-height);
+}
+
+/* Table */
+.scroll-hint {
+  margin: 0 0 var(--bc-space-s);
+  font-size: var(--bc-text-small);
+}
+
+.table-scroll {
+  /* Positioned, so that visually hidden labels stay clipped inside the scroll area. */
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--bc-text-table);
+}
+
+caption {
+  padding-bottom: var(--bc-space-m);
+  color: var(--bc-muted);
+  text-align: left;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--bc-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  background: var(--bc-subtle);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+.ratio-column {
+  min-width: 4.75rem;
+  text-align: right;
+}
+
+/* The fiscal year stays visible while the ratios scroll sideways on narrow screens. */
+.period-column {
+  position: sticky;
+  z-index: 1;
+  left: 0;
+  min-width: 7rem;
+  border-right: 1px solid var(--bc-border);
+}
+
+thead .period-column {
+  z-index: 2;
+}
+
+tbody .period-column {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  background: var(--bc-surface);
+  font-weight: 400;
+}
+
+.fiscal-year {
+  display: block;
+  font-weight: 600;
+}
+
+.review {
+  color: var(--bc-warning);
+}
+
+.period-end {
+  display: block;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+  white-space: nowrap;
+}
+
+.ratio-cell {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.cell-value {
+  display: block;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.no-value {
+  color: var(--bc-muted);
+}
+
+/* A label may wrap between its words, so that it does not widen its column: twelve ratios
+   must still fit beside the fiscal year at 1440 px. */
+.metric-label {
+  display: block;
+  margin-top: 2px;
+  color: var(--bc-secondary);
+  font-size: var(--bc-text-small);
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .reading-guide dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .reading-guide dd {
+    margin-bottom: var(--bc-space-s);
+  }
+
+  .ratio-column {
+    min-width: 4.5rem;
+  }
+
+  .period-column {
+    min-width: 6.5rem;
+  }
+}

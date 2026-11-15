@@ -3,7 +3,6 @@ import {
   cellLabels,
   cellText,
   columnSummary,
-  formatMultiple,
   SCREENER_COLUMNS,
   ScreenerColumn,
   visibleColumns,
@@ -17,15 +16,6 @@ function column(key: ScreenerColumn['key']): ScreenerColumn {
   }
   return found;
 }
-
-describe('Screener number formats', () => {
-  it('rounds a multiple to two decimals, half away from zero, with separators', () => {
-    expect(formatMultiple('36.442357')).toBe('36.44');
-    expect(formatMultiple('9.80192')).toBe('9.80');
-    expect(formatMultiple('1234.565')).toBe('1,234.57');
-    expect(formatMultiple('-0.125')).toBe('-0.13');
-  });
-});
 
 describe('Screener cells', () => {
   it('shows a true zero as zero and an empty value as null, never the other way', () => {

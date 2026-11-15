@@ -1,0 +1,101 @@
+<p class="muted">
+  Price ratios use the last close of each fiscal year. Values are as first reported in that year's
+  annual report, so a year restated later can differ from the annual financials above.
+</p>
+
+<details class="reading-guide">
+  <summary>How to read this table</summary>
+  <dl>
+    <dt>Fiscal year</dt>
+    <dd>Labels follow company reports. A fiscal year may end in the following calendar year.</dd>
+    <dt>Price</dt>
+    <dd>
+      P/E, P/B and P/S use the last close on or before the fiscal year's end, at most 7 days
+      earlier, in USD. Converted to the share basis of EPS, so it can differ from the price quoted
+      on that day.
+    </dd>
+    <dt>Values</dt>
+    <dd>
+      As first reported in that year's annual report, with the year before as that report states it,
+      so the price and the results describe the company in one shape. A later report can restate a
+      year, for example without a business separated afterwards, while the year-end price still
+      includes it; the annual financials table above shows such later revisions.
+    </dd>
+    @for (entry of ratioGuide; track entry.term) {
+      <dt>{{ entry.term }}</dt>
+      <dd>{{ entry.text }}</dd>
+    }
+    <dt>Automatic measures</dt>
+    <dd>{{ automaticMeasuresNote }}</dd>
+  </dl>
+  <dl>
+    <dt><span class="no-value">—</span></dt>
+    <dd>{{ noValueNote }}</dd>
+    @for (entry of cellLabelGuide; track entry.label) {
+      <dt>
+        <span class="metric-label">{{ entry.label }}</span>
+      </dt>
+      <dd>{{ entry.text }}</dd>
+    }
+  </dl>
+  <p>
+    <a class="methodology-link" [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
+      >Full methodology<span class="visually-hidden"> (opens in a new tab)</span></a
+    >
+  </p>
+</details>
+
+@if (overflows()) {
+  <p class="scroll-hint muted" aria-hidden="true">Swipe the table sideways to see all ratios.</p>
+}
+<div #scroller class="table-scroll" tabindex="0" role="region" aria-label="Annual ratios">
+  <table>
+    <caption>
+      Ratios for periods ending in
+      {{
+        periodYearsText
+      }}
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="period-column">Fiscal year</th>
+        @for (ratio of ratios; track ratio.key) {
+          <th scope="col" class="ratio-column">
+            @if (ratio.shortLabel) {
+              <span aria-hidden="true">{{ ratio.shortLabel }}</span>
+              <span class="visually-hidden">{{ ratio.label }}</span>
+            } @else {
+              {{ ratio.label }}
+            }
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (period of periods(); track period.period_start + period.period_end) {
+        <tr>
+          <th scope="row" class="period-column">
+            <span [class.review]="period.fiscal_year == null" class="fiscal-year">{{
+              fiscalYearLabel(period)
+            }}</span>
+            <span class="period-end">ends {{ formatDate(period.period_end) }}</span>
+          </th>
+          @for (ratio of ratios; track ratio.key) {
+            @let text = ratioText(period, ratio);
+            <td class="ratio-cell">
+              @if (text !== null) {
+                <span class="cell-value">{{ text }}</span>
+              } @else {
+                <span class="no-value" aria-hidden="true">—</span>
+                <span class="visually-hidden">No value</span>
+              }
+              @for (label of ratioLabels(period, ratio.key); track label) {
+                <span class="metric-label">{{ label }}</span>
+              }
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

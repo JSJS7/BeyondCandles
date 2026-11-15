@@ -79,28 +79,10 @@
       </dd>
       <dt>Period end</dt>
       <dd>End of the annual period used. Periods of different companies can differ by months.</dd>
-      <dt>P/E</dt>
-      <dd>Price ÷ EPS. Empty when EPS is not positive.</dd>
-      <dt>P/B</dt>
-      <dd>Price × shares ÷ common equity. Empty when common equity is not positive.</dd>
-      <dt>P/S</dt>
-      <dd>Price × shares ÷ revenue.</dd>
-      <dt>ROE</dt>
-      <dd>(Net income − preferred dividends) ÷ average common equity.</dd>
-      <dt>ROA</dt>
-      <dd>Net income ÷ average assets.</dd>
-      <dt>Net margin</dt>
-      <dd>Net income ÷ revenue.</dd>
-      <dt>Operating margin</dt>
-      <dd>Operating income ÷ revenue. Many companies, including banks, report no such row.</dd>
-      <dt>FCF margin</dt>
-      <dd>(Operating cash flow − capital expenditure) ÷ revenue.</dd>
-      <dt>Revenue, EPS growth</dt>
-      <dd>Later ÷ earlier − 1, both years from one report; otherwise empty.</dd>
-      <dt>OCF / net income</dt>
-      <dd>Operating cash flow ÷ net income. Empty when net income is not positive.</dd>
-      <dt>Equity / assets</dt>
-      <dd>Reported equity ÷ assets. Not a measure of debt.</dd>
+      @for (entry of ratioGuide; track entry.term) {
+        <dt>{{ entry.term }}</dt>
+        <dd>{{ entry.text }}</dd>
+      }
       <dt>Automatic measures</dt>
       <dd>{{ automaticMeasuresNote }}</dd>
     </dl>

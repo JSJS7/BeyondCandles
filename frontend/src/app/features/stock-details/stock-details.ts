@@ -17,6 +17,7 @@ import {
   tap,
 } from 'rxjs';
 import { LoadState } from '../../models/load-state';
+import { AnnualRatios } from '../../models/screener';
 import { AnnualPeriod, Price, Stock } from '../../models/stock';
 import {
   FIRST_PERIOD_YEAR,
@@ -30,12 +31,13 @@ import { StockService } from '../../services/stock.service';
 import { pageTitle } from '../../shared/page-title';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { AnnualFinancials } from './annual-financials';
+import { AnnualRatioTable } from './annual-ratio-table';
 import { PriceChart } from './price-chart';
 import { PRICE_SERIES_DESCRIPTION } from './price-chart-data';
 
 @Component({
   selector: 'app-stock-details',
-  imports: [RouterLink, PriceChart, AnnualFinancials, StateMessage],
+  imports: [RouterLink, PriceChart, AnnualFinancials, AnnualRatioTable, StateMessage],
   templateUrl: './stock-details.html',
   styleUrl: './stock-details.css',
 })
@@ -47,6 +49,7 @@ export class StockDetails implements OnInit {
   private readonly stockRetry = new Subject<void>();
   private readonly pricesRetry = new Subject<void>();
   private readonly financialsRetry = new Subject<void>();
+  private readonly ratiosRetry = new Subject<void>();
 
   readonly priceSeriesDescription = PRICE_SERIES_DESCRIPTION;
   readonly priceRangeText = `${formatDate(FIRST_PRICE_DATE)} to ${formatDate(LAST_PRICE_DATE)}`;
@@ -56,9 +59,11 @@ export class StockDetails implements OnInit {
   readonly exchangeName = computed(() => exchangeName(this.stock()?.exchange ?? ''));
   readonly prices = signal<Price[]>([]);
   readonly annualFinancials = signal<AnnualPeriod[]>([]);
+  readonly annualRatios = signal<AnnualRatios[]>([]);
   readonly stockLoadState = signal<LoadState>({ status: 'idle' });
   readonly pricesLoadState = signal<LoadState>({ status: 'idle' });
   readonly financialsLoadState = signal<LoadState>({ status: 'idle' });
+  readonly ratiosLoadState = signal<LoadState>({ status: 'idle' });
 
   ngOnInit(): void {
     this.route.paramMap
@@ -70,6 +75,7 @@ export class StockDetails implements OnInit {
           this.stock.set(null);
           this.prices.set([]);
           this.annualFinancials.set([]);
+          this.annualRatios.set([]);
         }),
         switchMap((ticker) =>
           merge(
@@ -85,6 +91,10 @@ export class StockDetails implements OnInit {
             this.financialsRetry.pipe(
               startWith(undefined),
               exhaustMap(() => this.loadFinancials(ticker)),
+            ),
+            this.ratiosRetry.pipe(
+              startWith(undefined),
+              exhaustMap(() => this.loadRatios(ticker)),
             ),
           ),
         ),
@@ -103,6 +113,10 @@ export class StockDetails implements OnInit {
 
   retryFinancials(): void {
     this.financialsRetry.next();
+  }
+
+  retryRatios(): void {
+    this.ratiosRetry.next();
   }
 
   private loadStock(ticker: string): Observable<Stock> {
@@ -153,6 +167,23 @@ export class StockDetails implements OnInit {
         this.financialsLoadState.set({
           status: 'error',
           message: 'Failed to load annual financials.',
+        });
+        return EMPTY;
+      }),
+    );
+  }
+
+  private loadRatios(ticker: string): Observable<AnnualRatios[]> {
+    this.ratiosLoadState.set({ status: 'loading' });
+    return this.stockService.getAnnualRatios(ticker).pipe(
+      tap((ratios) => {
+        this.annualRatios.set(ratios);
+        this.ratiosLoadState.set({ status: 'ready' });
+      }),
+      catchError(() => {
+        this.ratiosLoadState.set({
+          status: 'error',
+          message: 'Failed to load annual ratios.',
         });
         return EMPTY;
       }),

@@ -47,6 +47,13 @@ export interface PeriodRatios {
   ratios: Ratios;
 }
 
+// One annual period on the company page, at its fiscal year's last close, with the values of
+// the period's first annual report (DEC-41).
+export interface AnnualRatios extends PeriodRatios {
+  // As the annual financials table labels the period; null when its sources disagree.
+  fiscal_year: number | null;
+}
+
 export interface ScreenerRow {
   ticker: string;
   name: string;

@@ -72,5 +72,22 @@
         <app-annual-financials [periods]="annualFinancials()" />
       }
     </section>
+
+    <section class="panel" aria-labelledby="ratios-heading">
+      <h2 id="ratios-heading" class="panel-heading">Annual ratios</h2>
+      @let ratiosState = ratiosLoadState();
+      @if (ratiosState.status === 'loading') {
+        <app-state-message kind="loading" text="Loading annual ratios" />
+      } @else if (ratiosState.status === 'error') {
+        <app-state-message kind="error" (retry)="retryRatios()" [text]="ratiosState.message" />
+      } @else if (annualRatios().length === 0) {
+        <app-state-message
+          kind="empty"
+          text="No annual ratios are available in the imported dataset."
+        />
+      } @else {
+        <app-annual-ratio-table [periods]="annualRatios()" />
+      }
+    </section>
   }
 </section>
