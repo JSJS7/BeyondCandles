@@ -11,7 +11,9 @@
         kind="error"
         (retry)="retryStock()"
         [text]="stockState.message"
-        ><a stateAction class="home-link" routerLink="/">Go to dashboard</a></app-state-message
+        ><a stateAction class="home-link" routerLink="/screener"
+          >Go to screener</a
+        ></app-state-message
       >
     </div>
   } @else if (stock(); as company) {

@@ -4,10 +4,8 @@
 </p>
 
 <details class="reading-guide">
-  <summary>How to read this table</summary>
+  <summary>How to read the ratios</summary>
   <dl>
-    <dt>Fiscal year</dt>
-    <dd>Labels follow company reports. A fiscal year may end in the following calendar year.</dd>
     <dt>Price</dt>
     <dd>
       P/E, P/B and P/S use the last close on or before the fiscal year's end, at most 7 days
@@ -37,12 +35,11 @@
       </dt>
       <dd>{{ entry.text }}</dd>
     }
+    <dt>Other labels</dt>
+    <dd>
+      Basic, Continuing ops, Calculated and Series break: see the guide of the annual financials.
+    </dd>
   </dl>
-  <p>
-    <a class="methodology-link" [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
-      >Full methodology<span class="visually-hidden"> (opens in a new tab)</span></a
-    >
-  </p>
 </details>
 
 @if (overflows()) {

@@ -71,10 +71,17 @@ export class AnnualFinancials {
   readonly methodologyUrl = METHODOLOGY_URL;
   readonly periodYearsText = `${FIRST_PERIOD_YEAR}–${LAST_PERIOD_YEAR}`;
   readonly periodRangeText = `${formatDate(FIRST_PERIOD_END)} to ${formatDate(LAST_PERIOD_END)}`;
+  // The page's main guide: labels that the annual ratios below also carry are explained only
+  // here, with what each one means in the ratios.
   readonly cellLabelGuide = labelGuide(ANNUAL_CELL_LABELS, {
+    Basic: 'In the ratios below, P/E and EPS growth then use basic EPS.',
+    'Continuing ops': 'In the ratios below, FCF margin then covers continuing operations.',
+    Calculated:
+      'In the ratios below, it marks a share count: (net income − preferred dividends) ÷ EPS.',
     'Series break':
       'The change from the year before in this table is therefore misleading. Select the value ' +
-      'to compare both years with the report that states them in one definition.',
+      'to compare both years with the report that states them in one definition. Growth in the ' +
+      'ratios below still comes from one report that states both years, so it is comparable.',
   });
 
   readonly hasUnverifiedFiscalYears = computed(() =>

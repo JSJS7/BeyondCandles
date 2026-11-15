@@ -31,12 +31,24 @@ describe('Sidebar', () => {
     expect(await activeLinks('/screener?sector=Energy')).toEqual(['/screener']);
   });
 
-  it('marks only the dashboard link as current on the dashboard', async () => {
-    expect(await activeLinks('/')).toEqual(['/']);
+  it('marks no link on a company page, which has no entry in the menu', async () => {
+    // Regression test (N69): a menu link used to stay highlighted on every page.
+    expect(await activeLinks('/stocks/AAPL')).toEqual([]);
   });
 
-  it('marks no link on a company page, which has no entry in the menu', async () => {
-    // Regression test (N69): the dashboard link used to stay highlighted on every page.
-    expect(await activeLinks('/stocks/AAPL')).toEqual([]);
+  it('links only to pages that exist; the planned backtest is not a link', async () => {
+    // N24: an entry that looks clickable but does nothing misleads, so the menu has none.
+    const harness = await RouterTestingHarness.create('/screener');
+    harness.detectChanges();
+    const menu = harness.routeNativeElement as HTMLElement;
+
+    const links = [...menu.querySelectorAll('.navigation a')];
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(['/screener']);
+    for (const link of links) {
+      expect(link.hasAttribute('href')).toBe(true);
+    }
+    const planned = menu.querySelector('.nav-item-planned');
+    expect(planned?.textContent).toContain('Backtest');
+    expect(planned?.textContent).toContain('soon');
   });
 });

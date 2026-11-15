@@ -11,7 +11,6 @@ import {
 import { AnnualRatios } from '../../models/screener';
 import { FIRST_PERIOD_YEAR, LAST_PERIOD_YEAR } from '../../shared/data-window';
 import { formatDate } from '../../shared/date-format';
-import { METHODOLOGY_URL } from '../../shared/links';
 import {
   AUTOMATIC_MEASURES_NOTE,
   formatRatio,
@@ -21,14 +20,22 @@ import {
   RatioDefinition,
 } from '../../shared/ratio-definitions';
 import { RATIO_CELL_LABELS, ratioLabels } from '../../shared/ratio-labels';
-import { labelGuide } from '../../shared/value-labels';
+import { labelGuide, ValueLabel } from '../../shared/value-labels';
 import { fiscalYearLabel } from './annual-columns';
+import { ANNUAL_CELL_LABELS } from './annual-financials';
 
 /**
- * Every label a cell of this table can carry; the reading guide explains each (K15). A price
- * from the fiscal year's end precedes any later spin-off, so no cell is marked Spin-off.
+ * Every label a cell of this table can carry (K15). A price from the fiscal year's end precedes
+ * any later spin-off, so no cell is marked Spin-off.
  */
 export const ANNUAL_RATIO_CELL_LABELS = RATIO_CELL_LABELS.filter((label) => label !== 'Spin-off');
+
+// The financials table above carries the other labels, and the page explains them once, in its
+// guide; this table's guide explains only the labels that the financials never show.
+const FINANCIAL_LABELS: readonly ValueLabel[] = ANNUAL_CELL_LABELS;
+export const RATIO_ONLY_LABELS = ANNUAL_RATIO_CELL_LABELS.filter(
+  (label) => !FINANCIAL_LABELS.includes(label),
+);
 
 /** The text of one ratio cell, or null when it has no value and must show a dash, never zero. */
 export function ratioText(period: AnnualRatios, ratio: RatioDefinition): string | null {
@@ -61,16 +68,10 @@ export class AnnualRatioTable {
   readonly ratioText = ratioText;
   readonly ratioLabels = ratioLabels;
   readonly periodYearsText = `${FIRST_PERIOD_YEAR}–${LAST_PERIOD_YEAR}`;
-  readonly methodologyUrl = METHODOLOGY_URL;
   readonly ratioGuide = RATIO_GUIDE;
   readonly noValueNote = NO_VALUE_NOTE;
   readonly automaticMeasuresNote = AUTOMATIC_MEASURES_NOTE;
-  readonly cellLabelGuide = labelGuide(ANNUAL_RATIO_CELL_LABELS, {
-    Calculated: 'Here it is the share count: (net income − preferred dividends) ÷ EPS.',
-    'Series break':
-      'Growth still comes from one report that states both years, so it is comparable; the ' +
-      'annual financials table above shows both versions.',
-  });
+  readonly cellLabelGuide = labelGuide(RATIO_ONLY_LABELS);
 
   constructor() {
     const destroyRef = inject(DestroyRef);

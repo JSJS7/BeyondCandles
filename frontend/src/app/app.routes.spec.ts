@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { routes } from './app.routes';
 
@@ -19,9 +19,6 @@ describe('Page titles', () => {
     const harness = await RouterTestingHarness.create();
     const title = TestBed.inject(Title);
 
-    await harness.navigateByUrl('/');
-    expect(title.getTitle()).toBe('Dashboard · BeyondCandles');
-
     await harness.navigateByUrl('/screener');
     expect(title.getTitle()).toBe('Screener · BeyondCandles');
 
@@ -30,5 +27,13 @@ describe('Page titles', () => {
 
     await harness.navigateByUrl('/no-such-page');
     expect(title.getTitle()).toBe('Page not found · BeyondCandles');
+  });
+
+  it('opens the screener as the start page', async () => {
+    const harness = await RouterTestingHarness.create();
+
+    await harness.navigateByUrl('/');
+
+    expect(TestBed.inject(Router).url).toBe('/screener');
   });
 });

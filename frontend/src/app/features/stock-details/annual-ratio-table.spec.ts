@@ -2,7 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AnnualRatios, Ratios } from '../../models/screener';
 import { RATIO_DEFINITIONS, RatioDefinition } from '../../shared/ratio-definitions';
 import { period } from '../screener/screener-test-data';
-import { ANNUAL_RATIO_CELL_LABELS, AnnualRatioTable, ratioText } from './annual-ratio-table';
+import { ANNUAL_CELL_LABELS } from './annual-financials';
+import {
+  ANNUAL_RATIO_CELL_LABELS,
+  AnnualRatioTable,
+  RATIO_ONLY_LABELS,
+  ratioText,
+} from './annual-ratio-table';
 
 function annualPeriod(
   fiscalYear: number | null,
@@ -94,15 +100,21 @@ describe('Annual ratio table', () => {
     expect(labelsOf(2)).toEqual(['Exchangeable units']);
   });
 
-  it('explains in its reading guide every label a cell can carry (K15)', () => {
+  it('explains only the labels the financials never show; their guide explains the rest (K15)', () => {
+    // The page explains each label once: shared labels in the financials guide above.
     const element = render([annualPeriod(2024, '2024-12-31')]);
 
     const guideLabels = [...element.querySelectorAll('.reading-guide dt .metric-label')].map(
       (label) => label.textContent,
     );
-    expect(guideLabels).toEqual([...ANNUAL_RATIO_CELL_LABELS]);
+    expect(guideLabels).toEqual(['Exchangeable units', 'Discontinued ops']);
+    expect(guideLabels).toEqual([...RATIO_ONLY_LABELS]);
+    const explainedOnPage = new Set<string>([...RATIO_ONLY_LABELS, ...ANNUAL_CELL_LABELS]);
+    for (const label of ANNUAL_RATIO_CELL_LABELS) {
+      expect(explainedOnPage.has(label)).toBe(true);
+    }
     // The year-end price precedes any later spin-off, so the history never carries that label.
-    expect(guideLabels).not.toContain('Spin-off');
+    expect(ANNUAL_RATIO_CELL_LABELS).not.toContain('Spin-off');
     expect(element.querySelector('.reading-guide')?.textContent).toContain('automatic measures');
   });
 });

@@ -35,13 +35,6 @@
   margin: 0;
 }
 
-/* A link on its own line is a touch target too. */
-.methodology-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--bc-control-height);
-}
-
 /* Table */
 .scroll-hint {
   margin: 0 0 var(--bc-space-s);

@@ -1,5 +1,4 @@
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
-import { Dashboard } from './features/dashboard/dashboard';
 import { NotFound } from './features/not-found/not-found';
 import { Layout } from './layout/layout/layout';
 import { pageTitle } from './shared/page-title';
@@ -29,11 +28,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/stock-details/stock-details').then((module) => module.StockDetails),
       },
+      // The screener is the start page; the app has no separate dashboard.
       {
         path: '',
         pathMatch: 'full',
-        title: pageTitle('Dashboard'),
-        component: Dashboard,
+        redirectTo: 'screener',
       },
       {
         path: '**',

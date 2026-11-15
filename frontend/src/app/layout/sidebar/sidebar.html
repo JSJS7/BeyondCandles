@@ -5,75 +5,22 @@
   </div>
 
   <nav class="navigation">
-    <div class="nav-section">
-      <div class="nav-section-title">Discover</div>
+    <a
+      class="nav-item"
+      routerLink="/screener"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      (click)="navigated.emit()"
+    >
+      <span class="nav-icon" aria-hidden="true">⌕</span>
+      <span>Screener</span>
+    </a>
 
-      <a
-        class="nav-item"
-        routerLink="/"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="navigated.emit()"
-      >
-        <span class="nav-icon" aria-hidden="true">⌂</span>
-        <span>Dashboard</span>
-      </a>
-
-      <a
-        class="nav-item"
-        routerLink="/screener"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        (click)="navigated.emit()"
-      >
-        <span class="nav-icon" aria-hidden="true">⌕</span>
-        <span>Screener</span>
-      </a>
-    </div>
-
-    <div class="nav-section">
-      <div class="nav-section-title">Analysis</div>
-
-      <a class="nav-item">
-        <span class="nav-icon">◫</span>
-        <span>Technical Charts</span>
-      </a>
-
-      <a class="nav-item">
-        <span class="nav-icon">◎</span>
-        <span>Scoring Models</span>
-      </a>
-    </div>
-
-    <div class="nav-section">
-      <div class="nav-section-title">Strategies</div>
-
-      <a class="nav-item">
-        <span class="nav-icon">◌</span>
-        <span>Backtesting</span>
-      </a>
-
-      <a class="nav-item">
-        <span class="nav-icon">⌁</span>
-        <span>Simulations</span>
-      </a>
-    </div>
-
-    <div class="nav-section">
-      <div class="nav-section-title">Tools</div>
-
-      <a class="nav-item">
-        <span class="nav-icon">◇</span>
-        <span>Custom Metrics</span>
-      </a>
+    <!-- Not a link until the backtest page exists, so it does not look like one (N24). -->
+    <div class="nav-item-planned">
+      <span class="nav-icon" aria-hidden="true">◌</span>
+      <span>Backtest</span>
+      <span class="planned-note">soon</span>
     </div>
   </nav>
-
-  <div class="sidebar-bottom">
-    <a class="nav-item">
-      <span class="nav-icon">⚙</span>
-      <span>Settings</span>
-    </a>
-  </div>
 </aside>

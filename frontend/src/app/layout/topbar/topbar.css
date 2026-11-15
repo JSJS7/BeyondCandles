@@ -160,19 +160,6 @@
   background: var(--bc-subtle);
 }
 
-.user-avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--bc-subtle);
-  color: var(--bc-primary);
-  font-size: var(--bc-text-table);
-  font-weight: 700;
-}
-
 @media (max-width: 767px) {
   .topbar {
     gap: var(--bc-space-s);
@@ -201,9 +188,5 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 2px;
-  }
-
-  .user-avatar {
-    display: none;
   }
 }
