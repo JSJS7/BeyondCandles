@@ -5,7 +5,7 @@
   gap: var(--bc-space-xl);
   height: var(--bc-topbar-height);
   padding: 0 var(--bc-space-xl);
-  border-bottom: 1px solid var(--bc-border);
+  border-bottom: 3px double var(--bc-rule);
   background: var(--bc-surface);
 }
 
@@ -148,16 +148,17 @@
 .theme-button {
   width: var(--bc-control-height);
   height: var(--bc-control-height);
-  border: 1px solid var(--bc-control-border);
+  /* The ink rule under a page title, on the background of the search field beside it. */
+  border: 1px solid var(--bc-rule);
   border-radius: var(--bc-radius-control);
-  background: transparent;
+  background: var(--bc-subtle);
   color: var(--bc-primary);
   font-size: var(--bc-text-title);
   cursor: pointer;
 }
 
 .theme-button:hover {
-  background: var(--bc-subtle);
+  background: var(--bc-border);
 }
 
 @media (max-width: 767px) {

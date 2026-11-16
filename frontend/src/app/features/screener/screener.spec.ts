@@ -92,7 +92,11 @@ describe('Screener page', () => {
 
   function headerButton(label: string): HTMLButtonElement {
     const buttons = [...page().querySelectorAll<HTMLButtonElement>('.sort-button')];
-    const button = buttons.find((candidate) => candidate.textContent?.trim().startsWith(label));
+    // A right-aligned column shows its sort indicator before the label.
+    const button = buttons.find((candidate) => {
+      const text = candidate.textContent?.replace(/[▲▼]/g, '').trim() ?? '';
+      return text.startsWith(label);
+    });
     if (!button) {
       throw new Error(`No sort button ${label}`);
     }

@@ -48,8 +48,10 @@
   overscroll-behavior-x: contain;
 }
 
+/* A heavy rule above the header, as on a printed stock table; the caption stays above it. */
 table {
   width: 100%;
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
   border-collapse: separate;
   border-spacing: 0;
   font-size: var(--bc-text-table);
@@ -70,7 +72,9 @@ td {
 
 thead th {
   padding: var(--bc-space-s) var(--bc-space-m);
-  background: var(--bc-subtle);
+  border-bottom: 1px solid var(--bc-rule);
+  /* Opaque, so that the pinned year heading covers the headings scrolling under it. */
+  background: var(--bc-surface);
   font-weight: 600;
   vertical-align: bottom;
 }

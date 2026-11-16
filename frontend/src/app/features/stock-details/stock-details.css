@@ -29,6 +29,8 @@
 .panel {
   padding: var(--bc-panel-padding);
   border: 1px solid var(--bc-border);
+  /* A heavy top rule, like a boxed item on a newspaper page. */
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
   border-radius: var(--bc-radius-panel);
   background: var(--bc-surface);
 }

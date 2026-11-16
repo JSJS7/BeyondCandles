@@ -1,38 +1,79 @@
-/* Shared palette. Components use these roles instead of literal colors. */
-:root {
-  color-scheme: light;
-  --bc-page: #eef0f3;
-  --bc-surface: #f8f9fa;
-  --bc-subtle: #e6e9ed;
-  --bc-text: #252a33;
-  /* Muted and secondary text keep 4.5:1 also on --bc-selection, the selected table cell (N98). */
-  --bc-muted: #5a606b;
-  --bc-border: #d1d6de;
-  --bc-control-border: #7c8491;
-  --bc-primary: #6b4aa5;
-  --bc-secondary: #26666b;
-  --bc-warning: #855715;
-  --bc-shadow: 0 12px 30px rgba(25, 30, 40, 0.12);
-  --bc-focus-ring: 0 0 0 3px rgba(107, 74, 165, 0.2);
-  --bc-selection: rgba(107, 74, 165, 0.18);
-  --bc-backdrop: rgba(25, 30, 40, 0.5);
+/* Typefaces of a printed newspaper, served from this site (SIL Open Font License, files and
+   licences in public/fonts): a news serif for headlines and text, a Franklin gothic for tables and
+   controls, as in a paper's stock tables, and a display serif with ball terminals for the masthead
+   only. */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-opsz-normal.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-opsz-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/libre-franklin-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Yeseva One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/yeseva-one-latin-400-normal.woff2') format('woff2');
+}
+
+/* Shared palette. Components use these roles instead of literal colors. Newsprint and ink: a warm
+   paper, near-black text, hairline rules and one deep red accent. */
+:root {
+  color-scheme: light;
+  --bc-page: #f3efe5;
+  --bc-surface: #f9f6ef;
+  --bc-subtle: #e9e3d6;
+  --bc-text: #1c1a17;
+  /* Muted and secondary text keep 4.5:1 also on --bc-selection, the selected table cell (N98). */
+  --bc-muted: #59534a;
+  --bc-border: #cdc4b2;
+  --bc-control-border: #77705f;
+  /* Strong rules of the page: under the masthead, above a table. */
+  --bc-rule: #1c1a17;
+  --bc-primary: #8e2a1e;
+  --bc-secondary: #2b4d69;
+  --bc-warning: #7f5413;
+  --bc-shadow: 0 6px 18px rgba(28, 26, 23, 0.16);
+  --bc-focus-ring: 0 0 0 3px rgba(142, 42, 30, 0.2);
+  --bc-selection: rgba(142, 42, 30, 0.12);
+  --bc-backdrop: rgba(28, 26, 23, 0.5);
+}
+
+/* The night edition: dark warm paper, light ink. */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bc-page: #222426;
-  --bc-surface: #292c30;
-  --bc-subtle: #34383e;
-  --bc-text: #e5e8ed;
-  --bc-muted: #b0b4bd;
-  --bc-border: #4a5059;
-  --bc-control-border: #808895;
-  --bc-primary: #baa6ee;
-  --bc-secondary: #8ac5c8;
+  --bc-page: #1b1a17;
+  --bc-surface: #22201c;
+  --bc-subtle: #2e2b26;
+  --bc-text: #ebe5d8;
+  --bc-muted: #b4ac9d;
+  --bc-border: #48433a;
+  --bc-control-border: #8b8374;
+  --bc-rule: #ebe5d8;
+  --bc-primary: #eda08f;
+  --bc-secondary: #a3c0db;
   --bc-warning: #e4be77;
-  --bc-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-  --bc-focus-ring: 0 0 0 3px rgba(186, 166, 238, 0.25);
-  --bc-selection: rgba(186, 166, 238, 0.2);
+  --bc-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --bc-focus-ring: 0 0 0 3px rgba(237, 160, 143, 0.25);
+  --bc-selection: rgba(237, 160, 143, 0.16);
   --bc-backdrop: rgba(0, 0, 0, 0.6);
 }
 
@@ -55,15 +96,24 @@
   /* The top bar and the brand row of the sidebar beside it; lower on a phone. */
   --bc-topbar-height: 76px;
 
-  --bc-radius-control: 8px;
-  --bc-radius-panel: 12px;
+  /* Square corners, as on a printed page. */
+  --bc-radius-control: 0;
+  --bc-radius-panel: 0;
+
+  --bc-font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --bc-font-sans: 'Libre Franklin', 'Franklin Gothic Medium', Arial, sans-serif;
+  --bc-font-masthead: 'Yeseva One', var(--bc-font-serif);
+
+  /* The heavy rule above a table and on top of a boxed panel. */
+  --bc-rule-heavy: 2px;
 
   /* Buttons and fields are at least this tall, a comfortable touch target. */
   --bc-control-height: 44px;
 
   --bc-text-small: 12px;
   --bc-text-table: 13px;
-  --bc-text-body: 14px;
+  /* The news serif has a smaller x-height than a system font, so body text is a step larger. */
+  --bc-text-body: 15px;
   /* Larger text: h3, values to stand out, icons. 16px also stops phones zooming into a field. */
   --bc-text-large: 16px;
   --bc-text-title: 20px;
@@ -86,54 +136,57 @@ body {
 body {
   background: var(--bc-page);
   color: var(--bc-text);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
+  font-family: var(--bc-font-serif);
   font-size: var(--bc-text-body);
   line-height: 1.5;
 }
 
-/* Headings look the same on every page; components only add spacing where they need it. */
+/* Headings look the same on every page, set like newspaper headlines; components only add
+   spacing where they need it. */
 h1 {
   margin: 0;
-  font-size: 28px;
-  font-weight: 650;
-  line-height: 1.2;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
   letter-spacing: -0.5px;
   overflow-wrap: anywhere;
 }
 
 h2 {
   margin: 0;
-  font-size: var(--bc-text-title);
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
 h3 {
   margin: 0;
   font-size: var(--bc-text-large);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 h4 {
   margin: 0;
   font-size: var(--bc-text-body);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 a {
   color: var(--bc-primary);
 }
 
+/* Controls and figures use the gothic, like the type of a paper's stock tables. */
 button,
 input,
 select,
 textarea {
   font: inherit;
+  font-family: var(--bc-font-sans);
+}
+
+table {
+  font-family: var(--bc-font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Text for screen readers only, such as "(opens in a new tab)"; every component uses it. */
@@ -159,6 +212,6 @@ textarea {
   }
 
   h1 {
-    font-size: var(--bc-text-display);
+    font-size: 30px;
   }
 }

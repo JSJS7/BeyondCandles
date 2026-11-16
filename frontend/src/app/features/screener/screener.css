@@ -8,9 +8,17 @@
   gap: var(--bc-page-gap);
 }
 
+/* A headline with its deck, closed by a rule, like the top of a newspaper section. */
+.page-header {
+  padding-bottom: var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-rule);
+}
+
 .page-description {
   margin: var(--bc-space-xs) 0 0;
   color: var(--bc-muted);
+  font-size: var(--bc-text-large);
+  font-style: italic;
 }
 
 /* Controls */
@@ -30,7 +38,11 @@
 }
 
 .field-label {
-  font-weight: 600;
+  font-family: var(--bc-font-sans);
+  font-size: var(--bc-text-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .date-input {
@@ -63,12 +75,12 @@
 }
 
 /* Note and reading guide */
+/* Set like an editor's note. */
 .comparability-note {
   margin: 0;
-  padding: var(--bc-space-s) var(--bc-space-m);
-  border-left: 3px solid var(--bc-secondary);
-  border-radius: 0 var(--bc-radius-control) var(--bc-radius-control) 0;
-  background: var(--bc-subtle);
+  padding: var(--bc-space-xs) var(--bc-space-m);
+  border-left: var(--bc-rule-heavy) solid var(--bc-rule);
+  font-style: italic;
 }
 
 .reading-guide-toggle {
@@ -148,6 +160,15 @@
 }
 
 /* Loading, error and empty results */
+
+/* The missing count stands beside the result count, so that it does not push the table down
+   when a sort shows it; on a narrow screen it wraps under it. */
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--bc-space-l);
+}
+
 .summary p {
   margin: 0;
 }
@@ -171,8 +192,9 @@
   max-height: calc(100dvh - var(--bc-topbar-height) - 2 * var(--bc-main-padding));
   overflow: auto;
   overscroll-behavior-x: contain;
-  border: 1px solid var(--bc-border);
-  border-radius: var(--bc-radius-panel);
+  /* A heavy rule above and a light one below, as around a printed stock table. */
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
+  border-bottom: 1px solid var(--bc-rule);
   background: var(--bc-surface);
 }
 
@@ -204,7 +226,8 @@ thead th {
   z-index: 2;
   top: 0;
   padding: 0;
-  background: var(--bc-subtle);
+  border-bottom: 1px solid var(--bc-rule);
+  background: var(--bc-surface);
   font-weight: 600;
   vertical-align: bottom;
 }
@@ -214,9 +237,9 @@ td {
   font-variant-numeric: tabular-nums;
 }
 
+/* Right-aligned like the ratios; only the company column, with its own border, reads from the left. */
 .text-column {
   min-width: 6.5rem;
-  text-align: left;
 }
 
 /* The company stays visible while the ratios scroll sideways. */
@@ -279,11 +302,6 @@ tbody tr:hover .company-column {
 .company-sort {
   justify-content: flex-start;
   padding-inline: var(--bc-space-s);
-  text-align: left;
-}
-
-.text-sort {
-  justify-content: flex-start;
   text-align: left;
 }
 
@@ -352,20 +370,17 @@ tbody tr:hover .company-column {
   }
 }
 
-/* On a large screen the table takes the remaining height, so the page itself does not scroll
-   and only one vertical scrollbar exists. An opened reading guide makes the page scroll again. */
+/* On a large screen the page fills at least the visible height and the table takes what is left,
+   but never fewer than about ten rows: then the page scrolls a little to show the whole table.
+   The page grows with its content, so its bottom padding stays below the table when scrolled. */
 @media (min-width: 768px) and (min-height: 640px) {
-  :host {
-    height: 100%;
-  }
-
   .screener {
-    height: 100%;
+    min-height: calc(100dvh - var(--bc-topbar-height) - 2 * var(--bc-main-padding));
   }
 
   .table-scroll {
-    flex: 1 1 auto;
-    min-height: 16rem;
+    flex: 1 1 0;
+    min-height: min(40rem, calc(100dvh - var(--bc-topbar-height) - 2 * var(--bc-main-padding)));
     max-height: none;
   }
 }

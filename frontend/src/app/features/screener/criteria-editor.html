@@ -29,12 +29,7 @@
     }
   </div>
 
-  @if (views().length === 0) {
-    <p class="criteria-hint">
-      Add a range for any ratio to keep only the companies inside it, for example P/E up to 20 or
-      ROE from 15%. Leave one side empty for no limit.
-    </p>
-  } @else {
+  @if (views().length > 0) {
     <ul class="criteria-list">
       @for (view of views(); track view.key) {
         <li class="criterion">

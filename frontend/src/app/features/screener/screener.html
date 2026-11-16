@@ -232,9 +232,9 @@
                 (click)="toggleSort('company')"
               >
                 Company
-                <span class="sort-indicator" aria-hidden="true">{{
-                  sortIndicator('company')
-                }}</span>
+                @if (sortIndicator('company'); as indicator) {
+                  <span class="sort-indicator" aria-hidden="true">{{ indicator }}</span>
+                }
               </button>
             </th>
             @for (column of shownColumns(); track column.key) {
@@ -246,19 +246,19 @@
                 <button
                   type="button"
                   class="sort-button"
-                  [class.text-sort]="column.kind === 'text'"
                   [title]="column.label"
                   (click)="toggleSort(column.key)"
                 >
+                  <!-- Before the right-aligned label, so that the label lines up with the values. -->
+                  @if (sortIndicator(column.key); as indicator) {
+                    <span class="sort-indicator" aria-hidden="true">{{ indicator }}</span>
+                  }
                   @if (column.shortLabel) {
                     <span aria-hidden="true">{{ column.shortLabel }}</span>
                     <span class="visually-hidden">{{ column.label }}</span>
                   } @else {
                     {{ column.label }}
                   }
-                  <span class="sort-indicator" aria-hidden="true">{{
-                    sortIndicator(column.key)
-                  }}</span>
                 </button>
               </th>
             }

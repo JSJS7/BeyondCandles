@@ -47,17 +47,13 @@
   background: var(--bc-subtle);
 }
 
-.criteria-hint {
-  margin: 0;
-  color: var(--bc-muted);
-}
-
 /* Compact cards of equal width, as many in a row as fit. */
 .criteria-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
   gap: var(--bc-space-m);
-  margin: 0;
+  /* Together with the gap above, the cards stand as far from the heading as from the note below. */
+  margin: calc(var(--bc-page-gap) - var(--bc-space-s)) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -68,6 +64,8 @@
   gap: var(--bc-space-s);
   padding: var(--bc-space-s) var(--bc-space-s) var(--bc-space-m) var(--bc-space-m);
   border: 1px solid var(--bc-border);
+  /* A heavy top rule, like a boxed item on a newspaper page. */
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
   border-radius: var(--bc-radius-panel);
   background: var(--bc-surface);
 }

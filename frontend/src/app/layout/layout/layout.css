@@ -33,8 +33,8 @@ main {
   max-height: 100dvh;
   margin: 0;
   padding: 0;
+  /* No border of its own: the sidebar inside draws the double rule on its right. */
   border: 0;
-  border-right: 1px solid var(--bc-border);
   background: var(--bc-surface);
   color: var(--bc-text);
 }
