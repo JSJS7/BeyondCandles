@@ -107,7 +107,7 @@ describe('Annual ratio table', () => {
     const guideLabels = [...element.querySelectorAll('.reading-guide dt .metric-label')].map(
       (label) => label.textContent,
     );
-    expect(guideLabels).toEqual(['Exchangeable units', 'Discontinued ops']);
+    expect(guideLabels).toEqual(['Exchangeable units', 'Share issue', 'Discontinued ops']);
     expect(guideLabels).toEqual([...RATIO_ONLY_LABELS]);
     const explainedOnPage = new Set<string>([...RATIO_ONLY_LABELS, ...ANNUAL_CELL_LABELS]);
     for (const label of ANNUAL_RATIO_CELL_LABELS) {

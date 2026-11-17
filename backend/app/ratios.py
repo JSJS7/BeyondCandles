@@ -34,6 +34,11 @@ CALCULATED_SHARES = "calculated"
 # one class of several or in a wrong scale would lie further off (M47).
 SMALLEST_COVER_TO_AVERAGE = Decimal("0.5")
 LARGEST_COVER_TO_AVERAGE = Decimal("1.75")
+# A cover count used for P/B and P/S above this multiple of the average marks them (DEC-42):
+# after an acquisition paid in shares the cover counts the new shares while equity and
+# revenue still describe the company before it (CB FY2015: cover 1.40 times the average).
+# Below it lie ordinary issues during the year, such as REITs selling shares.
+SHARE_ISSUE_COVER_TO_AVERAGE = Decimal("1.10")
 # Discontinued operations above this share of net income mark the ratios built on net
 # income (M46), the same 5% that makes a difference material in project-principles 5.1.
 MATERIAL_DISCONTINUED_SHARE = Decimal("0.05")
@@ -209,6 +214,15 @@ def shares_for_ratios(values, units=None):
     if calculated <= 0:
         return None, None
     return calculated, CALCULATED_SHARES
+
+
+def has_share_issue(values, units=None):
+    """Whether P/B and P/S use a cover count well above the year's weighted average (DEC-42)."""
+    shares, basis = shares_for_ratios(values, units)
+    if basis != OUTSTANDING_SHARES:
+        return False
+    cover_to_average = shares / values.shares
+    return cover_to_average > SHARE_ISSUE_COVER_TO_AVERAGE
 
 
 def common_equity(values, participating=False):

@@ -14,11 +14,11 @@ describe('Screener CSV', () => {
         'pe,pb,ps,roe,roa,net_margin,operating_margin,fcf_margin,revenue_growth,eps_growth,' +
         'ocf_to_net_income,equity_to_assets,eps_basis,shares_basis,ocf_scope,' +
         'revenue_series_break,eps_series_break,spin_off_dates,spin_off_fractions,' +
-        'exchangeable_units,discontinued_operations,previous_discontinued_operations',
+        'exchangeable_units,share_issue,discontinued_operations,previous_discontinued_operations',
     );
     expect(lines[1]).toBe(
       '2025-12-31,AAPL,AAPL Inc.,Technology,2025-12-31,271.859985,2024-01-01,2024-12-31,' +
-        '36.442357,,,1.714224,,,,,,,,,diluted,calculated,total,false,false,,,false,false,false',
+        '36.442357,,,1.714224,,,,,,,,,diluted,calculated,total,false,false,,,false,false,false,false',
     );
     // The file ends with a line break, so the last line is empty.
     expect(lines).toHaveLength(3);
@@ -38,7 +38,7 @@ describe('Screener CSV', () => {
 
     const fields = screenerCsv([company], '2024-06-28').split('\r\n')[1].split(',');
 
-    expect(fields.slice(-5, -3)).toEqual(['2023-01-04;2024-04-02', '0.21936;0.202077']);
+    expect(fields.slice(-6, -4)).toEqual(['2023-01-04;2024-04-02', '0.21936;0.202077']);
   });
 
   it('writes the exchangeable units mark, so that P/S counting units can be told apart', () => {
@@ -47,7 +47,18 @@ describe('Screener CSV', () => {
 
     const fields = screenerCsv([company], '2024-12-31').split('\r\n')[1].split(',');
 
+    expect(fields.at(-4)).toBe('true');
+    expect(fields.at(-3)).toBe('false');
+  });
+
+  it('writes the share issue mark, so that P/B and P/S after an acquisition can be told apart', () => {
+    const company = row('CB');
+    company.latest = { ...company.latest!, share_issue: true };
+
+    const fields = screenerCsv([company], '2016-06-30').split('\r\n')[1].split(',');
+
     expect(fields.at(-3)).toBe('true');
+    expect(fields.at(-4)).toBe('false');
   });
 
   it('writes the discontinued operations mark, so that one-off earnings can be told apart', () => {

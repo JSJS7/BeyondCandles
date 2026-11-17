@@ -44,7 +44,7 @@ come from a fixed tag order and are screened in bulk, so they are less certain. 
 values that need care: *Calculated* (from items of one filing, such as a share count from net income
 and EPS), *Basic* (no diluted EPS is reported), *Continuing ops* (no whole-company cash flow is
 reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in the screener,
-*Spin-off* and *Discontinued ops* (see Known limitations) and *Exchangeable units* (see Ratios).
+*Spin-off*, *Share issue* and *Discontinued ops* (see Known limitations) and *Exchangeable units* (see Ratios).
 
 ### Reviewed measures
 
@@ -120,10 +120,12 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   results of two different companies. The company's financial table shows the latest versions, so a
   restated year can differ between the two tables. An automatic measure that the first report does not
   give, for example under a tag outside the reviewed list, is taken from the first later report that
-  states the year with the same revenue, net income and equity; discontinued operations and the cover
+  gives it, provided that the year's revenue, net income and equity known on that report's day, a
+  quarterly restatement included, are those of the first report; discontinued operations and the cover
   share count are never taken from a later report. A year-end price precedes any later spin-off, so these
   ratios are never marked *Spin-off*. The cover share count is dated weeks after the year end, so a large
-  share issue in between, such as an acquisition closing after the year end, raises P/B and P/S.
+  share issue in between, such as an acquisition closing after the year end, raises P/B and P/S (marked
+  *Share issue*, see Known limitations).
 - **Values as annual reports state them:** a quarterly report can restate the previous year's balance
   sheet months before the next annual report restates the income statement. Ratios therefore keep each
   value as the latest annual report states it, so one ratio never joins a restated balance sheet with an
@@ -254,9 +256,16 @@ do not make companies comparable.
   the price beyond any share split, after the period end and by the price date. The mark ends when a
   report for a period ending after the event is known; in that year net income can still include the
   separated business until the event, as discontinued operations.
-- **Price ratios after a large acquisition:** the reverse case is not marked. Between the deal and the next
-  annual report, the price is already that of the larger company while the financials describe the smaller
-  one, so price ratios join two different companies.
+- **Price ratios after a large acquisition:** an acquisition paid in shares raises the share count on the
+  report's cover, while equity and revenue can still describe the company before it: both when the deal
+  closes between the year end and the cover date, revenue alone when it closes during the year. P/B and
+  P/S then read too high until the next annual report; P/E is not affected. Where the cover is more than
+  10% above the year's weighted average, P/B and P/S are marked *Share issue*; the values stay, and a
+  backtest should leave marked P/B and P/S out. After a merger during the year equity already includes the
+  acquired company, so the mark on P/B is then only a caution. A count from the balance sheet at the year
+  end would tell the two cases apart, but many reports do not tag it. A deal closing after the cover date
+  is not marked: the price is then that of the merged company, while the share count and the financials
+  describe the company before it until the next annual report.
 - **Discontinued operations:** net income and EPS include the result of a business sold, spun off or
   held for sale, as on analysis sites that use GAAP EPS (StockAnalysis's P/E of Johnson & Johnson for
   2023 includes Kenvue). Where that result is larger than 5% of net income, P/E, ROE, ROA, net margin,
@@ -276,7 +285,7 @@ do not make companies comparable.
 ## Companies handled differently
 
 Companies with a rule of their own, or with a known issue that the general rules leave in place.
-Classes the app marks automatically (*Calculated*, *Spin-off*, *Discontinued ops*, *Series break*) are not listed
+Classes the app marks automatically (*Calculated*, *Spin-off*, *Share issue*, *Discontinued ops*, *Series break*) are not listed
 company by company. Years are fiscal years as each company reports them.
 
 ### Revenue

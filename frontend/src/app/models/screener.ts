@@ -39,6 +39,9 @@ export interface PeriodRatios {
   // Part of the owners hold units exchangeable into the listed shares: P/S counts shares and
   // units, P/B only the listed shares.
   exchangeable_units: boolean;
+  // P/B and P/S use a cover share count more than 10% above the year's average, mostly after
+  // an acquisition paid in shares that equity and revenue do not hold yet.
+  share_issue: boolean;
   // Net income includes discontinued operations above 5% of it, so the ratios built on net
   // income or EPS can read a one-off result as earnings.
   discontinued_operations: boolean;

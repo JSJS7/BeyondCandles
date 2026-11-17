@@ -14,6 +14,7 @@ from app.ratios import (
     common_equity,
     exchangeable_units,
     has_material_discontinued_operations,
+    has_share_issue,
     has_subsidiary_preferred,
     income_to_common,
     market_values,
@@ -140,6 +141,48 @@ class SharesForRatiosTests(unittest.TestCase):
         self.assertEqual(ratios["pb"], Decimal("4.8"))
         self.assertEqual(ratios["ps"], Decimal("2.4"))
         self.assertEqual(ratios["pe"], Decimal(20))
+
+    def test_cover_count_well_above_the_average_marks_a_share_issue(self):
+        """DEC-42: CB's FY2015 cover counts 461.7 million shares after buying Chubb in
+        January 2016, against an average of 328.8 million, while equity is still ACE's
+        alone, so P/B and P/S are marked."""
+        values = period(
+            shares=Decimal("328.8e6"), shares_outstanding=Decimal("461.7e6")
+        )
+
+        self.assertTrue(has_share_issue(values))
+
+    def test_share_issue_starts_above_ten_percent(self):
+        """A cover up to 1.10 times the average is an ordinary issue during the year and
+        is not marked; just above it is."""
+        cases = (
+            (Decimal(55), False),
+            (Decimal("55.01"), True),
+            (Decimal(45), False),
+        )
+        for cover, expected in cases:
+            with self.subTest(cover=cover):
+                values = period(shares=Decimal(50), shares_outstanding=cover)
+
+                self.assertEqual(has_share_issue(values), expected)
+
+    def test_share_issue_needs_the_cover_count_in_the_ratios(self):
+        """Without the cover in P/B and P/S nothing is marked: a cover beyond 1.75 times
+        the average is replaced by the average, a period with exchangeable units keeps
+        the average, and a calculated count has no cover."""
+        units = ExchangeableUnits(outside_count=Decimal(25), inside_count=Decimal(0))
+        cases = (
+            ("implausible cover", period(shares_outstanding=Decimal(96)), None),
+            ("exchangeable units", period(shares_outstanding=Decimal(70)), units),
+            (
+                "calculated count",
+                period(shares=None, shares_outstanding=Decimal(70)),
+                None,
+            ),
+        )
+        for name, values, period_units in cases:
+            with self.subTest(name):
+                self.assertFalse(has_share_issue(values, period_units))
 
     def test_visa_count_is_calculated_from_its_report_figures(self):
         """Visa FY2024 has no tag: 19,743 / 9.73 matches 2,029 mln in the 10-K's table."""

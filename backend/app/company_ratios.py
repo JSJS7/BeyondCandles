@@ -7,13 +7,17 @@ then describe the company in one shape. A later report can restate the year with
 business separated afterwards (IBM 2019 without Kyndryl), while the year-end price still
 includes that business, so the latest version would join two different companies.
 
-These are the values the screener showed after that report; the annual financials table
-shows the latest versions instead, so a restated year differs between the two.
+These are the values the screener showed after that report, apart from the measures filled
+from a later report below; the annual financials table shows the latest versions instead,
+so a restated year differs between the two.
 
 An automatic measure that the first report does not give (a tag outside the reviewed list,
 a value tagged only as a later comparative) joins the year from the first later report that
-gives it, but only when that report states the year in the same shape: the same revenue,
-net income and equity (M54). Otherwise it stays empty, as data from another shape would.
+gives it, but only when the year is unchanged on that report's day: revenue, net income and
+equity as known then equal the first report's (M54). Otherwise it stays empty, as data from
+another shape would. Here a quarterly restatement counts too: the screener keeps the annual
+version of a cell (W39), but a 10-Q that restates the year's equity gives its other values
+for the restated year as well (KKR 2022 assets with equity under a new standard).
 """
 
 from datetime import date
@@ -51,16 +55,51 @@ def is_confirmed(version):
     return version is not None and version["status"] == "ready"
 
 
-def same_shape(first_cells, later_cells):
-    """Whether a later report states the year with the first report's main values."""
+def same_shape(first_cells, later_main_values):
+    """Whether the year's main values known on a later day are the first report's."""
     for metric in UNCHANGED_SHAPE_METRICS:
         first = first_cells.get(metric)
-        later = later_cells.get(metric)
+        later = later_main_values.get(metric)
         if not is_confirmed(first) or not is_confirmed(later):
             return False
         if first["value"] != later["value"]:
             return False
     return True
+
+
+def main_values_on(connection, company_id):
+    """Return a function giving {metric: version} of a period's main values known on a
+    day, each from the latest report of any form, quarterly restatements included."""
+    versions = AnnualMetricVersion.__table__
+    query = (
+        select(
+            versions.c.period_start,
+            versions.c.period_end,
+            versions.c.metric,
+            versions.c.known_from,
+            versions.c.status,
+            versions.c.value,
+        )
+        .where(
+            versions.c.company_id == company_id,
+            versions.c.metric.in_(UNCHANGED_SHAPE_METRICS),
+        )
+        .order_by(versions.c.known_from)
+    )
+    versions_by_period = {}
+    for version in connection.execute(query).mappings():
+        period = (version["period_start"], version["period_end"])
+        versions_by_period.setdefault(period, []).append(version)
+
+    def values_on(period, day):
+        values = {}
+        # Ascending, so a later version known on the day overwrites earlier ones.
+        for version in versions_by_period.get(period, []):
+            if version["known_from"] <= day:
+                values[version["metric"]] = version
+        return values
+
+    return values_on
 
 
 def cell_first_days(connection, company_id):
@@ -82,11 +121,14 @@ def cell_first_days(connection, company_id):
     return days
 
 
-def with_later_automatic_values(period, cells, latest_cells, first_days, periods_on):
+def with_later_automatic_values(
+    period, cells, latest_cells, first_days, periods_on, main_values_on_day
+):
     """The period's cells, with automatic measures that only a later report gives.
 
     `latest_cells` are the period's cells known today; `periods_on(day)` returns every
-    period's cells as known on a day.
+    period's cells as known on a day, and `main_values_on_day(period, day)` the period's
+    main values known on a day from reports of any form.
     """
     result = dict(cells)
     for metric, latest_version in latest_cells.items():
@@ -100,7 +142,8 @@ def with_later_automatic_values(period, cells, latest_cells, first_days, periods
         later_version = later_cells.get(metric)
         if not is_confirmed(later_version):
             continue
-        if not same_shape(cells, later_cells):
+        later_main_values = main_values_on_day(period, later_day)
+        if not same_shape(cells, later_main_values):
             continue
         result[metric] = later_version
     return result
@@ -170,6 +213,7 @@ def annual_ratio_history(connection, company_id, ticker):
         reports_by_day[day] = growth_reports(connection, day, company_id=company_id)
     latest_periods = periods_on(date.max)
     first_days = cell_first_days(connection, company_id)
+    main_values_on_day = main_values_on(connection, company_id)
 
     history = []
     for period in sorted(report_days, key=period_end, reverse=True):
@@ -181,6 +225,7 @@ def annual_ratio_history(connection, company_id, ticker):
             latest_periods.get(period, {}),
             first_days,
             periods_on,
+            main_values_on_day,
         )
         periods_with_later_values = {**periods, period: cells}
         closes = latest_closes(connection, period_end(period), company_id=company_id)

@@ -3,8 +3,9 @@
 import unittest
 from datetime import date
 from decimal import Decimal
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
@@ -15,6 +16,7 @@ from app.database import Base, get_connection
 from app.main import app
 from app.models import Company, DailyPrice, FinancialFact
 from app.schemas.stock import decimal_string
+from app.stocks import find_company
 
 
 def reported_fact(**changes):
@@ -377,6 +379,26 @@ class StockApiTests(unittest.TestCase):
 
                 self.assertEqual(response.status_code, 404)
                 self.assertEqual(response.json(), {"detail": "Stock was not found."})
+
+    def test_text_that_cannot_be_a_ticker_is_not_looked_up(self):
+        """N107: a text longer than any ticker or with other characters is refused before
+        the query; the 404 alone cannot show this, because the database also has no such
+        ticker. A plausible ticker is still looked up."""
+        for ticker in ("A" * 11, "AAPL<script>", "BRK B", ""):
+            with self.subTest(ticker=ticker[:12]):
+                connection = MagicMock()
+
+                with self.assertRaises(HTTPException) as raised:
+                    find_company(connection, ticker)
+
+                self.assertEqual(raised.exception.status_code, 404)
+                connection.execute.assert_not_called()
+
+        connection = MagicMock()
+        connection.execute.return_value.mappings.return_value.first.return_value = None
+        with self.assertRaises(HTTPException):
+            find_company(connection, "BRK.B")
+        connection.execute.assert_called_once()
 
     def test_price_range_sorting_and_decimal_strings(self):
         """Return sorted decimal strings, apply inclusive bounds and allow empty ranges."""

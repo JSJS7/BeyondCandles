@@ -111,14 +111,7 @@
         empty field means no value, never zero.
       </dd>
       <dt><span class="no-value">—</span></dt>
-      <dd>
-        No value: an input is missing or the result has no meaning. It never means zero. A ratio is
-        also empty when what it divides by is not positive (EPS for P/E, revenue for P/S and the
-        margins, net income for OCF / net income), when common equity is not positive (P/B; ROE in
-        either year), when growth starts or ends at a value that is not positive or no report states
-        both years, when only continuing operations' cash flow is reported (OCF / net income), and
-        for price ratios without a comparable price (JCI until September 2016).
-      </dd>
+      <dd>{{ noValueNote }}</dd>
       @for (entry of cellLabelGuide; track entry.label) {
         <dt>
           <span class="metric-label">{{ entry.label }}</span>

@@ -84,6 +84,16 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'pb')).toEqual([]);
   });
 
+  it('marks P/B and P/S after a large share issue', () => {
+    // DEC-42: CB FY2015, cover 1.40 times the average. P/E does not use the share count.
+    const latest = period({ share_issue: true }, { pe: '10', pb: '2', ps: '1', roe: '0.1' });
+
+    expect(cellLabels(latest, 'pb')).toEqual(['Share issue']);
+    expect(cellLabels(latest, 'ps')).toEqual(['Share issue']);
+    expect(cellLabels(latest, 'pe')).toEqual([]);
+    expect(cellLabels(latest, 'roe')).toEqual([]);
+  });
+
   it('marks every ratio built on net income or EPS when discontinued operations are large', () => {
     // M46: JNJ 2023, 62% of net income from Kenvue. Ratios without net income stay unmarked.
     const latest = period(

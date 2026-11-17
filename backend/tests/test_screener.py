@@ -826,6 +826,22 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         self.assertEqual(amended_cover["ratios"]["pb"], "4.4")
         self.assertEqual(amended_cover["ratios"]["pe"], "20")
 
+    def test_share_issue_follows_the_cover_count_known_on_the_date(self):
+        """DEC-42: a cover of 60 against the average of 50 marks P/B and P/S; the amended
+        cover of 55 (1.10 times) no longer does, and the ratios keep their values."""
+        self.add_year(date(2024, 2, 16))
+        self.add_version("shares_outstanding", "60", date(2024, 2, 16))
+        self.add_version("shares_outstanding", "55", date(2024, 5, 1), form="10-K/A")
+        for day in (date(2024, 3, 28), date(2024, 6, 28)):
+            self.add_close(day)
+
+        first_cover = self.row(date="2024-03-29")["latest"]
+        amended_cover = self.row(date="2024-06-28")["latest"]
+
+        self.assertTrue(first_cover["share_issue"])
+        self.assertEqual(first_cover["ratios"]["pb"], "4.8")
+        self.assertFalse(amended_cover["share_issue"])
+
     def test_date_outside_the_window_is_rejected(self):
         """Before every company has a report, or after prices end, there is no screen."""
         for day in ("2016-03-30", "2026-01-01"):

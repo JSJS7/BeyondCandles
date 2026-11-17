@@ -116,6 +116,43 @@ class AnnualRatioHistoryTests(ScreenerDatabaseTestCase):
         self.assertIsNone(period["ratios"]["equity_to_assets"])
         self.assertEqual(period["ratios"]["net_margin"], "0.1")
 
+    def test_quarterly_report_that_restates_the_year_does_not_fill_it(self):
+        """Regression for KKR 2022: the 10-Q that first gives the year's assets already
+        restates its equity to 540 under a new standard. The screener keeps the annual
+        equity of 500 (W39), but the 10-Q's assets belong to the restated year, so they
+        stay out instead of giving 500 / 2000."""
+        self.add_year_without_assets(date(2024, 2, 1))
+        self.add_version("assets", "2000", date(2024, 11, 1), form="10-Q")
+        self.add_version("equity", "540", date(2024, 11, 1), form="10-Q")
+
+        period = self.history()[0]
+
+        self.assertIsNone(period["ratios"]["equity_to_assets"])
+
+    def test_later_report_with_an_unconfirmed_main_value_does_not_fill_the_year(self):
+        """Revenue of the later report needs review, so the year is not known to be
+        unchanged and its assets stay out."""
+        self.add_year_without_assets(date(2024, 2, 1))
+        self.add_version("assets", "2000", date(2025, 2, 1))
+        self.add_version("revenue", None, date(2025, 2, 1), status="needs_review")
+
+        period = self.history()[0]
+
+        self.assertIsNone(period["ratios"]["equity_to_assets"])
+
+    def test_cover_count_is_never_taken_from_a_later_report(self):
+        """A cover count belongs to the report on whose cover it stands. The first report
+        has none, so P/B values the 50 average shares: 40 * 50 / 500 = 4, not the later
+        cover's 60 (4.8)."""
+        self.add_year(date(2024, 2, 1))
+        self.add_version("shares_outstanding", "60", date(2025, 2, 1))
+        self.add_close(date(2023, 12, 29))
+
+        period = self.history()[0]
+
+        self.assertEqual(period["shares_basis"], "weighted_average")
+        self.assertEqual(period["ratios"]["pb"], "4")
+
     def test_discontinued_operations_are_never_taken_from_a_later_report(self):
         """Discontinued operations appear later almost only in a restated year, so a later
         report's 60 does not mark the year, even with revenue, net income and equity

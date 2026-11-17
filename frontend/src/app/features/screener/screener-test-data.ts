@@ -33,6 +33,7 @@ export function period(
     eps_basis_break: false,
     spin_offs: [],
     exchangeable_units: false,
+    share_issue: false,
     discontinued_operations: false,
     previous_discontinued_operations: false,
     ...overrides,

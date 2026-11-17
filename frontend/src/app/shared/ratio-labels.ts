@@ -10,6 +10,7 @@ export const RATIO_CELL_LABELS = [
   'Continuing ops',
   'Spin-off',
   'Exchangeable units',
+  'Share issue',
   'Discontinued ops',
 ] as const satisfies readonly ValueLabel[];
 export type RatioCellLabel = (typeof RATIO_CELL_LABELS)[number];
@@ -54,6 +55,9 @@ export function ratioLabels(period: PeriodRatios, key: RatioKey): RatioCellLabel
   }
   if (key === 'ps' && period.exchangeable_units) {
     labels.push('Exchangeable units');
+  }
+  if (usesShareCount && period.share_issue) {
+    labels.push('Share issue');
   }
   const usesNetIncome =
     key === 'pe' ||
