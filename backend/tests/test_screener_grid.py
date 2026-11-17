@@ -3,7 +3,12 @@
 import unittest
 from datetime import date
 
-from app.data_pipeline.screener_grid import flat_row, grid_differences, month_ends
+from app.data_pipeline.screener_grid import (
+    flat_row,
+    grid_comparison,
+    grid_differences,
+    month_ends,
+)
 
 
 class MonthEndTests(unittest.TestCase):
@@ -102,6 +107,76 @@ class DifferenceTests(unittest.TestCase):
                 }
             ],
         )
+
+
+class FieldChangeTests(unittest.TestCase):
+    def test_new_field_is_reported_once_with_its_values(self):
+        """N129: a new response field (share_issue, 17.11.2026) is summarised once with
+        its value counts instead of as a difference in every cell, while a real change
+        of another field in the same run is still listed."""
+        saved = {
+            "2024-03-31": {"AAA": {"pe": "20"}, "BBB": {"pe": "8"}},
+            "2024-04-30": {"AAA": {"pe": "20"}, "EMPTY": {"latest": None}},
+        }
+        current = {
+            "2024-03-31": {
+                "AAA": {"pe": "20", "share_issue": True},
+                "BBB": {"pe": "9", "share_issue": False},
+            },
+            "2024-04-30": {
+                "AAA": {"pe": "20", "share_issue": True},
+                "EMPTY": {"latest": None},
+            },
+        }
+
+        comparison = grid_comparison(saved, current)
+
+        self.assertEqual(
+            comparison["new_fields"],
+            {
+                "share_issue": {
+                    "cells": 3,
+                    "distinct_values": 2,
+                    "most_common": [("True", 2), ("False", 1)],
+                }
+            },
+        )
+        self.assertEqual(comparison["removed_fields"], {})
+        self.assertEqual(
+            comparison["differences"],
+            [
+                {
+                    "date": "2024-03-31",
+                    "ticker": "BBB",
+                    "field": "pe",
+                    "saved": "8",
+                    "current": "9",
+                }
+            ],
+        )
+
+    def test_removed_field_is_reported_once_from_the_saved_grid(self):
+        saved = {"2024-03-31": {"AAA": {"pe": "20", "old": "x"}}}
+        current = {"2024-03-31": {"AAA": {"pe": "20"}}}
+
+        comparison = grid_comparison(saved, current)
+
+        self.assertEqual(list(comparison["removed_fields"]), ["old"])
+        self.assertEqual(comparison["removed_fields"]["old"]["cells"], 1)
+        self.assertEqual(comparison["new_fields"], {})
+        self.assertEqual(comparison["differences"], [])
+
+    def test_company_losing_its_report_still_differs_in_every_field(self):
+        """An empty row is not a field change: a side whose rows are all empty does not
+        make every field look removed, so each lost value is still listed."""
+        saved = {"2024-03-31": {"AAA": {"pe": "20"}}}
+        current = {"2024-03-31": {"AAA": {"latest": None}}}
+
+        comparison = grid_comparison(saved, current)
+
+        self.assertEqual(comparison["new_fields"], {})
+        fields = [difference["field"] for difference in comparison["differences"]]
+        self.assertEqual(fields, ["pe"])
 
 
 if __name__ == "__main__":

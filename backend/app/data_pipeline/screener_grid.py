@@ -14,6 +14,8 @@ GRID = ROOT / "data/processed/screener-grid.json"
 DIFFERENCES = ROOT / "data/processed/screener-grid-differences.json"
 # Enough to read in the command output; the full list is in the differences file.
 SHOWN_DIFFERENCES = 30
+# A new boolean field has two values; a new ratio has thousands, of which a few suffice.
+SHOWN_FIELD_VALUES = 10
 
 
 def month_ends(first, last):
@@ -70,10 +72,37 @@ def current_grid(connection):
     return grid
 
 
-def grid_differences(saved, current):
+def report_fields(grid):
+    """The field names of every row with a report; an empty row has only "latest"."""
+    names = set()
+    for rows in grid.values():
+        for row in rows.values():
+            if row == {"latest": None}:
+                continue
+            names.update(row)
+    return names
+
+
+def field_summary(grid, field):
+    """How many cells hold a field and its most common values, for a field one side lacks."""
+    values = Counter()
+    for rows in grid.values():
+        for row in rows.values():
+            if field in row:
+                values[str(row[field])] += 1
+    return {
+        "cells": sum(values.values()),
+        "distinct_values": len(values),
+        "most_common": values.most_common(SHOWN_FIELD_VALUES),
+    }
+
+
+def grid_differences(saved, current, skipped_fields=frozenset()):
     """Every cell that differs, as {date, ticker, field, saved, current}.
 
-    A date or a company missing on one side is a difference of the field "row".
+    A date or a company missing on one side is a difference of the field "row". A field
+    that only one side has (a new or removed response field) is in `skipped_fields` and
+    reported once by the caller instead of once per cell (N129).
     """
     differences = []
     for day in sorted(set(saved) | set(current)):
@@ -94,6 +123,8 @@ def grid_differences(saved, current):
             saved_row = saved_rows[ticker]
             current_row = current_rows[ticker]
             for field in sorted(set(saved_row) | set(current_row)):
+                if field in skipped_fields:
+                    continue
                 saved_value = saved_row.get(field)
                 current_value = current_row.get(field)
                 if saved_value != current_value:
@@ -107,6 +138,29 @@ def grid_differences(saved, current):
                         }
                     )
     return differences
+
+
+def grid_comparison(saved, current):
+    """New and removed fields, each summarised once, and the differing cells of the rest."""
+    saved_fields = report_fields(saved)
+    current_fields = report_fields(current)
+    # A side without any report has no fields to compare with: its rows differ cell by cell.
+    if not saved_fields or not current_fields:
+        saved_fields = current_fields = saved_fields | current_fields
+    new_fields = {
+        field: field_summary(current, field)
+        for field in sorted(current_fields - saved_fields)
+    }
+    removed_fields = {
+        field: field_summary(saved, field)
+        for field in sorted(saved_fields - current_fields)
+    }
+    skipped_fields = set(new_fields) | set(removed_fields)
+    return {
+        "new_fields": new_fields,
+        "removed_fields": removed_fields,
+        "differences": grid_differences(saved, current, skipped_fields),
+    }
 
 
 def read_grid():
@@ -140,13 +194,19 @@ def compare_screener_grid():
     if not GRID.exists():
         raise ValueError("No saved screener grid; run save-screener-grid first")
     saved = read_json(GRID)
-    differences = grid_differences(saved["grid"], read_grid())
-    write_json(DIFFERENCES, {"saved_at": saved["saved_at"], "differences": differences})
+    comparison = grid_comparison(saved["grid"], read_grid())
+    new_fields = comparison["new_fields"]
+    removed_fields = comparison["removed_fields"]
+    differences = comparison["differences"]
+    write_json(DIFFERENCES, {"saved_at": saved["saved_at"], **comparison})
     by_field = Counter(difference["field"] for difference in differences)
     by_ticker = Counter(difference["ticker"] for difference in differences)
+    changed = bool(differences or new_fields or removed_fields)
     return {
-        "status": "changed" if differences else "unchanged",
+        "status": "changed" if changed else "unchanged",
         "saved_at": saved["saved_at"],
+        "new_fields": new_fields,
+        "removed_fields": removed_fields,
         "differences": len(differences),
         "by_field": dict(by_field.most_common()),
         "by_ticker": dict(by_ticker.most_common()),
