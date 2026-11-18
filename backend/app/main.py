@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import OperationalError
 
+from app.backtest_api import router as backtest_router
 from app.screener import router as screener_router
 from app.stocks import router as stocks_router
 
@@ -16,6 +17,7 @@ app.add_middleware(
 )
 app.include_router(stocks_router)
 app.include_router(screener_router)
+app.include_router(backtest_router)
 
 
 @app.exception_handler(OperationalError)

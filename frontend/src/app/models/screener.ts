@@ -29,6 +29,8 @@ export interface PeriodRatios {
   period_end: string;
   price_date: string | null;
   price: string | null;
+  // Price × the listed shares of P/B, in USD; read by the backtest, not shown in the screener.
+  market_value?: string | null;
   eps_basis: 'basic' | 'diluted' | null;
   ocf_scope: 'total' | 'continuing' | null;
   shares_basis: 'outstanding' | 'weighted_average' | 'calculated' | null;

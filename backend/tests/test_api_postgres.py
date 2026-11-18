@@ -1,4 +1,4 @@
-"""Opt-in: the screener and stock API tests on PostgreSQL built by the migrations (K17).
+"""Opt-in: the screener, stock and backtest API tests on PostgreSQL built by the migrations (K17).
 
 The regular API tests use SQLite, which stores numbers and JSON differently from the
 JSONB and Numeric columns of the real database. These subclasses run the same tests on
@@ -12,6 +12,7 @@ import unittest
 from pathlib import Path
 from uuid import uuid4
 
+import test_backtest_api
 import test_company_ratios
 import test_screener
 import test_stocks_api
@@ -122,6 +123,11 @@ class PostgresAnnualRatioApiTests(
 
 @unittest.skipUnless(RUN_DATABASE_TESTS, SKIP_REASON)
 class PostgresStockApiTests(MigratedPostgres, test_stocks_api.StockApiTests):
+    pass
+
+
+@unittest.skipUnless(RUN_DATABASE_TESTS, SKIP_REASON)
+class PostgresBacktestApiTests(MigratedPostgres, test_backtest_api.BacktestApiTests):
     pass
 
 

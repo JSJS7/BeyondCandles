@@ -38,6 +38,8 @@ class PeriodRatios(BaseModel):
     period_end: date
     price_date: date | None = None
     price: DecimalValue | None = None
+    # Price × the listed shares of P/B, in USD; the backtest shows each quintile's median.
+    market_value: DecimalValue | None = None
     eps_basis: Literal["basic", "diluted"] | None = None
     ocf_scope: Literal["total", "continuing"] | None = None
     # The share count of P/B and P/S: the report cover, the weighted average of the year

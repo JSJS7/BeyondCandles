@@ -44,6 +44,7 @@ from app.ratios import (
     has_material_discontinued_operations,
     has_share_issue,
     has_subsidiary_preferred,
+    market_values,
     participating_preferred_tickers,
     shares_for_ratios,
     subsidiary_preferred_periods,
@@ -347,7 +348,10 @@ def valued_period(ticker, company_id, period, periods, close, reports, rules):
     }
     for metric, name in GROWTH_METRICS.items():
         ratios[name] = growth[metric].value
-    _, shares_basis = shares_for_ratios(values, units)
+    shares, shares_basis = shares_for_ratios(values, units)
+    market_value = None
+    if price is not None:
+        market_value, _ = market_values(price, shares, units)
     previous_discontinued = False
     if previous is not None:
         previous_discontinued = has_material_discontinued_operations(previous)
@@ -356,6 +360,7 @@ def valued_period(ticker, company_id, period, periods, close, reports, rules):
         period_end=period[1],
         price_date=session,
         price=rounded(price),
+        market_value=rounded(market_value),
         eps_basis=cell_detail(cells, "eps_diluted", "eps_basis"),
         ocf_scope=values.ocf_scope,
         shares_basis=shares_basis,

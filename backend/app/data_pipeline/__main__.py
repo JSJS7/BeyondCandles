@@ -24,6 +24,7 @@ CHECKABLE_COMMANDS = (
     "review-versions",
     "review-preferred-equity",
     "review-sic-codes",
+    "save-backtest",
 )
 
 
@@ -157,6 +158,10 @@ def run_command(args):
         from .screener_grid import compare_screener_grid
 
         result = compare_screener_grid()
+    elif args.command == "save-backtest":
+        from .backtest_result import save_backtest
+
+        result = save_backtest()
     elif args.command == "inspect-db":
         from .verification import inspect_db
 
@@ -207,6 +212,7 @@ def main():
             "check-ratios",
             "save-screener-grid",
             "compare-screener-grid",
+            "save-backtest",
             "inspect-db",
             "verify-db",
         ),

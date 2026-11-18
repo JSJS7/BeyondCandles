@@ -21,7 +21,7 @@ def sha256(path):
 _held_writes = None
 
 # Top-level keys that change on every run without changing the reviewed data.
-RUN_TIMESTAMP_KEYS = ("reviewed_at",)
+RUN_TIMESTAMP_KEYS = ("reviewed_at", "saved_at")
 
 
 def read_json(path):

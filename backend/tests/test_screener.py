@@ -517,6 +517,7 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         self.assertEqual(row["latest"]["period_end"], "2023-12-31")
         self.assertEqual(row["latest"]["price_date"], "2024-03-28")
         self.assertEqual(row["latest"]["shares_basis"], "weighted_average")
+        self.assertEqual(row["latest"]["market_value"], "2000")
         self.assertEqual(row["latest"]["ratios"]["pe"], "20")
         self.assertEqual(row["latest"]["ratios"]["pb"], "4")
         self.assertEqual(row["latest"]["ratios"]["net_margin"], "0.1")
@@ -758,6 +759,9 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         self.assertEqual(listed_period["latest"]["ratios"]["ps"], "3")
         self.assertEqual(listed_period["latest"]["ratios"]["pb"], "3.2")
         self.assertEqual(listed_period["latest"]["ratios"]["pe"], "20")
+        # Market value is the numerator of P/B: the listed shares only, 40 x 40.
+        self.assertEqual(listed_period["latest"]["market_value"], "1600")
+        self.assertEqual(other_company["latest"]["market_value"], "2000")
         self.assertFalse(later_period["latest"]["exchangeable_units"])
         self.assertEqual(later_period["latest"]["ratios"]["ps"], "2")
         self.assertFalse(other_company["latest"]["exchangeable_units"])

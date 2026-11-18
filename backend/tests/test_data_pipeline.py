@@ -554,6 +554,17 @@ class CheckModeTests(unittest.TestCase):
             exit_code = main()
         return exit_code, json.loads(stdout.getvalue())["check"]
 
+    def test_save_time_of_a_result_is_not_a_difference(self):
+        """save-backtest stamps its file with saved_at; only the result itself counts."""
+        from app.data_pipeline.source_files import same_data
+
+        old = '{"saved_at": "2026-11-18T10:00:00+00:00", "result": 1}'
+        new = '{"saved_at": "2026-11-19T10:00:00+00:00", "result": 1}'
+        changed = '{"saved_at": "2026-11-19T10:00:00+00:00", "result": 2}'
+
+        self.assertTrue(same_data(old, new))
+        self.assertFalse(same_data(old, changed))
+
     def test_differences_fail_without_touching_the_files(self):
         """A changed or new file fails the check; disk content stays as it was.
 
