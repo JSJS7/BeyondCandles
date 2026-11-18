@@ -9,7 +9,7 @@ from tempfile import TemporaryDirectory
 from typing import Any
 from unittest.mock import patch
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.data_pipeline.revenue import income_statement_files, review_jobs
 from app.data_pipeline.sec_statements import matches_rendered_value, statement_total

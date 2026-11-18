@@ -10,6 +10,7 @@ entry in data/dividend-audit-reviews.json, pinned to the values it saw.
 import csv
 import hashlib
 import json
+import re
 import statistics
 import time
 from bisect import bisect_left
@@ -32,6 +33,9 @@ from app.data_pipeline.validation import number
 
 REVIEWS = ROOT / "data/dividend-audit-reviews.json"
 EVIDENCE_API = "https://www.dolthub.com/api/v1alpha1/post-no-preference/stocks/master"
+# A ticker such as BRK.B or BRK-B, and a Dolt commit hash (32 characters of base32).
+TICKER_PATTERN = re.compile(r"[A-Z][A-Z.-]{0,9}")
+DOLT_REVISION_PATTERN = re.compile(r"[0-9a-v]{32}")
 # Dividend sources differ on ex-dates by up to about a week.
 NEARBY_SESSIONS = 5
 RELATIVE_TOLERANCE = Decimal("0.03")
@@ -449,7 +453,20 @@ def fetch_evidence(document, tickers):
     )
 
 
+def checked_query_parts(symbol, revision):
+    """Refuse a symbol or revision that could change the SQL text sent to DoltHub (N118).
+
+    Both come from files in the repository today, but the query is built from text, so
+    anything outside a ticker or a Dolt commit hash is rejected before it is sent.
+    """
+    if not TICKER_PATTERN.fullmatch(symbol):
+        raise ValueError(f"Unexpected DoltHub symbol: {symbol!r}")
+    if not DOLT_REVISION_PATTERN.fullmatch(revision):
+        raise ValueError(f"Unexpected DoltHub revision: {revision!r}")
+
+
 def _fetch_symbol(symbol, revision):
+    checked_query_parts(symbol, revision)
     query = (
         f"SELECT * FROM dividend AS OF '{revision}' WHERE act_symbol='{symbol}' "
         "AND ex_date>='2014-12-01' AND ex_date<='2026-01-31' ORDER BY ex_date"

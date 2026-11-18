@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.annual_financials import annual_periods
 from app.data_pipeline.fiscal_periods import (

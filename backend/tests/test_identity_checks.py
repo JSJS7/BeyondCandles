@@ -261,9 +261,18 @@ class ReviewTests(unittest.TestCase):
         return {
             "ticker": "TDG",
             "check": "eps_shares",
+            "from_year": 2020,
+            "to_year": 2020,
+            "max_deviation_percent": "10.0",
+        }
+
+    def multi_year_review(self):
+        return {
+            "ticker": "TDG",
+            "check": "eps_shares",
             "from_year": 2017,
             "to_year": 2021,
-            "max_deviation_percent": "10.0",
+            "max_deviation_percent_by_year": {"2018": "26.7", "2020": "5.9"},
         }
 
     def test_flag_within_a_review_is_explained(self):
@@ -295,6 +304,45 @@ class ReviewTests(unittest.TestCase):
         review = self.review()
 
         self.assertEqual(separate_reviewed_flags([], [review]), ([], [review]))
+
+    def test_each_year_of_a_longer_review_keeps_its_own_limit(self):
+        """N39: TDG's largest year is 26.7%, but a year read at 5.9% that grows to
+        6.0% flags again, and a year of the range without any limit is not explained."""
+        review = self.multi_year_review()
+        explained = [self.flag(2018, "26.7"), self.flag(2020, "5.9")]
+        grown = self.flag(2020, "6.0")
+        unread_year = self.flag(2019, "1.0")
+
+        self.assertEqual(separate_reviewed_flags(explained, [review]), ([], []))
+        unreviewed, _ = separate_reviewed_flags(
+            [explained[0], grown, unread_year], [review]
+        )
+        self.assertEqual(unreviewed, [grown, unread_year])
+
+    def test_longer_review_with_a_year_no_flag_needs_is_reported(self):
+        """One year of the review has no deviation any more: its data changed."""
+        review = self.multi_year_review()
+
+        _, unused = separate_reviewed_flags([self.flag(2018, "26.7")], [review])
+
+        self.assertEqual(unused, [review])
+
+    def test_longer_review_needs_a_limit_per_year(self):
+        """A single limit for several years is refused, so it cannot come back.
+
+        An empty mapping is refused too: it would explain no year and never be
+        reported as unused.
+        """
+        review = dict(self.multi_year_review(), max_deviation_percent="26.7")
+        del review["max_deviation_percent_by_year"]
+        outside = dict(
+            self.multi_year_review(), max_deviation_percent_by_year={"2022": "1.0"}
+        )
+        empty = dict(self.multi_year_review(), max_deviation_percent_by_year={})
+
+        for invalid in (review, outside, empty):
+            with self.assertRaises(ValueError):
+                separate_reviewed_flags([], [invalid])
 
 
 class SharesIncomeTests(unittest.TestCase):

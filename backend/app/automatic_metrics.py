@@ -572,10 +572,9 @@ def corrected_version(correction, period):
         calculation=(
             " + ".join(source.tag for source in sources) if is_calculated else None
         ),
-        selection_note=(
-            "Taken from the report, because the tag holds another number "
-            f"({correction['finding']})."
-        ),
+        # The evidence names the report row and what the tag held, in words a reader
+        # understands; the finding number stays in the rules file only (N130).
+        selection_note=f"Taken from the report: {correction['evidence']}",
     )
     return MetricVersion(
         period_start=start,

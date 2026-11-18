@@ -50,6 +50,20 @@ class GrowthTests(unittest.TestCase):
     def reports(self, *facts):
         return annual_report_columns(list(facts), fiscal_rules())
 
+    def test_two_values_of_one_report_tag_and_year_stop_the_build(self):
+        """I31: the diluted EPS fact and its report-column copy share a tag, year and
+        report; equal values are one column cell, different ones raise instead of the
+        later fact silently replacing the first (no such pair in the data, 17.11.2026)."""
+        fact = report_fact("Revenues", self.LATER_END, "100", "a", date(2024, 2, 1))
+        same_value_copy = dict(fact, metric="eps_report_column")
+        other_value_copy = dict(fact, value=Decimal("101"))
+
+        reports = self.reports(fact, same_value_copy)
+
+        self.assertEqual(reports[0].columns[self.LATER_END], {"Revenues": 100})
+        with self.assertRaisesRegex(ValueError, "two values of Revenues"):
+            self.reports(fact, other_value_copy)
+
     def test_earlier_year_ends_350_to_380_days_before(self):
         """K19: both limits count, one day outside does not. Every period of the data
         is 364-371 days apart, so the window holds 52/53-week years and never two."""

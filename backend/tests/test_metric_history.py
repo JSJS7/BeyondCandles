@@ -9,7 +9,7 @@ from collections import defaultdict
 from datetime import date
 from decimal import Decimal
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.eps_splits import LATEST_VIEW_NOTE, apply_share_basis
 from app.fact_identity import fact_identity

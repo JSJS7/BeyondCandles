@@ -5,6 +5,7 @@ from decimal import Decimal
 
 from app.data_pipeline.dividend_audit import (
     audit_company,
+    checked_query_parts,
     close_pair_dates,
     explain_fiscal_year,
     format_amount,
@@ -458,6 +459,24 @@ class ClosePairTests(unittest.TestCase):
         ]
 
         self.assertEqual(close_pair_dates(events), set())
+
+
+class DoltHubQueryTests(unittest.TestCase):
+    def test_only_tickers_and_commit_hashes_reach_the_query(self):
+        """N118: the DoltHub query is built from text, so a symbol or revision with a
+        quote or a space is refused before anything is sent; real tickers with a class
+        suffix and the pinned revision pass."""
+        pinned_revision = "sv2onpqvm9gte13evbqhcchba66epbuv"
+
+        for symbol in ["CB", "ABC", "BRK.B", "BRK-B"]:
+            checked_query_parts(symbol, pinned_revision)
+
+        for symbol in ["CB' OR '1'='1", "cb", "", "CB B"]:
+            with self.assertRaises(ValueError):
+                checked_query_parts(symbol, pinned_revision)
+        for revision in ["master", pinned_revision + "'", pinned_revision[:-1]]:
+            with self.assertRaises(ValueError):
+                checked_query_parts("CB", revision)
 
 
 if __name__ == "__main__":

@@ -750,6 +750,7 @@ def value_correction(**changes):
                 "value": "5691300000",
             }
         ],
+        "evidence": "Cash flow statement, Construction Expenditures. The tag held 6.8 million.",
     }
     correction.update(changes)
     return correction
@@ -784,6 +785,13 @@ class ValueCorrectionTests(unittest.TestCase):
         self.assertEqual(versions[0].value.value, Decimal("5691300000"))
         self.assertEqual(versions[0].known_from, date(2018, 2, 23))
         self.assertEqual(versions[0].accession, "report")
+        # N130: the note explains the source in words, without the review's number.
+        note = versions[0].value.selection_note
+        self.assertEqual(
+            note,
+            "Taken from the report: Cash flow statement, Construction Expenditures. "
+            "The tag held 6.8 million.",
+        )
 
     def test_cell_without_any_tag_gets_the_value_of_its_report(self):
         # LIN's first true assets come from the predecessor, whose facts are not eligible.
@@ -843,6 +851,8 @@ class ValueCorrectionTests(unittest.TestCase):
             total = sum(Decimal(source["value"]) for source in correction["sources"])
             self.assertEqual(total, Decimal(correction["value"]), correction["ticker"])
             self.assertIn(correction["metric"], AUTOMATIC_METRICS)
+            # The evidence becomes the version's note, so it must say something.
+            self.assertTrue(correction["evidence"].strip(), correction["ticker"])
 
 
 class OperatingIncomeExclusionTests(unittest.TestCase):

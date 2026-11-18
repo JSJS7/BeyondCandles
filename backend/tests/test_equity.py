@@ -4,7 +4,7 @@ import unittest
 from datetime import date
 from decimal import Decimal
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.data_pipeline.equity import (
     select_components,

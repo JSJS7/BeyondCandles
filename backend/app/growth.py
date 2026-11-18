@@ -124,7 +124,16 @@ def annual_report_columns(facts, period_rules, timeline=None):
                 fact["filed"], accession, fact["source_cik"], defaultdict(dict)
             )
         _, period_end = canonical_period(fact, period_rules)
-        reports[accession].columns[period_end][fact["tag"]] = fact["value"]
+        column = reports[accession].columns[period_end]
+        tag = fact["tag"]
+        # Two facts of one report, tag and year (e.g. the diluted EPS fact and its
+        # report-column copy) must agree; one must not silently replace the other (I31).
+        if tag in column and column[tag] != fact["value"]:
+            raise ValueError(
+                f"Report {accession} states two values of {tag} for {period_end}: "
+                f"{column[tag]} and {fact['value']}"
+            )
+        column[tag] = fact["value"]
     newest_first = sorted(
         reports.values(),
         key=lambda report: (report.filed, report.accession),

@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.data_pipeline.operating_cash_flow import (
     cash_flow_files,

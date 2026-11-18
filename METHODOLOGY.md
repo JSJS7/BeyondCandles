@@ -65,7 +65,7 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   preferred stock (see below). Negative equity is valid.
 - **Operating cash flow:** where a company reports only continuing operations, that value is shown
   and labelled. For banks and asset managers it is dominated by balance-sheet movements and says
-  little about earnings quality.
+  little about earnings quality; the same holds for their free cash flow margin.
 
 ### Automatic measures
 
@@ -79,7 +79,7 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
   filing, as a value of the year the report is for. A cover tagged with several days counts with its
   latest day up to the filing. Companies with several share classes often tag it only by class, so
   they have none.
-- **Capital expenditure:** banks and most real estate companies have none. A line tagged as "other"
+- **Capital expenditure:** many banks and most real estate companies have none. A line tagged as "other"
   property or productive assets counts only when the same report shows no separate line for a kind of
   asset, so a part is never taken for the whole. Two lines without a total (additions to oil and gas
   properties and to other equipment) are added up. Where a tag holds only part of the cash spent, the

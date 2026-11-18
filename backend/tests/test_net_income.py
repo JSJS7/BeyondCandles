@@ -10,7 +10,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.annual_financials import annual_periods
 from app.data_pipeline.net_income import (

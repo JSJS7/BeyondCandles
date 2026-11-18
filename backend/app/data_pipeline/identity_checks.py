@@ -354,32 +354,67 @@ def check_period(period, facts):
     return results
 
 
+def review_limits(review):
+    """{year: largest explained deviation in percent} of one review.
+
+    A review of one year gives its limit in `max_deviation_percent`. A review of several
+    years gives one limit per year in `max_deviation_percent_by_year`: with a single
+    limit for all of them, a year read at 2% could grow to the largest year's 26% and
+    still pass (N39).
+    """
+    years = range(review["from_year"], review["to_year"] + 1)
+    if len(years) == 1:
+        return {review["from_year"]: Decimal(review["max_deviation_percent"])}
+    by_year = review.get("max_deviation_percent_by_year")
+    # An empty mapping would explain no year and still never be reported as unused.
+    if not by_year:
+        raise ValueError(
+            f"Review of {review['ticker']} {review['check']} covers several years "
+            "without a limit per year"
+        )
+    limits = {int(year): Decimal(limit) for year, limit in by_year.items()}
+    if not set(limits) <= set(years):
+        raise ValueError(
+            f"Review of {review['ticker']} {review['check']} has a limit outside "
+            f"{review['from_year']}-{review['to_year']}"
+        )
+    return limits
+
+
 def separate_reviewed_flags(flags, reviews):
     """Split flags into explained and not; report explanations nothing needs any more.
 
     A review names the company, check and years it explains and the largest deviation
-    in percent. A larger deviation is a new flag: the explanation did not cover it.
+    in percent of each year. A larger deviation is a new flag: the explanation did not
+    cover it. A review with a year no flag needs any more is reported as unused, since
+    the data of that year changed.
     """
+    limits_by_review = {}
     explained_by = {}
     for review in reviews:
+        limits_by_review[id(review)] = review_limits(review)
         key = (review["ticker"], review["check"])
         explained_by.setdefault(key, []).append(review)
     unreviewed = []
-    used = set()
+    used_years = set()
     for flag in flags:
         reviewed = False
         for review in explained_by.get((flag["ticker"], flag["check"]), []):
-            within_years = review["from_year"] <= flag["year"] <= review["to_year"]
-            within_size = Decimal(flag["deviation_percent"]) <= Decimal(
-                review["max_deviation_percent"]
-            )
-            if within_years and within_size:
+            limit = limits_by_review[id(review)].get(flag["year"])
+            if limit is None:
+                continue
+            if Decimal(flag["deviation_percent"]) <= limit:
                 reviewed = True
-                used.add(id(review))
+                used_years.add((id(review), flag["year"]))
                 break
         if not reviewed:
             unreviewed.append(flag)
-    unused = [review for review in reviews if id(review) not in used]
+    unused = []
+    for review in reviews:
+        years = limits_by_review[id(review)]
+        every_year_used = all((id(review), year) in used_years for year in years)
+        if not every_year_used:
+            unused.append(review)
     return unreviewed, unused
 
 

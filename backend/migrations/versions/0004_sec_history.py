@@ -52,6 +52,22 @@ def upgrade():
 
 
 def downgrade():
+    # Code before this revision reads every fact as the company's own, so facts of a
+    # predecessor issuer would silently enter its history (N16). They must be removed
+    # deliberately first; the downgrade does not guess which rows may go.
+    predecessor_facts = (
+        op.get_bind()
+        .execute(
+            sa.text("SELECT count(*) FROM financial_facts WHERE NOT history_eligible")
+        )
+        .scalar_one()
+    )
+    if predecessor_facts:
+        raise RuntimeError(
+            f"{predecessor_facts} facts are not eligible for the company history; "
+            "the schema before 0004 cannot tell them apart. Remove them before "
+            "downgrading."
+        )
     # Reinstating the old key fails safely if different issuers would collide.
     op.drop_constraint("uq_financial_fact", "financial_facts", type_="unique")
     op.create_unique_constraint(

@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 import test_data_pipeline as pipeline_tests
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.annual_financials import annual_periods
 from app.data_pipeline.sec_history import (

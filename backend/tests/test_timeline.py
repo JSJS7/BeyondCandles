@@ -6,7 +6,7 @@ from decimal import Decimal
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from test_stocks_api import reported_fact
+from helpers import reported_fact
 
 from app.annual_financials import METRIC_NAMES, annual_periods
 from app.data_pipeline.revenue_facts import instance_balances, timeline_filing_facts

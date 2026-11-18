@@ -7,6 +7,7 @@ from unittest.mock import MagicMock, patch
 
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
+from helpers import reported_fact
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.pool import StaticPool
@@ -17,25 +18,6 @@ from app.main import app
 from app.models import Company, DailyPrice, FinancialFact
 from app.schemas.stock import decimal_string
 from app.stocks import find_company
-
-
-def reported_fact(**changes):
-    fact = {
-        "source_cik": "0000320193",
-        "metric": "net_income",
-        "taxonomy": "us-gaap",
-        "tag": "NetIncomeLoss",
-        "unit": "USD",
-        "value": Decimal("100"),
-        "period_start": date(2020, 1, 1),
-        "period_end": date(2020, 12, 31),
-        "filed": date(2021, 2, 1),
-        "accession": "original",
-        "form": "10-K",
-        "period_kind": "annual",
-    }
-    fact.update(changes)
-    return fact
 
 
 class AnnualFinancialTests(unittest.TestCase):

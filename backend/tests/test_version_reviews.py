@@ -6,10 +6,10 @@ from decimal import Decimal
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from helpers import reported_fact
 from test_eps import html_row
 from test_eps import statement as eps_statement
 from test_net_income import statement
-from test_stocks_api import reported_fact
 
 from app.data_pipeline import operating_cash_flow as cash_flow
 from app.data_pipeline import version_reviews

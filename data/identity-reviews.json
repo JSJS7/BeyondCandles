@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "method": "Flags of the identity checks explained by a person. A review covers one company, check and range of years up to a deviation in percent; a larger deviation flags again.",
+  "method": "Flags of the identity checks explained by a person. A review covers one company, check and range of years up to a deviation in percent of each year (max_deviation_percent for one year, max_deviation_percent_by_year for several); a larger deviation flags again, and a year no flag needs any more is reported as unused.",
   "reviews": [
     {
       "ticker": "ADP",
@@ -23,7 +23,10 @@
       "check": "balance_sheet",
       "from_year": 2018,
       "to_year": 2025,
-      "max_deviation_percent": "9.7",
+      "max_deviation_percent_by_year": {
+        "2020": "6.6",
+        "2025": "9.7"
+      },
       "note": "Redeemable noncontrolling interests of consolidated funds lie between liabilities and equity under a tag this check does not read (2018 balance sheet: 32,374 + 59 + 1,107 = assets minus liabilities). Later years have the same structure; only 2018 and 2019 rows were read."
     },
     {
@@ -31,7 +34,11 @@
       "check": "balance_sheet",
       "from_year": 2015,
       "to_year": 2017,
-      "max_deviation_percent": "103.7",
+      "max_deviation_percent_by_year": {
+        "2015": "92.1",
+        "2016": "90.8",
+        "2017": "103.7"
+      },
       "note": "Partners' capital includes noncontrolling interests in Blackstone Holdings, not tagged as MinorityInterest. 2016 and 2017 summary rows: total partners' capital plus redeemable interests equals assets minus liabilities."
     },
     {
@@ -55,7 +62,12 @@
       "check": "balance_sheet",
       "from_year": 2022,
       "to_year": 2025,
-      "max_deviation_percent": "8.6",
+      "max_deviation_percent_by_year": {
+        "2022": "8.6",
+        "2023": "7.3",
+        "2024": "6.7",
+        "2025": "6.5"
+      },
       "note": "Redeemable noncontrolling interests (2022: 1,514.7; 2023: 1,394.8) lie outside equity under a tag this check does not read. 2024 and 2025 have the same structure, rows not read."
     },
     {
@@ -63,7 +75,10 @@
       "check": "balance_sheet",
       "from_year": 2016,
       "to_year": 2017,
-      "max_deviation_percent": "22.2",
+      "max_deviation_percent_by_year": {
+        "2016": "22.2",
+        "2017": "20.3"
+      },
       "note": "The filing with a balance sheet predates a restatement: assets minus liabilities there equal the first reported equity (1,161 and 1,354), the served value is the restated one (1,492 and 1,699, ASC 606)."
     },
     {
@@ -71,7 +86,10 @@
       "check": "balance_sheet",
       "from_year": 2015,
       "to_year": 2016,
-      "max_deviation_percent": "788.4",
+      "max_deviation_percent_by_year": {
+        "2015": "788.4",
+        "2016": "177.5"
+      },
       "note": "Noncontrolling interests of consolidated funds (2015: 43,732; 2016: 10,546) are not tagged as MinorityInterest; with redeemable interests the sum equals assets minus liabilities."
     },
     {
@@ -103,7 +121,16 @@
       "check": "balance_sheet",
       "from_year": 2016,
       "to_year": 2025,
-      "max_deviation_percent": "16.3",
+      "max_deviation_percent_by_year": {
+        "2017": "5.2",
+        "2018": "7.0",
+        "2019": "8.7",
+        "2020": "6.1",
+        "2021": "16.3",
+        "2022": "6.8",
+        "2023": "6.5",
+        "2024": "6.3"
+      },
       "note": "Limited partners' preferred interest and noncontrolling redeemable interests lie outside equity (2021: 547.7; 2022: 212.2, both read); other years have the same structure, rows not read."
     },
     {
@@ -183,7 +210,10 @@
       "check": "cash_flow",
       "from_year": 2022,
       "to_year": 2023,
-      "max_deviation_percent": "12.2",
+      "max_deviation_percent_by_year": {
+        "2022": "12.2",
+        "2023": "9.1"
+      },
       "note": "Statement row: cash classified as assets held for sale (-540 in 2022, 470 in 2023), which no tag read here covers; the sum is exact."
     },
     {
@@ -199,7 +229,11 @@
       "check": "cash_flow",
       "from_year": 2021,
       "to_year": 2024,
-      "max_deviation_percent": "3.9",
+      "max_deviation_percent_by_year": {
+        "2021": "3.9",
+        "2022": "3.0",
+        "2024": "3.7"
+      },
       "note": "Exchange effect rows (2021: 478; 2022: 397; 2024: 545, all of the size of the residual) are not tagged with a tag this check reads."
     },
     {
@@ -223,7 +257,11 @@
       "check": "eps_shares",
       "from_year": 2015,
       "to_year": 2018,
-      "max_deviation_percent": "79.4",
+      "max_deviation_percent_by_year": {
+        "2015": "74.1",
+        "2016": "79.4",
+        "2018": "76.9"
+      },
       "note": "Diluted EPS assumes the exchange of Blackstone Holdings units: 2016 numerator 1,867.1 = net income 1,039.0 + incremental 828.1, and 1,867.1 / 1,195.1 = 1.56. The 2015 and 2018 tables were not read one by one."
     },
     {
@@ -239,7 +277,11 @@
       "check": "eps_shares",
       "from_year": 2018,
       "to_year": 2020,
-      "max_deviation_percent": "5.0",
+      "max_deviation_percent_by_year": {
+        "2018": "5.0",
+        "2019": "4.9",
+        "2020": "3.6"
+      },
       "note": "Numerator of diluted shareholders by continuing and discontinued rows: 4,255 + 776 = 5,031 (2018), 4,284 + 814 = 5,098 (2019), 2,716 + 4,531 = 7,247 (2020), each equal to EPS x shares; net income also pays preferred dividends the filing tags differently."
     },
     {
@@ -247,7 +289,16 @@
       "check": "eps_shares",
       "from_year": 2017,
       "to_year": 2025,
-      "max_deviation_percent": "26.7",
+      "max_deviation_percent_by_year": {
+        "2017": "26.7",
+        "2018": "5.9",
+        "2019": "12.5",
+        "2020": "26.6",
+        "2021": "10.6",
+        "2022": "9.9",
+        "2024": "13.6",
+        "2025": "10.0"
+      },
       "note": "Dividend equivalent payments reduce the EPS numerator: 2017 income applicable to common stock 437.6 = 7.88 x 55.5 against net income 596.9. Other years have the same row; 2018 read, the rest not one by one."
     },
     {
@@ -255,7 +306,16 @@
       "check": "balance_sheet",
       "from_year": 2018,
       "to_year": 2025,
-      "max_deviation_percent": "147.9",
+      "max_deviation_percent_by_year": {
+        "2018": "113.4",
+        "2019": "114.2",
+        "2020": "118.4",
+        "2021": "129.6",
+        "2022": "134.7",
+        "2023": "147.9",
+        "2024": "127.6",
+        "2025": "136.6"
+      },
       "note": "Noncontrolling interests in Blackstone Holdings have no MinorityInterest tag, as in 2015-2017. 2018: assets minus liabilities 13,754 = group equity tag 13,612 + redeemable interests 142; the served 6,379 is the row Total Stockholders' Equity of The Blackstone Group Inc."
     },
     {
@@ -326,9 +386,9 @@
       "ticker": "BX",
       "check": "shares_income",
       "from_year": 2015,
-      "to_year": 2018,
-      "max_deviation_percent": "79.4",
-      "note": "Diluted EPS assumes the exchange of Blackstone Holdings units, as in the eps_shares review: 2016 numerator 1,867.1 against net income 1,039.0."
+      "to_year": 2015,
+      "max_deviation_percent": "7.1",
+      "note": "Diluted EPS assumes the exchange of Blackstone Holdings units, as in the eps_shares review, while the served count is the basic common units: 1.04 x 634.3 million = 659.7 million against net income 709.8 million. From 2016 the two agree within the tolerance."
     },
     {
       "ticker": "CHTR",
@@ -351,7 +411,10 @@
       "check": "shares_income",
       "from_year": 2023,
       "to_year": 2024,
-      "max_deviation_percent": "6.1",
+      "max_deviation_percent_by_year": {
+        "2023": "5.2",
+        "2024": "6.1"
+      },
       "note": "The filing tags diluted income of 1,785 (2023) and 3,052 (2024) against net income 1,697 and 2,877; EPS x shares agrees with the tags. Convertible notes interest added back, not read."
     },
     {
@@ -367,7 +430,16 @@
       "check": "shares_income",
       "from_year": 2017,
       "to_year": 2025,
-      "max_deviation_percent": "26.7",
+      "max_deviation_percent_by_year": {
+        "2017": "26.7",
+        "2018": "5.9",
+        "2019": "12.5",
+        "2020": "26.6",
+        "2021": "10.6",
+        "2022": "9.9",
+        "2024": "13.6",
+        "2025": "10.0"
+      },
       "note": "Net income applicable to common stock is after dividend equivalent payments: 2017 row 437,630 = EPS x shares against net income 596.9 million. Other years have the same structure, rows not read."
     },
     {

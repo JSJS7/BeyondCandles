@@ -65,17 +65,21 @@ class DatabaseImportTests(unittest.TestCase):
                 )
         cls.admin.dispose()
 
-    def alembic(self, *args):
-        """Run a migration command against the test database and require success."""
+    def alembic_result(self, *args):
+        """Run a migration command against the test database and return its result."""
         import sys
 
-        result = subprocess.run(
+        return subprocess.run(
             [sys.executable, "-m", "alembic", *args],
             cwd=self.backend,
             env=self.env,
             text=True,
             capture_output=True,
         )
+
+    def alembic(self, *args):
+        """Run a migration command against the test database and require success."""
+        result = self.alembic_result(*args)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_migrations_idempotence_conflicts_and_rollback(self):
@@ -157,6 +161,14 @@ class DatabaseImportTests(unittest.TestCase):
                 self.assertNotIn(
                     "source_id", {col["name"] for col in inspect(c).get_columns(table)}
                 )
+            # N16: a predecessor's fact would count as the company's own before 0004,
+            # so the downgrade refuses while one exists and runs once it is eligible.
+            c.execute(text("UPDATE financial_facts SET history_eligible = false"))
+        refused = self.alembic_result("downgrade", "0003_remove_import_metadata")
+        self.assertNotEqual(refused.returncode, 0)
+        self.assertIn("1 facts are not eligible", refused.stderr)
+        with self.db.begin() as c:
+            c.execute(text("UPDATE financial_facts SET history_eligible = true"))
             # Remove only test fixtures before exercising the real importers.
         self.alembic("downgrade", "0003_remove_import_metadata")
         self.alembic("upgrade", "head")
