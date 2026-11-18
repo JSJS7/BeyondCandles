@@ -74,25 +74,6 @@
   opacity: 0.9;
 }
 
-/* A page still to come: not a link, so no pointer and no hover. */
-.nav-item-planned {
-  display: flex;
-  align-items: center;
-  gap: var(--bc-space-m);
-  height: var(--bc-control-height);
-  margin-bottom: var(--bc-space-xs);
-  padding: 0 var(--bc-space-m);
-  border-left: 2px solid transparent;
-  color: var(--bc-muted);
-  font-size: var(--bc-text-body);
-}
-
-.planned-note {
-  margin-left: auto;
-  color: var(--bc-muted);
-  font-size: var(--bc-text-small);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .nav-item {
     transition: none;

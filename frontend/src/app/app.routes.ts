@@ -9,8 +9,8 @@ function stockPageTitle(route: ActivatedRouteSnapshot): string {
   return pageTitle(ticker);
 }
 
-// The screener and the company page load on their first visit: the company page brings the
-// chart library, which the other pages do not need.
+// Every page loads on its first visit: the company page brings the chart library, which the
+// other pages do not need.
 export const routes: Routes = [
   {
     path: '',
@@ -21,6 +21,12 @@ export const routes: Routes = [
         title: pageTitle('Screener'),
         loadComponent: () =>
           import('./features/screener/screener').then((module) => module.Screener),
+      },
+      {
+        path: 'backtest',
+        title: pageTitle('Backtest'),
+        loadComponent: () =>
+          import('./features/backtest/backtest').then((module) => module.Backtest),
       },
       {
         path: 'stocks/:ticker',

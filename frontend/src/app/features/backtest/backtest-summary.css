@@ -1,0 +1,85 @@
+:host {
+  display: block;
+}
+
+.table-note {
+  margin: 0 0 var(--bc-space-m);
+  color: var(--bc-muted);
+  font-size: var(--bc-text-table);
+}
+
+.table-scroll {
+  /* Positioned, so that visually hidden text stays clipped inside the scroll area. */
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* A heavy rule above the header, as on a printed stock table; the caption stays above it. */
+.summary-table {
+  width: 100%;
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--bc-text-table);
+}
+
+th,
+td {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-border);
+  vertical-align: top;
+}
+
+thead th {
+  border-bottom: 1px solid var(--bc-rule);
+  /* Opaque, so that the pinned ratio heading covers the headings scrolling under it. */
+  background: var(--bc-surface);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+/* The ratio stays visible while the numbers scroll sideways on narrow screens. */
+.ratio-column {
+  position: sticky;
+  z-index: 1;
+  left: 0;
+  min-width: 8.5rem;
+  border-right: 1px solid var(--bc-border);
+  background: var(--bc-surface);
+  text-align: left;
+}
+
+thead .ratio-column {
+  z-index: 2;
+}
+
+.ratio-link {
+  font-weight: 600;
+}
+
+.ratio-note {
+  display: block;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+  font-weight: 400;
+}
+
+.text-column {
+  min-width: 7rem;
+  text-align: left;
+}
+
+.number-column {
+  min-width: 5.5rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.selected-row td {
+  background: var(--bc-selection);
+}
+
+.selected-row .ratio-column {
+  background: var(--bc-subtle);
+}

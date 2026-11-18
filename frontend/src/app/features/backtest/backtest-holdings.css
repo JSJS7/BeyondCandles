@@ -1,0 +1,85 @@
+:host {
+  display: block;
+}
+
+.holdings-title {
+  margin: var(--bc-space-xl) 0 var(--bc-space-s);
+}
+
+.holdings-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bc-space-xs);
+  max-width: 22rem;
+}
+
+.field-label {
+  font-family: var(--bc-font-sans);
+  font-size: var(--bc-text-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.year-select {
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s);
+  border: 1px solid var(--bc-control-border);
+  border-radius: var(--bc-radius-control);
+  background: var(--bc-surface);
+  color: var(--bc-text);
+}
+
+.coverage-note {
+  margin: var(--bc-space-m) 0;
+  color: var(--bc-muted);
+}
+
+/* As many quintiles side by side as fit; one under another on a phone. */
+.quintile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--bc-space-l);
+}
+
+.quintile {
+  min-width: 0;
+}
+
+.quintile-title {
+  margin-bottom: var(--bc-space-xs);
+}
+
+.quintile-facts {
+  margin: 0 0 var(--bc-space-s);
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+}
+
+.members-table {
+  width: 100%;
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
+  border-collapse: collapse;
+  font-size: var(--bc-text-table);
+}
+
+th,
+td {
+  padding: var(--bc-space-xs) var(--bc-space-s);
+  border-bottom: 1px solid var(--bc-border);
+}
+
+thead th {
+  border-bottom: 1px solid var(--bc-rule);
+  font-weight: 600;
+}
+
+.ticker-column {
+  font-weight: 400;
+  text-align: left;
+}
+
+.number-column {
+  text-align: right;
+  white-space: nowrap;
+}

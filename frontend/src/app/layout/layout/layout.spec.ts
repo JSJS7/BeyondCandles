@@ -133,8 +133,8 @@ describe('Layout', () => {
     const dialog = mockDialog();
     fixture.nativeElement.querySelector('.menu-button').click();
     const closeButton = dialog.querySelector<HTMLButtonElement>('.menu-close');
-    // The last control is the last real link: placeholders without an address take no focus.
-    const lastLink = dialog.querySelector<HTMLAnchorElement>('a[href="/screener"]');
+    // The last control is the last link of the menu.
+    const lastLink = dialog.querySelector<HTMLAnchorElement>('a[href="/backtest"]');
 
     const shiftTab = new KeyboardEvent('keydown', {
       key: 'Tab',

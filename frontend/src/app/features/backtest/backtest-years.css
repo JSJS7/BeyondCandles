@@ -1,0 +1,90 @@
+:host {
+  display: block;
+}
+
+.table-title {
+  margin: var(--bc-space-xl) 0 var(--bc-space-s);
+}
+
+.table-note {
+  margin: 0 0 var(--bc-space-m);
+  color: var(--bc-muted);
+  font-size: var(--bc-text-table);
+}
+
+.table-scroll {
+  /* Positioned, so that visually hidden text stays clipped inside the scroll area. */
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* A heavy rule above the header, as on a printed stock table; the caption stays above it. */
+.years-table {
+  width: 100%;
+  border-top: var(--bc-rule-heavy) solid var(--bc-rule);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--bc-text-table);
+}
+
+th,
+td {
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-border);
+  vertical-align: top;
+}
+
+thead th {
+  border-bottom: 1px solid var(--bc-rule);
+  /* Opaque, so that the pinned year heading covers the headings scrolling under it. */
+  background: var(--bc-surface);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+/* The year stays visible while the numbers scroll sideways on narrow screens. */
+.year-column {
+  position: sticky;
+  z-index: 1;
+  left: 0;
+  min-width: 9rem;
+  border-right: 1px solid var(--bc-border);
+  background: var(--bc-surface);
+  font-weight: 400;
+  text-align: left;
+}
+
+thead .year-column {
+  z-index: 2;
+  font-weight: 600;
+}
+
+.year-label {
+  display: block;
+  font-weight: 600;
+}
+
+.holding-dates {
+  display: block;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+}
+
+.number-column {
+  min-width: 5.5rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* The summary closes the full years with a rule, as a total line in a printed table. */
+.summary-row th,
+.summary-row td {
+  border-top: 1px solid var(--bc-rule);
+  font-weight: 600;
+}
+
+.partial-row th,
+.partial-row td {
+  color: var(--bc-muted);
+}

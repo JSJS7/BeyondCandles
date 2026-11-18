@@ -1,0 +1,65 @@
+<h3 class="holdings-title">Companies in each quintile</h3>
+
+<div class="holdings-controls">
+  <label class="field-label" for="holding-year">Year</label>
+  <select
+    #yearSelect
+    id="holding-year"
+    class="year-select"
+    [value]="period().ranking_date"
+    (change)="choose(yearSelect.value)"
+  >
+    @for (option of ratio().periods; track option.ranking_date) {
+      <option [value]="option.ranking_date">
+        {{ holdingYear(option) }} ({{ holdingDates(option) }})
+      </option>
+    }
+  </select>
+</div>
+
+<p class="coverage-note">
+  Ranked on {{ formatDate(period().ranking_date) }}: {{ period().coverage.ranked }} companies. Left
+  out: {{ leftOutText() }}.
+  <a routerLink="/screener" [queryParams]="screenerParams()">See this ranking in the screener</a>
+</p>
+
+<div class="quintile-grid">
+  @for (quintile of period().quintiles; track quintile.number) {
+    <section class="quintile" [attr.aria-labelledby]="'quintile-' + quintile.number">
+      <h4 class="quintile-title" [id]="'quintile-' + quintile.number">
+        Quintile {{ quintile.number }}
+      </h4>
+      <p class="quintile-facts">
+        {{ quintile.count }} companies · return
+        {{ formatReturn(portfolioReturn(quintile, costs())) }} · median market value
+        {{ formatBillions(quintile.median_market_value) }}
+      </p>
+      <table class="members-table">
+        <caption class="visually-hidden">
+          Companies in quintile
+          {{
+            quintile.number
+          }}, in ranking order
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="ticker-column">Company</th>
+            <th scope="col" class="number-column">Value</th>
+            <th scope="col" class="number-column">Return</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (member of quintile.members ?? []; track member.ticker) {
+            <tr>
+              <th scope="row" class="ticker-column">
+                <a [routerLink]="['/stocks', member.ticker]">{{ member.ticker }}</a>
+              </th>
+              <td class="number-column">{{ valueText(member.value) }}</td>
+              <td class="number-column">{{ formatReturn(member.period_return) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+  }
+</div>

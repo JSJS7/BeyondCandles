@@ -199,6 +199,41 @@ has no value, or a quarterly version is ignored. Part of the history therefore s
 than possibly wrong. Financials are annual only. The table as of a date also shows a value a quarterly
 report restated; the screener's ratios use it only from the next annual report (see Ratios).
 
+## Backtest
+
+The backtest page ranks the companies once a year by one screener ratio and follows five groups of
+equal size (quintiles) through the years.
+
+- **Ranking:** the screener as it stands on 31 March of each year from 2017 to 2025, with the same
+  values, marks and empty cells, so every quintile can be looked up there. Every ratio starts in 2017,
+  the first year in which ROE, ROA and growth have values for most companies, so all ratios cover the
+  same years. A report filed on the ranking session counts from the next ranking.
+- **Quintiles:** quintile 1 holds the lowest P/E, P/B and P/S and the highest value of every other
+  ratio. When the count does not divide by five, the first quintiles hold one company more. Equal
+  values keep the ticker order, as in the screener.
+- **Left out:** a company without a value, because an empty value is not zero, and a value marked
+  *Spin-off*, *Share issue* or *Discontinued ops* for that ratio. FCF margin, OCF / net income, ROA and
+  equity / assets also leave out financial firms, defined as SIC codes 6000–6999 (banks, insurers,
+  brokers, real estate investment trusts and health insurers), as studies of these ratios do: their
+  operating cash flow includes changes in loans and trading assets, their assets are mostly securities
+  and loans, and high leverage is normal for them. The code is the current one from the SEC filings,
+  applied to every year. Operating margin is not ranked, because it is empty for whole sectors.
+- **Trades:** bought in equal parts at the Adjusted Close of the session after the ranking session,
+  held without rebalancing until the next year's purchase. The last holding ends on 31 Dec 2025 and is
+  shown on its own, outside the summaries.
+- **Benchmarks:** equal parts of every ranked company, so that the difference between quintiles measures
+  the ranking and not the set of companies, and equal parts of the whole list.
+- **Costs:** 0.10% of the value of every trade at each yearly purchase, including bringing companies that
+  stay back to an equal part; the final sale is free. With one rebalancing a year, costs change yearly
+  returns by a small fraction of a percentage point.
+- **Random portfolios:** each quintile is compared with 1,000 random portfolios of its size, drawn from
+  the same ranked companies with the same dates, before costs. A year's p-value is the share of them
+  that did at least as well; the years are combined with Stouffer's method, as in Burns (2004). With
+  eleven ratios one of them is likely to look extreme by chance, so no ratio is presented as the best.
+  The draws use a fixed seed and repeat on every run.
+- **Market value:** each quintile shows its median market value on the ranking session (price × listed
+  shares, as in P/B), to show where the selection of the list may weigh most (see Survivorship bias).
+
 ## What we correct
 
 A source value changes only when the error is large and a reliable value is known, under one rule for
@@ -247,7 +282,8 @@ do not make companies comparable.
   those that later recovered. The list holds the largest companies by market value at that time, so a
   company that was small in earlier years entered it only after large gains; differences between
   portfolios sorted by a ratio can therefore be biased too, in either direction. Compare with an
-  equal-weight basket of the same companies, and do not read results as beating the market.
+  equal-weight basket of the same companies, and do not read results as beating the market. The sector
+  and the SIC code are current values applied to every year.
 - **Backtest window:** every company has a known annual value only from March 2016, and two values, needed
   for growth, from March 2017. Reports for FY2025 filed after 31 Dec 2025 cannot drive a trade in the window.
 - **End of the window:** some companies' last period ends by mid-2025, so a cross-section by "FY2025" joins

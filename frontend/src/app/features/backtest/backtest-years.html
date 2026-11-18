@@ -1,0 +1,122 @@
+<h3 class="table-title">Returns by year</h3>
+<!-- Above the scroll area, not in the caption, so that a phone does not cut the text off. -->
+<p class="table-note">
+  Each holding from the purchase after the ranking to the next purchase, {{ costsText() }}.
+</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Returns by year">
+  <table class="years-table">
+    <caption class="visually-hidden">
+      Returns by year,
+      {{
+        costsText()
+      }}
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="year-column">Year</th>
+        @for (number of quintileNumbers(); track number) {
+          <th scope="col" class="number-column">Quintile {{ number }}</th>
+        }
+        <th scope="col" class="number-column">1 − 5 (points)</th>
+        <th scope="col" class="number-column">Benchmark</th>
+        <th scope="col" class="number-column">All 200</th>
+        <th scope="col" class="number-column">Ranked</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (period of fullPeriods(); track period.ranking_date) {
+        <tr>
+          <th scope="row" class="year-column">
+            <span class="year-label">{{ holdingYear(period) }}</span>
+            <span class="holding-dates">{{ holdingDates(period) }}</span>
+          </th>
+          @for (quintile of period.quintiles; track quintile.number) {
+            <td class="number-column">
+              {{ formatReturn(portfolioReturn(quintile, costs())) }}
+            </td>
+          }
+          <td class="number-column">{{ formatPoints(spread(period, costs())) }}</td>
+          <td class="number-column">
+            {{ formatReturn(portfolioReturn(period.benchmark, costs())) }}
+          </td>
+          <td class="number-column">{{ catalogueText(period) }}</td>
+          <td class="number-column">{{ period.coverage.ranked }}</td>
+        </tr>
+      }
+      <tr class="summary-row">
+        <th scope="row" class="year-column">
+          <span class="year-label">Per year</span>
+          <span class="holding-dates">{{ ratio().full_years }} full years, compounded</span>
+        </th>
+        @for (quintile of ratio().quintiles; track quintile.number) {
+          <td class="number-column">{{ formatReturn(annualised(quintile, costs())) }}</td>
+        }
+        <td class="number-column">{{ formatPoints(annualisedSpread(ratio(), costs())) }}</td>
+        <td class="number-column">{{ formatReturn(annualised(ratio().benchmark, costs())) }}</td>
+        <td class="number-column">{{ formatReturn(annualised(catalogueSummary(), costs())) }}</td>
+        <td class="number-column"></td>
+      </tr>
+      @for (period of partialPeriods(); track period.ranking_date) {
+        <tr class="partial-row">
+          <th scope="row" class="year-column">
+            <span class="year-label">{{ holdingYear(period) }}</span>
+            <span class="holding-dates">{{ holdingDates(period) }}, not in the summary</span>
+          </th>
+          @for (quintile of period.quintiles; track quintile.number) {
+            <td class="number-column">
+              {{ formatReturn(portfolioReturn(quintile, costs())) }}
+            </td>
+          }
+          <td class="number-column">{{ formatPoints(spread(period, costs())) }}</td>
+          <td class="number-column">
+            {{ formatReturn(portfolioReturn(period.benchmark, costs())) }}
+          </td>
+          <td class="number-column">{{ catalogueText(period) }}</td>
+          <td class="number-column">{{ period.coverage.ranked }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<h3 class="table-title">Against random portfolios</h3>
+<p class="table-note">
+  Share of 1,000 random portfolios of the same size, from the same ranked companies, that did at
+  least as well before costs. A small value means the quintile did better than chance.
+</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Against random portfolios">
+  <table class="years-table">
+    <caption class="visually-hidden">
+      Share of random portfolios at least as good, by year
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="year-column">Year</th>
+        @for (number of quintileNumbers(); track number) {
+          <th scope="col" class="number-column">Quintile {{ number }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (period of fullPeriods(); track period.ranking_date) {
+        <tr>
+          <th scope="row" class="year-column">
+            <span class="year-label">{{ holdingYear(period) }}</span>
+          </th>
+          @for (quintile of period.quintiles; track quintile.number) {
+            <td class="number-column">{{ formatPValue(quintile.p_value) }}</td>
+          }
+        </tr>
+      }
+      <tr class="summary-row">
+        <th scope="row" class="year-column">
+          <span class="year-label">All years</span>
+          <span class="holding-dates">combined (Stouffer)</span>
+        </th>
+        @for (quintile of ratio().quintiles; track quintile.number) {
+          <td class="number-column">{{ formatPValue(quintile.combined_p_value) }}</td>
+        }
+      </tr>
+    </tbody>
+  </table>
+</div>

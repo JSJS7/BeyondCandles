@@ -1,0 +1,167 @@
+<section class="backtest">
+  <header class="page-header">
+    <h1>Backtest</h1>
+    <p class="page-description">
+      Each year the companies ranked by one screener ratio on 31 March, split into five equal groups
+      and held for a year.
+    </p>
+  </header>
+
+  <div class="controls">
+    <div class="field">
+      <label class="field-label" for="backtest-ratio">Ratio</label>
+      <select
+        #ratioSelect
+        id="backtest-ratio"
+        class="ratio-select"
+        [value]="ratio()"
+        (change)="chooseRatio(ratioSelect.value)"
+      >
+        @for (option of ratioOptions; track option.key) {
+          <option [value]="option.key">{{ option.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <span class="field-label" id="costs-label">Returns</span>
+      <div class="costs-toggle" role="group" aria-labelledby="costs-label">
+        <button
+          class="costs-button"
+          type="button"
+          [attr.aria-pressed]="costs() === 'net'"
+          (click)="chooseCosts('net')"
+        >
+          After costs
+        </button>
+        <button
+          class="costs-button"
+          type="button"
+          [attr.aria-pressed]="costs() === 'gross'"
+          (click)="chooseCosts('gross')"
+        >
+          Before costs
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p class="limits-note">
+    The 200 companies of this site were chosen as the largest at the end of 2024, so every group
+    shows high returns: compare the groups with each other and with the benchmark, not with the
+    market (<a [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
+      >methodology<span class="visually-hidden"> (opens in a new tab)</span></a
+    >). Historical data for learning, not investment advice.
+  </p>
+
+  <details class="reading-guide">
+    <summary class="reading-guide-toggle">How the backtest works</summary>
+    <dl class="guide-list">
+      <dt>Ranking</dt>
+      <dd>
+        The values the screener shows on 31 March of each year from 2017 to 2025: that day's close
+        and each company's latest annual report filed before that session.
+      </dd>
+      <dt>Quintiles</dt>
+      <dd>
+        Five groups of equal size; quintile 1 holds the lowest P/E, P/B and P/S, or the highest
+        value of every other ratio. Equal values keep the ticker order, as in the screener.
+      </dd>
+      <dt>Left out</dt>
+      <dd>
+        A company without a value, and a value marked Spin-off, Share issue or Discontinued ops for
+        that ratio. FCF margin, OCF / net income, ROA and equity / assets leave out financial firms
+        (SIC codes 6000–6999), whose cash flow, assets and leverage mean something else. Operating
+        margin is not ranked: it is empty for whole sectors.
+      </dd>
+      <dt>Purchase and sale</dt>
+      <dd>
+        Bought in equal parts at the adjusted close of the next session, which includes dividends,
+        and held without rebalancing until the next year's purchase. The last holding ends on 31 Dec
+        2025 and is shown on its own.
+      </dd>
+      <dt>Benchmark</dt>
+      <dd>
+        Equal parts of every ranked company, so the difference between quintiles measures the
+        ranking, not the set of companies. All 200 is the whole catalogue in equal parts.
+      </dd>
+      <dt>Costs</dt>
+      <dd>
+        0.10% of every trade at each yearly purchase: companies sold, bought and brought back to an
+        equal part. The final sale is free.
+      </dd>
+      <dt>Per year</dt>
+      <dd>The compounded return of the full years, as a yearly rate.</dd>
+      <dt>Random portfolios</dt>
+      <dd>
+        Each quintile against 1,000 random portfolios of its size from the same ranked companies,
+        before costs. The years are combined with Stouffer's method. With eleven ratios, one of them
+        is likely to look extreme by chance.
+      </dd>
+      <dt>Coin chance</dt>
+      <dd>
+        The chance of at least as many years with quintile 1 ahead of quintile 5 if each year were a
+        coin toss.
+      </dd>
+    </dl>
+  </details>
+
+  @switch (summaryLoadState().status) {
+    @case ('loading') {
+      <app-state-message
+        kind="loading"
+        text="Computing the backtest, which takes a few seconds the first time"
+        [framed]="true"
+      />
+    }
+    @case ('error') {
+      <app-state-message
+        kind="error"
+        text="Failed to load the backtest."
+        [framed]="true"
+        (retry)="retrySummary()"
+      />
+    }
+  }
+
+  @if (summary(); as response) {
+    <section class="page-section" aria-labelledby="all-ratios-title">
+      <h2 id="all-ratios-title">All ratios</h2>
+      <app-backtest-summary [ratios]="orderedRatios()" [costs]="costs()" [selected]="ratio()" />
+    </section>
+
+    @if (selectedRatio(); as selected) {
+      <section class="page-section" aria-labelledby="ratio-title">
+        <h2 id="ratio-title">{{ selectedLabel() }}</h2>
+        <p class="ratio-facts">
+          Quintile 1 holds the {{ directionText(selected.lowest_first).toLowerCase() }}.
+          @if (selected.excludes_financial) {
+            Financial firms are left out.
+          }
+        </p>
+        <app-backtest-years
+          [ratio]="selected"
+          [catalogue]="response.catalogue"
+          [catalogueSummary]="response.catalogue_summary"
+          [costs]="costs()"
+        />
+
+        @switch (detailLoadState().status) {
+          @case ('loading') {
+            <app-state-message kind="loading" text="Loading the companies of each quintile" />
+          }
+          @case ('error') {
+            <app-state-message
+              kind="error"
+              text="Failed to load the companies of each quintile."
+              (retry)="retryDetail()"
+            />
+          }
+        }
+        @if (detail(); as detailRatio) {
+          <app-backtest-holdings [ratio]="detailRatio" [costs]="costs()" />
+        }
+      </section>
+    }
+  }
+</section>

@@ -14,11 +14,15 @@
       <span>Screener</span>
     </a>
 
-    <!-- Not a link until the backtest page exists, so it does not look like one (N24). -->
-    <div class="nav-item-planned">
+    <a
+      class="nav-item"
+      routerLink="/backtest"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      (click)="navigated.emit()"
+    >
       <span class="nav-icon" aria-hidden="true">◌</span>
       <span>Backtest</span>
-      <span class="planned-note">soon</span>
-    </div>
+    </a>
   </nav>
 </aside>

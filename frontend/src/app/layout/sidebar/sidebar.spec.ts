@@ -14,6 +14,7 @@ describe('Sidebar', () => {
         provideRouter([
           { path: '', pathMatch: 'full', component: PageWithSidebar },
           { path: 'screener', component: PageWithSidebar },
+          { path: 'backtest', component: PageWithSidebar },
           { path: 'stocks/:ticker', component: PageWithSidebar },
         ]),
       ],
@@ -36,19 +37,17 @@ describe('Sidebar', () => {
     expect(await activeLinks('/stocks/AAPL')).toEqual([]);
   });
 
-  it('links only to pages that exist; the planned backtest is not a link', async () => {
-    // N24: an entry that looks clickable but does nothing misleads, so the menu has none.
+  it('marks only the backtest link as current on the backtest page', async () => {
+    expect(await activeLinks('/backtest?ratio=pb')).toEqual(['/backtest']);
+  });
+
+  it('links to the screener and the backtest, both real links', async () => {
+    // N24: an entry that looks clickable but does nothing misleads, so every entry is a link.
     const harness = await RouterTestingHarness.create('/screener');
     harness.detectChanges();
     const menu = harness.routeNativeElement as HTMLElement;
 
     const links = [...menu.querySelectorAll('.navigation a')];
-    expect(links.map((link) => link.getAttribute('href'))).toEqual(['/screener']);
-    for (const link of links) {
-      expect(link.hasAttribute('href')).toBe(true);
-    }
-    const planned = menu.querySelector('.nav-item-planned');
-    expect(planned?.textContent).toContain('Backtest');
-    expect(planned?.textContent).toContain('soon');
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(['/screener', '/backtest']);
   });
 });

@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+.backtest {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bc-page-gap);
+}
+
+/* A headline with its deck, closed by a rule, like the top of a newspaper section. */
+.page-header {
+  padding-bottom: var(--bc-space-m);
+  border-bottom: 1px solid var(--bc-rule);
+}
+
+.page-description {
+  margin: var(--bc-space-xs) 0 0;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-large);
+  font-style: italic;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bc-space-m) var(--bc-space-l);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bc-space-xs);
+  min-width: 0;
+}
+
+.field-label {
+  font-family: var(--bc-font-sans);
+  font-size: var(--bc-text-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ratio-select {
+  min-width: 12rem;
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s);
+  border: 1px solid var(--bc-control-border);
+  border-radius: var(--bc-radius-control);
+  background: var(--bc-surface);
+  color: var(--bc-text);
+}
+
+.costs-toggle {
+  display: flex;
+  gap: var(--bc-space-s);
+}
+
+/* The two buttons work as a pair of toggles: the chosen one is marked. */
+.costs-button {
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s) var(--bc-space-m);
+  border: 1px solid var(--bc-border);
+  border-radius: var(--bc-radius-control);
+  background: transparent;
+  color: var(--bc-text);
+  cursor: pointer;
+}
+
+.costs-button:hover {
+  border-color: var(--bc-primary);
+}
+
+.costs-button[aria-pressed='true'] {
+  border-color: var(--bc-primary);
+  background: var(--bc-selection);
+  color: var(--bc-primary);
+  font-weight: 600;
+}
+
+/* Note and reading guide */
+/* Set like an editor's note. */
+.limits-note {
+  margin: 0;
+  color: var(--bc-muted);
+  font-style: italic;
+}
+
+.reading-guide-toggle {
+  display: flex;
+  align-items: center;
+  min-height: var(--bc-control-height);
+  color: var(--bc-primary);
+  cursor: pointer;
+}
+
+.guide-list {
+  display: grid;
+  grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr);
+  gap: var(--bc-space-s) var(--bc-space-l);
+  max-width: 48rem;
+  margin: var(--bc-space-s) 0 var(--bc-space-l);
+}
+
+.guide-list dt {
+  color: var(--bc-muted);
+}
+
+.guide-list dd {
+  margin: 0;
+}
+
+/* Sections */
+.page-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bc-space-s);
+}
+
+.ratio-facts {
+  margin: 0;
+  color: var(--bc-muted);
+}
+
+@media (max-width: 767px) {
+  .guide-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .guide-list dd {
+    margin-bottom: var(--bc-space-s);
+  }
+}

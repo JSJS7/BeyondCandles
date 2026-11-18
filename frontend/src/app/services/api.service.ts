@@ -10,7 +10,8 @@ export class ApiService {
   private readonly apiUrl = 'http://127.0.0.1:8000';
   private readonly requestTimeoutMs = 5000;
 
-  get<T>(path: string): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}${path}`).pipe(timeout(this.requestTimeoutMs));
+  /** A slower answer, such as the backtest computed on its first request, can allow more time. */
+  get<T>(path: string, timeoutMs = this.requestTimeoutMs): Observable<T> {
+    return this.http.get<T>(`${this.apiUrl}${path}`).pipe(timeout(timeoutMs));
   }
 }
