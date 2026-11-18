@@ -1,0 +1,1407 @@
+{
+  "version": 1,
+  "method": "The SIC code of each company as its SEC submissions file states it, read from the cached file named by its checksum. It is the current code, not a historical one, like the vendor's sector (I29). The backtest leaves companies with a code from 6000 to 6999 (financial firms) out of the rankings of the ratios listed in DEC-33.",
+  "financial_companies": 42,
+  "companies": [
+    {
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "sic": 3571,
+      "sic_description": "Electronic Computers",
+      "submissions_sha256": "aad00f6aa75ba1405e0a34c788bdba9042281b2724fe1db3ff26f434b9a92e44"
+    },
+    {
+      "ticker": "ABBV",
+      "cik": "0001551152",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "b81e195b84d44aa6aef709b6a69f3a4bad91491287b0292c91f4c28c8039af87"
+    },
+    {
+      "ticker": "ABT",
+      "cik": "0000001800",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "8da48bc65e54f44663c363a738a9ba4d07029b95067cd9cd7ba84dc64a9dbe0f"
+    },
+    {
+      "ticker": "ACN",
+      "cik": "0001467373",
+      "sic": 7389,
+      "sic_description": "Services-Business Services, NEC",
+      "submissions_sha256": "a498b805d774c7b0c2a8482f1078a86b5a21865a1f594cae4bfc39871f9505b8"
+    },
+    {
+      "ticker": "ADBE",
+      "cik": "0000796343",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "6000ab8cebb0c0fa7a8065741eddcc736d007739dffa337dcd4c8082d5ecfe25"
+    },
+    {
+      "ticker": "ADI",
+      "cik": "0000006281",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "a3235f00f5d18b58d15e5edd086eed3d8388a3f8a5559f154c2da426a03fa85c"
+    },
+    {
+      "ticker": "ADP",
+      "cik": "0000008670",
+      "sic": 7374,
+      "sic_description": "Services-Computer Processing & Data Preparation",
+      "submissions_sha256": "ba43851293f7de5c8ed1718064b44173838ec049b9b95cdcf9a774801f3466e8"
+    },
+    {
+      "ticker": "ADSK",
+      "cik": "0000769397",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "6be434af989da69a6c129231b9f768f4c18ef0c9e93c27b71c98237b253fc596"
+    },
+    {
+      "ticker": "AEP",
+      "cik": "0000004904",
+      "sic": 4911,
+      "sic_description": "Electric Services",
+      "submissions_sha256": "7a15703202c0fd04a4dfb14898d1034a6ddf067cfa2ff3484e8f8a8725701f36"
+    },
+    {
+      "ticker": "AFL",
+      "cik": "0000004977",
+      "sic": 6321,
+      "sic_description": "Accident & Health Insurance",
+      "submissions_sha256": "67ff365ac0df471c8c54b5525c2c915267b19a4abd7c261c773510b3007cb7a1"
+    },
+    {
+      "ticker": "AIG",
+      "cik": "0000005272",
+      "sic": 6331,
+      "sic_description": "Fire, Marine & Casualty Insurance",
+      "submissions_sha256": "bbed6d7b78a83aff10ebcc956cc016859cab2ba14a42cbde3dd57453fd373df3"
+    },
+    {
+      "ticker": "AJG",
+      "cik": "0000354190",
+      "sic": 6411,
+      "sic_description": "Insurance Agents, Brokers & Service",
+      "submissions_sha256": "bdc5a93154b20e87b2c48487a5f32a6e051c6e42879a3b69ff1ffeb3dfe09816"
+    },
+    {
+      "ticker": "ALL",
+      "cik": "0000899051",
+      "sic": 6331,
+      "sic_description": "Fire, Marine & Casualty Insurance",
+      "submissions_sha256": "45e6956da7f9fe8b4991d7af082494da56c99450b2d248f3d098b6ca62665d9d"
+    },
+    {
+      "ticker": "AMAT",
+      "cik": "0000006951",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "ed5b9d52c5c29ddb0129461fa79283054574cfd690a298070e93b40ed077d074"
+    },
+    {
+      "ticker": "AMD",
+      "cik": "0000002488",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "ab1f62c1fc1c04ff4022ac902f0184e2bc8d6f5c23d18f9538ab6cf39bc64420"
+    },
+    {
+      "ticker": "AMGN",
+      "cik": "0000318154",
+      "sic": 2836,
+      "sic_description": "Biological Products, (No Diagnostic Substances)",
+      "submissions_sha256": "d5fdc99c6d7c7fbe409f15e837164367159ed34bb5d76b31b36b8a79ccdc7dd6"
+    },
+    {
+      "ticker": "AMP",
+      "cik": "0000820027",
+      "sic": 6282,
+      "sic_description": "Investment Advice",
+      "submissions_sha256": "210c20b63050989cc28aa8b5f9d9a5d55bae6fbb940c4755ab8369e9ac20360c"
+    },
+    {
+      "ticker": "AMT",
+      "cik": "0001053507",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "f57566944b74d717fb0c42aa710966d93027b9aece81b1613b25374972caad02"
+    },
+    {
+      "ticker": "AMZN",
+      "cik": "0001018724",
+      "sic": 5961,
+      "sic_description": "Retail-Catalog & Mail-Order Houses",
+      "submissions_sha256": "1f5bb6be4033e2378bfa0d14e0d9276a08d8dfb070b263f59ca0e77d68ced058"
+    },
+    {
+      "ticker": "ANET",
+      "cik": "0001596532",
+      "sic": 3576,
+      "sic_description": "Computer Communications Equipment",
+      "submissions_sha256": "475cda980cc93f355b4b336b4cb4d8ed79f46e858ec6dc9cd160a1a2d46a7af5"
+    },
+    {
+      "ticker": "AON",
+      "cik": "0000315293",
+      "sic": 6411,
+      "sic_description": "Insurance Agents, Brokers & Service",
+      "submissions_sha256": "25936d335a76c040434ad71246093a801c1b21bbdac7c062884b91d5eff84793"
+    },
+    {
+      "ticker": "APD",
+      "cik": "0000002969",
+      "sic": 2810,
+      "sic_description": "Industrial Inorganic Chemicals",
+      "submissions_sha256": "5b48ab91146eddc7b298a18eaafb50a8ad43f9ec9bb616e90c62c4f665c94b34"
+    },
+    {
+      "ticker": "APH",
+      "cik": "0000820313",
+      "sic": 3678,
+      "sic_description": "Electronic Connectors",
+      "submissions_sha256": "8291714ed6ca58fca680f5c57ed13e9102efa526b51aed84945ee70899a6560a"
+    },
+    {
+      "ticker": "AVGO",
+      "cik": "0001730168",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "b3bb8094e6809c7b3c7d2d7f419363b213bfa5071b40adb2bc2534317637f061"
+    },
+    {
+      "ticker": "AXON",
+      "cik": "0001069183",
+      "sic": 3480,
+      "sic_description": "Ordnance & Accessories, (No Vehicles/Guided Missiles)",
+      "submissions_sha256": "490bd448cff890b19679ff7a0f74292e3075d275e4c526d5fba72ba6beaf4298"
+    },
+    {
+      "ticker": "AXP",
+      "cik": "0000004962",
+      "sic": 6199,
+      "sic_description": "Finance Services",
+      "submissions_sha256": "d8c938a069d2f4aaa7e4c7d31fafa9b031284cef711777cf4e8c2e33cc7cb703"
+    },
+    {
+      "ticker": "AZO",
+      "cik": "0000866787",
+      "sic": 5531,
+      "sic_description": "Retail-Auto & Home Supply Stores",
+      "submissions_sha256": "ab8d3c0b34b66116a5b9f42ad553f1435b829a1021cc0d810261807dd83f936c"
+    },
+    {
+      "ticker": "BA",
+      "cik": "0000012927",
+      "sic": 3721,
+      "sic_description": "Aircraft",
+      "submissions_sha256": "6772e8d08a03911e0079a2f480d7520686ba8ad2e53651efc76f4cfc6c0a0f57"
+    },
+    {
+      "ticker": "BAC",
+      "cik": "0000070858",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "d8737ce606f76aab90e56f63be0362f5e96e29c21fe3e1f0aa562a280817cf89"
+    },
+    {
+      "ticker": "BDX",
+      "cik": "0000010795",
+      "sic": 3841,
+      "sic_description": "Surgical & Medical Instruments & Apparatus",
+      "submissions_sha256": "dcde58662fbe82ef7b9e532683f27d13746de7a0c99a6a1d0926b5631555b4dd"
+    },
+    {
+      "ticker": "BK",
+      "cik": "0001390777",
+      "sic": 6022,
+      "sic_description": "State Commercial Banks",
+      "submissions_sha256": "5b9a1e59568849b82942d40a2c7d0f948f6d81b83f133d508af3b4c34002182d"
+    },
+    {
+      "ticker": "BKNG",
+      "cik": "0001075531",
+      "sic": 4700,
+      "sic_description": "Transportation Services",
+      "submissions_sha256": "f509a62666f0a52d2fd1b403e39a682c3496869da35c5bd995ff295490f9cdec"
+    },
+    {
+      "ticker": "BLK",
+      "cik": "0002012383",
+      "sic": 6211,
+      "sic_description": "Security Brokers, Dealers & Flotation Companies",
+      "submissions_sha256": "b3f288c2cfee88360817f8cab77ee5c6cdf5e995c83401d28885bac79acfa45f"
+    },
+    {
+      "ticker": "BMY",
+      "cik": "0000014272",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "f7a3bed1f7eac63bb5a22cd3793ab024701dbbc2618007b3fd108d6996301d71"
+    },
+    {
+      "ticker": "BRK-B",
+      "cik": "0001067983",
+      "sic": 6331,
+      "sic_description": "Fire, Marine & Casualty Insurance",
+      "submissions_sha256": "ab313de3258a0251e6f41c0398573a0c5a94618fd2f67b9cf1d136f3eaad9da2"
+    },
+    {
+      "ticker": "BSX",
+      "cik": "0000885725",
+      "sic": 3841,
+      "sic_description": "Surgical & Medical Instruments & Apparatus",
+      "submissions_sha256": "5d348b260162f0ff9e72f1cdb4251338fb0cc11b7fe04da110e518e93c91f9af"
+    },
+    {
+      "ticker": "BX",
+      "cik": "0001393818",
+      "sic": 6282,
+      "sic_description": "Investment Advice",
+      "submissions_sha256": "ade9dd78ac0995d33bacc76c007e1031c07edad1dd91cb8c7bf60e2e62772959"
+    },
+    {
+      "ticker": "C",
+      "cik": "0000831001",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "c9bca0f938fae23eba2977c4565a1c21b2d0fcc1c3354e71cd583ec812fd245f"
+    },
+    {
+      "ticker": "CAT",
+      "cik": "0000018230",
+      "sic": 3531,
+      "sic_description": "Construction Machinery & Equip",
+      "submissions_sha256": "0acab15fde27b3fb5194c6c0330cd027677037c546ba688f82d0f98c2697543a"
+    },
+    {
+      "ticker": "CB",
+      "cik": "0000896159",
+      "sic": 6331,
+      "sic_description": "Fire, Marine & Casualty Insurance",
+      "submissions_sha256": "bb9b086c3c2c15653466fdb0305473750713b99384e28572763391dde4794c84"
+    },
+    {
+      "ticker": "CDNS",
+      "cik": "0000813672",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "fb5a4fa8b1cc2bf08890563bafca3e2924edadda05d4ee59e39900f3493a0bdb"
+    },
+    {
+      "ticker": "CHTR",
+      "cik": "0001091667",
+      "sic": 4841,
+      "sic_description": "Cable & Other Pay Television Services",
+      "submissions_sha256": "8b8dab9df8a9abfbaf7329c5637e84c853d5fa0014750e2e88e032437b46991c"
+    },
+    {
+      "ticker": "CI",
+      "cik": "0001739940",
+      "sic": 6324,
+      "sic_description": "Hospital & Medical Service Plans",
+      "submissions_sha256": "b869aca3ec2d02fae90f311b8eb2141139767674058e01e514fc8cec35a9b08b"
+    },
+    {
+      "ticker": "CL",
+      "cik": "0000021665",
+      "sic": 2844,
+      "sic_description": "Perfumes, Cosmetics & Other Toilet Preparations",
+      "submissions_sha256": "ec08514c31d65fa388335db1242539621d23ba447da1be334a7a3374afe8bbc0"
+    },
+    {
+      "ticker": "CMCSA",
+      "cik": "0001166691",
+      "sic": 4841,
+      "sic_description": "Cable & Other Pay Television Services",
+      "submissions_sha256": "1c9ee5c84527542fa21885a4d741a7610ab8d0e5f98774adb63d427c10415d52"
+    },
+    {
+      "ticker": "CME",
+      "cik": "0001156375",
+      "sic": 6200,
+      "sic_description": "Security & Commodity Brokers, Dealers, Exchanges & Services",
+      "submissions_sha256": "fb8b7c19a808dc54dd14097c491a0d7aec9f2f05de5640739dd50d94efc4b2f2"
+    },
+    {
+      "ticker": "CMG",
+      "cik": "0001058090",
+      "sic": 5812,
+      "sic_description": "Retail-Eating  Places",
+      "submissions_sha256": "b13956aa9e12a29527ecbec4832dcfd1e1e21c8c7b8ce3ebd98b01533a8bc2f2"
+    },
+    {
+      "ticker": "CMI",
+      "cik": "0000026172",
+      "sic": 3510,
+      "sic_description": "Engines & Turbines",
+      "submissions_sha256": "9ca0c93a912f7eed6ab64b929788391c0bf5ff94088626f6105736eabb4a2a21"
+    },
+    {
+      "ticker": "COF",
+      "cik": "0000927628",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "135cdee30f9d9ec4d016f927075d6a3279aadd5db9de52b308ea0daf7023d677"
+    },
+    {
+      "ticker": "COP",
+      "cik": "0001163165",
+      "sic": 2911,
+      "sic_description": "Petroleum Refining",
+      "submissions_sha256": "4e16ff59a54a8891979d2c701e729c198d308ff3be7f3005833c8ad5de671f66"
+    },
+    {
+      "ticker": "COR",
+      "cik": "0001140859",
+      "sic": 5122,
+      "sic_description": "Wholesale-Drugs, Proprietaries & Druggists' Sundries",
+      "submissions_sha256": "2a6d92fe3130ecf77bc297c36175a4ad40a7ed0068ca2162eeb53bef5044f96d"
+    },
+    {
+      "ticker": "COST",
+      "cik": "0000909832",
+      "sic": 5331,
+      "sic_description": "Retail-Variety Stores",
+      "submissions_sha256": "ddbc474ee1b766ecc36ba39759b1e2910135401dc12c08e93f034c65fc9c15d1"
+    },
+    {
+      "ticker": "CPRT",
+      "cik": "0000900075",
+      "sic": 5500,
+      "sic_description": "Retail-Auto Dealers & Gasoline Stations",
+      "submissions_sha256": "ee334e6e97692317a284935c4ea40cdb2835c61bcaa71aa07a8ede230c4e573e"
+    },
+    {
+      "ticker": "CRM",
+      "cik": "0001108524",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "a17395341045ab4f90af3c9a631da7a393704f21c22074ffc5d64b6d1c73f719"
+    },
+    {
+      "ticker": "CSCO",
+      "cik": "0000858877",
+      "sic": 3576,
+      "sic_description": "Computer Communications Equipment",
+      "submissions_sha256": "af29bf8ffa25fbe34c81ac9ae15d4541bba7b6855eccd94b0bcaa92f92cbb717"
+    },
+    {
+      "ticker": "CSX",
+      "cik": "0000277948",
+      "sic": 4011,
+      "sic_description": "Railroads, Line-Haul Operating",
+      "submissions_sha256": "90be53ad1c0254dd3c44cfed66b6d4af76e5d1d63b6f9f39a23aba3e71b5d12b"
+    },
+    {
+      "ticker": "CTAS",
+      "cik": "0000723254",
+      "sic": 2320,
+      "sic_description": "Men's & Boys' Furnishgs, Work Clothg, & Allied Garments",
+      "submissions_sha256": "dcf172df039a9fa7c13f5789d6ee2ae400c9acb62b5f04f45d4b807f76154daa"
+    },
+    {
+      "ticker": "CVS",
+      "cik": "0000064803",
+      "sic": 5912,
+      "sic_description": "Retail-Drug Stores and Proprietary Stores",
+      "submissions_sha256": "b5a7da7d9adb7d8309467f7d3bdb15938d52afcd0d7197d5667980cfe0c56c0e"
+    },
+    {
+      "ticker": "CVX",
+      "cik": "0000093410",
+      "sic": 2911,
+      "sic_description": "Petroleum Refining",
+      "submissions_sha256": "66f15b8aecbb05d9be0f6c5ce179fd975d23b3a43f86864f3d111b5a76efc64c"
+    },
+    {
+      "ticker": "D",
+      "cik": "0000715957",
+      "sic": 4911,
+      "sic_description": "Electric Services",
+      "submissions_sha256": "b9e811f4b26697220082c6227161fa88644dd4ba5c5d379e9dcd1e471c36a7d4"
+    },
+    {
+      "ticker": "DE",
+      "cik": "0000315189",
+      "sic": 3523,
+      "sic_description": "Farm Machinery & Equipment",
+      "submissions_sha256": "b035010d3d0a5c22f98002e91be2241008711647d8f4d78c2e8a533f341c0469"
+    },
+    {
+      "ticker": "DHI",
+      "cik": "0000882184",
+      "sic": 1531,
+      "sic_description": "Operative Builders",
+      "submissions_sha256": "c9a8128bf8f7d76fd90d0243253cfa4b845ed17858430aa40b4cbd98f8ace44f"
+    },
+    {
+      "ticker": "DHR",
+      "cik": "0000313616",
+      "sic": 3823,
+      "sic_description": "Industrial Instruments For Measurement, Display, and Control",
+      "submissions_sha256": "a217d6baa2bd28257fee6287f6b3c6fba818f3163a50570bd1d42b147394b8df"
+    },
+    {
+      "ticker": "DIS",
+      "cik": "0001744489",
+      "sic": 7990,
+      "sic_description": "Services-Miscellaneous Amusement & Recreation",
+      "submissions_sha256": "75b6715b3e2d2d9c8af55b3b71920357e3ae2422665dda8b6cecd21e8e4fcf40"
+    },
+    {
+      "ticker": "DLR",
+      "cik": "0001297996",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "edcf1e281db854f00284d3645a7665c0c47ed6bb78922256405f1056a93cee2e"
+    },
+    {
+      "ticker": "DUK",
+      "cik": "0001326160",
+      "sic": 4931,
+      "sic_description": "Electric & Other Services Combined",
+      "submissions_sha256": "e46091b41bc2465f03b07c98bfab4ca53efef069d0d583c2f713f4a97574cad1"
+    },
+    {
+      "ticker": "ECL",
+      "cik": "0000031462",
+      "sic": 2840,
+      "sic_description": "Soap, Detergents, Cleang Preparations, Perfumes, Cosmetics",
+      "submissions_sha256": "02e73583077d3dd9f3136347882a37c927b48765473ee5c51e79604325fa7644"
+    },
+    {
+      "ticker": "ELV",
+      "cik": "0001156039",
+      "sic": 6324,
+      "sic_description": "Hospital & Medical Service Plans",
+      "submissions_sha256": "f1aeafe2992be8ded1eba08207d29345123805467772865f1b94c707b48e54db"
+    },
+    {
+      "ticker": "EMR",
+      "cik": "0000032604",
+      "sic": 3600,
+      "sic_description": "Electronic & Other Electrical Equipment (No Computer Equip)",
+      "submissions_sha256": "b55665069daecbc3f4c683e519679538fe6f2c50a08a7fa82a1be6a13ea7044b"
+    },
+    {
+      "ticker": "EOG",
+      "cik": "0000821189",
+      "sic": 1311,
+      "sic_description": "Crude Petroleum & Natural Gas",
+      "submissions_sha256": "e1bb80cb03180a8b924cb65c327d926a394ef8c57ea3a5718c5e7acbeb2a4554"
+    },
+    {
+      "ticker": "EQIX",
+      "cik": "0001101239",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "9dc56659e0c735bd4c50b22ad97ea5bb34254f1f9f1686b7b95619700d9c5fb1"
+    },
+    {
+      "ticker": "ETN",
+      "cik": "0001551182",
+      "sic": 3590,
+      "sic_description": "Misc Industrial & Commercial Machinery & Equipment",
+      "submissions_sha256": "bc3d55b2bcd39a79933f9b2ab80cd6c48f4b57f6b6505b25a021dc2bcaa7f80b"
+    },
+    {
+      "ticker": "EW",
+      "cik": "0001099800",
+      "sic": 3842,
+      "sic_description": "Orthopedic, Prosthetic & Surgical Appliances & Supplies",
+      "submissions_sha256": "cfa8aff7eea6dd67cf59b5692b9b2218235ee1ccb636aba06ae0db1c98ef3f09"
+    },
+    {
+      "ticker": "FANG",
+      "cik": "0001539838",
+      "sic": 1311,
+      "sic_description": "Crude Petroleum & Natural Gas",
+      "submissions_sha256": "da46a19c3a2614303e37f54df988543a3437990538a0c5e822115ed314330eae"
+    },
+    {
+      "ticker": "FCX",
+      "cik": "0000831259",
+      "sic": 1000,
+      "sic_description": "Metal Mining",
+      "submissions_sha256": "8a2e8a67a77d1f69e24727d8f9ae177fc532ac6fbc14558d73ea95f24456f8ec"
+    },
+    {
+      "ticker": "FDX",
+      "cik": "0001048911",
+      "sic": 4513,
+      "sic_description": "Air Courier Services",
+      "submissions_sha256": "3683085f8dd30c90d6ed212881fbee08c809e2d54921acb1942e2fc4c6a2f60a"
+    },
+    {
+      "ticker": "FI",
+      "cik": "0000798354",
+      "sic": 7389,
+      "sic_description": "Services-Business Services, NEC",
+      "submissions_sha256": "b84d17afe3f55cd2130c412903584532f1bfc5453720f89242530dc9207765e0"
+    },
+    {
+      "ticker": "FICO",
+      "cik": "0000814547",
+      "sic": 7389,
+      "sic_description": "Services-Business Services, NEC",
+      "submissions_sha256": "5d9abb1b0cfea4aca0a090df6e44f0b9d78cb73df0169c1364185d455e9c0ea1"
+    },
+    {
+      "ticker": "FTNT",
+      "cik": "0001262039",
+      "sic": 3577,
+      "sic_description": "Computer Peripheral Equipment, NEC",
+      "submissions_sha256": "5ab4113b0ba5630a1220098e234b319dc4fb92b2b25fc4701efb03dcad0abc74"
+    },
+    {
+      "ticker": "GD",
+      "cik": "0000040533",
+      "sic": 3730,
+      "sic_description": "Ship & Boat Building & Repairing",
+      "submissions_sha256": "00ecded6b8d2a0823e66efcbf5b0c210663f961557b9e3f017598964aff17613"
+    },
+    {
+      "ticker": "GE",
+      "cik": "0000040545",
+      "sic": 3600,
+      "sic_description": "Electronic & Other Electrical Equipment (No Computer Equip)",
+      "submissions_sha256": "ef3b1c78870ba9b87b5b7e92f92a4a34eceea3c11f8f5c1e5b076d2a59aab718"
+    },
+    {
+      "ticker": "GILD",
+      "cik": "0000882095",
+      "sic": 2836,
+      "sic_description": "Biological Products, (No Diagnostic Substances)",
+      "submissions_sha256": "1710326c731e4bbc1f872334a686857a3fc7401d39ebfb8dce936e4ae98f3c01"
+    },
+    {
+      "ticker": "GM",
+      "cik": "0001467858",
+      "sic": 3711,
+      "sic_description": "Motor Vehicles & Passenger Car Bodies",
+      "submissions_sha256": "8d1a3899555991bd95882883f964893201d49a726dce93d06bd652516f01e02f"
+    },
+    {
+      "ticker": "GOOGL",
+      "cik": "0001652044",
+      "sic": 7370,
+      "sic_description": "Services-Computer Programming, Data Processing, Etc.",
+      "submissions_sha256": "648cea84d824309b518807fd7e7fdb72d6855e12e8afa221d2caa047d5c9f2ca"
+    },
+    {
+      "ticker": "GS",
+      "cik": "0000886982",
+      "sic": 6211,
+      "sic_description": "Security Brokers, Dealers & Flotation Companies",
+      "submissions_sha256": "f6d51dbeafb5c54ea6bebdc54a1eae920be94986c377f51728137ad3b4804909"
+    },
+    {
+      "ticker": "GWW",
+      "cik": "0000277135",
+      "sic": 5000,
+      "sic_description": "Wholesale-Durable Goods",
+      "submissions_sha256": "52c571b2662092cfc9835301d829b6197e0803cf226f0600f477810431a80322"
+    },
+    {
+      "ticker": "HCA",
+      "cik": "0000860730",
+      "sic": 8062,
+      "sic_description": "Services-General Medical & Surgical Hospitals, NEC",
+      "submissions_sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87"
+    },
+    {
+      "ticker": "HD",
+      "cik": "0000354950",
+      "sic": 5211,
+      "sic_description": "Retail-Lumber & Other Building Materials Dealers",
+      "submissions_sha256": "672ac7e954322732f26d909249186bfb4fef4157085d1f61634d447b2ccf0fba"
+    },
+    {
+      "ticker": "HLT",
+      "cik": "0001585689",
+      "sic": 7011,
+      "sic_description": "Hotels & Motels",
+      "submissions_sha256": "1e54c38cff142303ce7d105de697547300b55613e4db3c055b13aaf1729fd3ab"
+    },
+    {
+      "ticker": "HON",
+      "cik": "0000773840",
+      "sic": 3724,
+      "sic_description": "Aircraft Engines & Engine Parts",
+      "submissions_sha256": "4230b15ed3f245e947f48f8a51f7c8eac7aace0444b7f87f65662b63938bb41a"
+    },
+    {
+      "ticker": "IBM",
+      "cik": "0000051143",
+      "sic": 3570,
+      "sic_description": "Computer & office Equipment",
+      "submissions_sha256": "48b6180e7fe331232ccbdda20c012f61b5b1ed42251c4d74c05c6db2f07326f8"
+    },
+    {
+      "ticker": "ICE",
+      "cik": "0001571949",
+      "sic": 6200,
+      "sic_description": "Security & Commodity Brokers, Dealers, Exchanges & Services",
+      "submissions_sha256": "f48f736909e1e02f414c11dc840dd80ee5285713258c6db6c1595f24bdb5d7eb"
+    },
+    {
+      "ticker": "INTC",
+      "cik": "0000050863",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "f04f1a2215ca448e8661d5dd6fea91c878168cf6f8edef08c7cab602659c4111"
+    },
+    {
+      "ticker": "INTU",
+      "cik": "0000896878",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "d501549242660e84f72991fb63dbd7e72e825e091414543f31d75b85eb481e6e"
+    },
+    {
+      "ticker": "ISRG",
+      "cik": "0001035267",
+      "sic": 3842,
+      "sic_description": "Orthopedic, Prosthetic & Surgical Appliances & Supplies",
+      "submissions_sha256": "dbb57e42a5d7de5f6ea15f0fbb2183a97373b22d654363bec4309a1f4651aa20"
+    },
+    {
+      "ticker": "ITW",
+      "cik": "0000049826",
+      "sic": 3560,
+      "sic_description": "General Industrial Machinery & Equipment",
+      "submissions_sha256": "7d6ede6f27348fa8bb0e96367c7520917d009af9252b083284e1a6375e448326"
+    },
+    {
+      "ticker": "JCI",
+      "cik": "0000833444",
+      "sic": 3585,
+      "sic_description": "Air-Cond & Warm Air Heatg Equip & Comm & Indl Refrig Equip",
+      "submissions_sha256": "b2dfcb53a5ad28d04c8b908a3578838ab029260a8072fdc4cda4bd61b7b70f44"
+    },
+    {
+      "ticker": "JNJ",
+      "cik": "0000200406",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "f0e519276f2ef9e9e820e3187f1f9136192b45d381f4302f943c8ec51390ff30"
+    },
+    {
+      "ticker": "JPM",
+      "cik": "0000019617",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "e6ce85d6514b0aad1c581a38320e4863721a0c7e34c3e20fd4435ea488cc463b"
+    },
+    {
+      "ticker": "KKR",
+      "cik": "0001404912",
+      "sic": 6282,
+      "sic_description": "Investment Advice",
+      "submissions_sha256": "130723dac662b7ee216ea0edf16a51dde76a1b363ff3c59a1109c11cd5bd70ef"
+    },
+    {
+      "ticker": "KLAC",
+      "cik": "0000319201",
+      "sic": 3827,
+      "sic_description": "Optical Instruments & Lenses",
+      "submissions_sha256": "8c04a72fc29c2ed1177f333d34682f200faec4d7add34d38692d0b0362f2a652"
+    },
+    {
+      "ticker": "KMI",
+      "cik": "0001506307",
+      "sic": 4922,
+      "sic_description": "Natural Gas Transmission",
+      "submissions_sha256": "fb27266cf5b7aaf85dd6430135e36260f92c2e5818418cf5862dc501b86aa3fb"
+    },
+    {
+      "ticker": "KO",
+      "cik": "0000021344",
+      "sic": 2080,
+      "sic_description": "Beverages",
+      "submissions_sha256": "8591f2d5a02913481a2bc76458ab5c905f94e72f0856a18b6fa57e3f46235e39"
+    },
+    {
+      "ticker": "KR",
+      "cik": "0000056873",
+      "sic": 5411,
+      "sic_description": "Retail-Grocery Stores",
+      "submissions_sha256": "dcf139d759922dcb555b726ed5ae071cb0854eeb56197e28ea093ff84076cf5d"
+    },
+    {
+      "ticker": "LIN",
+      "cik": "0001707925",
+      "sic": 2810,
+      "sic_description": "Industrial Inorganic Chemicals",
+      "submissions_sha256": "3303b713cb3d4b08a0ca704dfb316ede48b14fb6a93821ed8fa03ae134e37027"
+    },
+    {
+      "ticker": "LLY",
+      "cik": "0000059478",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "2c79854e6afae9138c3fcc64b27fc8f92291f6c6a28dbfa3416d2413adb64beb"
+    },
+    {
+      "ticker": "LMT",
+      "cik": "0000936468",
+      "sic": 3760,
+      "sic_description": "Guided Missiles & Space Vehicles & Parts",
+      "submissions_sha256": "1239eb3139490eb2e498f793380e150a5805844ec549f1ee1966129ac61e24d4"
+    },
+    {
+      "ticker": "LOW",
+      "cik": "0000060667",
+      "sic": 5211,
+      "sic_description": "Retail-Lumber & Other Building Materials Dealers",
+      "submissions_sha256": "7a1e817a50cb89773ee6b01bc2e67c6688c1d8142ccae065169e4fd476815755"
+    },
+    {
+      "ticker": "LRCX",
+      "cik": "0000707549",
+      "sic": 3559,
+      "sic_description": "Special Industry Machinery, NEC",
+      "submissions_sha256": "6fceded57bafb04f3a75bd0f9f49a3820281ed0681744a8163b29b75851ab9a2"
+    },
+    {
+      "ticker": "LULU",
+      "cik": "0001397187",
+      "sic": 2300,
+      "sic_description": "Apparel & Other Finishd Prods of  Fabrics & Similar Matl",
+      "submissions_sha256": "e243693d61286f2b928d805ecfadd23496ad0171dd76f72523af5955f8aab810"
+    },
+    {
+      "ticker": "MA",
+      "cik": "0001141391",
+      "sic": 7389,
+      "sic_description": "Services-Business Services, NEC",
+      "submissions_sha256": "fd28e8d5947b63cc4ddf5adfc60dbddec0f500133af8a3459161eae6a8dfbd11"
+    },
+    {
+      "ticker": "MAR",
+      "cik": "0001048286",
+      "sic": 7011,
+      "sic_description": "Hotels & Motels",
+      "submissions_sha256": "2be44c9ebec82f76c6620bb685926ada2649776bbeb6f42d99db44f3b693d708"
+    },
+    {
+      "ticker": "MCD",
+      "cik": "0000063908",
+      "sic": 5812,
+      "sic_description": "Retail-Eating  Places",
+      "submissions_sha256": "5ca5bd9a4dbc4878d898899a2ae41a8da1a0a42e24fc280a7f84e47f126f454e"
+    },
+    {
+      "ticker": "MCK",
+      "cik": "0000927653",
+      "sic": 5122,
+      "sic_description": "Wholesale-Drugs, Proprietaries & Druggists' Sundries",
+      "submissions_sha256": "350a01f75d72dfcb651abd55e68769e4bbb1b4fb978c6d82b551d53ed6dd3e20"
+    },
+    {
+      "ticker": "MCO",
+      "cik": "0001059556",
+      "sic": 7320,
+      "sic_description": "Services-Consumer Credit Reporting, Collection Agencies",
+      "submissions_sha256": "945a1eb02b4fc5828fc5a793f28f7d61cad7f2dec3d23ad20b4929e38e6103a3"
+    },
+    {
+      "ticker": "MDLZ",
+      "cik": "0001103982",
+      "sic": 2000,
+      "sic_description": "Food and Kindred Products",
+      "submissions_sha256": "53cae3bdf3f918a060843a4dc5182580e75bee78678cafc5559649589bdfc39e"
+    },
+    {
+      "ticker": "MDT",
+      "cik": "0001613103",
+      "sic": 3845,
+      "sic_description": "Electromedical & Electrotherapeutic Apparatus",
+      "submissions_sha256": "b2bc082c511e45fbc3a690fcdc1a75d0fc1b76275211da5ff1cafbd5f8fd2ac5"
+    },
+    {
+      "ticker": "MET",
+      "cik": "0001099219",
+      "sic": 6311,
+      "sic_description": "Life Insurance",
+      "submissions_sha256": "2d655091d5c88a57c0d3ff217829b401d7d9cf2254b7feb3f0ecf1414b132233"
+    },
+    {
+      "ticker": "META",
+      "cik": "0001326801",
+      "sic": 7370,
+      "sic_description": "Services-Computer Programming, Data Processing, Etc.",
+      "submissions_sha256": "bdf2ccd67c9ad38eefeec7f5ff15d591afb96a8b7c6e491c41d3abc94a839f1a"
+    },
+    {
+      "ticker": "MMC",
+      "cik": "0000062709",
+      "sic": 6411,
+      "sic_description": "Insurance Agents, Brokers & Service",
+      "submissions_sha256": "60806bee3f2e329bd2840d77db79e551b29bd37b3b6aadcb47f4c486f5ea2361"
+    },
+    {
+      "ticker": "MMM",
+      "cik": "0000066740",
+      "sic": 3841,
+      "sic_description": "Surgical & Medical Instruments & Apparatus",
+      "submissions_sha256": "bde829de92f07d0f92359a2d38b1e7d7cab5050bb71611c974a4fa075a6f033c"
+    },
+    {
+      "ticker": "MNST",
+      "cik": "0000865752",
+      "sic": 2086,
+      "sic_description": "Bottled & Canned Soft Drinks & Carbonated Waters",
+      "submissions_sha256": "9fe76ac8f6e938b6c034c4bc97006389b5d3cdd216d99c4231ea280ab361778d"
+    },
+    {
+      "ticker": "MO",
+      "cik": "0000764180",
+      "sic": 2111,
+      "sic_description": "Cigarettes",
+      "submissions_sha256": "65bb662191f9cd0ea1d1228d4bbdf1eb8bb1ea42f95bf30547e4f4f5835a696a"
+    },
+    {
+      "ticker": "MRK",
+      "cik": "0000310158",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "16124d112cdab9214918ee22ecac3f16d9fe2ad697e02424c1216231d5fa2344"
+    },
+    {
+      "ticker": "MS",
+      "cik": "0000895421",
+      "sic": 6211,
+      "sic_description": "Security Brokers, Dealers & Flotation Companies",
+      "submissions_sha256": "437e8ea22c6795627b75713bb9660cd19ac54b9d7c4e38e12d9147bd9f4e3542"
+    },
+    {
+      "ticker": "MSCI",
+      "cik": "0001408198",
+      "sic": 7389,
+      "sic_description": "Services-Business Services, NEC",
+      "submissions_sha256": "b4e6e1349ace2d8450e608c4c9d5383747e0c5d4510041fdc6b85234d1b79fad"
+    },
+    {
+      "ticker": "MSFT",
+      "cik": "0000789019",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "a5848ba348a3d3ae08c3c40bf4599379014be077911e6550ed3a8182a34a6a7b"
+    },
+    {
+      "ticker": "MSI",
+      "cik": "0000068505",
+      "sic": 3663,
+      "sic_description": "Radio & Tv Broadcasting & Communications Equipment",
+      "submissions_sha256": "cc84200f1814c58badd7db6d9266f443c27afe3bc02d93f8f46bc84ea6fb82be"
+    },
+    {
+      "ticker": "MU",
+      "cik": "0000723125",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "3589a20c1fb2596bfa403acf48faa779f3b6c494dc59fb07d2a44d92b54e2877"
+    },
+    {
+      "ticker": "NDAQ",
+      "cik": "0001120193",
+      "sic": 6200,
+      "sic_description": "Security & Commodity Brokers, Dealers, Exchanges & Services",
+      "submissions_sha256": "222acffd8a04fe0e4d15780694ad68d418df639ca8ed6805dc314fa1acac8c0d"
+    },
+    {
+      "ticker": "NEE",
+      "cik": "0000753308",
+      "sic": 4911,
+      "sic_description": "Electric Services",
+      "submissions_sha256": "615173595b0ea6b92ffa36116cb674299f3ac7182c762ca475ec4dfb87e6fdef"
+    },
+    {
+      "ticker": "NFLX",
+      "cik": "0001065280",
+      "sic": 7841,
+      "sic_description": "Services-Video Tape Rental",
+      "submissions_sha256": "8eaef3227f6a13b687027cc684cf1f1dfae7dcba0ed8c091af2bcb2e9f50823d"
+    },
+    {
+      "ticker": "NKE",
+      "cik": "0000320187",
+      "sic": 3021,
+      "sic_description": "Rubber & Plastics Footwear",
+      "submissions_sha256": "9cd2909f8f9a68c63b4acdf2636d4a4b25ab05069a86b1972de871fd4b91eb5c"
+    },
+    {
+      "ticker": "NOC",
+      "cik": "0001133421",
+      "sic": 3812,
+      "sic_description": "Search, Detection, Navigation, Guidance, Aeronautical Sys",
+      "submissions_sha256": "1fd77edcd0147a1ccbe49bc0587a718e5329d35323563abde5045a3c9857612b"
+    },
+    {
+      "ticker": "NOW",
+      "cik": "0001373715",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "d99f6e49b9beae1ead75a7534e0a70cb7d5acca5c521ff6039b32fb1f396cf08"
+    },
+    {
+      "ticker": "NSC",
+      "cik": "0000702165",
+      "sic": 4011,
+      "sic_description": "Railroads, Line-Haul Operating",
+      "submissions_sha256": "8ba0ba9ac6179a16a44178e03ad599101db12543ac7babf9fad30ec261565c33"
+    },
+    {
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4"
+    },
+    {
+      "ticker": "NXPI",
+      "cik": "0001413447",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "75150da19e4969c301d5e9bd6af79eb2d1b6c1bc6bad695d3a93d33332636be5"
+    },
+    {
+      "ticker": "O",
+      "cik": "0000726728",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "d764d15247fde35412c69d73905b22fbd34c7ae6bce0e5a02d2950e043157500"
+    },
+    {
+      "ticker": "OKE",
+      "cik": "0001039684",
+      "sic": 4923,
+      "sic_description": "Natural Gas Transmisison & Distribution",
+      "submissions_sha256": "ad07b8a2fa23b1ed358c4c14f807af409d203e22366cdcf58242f6323a905b3c"
+    },
+    {
+      "ticker": "ORCL",
+      "cik": "0001341439",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "c41260def74f2052a1bfc9088a063688e772e5f1e4a7007ecb46c30312c84719"
+    },
+    {
+      "ticker": "ORLY",
+      "cik": "0000898173",
+      "sic": 5531,
+      "sic_description": "Retail-Auto & Home Supply Stores",
+      "submissions_sha256": "37178daf6b59aaf3927e63c2beb41191f733ebeaa2cc99f4a308c563d79430af"
+    },
+    {
+      "ticker": "OXY",
+      "cik": "0000797468",
+      "sic": 1311,
+      "sic_description": "Crude Petroleum & Natural Gas",
+      "submissions_sha256": "21acf486d4c99ee1b1f1468612a0bb12fad4c5dde7bd0ba59d8ff9e12a603478"
+    },
+    {
+      "ticker": "PANW",
+      "cik": "0001327567",
+      "sic": 3577,
+      "sic_description": "Computer Peripheral Equipment, NEC",
+      "submissions_sha256": "54acd6c26e8bfcdf5e0f0dea30dabef27123525133df99729bb4ccd8f000c402"
+    },
+    {
+      "ticker": "PAYX",
+      "cik": "0000723531",
+      "sic": 8700,
+      "sic_description": "Services-Engineering, Accounting, Research, Management",
+      "submissions_sha256": "10abe431d64e8f32e3221e79bddb2e57becdcbb1d4ac691acd1544e31ee8ab33"
+    },
+    {
+      "ticker": "PCAR",
+      "cik": "0000075362",
+      "sic": 3711,
+      "sic_description": "Motor Vehicles & Passenger Car Bodies",
+      "submissions_sha256": "cd5d238ed093644e2bf61ae35b22c23503d91c3b0ed1dc5a6c2ea948bb3ec952"
+    },
+    {
+      "ticker": "PEP",
+      "cik": "0000077476",
+      "sic": 2080,
+      "sic_description": "Beverages",
+      "submissions_sha256": "8e8d5f55ae577ac7e03998848a449c478d61e9a9094b8ae2c6a5db780a6a6a31"
+    },
+    {
+      "ticker": "PFE",
+      "cik": "0000078003",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "d845e4946784a2e70d0e657074e286a6e2c9baa901b29f723d1b487b9c28cf31"
+    },
+    {
+      "ticker": "PG",
+      "cik": "0000080424",
+      "sic": 2840,
+      "sic_description": "Soap, Detergents, Cleang Preparations, Perfumes, Cosmetics",
+      "submissions_sha256": "5d70210737631bf11d61d617f4b10578ba48c45fc678e43daa35323486281e73"
+    },
+    {
+      "ticker": "PGR",
+      "cik": "0000080661",
+      "sic": 6331,
+      "sic_description": "Fire, Marine & Casualty Insurance",
+      "submissions_sha256": "b68501867b82f70f3f706ef8199084e36cf456d5ffa9f04a6d30f459fd53f14c"
+    },
+    {
+      "ticker": "PH",
+      "cik": "0000076334",
+      "sic": 3490,
+      "sic_description": "Miscellaneous Fabricated Metal Products",
+      "submissions_sha256": "43514f28345568ee03436104ec71761ae003d22f8dc2f2afd35c3f8ca01a775a"
+    },
+    {
+      "ticker": "PLD",
+      "cik": "0001045609",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "98461aeb6a0f6f1e5d3ae7ad3239245a189e5ad47e376f3742122990c755e7f4"
+    },
+    {
+      "ticker": "PM",
+      "cik": "0001413329",
+      "sic": 2111,
+      "sic_description": "Cigarettes",
+      "submissions_sha256": "574f96454891d9c659412d46c1f7b5584130814f3fee67d07c3609602a88034d"
+    },
+    {
+      "ticker": "PNC",
+      "cik": "0000713676",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "e88c3a303e8b2b1a9b8526e9ece944270b8d615983777d0f16aa6237f068c271"
+    },
+    {
+      "ticker": "PSA",
+      "cik": "0001393311",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "2acba708b883d2ee8eaa330cfac1b0c42af751cf8688d2ace610c29b432aec17"
+    },
+    {
+      "ticker": "PSX",
+      "cik": "0001534701",
+      "sic": 2911,
+      "sic_description": "Petroleum Refining",
+      "submissions_sha256": "95343a971c499f784f70db421e4304e8cd1c6bcca5d8f2cbef2b914ab6a78bb3"
+    },
+    {
+      "ticker": "PWR",
+      "cik": "0001050915",
+      "sic": 1731,
+      "sic_description": "Electrical Work",
+      "submissions_sha256": "6b65a0ccfcbf82073845a3dad6b126eb79dea35d12092837c53c263c3a014a71"
+    },
+    {
+      "ticker": "QCOM",
+      "cik": "0000804328",
+      "sic": 3663,
+      "sic_description": "Radio & Tv Broadcasting & Communications Equipment",
+      "submissions_sha256": "44d2d8a523ec0814e7c9a0b2676533c536473c5f75f7b7412716da139169437c"
+    },
+    {
+      "ticker": "RCL",
+      "cik": "0000884887",
+      "sic": 4400,
+      "sic_description": "Water Transportation",
+      "submissions_sha256": "3d97453cb971ccef0b24b12dede5f43f85130ee520fe76c810521bb9f69614d2"
+    },
+    {
+      "ticker": "REGN",
+      "cik": "0000872589",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "290e3a5347d5b1ecd6d7bca161fafbb8f28c88e61599256afb9100594ec81cf3"
+    },
+    {
+      "ticker": "ROP",
+      "cik": "0000882835",
+      "sic": 3823,
+      "sic_description": "Industrial Instruments For Measurement, Display, and Control",
+      "submissions_sha256": "b299a96072eab4fb93291eceac8d16b6819b9d9f31a8497a5e71b2b200028a1d"
+    },
+    {
+      "ticker": "ROST",
+      "cik": "0000745732",
+      "sic": 5651,
+      "sic_description": "Retail-Family Clothing Stores",
+      "submissions_sha256": "dac30041ce331a0ed131df95bd4ad8fff7206bb8d24ee8ab53acd43d4b8cdc3c"
+    },
+    {
+      "ticker": "RSG",
+      "cik": "0001060391",
+      "sic": 4953,
+      "sic_description": "Refuse Systems",
+      "submissions_sha256": "87aa53a16d0da670b343fe0f7737eb468638d38a526b657f5953acae75ac2ae4"
+    },
+    {
+      "ticker": "RTX",
+      "cik": "0000101829",
+      "sic": 3724,
+      "sic_description": "Aircraft Engines & Engine Parts",
+      "submissions_sha256": "1021b7084faacdfd54cb7caa44068804e1b9f0c167ca2644c04af9798cd2c9ac"
+    },
+    {
+      "ticker": "SBUX",
+      "cik": "0000829224",
+      "sic": 5810,
+      "sic_description": "Retail-Eating & Drinking Places",
+      "submissions_sha256": "3ba41ee11892aa52eec55ead1a66849985e11b32f2d22f9feda0214f08507c7a"
+    },
+    {
+      "ticker": "SCHW",
+      "cik": "0000316709",
+      "sic": 6211,
+      "sic_description": "Security Brokers, Dealers & Flotation Companies",
+      "submissions_sha256": "b887b9310c4120a0ece4e5811d2ba2c327aeedfefb1b8707981d4d683df1ed26"
+    },
+    {
+      "ticker": "SHW",
+      "cik": "0000089800",
+      "sic": 5200,
+      "sic_description": "Retail-Building Materials, Hardware, Garden Supply",
+      "submissions_sha256": "17a91a1ed8b6b510385eacdb1d1f4e3a22dbe11759ef26ee8360f9fbeeaca3b3"
+    },
+    {
+      "ticker": "SLB",
+      "cik": "0000087347",
+      "sic": 1389,
+      "sic_description": "Oil & Gas Field Services, NEC",
+      "submissions_sha256": "f94ef0a3451ebcd23b0d64b5781264af08c09703fafaaff5b72e5c2a77ca8ad6"
+    },
+    {
+      "ticker": "SNPS",
+      "cik": "0000883241",
+      "sic": 7372,
+      "sic_description": "Services-Prepackaged Software",
+      "submissions_sha256": "fc837dca8b5fc7ff3657c776a2b1c201c1e460ce6a0f0f4aaa456872aca42720"
+    },
+    {
+      "ticker": "SO",
+      "cik": "0000092122",
+      "sic": 4911,
+      "sic_description": "Electric Services",
+      "submissions_sha256": "1e0d276201f01e099d4488073ae9dcc9ac61e1a2fa9d156310e7ed4596eca01f"
+    },
+    {
+      "ticker": "SPG",
+      "cik": "0001063761",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "4622dd625ccd4f0b2328005c2a970e285a81a6ccfb52318f0ab3d64745502925"
+    },
+    {
+      "ticker": "SPGI",
+      "cik": "0000064040",
+      "sic": 7320,
+      "sic_description": "Services-Consumer Credit Reporting, Collection Agencies",
+      "submissions_sha256": "efe34bbb12562c6c837317df69ade6ea4e16a4ca012050b47be13777794f6f6a"
+    },
+    {
+      "ticker": "SRE",
+      "cik": "0001032208",
+      "sic": 4932,
+      "sic_description": "Gas & Other Services Combined",
+      "submissions_sha256": "d3e5f4db20fbf98fe792fa9a60048a823006ca2b186cf5ac21712d64f6869f15"
+    },
+    {
+      "ticker": "SYK",
+      "cik": "0000310764",
+      "sic": 3841,
+      "sic_description": "Surgical & Medical Instruments & Apparatus",
+      "submissions_sha256": "d18f13b2dc991b709597bfe4142001a6fd898721aec0fe83b889362e78b964f6"
+    },
+    {
+      "ticker": "T",
+      "cik": "0000732717",
+      "sic": 4813,
+      "sic_description": "Telephone Communications (No Radiotelephone)",
+      "submissions_sha256": "6850fc7997a8d5b99dfef21cc2fa4938270d36d59a95a54545ac1ac13eabe5fe"
+    },
+    {
+      "ticker": "TDG",
+      "cik": "0001260221",
+      "sic": 3728,
+      "sic_description": "Aircraft Parts & Auxiliary Equipment, NEC",
+      "submissions_sha256": "f5c47ca02d0fbf6b5a7599d926f2fb2b02433e1d57762436811707424e3c7e6e"
+    },
+    {
+      "ticker": "TFC",
+      "cik": "0000092230",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "2e287105eb12301ab3304bbeb8f951ec005a26d908456734e43eeee6bb3199d6"
+    },
+    {
+      "ticker": "TGT",
+      "cik": "0000027419",
+      "sic": 5331,
+      "sic_description": "Retail-Variety Stores",
+      "submissions_sha256": "3d133aa9e678fcf843c4ed95e51dd6c5f298df3a21cc6b6e2b84429a8b506975"
+    },
+    {
+      "ticker": "TJX",
+      "cik": "0000109198",
+      "sic": 5651,
+      "sic_description": "Retail-Family Clothing Stores",
+      "submissions_sha256": "00515a465f71b88ce8c2c387a2422feeec7b9adedad9d73b64077b2da2ad4f6f"
+    },
+    {
+      "ticker": "TMO",
+      "cik": "0000097745",
+      "sic": 3829,
+      "sic_description": "Measuring & Controlling Devices, NEC",
+      "submissions_sha256": "016c598138e04dd2fadacb910ac35df7fa5a91b1d4dc366ed5eb23e0e97d561f"
+    },
+    {
+      "ticker": "TMUS",
+      "cik": "0001283699",
+      "sic": 4812,
+      "sic_description": "Radiotelephone Communications",
+      "submissions_sha256": "073a00f3f617c4a6fc07cea7658c550b3303b2ae8373b7efc8b27743334452cd"
+    },
+    {
+      "ticker": "TRV",
+      "cik": "0000086312",
+      "sic": 6331,
+      "sic_description": "Fire, Marine & Casualty Insurance",
+      "submissions_sha256": "d477778a6e14a19a9ef01d8e31fcb94990b224b10c829bad4bbd1f7de33047f0"
+    },
+    {
+      "ticker": "TSLA",
+      "cik": "0001318605",
+      "sic": 3711,
+      "sic_description": "Motor Vehicles & Passenger Car Bodies",
+      "submissions_sha256": "9005bae55ae3da60eb6cf68ade179ab9dbb92ee8ad36a31c0b0a8d50b6a9cf8b"
+    },
+    {
+      "ticker": "TT",
+      "cik": "0001466258",
+      "sic": 3822,
+      "sic_description": "Auto Controls For Regulating Residential & Comml Environments",
+      "submissions_sha256": "613eb0e614dc65a55c711b771ef46bacdcdc1bd32f7357f5d6422795eaf5def6"
+    },
+    {
+      "ticker": "TXN",
+      "cik": "0000097476",
+      "sic": 3674,
+      "sic_description": "Semiconductors & Related Devices",
+      "submissions_sha256": "f41410833c3b1fe551ac1dd38a696782c430e8a71a4b8b780fd38e0f13b7beb3"
+    },
+    {
+      "ticker": "UNH",
+      "cik": "0000731766",
+      "sic": 6324,
+      "sic_description": "Hospital & Medical Service Plans",
+      "submissions_sha256": "2e2d1c6568c68189db5b3d38cb47eb733acfffc9d666406f8652f5c79401a481"
+    },
+    {
+      "ticker": "UNP",
+      "cik": "0000100885",
+      "sic": 4011,
+      "sic_description": "Railroads, Line-Haul Operating",
+      "submissions_sha256": "37f9bad411128e5b38d13e1d48d2bcc92d0ae3d81ebad47dfb4044c5f8777591"
+    },
+    {
+      "ticker": "UPS",
+      "cik": "0001090727",
+      "sic": 4210,
+      "sic_description": "Trucking & Courier Services (No Air)",
+      "submissions_sha256": "b5540a0075af93743150183f79308f7e86f35855b7ecaeda705cd483c7fd2a40"
+    },
+    {
+      "ticker": "URI",
+      "cik": "0001067701",
+      "sic": 7359,
+      "sic_description": "Services-Equipment Rental & Leasing, NEC",
+      "submissions_sha256": "ba46ae2bb050c400c7a77cb3382f9d34979fc311fc46a30508bf9fbe9e3fed0f"
+    },
+    {
+      "ticker": "USB",
+      "cik": "0000036104",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "757282105ec7959ed8040436cd07ceaff71e35ffbc25ae32edcf713429277fd3"
+    },
+    {
+      "ticker": "V",
+      "cik": "0001403161",
+      "sic": 7389,
+      "sic_description": "Services-Business Services, NEC",
+      "submissions_sha256": "7f985aa8d9b9b7171d7784aa41af99770be5bc86afc2b1d508aa977f5aa0dc18"
+    },
+    {
+      "ticker": "VRTX",
+      "cik": "0000875320",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "5797143261a96d6e2d6241608005941ccfb19ae09de78743695af502be677987"
+    },
+    {
+      "ticker": "VZ",
+      "cik": "0000732712",
+      "sic": 4813,
+      "sic_description": "Telephone Communications (No Radiotelephone)",
+      "submissions_sha256": "bc3e988a8d8391e27f5d6519b2de85590fc34ff3e73eadc02e0675080e7f9ae8"
+    },
+    {
+      "ticker": "WELL",
+      "cik": "0000766704",
+      "sic": 6798,
+      "sic_description": "Real Estate Investment Trusts",
+      "submissions_sha256": "cf46778c7a7e2d85ab8d71f069785a83e5f9defccd50acae23db525a1123be04"
+    },
+    {
+      "ticker": "WFC",
+      "cik": "0000072971",
+      "sic": 6021,
+      "sic_description": "National Commercial Banks",
+      "submissions_sha256": "716f3adfd88450459dc3a5ba25228f5bdef7cbeb728fee7224aa0f23af441d3c"
+    },
+    {
+      "ticker": "WM",
+      "cik": "0000823768",
+      "sic": 4953,
+      "sic_description": "Refuse Systems",
+      "submissions_sha256": "93b71a8292860cd4cccc44de2c8e355a91f2e4b06090d94d314dd5036a326f71"
+    },
+    {
+      "ticker": "WMB",
+      "cik": "0000107263",
+      "sic": 4922,
+      "sic_description": "Natural Gas Transmission",
+      "submissions_sha256": "ff1ee714576bebacb723937dc8cfb6e51cf42215ae70603fbc718b61d49c3327"
+    },
+    {
+      "ticker": "WMT",
+      "cik": "0000104169",
+      "sic": 5331,
+      "sic_description": "Retail-Variety Stores",
+      "submissions_sha256": "0bca641a57ea709c35dedc40564d9f70240af653712b883514c19ca888608c53"
+    },
+    {
+      "ticker": "XOM",
+      "cik": "0000034088",
+      "sic": 2911,
+      "sic_description": "Petroleum Refining",
+      "submissions_sha256": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df"
+    },
+    {
+      "ticker": "ZTS",
+      "cik": "0001555280",
+      "sic": 2834,
+      "sic_description": "Pharmaceutical Preparations",
+      "submissions_sha256": "5427a43d1d929bc0a774f070850324f856646e86d15ce86da830b01c7bf0a8c6"
+    }
+  ]
+}

@@ -244,8 +244,10 @@ do not make companies comparable.
 
 - **Survivorship bias:** the companies were large at the end of 2024, and very few lost money over the
   period. Backtests overstate absolute returns, and a signal favouring beaten-down companies only meets
-  those that later recovered. Compare with an equal-weight basket of the same companies, and do not read
-  results as beating the market.
+  those that later recovered. The list holds the largest companies by market value at that time, so a
+  company that was small in earlier years entered it only after large gains; differences between
+  portfolios sorted by a ratio can therefore be biased too, in either direction. Compare with an
+  equal-weight basket of the same companies, and do not read results as beating the market.
 - **Backtest window:** every company has a known annual value only from March 2016, and two values, needed
   for growth, from March 2017. Reports for FY2025 filed after 31 Dec 2025 cannot drive a trade in the window.
 - **End of the window:** some companies' last period ends by mid-2025, so a cross-section by "FY2025" joins
