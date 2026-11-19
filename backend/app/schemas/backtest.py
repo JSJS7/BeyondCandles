@@ -85,11 +85,11 @@ class RatioBacktest(BaseModel):
     excludes_financial: bool
     full_years: int
     positive_spread_years: int
-    # Chance of at least that many positive years from coin tosses.
-    coin_probability: float
-    # Annualised quintile 1 minus annualised quintile 5.
-    spread_annualised_gross: float
-    spread_annualised_net: float
+    # The test of the ranking, before costs: monthly quintile 1 - 5 returns over the full
+    # years, their mean per year (x 12) and t, the mean over its standard error.
+    spread_mean: float | None = None
+    spread_t: float | None = None
+    spread_months: int
     quintiles: list[QuintileSummary]
     benchmark: ReturnSummary
     periods: list[RatioPeriod]

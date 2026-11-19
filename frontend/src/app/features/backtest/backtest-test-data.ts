@@ -55,9 +55,9 @@ export function ratioBacktest(ratio: RatioKey, withMembers = false): RatioBackte
     excludes_financial: ratio === 'roa',
     full_years: 2,
     positive_spread_years: 2,
-    coin_probability: 0.25,
-    spread_annualised_gross: 0.2,
-    spread_annualised_net: 0.2,
+    spread_mean: 0.2,
+    spread_t: 1.5,
+    spread_months: 24,
     quintiles: [1, 2, 3, 4, 5].map((number) => ({
       number,
       cumulative_gross: 0.44,

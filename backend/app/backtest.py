@@ -16,8 +16,8 @@ import hashlib
 import math
 import random
 import statistics
-from dataclasses import dataclass
-from datetime import date
+from dataclasses import dataclass, field
+from datetime import date, timedelta
 from decimal import Decimal
 from itertools import pairwise
 from statistics import NormalDist
@@ -28,6 +28,10 @@ TRADE_COST = 0.001
 RANDOM_PORTFOLIO_COUNT = 1000
 # Fixed, so every run draws the same random portfolios (plan, D7).
 BACKTEST_SEED = 20170331
+MONTHS_PER_YEAR = 12
+# A sale this soon after the last month end (1 or 2 April) joins the month before it, so
+# that a holding has twelve months and no stub of a day or two.
+SHORTEST_LAST_MONTH = timedelta(days=15)
 
 # True: the lowest values form quintile 1 (a low price for what the company has or earns);
 # False: the highest values do. Operating margin is left out: it is empty for whole sectors
@@ -90,6 +94,11 @@ class HoldingPeriod:
     returns: dict[str, float]
     # Ends before a next ranking (April to December 2025), so it stays out of the summaries.
     partial: bool = False
+    # The month ends inside the holding and the sell session (`month_checkpoints`), and for
+    # each ticker its adjusted close at each of them / at the buy session. They give the
+    # monthly returns that the test of the 1 - 5 spread uses; empty, the test is skipped.
+    checkpoints: tuple[date, ...] = ()
+    growth: dict[str, tuple[float, ...]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -187,13 +196,14 @@ class RatioResult:
     periods: list[RatioPeriod]
     quintiles: list[QuintileSummary]
     benchmark: ReturnSummary
-    # Annualised quintile 1 minus annualised quintile 5, over the full years.
-    spread_annualised_gross: float
-    spread_annualised_net: float
+    # The test of the ranking: monthly returns of quintile 1 minus quintile 5 over the full
+    # years, before costs, as in the studies of portfolio sorts. The mean is per year (x 12);
+    # t is the mean divided by its standard error. None without at least two months.
+    spread_mean: float | None
+    spread_t: float | None
+    spread_months: int
     full_years: int
     positive_spread_years: int
-    # Chance of at least that many positive years if each were a coin toss.
-    coin_probability: float
 
 
 @dataclass(frozen=True)
@@ -396,14 +406,6 @@ def stouffer(mid_p_values):
     return 1 - normal.cdf(combined_score)
 
 
-def coin_probability(successes, trials):
-    """Chance of at least `successes` heads in `trials` tosses of a fair coin."""
-    ways = 0
-    for heads in range(successes, trials + 1):
-        ways += math.comb(trials, heads)
-    return ways / 2**trials
-
-
 def return_summary(portfolio):
     """Compounded and per-year returns of the full years of one traced portfolio."""
     gross_growth = math.prod(1 + period.gross_return for period in portfolio)
@@ -444,6 +446,72 @@ def check_periods(periods):
                 raise ValueError(
                     f"{candidate.ticker} has no return from {period.buy_session}"
                 )
+            if not period.checkpoints:
+                continue
+            path = period.growth.get(candidate.ticker)
+            if path is None or len(path) != len(period.checkpoints):
+                raise ValueError(
+                    f"{candidate.ticker} lacks a month-end close from {period.buy_session}"
+                )
+
+
+def month_checkpoints(sessions, buy_session, sell_session):
+    """The last session of every month inside the holding, then the sell session.
+
+    `sessions` are all trading days in order. A sale soon after the last month end, as on
+    1 April, joins the month before it, so a year's holding has twelve monthly returns.
+    """
+    inside = [session for session in sessions if buy_session < session < sell_session]
+    month_ends = []
+    for index, session in enumerate(inside):
+        is_last = index + 1 == len(inside)
+        if is_last or inside[index + 1].month != session.month:
+            month_ends.append(session)
+    if month_ends and sell_session - month_ends[-1] < SHORTEST_LAST_MONTH:
+        month_ends.pop()
+    return (*month_ends, sell_session)
+
+
+def monthly_returns(tickers, period):
+    """Monthly returns of equal parts bought at the start of the holding and held.
+
+    The portfolio's value at each checkpoint is the mean growth of its companies, so the
+    weights drift with prices, as in the yearly return.
+    """
+    returns = []
+    previous_value = 1.0
+    for position in range(len(period.checkpoints)):
+        value = math.fsum(period.growth[ticker][position] for ticker in tickers)
+        value /= len(tickers)
+        returns.append(value / previous_value - 1)
+        previous_value = value
+    return returns
+
+
+def t_statistic(values):
+    """Mean divided by its standard error; None without two values or any variation."""
+    if len(values) < 2:
+        return None
+    deviation = statistics.stdev(values)
+    if deviation == 0:
+        return None
+    return statistics.fmean(values) / (deviation / math.sqrt(len(values)))
+
+
+def spread_test(periods, quintile_portfolios):
+    """Monthly quintile 1 - 5 returns over the full years: (mean per year, t, months)."""
+    spreads = []
+    for index, period in enumerate(periods):
+        if period.partial or not period.checkpoints:
+            continue
+        first = monthly_returns(quintile_portfolios[0][index].tickers, period)
+        last = monthly_returns(quintile_portfolios[-1][index].tickers, period)
+        for first_return, last_return in zip(first, last, strict=True):
+            spreads.append(first_return - last_return)
+    if not spreads:
+        return None, None, 0
+    mean_per_year = statistics.fmean(spreads) * MONTHS_PER_YEAR
+    return mean_per_year, t_statistic(spreads), len(spreads)
 
 
 def backtest_ratio(ratio, periods, financial_tickers):
@@ -527,8 +595,7 @@ def ratio_result(ratio, periods, ratio_periods, quintile_portfolios, benchmark):
     for index in full:
         if ratio_periods[index].spread_gross > 0:
             positive_spread_years += 1
-    first = quintile_summaries[0].returns
-    last = quintile_summaries[-1].returns
+    spread_mean, spread_t, spread_months = spread_test(periods, quintile_portfolios)
     return RatioResult(
         ratio=ratio,
         lowest_first=RATIO_LOWEST_FIRST[ratio],
@@ -536,11 +603,11 @@ def ratio_result(ratio, periods, ratio_periods, quintile_portfolios, benchmark):
         periods=ratio_periods,
         quintiles=quintile_summaries,
         benchmark=return_summary([benchmark[index] for index in full]),
-        spread_annualised_gross=first.annualised_gross - last.annualised_gross,
-        spread_annualised_net=first.annualised_net - last.annualised_net,
+        spread_mean=spread_mean,
+        spread_t=spread_t,
+        spread_months=spread_months,
         full_years=len(full),
         positive_spread_years=positive_spread_years,
-        coin_probability=coin_probability(positive_spread_years, len(full)),
     )
 
 

@@ -35,22 +35,14 @@
   min-width: 0;
 }
 
+/* As wide as its text, so that the empty space beside it does not focus the field. */
 .field-label {
+  align-self: flex-start;
   font-family: var(--bc-font-sans);
   font-size: var(--bc-text-small);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.ratio-select {
-  min-width: 12rem;
-  min-height: var(--bc-control-height);
-  padding: var(--bc-space-s);
-  border: 1px solid var(--bc-control-border);
-  border-radius: var(--bc-radius-control);
-  background: var(--bc-surface);
-  color: var(--bc-text);
 }
 
 .costs-toggle {
@@ -88,9 +80,11 @@
   font-style: italic;
 }
 
+/* As wide as its text, as in the screener: the empty line beside it does not open the guide. */
 .reading-guide-toggle {
   display: flex;
   align-items: center;
+  width: fit-content;
   min-height: var(--bc-control-height);
   color: var(--bc-primary);
   cursor: pointer;
@@ -117,6 +111,21 @@
   display: flex;
   flex-direction: column;
   gap: var(--bc-space-s);
+}
+
+/* As wide as the select, not the whole section. */
+.ratio-field {
+  align-self: flex-start;
+}
+
+.ratio-select {
+  min-width: 12rem;
+  min-height: var(--bc-control-height);
+  padding: var(--bc-space-s);
+  border: 1px solid var(--bc-control-border);
+  border-radius: var(--bc-radius-control);
+  background: var(--bc-surface);
+  color: var(--bc-text);
 }
 
 .ratio-facts {

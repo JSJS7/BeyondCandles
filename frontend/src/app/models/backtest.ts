@@ -66,9 +66,11 @@ export interface RatioBacktest {
   excludes_financial: boolean;
   full_years: number;
   positive_spread_years: number;
-  coin_probability: number;
-  spread_annualised_gross: number;
-  spread_annualised_net: number;
+  // The test of the ranking, before costs: monthly quintile 1 - 5 returns over the full years,
+  // their mean per year (x 12) and t, the mean over its standard error; null without two months.
+  spread_mean: number | null;
+  spread_t: number | null;
+  spread_months: number;
   quintiles: QuintileSummary[];
   benchmark: ReturnSummary;
   periods: RatioPeriod[];

@@ -7,6 +7,7 @@ purchase on the session after the ranking session, the sale on the next purchase
 or, for the last holding, on the last session of the data window.
 """
 
+import threading
 from dataclasses import replace
 from datetime import date
 from typing import Annotated
@@ -22,6 +23,7 @@ from app.backtest import (
     TRADE_COST,
     Candidate,
     HoldingPeriod,
+    month_checkpoints,
     period_return,
     run_backtest,
 )
@@ -42,6 +44,7 @@ RETURN_DECIMALS = 6
 # Database engine -> (periods, result) of `cached_backtest`; tests clear it, because they
 # change the data between requests.
 CACHED_RESULTS = {}
+CACHE_LOCK = threading.Lock()
 
 
 def last_session(connection, day):
@@ -103,6 +106,18 @@ def candidate_from_row(row):
     )
 
 
+def trading_sessions(connection, first, last):
+    """Every trading day from `first` to `last`, in order."""
+    prices = DailyPrice.__table__
+    query = (
+        select(prices.c.date)
+        .where(prices.c.date >= first, prices.c.date <= last)
+        .distinct()
+        .order_by(prices.c.date)
+    )
+    return list(connection.execute(query).scalars())
+
+
 def holding_returns(tickers, closes, buy_session, sell_session):
     """Returns of the companies with both closes; a missing one stops `run_backtest`."""
     returns = {}
@@ -115,6 +130,19 @@ def holding_returns(tickers, closes, buy_session, sell_session):
     return returns
 
 
+def growth_paths(tickers, closes, buy_session, checkpoints):
+    """Each ticker's close at every checkpoint / its buy close; incomplete ones are left out
+    and stop `run_backtest`."""
+    paths = {}
+    for ticker in tickers:
+        buy_close = closes.get((ticker, buy_session))
+        path = [closes.get((ticker, checkpoint)) for checkpoint in checkpoints]
+        if buy_close is None or None in path:
+            continue
+        paths[ticker] = tuple(close / buy_close for close in path)
+    return paths
+
+
 def load_periods(connection, ranking_dates, end_date):
     """One holding period per ranking date; the last one ends on the window's last session."""
     buy_sessions = []
@@ -123,7 +151,14 @@ def load_periods(connection, ranking_dates, end_date):
         buy_sessions.append(next_session(connection, ranking_session))
     final_session = last_session(connection, end_date)
     sell_sessions = [*buy_sessions[1:], final_session]
-    closes = adjusted_closes(connection, {*buy_sessions, final_session})
+    sessions = trading_sessions(connection, buy_sessions[0], final_session)
+    checkpoints = []
+    for buy_session, sell_session in zip(buy_sessions, sell_sessions, strict=True):
+        checkpoints.append(month_checkpoints(sessions, buy_session, sell_session))
+    needed_sessions = {*buy_sessions, final_session}
+    for period_checkpoints in checkpoints:
+        needed_sessions.update(period_checkpoints)
+    closes = adjusted_closes(connection, needed_sessions)
 
     periods = []
     last_index = len(ranking_dates) - 1
@@ -143,6 +178,10 @@ def load_periods(connection, ranking_dates, end_date):
                     tickers, closes, buy_sessions[index], sell_sessions[index]
                 ),
                 partial=index == last_index,
+                checkpoints=checkpoints[index],
+                growth=growth_paths(
+                    tickers, closes, buy_sessions[index], checkpoints[index]
+                ),
             )
         )
     return periods
@@ -150,6 +189,12 @@ def load_periods(connection, ranking_dates, end_date):
 
 def rounded(value):
     return round(value, RETURN_DECIMALS)
+
+
+def optional_rounded(value):
+    if value is None:
+        return None
+    return rounded(value)
 
 
 def portfolio_fields(portfolio):
@@ -240,9 +285,9 @@ def ratio_response(result, periods, with_members):
         excludes_financial=result.excludes_financial,
         full_years=result.full_years,
         positive_spread_years=result.positive_spread_years,
-        coin_probability=result.coin_probability,
-        spread_annualised_gross=rounded(result.spread_annualised_gross),
-        spread_annualised_net=rounded(result.spread_annualised_net),
+        spread_mean=optional_rounded(result.spread_mean),
+        spread_t=optional_rounded(result.spread_t),
+        spread_months=result.spread_months,
         quintiles=quintile_summaries,
         benchmark=schemas.ReturnSummary(**summary_fields(result.benchmark)),
         periods=response_periods,
@@ -282,14 +327,19 @@ def cached_backtest(connection):
     One run takes about 5 s (18.11.2026: 2.8 s for the nine rankings, 2.2 s for the random
     portfolios), and the data change only with a manual rebuild. After a rebuild the API
     must be restarted to show the new result.
+
+    The page asks for the summary and one ratio at the same time, and FastAPI answers both
+    in parallel threads. The lock makes the second request wait for the first one's result
+    instead of computing it again (both took 8.3 s instead of 5 s without it).
     """
     engine = connection.engine
-    cached = CACHED_RESULTS.get(engine)
-    if cached is None:
-        periods = load_periods(connection, RANKING_DATES, END_DATE)
-        result = run_backtest(periods, financial_tickers())
-        cached = (periods, result)
-        CACHED_RESULTS[engine] = cached
+    with CACHE_LOCK:
+        cached = CACHED_RESULTS.get(engine)
+        if cached is None:
+            periods = load_periods(connection, RANKING_DATES, END_DATE)
+            result = run_backtest(periods, financial_tickers())
+            cached = (periods, result)
+            CACHED_RESULTS[engine] = cached
     return cached
 
 

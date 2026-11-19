@@ -37,7 +37,9 @@
   max-width: 15rem;
 }
 
+/* As wide as its text, so that the empty space beside it does not focus the field. */
 .field-label {
+  align-self: flex-start;
   font-family: var(--bc-font-sans);
   font-size: var(--bc-text-small);
   font-weight: 700;

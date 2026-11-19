@@ -24,6 +24,22 @@ export const BACKTEST_RATIO_KEYS: RatioKey[] = RATIO_DEFINITIONS.map(
 
 export const DEFAULT_BACKTEST_RATIO: RatioKey = 'pe';
 
+/**
+ * What else a quintile holds where a small positive denominator makes a ratio very large
+ * (review of 18.11.2026: 39% of OCF / net income's quintile 1 had a net margin below 5%, half of
+ * EPS growth's quintile 1 doubled its EPS, a fifth of ROE's had equity below 10% of assets; the
+ * same was true of 23% of P/B's quintile 5 and of at most 2% of its other quintiles). P/B ranks
+ * the lowest values first, so such companies land in its quintile 5.
+ */
+export const QUINTILE_NOTES: Partial<Record<RatioKey, string>> = {
+  pb: 'Little equity, often after share buybacks, makes P/B large, so quintile 5 also holds such companies.',
+  ocf_to_net_income:
+    'Thin profits make this ratio large, so quintile 1 also holds companies that barely earned.',
+  eps_growth:
+    'Growth from a weak year is large, so quintile 1 also holds companies recovering from one.',
+  roe: 'Little equity, often after share buybacks, makes ROE large, so quintile 1 also holds such companies.',
+};
+
 /** The ratio named in the address, or P/E for a missing or unknown one. */
 export function parseBacktestRatio(text: string | null): RatioKey {
   const known = BACKTEST_RATIO_KEYS.find((key) => key === text);
@@ -126,8 +142,24 @@ export function annualised(summary: ReturnSummary, costs: Costs): number {
   return costs === 'net' ? summary.annualised_net : summary.annualised_gross;
 }
 
-export function annualisedSpread(ratio: RatioBacktest, costs: Costs): number {
-  return costs === 'net' ? ratio.spread_annualised_net : ratio.spread_annualised_gross;
+/** A difference in points that the API leaves empty without enough months: "—". */
+export function formatOptionalPoints(value: number | null): string {
+  if (value === null) {
+    return '—';
+  }
+  return formatPoints(value);
+}
+
+/** A t statistic with two decimals, signed like the difference it tests: "-0.81". */
+export function formatT(value: number | null): string {
+  if (value === null) {
+    return '—';
+  }
+  const text = value.toFixed(2);
+  if (text === '-0.00') {
+    return '0.00';
+  }
+  return text;
 }
 
 /** Smallest and largest number of ranked companies over the full years: "170–190". */

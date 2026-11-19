@@ -1,6 +1,10 @@
 <!-- Above the scroll area, not in the caption, so that a phone does not cut the text off. -->
 <p class="table-note">
-  Per year over the full years, {{ costsText() }}. Quintile 1 holds the companies ranked first.
+  Quintile 1, quintile 5 (Q1, Q5) and the benchmark: compounded per year over the full years,
+  {{ costsText() }}. The rest is before costs. Mean 1 − 5 and t test the ranking on monthly returns:
+  the average monthly difference between quintile 1 and quintile 5, times 12, in points, and that
+  average over its standard error. It differs from the mean of the yearly differences and from Q1
+  minus Q5, which compound the months. With eleven ratios, a t near 2 can be chance.
 </p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="All ratios">
   <table class="summary-table">
@@ -17,12 +21,12 @@
         <th scope="col" class="number-column">Companies</th>
         <th scope="col" class="number-column">Quintile 1</th>
         <th scope="col" class="number-column">Quintile 5</th>
-        <th scope="col" class="number-column">1 − 5 (points)</th>
         <th scope="col" class="number-column">Benchmark</th>
+        <th scope="col" class="number-column">Mean 1 − 5</th>
+        <th scope="col" class="number-column">t</th>
         <th scope="col" class="number-column">Years 1 > 5</th>
-        <th scope="col" class="number-column">Coin chance</th>
-        <th scope="col" class="number-column">p, quintile 1</th>
-        <th scope="col" class="number-column">p, quintile 5</th>
+        <th scope="col" class="number-column">Random p, Q1</th>
+        <th scope="col" class="number-column">Random p, Q5</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +38,7 @@
               routerLink="/backtest"
               [queryParams]="{ ratio: ratio.ratio }"
               [attr.aria-current]="ratio.ratio === selected() ? 'true' : null"
+              (click)="onRatioClick($event)"
               >{{ ratioDefinition(ratio.ratio).label }}</a
             >
             @if (ratio.excludes_financial) {
@@ -48,10 +53,10 @@
           <td class="number-column">
             {{ formatReturn(annualised(lastQuintile(ratio), costs())) }}
           </td>
-          <td class="number-column">{{ formatPoints(annualisedSpread(ratio, costs())) }}</td>
           <td class="number-column">{{ formatReturn(annualised(ratio.benchmark, costs())) }}</td>
+          <td class="number-column">{{ formatOptionalPoints(ratio.spread_mean) }}</td>
+          <td class="number-column">{{ formatT(ratio.spread_t) }}</td>
           <td class="number-column">{{ ratio.positive_spread_years }} of {{ ratio.full_years }}</td>
-          <td class="number-column">{{ coinText(ratio) }}</td>
           <td class="number-column">{{ formatPValue(firstQuintile(ratio).combined_p_value) }}</td>
           <td class="number-column">{{ formatPValue(lastQuintile(ratio).combined_p_value) }}</td>
         </tr>

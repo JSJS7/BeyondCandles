@@ -1,5 +1,8 @@
+import threading
+import time
 import unittest
 from datetime import date
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from sqlalchemy import delete
@@ -116,6 +119,10 @@ class BacktestApiTests(ScreenerDatabaseTestCase):
         self.assertEqual(best["period_return"], 0.9)
         self.assertEqual(best["market_value"], "2000")
         self.assertEqual(net_margin["full_years"], 1)
+        # The fixture has no sessions between the purchases, and 31 Mar 2025 is only a day
+        # before the sale, so the year is one "month": too little for a t statistic.
+        self.assertEqual(net_margin["spread_months"], 1)
+        self.assertIsNone(net_margin["spread_t"])
 
     def test_report_filed_on_the_ranking_session_waits_for_the_next_ranking(self):
         """M41: AAA restates its net income (500 -> 950) in a report filed on the ranking
@@ -200,6 +207,51 @@ class BacktestApiTests(ScreenerDatabaseTestCase):
 
         with self.assertRaises(ValueError):
             self.client.get("/backtest/net_margin")
+
+
+class BacktestCacheTests(unittest.TestCase):
+    def test_concurrent_first_requests_compute_the_result_once(self):
+        """The page asks for the summary and one ratio at once after the API starts.
+
+        Both requests find no result yet; the second must wait for the first one's result
+        instead of running the five-second computation again (18.11.2026: 8.3 s, not 5 s).
+        """
+        # Arrange: a slow computation that counts its runs, and one shared database engine.
+        backtest_api.CACHED_RESULTS.clear()
+        self.addCleanup(backtest_api.CACHED_RESULTS.clear)
+        runs = []
+
+        def slow_load_periods(connection, ranking_dates, end_date):
+            time.sleep(0.2)
+            return ["periods"]
+
+        def counting_run_backtest(periods, financial):
+            runs.append(periods)
+            return "result"
+
+        connection = SimpleNamespace(engine="engine")
+        start_together = threading.Barrier(2)
+        answers = []
+
+        def request():
+            start_together.wait()
+            answers.append(backtest_api.cached_backtest(connection))
+
+        # Act: two requests at the same moment.
+        with (
+            patch.object(backtest_api, "load_periods", slow_load_periods),
+            patch.object(backtest_api, "run_backtest", counting_run_backtest),
+            patch.object(backtest_api, "financial_tickers", set),
+        ):
+            threads = [threading.Thread(target=request) for _ in range(2)]
+            for thread in threads:
+                thread.start()
+            for thread in threads:
+                thread.join()
+
+        # Assert: one computation, and both requests got its result.
+        self.assertEqual(len(runs), 1)
+        self.assertEqual(answers, [(["periods"], "result")] * 2)
 
 
 if __name__ == "__main__":

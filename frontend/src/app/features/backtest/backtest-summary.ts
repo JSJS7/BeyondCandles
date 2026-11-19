@@ -1,16 +1,16 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RatioBacktest } from '../../models/backtest';
 import { RatioKey } from '../../models/screener';
 import {
   annualised,
-  annualisedSpread,
   Costs,
   coverageRange,
   directionText,
-  formatPoints,
+  formatOptionalPoints,
   formatPValue,
   formatReturn,
+  formatT,
   ratioDefinition,
 } from './backtest-format';
 
@@ -28,6 +28,8 @@ export class BacktestSummary {
   readonly ratios = input.required<RatioBacktest[]>();
   readonly costs = input.required<Costs>();
   readonly selected = input.required<RatioKey>();
+  // A ratio was chosen here, so the page can bring its tables below into view.
+  readonly ratioChosen = output<void>();
 
   readonly costsText = computed(() => (this.costs() === 'net' ? 'after costs' : 'before costs'));
 
@@ -35,14 +37,19 @@ export class BacktestSummary {
   readonly directionText = directionText;
   readonly coverageRange = coverageRange;
   readonly formatReturn = formatReturn;
-  readonly formatPoints = formatPoints;
+  readonly formatOptionalPoints = formatOptionalPoints;
+  readonly formatT = formatT;
   readonly formatPValue = formatPValue;
   readonly annualised = annualised;
-  readonly annualisedSpread = annualisedSpread;
 
-  /** Chance of at least that many positive years from coin tosses, as a percent. */
-  coinText(ratio: RatioBacktest): string {
-    return formatReturn(ratio.coin_probability);
+  /** A plain click opens the ratio on this page; Ctrl, Shift or the middle button open a tab. */
+  onRatioClick(event: MouseEvent): void {
+    const opensElsewhere =
+      event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey;
+    if (opensElsewhere) {
+      return;
+    }
+    this.ratioChosen.emit();
   }
 
   firstQuintile(ratio: RatioBacktest) {

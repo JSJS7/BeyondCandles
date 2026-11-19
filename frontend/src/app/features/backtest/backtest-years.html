@@ -3,6 +3,7 @@
 <p class="table-note">
   Each holding from the purchase after the ranking to the next purchase, {{ costsText() }}.
 </p>
+<p class="spread-test">{{ spreadTestText() }}</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Returns by year">
   <table class="years-table">
     <caption class="visually-hidden">
@@ -51,7 +52,9 @@
         @for (quintile of ratio().quintiles; track quintile.number) {
           <td class="number-column">{{ formatReturn(annualised(quintile, costs())) }}</td>
         }
-        <td class="number-column">{{ formatPoints(annualisedSpread(ratio(), costs())) }}</td>
+        <!-- Compounded quintiles do not subtract into the mean difference, which the line
+             above the table gives from monthly returns. -->
+        <td class="number-column"></td>
         <td class="number-column">{{ formatReturn(annualised(ratio().benchmark, costs())) }}</td>
         <td class="number-column">{{ formatReturn(annualised(catalogueSummary(), costs())) }}</td>
         <td class="number-column"></td>

@@ -24,9 +24,10 @@
   font-size: var(--bc-text-table);
 }
 
+/* Narrower than the other tables: eleven columns must fit beside the menu at 1440 px. */
 th,
 td {
-  padding: var(--bc-space-s) var(--bc-space-m);
+  padding: var(--bc-space-s);
   border-bottom: 1px solid var(--bc-border);
   vertical-align: top;
 }
@@ -71,7 +72,7 @@ thead .ratio-column {
 }
 
 .number-column {
-  min-width: 5.5rem;
+  min-width: 4rem;
   text-align: right;
   white-space: nowrap;
 }

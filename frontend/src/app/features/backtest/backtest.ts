@@ -1,4 +1,14 @@
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -25,11 +35,14 @@ import {
   directionText,
   inScreenerOrder,
   parseBacktestRatio,
+  QUINTILE_NOTES,
   ratioDefinition,
 } from './backtest-format';
 import { BacktestHoldings } from './backtest-holdings';
 import { BacktestSummary } from './backtest-summary';
 import { BacktestYears } from './backtest-years';
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 /** The annual quintile backtest of every screener ratio (DEC-33); the chosen ratio is in the address. */
 @Component({
@@ -43,6 +56,9 @@ export class Backtest implements OnInit {
   private readonly router = inject(Router);
   private readonly backtestService = inject(BacktestService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
+  private readonly details = viewChild<ElementRef<HTMLElement>>('details');
+  private readonly ratioSelect = viewChild<ElementRef<HTMLSelectElement>>('ratioSelect');
   private readonly summaryRetry = new Subject<void>();
   private readonly detailRetry = new Subject<void>();
 
@@ -51,6 +67,9 @@ export class Backtest implements OnInit {
     { requireSync: true },
   );
   readonly costs = signal<Costs>('net');
+  // The ranking date of the year whose companies are shown. Kept here, so that it stays when
+  // another ratio replaces the list of companies; null shows the first year.
+  readonly chosenDate = signal<string | null>(null);
 
   readonly summary = signal<BacktestResponse | null>(null);
   readonly detail = signal<RatioBacktest | null>(null);
@@ -66,6 +85,7 @@ export class Backtest implements OnInit {
     this.orderedRatios().find((item) => item.ratio === this.ratio()),
   );
   readonly selectedLabel = computed(() => ratioDefinition(this.ratio()).label);
+  readonly quintileNote = computed(() => QUINTILE_NOTES[this.ratio()] ?? '');
   readonly methodologyUrl = METHODOLOGY_URL;
   readonly directionText = directionText;
 
@@ -108,8 +128,29 @@ export class Backtest implements OnInit {
     this.costs.set(costs);
   }
 
+  /**
+   * Bring the chosen ratio's tables into view after a click in the summary above them: they
+   * start below the first screen, so only the highlighted row would change. Focus moves to the
+   * list of ratios, which names the choice; without motion when the reader asked for less.
+   */
+  showDetails(): void {
+    const details = this.details()?.nativeElement;
+    const ratioSelect = this.ratioSelect()?.nativeElement;
+    if (!details || !ratioSelect) {
+      return;
+    }
+    const lessMotion = this.document.defaultView?.matchMedia?.(REDUCED_MOTION_QUERY).matches;
+    details.scrollIntoView({ behavior: lessMotion ? 'auto' : 'smooth', block: 'start' });
+    ratioSelect.focus({ preventScroll: true });
+  }
+
   retrySummary(): void {
     this.summaryRetry.next();
+    // The companies' error shows only below the summary, so after the same failure it would
+    // appear only once the summary came back and ask for a second Try again.
+    if (this.detailLoadState().status === 'error') {
+      this.detailRetry.next();
+    }
   }
 
   retryDetail(): void {

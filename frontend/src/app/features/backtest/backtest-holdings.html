@@ -2,15 +2,13 @@
 
 <div class="holdings-controls">
   <label class="field-label" for="holding-year">Year</label>
-  <select
-    #yearSelect
-    id="holding-year"
-    class="year-select"
-    [value]="period().ranking_date"
-    (change)="choose(yearSelect.value)"
-  >
+  <!-- Each option marks itself: the select's own value would be set before the options exist. -->
+  <select #yearSelect id="holding-year" class="year-select" (change)="choose(yearSelect.value)">
     @for (option of ratio().periods; track option.ranking_date) {
-      <option [value]="option.ranking_date">
+      <option
+        [value]="option.ranking_date"
+        [selected]="option.ranking_date === period().ranking_date"
+      >
         {{ holdingYear(option) }} ({{ holdingDates(option) }})
       </option>
     }
@@ -20,46 +18,70 @@
 <p class="coverage-note">
   Ranked on {{ formatDate(period().ranking_date) }}: {{ period().coverage.ranked }} companies. Left
   out: {{ leftOutText() }}.
-  <a routerLink="/screener" [queryParams]="screenerParams()">See this ranking in the screener</a>
+  <!-- The screener also lists the companies left out here, so its order is not the quintiles'. -->
+  <a routerLink="/screener" [queryParams]="screenerParams()">Same values in the screener</a>
 </p>
 
-<div class="quintile-grid">
-  @for (quintile of period().quintiles; track quintile.number) {
-    <section class="quintile" [attr.aria-labelledby]="'quintile-' + quintile.number">
-      <h4 class="quintile-title" [id]="'quintile-' + quintile.number">
-        Quintile {{ quintile.number }}
-      </h4>
-      <p class="quintile-facts">
-        {{ quintile.count }} companies · return
-        {{ formatReturn(portfolioReturn(quintile, costs())) }} · median market value
-        {{ formatBillions(quintile.median_market_value) }}
-      </p>
-      <table class="members-table">
-        <caption class="visually-hidden">
-          Companies in quintile
-          {{
-            quintile.number
-          }}, in ranking order
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col" class="ticker-column">Company</th>
-            <th scope="col" class="number-column">Value</th>
-            <th scope="col" class="number-column">Return</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (member of quintile.members ?? []; track member.ticker) {
-            <tr>
-              <th scope="row" class="ticker-column">
+<!-- Above the table, not in its header: "before costs" in the header widened every quintile's
+     column, so that the table no longer fitted beside the menu (N144, 19.11.2026). -->
+<p class="table-note">
+  Companies in ranking order. Their returns are before costs: the cost of trading belongs to the
+  whole quintile, whose return in the header follows the choice above.
+</p>
+
+<!-- One table across the page, like the other tables: three columns per quintile, and row n
+     holds the n-th company of every quintile. It scrolls sideways on a narrow screen. -->
+<div class="table-scroll" tabindex="0" role="region" aria-label="Companies in each quintile">
+  <table class="members-table">
+    <caption class="visually-hidden">
+      Companies in each quintile in
+      {{
+        holdingYear(period())
+      }}, in ranking order
+    </caption>
+    <thead>
+      <tr>
+        @for (quintile of period().quintiles; track quintile.number) {
+          <th scope="colgroup" colspan="3" class="quintile-heading quintile-start">
+            <span class="quintile-name">Quintile {{ quintile.number }}</span>
+            <!-- Two fixed lines that never break inside, so no word is left alone below. -->
+            <span class="quintile-facts">
+              {{ quintile.count }} companies · return
+              {{ formatReturn(portfolioReturn(quintile, costs())) }}
+            </span>
+            <span class="quintile-facts">
+              median market value {{ formatBillions(quintile.median_market_value) }}
+            </span>
+          </th>
+        }
+      </tr>
+      <tr>
+        @for (quintile of period().quintiles; track quintile.number) {
+          <th scope="col" class="ticker-column quintile-start">Company</th>
+          <th scope="col" class="number-column">Value</th>
+          <th scope="col" class="number-column">Return</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of rows(); track $index) {
+        <tr>
+          @for (member of row; track $index) {
+            @if (member) {
+              <td class="ticker-column quintile-start">
                 <a [routerLink]="['/stocks', member.ticker]">{{ member.ticker }}</a>
-              </th>
+              </td>
               <td class="number-column">{{ valueText(member.value) }}</td>
               <td class="number-column">{{ formatReturn(member.period_return) }}</td>
-            </tr>
+            } @else {
+              <!-- This quintile holds one company fewer than the first ones. -->
+              <td class="ticker-column quintile-start"></td>
+              <td class="number-column"></td>
+              <td class="number-column"></td>
+            }
           }
-        </tbody>
-      </table>
-    </section>
-  }
+        </tr>
+      }
+    </tbody>
+  </table>
 </div>

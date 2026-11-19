@@ -16,9 +16,11 @@
   margin-bottom: var(--bc-space-l);
 }
 
+/* As wide as its text: the empty line beside it does not open the guide. */
 .reading-guide summary {
   display: flex;
   align-items: center;
+  width: fit-content;
   min-height: var(--bc-control-height);
   color: var(--bc-primary);
   cursor: pointer;

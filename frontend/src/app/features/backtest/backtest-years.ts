@@ -2,12 +2,13 @@ import { Component, computed, input } from '@angular/core';
 import { CataloguePeriod, RatioBacktest, RatioPeriod, ReturnSummary } from '../../models/backtest';
 import {
   annualised,
-  annualisedSpread,
   cataloguePeriod,
   Costs,
+  formatOptionalPoints,
   formatPoints,
   formatPValue,
   formatReturn,
+  formatT,
   fullPeriods,
   holdingDates,
   holdingYear,
@@ -35,6 +36,17 @@ export class BacktestYears {
     this.ratio().quintiles.map((quintile) => quintile.number),
   );
 
+  /** The test of the ranking in one sentence, from the monthly returns before costs. */
+  readonly spreadTestText = computed(() => {
+    const ratio = this.ratio();
+    const mean = formatOptionalPoints(ratio.spread_mean);
+    const t = formatT(ratio.spread_t);
+    return (
+      `Quintile 1 − 5: ${mean} points a year (monthly mean × 12), t ${t}, ` +
+      `from ${ratio.spread_months} monthly returns before costs.`
+    );
+  });
+
   readonly formatReturn = formatReturn;
   readonly formatPoints = formatPoints;
   readonly formatPValue = formatPValue;
@@ -43,7 +55,6 @@ export class BacktestYears {
   readonly portfolioReturn = portfolioReturn;
   readonly spread = spread;
   readonly annualised = annualised;
-  readonly annualisedSpread = annualisedSpread;
 
   /** Return of the whole catalogue in equal parts over the same holding. */
   catalogueText(period: RatioPeriod): string {

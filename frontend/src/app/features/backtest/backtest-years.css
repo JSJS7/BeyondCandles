@@ -12,6 +12,13 @@
   font-size: var(--bc-text-table);
 }
 
+.spread-test {
+  margin: 0 0 var(--bc-space-m);
+  font-family: var(--bc-font-sans);
+  font-size: var(--bc-text-table);
+  font-weight: 600;
+}
+
 .table-scroll {
   /* Positioned, so that visually hidden text stays clipped inside the scroll area. */
   position: relative;

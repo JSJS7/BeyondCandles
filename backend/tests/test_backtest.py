@@ -1,7 +1,8 @@
 import hashlib
 import random
 import unittest
-from datetime import date
+from dataclasses import replace
+from datetime import date, timedelta
 from decimal import Decimal
 
 from app.backtest import (
@@ -9,14 +10,16 @@ from app.backtest import (
     RATIO_LOWEST_FIRST,
     Candidate,
     HoldingPeriod,
-    coin_probability,
     draw_seed,
     flagged_ratios,
+    month_checkpoints,
+    monthly_returns,
     quintile_sizes,
     random_mean_returns,
     ranking,
     run_backtest,
     stouffer,
+    t_statistic,
     turnover,
 )
 
@@ -115,7 +118,6 @@ class KnownExampleTests(unittest.TestCase):
         self.assertAlmostEqual(second.spread_gross, 0.20)
         self.assertEqual(self.pe.positive_spread_years, 1)
         self.assertEqual(self.pe.full_years, 2)
-        self.assertAlmostEqual(self.pe.coin_probability, 0.75)
 
     def test_benchmark_turnover_after_drift(self):
         """After year 1, A..E weigh (1.1, 1.2, 1.0, 0.9, 1.5) / 5.7; then all six get 1/6.
@@ -324,12 +326,6 @@ class StatisticsTests(unittest.TestCase):
         """
         self.assertAlmostEqual(stouffer([0.025, 0.025]), 0.0028, places=4)
 
-    def test_coin_probabilities_from_the_plan(self):
-        """At least 7 of 8: 9/256 = 3.5%; at least 6 of 8: 37/256 = 14.5%."""
-        self.assertAlmostEqual(coin_probability(7, 8), 9 / 256)
-        self.assertAlmostEqual(coin_probability(6, 8), 37 / 256)
-        self.assertEqual(coin_probability(0, 8), 1.0)
-
 
 class PeriodCheckTests(unittest.TestCase):
     def test_holdings_must_follow_each_other(self):
@@ -380,6 +376,84 @@ class PeriodCheckTests(unittest.TestCase):
         self.assertEqual(pe.full_years, 1)
         self.assertAlmostEqual(pe.quintiles[0].returns.cumulative_gross, 0.10)
         self.assertTrue(pe.periods[1].partial)
+
+
+def with_month_paths(periods):
+    """The example with two checkpoints a year: each company halfway at 1 + r/2, then 1 + r."""
+    result = []
+    for period in periods:
+        growth = {}
+        for ticker, value in period.returns.items():
+            growth[ticker] = (1 + value / 2, 1 + value)
+        midway = date(period.buy_session.year, 10, 31)
+        checkpoints = (midway, period.sell_session)
+        result.append(replace(period, checkpoints=checkpoints, growth=growth))
+    return result
+
+
+class SpreadTestTests(unittest.TestCase):
+    def test_month_checkpoints_give_twelve_months_without_a_stub(self):
+        """Holding 3 Apr 2017 - 2 Apr 2018 on weekdays: month ends April to February, then
+        the sale; 29 Mar 2018 is dropped, because 2 April is only four days after it."""
+        sessions = []
+        day = date(2017, 4, 3)
+        while day <= date(2018, 4, 2):
+            if day.weekday() < 5:
+                sessions.append(day)
+            day += timedelta(days=1)
+
+        checkpoints = month_checkpoints(sessions, date(2017, 4, 3), date(2018, 4, 2))
+
+        self.assertEqual(len(checkpoints), 12)
+        self.assertEqual(checkpoints[0], date(2017, 4, 28))
+        self.assertEqual(checkpoints[-2], date(2018, 2, 28))
+        self.assertEqual(checkpoints[-1], date(2018, 4, 2))
+
+    def test_monthly_returns_follow_the_drifting_portfolio(self):
+        """A at 1.1 then 1.21, B at 0.9 then 0.81: the portfolio is worth 1.0 then 1.01."""
+        period = replace(
+            known_example()[0],
+            checkpoints=(date(2017, 10, 31), date(2018, 4, 2)),
+            growth={"A": (1.1, 1.21), "B": (0.9, 0.81)},
+        )
+
+        returns = monthly_returns(["A", "B"], period)
+
+        self.assertAlmostEqual(returns[0], 0.0)
+        self.assertAlmostEqual(returns[1], 0.01)
+
+    def test_t_statistic_of_known_values(self):
+        """1, 2, 3: mean 2, standard deviation 1, standard error 1/sqrt(3), so t = 2 sqrt(3)."""
+        self.assertAlmostEqual(t_statistic([1, 2, 3]), 2 * 3**0.5)
+        self.assertIsNone(t_statistic([0.1]))
+        self.assertIsNone(t_statistic([0.1, 0.1]))
+
+    def test_spread_test_of_the_known_example(self):
+        """Year 1: A (Q1) 1.05, 1.10 and E (Q5) 1.25, 1.50 give spreads -0.2 and
+        1.10/1.05 - 1.5/1.25 = -0.152381. Year 2: F and B (Q1) average 1.10, 1.20 and A (Q5)
+        stays at 1: spreads 0.1 and 0.090909. Mean -0.040368, x 12 = -0.484416; deviations
+        -0.159632, -0.112013, 0.140368, 0.131277 give a standard deviation of 0.158078,
+        a standard error of 0.079039 and t = -0.5107."""
+        periods = with_month_paths(known_example())
+
+        pe = run_backtest(periods, financial_tickers=set(), ratios=["pe"]).ratios[0]
+
+        self.assertEqual(pe.spread_months, 4)
+        self.assertAlmostEqual(pe.spread_mean, -0.484416, places=6)
+        self.assertAlmostEqual(pe.spread_t, -0.5107, places=4)
+
+    def test_spread_test_needs_month_ends_of_every_company(self):
+        """A company without a month-end close must stop the run, not drop out silently."""
+        first, second = with_month_paths(known_example())
+        growth = dict(first.growth)
+        del growth["C"]
+
+        with self.assertRaises(ValueError):
+            run_backtest(
+                [replace(first, growth=growth), second],
+                financial_tickers=set(),
+                ratios=["pe"],
+            )
 
 
 if __name__ == "__main__":

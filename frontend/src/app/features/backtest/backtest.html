@@ -9,21 +9,6 @@
 
   <div class="controls">
     <div class="field">
-      <label class="field-label" for="backtest-ratio">Ratio</label>
-      <select
-        #ratioSelect
-        id="backtest-ratio"
-        class="ratio-select"
-        [value]="ratio()"
-        (change)="chooseRatio(ratioSelect.value)"
-      >
-        @for (option of ratioOptions; track option.key) {
-          <option [value]="option.key">{{ option.label }}</option>
-        }
-      </select>
-    </div>
-
-    <div class="field">
       <span class="field-label" id="costs-label">Returns</span>
       <div class="costs-toggle" role="group" aria-labelledby="costs-label">
         <button
@@ -92,16 +77,33 @@
       </dd>
       <dt>Per year</dt>
       <dd>The compounded return of the full years, as a yearly rate.</dd>
-      <dt>Random portfolios</dt>
+      <dt>Mean 1 − 5 and t</dt>
       <dd>
-        Each quintile against 1,000 random portfolios of its size from the same ranked companies,
-        before costs. The years are combined with Stouffer's method. With eleven ratios, one of them
-        is likely to look extreme by chance.
+        The test of the ranking, as studies of portfolio sorts report it: the monthly returns of
+        quintile 1 minus quintile 5, before costs, averaged and multiplied by 12 to show them per
+        year, and t, that average divided by its standard error. Only a t well away from zero, about
+        2 or more either way, tells the ranking from chance, and with eleven ratios one of them can
+        reach 2 by chance. The mean differs from the yearly differences in the table and from
+        quintile 1's rate per year minus quintile 5's: those compound the months, which lowers a
+        quintile's rate the more its monthly returns swing.
       </dd>
-      <dt>Coin chance</dt>
+      <dt>Random p</dt>
       <dd>
-        The chance of at least as many years with quintile 1 ahead of quintile 5 if each year were a
-        coin toss.
+        The share of 1,000 random portfolios of the quintile's size, from the same ranked companies
+        and before costs, that did at least as well; the years are combined with Stouffer's method.
+        It tells how the quintile did against random picks in these years, including any bet on a
+        style that moved its companies together, so it can be small while t shows nothing.
+      </dd>
+      <dt>Years 1 > 5</dt>
+      <dd>
+        The number of full years in which quintile 1 did better than quintile 5, before costs.
+      </dd>
+      <dt>Very large values</dt>
+      <dd>
+        A ratio with a small positive denominator can be very large: OCF / net income with thin
+        profits, EPS growth after a weak year, ROE with little equity after share buybacks. Quintile
+        1 of these ratios therefore also holds such companies. Little equity makes P/B large too, so
+        quintile 5 of P/B holds them.
       </dd>
     </dl>
   </details>
@@ -127,17 +129,44 @@
   @if (summary(); as response) {
     <section class="page-section" aria-labelledby="all-ratios-title">
       <h2 id="all-ratios-title">All ratios</h2>
-      <app-backtest-summary [ratios]="orderedRatios()" [costs]="costs()" [selected]="ratio()" />
+      <app-backtest-summary
+        [ratios]="orderedRatios()"
+        [costs]="costs()"
+        [selected]="ratio()"
+        (ratioChosen)="showDetails()"
+      />
     </section>
 
     @if (selectedRatio(); as selected) {
-      <section class="page-section" aria-labelledby="ratio-title">
-        <h2 id="ratio-title">{{ selectedLabel() }}</h2>
+      <section #details class="page-section" aria-labelledby="ratio-title">
+        <!-- Next to what it changes: the tables below show one ratio at a time. -->
+        <div class="field ratio-field">
+          <label class="field-label" for="backtest-ratio">Ratio</label>
+          <select
+            #ratioSelect
+            id="backtest-ratio"
+            class="ratio-select"
+            [value]="ratio()"
+            (change)="chooseRatio(ratioSelect.value)"
+          >
+            <!-- Each option marks itself: the select's own value is set before the options exist,
+                 so a ratio from the address would otherwise show as the first option. -->
+            @for (option of ratioOptions; track option.key) {
+              <option [value]="option.key" [selected]="option.key === ratio()">
+                {{ option.label }}
+              </option>
+            }
+          </select>
+        </div>
+        <!-- The list above already shows the chosen ratio; the heading names the section for
+             screen readers only. -->
+        <h2 id="ratio-title" class="visually-hidden">{{ selectedLabel() }}</h2>
         <p class="ratio-facts">
           Quintile 1 holds the {{ directionText(selected.lowest_first).toLowerCase() }}.
           @if (selected.excludes_financial) {
             Financial firms are left out.
           }
+          {{ quintileNote() }}
         </p>
         <app-backtest-years
           [ratio]="selected"
@@ -159,7 +188,11 @@
           }
         }
         @if (detail(); as detailRatio) {
-          <app-backtest-holdings [ratio]="detailRatio" [costs]="costs()" />
+          <app-backtest-holdings
+            [ratio]="detailRatio"
+            [costs]="costs()"
+            [(chosenDate)]="chosenDate"
+          />
         }
       </section>
     }

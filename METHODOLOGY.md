@@ -226,11 +226,24 @@ equal size (quintiles) through the years.
 - **Costs:** 0.10% of the value of every trade at each yearly purchase, including bringing companies that
   stay back to an equal part; the final sale is free. With one rebalancing a year, costs change yearly
   returns by a small fraction of a percentage point.
-- **Random portfolios:** each quintile is compared with 1,000 random portfolios of its size, drawn from
-  the same ranked companies with the same dates, before costs. A year's p-value is the share of them
-  that did at least as well; the years are combined with Stouffer's method, as in Burns (2004). With
-  eleven ratios one of them is likely to look extreme by chance, so no ratio is presented as the best.
-  The draws use a fixed seed and repeat on every run.
+- **Test of the ranking:** as studies of portfolio sorts report it, the monthly returns of quintile 1
+  minus quintile 5 over the full years, before costs: their mean, multiplied by 12 to show it per year,
+  and t, the mean over its standard error. The yearly differences and the per-year rates of the
+  quintiles compound the months, so neither their mean nor quintile 1's rate minus quintile 5's equals
+  it; compounding lowers a rate the more the monthly returns swing. Only a t of about 2 or more either
+  way tells the ranking from chance, and with eleven ratios one of them can reach that by chance, so no
+  ratio is presented as the best. Eight years are few: a yearly difference of a few points cannot be
+  told from chance in them.
+- **Random portfolios:** each quintile is also compared with 1,000 random portfolios of its size,
+  drawn from the same ranked companies with the same dates, before costs. A year's p-value is the share
+  of them that did at least as well; the years are combined with Stouffer's method, as in Burns
+  (2004). It measures how the quintile did against random picks in those years, including a common
+  move of its companies such as a style in favour, so it can be small while t shows nothing. The draws
+  use a fixed seed and repeat on every run.
+- **Very large values:** a ratio with a small positive denominator can be very large, so quintile 1
+  of OCF / net income also holds companies with thin profits, that of EPS growth companies recovering
+  from a weak year, and that of ROE companies with little equity after share buybacks. The same little
+  equity makes P/B large, so quintile 5 of P/B holds such companies too.
 - **Market value:** each quintile shows its median market value on the ranking session (price × listed
   shares, as in P/B), to show where the selection of the list may weigh most (see Survivorship bias).
 

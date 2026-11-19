@@ -13,7 +13,9 @@
   max-width: 22rem;
 }
 
+/* As wide as its text, so that the empty space beside it does not focus the field. */
 .field-label {
+  align-self: flex-start;
   font-family: var(--bc-font-sans);
   font-size: var(--bc-text-small);
   font-weight: 700;
@@ -35,27 +37,20 @@
   color: var(--bc-muted);
 }
 
-/* As many quintiles side by side as fit; one under another on a phone. */
-.quintile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-  gap: var(--bc-space-l);
-}
-
-.quintile {
-  min-width: 0;
-}
-
-.quintile-title {
-  margin-bottom: var(--bc-space-xs);
-}
-
-.quintile-facts {
-  margin: 0 0 var(--bc-space-s);
+.table-note {
+  margin: 0 0 var(--bc-space-m);
   color: var(--bc-muted);
-  font-size: var(--bc-text-small);
+  font-size: var(--bc-text-table);
 }
 
+.table-scroll {
+  /* Positioned, so that visually hidden text stays clipped inside the scroll area. */
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* A heavy rule above the header, as on the other tables of the page. */
 .members-table {
   width: 100%;
   border-top: var(--bc-rule-heavy) solid var(--bc-rule);
@@ -72,6 +67,32 @@ td {
 thead th {
   border-bottom: 1px solid var(--bc-rule);
   font-weight: 600;
+  vertical-align: bottom;
+}
+
+.quintile-heading {
+  text-align: left;
+}
+
+.quintile-name {
+  display: block;
+}
+
+.quintile-facts {
+  display: block;
+  color: var(--bc-muted);
+  font-size: var(--bc-text-small);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* A line between quintiles, so that each group of three columns reads as one. */
+.quintile-start {
+  border-left: 1px solid var(--bc-border);
+}
+
+.quintile-start:first-child {
+  border-left: none;
 }
 
 .ticker-column {

@@ -2,6 +2,8 @@ import {
   BACKTEST_RATIO_KEYS,
   coverageRange,
   formatBillions,
+  formatOptionalPoints,
+  formatT,
   formatPoints,
   formatPValue,
   formatReturn,
@@ -28,6 +30,15 @@ describe('Backtest numbers', () => {
     expect(formatPValue(0.0123)).toBe('0.012');
     expect(formatPValue(0.0004)).toBe('<0.001');
     expect(formatPValue(null)).toBe('—');
+  });
+
+  it('shows t with two decimals and an empty test as a dash', () => {
+    // Without two months the API has no t; an empty value must not read as zero.
+    expect(formatT(-0.8123)).toBe('-0.81');
+    expect(formatT(-0.001)).toBe('0.00');
+    expect(formatT(null)).toBe('—');
+    expect(formatOptionalPoints(-0.045)).toBe('-4.5');
+    expect(formatOptionalPoints(null)).toBe('—');
   });
 
   it('shows a market value in whole billions', () => {
