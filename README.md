@@ -112,4 +112,5 @@ The Kaggle publisher declares GPL 3. The AMD session and the two added ETN divid
 come from DoltHub `post-no-preference/stocks`, declared as CC BY-SA 4.0. The FI supplement uses one session published by Nasdaq
 and Cboe, whose terms of use were not reviewed for redistribution. Rights to publicly display the underlying Yahoo data
 remain unconfirmed. Publishing this code does not establish permission to
-redistribute the datasets or display their data publicly.
+redistribute the datasets or display their data publicly. The screener's CSV export leaves
+prices out.

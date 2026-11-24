@@ -3,21 +3,24 @@ import { screenerCsv } from './screener-csv';
 import { row } from './screener-test-data';
 
 describe('Screener CSV', () => {
-  it('writes exact API values, empty fields for no value and a header', () => {
+  it('writes exact API values, empty fields for no value and a header without price columns', () => {
+    // The vendor's prices are not offered for download (DEC-46): the price must not reach the file.
     const company = row('AAPL', { pe: '36.442357', roe: '1.714224' }, 'Technology');
     company.latest = { ...company.latest!, price: '271.859985', shares_basis: 'calculated' };
 
-    const lines = screenerCsv([company], '2025-12-31').split('\r\n');
+    const csv = screenerCsv([company], '2025-12-31');
+    const lines = csv.split('\r\n');
 
+    expect(csv).not.toContain('271.859985');
     expect(lines[0]).toBe(
-      'valuation_date,ticker,name,sector,price_date,price,period_start,period_end,' +
+      'valuation_date,ticker,name,sector,period_start,period_end,' +
         'pe,pb,ps,roe,roa,net_margin,operating_margin,fcf_margin,revenue_growth,eps_growth,' +
         'ocf_to_net_income,equity_to_assets,eps_basis,shares_basis,ocf_scope,' +
         'revenue_series_break,eps_series_break,spin_off_dates,spin_off_fractions,' +
         'exchangeable_units,share_issue,discontinued_operations,previous_discontinued_operations',
     );
     expect(lines[1]).toBe(
-      '2025-12-31,AAPL,AAPL Inc.,Technology,2025-12-31,271.859985,2024-01-01,2024-12-31,' +
+      '2025-12-31,AAPL,AAPL Inc.,Technology,2024-01-01,2024-12-31,' +
         '36.442357,,,1.714224,,,,,,,,,diluted,calculated,total,false,false,,,false,false,false,false',
     );
     // The file ends with a line break, so the last line is empty.

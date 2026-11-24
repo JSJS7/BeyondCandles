@@ -1,5 +1,6 @@
 // CSV export of the screener: the values as the API returns them, so that the file is fit for
-// further analysis.
+// further analysis. The vendor's prices are shown on the page but not offered for download
+// (DEC-46), so the file has no price columns.
 import { ScreenerRow, SpinOff } from '../../models/screener';
 import { columnValue } from './screener-columns';
 import { CRITERION_COLUMNS } from './screener-filters';
@@ -22,8 +23,6 @@ const CSV_COLUMNS: CsvColumn[] = [
   { header: 'ticker', value: (row) => row.ticker },
   { header: 'name', value: (row) => row.name },
   { header: 'sector', value: (row) => row.sector },
-  { header: 'price_date', value: (row) => row.latest?.price_date ?? null },
-  { header: 'price', value: (row) => row.latest?.price ?? null },
   { header: 'period_start', value: (row) => row.latest?.period_start ?? null },
   { header: 'period_end', value: (row) => row.latest?.period_end ?? null },
   ...CRITERION_COLUMNS.map((column) => ({
