@@ -1,9 +1,7 @@
 import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 import { Icon } from '../../shared/icon/icon';
+import { ScrollMemory } from '../../shared/scroll-memory';
 import { slideInFromLeft, slideOutToLeft } from '../../shared/slide';
 import { Sidebar } from '../sidebar/sidebar';
 import { Topbar } from '../topbar/topbar';
@@ -24,28 +22,12 @@ const MENU_CLOSING_CLASS = 'menu-closing';
 export class Layout {
   private readonly mobileMenu = viewChild<ElementRef<HTMLDialogElement>>('mobileMenu');
   private menuOpener: HTMLElement | null = null;
-  private currentPath: string | null = null;
   private menuClosing = false;
   readonly menuOpen = signal(false);
 
   constructor() {
-    // W34: a new page starts at the top. A change of the query string alone keeps the place: the
-    // screener writes its state there on every keystroke. The router's own scrolling
-    // (withInMemoryScrolling) cannot tell the two apart and would jump to the top on each key.
-    const viewportScroller = inject(ViewportScroller);
-    inject(Router)
-      .events.pipe(
-        filter((event) => event instanceof NavigationEnd),
-        takeUntilDestroyed(),
-      )
-      .subscribe((event) => {
-        const path = event.urlAfterRedirects.split(/[?#]/)[0];
-        const pathChanged = this.currentPath !== null && path !== this.currentPath;
-        if (pathChanged) {
-          viewportScroller.scrollToPosition([0, 0]);
-        }
-        this.currentPath = path;
-      });
+    // A new page starts at the top; Back and Forward return to the place where it was left.
+    inject(ScrollMemory).watchNavigation();
   }
 
   openMenu(opener: HTMLElement): void {
