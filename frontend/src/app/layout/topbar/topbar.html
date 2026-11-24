@@ -8,7 +8,7 @@
     [attr.aria-expanded]="menuOpen()"
     (click)="menuRequested.emit(menuButton)"
   >
-    <span aria-hidden="true">☰</span>
+    <app-icon name="menu" />
   </button>
 
   <div class="global-search" (keydown.escape)="dismissSearchResults()">

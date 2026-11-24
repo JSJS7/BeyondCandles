@@ -9,16 +9,19 @@
   background: var(--bc-surface);
 }
 
-/* Shown only on a phone, where the sidebar becomes a menu. */
+/* Shown only on a phone, where the sidebar becomes a menu; the icon sits in the middle. */
 .menu-button {
   display: none;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   width: var(--bc-control-height);
   height: var(--bc-control-height);
   border: 1px solid var(--bc-control-border);
   border-radius: var(--bc-radius-control);
   background: transparent;
   color: var(--bc-primary);
+  font-size: var(--bc-text-title);
   cursor: pointer;
 }
 
@@ -173,7 +176,7 @@
   }
 
   .menu-button {
-    display: block;
+    display: flex;
   }
 
   /* 16 px keeps phones from zooming into the field when it gets the focus. */
