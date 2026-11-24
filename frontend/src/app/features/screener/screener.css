@@ -190,9 +190,11 @@
 
 .table-scroll {
   /* Own scrolling in both directions: the header row and the company column stay visible.
-     The height leaves room for the top bar, so the whole table fits on the screen. */
+     The height leaves room for the top bar, so the whole table fits on the screen. The small
+     viewport height is the one with the address bar shown, so the table does not change its
+     height while a phone browser hides the bar during scrolling. */
   position: relative;
-  max-height: calc(100dvh - var(--bc-topbar-height) - 2 * var(--bc-main-padding));
+  max-height: calc(100svh - var(--bc-topbar-height) - 2 * var(--bc-main-padding));
   overflow: auto;
   overscroll-behavior-x: contain;
   /* A heavy rule above and a light one below, as around a printed stock table. */
@@ -244,8 +246,9 @@ td {
 }
 
 /* Right-aligned like the ratios; only the company column, with its own border, reads from the left.
-   Each column width fits the longest value seen in the data and the longest word of a label
-   ("Exchangeable"), so that a label wraps between words and a value never wraps. */
+   Each column width fits the longest value seen in the data, so that a value never wraps. A ratio
+   column also fits "Discontinued ops" (99 px of 104), so that labels stay on one line and the rows
+   keep one height. */
 .text-column {
   width: 6.5rem;
 }
@@ -259,11 +262,16 @@ td {
 }
 
 .multiple-column {
-  width: 6rem;
+  width: 7rem;
 }
 
 .percent-column {
-  width: 6rem;
+  width: 7rem;
+}
+
+/* P/S alone can carry "Exchangeable units" (111 px). */
+.ps-column {
+  width: 7.75rem;
 }
 
 /* The company stays visible while the ratios scroll sideways. */

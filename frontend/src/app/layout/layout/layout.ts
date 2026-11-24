@@ -1,4 +1,5 @@
 import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
@@ -7,8 +8,10 @@ import { slideInFromLeft, slideOutToLeft } from '../../shared/slide';
 import { Sidebar } from '../sidebar/sidebar';
 import { Topbar } from '../topbar/topbar';
 
-// The same width as in the style sheets: from here on the sidebar is shown and the menu is not.
+// The same sizes as in the style sheets: a window at least this wide and higher than the phone
+// height shows the sidebar and not the menu. The height catches a phone turned sideways.
 const DESKTOP_MIN_WIDTH = 768;
+const PHONE_MAX_HEIGHT = 500;
 const MENU_CLOSING_CLASS = 'menu-closing';
 
 @Component({
@@ -20,16 +23,16 @@ const MENU_CLOSING_CLASS = 'menu-closing';
 })
 export class Layout {
   private readonly mobileMenu = viewChild<ElementRef<HTMLDialogElement>>('mobileMenu');
-  private readonly main = viewChild<ElementRef<HTMLElement>>('main');
   private menuOpener: HTMLElement | null = null;
   private currentPath: string | null = null;
   private menuClosing = false;
   readonly menuOpen = signal(false);
 
   constructor() {
-    // W34: pages scroll inside <main>, not the window, so the router cannot reset the place.
-    // A new page starts at the top. A change of the query string alone keeps the place: the
-    // screener writes its state there on every keystroke.
+    // W34: a new page starts at the top. A change of the query string alone keeps the place: the
+    // screener writes its state there on every keystroke. The router's own scrolling
+    // (withInMemoryScrolling) cannot tell the two apart and would jump to the top on each key.
+    const viewportScroller = inject(ViewportScroller);
     inject(Router)
       .events.pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -38,9 +41,8 @@ export class Layout {
       .subscribe((event) => {
         const path = event.urlAfterRedirects.split(/[?#]/)[0];
         const pathChanged = this.currentPath !== null && path !== this.currentPath;
-        const main = this.main()?.nativeElement;
-        if (pathChanged && main) {
-          main.scrollTop = 0;
+        if (pathChanged) {
+          viewportScroller.scrollToPosition([0, 0]);
         }
         this.currentPath = path;
       });
@@ -134,7 +136,9 @@ export class Layout {
   }
 
   onViewportResize(): void {
-    if (window.innerWidth >= DESKTOP_MIN_WIDTH) {
+    const wideEnough = window.innerWidth >= DESKTOP_MIN_WIDTH;
+    const highEnough = window.innerHeight > PHONE_MAX_HEIGHT;
+    if (wideEnough && highEnough) {
       this.closeMenu();
     }
   }

@@ -1,10 +1,18 @@
 :host {
   display: flex;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bc-page);
   color: var(--bc-text);
+}
+
+/* The page scrolls as a whole (styles.css); the sidebar stays beside it at the height of the
+   screen and keeps its own scrolling. */
+.desktop-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
 }
 
 .main-content {
@@ -12,18 +20,22 @@
   flex: 1;
   flex-direction: column;
   min-width: 0;
-  min-height: 0;
-  overflow: hidden;
 }
 
+/* Stays at the top while the page scrolls, above the drop-down panels of the page. */
+app-topbar {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: block;
+}
+
+/* Clipped, not hidden: content wider than the page never makes it scroll sideways, and the
+   main area does not become a scrolling box of its own. */
 main {
   flex: 1;
-  min-height: 0;
   padding: var(--bc-main-padding);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  overflow-x: clip;
 }
 
 .mobile-menu {
@@ -107,13 +119,10 @@ main {
   }
 }
 
-@media (max-width: 767px) {
+/* The phone layout, also on a phone turned sideways (styles.css). */
+@media (max-width: 767px), (max-height: 500px) {
   .desktop-sidebar {
     display: none;
-  }
-
-  main {
-    scrollbar-gutter: auto;
   }
 }
 

@@ -43,6 +43,14 @@
   font-size: var(--bc-text-table);
 }
 
+/* Shown only when the table is wider than its area (shared/scroll-overflow.ts). In the main colour
+   and the body size: without it a reader may not notice the hidden columns. */
+.scroll-hint {
+  margin: 0 0 var(--bc-space-s);
+  color: var(--bc-primary);
+  font-size: var(--bc-text-body);
+}
+
 .table-scroll {
   /* Positioned, so that visually hidden text stays clipped inside the scroll area. */
   position: relative;
@@ -52,6 +60,9 @@
 
 /* A heavy rule above the header, as on the other tables of the page. */
 .members-table {
+  /* The padding of a cell, also used by the company link that stretches over it. */
+  --cell-padding-block: var(--bc-space-xs);
+  --cell-padding-inline: var(--bc-space-s);
   width: 100%;
   border-top: var(--bc-rule-heavy) solid var(--bc-rule);
   border-collapse: collapse;
@@ -60,7 +71,7 @@
 
 th,
 td {
-  padding: var(--bc-space-xs) var(--bc-space-s);
+  padding: var(--cell-padding-block) var(--cell-padding-inline);
   border-bottom: 1px solid var(--bc-border);
 }
 
@@ -100,7 +111,28 @@ thead th {
   text-align: left;
 }
 
+/* The whole cell opens the company, not only its short ticker: an easier target for a finger.
+   The negative margin takes the padding of the cell, so the row keeps its height. */
+.ticker-link {
+  display: block;
+  margin: calc(-1 * var(--cell-padding-block)) calc(-1 * var(--cell-padding-inline));
+  padding: var(--cell-padding-block) var(--cell-padding-inline);
+}
+
+/* Inside the cell: the table scrolls sideways and would cut off a ring drawn outside it. */
+.ticker-link:focus-visible {
+  outline-offset: -2px;
+}
+
 .number-column {
   text-align: right;
   white-space: nowrap;
+}
+
+/* On a touch screen the rows are as tall as in the table of all ratios (about 36 px), so that a
+   finger hits the company it aims at. */
+@media (pointer: coarse) {
+  .members-table {
+    --cell-padding-block: var(--bc-space-s);
+  }
 }

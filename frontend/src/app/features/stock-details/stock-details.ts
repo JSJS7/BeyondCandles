@@ -64,6 +64,8 @@ export class StockDetails implements OnInit {
   readonly pricesLoadState = signal<LoadState>({ status: 'idle' });
   readonly financialsLoadState = signal<LoadState>({ status: 'idle' });
   readonly ratiosLoadState = signal<LoadState>({ status: 'idle' });
+  // The API knows no such ticker: trying again cannot help, unlike after a failed request.
+  readonly stockNotFound = signal(false);
 
   ngOnInit(): void {
     this.route.paramMap
@@ -121,6 +123,7 @@ export class StockDetails implements OnInit {
 
   private loadStock(ticker: string): Observable<Stock> {
     this.stockLoadState.set({ status: 'loading' });
+    this.stockNotFound.set(false);
     return this.stockService.getStock(ticker).pipe(
       tap((stock) => {
         this.stock.set(stock);
@@ -129,10 +132,14 @@ export class StockDetails implements OnInit {
         this.title.setTitle(pageTitle(`${stock.name} (${stock.ticker})`));
       }),
       catchError((error: unknown) => {
-        const message =
-          error instanceof HttpErrorResponse && error.status === 404
-            ? `Stock "${ticker}" was not found.`
-            : 'Failed to load stock details.';
+        const notFound = error instanceof HttpErrorResponse && error.status === 404;
+        let message = 'Failed to load stock details.';
+        if (notFound) {
+          message =
+            `No company with the ticker "${ticker}" is covered. ` +
+            'The site covers the 200 largest US-listed companies.';
+        }
+        this.stockNotFound.set(notFound);
         this.stockLoadState.set({ status: 'error', message });
         return EMPTY;
       }),

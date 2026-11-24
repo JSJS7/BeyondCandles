@@ -58,6 +58,9 @@ const PERCENT = 100;
 const BILLION = 1_000_000_000;
 // Below this a p-value is shown as "<0.001": 1000 random portfolios cannot resolve less.
 const SMALLEST_SHOWN_P_VALUE = 0.001;
+// Joins the words of a date, and the first date to the dash, so that a narrow column breaks a
+// range after the dash and never inside a date ("2 Apr" on one line, "2018" on the next).
+const NO_BREAK_SPACE = '\u00a0';
 
 /** A fraction as a percent with one decimal: 0.154 → "15.4%"; never "-0.0%". */
 export function formatReturn(value: number): string {
@@ -127,7 +130,9 @@ export function holdingYear(period: { ranking_date: string; partial: boolean }):
 }
 
 export function holdingDates(period: { buy_session: string; sell_session: string }): string {
-  return `${formatDate(period.buy_session)} – ${formatDate(period.sell_session)}`;
+  const buyDate = formatDate(period.buy_session).replaceAll(' ', NO_BREAK_SPACE);
+  const sellDate = formatDate(period.sell_session).replaceAll(' ', NO_BREAK_SPACE);
+  return `${buyDate}${NO_BREAK_SPACE}– ${sellDate}`;
 }
 
 export function portfolioReturn(portfolio: BacktestPortfolio, costs: Costs): number {

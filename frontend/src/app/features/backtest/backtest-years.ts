@@ -16,12 +16,14 @@ import {
   portfolioReturn,
   spread,
 } from './backtest-format';
+import { ScrollOverflow } from '../../shared/scroll-overflow';
 
 /** One ratio's quintiles year by year, with both benchmarks and the random comparison. */
 @Component({
   selector: 'app-backtest-years',
   templateUrl: './backtest-years.html',
   styleUrl: './backtest-years.css',
+  imports: [ScrollOverflow],
 })
 export class BacktestYears {
   readonly ratio = input.required<RatioBacktest>();

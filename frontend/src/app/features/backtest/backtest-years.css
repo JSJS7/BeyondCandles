@@ -19,6 +19,14 @@
   font-weight: 600;
 }
 
+/* Shown only when the table is wider than its area (shared/scroll-overflow.ts). In the main colour
+   and the body size: without it a reader may not notice the hidden columns. */
+.scroll-hint {
+  margin: 0 0 var(--bc-space-s);
+  color: var(--bc-primary);
+  font-size: var(--bc-text-body);
+}
+
 .table-scroll {
   /* Positioned, so that visually hidden text stays clipped inside the scroll area. */
   position: relative;

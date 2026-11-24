@@ -346,7 +346,7 @@ company by company. Years are fiscal years as each company reports them.
 | Banks: American Express, Bank of America, BNY, Citigroup, Capital One, Goldman Sachs, JPMorgan Chase, Morgan Stanley, PNC, Charles Schwab, Truist, U.S. Bancorp, Wells Fargo | Net revenue: the bank's own net line, or net interest income plus noninterest income |
 | Exchanges: Intercontinental Exchange, Nasdaq | Revenues less transaction-based expenses (rebates and fees passed on to regulators and for routing) |
 | Chevron 2015–2017 | Revenue includes excise taxes, as the company then reported it |
-| Exxon Mobil from 2020 | Revenue includes other income, as in the line the company reports |
+| Exxon Mobil | Revenue includes other income, as in the line the company reports |
 | Altria, Philip Morris | Altria's revenue includes excise taxes, Philip Morris's excludes them; Philip Morris 2015 is recalculated net of excise, as its later reports restate it |
 | EOG Resources | Total revenue as reported, which includes derivative results |
 | GE 2015, KKR 2015 | The year keeps an earlier definition from the company's own reports, so the series changes basis |
@@ -357,7 +357,7 @@ company by company. Years are fiscal years as each company reports them.
 |---|---|
 | Blackstone 2015, 2016, 2018 | Basic common units, because the diluted count of those years includes units whose holders are outside equity; its diluted count in other years excludes them |
 | Mastercard, Alphabet, Meta, Comcast, Accenture, CME Group, Nike from 2016, Regeneron, UPS, Charles Schwab 2020–2023 | No cover total for all classes; P/B and P/S use the weighted average |
-| Quanta Services 2017–2018 | No tagged cover count; P/B and P/S use the weighted average |
+| Quanta Services 2017–2018, Broadcom fiscal 2016, BlackRock 2025 | No tagged cover count; P/B and P/S use the weighted average |
 | Kroger 2015 | Its cover also counted treasury shares; P/B and P/S use the weighted average |
 | ConocoPhillips 2015–2018, McDonald's 2023–2025 | The share count's unit is corrected from the first report's table |
 | Exchangeable units: Blackstone, KKR until 2022, Charter from 2016, Simon Property, Broadcom fiscal 2017 | P/S counts units with shares, P/B only listed shares; marked *Exchangeable units* |
@@ -406,4 +406,4 @@ company by company. Years are fiscal years as each company reports them.
 | RTX, April 2020 | The spin-off value follows the vendor, although the company's own figures put the vendor's earlier level about 4–7% too low; no single reliable value exists |
 | Monster Beverage, Amphenol 2026 | Splits the vendor applied only to the last sessions are handled |
 | Broadcom (Avago), BlackRock before 2024, Cigna before 2018, Disney before 2019, Johnson Controls (Johnson Controls Inc.), Linde (Praxair) | Reports of the earlier registrant count from their filing dates |
-| S&P Global FY2024 | The annual report has no facts in SEC companyfacts; its filing date comes from the rule list |
+| S&P Global FY2024 | The annual report has no facts in SEC companyfacts; its filing date comes from the rule list, and with no cover count or tagged average P/B and P/S use the calculated share count |

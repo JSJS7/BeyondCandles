@@ -6,7 +6,17 @@
   average over its standard error. It differs from the mean of the yearly differences and from Q1
   minus Q5, which compound the months. With eleven ratios, a t near 2 can be chance.
 </p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="All ratios">
+@if (summaryScroll.overflows()) {
+  <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all columns.</p>
+}
+<div
+  class="table-scroll"
+  appScrollOverflow
+  #summaryScroll="scrollOverflow"
+  tabindex="0"
+  role="region"
+  aria-label="All ratios"
+>
   <table class="summary-table">
     <caption class="visually-hidden">
       All ratios, per year

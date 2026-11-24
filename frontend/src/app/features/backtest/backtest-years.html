@@ -4,7 +4,17 @@
   Each holding from the purchase after the ranking to the next purchase, {{ costsText() }}.
 </p>
 <p class="spread-test">{{ spreadTestText() }}</p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Returns by year">
+@if (yearsScroll.overflows()) {
+  <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all quintiles.</p>
+}
+<div
+  class="table-scroll"
+  appScrollOverflow
+  #yearsScroll="scrollOverflow"
+  tabindex="0"
+  role="region"
+  aria-label="Returns by year"
+>
   <table class="years-table">
     <caption class="visually-hidden">
       Returns by year,
@@ -87,7 +97,17 @@
   Share of 1,000 random portfolios of the same size, from the same ranked companies, that did at
   least as well before costs. A small value means the quintile did better than chance.
 </p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Against random portfolios">
+@if (randomScroll.overflows()) {
+  <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all quintiles.</p>
+}
+<div
+  class="table-scroll"
+  appScrollOverflow
+  #randomScroll="scrollOverflow"
+  tabindex="0"
+  role="region"
+  aria-label="Against random portfolios"
+>
   <table class="years-table">
     <caption class="visually-hidden">
       Share of random portfolios at least as good, by year

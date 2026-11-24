@@ -169,7 +169,8 @@
   background: var(--bc-border);
 }
 
-@media (max-width: 767px) {
+/* The phone layout, also on a phone turned sideways (styles.css). */
+@media (max-width: 767px), (max-height: 500px) {
   .topbar {
     gap: var(--bc-space-s);
     padding: 0 var(--bc-space-m);

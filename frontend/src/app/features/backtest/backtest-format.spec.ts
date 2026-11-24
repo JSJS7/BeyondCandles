@@ -7,6 +7,7 @@ import {
   formatPoints,
   formatPValue,
   formatReturn,
+  holdingDates,
   holdingYear,
   inScreenerOrder,
   parseBacktestRatio,
@@ -49,6 +50,16 @@ describe('Backtest numbers', () => {
   it('names the partial last holding by its months', () => {
     expect(holdingYear({ ranking_date: '2017-03-31', partial: false })).toBe('2017');
     expect(holdingYear({ ranking_date: '2025-03-31', partial: true })).toBe('Apr–Dec 2025');
+  });
+
+  it('breaks a holding period only after its dash, never inside a date', () => {
+    // A narrow year column wrapped "3 Apr 2017 – 2 Apr" and left "2018" alone on a line.
+    const dates = holdingDates({ buy_session: '2017-04-03', sell_session: '2018-04-02' });
+
+    const noBreakSpace = '\u00a0';
+    expect(dates.replaceAll(noBreakSpace, ' ')).toBe('3 Apr 2017 – 2 Apr 2018');
+    // The only ordinary space, where a line may break, follows the dash.
+    expect(dates.split(' ')).toEqual(['3\u00a0Apr\u00a02017\u00a0–', '2\u00a0Apr\u00a02018']);
   });
 });
 

@@ -2,6 +2,17 @@
   @let stockState = stockLoadState();
   @if (stockState.status === 'loading') {
     <app-state-message kind="loading" [framed]="true" text="Loading stock details" />
+  } @else if (stockState.status === 'error' && stockNotFound()) {
+    <!-- No Try again: the same request would find nothing again. -->
+    <div class="panel">
+      <p class="eyebrow">Company not found</p>
+      <h1>{{ ticker() }}</h1>
+      <app-state-message class="stock-error" kind="empty" [text]="stockState.message"
+        ><a stateAction class="home-link" routerLink="/screener"
+          >Go to screener</a
+        ></app-state-message
+      >
+    </div>
   } @else if (stockState.status === 'error') {
     <div class="panel">
       <p class="eyebrow">Unable to load stock</p>

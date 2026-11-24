@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
@@ -39,24 +40,19 @@ describe('Layout', () => {
   });
 
   it('starts a new page at the top, but keeps the place when only the query changes', async () => {
-    // W34: pages scroll inside <main>, which the router does not reset, so a new page opened
-    // part way down. The screener writes its state to the query on every keystroke.
+    // W34: the router does not reset the place by itself, so a new page opened part way down.
+    // The screener writes its state to the query on every keystroke, which must not scroll.
     const router = TestBed.inject(Router);
-    const main: HTMLElement = fixture.nativeElement.querySelector('main');
-    let scrollTop = 0;
-    Object.defineProperty(main, 'scrollTop', {
-      configurable: true,
-      get: () => scrollTop,
-      set: (value: number) => (scrollTop = value),
-    });
+    const scrollToPosition = vi
+      .spyOn(TestBed.inject(ViewportScroller), 'scrollToPosition')
+      .mockImplementation(() => undefined);
     await router.navigateByUrl('/screener');
 
-    scrollTop = 600;
     await router.navigateByUrl('/screener?q=micro');
-    expect(scrollTop).toBe(600);
+    expect(scrollToPosition).not.toHaveBeenCalled();
 
     await router.navigateByUrl('/other');
-    expect(scrollTop).toBe(0);
+    expect(scrollToPosition).toHaveBeenCalledWith([0, 0]);
   });
 
   function mockDialog(): HTMLDialogElement {
@@ -130,6 +126,27 @@ describe('Layout', () => {
     component.onViewportResize();
     expect(dialog.open).toBe(false);
     expect(component.menuOpen()).toBe(false);
+  });
+
+  it('keeps the mobile menu open on a phone turned sideways, which is wide but low', () => {
+    // A phone turned sideways (844 x 390) keeps the phone layout, so turning it must not close
+    // the menu; the style sheets use the same width and height.
+    const dialog = mockDialog();
+    const originalWidth = window.innerWidth;
+    const originalHeight = window.innerHeight;
+    fixture.nativeElement.querySelector('.menu-button').click();
+
+    try {
+      Object.defineProperty(window, 'innerWidth', { value: 844, configurable: true });
+      Object.defineProperty(window, 'innerHeight', { value: 390, configurable: true });
+      component.onViewportResize();
+    } finally {
+      Object.defineProperty(window, 'innerWidth', { value: originalWidth, configurable: true });
+      Object.defineProperty(window, 'innerHeight', { value: originalHeight, configurable: true });
+    }
+
+    expect(dialog.open).toBe(true);
+    expect(component.menuOpen()).toBe(true);
   });
 
   it('keeps a menu opened again when the slide of an earlier closing ends', () => {

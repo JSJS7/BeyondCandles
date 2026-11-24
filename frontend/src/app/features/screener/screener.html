@@ -232,10 +232,12 @@
               </button>
             </th>
             @for (column of shownColumns(); track column.key) {
-              <!-- The class gives the column its fixed width, which depends only on its kind. -->
+              <!-- The class gives the column its fixed width, which depends on its kind; P/S is
+                   wider for its longest label (screener.css). -->
               <th
                 scope="col"
                 [class]="column.kind + '-column'"
+                [class.ps-column]="column.key === 'ps'"
                 [attr.aria-sort]="ariaSort(column.key)"
               >
                 <button

@@ -2,6 +2,7 @@ import { Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RatioBacktest } from '../../models/backtest';
 import { RatioKey } from '../../models/screener';
+import { ScrollOverflow } from '../../shared/scroll-overflow';
 import {
   annualised,
   Costs,
@@ -20,7 +21,7 @@ import {
  */
 @Component({
   selector: 'app-backtest-summary',
-  imports: [RouterLink],
+  imports: [RouterLink, ScrollOverflow],
   templateUrl: './backtest-summary.html',
   styleUrl: './backtest-summary.css',
 })

@@ -31,7 +31,17 @@
 
 <!-- One table across the page, like the other tables: three columns per quintile, and row n
      holds the n-th company of every quintile. It scrolls sideways on a narrow screen. -->
-<div class="table-scroll" tabindex="0" role="region" aria-label="Companies in each quintile">
+@if (holdingsScroll.overflows()) {
+  <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all quintiles.</p>
+}
+<div
+  class="table-scroll"
+  appScrollOverflow
+  #holdingsScroll="scrollOverflow"
+  tabindex="0"
+  role="region"
+  aria-label="Companies in each quintile"
+>
   <table class="members-table">
     <caption class="visually-hidden">
       Companies in each quintile in
@@ -69,7 +79,9 @@
           @for (member of row; track $index) {
             @if (member) {
               <td class="ticker-column quintile-start">
-                <a [routerLink]="['/stocks', member.ticker]">{{ member.ticker }}</a>
+                <a class="ticker-link" [routerLink]="['/stocks', member.ticker]">{{
+                  member.ticker
+                }}</a>
               </td>
               <td class="number-column">{{ valueText(member.value) }}</td>
               <td class="number-column">{{ formatReturn(member.period_return) }}</td>

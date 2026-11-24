@@ -128,8 +128,24 @@
 
 html,
 body {
-  height: 100%;
   margin: 0;
+}
+
+/* The whole page scrolls, so that a phone browser can hide its address bar and reload the page on
+   a pull down. The scrollbar space stays reserved, so that pages do not shift sideways. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Focus and scrolling into view stop below the top bar, which stays at the top. Set on the page
+   content only: on the whole page it would make the controls of the top bar count as covered,
+   and focusing them would scroll the page. */
+main * {
+  scroll-margin-top: calc(var(--bc-topbar-height) + var(--bc-space-s));
+}
+
+/* The page behind the open phone menu does not scroll. */
+html:has(.mobile-menu[open]) {
   overflow: hidden;
 }
 
@@ -204,11 +220,19 @@ table {
   outline-offset: 3px;
 }
 
-@media (max-width: 767px) {
+/* The phone layout: a narrow screen, or a low one, as a phone turned sideways (844 × 390 px). The
+   same condition stands in layout.css and topbar.css and in layout.ts; the content of the pages
+   follows the width alone. */
+@media (max-width: 767px), (max-height: 500px) {
   :root {
     --bc-panel-padding: 12px;
     --bc-main-padding: 12px;
     --bc-topbar-height: 64px;
+  }
+
+  /* Phones draw the scrollbar over the page; a narrow window keeps the width for the page. */
+  html {
+    scrollbar-gutter: auto;
   }
 
   h1 {

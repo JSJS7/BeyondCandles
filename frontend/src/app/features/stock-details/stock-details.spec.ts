@@ -56,14 +56,29 @@ describe('Stock details', () => {
     const text = fixture.nativeElement.textContent;
     expect(text).toContain('Unable to load stock');
     expect(text).toContain('Failed to load stock details.');
-    expect(text).not.toContain('Stock not found');
+    expect(text).not.toContain('Company not found');
+    expect(fixture.nativeElement.querySelector('.retry-button')).not.toBeNull();
+  });
+
+  it('offers the screener instead of Try again for a ticker the API does not know', () => {
+    // The same request would find nothing again, so a retry button would only mislead.
+    http
+      .expectOne('http://127.0.0.1:8000/stocks/AAPL')
+      .flush({}, { status: 404, statusText: 'Not Found' });
+    fixture.detectChanges();
+
+    const page: HTMLElement = fixture.nativeElement;
+    expect(page.textContent).toContain('Company not found');
+    expect(page.textContent).toContain('No company with the ticker "AAPL" is covered.');
+    expect(page.querySelector('.retry-button')).toBeNull();
+    expect(page.querySelector('a.home-link')?.getAttribute('href')).toBe('/screener');
   });
 
   it('loads another company after a previous ticker returned 404', () => {
     const missingRequest = http.expectOne('http://127.0.0.1:8000/stocks/AAPL');
     missingRequest.flush({}, { status: 404, statusText: 'Not Found' });
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Stock "AAPL" was not found.');
+    expect(fixture.nativeElement.textContent).toContain('Company not found');
 
     routeParams.next(convertToParamMap({ ticker: 'MSFT' }));
     expect(fixture.componentInstance.stock()).toBeNull();
@@ -77,7 +92,7 @@ describe('Stock details', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('h1').textContent).toBe('Microsoft Corporation');
-    expect(fixture.nativeElement.textContent).not.toContain('was not found');
+    expect(fixture.nativeElement.textContent).not.toContain('Company not found');
   });
 
   it('shows the full company name above ticker, readable exchange and sector', () => {

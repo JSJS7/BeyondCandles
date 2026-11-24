@@ -2,6 +2,7 @@ import { Component, computed, input, model } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { QuintileMember, RatioBacktest, RatioPeriod } from '../../models/backtest';
 import { formatDate } from '../../shared/date-format';
+import { ScrollOverflow } from '../../shared/scroll-overflow';
 import {
   Costs,
   formatBillions,
@@ -18,7 +19,7 @@ import {
  */
 @Component({
   selector: 'app-backtest-holdings',
-  imports: [RouterLink],
+  imports: [RouterLink, ScrollOverflow],
   templateUrl: './backtest-holdings.html',
   styleUrl: './backtest-holdings.css',
 })

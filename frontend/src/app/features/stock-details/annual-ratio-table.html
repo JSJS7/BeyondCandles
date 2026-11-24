@@ -42,13 +42,20 @@
   </dl>
 </details>
 
-@if (overflows()) {
-  <p class="scroll-hint" aria-hidden="true">Swipe the table sideways to see all ratios.</p>
+@if (tableScroll.overflows()) {
+  <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all ratios.</p>
 }
 <!-- Outside the scroll area, so that it stays in place while the table scrolls sideways; the
      caption below gives the same text to screen readers. -->
 <p class="table-caption" aria-hidden="true">Ratios for periods ending in {{ periodYearsText }}</p>
-<div #scroller class="table-scroll" tabindex="0" role="region" aria-label="Annual ratios">
+<div
+  class="table-scroll"
+  appScrollOverflow
+  #tableScroll="scrollOverflow"
+  tabindex="0"
+  role="region"
+  aria-label="Annual ratios"
+>
   <table>
     <caption class="visually-hidden">
       Ratios for periods ending in
