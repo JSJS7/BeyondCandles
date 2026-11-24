@@ -1,15 +1,13 @@
-import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, signal, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Icon } from '../../shared/icon/icon';
-import { ScrollMemory } from '../../shared/scroll-memory';
 import { slideInFromLeft, slideOutToLeft } from '../../shared/slide';
 import { Sidebar } from '../sidebar/sidebar';
 import { Topbar } from '../topbar/topbar';
 
-// The same sizes as in the style sheets: a window at least this wide and higher than the phone
-// height shows the sidebar and not the menu. The height catches a phone turned sideways.
-const DESKTOP_MIN_WIDTH = 768;
-const PHONE_MAX_HEIGHT = 500;
+// The phone layout, as in the style sheets (styles.css): a narrow window, or a low touch screen
+// such as a phone turned sideways. Outside it the sidebar replaces the menu.
+const PHONE_LAYOUT_QUERY = '(max-width: 767px), (max-height: 500px) and (pointer: coarse)';
 const MENU_CLOSING_CLASS = 'menu-closing';
 
 @Component({
@@ -24,11 +22,6 @@ export class Layout {
   private menuOpener: HTMLElement | null = null;
   private menuClosing = false;
   readonly menuOpen = signal(false);
-
-  constructor() {
-    // A new page starts at the top; Back and Forward return to the place where it was left.
-    inject(ScrollMemory).watchNavigation();
-  }
 
   openMenu(opener: HTMLElement): void {
     const dialog = this.mobileMenu()?.nativeElement;
@@ -118,10 +111,16 @@ export class Layout {
   }
 
   onViewportResize(): void {
-    const wideEnough = window.innerWidth >= DESKTOP_MIN_WIDTH;
-    const highEnough = window.innerHeight > PHONE_MAX_HEIGHT;
-    if (wideEnough && highEnough) {
+    if (!isPhoneLayout()) {
       this.closeMenu();
     }
   }
+}
+
+// Test environments without layout have no matchMedia; they count as a desktop window.
+function isPhoneLayout(): boolean {
+  if (typeof window.matchMedia !== 'function') {
+    return false;
+  }
+  return window.matchMedia(PHONE_LAYOUT_QUERY).matches;
 }

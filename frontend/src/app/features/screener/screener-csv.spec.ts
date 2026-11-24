@@ -4,7 +4,7 @@ import { row } from './screener-test-data';
 
 describe('Screener CSV', () => {
   it('writes exact API values, empty fields for no value and a header without price columns', () => {
-    // The vendor's prices are not offered for download (DEC-46): the price must not reach the file.
+    // The vendor's prices are not offered for download (DEC-48): the price must not reach the file.
     const company = row('AAPL', { pe: '36.442357', roe: '1.714224' }, 'Technology');
     company.latest = { ...company.latest!, price: '271.859985', shares_basis: 'calculated' };
 

@@ -70,21 +70,46 @@ describe('Backtest page', () => {
     expect(page.querySelector('.spread-test')?.textContent).toContain('t 1.50, from 24 monthly');
   });
 
-  it('keeps the chosen year when another ratio is chosen', async () => {
+  it('keeps the chosen year in the address, also when another ratio is chosen', async () => {
+    // The year is in the address, so that Back from a company page shows the same year again.
     const page = await open('/backtest', 'pe');
     const yearSelect = page.querySelector<HTMLSelectElement>('#holding-year');
     if (yearSelect) {
-      yearSelect.value = '2018-03-31';
+      yearSelect.value = '2018';
       yearSelect.dispatchEvent(new Event('change'));
     }
-    harness.detectChanges();
+    await harness.fixture.whenStable();
+    expect(TestBed.inject(Router).url).toBe('/backtest?year=2018');
 
-    await TestBed.inject(Router).navigateByUrl('/backtest?ratio=roa');
+    const ratioSelect = page.querySelector<HTMLSelectElement>('#backtest-ratio');
+    if (ratioSelect) {
+      ratioSelect.value = 'roa';
+      ratioSelect.dispatchEvent(new Event('change'));
+    }
+    await harness.fixture.whenStable();
     http.expectOne(`${API}/roa`).flush(detail('roa'));
     harness.detectChanges();
 
-    expect(page.querySelector<HTMLSelectElement>('#holding-year')?.value).toBe('2018-03-31');
+    expect(TestBed.inject(Router).url).toBe('/backtest?year=2018&ratio=roa');
+    expect(page.querySelector<HTMLSelectElement>('#holding-year')?.value).toBe('2018');
     expect(page.querySelector('.coverage-note')?.textContent).toContain('31 Mar 2018');
+  });
+
+  it('shows the year and the costs named in the address', async () => {
+    // As after Back from a company page: the page is built again from its address alone.
+    const page = await open('/backtest?ratio=pe&year=2018&costs=gross', 'pe');
+
+    expect(page.querySelector<HTMLSelectElement>('#holding-year')?.value).toBe('2018');
+    expect(page.querySelector('.coverage-note')?.textContent).toContain('31 Mar 2018');
+    // Before costs: 0.2 without the 0.01 of costs.
+    const firstQuintile = page.querySelector('.years-table tbody tr td.number-column');
+    expect(firstQuintile?.textContent?.trim()).toBe('20.0%');
+  });
+
+  it('shows the first year for an unknown or malformed year in the address', async () => {
+    const page = await open('/backtest?year=18', 'pe');
+
+    expect(page.querySelector('.coverage-note')?.textContent).toContain('31 Mar 2017');
   });
 
   it('reads the ratio from the address and says when financial firms are left out', async () => {
@@ -107,10 +132,20 @@ describe('Backtest page', () => {
       button.textContent?.includes('Before costs'),
     );
     before?.click();
+    await harness.fixture.whenStable();
     harness.detectChanges();
 
     expect(firstQuintile()).toBe('20.0%');
     expect(before?.getAttribute('aria-pressed')).toBe('true');
+    // The address names only the costs that differ from the default.
+    expect(TestBed.inject(Router).url).toBe('/backtest?costs=gross');
+
+    const after = [...page.querySelectorAll<HTMLButtonElement>('.costs-button')].find((button) =>
+      button.textContent?.includes('After costs'),
+    );
+    after?.click();
+    await harness.fixture.whenStable();
+    expect(TestBed.inject(Router).url).toBe('/backtest');
   });
 
   it('keeps the partial year apart from the full years and their summary', async () => {

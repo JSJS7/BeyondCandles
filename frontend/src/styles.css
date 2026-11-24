@@ -220,10 +220,10 @@ table {
   outline-offset: 3px;
 }
 
-/* The phone layout: a narrow screen, or a low one, as a phone turned sideways (844 × 390 px). The
-   same condition stands in layout.css and topbar.css and in layout.ts; the content of the pages
-   follows the width alone. */
-@media (max-width: 767px), (max-height: 500px) {
+/* The phone layout: a narrow screen, or a low touch screen, as a phone turned sideways (844 × 390
+   px). A low window on a computer, as with a large zoom, keeps the sidebar. The same condition
+   stands in layout.css, topbar.css and layout.ts; the content of the pages follows the width alone. */
+@media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
   :root {
     --bc-panel-padding: 12px;
     --bc-main-padding: 12px;

@@ -357,7 +357,7 @@ company by company. Years are fiscal years as each company reports them.
 |---|---|
 | Blackstone 2015, 2016, 2018 | Basic common units, because the diluted count of those years includes units whose holders are outside equity; its diluted count in other years excludes them |
 | Mastercard, Alphabet, Meta, Comcast, Accenture, CME Group, Nike from 2016, Regeneron, UPS, Charles Schwab 2020–2023 | No cover total for all classes; P/B and P/S use the weighted average |
-| Quanta Services 2017–2018, Broadcom fiscal 2016, BlackRock 2025 | No tagged cover count; P/B and P/S use the weighted average |
+| Quanta Services 2017–2018, Broadcom fiscal 2016, BlackRock 2025 | No tagged cover count; P/B and P/S use the weighted average (BlackRock 2025 only on the company page: its annual report comes after the screener's last date) |
 | Kroger 2015 | Its cover also counted treasury shares; P/B and P/S use the weighted average |
 | ConocoPhillips 2015–2018, McDonald's 2023–2025 | The share count's unit is corrected from the first report's table |
 | Exchangeable units: Blackstone, KKR until 2022, Charter from 2016, Simon Property, Broadcom fiscal 2017 | P/S counts units with shares, P/B only listed shares; marked *Exchangeable units* |
@@ -406,4 +406,4 @@ company by company. Years are fiscal years as each company reports them.
 | RTX, April 2020 | The spin-off value follows the vendor, although the company's own figures put the vendor's earlier level about 4–7% too low; no single reliable value exists |
 | Monster Beverage, Amphenol 2026 | Splits the vendor applied only to the last sessions are handled |
 | Broadcom (Avago), BlackRock before 2024, Cigna before 2018, Disney before 2019, Johnson Controls (Johnson Controls Inc.), Linde (Praxair) | Reports of the earlier registrant count from their filing dates |
-| S&P Global FY2024 | The annual report has no facts in SEC companyfacts; its filing date comes from the rule list, and with no cover count or tagged average P/B and P/S use the calculated share count |
+| S&P Global FY2024 | The annual report has no facts in SEC companyfacts; its filing date comes from the rule list. With no cover count or tagged average, the screener's P/B and P/S use the calculated share count; the company page uses the weighted average a later annual report gives for the year |

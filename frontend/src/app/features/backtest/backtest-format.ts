@@ -23,6 +23,9 @@ export const BACKTEST_RATIO_KEYS: RatioKey[] = RATIO_DEFINITIONS.map(
 ).filter((key) => key !== 'operating_margin');
 
 export const DEFAULT_BACKTEST_RATIO: RatioKey = 'pe';
+export const DEFAULT_COSTS: Costs = 'net';
+// A year in the address, as "2018": the year of a ranking date.
+const YEAR_PATTERN = /^\d{4}$/;
 
 /**
  * What else a quintile holds where a small positive denominator makes a ratio very large
@@ -44,6 +47,27 @@ export const QUINTILE_NOTES: Partial<Record<RatioKey, string>> = {
 export function parseBacktestRatio(text: string | null): RatioKey {
   const known = BACKTEST_RATIO_KEYS.find((key) => key === text);
   return known ?? DEFAULT_BACKTEST_RATIO;
+}
+
+/** The year named in the address, or null (the first year) for a missing or malformed one. */
+export function parseBacktestYear(text: string | null): string | null {
+  if (text === null || !YEAR_PATTERN.test(text)) {
+    return null;
+  }
+  return text;
+}
+
+/** The costs named in the address; after costs unless the address says before. */
+export function parseBacktestCosts(text: string | null): Costs {
+  if (text === 'gross') {
+    return 'gross';
+  }
+  return DEFAULT_COSTS;
+}
+
+/** The year of a holding's ranking date, which names it in the address: "2018". */
+export function rankingYear(period: { ranking_date: string }): string {
+  return period.ranking_date.slice(0, 4);
 }
 
 /** The API's ratios in the screener's column order. */

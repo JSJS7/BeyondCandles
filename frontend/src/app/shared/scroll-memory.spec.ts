@@ -1,5 +1,6 @@
 import { Location, ViewportScroller } from '@angular/common';
 import { provideLocationMocks } from '@angular/common/testing';
+import { EnvironmentProviders, Provider } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { ScrollMemory } from './scroll-memory';
@@ -14,29 +15,46 @@ describe('ScrollMemory', () => {
   // Callbacks of the observers still connected; a real observer stops after disconnect.
   let resizeCallbacks: Set<() => void>;
 
-  beforeEach(async () => {
-    TestBed.configureTestingModule({
-      providers: [
-        provideRouter([
-          { path: '', children: [] },
-          { path: 'screener', children: [] },
-          { path: 'stocks/:ticker', children: [] },
-          { path: 'backtest', children: [] },
-        ]),
-        provideLocationMocks(),
-      ],
-    });
+  const routes = [
+    { path: '', children: [] },
+    { path: 'screener', children: [] },
+    { path: 'stocks/:ticker', children: [] },
+    { path: 'backtest', children: [] },
+  ];
+
+  /**
+   * Starts the app as the layout does. With a location from an earlier start it acts as a reload
+   * of the page: the history entries and their states stay, the router counts from 1 again.
+   */
+  async function startApp(earlierLocation?: Location): Promise<void> {
+    const providers: (Provider | EnvironmentProviders)[] = [
+      provideRouter(routes),
+      provideLocationMocks(),
+    ];
+    if (earlierLocation) {
+      providers.push({ provide: Location, useValue: earlierLocation });
+    }
+    TestBed.configureTestingModule({ providers });
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
     scrollMemory = TestBed.inject(ScrollMemory);
 
-    windowTop = 0;
-    windowBottomLimit = 10_000;
     const viewportScroller = TestBed.inject(ViewportScroller);
     vi.spyOn(viewportScroller, 'getScrollPosition').mockImplementation(() => [0, windowTop]);
     vi.spyOn(viewportScroller, 'scrollToPosition').mockImplementation(([, top]) => {
       windowTop = Math.min(top, windowBottomLimit);
     });
+
+    scrollMemory.watchNavigation();
+    // As in the app: the router listens to Back and Forward only after its first navigation.
+    router.initialNavigation();
+    await new Promise((resolve) => setTimeout(resolve));
+  }
+
+  beforeEach(async () => {
+    sessionStorage.clear();
+    windowTop = 0;
+    windowBottomLimit = 10_000;
 
     // jsdom has no ResizeObserver; this one lets a test say when the content has grown.
     resizeCallbacks = new Set();
@@ -53,14 +71,12 @@ describe('ScrollMemory', () => {
       },
     );
 
-    scrollMemory.watchNavigation();
-    // As in the app: the router listens to Back and Forward only after its first navigation.
-    router.initialNavigation();
-    await new Promise((resolve) => setTimeout(resolve));
+    await startApp();
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    sessionStorage.clear();
   });
 
   function contentGrows(): void {
@@ -172,5 +188,61 @@ describe('ScrollMemory', () => {
     scrollMemory.registerArea('results', secondTable);
 
     expect(scrollTo).toHaveBeenCalledWith(80, 2400);
+  });
+
+  /** Leaves the screener at the top for a company page scrolled down, and reloads that page. */
+  async function reloadCompanyPage(): Promise<void> {
+    await router.navigateByUrl('/screener');
+    await router.navigateByUrl('/stocks/AAPL');
+    windowTop = 700;
+
+    window.dispatchEvent(new Event('pagehide'));
+    const earlierLocation = location;
+    TestBed.resetTestingModule();
+    // A reloaded page starts at the top.
+    windowTop = 0;
+    await startApp(earlierLocation);
+  }
+
+  it('after a reload does not give an older page the place of another one', async () => {
+    // Regression test: the router numbers its navigations from 1 again after a reload. Here the
+    // start page's old entry carries number 1, which after the reload is the company page's
+    // number, so the second Back took the company page's place for the start page.
+    await reloadCompanyPage();
+    windowTop = 700;
+
+    await goBack();
+    expect(location.path()).toBe('/screener');
+    expect(windowTop).toBe(0);
+
+    await goBack();
+    expect(location.path()).toBe('/');
+    expect(windowTop).toBe(0);
+  });
+
+  it('returns a reloaded page to the place where it was', async () => {
+    // The browser does this by itself, but the memory turned its restoring off.
+    await reloadCompanyPage();
+
+    expect(location.path()).toBe('/stocks/AAPL');
+    expect(windowTop).toBe(700);
+  });
+
+  it('keeps one place for an entry whose query is replaced on every keystroke', async () => {
+    // Each replaced query must not count as a new entry, or the places of older pages would be
+    // dropped to make room for them.
+    await router.navigateByUrl('/backtest');
+    windowTop = 1500;
+    await router.navigateByUrl('/screener');
+    for (let keystroke = 1; keystroke <= 60; keystroke++) {
+      await router.navigateByUrl(`/screener?q=${'x'.repeat(keystroke)}`, { replaceUrl: true });
+    }
+    await router.navigateByUrl('/stocks/AAPL');
+
+    await goBack();
+    await goBack();
+
+    expect(location.path()).toBe('/backtest');
+    expect(windowTop).toBe(1500);
   });
 });

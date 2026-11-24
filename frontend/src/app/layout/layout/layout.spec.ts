@@ -1,8 +1,7 @@
-import { ViewportScroller } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { Layout } from './layout';
 
 describe('Layout', () => {
@@ -37,22 +36,6 @@ describe('Layout', () => {
   it('renders the layout with a theme switch independently of a running backend', () => {
     expect(component).toBeTruthy();
     expect(fixture.nativeElement.querySelector('button[aria-label*="mode"]')).not.toBeNull();
-  });
-
-  it('starts a new page at the top, but keeps the place when only the query changes', async () => {
-    // W34: the router does not reset the place by itself, so a new page opened part way down.
-    // The screener writes its state to the query on every keystroke, which must not scroll.
-    const router = TestBed.inject(Router);
-    const scrollToPosition = vi
-      .spyOn(TestBed.inject(ViewportScroller), 'scrollToPosition')
-      .mockImplementation(() => undefined);
-    await router.navigateByUrl('/screener');
-
-    await router.navigateByUrl('/screener?q=micro');
-    expect(scrollToPosition).not.toHaveBeenCalled();
-
-    await router.navigateByUrl('/other');
-    expect(scrollToPosition).toHaveBeenCalledWith([0, 0]);
   });
 
   function mockDialog(): HTMLDialogElement {
@@ -128,23 +111,19 @@ describe('Layout', () => {
     expect(component.menuOpen()).toBe(false);
   });
 
-  it('keeps the mobile menu open on a phone turned sideways, which is wide but low', () => {
-    // A phone turned sideways (844 x 390) keeps the phone layout, so turning it must not close
-    // the menu; the style sheets use the same width and height.
+  it('keeps the mobile menu open while the phone layout applies, as on a phone turned sideways', () => {
+    // A phone turned sideways (844 x 390) is wide but low and keeps the phone layout, so turning
+    // it must not close the menu. The browser decides the layout with the style sheets' query.
     const dialog = mockDialog();
-    const originalWidth = window.innerWidth;
-    const originalHeight = window.innerHeight;
+    const matchMedia = vi.fn(() => ({ matches: true }));
+    vi.stubGlobal('matchMedia', matchMedia);
     fixture.nativeElement.querySelector('.menu-button').click();
 
-    try {
-      Object.defineProperty(window, 'innerWidth', { value: 844, configurable: true });
-      Object.defineProperty(window, 'innerHeight', { value: 390, configurable: true });
-      component.onViewportResize();
-    } finally {
-      Object.defineProperty(window, 'innerWidth', { value: originalWidth, configurable: true });
-      Object.defineProperty(window, 'innerHeight', { value: originalHeight, configurable: true });
-    }
+    component.onViewportResize();
 
+    expect(matchMedia).toHaveBeenCalledWith(
+      '(max-width: 767px), (max-height: 500px) and (pointer: coarse)',
+    );
     expect(dialog.open).toBe(true);
     expect(component.menuOpen()).toBe(true);
   });

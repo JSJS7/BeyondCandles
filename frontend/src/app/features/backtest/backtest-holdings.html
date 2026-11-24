@@ -6,7 +6,7 @@
   <select #yearSelect id="holding-year" class="year-select" (change)="choose(yearSelect.value)">
     @for (option of ratio().periods; track option.ranking_date) {
       <option
-        [value]="option.ranking_date"
+        [value]="rankingYear(option)"
         [selected]="option.ranking_date === period().ranking_date"
       >
         {{ holdingYear(option) }} ({{ holdingDates(option) }})

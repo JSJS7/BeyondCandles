@@ -191,7 +191,8 @@
           <app-backtest-holdings
             [ratio]="detailRatio"
             [costs]="costs()"
-            [(chosenDate)]="chosenDate"
+            [chosenYear]="chosenYear()"
+            (yearChosen)="chooseYear($event)"
           />
         }
       </section>

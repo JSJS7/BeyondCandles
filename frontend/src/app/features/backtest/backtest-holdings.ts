@@ -1,4 +1,4 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { QuintileMember, RatioBacktest, RatioPeriod } from '../../models/backtest';
 import { formatDate } from '../../shared/date-format';
@@ -11,6 +11,7 @@ import {
   holdingDates,
   holdingYear,
   portfolioReturn,
+  rankingYear,
 } from './backtest-format';
 
 /**
@@ -27,13 +28,14 @@ export class BacktestHoldings {
   readonly ratio = input.required<RatioBacktest>();
   readonly costs = input.required<Costs>();
 
-  // The ranking date of the chosen year, shared with the page so that it survives a change of
-  // ratio; the first year until the reader picks another.
-  readonly chosenDate = model<string | null>(null);
+  // The chosen year ("2018"), kept by the page in the address, so that it survives a change of
+  // ratio and a return by Back; the first year until the reader picks another.
+  readonly chosenYear = input<string | null>(null);
+  readonly yearChosen = output<string>();
 
   readonly period = computed((): RatioPeriod => {
     const periods = this.ratio().periods;
-    const chosen = periods.find((period) => period.ranking_date === this.chosenDate());
+    const chosen = periods.find((period) => rankingYear(period) === this.chosenYear());
     return chosen ?? periods[0];
   });
 
@@ -88,12 +90,13 @@ export class BacktestHoldings {
   readonly holdingYear = holdingYear;
   readonly holdingDates = holdingDates;
   readonly portfolioReturn = portfolioReturn;
+  readonly rankingYear = rankingYear;
 
   valueText(value: string): string {
     return formatRatioValue(this.ratio().ratio, value);
   }
 
-  choose(rankingDate: string): void {
-    this.chosenDate.set(rankingDate);
+  choose(year: string): void {
+    this.yearChosen.emit(year);
   }
 }

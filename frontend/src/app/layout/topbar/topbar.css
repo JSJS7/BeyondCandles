@@ -170,7 +170,7 @@
 }
 
 /* The phone layout, also on a phone turned sideways (styles.css). */
-@media (max-width: 767px), (max-height: 500px) {
+@media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
   .topbar {
     gap: var(--bc-space-s);
     padding: 0 var(--bc-space-m);

@@ -137,7 +137,7 @@ export class StockDetails implements OnInit {
         if (notFound) {
           message =
             `No company with the ticker "${ticker}" is covered. ` +
-            'The site covers the 200 largest US-listed companies.';
+            'The site covers 200 large US companies chosen from the S&P 500 at the end of 2024.';
         }
         this.stockNotFound.set(notFound);
         this.stockLoadState.set({ status: 'error', message });

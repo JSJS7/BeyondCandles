@@ -33,9 +33,12 @@ import { StateMessage } from '../../shared/state-message/state-message';
 import {
   BACKTEST_RATIO_KEYS,
   Costs,
+  DEFAULT_COSTS,
   directionText,
   inScreenerOrder,
+  parseBacktestCosts,
   parseBacktestRatio,
+  parseBacktestYear,
   QUINTILE_NOTES,
   ratioDefinition,
 } from './backtest-format';
@@ -45,7 +48,10 @@ import { BacktestYears } from './backtest-years';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
-/** The annual quintile backtest of every screener ratio (DEC-33); the chosen ratio is in the address. */
+/**
+ * The annual quintile backtest of every screener ratio (DEC-33). The chosen ratio, year and costs
+ * are in the address, so that Back returns to the same tables and a link shows what its sender saw.
+ */
 @Component({
   selector: 'app-backtest',
   imports: [StateMessage, BacktestSummary, BacktestYears, BacktestHoldings, SlideDetails],
@@ -67,10 +73,16 @@ export class Backtest implements OnInit {
     this.route.queryParamMap.pipe(map((params) => parseBacktestRatio(params.get('ratio')))),
     { requireSync: true },
   );
-  readonly costs = signal<Costs>('net');
-  // The ranking date of the year whose companies are shown. Kept here, so that it stays when
-  // another ratio replaces the list of companies; null shows the first year.
-  readonly chosenDate = signal<string | null>(null);
+  readonly costs = toSignal(
+    this.route.queryParamMap.pipe(map((params) => parseBacktestCosts(params.get('costs')))),
+    { requireSync: true },
+  );
+  // The year whose companies are shown. It stays when another ratio replaces the list of
+  // companies; null shows the first year.
+  readonly chosenYear = toSignal(
+    this.route.queryParamMap.pipe(map((params) => parseBacktestYear(params.get('year')))),
+    { requireSync: true },
+  );
 
   readonly summary = signal<BacktestResponse | null>(null);
   readonly detail = signal<RatioBacktest | null>(null);
@@ -126,7 +138,26 @@ export class Backtest implements OnInit {
   }
 
   chooseCosts(costs: Costs): void {
-    this.costs.set(costs);
+    // The default stays out of the address.
+    let costsParam: Costs | null = costs;
+    if (costs === DEFAULT_COSTS) {
+      costsParam = null;
+    }
+    this.changeQuery({ costs: costsParam });
+  }
+
+  chooseYear(year: string): void {
+    this.changeQuery({ year });
+  }
+
+  /** A change of the year or costs replaces the address: it is not a new page to go back from. */
+  private changeQuery(queryParams: Record<string, string | null>): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   /**

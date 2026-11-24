@@ -1,6 +1,6 @@
 // CSV export of the screener: the values as the API returns them, so that the file is fit for
 // further analysis. The vendor's prices are shown on the page but not offered for download
-// (DEC-46), so the file has no price columns.
+// (DEC-48), so the file has no price columns.
 import { ScreenerRow, SpinOff } from '../../models/screener';
 import { columnValue } from './screener-columns';
 import { CRITERION_COLUMNS } from './screener-filters';

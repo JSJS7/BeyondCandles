@@ -47,6 +47,7 @@
               class="ratio-link"
               routerLink="/backtest"
               [queryParams]="{ ratio: ratio.ratio }"
+              queryParamsHandling="merge"
               [attr.aria-current]="ratio.ratio === selected() ? 'true' : null"
               (click)="onRatioClick($event)"
               >{{ ratioDefinition(ratio.ratio).label }}</a
