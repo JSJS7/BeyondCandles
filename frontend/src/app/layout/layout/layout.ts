@@ -69,33 +69,6 @@ export class Layout {
     this.menuOpener = null;
   }
 
-  /** Tab and Shift+Tab go round inside the open menu instead of to the page behind it. */
-  trapMenuFocus(event: KeyboardEvent): void {
-    if (event.key !== 'Tab') {
-      return;
-    }
-    const dialog = this.mobileMenu()?.nativeElement;
-    if (!dialog?.open) {
-      return;
-    }
-
-    const controls = dialog.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), a[href], input:not([disabled]), [tabindex="0"]',
-    );
-    const first = controls[0];
-    const last = controls[controls.length - 1];
-    if (!first || !last) {
-      return;
-    }
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  }
-
   /** A click on the dimmed page beside the menu closes it; a click inside does not. */
   onBackdropClick(event: MouseEvent): void {
     const dialog = this.mobileMenu()?.nativeElement;

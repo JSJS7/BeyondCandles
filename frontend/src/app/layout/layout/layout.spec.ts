@@ -162,27 +162,4 @@ describe('Layout', () => {
     expect(dialog.open).toBe(true);
     expect(component.menuOpen()).toBe(true);
   });
-
-  it('cycles Tab and Shift+Tab inside the modal instead of moving focus behind it', () => {
-    const dialog = mockDialog();
-    fixture.nativeElement.querySelector('.menu-button').click();
-    const closeButton = dialog.querySelector<HTMLButtonElement>('.menu-close');
-    // The last control is the last link of the menu.
-    const lastLink = dialog.querySelector<HTMLAnchorElement>('a[href="/backtest"]');
-
-    const shiftTab = new KeyboardEvent('keydown', {
-      key: 'Tab',
-      shiftKey: true,
-      bubbles: true,
-      cancelable: true,
-    });
-    closeButton?.dispatchEvent(shiftTab);
-    expect(shiftTab.defaultPrevented).toBe(true);
-    expect(document.activeElement).toBe(lastLink);
-
-    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
-    lastLink?.dispatchEvent(tab);
-    expect(tab.defaultPrevented).toBe(true);
-    expect(document.activeElement).toBe(closeButton);
-  });
 });

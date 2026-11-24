@@ -15,7 +15,6 @@
   (click)="onBackdropClick($event)"
   (cancel)="onMenuCancel($event)"
   (close)="onMenuClosed()"
-  (keydown)="trapMenuFocus($event)"
 >
   <app-sidebar (navigated)="closeMenu()">
     <div class="menu-top">
