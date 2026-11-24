@@ -345,7 +345,7 @@ company by company. Years are fiscal years as each company reports them.
 |---|---|
 | Banks: American Express, Bank of America, BNY, Citigroup, Capital One, Goldman Sachs, JPMorgan Chase, Morgan Stanley, PNC, Charles Schwab, Truist, U.S. Bancorp, Wells Fargo | Net revenue: the bank's own net line, or net interest income plus noninterest income |
 | Exchanges: Intercontinental Exchange, Nasdaq | Revenues less transaction-based expenses (rebates and fees passed on to regulators and for routing) |
-| Chevron 2015–2017 | Revenue includes excise taxes, as the company then reported it |
+| Chevron 2015–2017, Phillips 66 2015–2017 | Revenue includes excise taxes, as the companies then reported it; from 2018 they net them out, and no report states 2017 without them, so 2018 revenue growth is empty |
 | Exxon Mobil | Revenue includes other income, as in the line the company reports |
 | Altria, Philip Morris | Altria's revenue includes excise taxes, Philip Morris's excludes them; Philip Morris 2015 is recalculated net of excise, as its later reports restate it |
 | EOG Resources | Total revenue as reported, which includes derivative results |
@@ -394,7 +394,7 @@ company by company. Years are fiscal years as each company reports them.
 | Company | What differs |
 |---|---|
 | Citigroup, General Dynamics | Operating cash flow of continuing operations, marked *Continuing ops* |
-| Berkshire Hathaway FY2016 (EPS), S&P Global FY2024, Intercontinental Exchange FY2016 (revenue) | Growth empty: no report states both years in a readable form |
+| American Express 2016 (revenue), Berkshire Hathaway FY2016 (EPS), Exxon Mobil 2016 (revenue), S&P Global FY2024, Intercontinental Exchange FY2016 (revenue) | Growth empty: no report states both years in a readable form |
 
 ### Corporate events and registrants
 
