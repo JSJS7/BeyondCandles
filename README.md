@@ -67,8 +67,9 @@ company's Adjusted Close and missing sessions ([the rule](METHODOLOGY.md#what-we
 - **Dividends the provider applied wrongly:** remove CoreSite's 12 dividends from COR
   (same ticker, another company) and rescale 29 T dividends by the provider's 1.324
   conversion of 2022.
-- **OXY, 3 Aug 2020:** add the warrant distribution the provider omits, at USD 0.61875
-  per share (1/8 warrant at the USD 4.95 the company reports).
+- **OXY, 2 Jul 2020:** add the warrant distribution the provider omits, at USD 0.61875
+  per share (1/8 warrant at the USD 4.95 the company reports), from the session the
+  options clearing house adjusted OXY options for it.
 - **AMD, 2 Jan 2015:** fill one missing session from a pinned DoltHub revision,
   with the closing price also checked against a Scotiabank document.
 - **FI, 12 Nov 2025:** insert one session absent from the provider's file, the day

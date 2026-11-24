@@ -45,8 +45,6 @@ class PeriodRatios(BaseModel):
     # The share count of P/B and P/S: the report cover, the weighted average of the year
     # or income to common / EPS (M47).
     shares_basis: Literal["outstanding", "weighted_average", "calculated"] | None = None
-    revenue_basis_break: bool = False
-    eps_basis_break: bool = False
     # Empty unless P/E, P/B and P/S join a price after a spin-off with earlier results.
     spin_offs: list[SpinOff] = []
     # Part of the owners hold units exchangeable into the listed shares: P/S counts shares

@@ -29,8 +29,6 @@ export function period(
     eps_basis: 'diluted',
     ocf_scope: 'total',
     shares_basis: 'outstanding',
-    revenue_basis_break: false,
-    eps_basis_break: false,
     spin_offs: [],
     exchangeable_units: false,
     share_issue: false,

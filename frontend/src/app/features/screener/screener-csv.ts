@@ -32,8 +32,6 @@ const CSV_COLUMNS: CsvColumn[] = [
   { header: 'eps_basis', value: (row) => row.latest?.eps_basis ?? null },
   { header: 'shares_basis', value: (row) => row.latest?.shares_basis ?? null },
   { header: 'ocf_scope', value: (row) => row.latest?.ocf_scope ?? null },
-  { header: 'revenue_series_break', value: (row) => row.latest?.revenue_basis_break ?? null },
-  { header: 'eps_series_break', value: (row) => row.latest?.eps_basis_break ?? null },
   {
     header: 'spin_off_dates',
     value: (row) => spinOffField(row, (spinOff) => spinOff.event_date),

@@ -135,17 +135,12 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'roe')).toEqual([]);
   });
 
-  it('puts no input label on an empty ratio, but keeps a series break on empty growth', () => {
-    // A break can be the reason why growth is empty, so it stays visible.
-    const latest = period({
-      shares_basis: 'calculated',
-      revenue_basis_break: true,
-      eps_basis_break: true,
-    });
+  it('puts no input label on an empty ratio', () => {
+    // An empty P/B says nothing about its share count, so the label would only confuse.
+    const latest = period({ shares_basis: 'calculated' });
 
     expect(cellLabels(latest, 'pb')).toEqual([]);
-    expect(cellLabels(latest, 'revenue_growth')).toEqual(['Series break']);
-    expect(cellLabels(latest, 'eps_growth')).toEqual(['Series break']);
+    expect(cellLabels(latest, 'revenue_growth')).toEqual([]);
   });
 });
 

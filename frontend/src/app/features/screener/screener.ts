@@ -118,9 +118,6 @@ export class Screener implements OnInit {
   readonly noValueNote = NO_VALUE_NOTE;
   readonly cellLabelGuide = labelGuide(SCREENER_CELL_LABELS, {
     Calculated: 'Here it is the share count: (net income − preferred dividends) ÷ EPS.',
-    'Series break':
-      'Growth still comes from one report that states both years, so it is comparable; the ' +
-      'company page shows both versions.',
   });
 
   // The valuation date is read from the address, because a new date loads new data.

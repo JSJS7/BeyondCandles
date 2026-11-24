@@ -401,7 +401,7 @@
     "OXY": {
       "status": "reviewed",
       "method": "reviewed_dividend_changes",
-      "note": "Occidental distributed 1/8 warrant per share on 3 Aug 2020 to holders of record on 6 Jul 2020 and reports the warrant at 4.95 (average NYSE high and low on 4 Aug 2020), so 0.61875 per share; the vendor has no adjustment. OXY fell 3.1% on 3 Aug while seven energy peers rose 0.4%, which places the event on that session; no filing states an ex-date. Effect on the 10-K return table: the 2020 ratio moves from 0.943 into rounding of the table's 46; the remaining 3% from 2021 equals reinvesting the 0.79 dividend of 9 Mar 2020 at that day's close, when the stock fell 53%, as such tables do.",
+      "note": "Occidental distributed 1/8 warrant per share on 3 Aug 2020 to holders of record on 6 Jul 2020 and reports the warrant at 4.95 (average NYSE high and low on 4 Aug 2020), so 0.61875 per share; the vendor has no adjustment. OCC information memo #47244 of 1 Jul 2020 adjusts OXY options from 2 Jul 2020, the first session whose trades settle after the record date, so from that session the shares carry no warrant. The price shows no clear step that day (OXY 0.8 points above ten energy peers; 3.5 points below them on 30 Jul and on 3 Aug), so the date follows the settlement document, not the price. Effect on the 10-K return tables: from 2020 they stay about 3.5% above this series; 3.2% equals reinvesting the 0.79 dividend of 9 Mar 2020 at that day's close, when the stock fell 53%, as such tables do, and 0.4% equals valuing the warrant at the 3 Aug close (15.25) instead of the close before 2 Jul (17.41): the tables count it on its distribution day, when the warrant first had a price.",
       "evidence": [
         {
           "file": "data/raw/benjaminpo-v81/evidence/oxy-warrants-qa.pdf",
@@ -412,11 +412,16 @@
           "file": "data/raw/benjaminpo-v81/evidence/oxy-2020-09-10q.htm",
           "sha256": "260e88b55aa26322ec79b98557370b619b08cbecbe7000086fe6ddfe1e149595",
           "url": "https://www.sec.gov/Archives/edgar/data/797468/000079746820000033/oxy-20200930.htm"
+        },
+        {
+          "file": "data/raw/benjaminpo-v81/evidence/occ-47244-oxy-warrant-distribution.pdf",
+          "sha256": "bbd1892da32c6dca287ffc121506752f0a8cb418609175702a3bc29ef556558e",
+          "url": "https://www.miaxglobal.com/sites/default/files/alert-files/OXY_distribution_47244.pdf"
         }
       ],
       "changes": [
         {
-          "ex_date": "2020-08-03",
+          "ex_date": "2020-07-02",
           "vendor_amount": "0",
           "amount": "0.61875",
           "split_divisor": "1"

@@ -581,7 +581,6 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         row = self.row(date="2024-03-29")
 
         self.assertEqual(row["latest"]["ratios"]["revenue_growth"], "0")
-        self.assertFalse(row["latest"]["revenue_basis_break"])
 
     def test_eps_report_columns_give_eps_growth(self):
         """N117: Visa's EPS cells each come from another report, so growth was empty.
@@ -599,7 +598,6 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
 
         self.assertIsNone(without_columns["latest"]["ratios"]["eps_growth"])
         self.assertEqual(with_columns["latest"]["ratios"]["eps_growth"], "0.25")
-        self.assertFalse(with_columns["latest"]["eps_basis_break"])
 
     def test_quarterly_restatement_does_not_replace_the_annual_report(self):
         """W39: a 10-Q restating equity under a new standard (500 to 1000) arrives

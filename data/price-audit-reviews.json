@@ -76,18 +76,18 @@
     {
       "ticker": "OXY",
       "date": "2020-03-09",
-      "factor_change_percent": "3.030314458813602520424104700",
+      "factor_change_percent": "3.030314458813602523497473500",
       "kind": "cash_dividend",
       "per_share": "0.79",
       "note": "Regular quarterly dividend on the day of the oil price crash; SEC declared 0.79 in Q1 2020."
     },
     {
       "ticker": "OXY",
-      "date": "2020-08-03",
-      "factor_change_percent": "4.091923679367865104479594500",
+      "date": "2020-07-02",
+      "factor_change_percent": "3.684954995150696481049357900",
       "kind": "warrant_distribution",
       "per_share": "0.61875",
-      "note": "Reviewed correction: 1/8 warrant at the 4.95 Occidental reports; the vendor has no event here."
+      "note": "Reviewed correction: 1/8 warrant at the 4.95 Occidental reports, on the session OCC memo #47244 adjusts OXY options from; the vendor has no event here."
     },
     {
       "ticker": "PCAR",

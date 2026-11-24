@@ -364,8 +364,6 @@ def valued_period(ticker, company_id, period, periods, close, reports, rules):
         eps_basis=cell_detail(cells, "eps_diluted", "eps_basis"),
         ocf_scope=values.ocf_scope,
         shares_basis=shares_basis,
-        revenue_basis_break=growth["revenue"].basis_break,
-        eps_basis_break=growth["eps_diluted"].basis_break,
         spin_offs=spin_offs,
         exchangeable_units=units is not None,
         share_issue=has_share_issue(values, units),
