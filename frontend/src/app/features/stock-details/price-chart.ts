@@ -13,6 +13,7 @@ import {
 import { Price } from '../../models/stock';
 import { ThemeService } from '../../services/theme.service';
 import { formatDate } from '../../shared/date-format';
+import { slideIn, slideOut } from '../../shared/slide';
 import {
   formatPeriodChange,
   formatPrice,
@@ -59,6 +60,8 @@ export class PriceChart implements OnChanges, OnDestroy {
   readonly presets: PricePreset[] = ['1M', '6M', '1Y', '5Y', 'All'];
   readonly selectedPreset = signal<PricePreset | 'Custom'>('All');
   readonly selectingRange = signal(false);
+  readonly slideIn = slideIn;
+  readonly slideOut = slideOut;
   readonly startDate = signal('');
   readonly endDate = signal('');
   readonly message = signal('');

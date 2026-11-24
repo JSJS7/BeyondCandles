@@ -73,10 +73,11 @@
 }
 
 /* Note and reading guide */
-/* Set like an editor's note. */
+/* Set like an editor's note, as the comparability note of the screener. */
 .limits-note {
   margin: 0;
-  color: var(--bc-muted);
+  padding: var(--bc-space-xs) var(--bc-space-m);
+  border-left: var(--bc-rule-heavy) solid var(--bc-rule);
   font-style: italic;
 }
 

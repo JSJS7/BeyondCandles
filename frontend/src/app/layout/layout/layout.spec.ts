@@ -28,7 +28,10 @@ describe('Layout', () => {
     await fixture.whenStable();
   });
 
-  afterEach(() => TestBed.inject(HttpTestingController).verify());
+  afterEach(() => {
+    TestBed.inject(HttpTestingController).verify();
+    vi.unstubAllGlobals();
+  });
 
   it('renders the layout with a theme switch independently of a running backend', () => {
     expect(component).toBeTruthy();
@@ -127,6 +130,41 @@ describe('Layout', () => {
     component.onViewportResize();
     expect(dialog.open).toBe(false);
     expect(component.menuOpen()).toBe(false);
+  });
+
+  it('keeps a menu opened again when the slide of an earlier closing ends', () => {
+    // A second Escape makes the browser close the menu at once, while its slide out still runs.
+    // If the reader opens the menu again before that slide ends, its end must not close it.
+    const dialog = mockDialog();
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn(() => ({ matches: false })),
+    );
+    const slideEnds: Array<() => void> = [];
+    dialog.animate = vi.fn(() => {
+      const finishListeners: Array<() => void> = [];
+      slideEnds.push(() => finishListeners.forEach((listener) => listener()));
+      const animation = {
+        addEventListener: (type: string, listener: () => void) => {
+          if (type === 'finish') {
+            finishListeners.push(listener);
+          }
+        },
+        cancel: vi.fn(),
+      };
+      return animation as unknown as Animation;
+    });
+    const opener: HTMLButtonElement = fixture.nativeElement.querySelector('.menu-button');
+
+    opener.click();
+    component.closeMenu();
+    const slideOutEnd = slideEnds[slideEnds.length - 1];
+    dialog.close();
+    opener.click();
+    slideOutEnd();
+
+    expect(dialog.open).toBe(true);
+    expect(component.menuOpen()).toBe(true);
   });
 
   it('cycles Tab and Shift+Tab inside the modal instead of moving focus behind it', () => {

@@ -2,15 +2,18 @@ import { Component, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { Icon } from '../../shared/icon/icon';
+import { slideInFromLeft, slideOutToLeft } from '../../shared/slide';
 import { Sidebar } from '../sidebar/sidebar';
 import { Topbar } from '../topbar/topbar';
 
 // The same width as in the style sheets: from here on the sidebar is shown and the menu is not.
 const DESKTOP_MIN_WIDTH = 768;
+const MENU_CLOSING_CLASS = 'menu-closing';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, Sidebar, Topbar],
+  imports: [RouterOutlet, Sidebar, Topbar, Icon],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
   host: { '(window:resize)': 'onViewportResize()' },
@@ -20,6 +23,7 @@ export class Layout {
   private readonly main = viewChild<ElementRef<HTMLElement>>('main');
   private menuOpener: HTMLElement | null = null;
   private currentPath: string | null = null;
+  private menuClosing = false;
   readonly menuOpen = signal(false);
 
   constructor() {
@@ -49,18 +53,40 @@ export class Layout {
     }
     this.menuOpener = opener;
     dialog.showModal();
+    slideInFromLeft(dialog);
     this.menuOpen.set(true);
   }
 
+  /** The menu slides out first and closes at the end, so a second request meanwhile waits for it. */
   closeMenu(): void {
     const dialog = this.mobileMenu()?.nativeElement;
-    if (dialog?.open) {
-      dialog.close();
+    if (!dialog?.open || this.menuClosing) {
+      return;
     }
-    this.onMenuClosed();
+    this.menuClosing = true;
+    // The class fades the dimmed page while the menu slides out.
+    dialog.classList.add(MENU_CLOSING_CLASS);
+    slideOutToLeft(dialog, () => {
+      // The browser may have closed the menu meanwhile (a second Escape closes it at once), and
+      // the reader may have opened it again: then this slide is over and must not close it.
+      if (!this.menuClosing) {
+        return;
+      }
+      dialog.close();
+      this.onMenuClosed();
+    });
   }
 
+  /** Escape would close the menu at once; it slides out like the other ways of closing it. */
+  onMenuCancel(event: Event): void {
+    event.preventDefault();
+    this.closeMenu();
+  }
+
+  /** Called however the menu closed: by its slide, or by the browser at once. */
   onMenuClosed(): void {
+    this.menuClosing = false;
+    this.mobileMenu()?.nativeElement.classList.remove(MENU_CLOSING_CLASS);
     this.menuOpen.set(false);
     this.menuOpener?.focus();
     this.menuOpener = null;

@@ -2,8 +2,8 @@
   <header class="page-header">
     <h1>Screener</h1>
     <p class="page-description">
-      Ratios on a chosen date: that day's price and each company's latest annual report filed before
-      that session.
+      Filter the 200 largest US-listed companies by valuation, profitability and growth ratios on
+      any date since 2016.
     </p>
   </header>
 
@@ -63,13 +63,14 @@
   />
 
   <p class="comparability-note">
-    Ratios are not comparable across all businesses, such as banks and distributors, so compare
+    Ratios use the price of the chosen date and each company's latest annual report filed before it.
+    They are not comparable across all businesses, such as banks and distributors, so compare
     similar companies (<a [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
       >methodology<span class="visually-hidden"> (opens in a new tab)</span></a
     >). Historical data for learning, not investment advice.
   </p>
 
-  <details class="reading-guide">
+  <details class="reading-guide" appSlideDetails>
     <summary class="reading-guide-toggle">How to read this table</summary>
     <dl class="guide-list">
       <dt>Price</dt>
@@ -231,9 +232,10 @@
               </button>
             </th>
             @for (column of shownColumns(); track column.key) {
+              <!-- The class gives the column its fixed width, which depends only on its kind. -->
               <th
                 scope="col"
-                [class.text-column]="column.kind === 'text'"
+                [class]="column.kind + '-column'"
                 [attr.aria-sort]="ariaSort(column.key)"
               >
                 <button
@@ -242,10 +244,11 @@
                   [title]="column.label"
                   (click)="toggleSort(column.key)"
                 >
-                  <!-- Before the right-aligned label, so that the label lines up with the values. -->
-                  @if (sortIndicator(column.key); as indicator) {
-                    <span class="sort-indicator" aria-hidden="true">{{ indicator }}</span>
-                  }
+                  <!-- Before the right-aligned label, so that the label lines up with the values.
+                       Always present, so that its space is kept and sorting does not move the label. -->
+                  <span class="sort-indicator" aria-hidden="true">{{
+                    sortIndicator(column.key)
+                  }}</span>
                   @if (column.shortLabel) {
                     <span aria-hidden="true">{{ column.shortLabel }}</span>
                     <span class="visually-hidden">{{ column.label }}</span>

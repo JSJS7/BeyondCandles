@@ -3,7 +3,7 @@
   including later revisions. Select a value to see its SEC sources.
 </p>
 
-<details class="reading-guide">
+<details class="reading-guide" appSlideDetails>
   <summary>How to read this table</summary>
   <dl>
     <dt>Fiscal year</dt>
@@ -61,10 +61,15 @@
   </p>
 }
 
-<p class="scroll-hint muted" aria-hidden="true">Swipe the table sideways to see all measures.</p>
+<p class="scroll-hint" aria-hidden="true">Swipe the table sideways to see all measures.</p>
+<!-- Outside the scroll area, so that it stays in place while the table scrolls sideways; the
+     caption below gives the same text to screen readers. -->
+<p class="table-caption" aria-hidden="true">
+  Annual values for periods ending in {{ periodYearsText }}
+</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Annual financial statements">
   <table>
-    <caption>
+    <caption class="visually-hidden">
       Annual values for periods ending in
       {{
         periodYearsText
@@ -148,6 +153,8 @@
 
 @if (selected(); as details) {
   <app-value-sources
+    (animate.enter)="slideIn($event)"
+    (animate.leave)="slideOut($event)"
     [period]="details.period"
     [column]="details.column"
     [cell]="details.cell"

@@ -28,6 +28,7 @@ import { LoadState } from '../../models/load-state';
 import { RatioKey } from '../../models/screener';
 import { BacktestService } from '../../services/backtest.service';
 import { METHODOLOGY_URL } from '../../shared/links';
+import { SlideDetails } from '../../shared/slide';
 import { StateMessage } from '../../shared/state-message/state-message';
 import {
   BACKTEST_RATIO_KEYS,
@@ -47,7 +48,7 @@ const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 /** The annual quintile backtest of every screener ratio (DEC-33); the chosen ratio is in the address. */
 @Component({
   selector: 'app-backtest',
-  imports: [StateMessage, BacktestSummary, BacktestYears, BacktestHoldings],
+  imports: [StateMessage, BacktestSummary, BacktestYears, BacktestHoldings, SlideDetails],
   templateUrl: './backtest.html',
   styleUrl: './backtest.css',
 })

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { LoadState } from '../../models/load-state';
 import { Stock } from '../../models/stock';
 import { exchangeName } from '../../shared/exchange-name';
+import { Icon } from '../../shared/icon/icon';
 import { StockService } from '../../services/stock.service';
 import { ThemeService } from '../../services/theme.service';
 import { matchRank } from '../../shared/search-match';
@@ -22,7 +23,7 @@ const MAX_SUGGESTIONS = 10;
 
 @Component({
   selector: 'app-topbar',
-  imports: [StateMessage],
+  imports: [StateMessage, Icon],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
   host: { '(document:pointerdown)': 'onDocumentPointerDown($event)' },

@@ -180,11 +180,12 @@
 }
 
 /* Table */
+/* In the main colour and the body size: without it a reader may not notice the hidden columns. */
 .scroll-hint {
   display: none;
   margin: 0;
-  color: var(--bc-muted);
-  font-size: var(--bc-text-small);
+  color: var(--bc-primary);
+  font-size: var(--bc-text-body);
 }
 
 .table-scroll {
@@ -204,8 +205,11 @@
   outline-offset: -2px;
 }
 
+/* Fixed layout: the widths come from the header cells, never from the values, so that sorting,
+   sectors, criteria and search do not move the columns; only showing or hiding a column does. */
 .results-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
   font-size: var(--bc-text-table);
@@ -239,9 +243,27 @@ td {
   font-variant-numeric: tabular-nums;
 }
 
-/* Right-aligned like the ratios; only the company column, with its own border, reads from the left. */
+/* Right-aligned like the ratios; only the company column, with its own border, reads from the left.
+   Each column width fits the longest value seen in the data and the longest word of a label
+   ("Exchangeable"), so that a label wraps between words and a value never wraps. */
 .text-column {
-  min-width: 6.5rem;
+  width: 6.5rem;
+}
+
+.price-column {
+  width: 4.5rem;
+}
+
+.date-column {
+  width: 5.5rem;
+}
+
+.multiple-column {
+  width: 6rem;
+}
+
+.percent-column {
+  width: 6rem;
 }
 
 /* The company stays visible while the ratios scroll sideways. */
@@ -307,8 +329,10 @@ tbody tr:hover .company-column {
   text-align: left;
 }
 
+/* A fixed width, empty or not, so that the arrow takes space kept for it. */
 .sort-indicator {
   flex-shrink: 0;
+  width: 1em;
   color: var(--bc-primary);
   font-size: var(--bc-text-small);
   line-height: 19px;
@@ -362,7 +386,6 @@ tbody tr:hover .company-column {
   color: var(--bc-secondary);
   font-size: var(--bc-text-small);
   font-weight: 600;
-  white-space: nowrap;
 }
 
 /* Touch screens hide the scrollbar, so nothing else says that more columns exist. */

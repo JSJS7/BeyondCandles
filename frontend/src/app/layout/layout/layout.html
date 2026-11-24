@@ -13,12 +13,15 @@
   class="mobile-menu"
   aria-label="Navigation menu"
   (click)="onBackdropClick($event)"
-  (cancel)="closeMenu()"
+  (cancel)="onMenuCancel($event)"
   (close)="onMenuClosed()"
   (keydown)="trapMenuFocus($event)"
 >
-  <button class="menu-close" type="button" autofocus (click)="closeMenu()">
-    Close menu <span aria-hidden="true">×</span>
-  </button>
-  <app-sidebar (navigated)="closeMenu()" />
+  <app-sidebar (navigated)="closeMenu()">
+    <div class="menu-top">
+      <button class="menu-close" type="button" autofocus (click)="closeMenu()">
+        Close menu <app-icon class="menu-close-icon" name="close" />
+      </button>
+    </div>
+  </app-sidebar>
 </dialog>

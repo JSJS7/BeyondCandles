@@ -2,8 +2,7 @@
   <header class="page-header">
     <h1>Backtest</h1>
     <p class="page-description">
-      Each year the companies ranked by one screener ratio on 31 March, split into five equal groups
-      and held for a year.
+      Check whether companies with low or high values of a ratio did better in the following year.
     </p>
   </header>
 
@@ -32,14 +31,15 @@
   </div>
 
   <p class="limits-note">
-    The 200 companies of this site were chosen as the largest at the end of 2024, so every group
+    Each year on 31 March the companies are ranked by one ratio, split into five equal groups and
+    held for a year. The 200 companies were chosen as the largest at the end of 2024, so every group
     shows high returns: compare the groups with each other and with the benchmark, not with the
     market (<a [href]="methodologyUrl" target="_blank" rel="noopener noreferrer"
       >methodology<span class="visually-hidden"> (opens in a new tab)</span></a
     >). Historical data for learning, not investment advice.
   </p>
 
-  <details class="reading-guide">
+  <details class="reading-guide" appSlideDetails>
     <summary class="reading-guide-toggle">How the backtest works</summary>
     <dl class="guide-list">
       <dt>Ranking</dt>

@@ -1,0 +1,15 @@
+/* No line box of its own, so that the parent can centre it exactly. */
+:host {
+  display: inline-flex;
+}
+
+/* Thin lines with round ends, in the colour of the text; the font size sets the size. */
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

@@ -12,7 +12,7 @@
   </button>
 
   <div class="global-search" (keydown.escape)="dismissSearchResults()">
-    <span class="search-icon" aria-hidden="true">⌕</span>
+    <app-icon class="search-icon" name="search" />
 
     <input
       #searchInput
@@ -97,7 +97,7 @@
       [title]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
       (click)="theme.toggle()"
     >
-      <span aria-hidden="true">{{ theme.mode() === 'dark' ? '☀' : '☾' }}</span>
+      <app-icon [name]="theme.mode() === 'dark' ? 'sun' : 'moon'" />
     </button>
   </div>
 </header>

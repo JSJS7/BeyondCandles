@@ -20,6 +20,7 @@ import {
   RatioDefinition,
 } from '../../shared/ratio-definitions';
 import { RATIO_CELL_LABELS, ratioLabels } from '../../shared/ratio-labels';
+import { SlideDetails } from '../../shared/slide';
 import { labelGuide, ValueLabel } from '../../shared/value-labels';
 import { fiscalYearLabel } from './annual-columns';
 import { ANNUAL_CELL_LABELS } from './annual-financials';
@@ -51,6 +52,7 @@ export function ratioText(period: AnnualRatios, ratio: RatioDefinition): string 
   selector: 'app-annual-ratio-table',
   templateUrl: './annual-ratio-table.html',
   styleUrl: './annual-ratio-table.css',
+  imports: [SlideDetails],
 })
 export class AnnualRatioTable {
   private readonly scroller = viewChild.required<ElementRef<HTMLElement>>('scroller');

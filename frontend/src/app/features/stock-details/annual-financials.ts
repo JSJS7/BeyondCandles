@@ -18,6 +18,7 @@ import {
 } from '../../shared/data-window';
 import { formatDate } from '../../shared/date-format';
 import { METHODOLOGY_URL } from '../../shared/links';
+import { SlideDetails, slideIn, slideOut } from '../../shared/slide';
 import { labelGuide, ValueLabel } from '../../shared/value-labels';
 import {
   ANNUAL_COLUMNS,
@@ -52,7 +53,7 @@ interface SelectedCell {
 
 @Component({
   selector: 'app-annual-financials',
-  imports: [NgTemplateOutlet, ValueSources],
+  imports: [NgTemplateOutlet, ValueSources, SlideDetails],
   templateUrl: './annual-financials.html',
   styleUrl: './annual-financials.css',
 })
@@ -111,6 +112,9 @@ export class AnnualFinancials {
   readonly periodsWithNotes = computed(() => this.periods().filter((period) => period.period_note));
 
   private readonly selectedKey = signal<CellKey | null>(null);
+
+  readonly slideIn = slideIn;
+  readonly slideOut = slideOut;
 
   // Looked up again in the current periods, so new data never shows stale sources.
   readonly selected = computed<SelectedCell | null>(() => {

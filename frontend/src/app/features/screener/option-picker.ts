@@ -1,4 +1,5 @@
 import { Component, ElementRef, inject, input, output, signal } from '@angular/core';
+import { SlideDetails } from '../../shared/slide';
 
 export interface PickerOption {
   key: string;
@@ -22,6 +23,7 @@ export interface OptionToggle {
   selector: 'app-option-picker',
   templateUrl: './option-picker.html',
   styleUrl: './option-picker.css',
+  imports: [SlideDetails],
   host: {
     '[class.container-anchored]': 'anchorToContainer()',
     '(document:pointerdown)': 'onDocumentPointerDown($event)',

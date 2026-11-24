@@ -19,6 +19,7 @@ import { ScreenerService } from '../../services/screener.service';
 import { formatDate } from '../../shared/date-format';
 import { EARLIEST_VALUATION_DATE, LATEST_VALUATION_DATE } from '../../shared/data-window';
 import { METHODOLOGY_URL } from '../../shared/links';
+import { SlideDetails } from '../../shared/slide';
 import {
   AUTOMATIC_MEASURES_NOTE,
   NO_VALUE_NOTE,
@@ -85,7 +86,7 @@ function pageState(query: ScreenerQuery): PageState {
 
 @Component({
   selector: 'app-screener',
-  imports: [RouterLink, OptionPicker, CriteriaEditor, StateMessage],
+  imports: [RouterLink, OptionPicker, CriteriaEditor, StateMessage, SlideDetails],
   templateUrl: './screener.html',
   styleUrl: './screener.css',
 })

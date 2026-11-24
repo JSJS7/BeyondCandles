@@ -46,7 +46,12 @@
 </div>
 
 @if (selectingRange()) {
-  <form class="custom-range-form" (submit)="applyCustomRange($event)">
+  <form
+    class="custom-range-form"
+    (animate.enter)="slideIn($event)"
+    (animate.leave)="slideOut($event)"
+    (submit)="applyCustomRange($event)"
+  >
     <p class="custom-range-text">Select two trading days on the chart or enter the dates below.</p>
     <div class="date-controls">
       <label class="date-field">

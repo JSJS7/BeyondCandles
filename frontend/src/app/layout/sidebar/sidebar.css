@@ -67,10 +67,11 @@
   color: var(--bc-primary);
 }
 
+/* Centred in the same width, so that the labels line up. */
 .nav-icon {
+  justify-content: center;
   width: 18px;
   font-size: var(--bc-text-large);
-  text-align: center;
   opacity: 0.9;
 }
 

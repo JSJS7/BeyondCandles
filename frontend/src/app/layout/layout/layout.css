@@ -48,12 +48,30 @@ main {
   background: var(--bc-backdrop);
 }
 
-.menu-close {
+/* The dimmed page fades in and out while the menu slides (shared/slide.ts, also 200 ms). */
+.mobile-menu[open]::backdrop {
+  animation: menu-backdrop-in 200ms ease-out;
+}
+
+.mobile-menu.menu-closing::backdrop {
+  animation: menu-backdrop-out 200ms ease-out forwards;
+}
+
+/* Inside the sidebar, under the name, with the side padding of the links below it. */
+.menu-top {
   flex-shrink: 0;
-  align-self: flex-end;
-  min-width: var(--bc-control-height);
+  padding: var(--bc-space-m) var(--bc-space-m) 0;
+}
+
+/* The width of the menu: an easy target for a thumb. The label and the cross sit together
+   in the middle. */
+.menu-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--bc-space-xs);
+  width: 100%;
   min-height: var(--bc-control-height);
-  margin: var(--bc-space-s);
   padding: var(--bc-space-s) var(--bc-space-m);
   border: 1px solid var(--bc-primary);
   border-radius: var(--bc-radius-control);
@@ -67,10 +85,26 @@ main {
   background: var(--bc-subtle);
 }
 
+.menu-close-icon {
+  font-size: var(--bc-text-large);
+}
+
 .mobile-menu app-sidebar {
   flex: 1;
   width: 100%;
   min-height: 0;
+}
+
+@keyframes menu-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes menu-backdrop-out {
+  to {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 767px) {
@@ -80,5 +114,15 @@ main {
 
   main {
     scrollbar-gutter: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu[open]::backdrop {
+    animation: none;
+  }
+
+  .mobile-menu.menu-closing::backdrop {
+    animation: none;
   }
 }

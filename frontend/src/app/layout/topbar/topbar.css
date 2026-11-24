@@ -33,13 +33,14 @@
   max-width: 600px;
 }
 
+/* Centred on the height of the field, at the start of the space kept for it in the field. */
 .search-icon {
   position: absolute;
   top: 50%;
   left: var(--bc-space-m);
   transform: translateY(-50%);
   color: var(--bc-muted);
-  font-size: var(--bc-text-large);
+  font-size: var(--bc-text-title);
   pointer-events: none;
 }
 
@@ -145,7 +146,11 @@
   gap: var(--bc-space-m);
 }
 
+/* The icon sits in the middle of the square. */
 .theme-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: var(--bc-control-height);
   height: var(--bc-control-height);
   /* The ink rule under a page title, on the background of the search field beside it. */

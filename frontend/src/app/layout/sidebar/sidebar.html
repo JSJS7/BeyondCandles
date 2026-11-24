@@ -2,6 +2,9 @@
   <!-- The masthead of the paper: the name alone, in a display serif. -->
   <div class="brand">BeyondCandles</div>
 
+  <!-- The mobile menu puts its close button here, under the name. -->
+  <ng-content />
+
   <nav class="navigation">
     <a
       class="nav-item"
@@ -10,7 +13,7 @@
       ariaCurrentWhenActive="page"
       (click)="navigated.emit()"
     >
-      <span class="nav-icon" aria-hidden="true">⌕</span>
+      <app-icon class="nav-icon" name="filter" />
       <span>Screener</span>
     </a>
 
@@ -21,7 +24,7 @@
       ariaCurrentWhenActive="page"
       (click)="navigated.emit()"
     >
-      <span class="nav-icon" aria-hidden="true">◌</span>
+      <app-icon class="nav-icon" name="history" />
       <span>Backtest</span>
     </a>
   </nav>

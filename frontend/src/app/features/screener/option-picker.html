@@ -1,6 +1,8 @@
 <details
   #picker
   class="picker"
+  appSlideDetails
+  [slidePanel]="panel"
   [open]="open()"
   (toggle)="onToggle(picker.open)"
   (keydown.escape)="closeAndFocus(pickerSummary); $event.stopPropagation()"
@@ -8,7 +10,7 @@
   <summary #pickerSummary class="picker-summary">
     <span class="visually-hidden">{{ name() }}: </span>{{ summary() }}
   </summary>
-  <div class="picker-panel">
+  <div #panel class="picker-panel">
     <fieldset class="option-list">
       <legend class="visually-hidden">{{ name() }}</legend>
       @for (option of options(); track option.key) {

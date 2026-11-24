@@ -54,6 +54,13 @@
   display: none;
 }
 
+/* Above the table and outside its scroll area, so that it does not move with the columns. */
+.table-caption {
+  margin: 0;
+  padding-bottom: var(--bc-space-m);
+  color: var(--bc-muted);
+}
+
 .table-scroll {
   /* Positioned, so that visually hidden labels stay clipped inside the scroll area. */
   position: relative;
@@ -61,19 +68,13 @@
   overscroll-behavior-x: contain;
 }
 
-/* A heavy rule above the header, as on a printed stock table; the caption stays above it. */
+/* A heavy rule above the header, as on a printed stock table. */
 table {
   width: 100%;
   border-top: var(--bc-rule-heavy) solid var(--bc-rule);
   border-collapse: separate;
   border-spacing: 0;
   font-size: var(--bc-text-table);
-}
-
-caption {
-  padding-bottom: var(--bc-space-m);
-  color: var(--bc-muted);
-  text-align: left;
 }
 
 th,
@@ -215,7 +216,9 @@ td.selected .cell-button:hover {
   .scroll-hint {
     display: block;
     margin: 0 0 var(--bc-space-s);
-    font-size: var(--bc-text-small);
+    /* In the main colour and the body size: without it a reader may not notice the hidden columns. */
+    color: var(--bc-primary);
+    font-size: var(--bc-text-body);
   }
 }
 
