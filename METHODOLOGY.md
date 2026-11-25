@@ -145,11 +145,12 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   more after an acquisition.
 - **Units exchangeable into shares:** in some companies part of the owners hold units of a subsidiary
   partnership exchangeable one for one into the listed shares. Revenue belongs to the whole group, so
-  P/S counts the market value of shares and units together, as data services do; equity and net income
-  belong to the listed shares, so P/B counts only those and P/E is unchanged. Unit counts are the
-  weighted averages each annual report states, for companies whose units exceed 5% of the share count;
-  the ratios are marked *Exchangeable units*. Ordinary minority stakes in subsidiaries follow the usual
-  convention of market value over consolidated revenue.
+  P/S counts the market value of shares and units together, as data services do for the current market
+  value; their historical ratios often count listed shares only, so a past P/S may be lower there.
+  Equity and net income belong to the listed shares, so P/B counts only those and P/E is unchanged.
+  Unit counts are the weighted averages each annual report states, for companies whose units exceed 5%
+  of the share count; the ratios are marked *Exchangeable units*. Ordinary minority stakes in
+  subsidiaries follow the usual convention of market value over consolidated revenue.
 - **Common equity:** equity minus preferred stock, as analysis sites deduct it. The value comes from the
   preferred stock tags, or else from the preferred stock column of the statement of changes in equity
   in the period's first annual report. A zero balance is not a value. When annual preferred dividends
@@ -161,7 +162,9 @@ missing or the result has no meaning, never zero. Price ratios are also empty wi
   deducted from equity, while the year's preferred dividends are still deducted from net income, as in
   earnings per share. A company whose net income is already after its subsidiaries' preferred dividends,
   and whose common equity excludes that stock, deducts neither the stock nor the dividends. Companies
-  whose diluted count already holds preferred stock as converted do not deduct it.
+  whose diluted count already holds preferred stock as converted do not deduct it. Common equity excludes
+  noncontrolling interests, the stakes of outside owners in subsidiaries; some data services count them
+  in equity and in net income, so their P/B is lower and their ROE differs where such stakes are large.
 - **Growth marker:** when the table's series implies a change more than 5% away from the report's own,
   or a value changes sign between the sources, the row is marked as a break in the series. The company
   page uses the same rule for all five reviewed measures and shows the change as one report states it;
