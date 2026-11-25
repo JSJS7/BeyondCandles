@@ -1,10 +1,9 @@
 <!-- Above the scroll area, not in the caption, so that a phone does not cut the text off. -->
 <p class="table-note">
-  Quintile 1, quintile 5 (Q1, Q5) and the benchmark: compounded per year over the full years,
-  {{ costsText() }}. The rest is before costs. Mean 1 − 5 and t test the ranking on monthly returns:
-  the average monthly difference between quintile 1 and quintile 5, times 12, in points, and that
-  average over its standard error. It differs from the mean of the yearly differences and from Q1
-  minus Q5, which compound the months. With eleven ratios, a t near 2 can be chance.
+  Quintile 1, quintile 5 and the benchmark: compounded per year over the full years,
+  {{ costsText() }}; the other columns are before costs. Mean 1 − 5: the average monthly return of
+  quintile 1 minus quintile 5, times 12, in points. A t-stat of about ±2 or beyond tells it from
+  chance, though with eleven ratios one can get there by luck.
 </p>
 @if (summaryScroll.overflows()) {
   <p class="scroll-hint" aria-hidden="true">Scroll the table sideways to see all columns.</p>
@@ -33,7 +32,7 @@
         <th scope="col" class="number-column">Quintile 5</th>
         <th scope="col" class="number-column">Benchmark</th>
         <th scope="col" class="number-column">Mean 1 − 5</th>
-        <th scope="col" class="number-column">t</th>
+        <th scope="col" class="number-column">t-stat</th>
         <th scope="col" class="number-column">Years 1 > 5</th>
         <th scope="col" class="number-column">Random p, Q1</th>
         <th scope="col" class="number-column">Random p, Q5</th>

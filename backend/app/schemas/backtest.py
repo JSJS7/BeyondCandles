@@ -64,12 +64,16 @@ class RatioPeriod(BaseModel):
 
 
 class ReturnSummary(BaseModel):
-    """Over the full years: compounded, and per year (geometric mean)."""
+    """Over the full years: compounded, and per year (geometric mean), and the risk."""
 
     cumulative_gross: float
     cumulative_net: float
     annualised_gross: float
     annualised_net: float
+    # Before costs: the standard deviation of the monthly returns times sqrt(12), and the
+    # largest fall of the daily value from its highest point so far (negative, -0.45 is 45%).
+    volatility: float | None = None
+    worst_drop: float | None = None
 
 
 class QuintileSummary(ReturnSummary):

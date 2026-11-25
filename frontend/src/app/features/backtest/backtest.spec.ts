@@ -60,14 +60,54 @@ describe('Backtest page', () => {
     expect(select?.value).toBe('roa');
   });
 
-  it('shows the test of the ranking: the mean 1 - 5 and its t', async () => {
+  it('shows the test of the ranking: the mean 1 - 5 and its t-stat', async () => {
     const page = await open('/backtest', 'pe');
 
     const cells = [...page.querySelectorAll('.summary-table tbody tr')][0].querySelectorAll('td');
     const texts = [...cells].map((cell) => cell.textContent?.trim());
     expect(texts).toContain('+20.0');
     expect(texts).toContain('1.50');
-    expect(page.querySelector('.spread-test')?.textContent).toContain('t 1.50, from 24 monthly');
+    expect(page.querySelector('.spread-test')?.textContent).toContain(
+      't-stat 1.50, from 24 monthly',
+    );
+  });
+
+  it('shows the volatility and the worst drop under the yearly returns', async () => {
+    const page = await open('/backtest', 'pe');
+
+    const rows = [...page.querySelectorAll('.years-table tbody tr')];
+    const riskRows = rows.filter((row) => {
+      const label = row.querySelector('.year-label')?.textContent?.trim();
+      return label === 'Volatility' || label === 'Worst drop';
+    });
+    const cellTexts = riskRows.map((row) =>
+      [...row.querySelectorAll('td')].map((cell) => cell.textContent?.trim()),
+    );
+
+    // Five quintiles, the empty 1 − 5 cell, the benchmark, All 200 and the empty Ranked cell.
+    expect(cellTexts[0]).toEqual([
+      '23.2%',
+      '18.0%',
+      '18.0%',
+      '18.0%',
+      '18.0%',
+      '',
+      '18.1%',
+      '18.2%',
+      '',
+    ]);
+    // An empty worst drop shows a dash, not 0%.
+    expect(cellTexts[1]).toEqual([
+      '-45.3%',
+      '-45.3%',
+      '-45.3%',
+      '-45.3%',
+      '—',
+      '',
+      '-36.0%',
+      '-36.3%',
+      '',
+    ]);
   });
 
   it('keeps the chosen year in the address, also when another ratio is chosen', async () => {
@@ -153,7 +193,7 @@ describe('Backtest page', () => {
 
     const labels = [...page.querySelectorAll('.years-table')][0].querySelectorAll('tbody th');
     const texts = [...labels].map((label) => label.querySelector('.year-label')?.textContent);
-    expect(texts).toEqual(['2017', '2018', 'Per year', 'Apr–Dec 2025']);
+    expect(texts).toEqual(['2017', '2018', 'Per year', 'Volatility', 'Worst drop', 'Apr–Dec 2025']);
   });
 
   it('lists the companies of each quintile and links the same ranking in the screener', async () => {

@@ -10,24 +10,20 @@ export const VALUE_LABEL_MEANINGS = {
   'Split-adjusted': 'Reported EPS restated for stock splits after the filing.',
   'Series break': "The company's yearly series changes definition here, or a value changes sign.",
   'Spin-off':
-    'The price no longer includes a business the company spun off after the period, while ' +
-    "the period's results still do, so P/E, P/B and P/S can read too low until the next " +
-    'annual report.',
+    'The price no longer includes a business spun off after the period, while the results ' +
+    'still do, so P/E, P/B and P/S can read too low until the next annual report.',
   'Exchangeable units':
-    'Part of the owners hold units exchangeable into the listed shares (Blackstone, KKR until ' +
-    '2022, Charter, Simon Property, Broadcom in 2017). P/S counts the market value of shares ' +
-    "and units, because revenue is the whole group's; P/B counts only the listed shares, " +
-    'because equity is theirs. P/E is not affected.',
+    'Part of the owners hold units exchangeable into the listed shares. P/S counts shares and ' +
+    "units, because revenue is the whole group's; P/B counts only the listed shares, because " +
+    'equity is theirs. P/E is not affected.',
   'Share issue':
-    "The share count on the report's cover is more than 10% above the year's average, mostly " +
-    'after an acquisition paid in shares. The count already includes the new shares, while ' +
-    'equity and revenue may still describe the company before the acquisition, so P/B and P/S ' +
-    'can read too high. P/E is not affected.',
+    "The cover's share count is more than 10% above the year's average, mostly after an " +
+    'acquisition paid in shares, while equity and revenue may predate it, so P/B and P/S can ' +
+    'read too high. P/E is not affected.',
   'Discontinued ops':
-    'Net income and EPS include the result of discontinued operations (a business sold, spun ' +
-    'off or held for sale) larger than 5% of net income, so ratios built on them can read a ' +
-    'one-off gain or loss as earnings. EPS growth is marked also when the year before ' +
-    'includes them.',
+    'Net income and EPS include a result of discontinued operations (a business sold, spun off ' +
+    'or held for sale) above 5% of net income, so ratios built on them can read a one-off as ' +
+    'earnings. EPS growth is marked also when the year before includes it.',
 } as const;
 
 export type ValueLabel = keyof typeof VALUE_LABEL_MEANINGS;

@@ -99,6 +99,11 @@ class HoldingPeriod:
     # monthly returns that the test of the 1 - 5 spread uses; empty, the test is skipped.
     checkpoints: tuple[date, ...] = ()
     growth: dict[str, tuple[float, ...]] = field(default_factory=dict)
+    # Every session after the purchase up to the sale, and for each ticker its adjusted close
+    # at each of them / at the buy session. They give the daily values that the worst drop
+    # uses; empty, the worst drop is left out.
+    sessions: tuple[date, ...] = ()
+    daily_growth: dict[str, tuple[float, ...]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -172,12 +177,18 @@ class RatioPeriod:
 
 @dataclass(frozen=True)
 class ReturnSummary:
-    """Returns over the full years, compounded and per year."""
+    """Returns over the full years, compounded and per year, and their risk before costs."""
 
     cumulative_gross: float
     cumulative_net: float
     annualised_gross: float
     annualised_net: float
+    # Standard deviation of the monthly returns, per year (x sqrt 12); None without month
+    # ends or with fewer than two months.
+    volatility: float | None
+    # The largest fall of the daily value from its highest point so far, as a negative
+    # fraction (-0.45 is a fall of 45%); None without daily closes.
+    worst_drop: float | None
 
 
 @dataclass(frozen=True)
@@ -406,8 +417,11 @@ def stouffer(mid_p_values):
     return 1 - normal.cdf(combined_score)
 
 
-def return_summary(portfolio):
-    """Compounded and per-year returns of the full years of one traced portfolio."""
+def return_summary(portfolio, periods):
+    """Returns and risk of the full years of one traced portfolio.
+
+    `portfolio[i]` is the holding of `periods[i]`; both hold the full years only.
+    """
     gross_growth = math.prod(1 + period.gross_return for period in portfolio)
     net_growth = math.prod(1 + period.net_return for period in portfolio)
     years = len(portfolio)
@@ -416,7 +430,61 @@ def return_summary(portfolio):
         cumulative_net=net_growth - 1,
         annualised_gross=gross_growth ** (1 / years) - 1,
         annualised_net=net_growth ** (1 / years) - 1,
+        volatility=portfolio_volatility(portfolio, periods),
+        worst_drop=worst_drop(portfolio, periods),
     )
+
+
+def portfolio_volatility(portfolio, periods):
+    """Standard deviation of the monthly returns of the full years, per year, before costs.
+
+    The sample standard deviation times sqrt(12), as Morningstar annualises it, from the same
+    months as the test of the ranking (a sale on 1 or 2 April joins March). With one crash
+    in eight years the result depends on where the months end: calendar months, which put
+    1 April 2020 into April, give 1-2 points less (25.11.2026).
+    """
+    monthly = []
+    for holding, period in zip(portfolio, periods, strict=True):
+        if not period.checkpoints:
+            return None
+        monthly.extend(monthly_returns(holding.tickers, period))
+    if len(monthly) < 2:
+        return None
+    return statistics.stdev(monthly) * math.sqrt(MONTHS_PER_YEAR)
+
+
+def daily_values(tickers, period):
+    """Value of equal parts bought at the purchase, at every session, per 1 invested."""
+    values = []
+    for position in range(len(period.sessions)):
+        total = math.fsum(period.daily_growth[ticker][position] for ticker in tickers)
+        values.append(total / len(tickers))
+    return values
+
+
+def worst_drop(portfolio, periods):
+    """The largest fall of the daily value from its highest point so far, before costs.
+
+    The years are chained: each purchase starts from the value the sale before left, so a
+    fall that crosses a purchase counts whole. Daily rather than month-end values, which
+    would miss a low inside a month, such as the market's low of 23 March 2020.
+    """
+    level = 1.0
+    peak = 1.0
+    worst = 0.0
+    for holding, period in zip(portfolio, periods, strict=True):
+        if not period.sessions:
+            return None
+        values = daily_values(holding.tickers, period)
+        for value in values:
+            portfolio_value = level * value
+            if portfolio_value > peak:
+                peak = portfolio_value
+            drop = portfolio_value / peak - 1
+            if drop < worst:
+                worst = drop
+        level *= values[-1]
+    return worst
 
 
 def median_market_value(members):
@@ -446,13 +514,27 @@ def check_periods(periods):
                 raise ValueError(
                     f"{candidate.ticker} has no return from {period.buy_session}"
                 )
-            if not period.checkpoints:
-                continue
-            path = period.growth.get(candidate.ticker)
-            if path is None or len(path) != len(period.checkpoints):
-                raise ValueError(
-                    f"{candidate.ticker} lacks a month-end close from {period.buy_session}"
-                )
+            check_path(
+                period.checkpoints,
+                period.growth,
+                candidate.ticker,
+                f"a month-end close from {period.buy_session}",
+            )
+            check_path(
+                period.sessions,
+                period.daily_growth,
+                candidate.ticker,
+                f"a daily close from {period.buy_session}",
+            )
+
+
+def check_path(points, paths, ticker, missing_text):
+    """A company needs a value at every point of a path the period has; no points, no path."""
+    if not points:
+        return
+    path = paths.get(ticker)
+    if path is None or len(path) != len(points):
+        raise ValueError(f"{ticker} lacks {missing_text}")
 
 
 def month_checkpoints(sessions, buy_session, sell_session):
@@ -574,6 +656,7 @@ def backtest_ratio(ratio, periods, financial_tickers):
 def ratio_result(ratio, periods, ratio_periods, quintile_portfolios, benchmark):
     """Summaries over the full years only; the partial period is shown on its own."""
     full = [index for index, period in enumerate(periods) if not period.partial]
+    full_periods = [periods[index] for index in full]
 
     quintile_summaries = []
     for position, portfolio in enumerate(quintile_portfolios):
@@ -586,7 +669,7 @@ def ratio_result(ratio, periods, ratio_periods, quintile_portfolios, benchmark):
         quintile_summaries.append(
             QuintileSummary(
                 number=position + 1,
-                returns=return_summary(full_portfolio),
+                returns=return_summary(full_portfolio, full_periods),
                 combined_p_value=stouffer(mid_p_values),
             )
         )
@@ -602,7 +685,7 @@ def ratio_result(ratio, periods, ratio_periods, quintile_portfolios, benchmark):
         excludes_financial=ratio in FINANCIAL_EXCLUDED_RATIOS,
         periods=ratio_periods,
         quintiles=quintile_summaries,
-        benchmark=return_summary([benchmark[index] for index in full]),
+        benchmark=return_summary([benchmark[index] for index in full], full_periods),
         spread_mean=spread_mean,
         spread_t=spread_t,
         spread_months=spread_months,
@@ -635,5 +718,5 @@ def run_backtest(periods, financial_tickers, ratios=None):
     return BacktestResult(
         ratios=results,
         catalogue=catalogue,
-        catalogue_summary=return_summary(full_catalogue),
+        catalogue_summary=return_summary(full_catalogue, full_periods),
     )

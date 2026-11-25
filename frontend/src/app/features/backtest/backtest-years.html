@@ -2,6 +2,7 @@
 <!-- Above the scroll area, not in the caption, so that a phone does not cut the text off. -->
 <p class="table-note">
   Each holding from the purchase after the ranking to the next purchase, {{ costsText() }}.
+  Volatility and worst drop are before costs.
 </p>
 <p class="spread-test">{{ spreadTestText() }}</p>
 @if (yearsScroll.overflows()) {
@@ -67,6 +68,32 @@
         <td class="number-column"></td>
         <td class="number-column">{{ formatReturn(annualised(ratio().benchmark, costs())) }}</td>
         <td class="number-column">{{ formatReturn(annualised(catalogueSummary(), costs())) }}</td>
+        <td class="number-column"></td>
+      </tr>
+      <tr>
+        <th scope="row" class="year-column">
+          <span class="year-label">Volatility</span>
+          <span class="holding-dates">monthly returns, per year</span>
+        </th>
+        @for (quintile of ratio().quintiles; track quintile.number) {
+          <td class="number-column">{{ formatOptionalReturn(quintile.volatility) }}</td>
+        }
+        <td class="number-column"></td>
+        <td class="number-column">{{ formatOptionalReturn(ratio().benchmark.volatility) }}</td>
+        <td class="number-column">{{ formatOptionalReturn(catalogueSummary().volatility) }}</td>
+        <td class="number-column"></td>
+      </tr>
+      <tr>
+        <th scope="row" class="year-column">
+          <span class="year-label">Worst drop</span>
+          <span class="holding-dates">daily, from the highest value</span>
+        </th>
+        @for (quintile of ratio().quintiles; track quintile.number) {
+          <td class="number-column">{{ formatOptionalReturn(quintile.worst_drop) }}</td>
+        }
+        <td class="number-column"></td>
+        <td class="number-column">{{ formatOptionalReturn(ratio().benchmark.worst_drop) }}</td>
+        <td class="number-column">{{ formatOptionalReturn(catalogueSummary().worst_drop) }}</td>
         <td class="number-column"></td>
       </tr>
       @for (period of partialPeriods(); track period.ranking_date) {

@@ -88,19 +88,13 @@ export const RATIO_GUIDE: { term: string; text: string }[] = [
 
 // What an empty ratio means, for the dash entry of every reading guide.
 export const NO_VALUE_NOTE =
-  'No value: an input is missing or the result has no meaning. It never means zero. ' +
-  'A ratio is also empty when what it divides by is not positive (EPS for P/E, ' +
-  'revenue for P/S and the margins, net income for OCF / net income), when common ' +
-  'equity is not positive (P/B; ROE in either year), when growth starts or ends at ' +
-  'a value that is not positive or no report states both years, when only ' +
-  "continuing operations' cash flow is reported (OCF / net income), and for price " +
-  'ratios without a comparable price (JCI until September 2016).';
+  'No value: an input is missing or the result has no meaning, such as a ratio divided by ' +
+  'a value that is not positive or growth from or to one. It never means zero.';
 
 // Which ratios stand on automatic measures (N116). Every page that shows ratios shows this
 // sentence in its reading guide, so it is written once here.
 export const AUTOMATIC_MEASURES_NOTE =
   'The share count (P/B, P/S), assets (ROA, Equity / assets), operating income (Operating ' +
-  'margin), capital expenditure (FCF margin) and preferred stock with its dividends (P/B, ROE) ' +
-  'are automatic measures: selected from SEC data by fixed rules and screened in bulk, not ' +
-  'compared with each filing, so these ratios are less certain than those built only on ' +
-  'reviewed values.';
+  'margin), capital expenditure (FCF margin) and preferred stock (P/B, ROE) are automatic ' +
+  'measures: selected from SEC data by fixed rules and checked in bulk, not against each ' +
+  'filing, so these ratios are less certain.';

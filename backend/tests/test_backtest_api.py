@@ -124,6 +124,16 @@ class BacktestApiTests(ScreenerDatabaseTestCase):
         self.assertEqual(net_margin["spread_months"], 1)
         self.assertIsNone(net_margin["spread_t"])
 
+    def test_risk_of_each_quintile_reaches_the_api(self):
+        """Every company is flat after its purchase, so no quintile falls from its peak;
+        one "month" in the full year is too few for a volatility."""
+        net_margin = self.ratio("net_margin")
+
+        best = net_margin["quintiles"][0]
+        self.assertEqual(best["worst_drop"], 0.0)
+        self.assertIsNone(best["volatility"])
+        self.assertEqual(net_margin["benchmark"]["worst_drop"], 0.0)
+
     def test_report_filed_on_the_ranking_session_waits_for_the_next_ranking(self):
         """M41: AAA restates its net income (500 -> 950) in a report filed on the ranking
         session itself. That close cannot reflect it, so the 2024 ranking keeps margin 0.5

@@ -456,5 +456,84 @@ class SpreadTestTests(unittest.TestCase):
             )
 
 
+def with_daily_paths(periods, chosen_paths):
+    """Three sessions a year: the chosen companies follow `chosen_paths[year][ticker]`, every
+    other company rises in equal steps to its return."""
+    result = []
+    for period, chosen in zip(periods, chosen_paths, strict=True):
+        sessions = (
+            date(period.buy_session.year, 8, 1),
+            date(period.buy_session.year, 12, 1),
+            period.sell_session,
+        )
+        daily_growth = {}
+        for ticker, value in period.returns.items():
+            daily_growth[ticker] = chosen.get(
+                ticker, (1 + value / 3, 1 + 2 * value / 3, 1 + value)
+            )
+        result.append(replace(period, sessions=sessions, daily_growth=daily_growth))
+    return result
+
+
+class RiskTests(unittest.TestCase):
+    def test_volatility_of_the_monthly_returns_of_the_known_example(self):
+        """Quintile 1 has the monthly returns 0.05, 1.10 / 1.05 - 1 = 0.047619 (A), then
+        0.10 and 1.20 / 1.10 - 1 = 0.090909 (F and B). Mean 0.072132, deviations -0.022132,
+        -0.024513, 0.027868, 0.018777; squares summing to 0.0022199, over 3 is 0.00073998,
+        so the standard deviation is 0.027202 and per year 0.027202 * sqrt(12) = 0.094232."""
+        periods = with_month_paths(known_example())
+
+        pe = run_backtest(periods, financial_tickers=set(), ratios=["pe"]).ratios[0]
+
+        self.assertAlmostEqual(pe.quintiles[0].returns.volatility, 0.094232, places=6)
+
+    def test_worst_drop_crosses_the_purchase_between_years(self):
+        """Quintile 1 holds A in year 1 (1.2, 0.9, 1.1) and F and B in year 2, both at 0.8
+        on the first session. Year 1 alone falls 25% (1.2 -> 0.9), year 2 alone 20%; chained,
+        year 2 starts from 1.1 and falls to 1.1 * 0.8 = 0.88 while the peak is still 1.2,
+        so the worst drop is 0.88 / 1.2 - 1 = -0.266667."""
+        periods = with_daily_paths(
+            known_example(),
+            [
+                {"A": (1.2, 0.9, 1.1)},
+                {"F": (0.8, 0.9, 1.3), "B": (0.8, 1.0, 1.1)},
+            ],
+        )
+
+        pe = run_backtest(periods, financial_tickers=set(), ratios=["pe"]).ratios[0]
+
+        self.assertAlmostEqual(pe.quintiles[0].returns.worst_drop, -0.266667, places=6)
+
+    def test_rising_portfolio_has_no_drop(self):
+        """Quintile 5 holds E (+50%) then A (0%), both rising or flat in equal steps."""
+        periods = with_daily_paths(known_example(), [{}, {}])
+
+        pe = run_backtest(periods, financial_tickers=set(), ratios=["pe"]).ratios[0]
+
+        self.assertEqual(pe.quintiles[4].returns.worst_drop, 0.0)
+
+    def test_risk_is_empty_without_month_ends_or_daily_closes(self):
+        """The known example has neither, so neither measure is made up."""
+        result = run_backtest(known_example(), financial_tickers=set(), ratios=["pe"])
+
+        summary = result.ratios[0].quintiles[0].returns
+        self.assertIsNone(summary.volatility)
+        self.assertIsNone(summary.worst_drop)
+        self.assertIsNone(result.catalogue_summary.worst_drop)
+
+    def test_worst_drop_needs_daily_closes_of_every_company(self):
+        """A company without a daily close must stop the run, not drop out silently."""
+        first, second = with_daily_paths(known_example(), [{}, {}])
+        daily_growth = dict(first.daily_growth)
+        del daily_growth["C"]
+
+        with self.assertRaises(ValueError):
+            run_backtest(
+                [replace(first, daily_growth=daily_growth), second],
+                financial_tickers=set(),
+                ratios=["pe"],
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

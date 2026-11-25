@@ -5,6 +5,7 @@ import {
   cataloguePeriod,
   Costs,
   formatOptionalPoints,
+  formatOptionalReturn,
   formatPoints,
   formatPValue,
   formatReturn,
@@ -44,12 +45,13 @@ export class BacktestYears {
     const mean = formatOptionalPoints(ratio.spread_mean);
     const t = formatT(ratio.spread_t);
     return (
-      `Quintile 1 − 5: ${mean} points a year (monthly mean × 12), t ${t}, ` +
-      `from ${ratio.spread_months} monthly returns before costs.`
+      `Quintile 1 − 5: ${mean} points a year (monthly mean × 12), t-stat ${t},` +
+      ` from ${ratio.spread_months} monthly returns before costs.`
     );
   });
 
   readonly formatReturn = formatReturn;
+  readonly formatOptionalReturn = formatOptionalReturn;
   readonly formatPoints = formatPoints;
   readonly formatPValue = formatPValue;
   readonly holdingYear = holdingYear;

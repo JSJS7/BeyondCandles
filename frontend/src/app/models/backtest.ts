@@ -53,6 +53,10 @@ export interface ReturnSummary {
   cumulative_net: number;
   annualised_gross: number;
   annualised_net: number;
+  // Before costs: monthly standard deviation × √12, and the largest fall of the daily value
+  // from its peak as a negative fraction (-0.45 is 45%). Null without enough prices.
+  volatility: number | null;
+  worst_drop: number | null;
 }
 
 export interface QuintileSummary extends ReturnSummary {

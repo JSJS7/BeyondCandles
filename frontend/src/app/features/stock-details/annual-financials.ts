@@ -80,9 +80,9 @@ export class AnnualFinancials {
     Calculated:
       'In the ratios below, it marks a share count: (net income − preferred dividends) ÷ EPS.',
     'Series break':
-      'The change from the year before in this table is therefore misleading. Select the value ' +
-      'to compare both years with the report that states them in one definition. Growth in the ' +
-      'ratios below still comes from one report that states both years, so it is comparable.',
+      'The change from the year before is therefore misleading; select the value to compare ' +
+      'both years in one definition. Growth in the ratios below comes from one report that ' +
+      'states both years, so it stays comparable.',
   });
 
   readonly hasUnverifiedFiscalYears = computed(() =>

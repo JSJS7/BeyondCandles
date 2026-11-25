@@ -64,6 +64,9 @@ export function ratioBacktest(ratio: RatioKey, withMembers = false): RatioBackte
       cumulative_net: 0.42,
       annualised_gross: 0.2,
       annualised_net: 0.19,
+      volatility: number === 1 ? 0.232 : 0.18,
+      // Quintile 5 has too few prices for a worst drop, so the empty value shows too.
+      worst_drop: number === 5 ? null : -0.453,
       combined_p_value: number === 1 ? 0.0004 : 0.5,
     })),
     benchmark: {
@@ -71,6 +74,8 @@ export function ratioBacktest(ratio: RatioKey, withMembers = false): RatioBackte
       cumulative_net: 0.19,
       annualised_gross: 0.1,
       annualised_net: 0.09,
+      volatility: 0.181,
+      worst_drop: -0.36,
     },
     periods: HOLDINGS.map((_, index) => period(index, withMembers)),
   };
@@ -98,6 +103,8 @@ export function backtestResponse(ratios: RatioBacktest[]): BacktestResponse {
       cumulative_net: 0.37,
       annualised_gross: 0.18,
       annualised_net: 0.17,
+      volatility: 0.182,
+      worst_drop: -0.363,
     },
     ratios,
   };

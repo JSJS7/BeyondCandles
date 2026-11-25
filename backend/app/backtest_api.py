@@ -69,14 +69,17 @@ def next_session(connection, day):
     return session
 
 
-def adjusted_closes(connection, sessions):
-    """{(ticker, session): adjusted close} for every company on the given sessions."""
+def adjusted_closes(connection, first, last):
+    """{(ticker, session): adjusted close} for every company and session from first to last.
+
+    Every session, not only the month ends: the worst drop follows the daily value.
+    """
     prices = DailyPrice.__table__
     companies = Company.__table__
     query = (
         select(companies.c.ticker, prices.c.date, prices.c.adjusted_close)
         .join(companies, companies.c.id == prices.c.company_id)
-        .where(prices.c.date.in_(sessions))
+        .where(prices.c.date >= first, prices.c.date <= last)
     )
     closes = {}
     for row in connection.execute(query).mappings():
@@ -153,12 +156,15 @@ def load_periods(connection, ranking_dates, end_date):
     sell_sessions = [*buy_sessions[1:], final_session]
     sessions = trading_sessions(connection, buy_sessions[0], final_session)
     checkpoints = []
+    holding_sessions = []
     for buy_session, sell_session in zip(buy_sessions, sell_sessions, strict=True):
         checkpoints.append(month_checkpoints(sessions, buy_session, sell_session))
-    needed_sessions = {*buy_sessions, final_session}
-    for period_checkpoints in checkpoints:
-        needed_sessions.update(period_checkpoints)
-    closes = adjusted_closes(connection, needed_sessions)
+        inside = []
+        for session in sessions:
+            if buy_session < session <= sell_session:
+                inside.append(session)
+        holding_sessions.append(tuple(inside))
+    closes = adjusted_closes(connection, buy_sessions[0], final_session)
 
     periods = []
     last_index = len(ranking_dates) - 1
@@ -181,6 +187,10 @@ def load_periods(connection, ranking_dates, end_date):
                 checkpoints=checkpoints[index],
                 growth=growth_paths(
                     tickers, closes, buy_sessions[index], checkpoints[index]
+                ),
+                sessions=holding_sessions[index],
+                daily_growth=growth_paths(
+                    tickers, closes, buy_sessions[index], holding_sessions[index]
                 ),
             )
         )
@@ -212,6 +222,8 @@ def summary_fields(summary):
         "cumulative_net": rounded(summary.cumulative_net),
         "annualised_gross": rounded(summary.annualised_gross),
         "annualised_net": rounded(summary.annualised_net),
+        "volatility": optional_rounded(summary.volatility),
+        "worst_drop": optional_rounded(summary.worst_drop),
     }
 
 
@@ -324,9 +336,9 @@ def backtest_response(result, periods, with_members):
 def cached_backtest(connection):
     """(periods, result) of every ratio, computed once per database engine.
 
-    One run takes about 5 s (18.11.2026: 2.8 s for the nine rankings, 2.2 s for the random
-    portfolios), and the data change only with a manual rebuild. After a rebuild the API
-    must be restarted to show the new result.
+    One run takes about 7 s (25.11.2026: 4.4 s to load the nine rankings and the daily
+    closes, 2.8 s to compute), and the data change only with a manual rebuild. After a
+    rebuild the API must be restarted to show the new result.
 
     The page asks for the summary and one ratio at the same time, and FastAPI answers both
     in parallel threads. The lock makes the second request wait for the first one's result

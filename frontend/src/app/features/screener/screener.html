@@ -90,27 +90,24 @@
     <dl class="guide-list">
       <dt>Criteria</dt>
       <dd>
-        A range keeps the companies whose ratio lies inside it, limits included. A percentage is
-        typed as a number of percent (15 means 15%). Companies with no value for a criterion are
-        left out, because an empty value is not zero.
+        Keeps the companies whose ratio lies in the range, limits included; 15 means 15%. Companies
+        without a value are left out, because an empty value is not zero.
       </dd>
       <dt>Median, 80% between</dt>
       <dd>
-        Under each criterion: half of the companies with a value are below the median. The 80% range
-        leaves out the lowest 10% and the highest 10%, so a few extreme values do not hide where
-        most companies lie. These are the 10th and 90th percentile, and each is the real value of
-        one company.
+        Under each criterion: half of the companies with a value lie below the median, and 80%
+        between the 10th and 90th percentile, so a few extreme values do not hide where most lie.
+        Each is one company's real value.
       </dd>
       <dt>Columns</dt>
       <dd>
-        Use the Columns button above the table to hide what you do not need. A criterion on a hidden
-        column still applies, and the CSV keeps every column except the price.
+        A criterion on a hidden column still applies, and the CSV keeps every column except the
+        price.
       </dd>
       <dt>CSV</dt>
       <dd>
         The companies as shown, in the shown order. Ratios are plain fractions (0.15 is 15%), and an
-        empty field means no value, never zero. Prices are not included: they come from a data
-        vendor.
+        empty field means no value. Prices come from a data vendor and are left out.
       </dd>
       <dt><span class="no-value">—</span></dt>
       <dd>{{ noValueNote }}</dd>

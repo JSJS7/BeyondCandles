@@ -171,6 +171,14 @@ export function annualised(summary: ReturnSummary, costs: Costs): number {
   return costs === 'net' ? summary.annualised_net : summary.annualised_gross;
 }
 
+/** A volatility or worst drop that the API leaves empty without enough prices: "—". */
+export function formatOptionalReturn(value: number | null): string {
+  if (value === null) {
+    return '—';
+  }
+  return formatReturn(value);
+}
+
 /** A difference in points that the API leaves empty without enough months: "—". */
 export function formatOptionalPoints(value: number | null): string {
   if (value === null) {
