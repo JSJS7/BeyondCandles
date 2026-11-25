@@ -26,6 +26,9 @@ SCALE_CORRECTIONS_PATH = (
 OPERATING_INCOME_EXCLUSIONS_PATH = (
     Path(__file__).resolve().parents[2] / "data/operating-income-exclusions.json"
 )
+LEASED_EQUIPMENT_PATH = (
+    Path(__file__).resolve().parents[2] / "data/capex-leased-equipment.json"
+)
 VALUE_CORRECTIONS_PATH = (
     Path(__file__).resolve().parents[2] / "data/automatic-value-corrections.json"
 )
@@ -47,6 +50,12 @@ OTHER_CAPEX_TAGS = (OTHER_PPE_TAG, "PaymentsToAcquireOtherProductiveAssets")
 # Oil and gas producers can show their capex in two lines without a total row: EOG has
 # additions to oil and gas properties and additions to other property and equipment.
 OIL_AND_GAS_ADDITIONS_TAG = "PaymentsToAcquireOilAndGasPropertyAndEquipment"
+# Equipment bought to lease to customers. CAT, DE and PCAR show it on a cash flow line of
+# its own next to the main tag, which then holds only their own property and equipment;
+# their capex adds both lines, as S&P Global data counts it (W44). Elsewhere the tag can
+# come from a note (GD 2025), so only the companies in data/capex-leased-equipment.json
+# add it.
+LEASED_EQUIPMENT_TAG = "PaymentsToAcquireEquipmentOnLease"
 # Purchases of a kind of asset that a report can show on its own line. Next to one of
 # them an "other" line is only the rest: 5–16% of EOG's capex, and 1–23 million at FANG,
 # whose drilling line is in billions. These tags are read, never selected on their own.
@@ -56,7 +65,7 @@ SEPARATE_ASSET_PURCHASE_TAGS = (
     "PaymentsToAcquireOilAndGasEquipment",
     "PaymentsToExploreAndDevelopOilAndGasProperties",
     "PaymentsForConstructionInProcess",
-    "PaymentsToAcquireEquipmentOnLease",
+    LEASED_EQUIPMENT_TAG,
     "PaymentsToAcquireRealEstate",
 )
 # The tags imported for each metric; all but capex are selected in this order.
@@ -138,6 +147,12 @@ def operating_income_exclusions():
     """Companies whose operating income tag is not a company-wide figure."""
     policy = load_policy(OPERATING_INCOME_EXCLUSIONS_PATH, "operating-income")
     return policy["exclusions"]
+
+
+def leased_equipment_companies():
+    """Tickers whose capex adds the purchase of equipment leased to customers (W44)."""
+    policy = load_policy(LEASED_EQUIPMENT_PATH, "capex-leased-equipment")
+    return {entry["ticker"] for entry in policy["companies"]}
 
 
 def value_corrections():
@@ -258,17 +273,26 @@ def has_separate_asset_line(facts, reported):
     return False
 
 
-def select_capex(facts):
+def select_capex(facts, adds_leased_equipment=False):
     """The facts that add up to capex in the newest report stating it, or an empty list.
 
-    A main tag counts first. Then the two lines of an oil and gas producer, which must
-    both come from one report. Then an "other" tag, if its report shows no separate line
-    for a kind of asset; otherwise the cell stays empty rather than holding a part.
+    A main tag counts first. For a company that buys equipment to lease to customers on
+    a cash flow line of its own (adds_leased_equipment), the main tag holds only its own
+    property and equipment, so that line of the same report is added. Then the two lines
+    of an oil and gas producer, which must both come from one report. Then an "other"
+    tag, if its report shows no separate line for a kind of asset. Wherever a line is
+    missing, the cell stays empty rather than holding a part.
     """
     for tag in MAIN_CAPEX_TAGS:
         selected = latest_of_tag(facts, tag)
-        if selected is not None:
+        if selected is None:
+            continue
+        if not adds_leased_equipment:
             return [selected]
+        leased = same_report_fact(facts, selected, LEASED_EQUIPMENT_TAG)
+        if leased is None:
+            return []
+        return [selected, leased]
 
     oil_and_gas = latest_of_tag(facts, OIL_AND_GAS_ADDITIONS_TAG)
     if oil_and_gas is not None:
@@ -497,21 +521,26 @@ def cell_metric(metric, fact, ticker, split_policy):
 
 
 def summed_cell_metric(parts):
-    """A cell added up from lines of one report that shows no total row."""
+    """A cell added up from lines of one report's cash flow statement."""
     with localcontext() as context:
         context.prec = 50
         value = sum((part["value"] for part in parts), Decimal(0))
+    tags = [part["tag"] for part in parts]
+    if LEASED_EQUIPMENT_TAG in tags:
+        how = (
+            "Purchases of property, plant and equipment plus purchases of equipment "
+            "leased to customers, two lines of one report's cash flow statement."
+        )
+    else:
+        how = "Added up from lines of one report, which shows no total."
     return AnnualMetric(
         status="ready",
         value=value,
         variants=[],
         selected_tag=None,
         selected_sources=[source_of(part) for part in parts],
-        calculation=" + ".join(part["tag"] for part in parts),
-        selection_note=(
-            "Selected automatically, not reviewed value by value. Added up from lines "
-            "of one report, which shows no total."
-        ),
+        calculation=" + ".join(tags),
+        selection_note="Selected automatically, not reviewed value by value. " + how,
     )
 
 
@@ -651,13 +680,15 @@ def automatic_versions(
     value_corrections=(),
     preferred_columns=(),
     timeline=None,
+    leased_equipment=(),
 ):
     """Build every automatic cell history of one company for its reviewed periods.
 
     As for the reviewed metrics, the reports of a predecessor in data/timeline-rules.json
     count from their filing date like any other report (M48), so their values are known
     before today's issuer states them again. A cell that no later report states keeps
-    the predecessor's value.
+    the predecessor's value. `leased_equipment` are the tickers whose capex adds the
+    purchase of equipment leased to customers (W44).
     """
     timeline = timeline_rules() if timeline is None else timeline
     versions = []
@@ -667,6 +698,11 @@ def automatic_versions(
     facts = without_excluded_operating_income(facts, ticker, income_exclusions)
     facts = with_scale_corrections(facts, ticker, scale_corrections)
     facts = without_share_scale_errors(facts, ticker, split_policy)
+    adds_leased_equipment = ticker in leased_equipment
+    if adds_leased_equipment:
+        leased_facts = [fact for fact in facts if fact["tag"] == LEASED_EQUIPMENT_TAG]
+        if not leased_facts:
+            raise ValueError(f"Leased equipment rule matches no fact: {ticker}")
     for (start, end), period_facts in facts_by_cell(
         facts, periods, period_rules
     ).items():
@@ -695,7 +731,7 @@ def automatic_versions(
                         known, dividend["value"] if dividend else None
                     )
                 elif metric == "capex":
-                    capex_parts = select_capex(known)
+                    capex_parts = select_capex(known, adds_leased_equipment)
                     selected = capex_parts[0] if capex_parts else None
                 elif metric == "discontinued_income":
                     selected = select_discontinued_income(known)

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "method": "Companies whose cash flow statement shows, next to the purchase of property, plant and equipment, a line of its own for equipment bought to lease to customers (tag PaymentsToAcquireEquipmentOnLease). The main capex tag then holds only the company's own property and equipment, so capital expenditure adds both lines of one report, as S&P Global data on StockAnalysis counts them. A finance arm's purchases of vehicles for leasing (General Motors) carry another tag and stay out, as they do there. Each entry names a report whose cash flow statement shows the line. A listed company without such a fact stops the history build.",
+  "companies": [
+    {
+      "ticker": "CAT",
+      "accession": "0000018230-24-000009",
+      "statement_row": "Expenditures for equipment leased to others"
+    },
+    {
+      "ticker": "DE",
+      "accession": "0001558370-23-019812",
+      "statement_row": "Cost of equipment on operating leases acquired"
+    },
+    {
+      "ticker": "PCAR",
+      "accession": "0000950170-24-017900",
+      "statement_row": "Acquisitions of equipment for operating leases"
+    }
+  ]
+}

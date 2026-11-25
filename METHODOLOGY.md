@@ -33,7 +33,7 @@ Other outside inputs and the price corrections are listed in the [README](README
 | Share count | Weighted average diluted shares, on the same split basis as EPS | Automatic |
 | Shares outstanding | The count on the annual report's cover, on the same split basis as EPS | Automatic |
 | Assets | Total assets at period end | Automatic |
-| Capital expenditure | Purchase of property, plant and equipment, then a wider productive-assets line | Automatic |
+| Capital expenditure | Purchase of property, plant and equipment, then a wider productive-assets line; with equipment bought to lease to customers where the cash flow statement shows it on its own line | Automatic |
 | Operating income | The `OperatingIncomeLoss` tag | Automatic |
 | Preferred stock | First plausible value among the standard tags, ending with liquidation preference | Automatic |
 | Preferred dividends | First value among the standard tags | Automatic |
@@ -82,9 +82,12 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
 - **Capital expenditure:** many banks and most real estate companies have none. A line tagged as "other"
   property or productive assets counts only when the same report shows no separate line for a kind of
   asset, so a part is never taken for the whole. Two lines without a total (additions to oil and gas
-  properties and to other equipment) are added up. Where a tag holds only part of the cash spent, the
-  value comes from the cash flow statement. Companies that report capital expenditure only under their
-  own tags stay empty.
+  properties and to other equipment) are added up. So are the purchase of property, plant and equipment
+  and the purchase of equipment bought to lease to customers, where the cash flow statement shows the
+  second on a line of its own, as S&P Global data counts both. A finance arm's purchases of vehicles for
+  leasing stay out, as they do there. Where a tag holds only part of the cash spent, the value comes
+  from the cash flow statement. Companies that report capital expenditure only under their own tags
+  stay empty.
 - **Operating income:** many companies have no such row, including banks. It stays empty where the
   tag holds a sum of segments or an adjusted measure. That list comes from a screen of row labels, so
   a sum of segments under a plain label can remain.
@@ -383,6 +386,9 @@ company by company. Years are fiscal years as each company reports them.
 | Company | What differs |
 |---|---|
 | American Electric Power, United Rentals | From the cash flow statement, because the tag holds only part of the cash spent (United Rentals: purchases of rental and other equipment) |
+| Caterpillar, Deere, PACCAR | Purchase of property, plant and equipment plus purchase of equipment bought to lease to customers, two lines of the cash flow statement |
+| Tesla 2016–2018 | From the cash flow statement: purchase of property and equipment plus purchase of solar energy systems leased to customers, which the tag leaves out |
+| General Motors | Purchases of vehicles for leasing by its finance arm are not capital expenditure, as in S&P Global data |
 | Eli Lilly, ADP, Verizon from 2019, Roper from 2019 | The only purchase line is tagged as "other" assets |
 | EOG Resources | Additions to oil and gas properties and to other equipment added up |
 | Diamondback, Phillips 66, NextEra and some years of others | Capital expenditure empty: reported only under their own tags |

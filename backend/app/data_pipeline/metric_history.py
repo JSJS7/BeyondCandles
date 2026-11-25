@@ -9,6 +9,7 @@ from app.annual_financials import METRIC_NAMES, reviewed_facts_query
 from app.automatic_metrics import (
     AUTOMATIC_METRICS,
     automatic_versions,
+    leased_equipment_companies,
     operating_income_exclusions,
     preferred_equity_values,
     share_scale_corrections,
@@ -80,6 +81,7 @@ def rebuild_history(connection):
     reviews = version_reviews()
     scale_corrections = share_scale_corrections()
     income_exclusions = operating_income_exclusions()
+    leased_equipment = leased_equipment_companies()
     corrections = value_corrections()
     preferred_columns = preferred_equity_values()
     companies = connection.execute(
@@ -114,6 +116,7 @@ def rebuild_history(connection):
             income_exclusions,
             corrections,
             preferred_columns,
+            leased_equipment=leased_equipment,
         )
         rows = [version_row(company_id, version) for version in versions]
         for row in rows:

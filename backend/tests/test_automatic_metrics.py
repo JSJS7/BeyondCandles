@@ -61,6 +61,15 @@ def preferred_value(facts):
     return versions[-1].value if versions else None
 
 
+def leased_equipment_versions(facts):
+    """Capex versions of a company listed in data/capex-leased-equipment.json."""
+    versions = automatic_versions(
+        "TEST", facts, (PERIOD,), NO_SPLITS, NO_ALIASES, leased_equipment={"TEST"}
+    )
+    selected = [version for version in versions if version.metric == "capex"]
+    return sorted(selected, key=lambda version: version.known_from)
+
+
 class VersionTests(unittest.TestCase):
     def test_repeated_value_keeps_its_first_report_date(self):
         """A value is known from its first report; repeating it adds no version."""
@@ -317,6 +326,58 @@ class CapexTests(unittest.TestCase):
 
         self.assertEqual(versions_of(alone, "capex"), [])
         self.assertEqual(versions_of(other_report, "capex"), [])
+
+
+class LeasedEquipmentCapexTests(unittest.TestCase):
+    """W44: equipment bought to lease to customers is part of capex where the cash flow
+    statement shows it on a line of its own, as S&P Global data counts it."""
+
+    MAIN = "PaymentsToAcquirePropertyPlantAndEquipment"
+    LEASED = "PaymentsToAcquireEquipmentOnLease"
+
+    def test_listed_company_adds_its_leased_equipment_line(self):
+        """CAT 2023 shows 1597 million for its own property and equipment and 1495
+        million for equipment leased to others, two lines of one cash flow statement.
+        Capex is their sum, 3092 million, the total CAT itself states."""
+        facts = [
+            fact("capex", self.MAIN, "1597"),
+            fact("capex", self.LEASED, "1495"),
+        ]
+
+        cell = leased_equipment_versions(facts)[-1].value
+
+        self.assertEqual(cell.value, Decimal("3092"))
+        self.assertIsNone(cell.selected_tag)
+        self.assertEqual(cell.calculation, f"{self.MAIN} + {self.LEASED}")
+        self.assertEqual(len(cell.selected_sources), 2)
+
+    def test_other_companies_ignore_a_leased_equipment_tag(self):
+        """GD 2025 tags 490 million of equipment on lease outside its cash flow
+        statement, whose only purchase line holds 1161 million."""
+        facts = [
+            fact("capex", self.MAIN, "1161"),
+            fact("capex", self.LEASED, "490"),
+        ]
+
+        cell = versions_of(facts, "capex")[-1].value
+
+        self.assertEqual(cell.value, Decimal("1161"))
+        self.assertEqual(cell.selected_tag, self.MAIN)
+
+    def test_main_line_without_the_leased_line_of_its_report_gives_no_value(self):
+        """The main line alone is only a part, and a leased line of another report
+        does not complete it, so the cell stays empty."""
+        facts = [
+            fact("capex", self.LEASED, "1495"),
+            fact("capex", self.MAIN, "1597", date(2024, 2, 15), "second"),
+        ]
+
+        self.assertEqual(leased_equipment_versions(facts), [])
+
+    def test_listed_company_without_any_leased_fact_stops_the_build(self):
+        """A rule that matches nothing means its evidence is gone."""
+        with self.assertRaises(ValueError):
+            leased_equipment_versions([fact("capex", self.MAIN, "1597")])
 
 
 class ShareCountTests(unittest.TestCase):
