@@ -97,6 +97,8 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, in th
 The app's Screener page shows them for all companies on one date, from the `/screener` API; each company
 page shows them for every fiscal year, from `/stocks/{ticker}/ratios/annual`. The API returns plain ratios (0.25 means 25%), rounded to six decimals. A ratio is empty when an input is
 missing or the result has no meaning, never zero. Price ratios are also empty without a comparable price.
+The screener's CSV file holds the same values for the companies shown: plain ratios, an empty field for no
+value, and no price columns, because the vendor's prices are shown on the page but not offered for download.
 
 | Ratio | Formula | Also empty when |
 |---|---|---|

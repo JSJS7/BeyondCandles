@@ -136,6 +136,17 @@ describe('Screener criteria', () => {
     expect(matching([{ key: 'roe', min: '-5', max: '6' }])).toEqual(['LOW', 'NONE']);
   });
 
+  it('moves the point of any typed percent two places, with or without whole digits (K25)', () => {
+    // The point is moved as text, so each length of the whole part needs its own case: none
+    // (.5), up to two digits (above) and more (GE's EPS growth of 16,620% in 2023 is 166.2).
+    expect(criterionStatus({ key: 'roe', min: '.5', max: '-0.5' })).toMatchObject({
+      min: 0.005,
+      max: -0.005,
+    });
+    expect(criterionStatus({ key: 'roe', min: '1234.5', max: '' }).min).toBe(12.345);
+    expect(criterionStatus({ key: 'eps_growth', min: '16620', max: '' }).min).toBe(166.2);
+  });
+
   it('requires all criteria at once', () => {
     const criteria: CriterionInput[] = [
       { key: 'pe', min: '', max: '20' },

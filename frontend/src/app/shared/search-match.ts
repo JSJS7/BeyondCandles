@@ -14,10 +14,13 @@ export const CONTAINS = 3;
 export function matchRank(ticker: string, name: string, query: string): number | null {
   const lowerTicker = ticker.toLowerCase();
   const lowerName = name.toLowerCase();
-  if (lowerTicker === query) {
+  // N154: the exchange writes a share class with a dot (BRK.B), the catalogue with a dash
+  // (BRK-B), so a dot in the query also finds the dash of a ticker. Names keep the query as typed.
+  const tickerQuery = query.replaceAll('.', '-');
+  if (lowerTicker === tickerQuery) {
     return EXACT_TICKER;
   }
-  if (lowerTicker.startsWith(query)) {
+  if (lowerTicker.startsWith(tickerQuery)) {
     return TICKER_START;
   }
   const nameWords = lowerName.split(/[\s,.&()'/-]+/);
@@ -26,7 +29,7 @@ export function matchRank(ticker: string, name: string, query: string): number |
   if (nameWordStarts) {
     return NAME_WORD_START;
   }
-  if (lowerTicker.includes(query) || lowerName.includes(query)) {
+  if (lowerTicker.includes(tickerQuery) || lowerName.includes(query)) {
     return CONTAINS;
   }
   return null;

@@ -2,8 +2,8 @@
   <header class="page-header">
     <h1>Screener</h1>
     <p class="page-description">
-      Filter the 200 largest US-listed companies by valuation, profitability and growth ratios on
-      any date since 2016.
+      Filter 200 large US-listed companies, the largest at the end of 2024, by valuation,
+      profitability and growth ratios on any date since 2016.
     </p>
   </header>
 
@@ -104,12 +104,13 @@
       <dt>Columns</dt>
       <dd>
         Use the Columns button above the table to hide what you do not need. A criterion on a hidden
-        column still applies, and the CSV keeps every column.
+        column still applies, and the CSV keeps every column except the price.
       </dd>
       <dt>CSV</dt>
       <dd>
         The companies as shown, in the shown order. Ratios are plain fractions (0.15 is 15%), and an
-        empty field means no value, never zero.
+        empty field means no value, never zero. Prices are not included: they come from a data
+        vendor.
       </dd>
       <dt><span class="no-value">—</span></dt>
       <dd>{{ noValueNote }}</dd>

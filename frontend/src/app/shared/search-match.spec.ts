@@ -14,4 +14,12 @@ describe('Search match rank', () => {
     expect(matchRank('AAPL', 'Apple Inc.', 'aapl')).toBe(EXACT_TICKER);
     expect(matchRank('AAPL', 'Apple Inc.', 'apple')).toBe(NAME_WORD_START);
   });
+
+  it('finds a share class written with a dot, as the exchange lists it (N154)', () => {
+    // NYSE and many data services write BRK.B; the catalogue keeps the vendor's BRK-B.
+    expect(matchRank('BRK-B', 'Berkshire Hathaway Inc.', 'brk.b')).toBe(EXACT_TICKER);
+    expect(matchRank('BRK-B', 'Berkshire Hathaway Inc.', 'brk.')).toBe(TICKER_START);
+    // A dot still matches the names as typed.
+    expect(matchRank('AAPL', 'Apple Inc.', 'inc.')).toBe(CONTAINS);
+  });
 });

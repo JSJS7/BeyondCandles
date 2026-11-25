@@ -28,7 +28,11 @@
 
 <div class="chart-summary">
   <div class="summary-item">
-    <span class="summary-label">Adjusted close</span>
+    <!-- M59: the vendor adjusted the series for later dividends too, so the last level is not the
+         price quoted on its date (up to 6% lower, PGR on 31 Dec 2025). -->
+    <span class="summary-label"
+      >Adjusted close <span class="summary-label-note">(not the quoted price)</span></span
+    >
     <strong class="price-value">{{ finalPriceLabel() }}</strong>
     @if (lastPrice(); as last) {
       <span class="summary-date">As of {{ formatDate(last.date) }}</span>

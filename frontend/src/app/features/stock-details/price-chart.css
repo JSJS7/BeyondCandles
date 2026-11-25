@@ -85,6 +85,12 @@
   font-size: var(--bc-text-small);
 }
 
+/* The size and colour of its label; on a phone it moves to the next line whole rather than
+   breaking inside the brackets. */
+.summary-label-note {
+  white-space: nowrap;
+}
+
 .price-value {
   font-size: var(--bc-text-display);
   font-variant-numeric: tabular-nums;
