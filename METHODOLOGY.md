@@ -198,15 +198,15 @@ The company's financial table shows the latest filed version of every value, and
 earlier years. So two adjacent years in the table can come from different reports and definitions, and
 growth computed from the table can be wrong. Such years are marked as a series break (see Growth marker above).
 
-The API can return the table as known on a date (`as_of`). A year appears from the filing date of its
+The screener and the backtest use the data as known on each date. A year appears from the filing date of its
 first annual report. Where a company registered anew with the SEC in a merger or reorganization, the
 earlier registrant's reports count from their filing dates for every measure and for growth, and the
 screener keeps a value that only they state, such as the earliest balance sheet. A value is known from
 the day its report was filed, and filings carry no time of day, so the screener and the backtest use
-it from the next session. An earlier version is served only when it is confirmed against its own filing. Otherwise it
-has no value, or a quarterly version is ignored. Part of the history therefore stays unavailable rather
-than possibly wrong. Financials are annual only. The table as of a date also shows a value a quarterly
-report restated; the screener's ratios use it only from the next annual report (see Ratios).
+it from the next session. An earlier version is used only when it is confirmed against its own filing.
+Otherwise it has no value, or a quarterly version is ignored. Part of the history therefore stays
+unavailable rather than possibly wrong. Financials are annual only. A value a quarterly report restated
+counts in the screener's ratios only from the next annual report (see Ratios).
 
 ## Backtest
 
@@ -296,7 +296,7 @@ standard.
   jumps were screened. Dividends were compared with a second source and with amounts reported to the SEC.
 - The SEC import stores every fact that meets its criteria, and the database rebuilds from scratch with
   identical content.
-- Every reviewed value and every earlier version served by `as_of` was compared with the tables of its
+- Every reviewed value and every earlier version used for a past date was compared with the tables of its
   own filing, automatically where possible and by hand otherwise, with no discrepancies found.
 - Accounting identities (EPS against shares and income, cash flow, balance sheet) catch gross errors.
 - Automatic values are screened against their reports, which shows that a number stands in the report,
@@ -318,7 +318,7 @@ do not make companies comparable.
 - **Backtest window:** every company has a known annual value only from March 2016, and two values, needed
   for growth, from March 2017. Reports for FY2025 filed after 31 Dec 2025 cannot drive a trade in the window.
 - **End of the window:** some companies' last period ends by mid-2025, so a cross-section by "FY2025" joins
-  periods up to 11 months apart. Compare by period end or `as_of`, not by label.
+  periods up to 11 months apart. Compare by period end, not by label.
 - **Price ratios after a spin-off:** the price no longer includes the separated business, while the latest
   annual report does until the next one, so P/E, P/B and P/S read too low for up to a year (RTX in 2020,
   AT&T in 2022). The values stay and are marked *Spin-off*: a vendor event that removed more than 3% of

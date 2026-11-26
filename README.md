@@ -73,11 +73,6 @@ PowerShell; on macOS and Linux use `.venv/bin/python` and `npm`.
 
    App: <http://localhost:4200> | API docs: <http://127.0.0.1:8000/docs>.
 
-   To open the app on a phone in the same network, run `npm.cmd run start:phone` instead of
-   `npm.cmd start` and open the Network address it prints (port 4310). The dev server forwards
-   `/api` to the API, which stays on 127.0.0.1; Windows may ask once to let Node.js through its
-   firewall.
-
 ## Rebuild the data
 
 From `backend`, on an empty database after `alembic upgrade head`:
