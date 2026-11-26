@@ -1,117 +1,112 @@
 # BeyondCandles
 
-An educational stock analysis app with company search, interactive price charts,
-and annual financial statements from SEC EDGAR.
+An educational, non-commercial app for the historical analysis of 200 large US-listed companies:
+daily prices and annual results from SEC filings, a screener of valuation, profitability and growth
+ratios, and an annual backtest of those ratios. The data is frozen at 31 Dec 2025. Nothing here is
+investment advice.
 
-- **Coverage:** 200 companies, 553,200 daily prices, 2 Jan 2015 to 31 Dec 2025.
-- **Financials:** revenue, net income, EPS, equity, and operating cash flow for
-  fiscal years ending 1 Jan 2015 to 31 Dec 2025.
-- **Interface:** responsive layout, light and dark themes, preset chart periods,
-  and selection of a custom date range.
-- **Screener:** ratios of all companies as known on a chosen date, with sector selection,
-  min–max criteria on any ratio, company search, choice of visible columns, sorting on every
-  column and CSV export (`/screener` page and API).
-- **Stack:** Angular, TypeScript, Chart.js, FastAPI, SQLAlchemy, Alembic,
-  and PostgreSQL.
+## What it does
+
+- **Company page:** search by name or ticker; an Adjusted Close chart with preset periods and a
+  custom range; annual financials (revenue, net income, EPS, equity, operating cash flow) with the
+  SEC sources of every value; 12 ratios for every fiscal year at the year-end price.
+- **Screener:** the same 12 ratios for all companies as known on a chosen date from 31 Mar 2016,
+  with a sector filter, min–max criteria, search, column choice, sorting and CSV export.
+- **Backtest:** each year the companies are ranked by one ratio and split into five groups held for
+  a year, compared with benchmarks, before and after costs, with a test of the ranking, risk
+  figures, random portfolios and the companies in each group.
+- Light and dark themes and a phone layout.
+
+[METHODOLOGY.md](METHODOLOGY.md) explains what every number means, how it was chosen and checked,
+its limits and the companies handled differently.
+
+## Data
+
+- **Companies:** a fixed list of 200 from an archived S&P 500 snapshot of late December 2024
+  ([the list](data/companies-200.json)); index membership is not reconstructed.
+- **Prices:** 553,200 daily prices, 2 Jan 2015 to 31 Dec 2025, from
+  [Benjaminpo's Finance Dataset, v81](https://www.kaggle.com/datasets/benjaminpo/finance-dataset/versions/81),
+  which uses Yahoo Finance data. Company names, exchanges and sectors come from
+  [Andrew's S&P 500 dataset, v1022](https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks/versions/1022).
+- **Financials:** annual values for fiscal periods ending 1 Jan 2015 to 31 Dec 2025 from
+  [SEC EDGAR](https://www.sec.gov/edgar), in USD.
+- **In Git:** [the manifest](data/manifest.json) with source files and SHA-256 checksums, and the
+  rules in `data/` that select reported values and keep their sources and evidence. Raw data,
+  caches, backups and generated files under `data/raw/` and `data/processed/` stay outside Git.
+
+## Data rights
+
+The Kaggle publisher declares GPL 3. A few price corrections use a pinned DoltHub revision of
+`post-no-preference/stocks`, declared as CC BY-SA 4.0, and one session published by Nasdaq and Cboe,
+whose terms were not reviewed for redistribution. Rights to publicly display the underlying Yahoo
+data remain unconfirmed, and publishing this code does not establish permission to redistribute the
+datasets. Prices appear on the charts, and the screener's CSV export leaves them out. Price data
+will be removed at a rights holder's request.
 
 ## Run locally
 
-Requires Python 3.13, Node.js 24 (24.15+), and Docker Compose. Configure `.env`
-using `.env.example`; keep any existing credentials and database volume.
-The commands below assume dependencies are installed and the database is migrated
-and populated. Run each service in a separate terminal (Windows PowerShell):
+Requires Python 3.13, Node.js 24 (24.15+) and Docker Compose. The commands are for Windows
+PowerShell; on macOS and Linux use `.venv/bin/python` and `npm`.
+
+1. Copy `.env.example` to `.env` and set a local database password. `SEC_USER_AGENT` with your
+   contact address is needed only to download SEC data.
+2. Start the database from the repository root: `docker compose up -d postgres`.
+3. Install the backend and create the tables, from `backend`:
+
+   ```powershell
+   py -3.13 -m venv .venv
+   .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+   .\.venv\Scripts\python.exe -m alembic upgrade head
+   ```
+
+4. Install the frontend, from `frontend`: `npm.cmd ci`.
+5. Load the data (next section).
+6. Run the API (from `backend`) and the app (from `frontend`) in separate terminals:
+
+   ```powershell
+   .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+   ```
+
+   ```powershell
+   npm.cmd start
+   ```
+
+   App: <http://localhost:4200> | API docs: <http://127.0.0.1:8000/docs>.
+
+   To open the app on a phone in the same network, run `npm.cmd run start:phone` instead of
+   `npm.cmd start` and open the Network address it prints (port 4310). The dev server forwards
+   `/api` to the API, which stays on 127.0.0.1; Windows may ask once to let Node.js through its
+   firewall.
+
+## Rebuild the data
+
+From `backend`, on an empty database after `alembic upgrade head`:
 
 ```powershell
-# From the repository root
-docker compose up -d postgres
+.\.venv\Scripts\python.exe -m app.data_pipeline fetch-prices   # pinned vendor files, checked by SHA-256
+.\.venv\Scripts\python.exe -m app.data_pipeline prepare-prices # applies the reviewed price corrections
+.\.venv\Scripts\python.exe -m app.data_pipeline import-prices
+.\.venv\Scripts\python.exe -m app.data_pipeline fetch-sec      # needs SEC_USER_AGENT
+.\.venv\Scripts\python.exe -m app.data_pipeline import-sec     # financials and their history by filing date
+.\.venv\Scripts\python.exe -m app.data_pipeline verify-db
 ```
 
-```powershell
-cd backend
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
-```
+`--help` lists every command, including the checks against the filings and the `--check` mode
+that compares the rules a review would write with those in `data/`. The exact reviewed snapshot
+also needs the raw-data archive, which is not public: the price corrections need their evidence in
+`data/raw/benjaminpo-v81/evidence/`, and a new SEC download includes filings made after the
+snapshot, so it is not guaranteed to give the same values.
 
-```powershell
-cd frontend
-npm.cmd start
-```
+## Tests
 
-App: <http://localhost:4200> | API docs: <http://127.0.0.1:8000/docs>.
-On macOS/Linux, use `.venv/bin/python` and `npm` instead.
+- Backend, from `backend`: `.\.venv\Scripts\python.exe -m unittest discover tests`. Database tests
+  run only with `$env:BC_RUN_DB_TESTS = '1'` and a running PostgreSQL; they create and drop their
+  own database.
+- Frontend, from `frontend`: `npm.cmd test -- --watch=false`, `npm.cmd run typecheck` and
+  `npm.cmd run format:check`.
+- GitHub Actions runs all of them on every push to `main`.
 
-Data must be downloaded and imported separately. For pipeline commands, run
-`.\.venv\Scripts\python.exe -m app.data_pipeline --help` from `backend`.
-SEC downloads require `SEC_USER_AGENT` with your contact email in `.env`.
-Reproducing the reviewed snapshot also requires archived correction evidence,
-including `data/raw/benjaminpo-v81/evidence/`. Raw data, caches, backups, and
-generated files under `data/raw/` and `data/processed/` stay outside Git.
+## Stack
 
-## Data sources and corrections
-
-Prices come from [Benjaminpo's Finance Dataset, v81](https://www.kaggle.com/datasets/benjaminpo/finance-dataset/versions/81),
-which uses Yahoo Finance data. Company metadata was retained from Andrew v1022;
-its prices are no longer used. The fixed selection does not reconstruct historical
-S&P 500 membership. [The manifest](data/manifest.json) records source files,
-SHA-256 checksums, and correction evidence; [the company list](data/companies-200.json)
-is versioned separately.
-
-Explicit price corrections retained in the pipeline, for differences over 1% of a
-company's Adjusted Close and missing sessions ([the rule](METHODOLOGY.md#what-we-correct)):
-
-- **AVGO:** 44 verified dividend adjustments, excluding duplicate 2018 payments.
-- **DHR/Fortive:** retain the provider's 1319:1000 price conversion and remove
-  an additional USD 24.56 adjustment.
-- **ETN:** add two regular dividends of 2018 the provider omits, from a pinned DoltHub
-  revision with amounts confirmed in SEC filings, and change 13 May 2020 from 0.073 to
-  0.73.
-- **Dividends the provider applied wrongly:** remove CoreSite's 12 dividends from COR
-  (same ticker, another company) and rescale 29 T dividends by the provider's 1.324
-  conversion of 2022.
-- **OXY, 2 Jul 2020:** add the warrant distribution the provider omits, at USD 0.61875
-  per share (1/8 warrant at the USD 4.95 the company reports), from the session the
-  options clearing house adjusted OXY options for it.
-- **AMD, 2 Jan 2015:** fill one missing session from a pinned DoltHub revision,
-  with the closing price also checked against a Scotiabank document.
-- **FI, 12 Nov 2025:** insert one session absent from the provider's file, the day
-  after Fiserv moved from the NYSE (FI) to Nasdaq (FISV); prices and volume from a
-  pinned Nasdaq response, with the same values in Cboe's published history.
-
-Financials come from [SEC EDGAR](https://www.sec.gov/edgar).
-Versioned rules in `data/` select reported values and preserve their sources.
-EPS is normalized for splits to a common share basis dated 13 Oct 2026;
-basic EPS and cash flow from continuing operations remain explicitly labeled.
-
-**Limitations:** the app shows annual results from the latest report versions. The
-API can also return them as known on a given date (`as_of`), but the interface has no
-such view yet, and the data stays annual and limited to a fixed list of today's
-companies (see [METHODOLOGY.md](METHODOLOGY.md)). Neither Close nor Adjusted Close
-can be divided directly by EPS: the vendor also scales prices for some spin-offs,
-mergers and conversions, and Adjusted Close adds dividend conventions (see
-[METHODOLOGY.md](METHODOLOGY.md)). Price corrections do not certify every corporate
-action in the dataset.
-
-## What the numbers mean
-
-The app shows five annual metrics per company. [METHODOLOGY.md](METHODOLOGY.md) explains
-each choice, the exceptions and how the data was checked. In short:
-
-- **Revenue:** total consolidated revenue as reported; banks show net revenue, their own
-  line or net interest income plus noninterest income, and exchanges their revenues less
-  transaction-based expenses.
-- **Net income:** attributable to the parent's shareholders, before preferred dividends.
-- **EPS:** diluted (basic only where nothing else is reported, and labelled), restated
-  to a common share count so years are comparable.
-- **Equity:** the parent's equity at period end, including preferred and excluding
-  non-controlling interests.
-- **Operating cash flow:** whole-company total; continuing operations only where
-  that is all a company reports, and labelled.
-
-Values come from the latest filed report versions, are annual only, and are not
-comparable across sectors without care.
-
-The Kaggle publisher declares GPL 3. The AMD session and the two added ETN dividends
-come from DoltHub `post-no-preference/stocks`, declared as CC BY-SA 4.0. The FI supplement uses one session published by Nasdaq
-and Cboe, whose terms of use were not reviewed for redistribution. Rights to publicly display the underlying Yahoo data
-remain unconfirmed. Publishing this code does not establish permission to
-redistribute the datasets or display their data publicly. The screener's CSV export leaves
-prices out.
+Angular, TypeScript and Chart.js; Python, FastAPI, SQLAlchemy and Alembic; PostgreSQL in Docker
+Compose.
