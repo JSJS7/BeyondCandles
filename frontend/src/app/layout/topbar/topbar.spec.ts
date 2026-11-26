@@ -5,7 +5,7 @@ import { provideRouter, Router } from '@angular/router';
 import { Topbar } from './topbar';
 
 describe('Topbar', () => {
-  const catalogueUrl = 'http://127.0.0.1:8000/stocks';
+  const catalogueUrl = '/api/stocks';
   const catalogue = [
     { ticker: 'AAPL', name: 'Apple Inc.', exchange: 'NMS', sector: 'Technology' },
     ...Array.from({ length: 12 }, (_, index) => ({

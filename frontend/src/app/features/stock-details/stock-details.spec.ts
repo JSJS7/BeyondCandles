@@ -49,7 +49,7 @@ describe('Stock details', () => {
   });
 
   it('shows a server failure without claiming that the company does not exist', () => {
-    const request = http.expectOne('http://127.0.0.1:8000/stocks/AAPL');
+    const request = http.expectOne('/api/stocks/AAPL');
     request.flush({}, { status: 500, statusText: 'Internal Server Error' });
     fixture.detectChanges();
 
@@ -62,9 +62,7 @@ describe('Stock details', () => {
 
   it('offers the screener instead of Try again for a ticker the API does not know', () => {
     // The same request would find nothing again, so a retry button would only mislead.
-    http
-      .expectOne('http://127.0.0.1:8000/stocks/AAPL')
-      .flush({}, { status: 404, statusText: 'Not Found' });
+    http.expectOne('/api/stocks/AAPL').flush({}, { status: 404, statusText: 'Not Found' });
     fixture.detectChanges();
 
     const page: HTMLElement = fixture.nativeElement;
@@ -75,7 +73,7 @@ describe('Stock details', () => {
   });
 
   it('loads another company after a previous ticker returned 404', () => {
-    const missingRequest = http.expectOne('http://127.0.0.1:8000/stocks/AAPL');
+    const missingRequest = http.expectOne('/api/stocks/AAPL');
     missingRequest.flush({}, { status: 404, statusText: 'Not Found' });
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('Company not found');
@@ -84,7 +82,7 @@ describe('Stock details', () => {
     expect(fixture.componentInstance.stock()).toBeNull();
     expect(fixture.componentInstance.stockLoadState().status).toBe('loading');
 
-    http.expectOne('http://127.0.0.1:8000/stocks/MSFT').flush({
+    http.expectOne('/api/stocks/MSFT').flush({
       ticker: 'MSFT',
       name: 'Microsoft Corporation',
       exchange: 'NASDAQ',
@@ -96,7 +94,7 @@ describe('Stock details', () => {
   });
 
   it('shows the full company name above ticker, readable exchange and sector', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple Inc.',
       exchange: 'NMS',
@@ -113,7 +111,7 @@ describe('Stock details', () => {
   });
 
   it('names the browser tab after the company once it has loaded', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple Inc.',
       exchange: 'NMS',
@@ -123,16 +121,16 @@ describe('Stock details', () => {
   });
 
   it('cancels the old request when the selected ticker changes', () => {
-    const oldRequest = http.expectOne('http://127.0.0.1:8000/stocks/AAPL');
-    const oldPrices = http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices');
-    const oldFinancials = http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual');
+    const oldRequest = http.expectOne('/api/stocks/AAPL');
+    const oldPrices = http.expectOne('/api/stocks/AAPL/prices');
+    const oldFinancials = http.expectOne('/api/stocks/AAPL/financials/annual');
 
     routeParams.next(convertToParamMap({ ticker: 'MSFT' }));
 
     expect(oldRequest.cancelled).toBe(true);
     expect(oldPrices.cancelled).toBe(true);
     expect(oldFinancials.cancelled).toBe(true);
-    http.expectOne('http://127.0.0.1:8000/stocks/MSFT').flush({
+    http.expectOne('/api/stocks/MSFT').flush({
       ticker: 'MSFT',
       name: 'Microsoft Corporation',
       exchange: 'NASDAQ',
@@ -141,29 +139,29 @@ describe('Stock details', () => {
   });
 
   it('cancels pending requests and stops observing the route after destruction', () => {
-    const pendingRequest = http.expectOne('http://127.0.0.1:8000/stocks/AAPL');
+    const pendingRequest = http.expectOne('/api/stocks/AAPL');
 
     fixture.destroy();
     routeParams.next(convertToParamMap({ ticker: 'MSFT' }));
 
     expect(pendingRequest.cancelled).toBe(true);
-    http.expectNone('http://127.0.0.1:8000/stocks/MSFT');
+    http.expectNone('/api/stocks/MSFT');
   });
 
   it('keeps financials usable when price history fails', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NASDAQ',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush(
+    http.expectOne('/api/stocks/AAPL/prices').flush(
       {},
       {
         status: 503,
         statusText: 'Unavailable',
       },
     );
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush([]);
     fixture.detectChanges();
 
     expect(fixture.nativeElement.textContent).toContain('Failed to load price history.');
@@ -172,19 +170,19 @@ describe('Stock details', () => {
   });
 
   it('retries the same company after an outage without reloading successful sections', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush(
+    http.expectOne('/api/stocks/AAPL').flush(
       {},
       {
         status: 503,
         statusText: 'Service Unavailable',
       },
     );
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
+    http.expectOne('/api/stocks/AAPL/prices').flush([]);
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush([]);
     fixture.detectChanges();
 
     fixture.nativeElement.querySelector('.retry-button').click();
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple Inc.',
       exchange: 'NMS',
@@ -193,33 +191,33 @@ describe('Stock details', () => {
 
     expect(fixture.nativeElement.querySelector('h1').textContent).toBe('Apple Inc.');
     expect(fixture.nativeElement.textContent).not.toContain('Unable to load stock');
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL/prices');
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL/financials/annual');
+    http.expectNone('/api/stocks/AAPL/prices');
+    http.expectNone('/api/stocks/AAPL/financials/annual');
   });
 
   it('retries only failed price history and ignores repeated clicks while loading', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NMS',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush(
+    http.expectOne('/api/stocks/AAPL/prices').flush(
       {},
       {
         status: 503,
         statusText: 'Service Unavailable',
       },
     );
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush([]);
     fixture.detectChanges();
 
     fixture.nativeElement.querySelector('[aria-labelledby="price-heading"] .retry-button').click();
     fixture.componentInstance.retryPrices();
-    const request = http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices');
+    const request = http.expectOne('/api/stocks/AAPL/prices');
     expect(fixture.componentInstance.pricesLoadState().status).toBe('loading');
     expect(fixture.componentInstance.financialsLoadState().status).toBe('ready');
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL');
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL/financials/annual');
+    http.expectNone('/api/stocks/AAPL');
+    http.expectNone('/api/stocks/AAPL/financials/annual');
 
     request.flush([]);
     fixture.detectChanges();
@@ -228,13 +226,13 @@ describe('Stock details', () => {
   });
 
   it('keeps retrying financials after repeated failures without reloading prices', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NMS',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
-    const financialsUrl = 'http://127.0.0.1:8000/stocks/AAPL/financials/annual';
+    http.expectOne('/api/stocks/AAPL/prices').flush([]);
+    const financialsUrl = '/api/stocks/AAPL/financials/annual';
     http.expectOne(financialsUrl).flush({}, { status: 503, statusText: 'Service Unavailable' });
     fixture.detectChanges();
 
@@ -248,11 +246,11 @@ describe('Stock details', () => {
     http.expectOne(financialsUrl).flush([]);
     fixture.detectChanges();
     expect(fixture.componentInstance.financialsLoadState().status).toBe('ready');
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL/prices');
+    http.expectNone('/api/stocks/AAPL/prices');
   });
 
   it('cancels a retry when the selected company changes and retries the new ticker', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush(
+    http.expectOne('/api/stocks/AAPL').flush(
       {},
       {
         status: 503,
@@ -260,11 +258,11 @@ describe('Stock details', () => {
       },
     );
     fixture.componentInstance.retryStock();
-    const oldRetry = http.expectOne('http://127.0.0.1:8000/stocks/AAPL');
+    const oldRetry = http.expectOne('/api/stocks/AAPL');
 
     routeParams.next(convertToParamMap({ ticker: 'MSFT' }));
     expect(oldRetry.cancelled).toBe(true);
-    http.expectOne('http://127.0.0.1:8000/stocks/MSFT').flush(
+    http.expectOne('/api/stocks/MSFT').flush(
       {},
       {
         status: 503,
@@ -272,23 +270,23 @@ describe('Stock details', () => {
       },
     );
     fixture.componentInstance.retryStock();
-    http.expectOne('http://127.0.0.1:8000/stocks/MSFT').flush({
+    http.expectOne('/api/stocks/MSFT').flush({
       ticker: 'MSFT',
       name: 'Microsoft Corporation',
       exchange: 'NMS',
     });
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL');
+    http.expectNone('/api/stocks/AAPL');
     expect(fixture.componentInstance.stock()?.ticker).toBe('MSFT');
   });
 
   it('keeps price history usable when financials fail', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NASDAQ',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush(
+    http.expectOne('/api/stocks/AAPL/prices').flush([]);
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush(
       {},
       {
         status: 503,
@@ -303,15 +301,15 @@ describe('Stock details', () => {
 
   it('shows loaded annual financials in the financial table', () => {
     // Values travel from the HTTP response into the table component unchanged.
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NASDAQ',
       financial_history_note: 'Earlier periods follow a verified accounting predecessor.',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
+    http.expectOne('/api/stocks/AAPL/prices').flush([]);
     const missing = { status: 'not_available', value: null, variants: [] };
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush([
       {
         fiscal_year: 2024,
         period_start: '2023-10-01',
@@ -336,15 +334,15 @@ describe('Stock details', () => {
   });
 
   it('keeps the other sections usable when ratios fail and retries only the ratios', () => {
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NASDAQ',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
+    http.expectOne('/api/stocks/AAPL/prices').flush([]);
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush([]);
     http
-      .expectOne('http://127.0.0.1:8000/stocks/AAPL/ratios/annual')
+      .expectOne('/api/stocks/AAPL/ratios/annual')
       .flush({}, { status: 503, statusText: 'Unavailable' });
     fixture.detectChanges();
 
@@ -352,8 +350,8 @@ describe('Stock details', () => {
     expect(fixture.componentInstance.financialsLoadState().status).toBe('ready');
 
     fixture.nativeElement.querySelector('[aria-labelledby="ratios-heading"] .retry-button').click();
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/ratios/annual').flush([]);
-    http.expectNone('http://127.0.0.1:8000/stocks/AAPL/financials/annual');
+    http.expectOne('/api/stocks/AAPL/ratios/annual').flush([]);
+    http.expectNone('/api/stocks/AAPL/financials/annual');
     fixture.detectChanges();
 
     expect(fixture.nativeElement.textContent).toContain('No annual ratios are available');
@@ -361,14 +359,14 @@ describe('Stock details', () => {
 
   it('shows loaded ratios in the ratio table', () => {
     // Values travel from the HTTP response into the table component unchanged.
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL').flush({
+    http.expectOne('/api/stocks/AAPL').flush({
       ticker: 'AAPL',
       name: 'Apple',
       exchange: 'NASDAQ',
     });
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/prices').flush([]);
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/financials/annual').flush([]);
-    http.expectOne('http://127.0.0.1:8000/stocks/AAPL/ratios/annual').flush([
+    http.expectOne('/api/stocks/AAPL/prices').flush([]);
+    http.expectOne('/api/stocks/AAPL/financials/annual').flush([]);
+    http.expectOne('/api/stocks/AAPL/ratios/annual').flush([
       {
         ...period({ period_start: '2023-10-01', period_end: '2024-09-28' }, { pe: '37.46' }),
         fiscal_year: 2024,

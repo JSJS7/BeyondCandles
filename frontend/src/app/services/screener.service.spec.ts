@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { ScreenerService } from './screener.service';
 
-const API = 'http://127.0.0.1:8000/screener?date=';
+const API = '/api/screener?date=';
 
 describe('Screener requests', () => {
   let screener: ScreenerService;

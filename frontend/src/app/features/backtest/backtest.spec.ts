@@ -7,7 +7,7 @@ import { RatioKey } from '../../models/screener';
 import { Backtest } from './backtest';
 import { backtestResponse, ratioBacktest } from './backtest-test-data';
 
-const API = 'http://127.0.0.1:8000/backtest';
+const API = '/api/backtest';
 const SUMMARY = backtestResponse([ratioBacktest('pe'), ratioBacktest('roa')]);
 
 function detail(ratio: RatioKey) {

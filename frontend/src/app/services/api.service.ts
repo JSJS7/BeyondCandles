@@ -7,7 +7,9 @@ import { Observable, timeout } from 'rxjs';
 })
 export class ApiService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://127.0.0.1:8000';
+  // Relative, so that a phone in the same network reaches the API through the dev server
+  // (`proxy.conf.json` forwards /api to the API on 127.0.0.1:8000).
+  private readonly apiUrl = '/api';
   private readonly requestTimeoutMs = 5000;
 
   /** A slower answer, such as the backtest computed on its first request, can allow more time. */

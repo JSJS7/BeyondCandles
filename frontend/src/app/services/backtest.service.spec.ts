@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { BacktestService } from './backtest.service';
 
-const API = 'http://127.0.0.1:8000/backtest';
+const API = '/api/backtest';
 
 describe('Backtest requests', () => {
   let backtest: BacktestService;

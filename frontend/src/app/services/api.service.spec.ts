@@ -25,7 +25,7 @@ describe('API request timeout', () => {
   it('cancels a stalled request after five seconds and reports a timeout to the caller', () => {
     const onError = vi.fn();
     api.get('/stocks').subscribe({ error: onError });
-    const request = http.expectOne('http://127.0.0.1:8000/stocks');
+    const request = http.expectOne('/api/stocks');
 
     vi.advanceTimersByTime(4999);
     expect(onError).not.toHaveBeenCalled();
@@ -40,7 +40,7 @@ describe('API request timeout', () => {
     const onSuccess = vi.fn();
     const onError = vi.fn();
     api.get('/stocks').subscribe({ next: onSuccess, error: onError });
-    http.expectOne('http://127.0.0.1:8000/stocks').flush([]);
+    http.expectOne('/api/stocks').flush([]);
 
     vi.advanceTimersByTime(5000);
     expect(onSuccess).toHaveBeenCalledExactlyOnceWith([]);

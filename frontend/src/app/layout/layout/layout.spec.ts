@@ -24,7 +24,7 @@ describe('Layout', () => {
     fixture = TestBed.createComponent(Layout);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    TestBed.inject(HttpTestingController).expectOne('http://127.0.0.1:8000/stocks').flush([]);
+    TestBed.inject(HttpTestingController).expectOne('/api/stocks').flush([]);
     await fixture.whenStable();
   });
 

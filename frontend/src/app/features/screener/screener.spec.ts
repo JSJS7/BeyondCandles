@@ -7,7 +7,7 @@ import { Ratios, ScreenerResponse, ScreenerRow } from '../../models/screener';
 import { Screener } from './screener';
 import { SCREENER_CELL_LABELS } from './screener-columns';
 
-const API = 'http://127.0.0.1:8000/screener';
+const API = '/api/screener';
 
 const NO_RATIOS: Ratios = {
   pe: null,
