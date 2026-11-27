@@ -399,14 +399,6 @@
       "note": "EPS x shares = 3,742.6 against net income 3,522, in the year of the Time Warner Cable merger; numerator not read."
     },
     {
-      "ticker": "OXY",
-      "check": "shares_income",
-      "from_year": 2023,
-      "to_year": 2023,
-      "max_deviation_percent": "5.4",
-      "note": "The filing tags income to common of 3,752 against net income 4,696 less preferred dividends 736; EPS x shares = 3,747.5. Preferred redemption premiums lie between them, not read."
-    },
-    {
       "ticker": "RCL",
       "check": "shares_income",
       "from_year": 2023,
@@ -449,14 +441,6 @@
       "to_year": 2020,
       "max_deviation_percent": "5.4",
       "note": "The filing tags income to common of 690 against net income 721; EPS x shares = 682.3 with rounded EPS."
-    },
-    {
-      "ticker": "WFC",
-      "check": "shares_income",
-      "from_year": 2020,
-      "to_year": 2020,
-      "max_deviation_percent": "14.8",
-      "note": "The filing tags income to common of 1,786; EPS x shares = 1,777.7. Its deduction for preferred dividends and other is larger than the dividend tag 1,290."
     }
   ]
 }

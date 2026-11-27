@@ -129,6 +129,20 @@ SMALLEST_SHARE_COUNT_RATIO = Decimal("0.01")
 # Dividends up to this share of equity mean preferred stock below the 5% threshold,
 # assuming a dividend rate of at least 4%. AXP's 3.55% shows it is an assumption.
 IMMATERIAL_DIVIDENDS_OF_EQUITY = Decimal("0.002")
+# The income statement line between net income and income to common: preferred
+# dividends with the charges of redeemed preferred stock (W45). WFC, TFC and SCHW state
+# it as one line, "Preferred stock dividends and other".
+PREFERRED_DIVIDENDS_TOTAL_TAG = "PreferredStockDividendsAndOtherAdjustments"
+PREFERRED_DIVIDEND_LINE_TAGS = tuple(
+    tag
+    for tag in AUTOMATIC_METRICS["preferred_dividends"]
+    if tag != PREFERRED_DIVIDENDS_TOTAL_TAG
+)
+# Below this share of the dividends of its own report, that tag holds only the other
+# line beside a dividend line: PNC tags its "discount accretion and redemptions" with it,
+# 4–26 million beside 209–417 million (2–11%). Where the tag is the whole line, it is at
+# least 95% of the dividends of its report.
+SMALLEST_PREFERRED_TOTAL_TO_DIVIDENDS = Decimal("0.5")
 # The reason review-preferred-equity records when every preferred share count of the
 # first annual report is zero at the period end (N131).
 NO_PREFERRED_SHARES = "no shares outstanding"
@@ -345,6 +359,58 @@ def select_discontinued_income(facts):
     return selected
 
 
+def first_of_tags(facts, tags):
+    """The newest report of the first tag that has one, or None."""
+    for tag in tags:
+        selected = latest_of_tag(facts, tag)
+        if selected is not None:
+            return selected
+    return None
+
+
+def select_preferred_dividends(facts):
+    """The facts that add up to what the income statement deducts for preferred stock
+    between net income and income to common (W45), or an empty list.
+
+    The line of preferred dividends and other adjustments counts whole: it holds the
+    charges of redeemed preferred stock that the dividends declared or paid leave out
+    (WFC 2020: 1591 against 1290 paid), and a negative line is a gain on redemption.
+    A positive line below half of the dividends is only the other line beside a dividend
+    line (PNC), so it is added to the dividend line of its own report. Without the line,
+    the first dividend tag counts. Charges tagged on their own are not read.
+    """
+    total = latest_of_tag(facts, PREFERRED_DIVIDENDS_TOTAL_TAG)
+    dividends = first_of_tags(facts, PREFERRED_DIVIDEND_LINE_TAGS)
+    if total is None:
+        if dividends is None:
+            return []
+        return [dividends]
+    if dividends is None:
+        return [total]
+
+    # The dividends of the line's own report, else the newest ones, tell its size.
+    same_report_lines = []
+    for tag in PREFERRED_DIVIDEND_LINE_TAGS:
+        line = same_report_fact(facts, total, tag)
+        if line is not None:
+            same_report_lines.append(line)
+    if same_report_lines:
+        largest_dividends = max(line["value"] for line in same_report_lines)
+    else:
+        largest_dividends = dividends["value"]
+    smallest_whole_line = largest_dividends * SMALLEST_PREFERRED_TOTAL_TO_DIVIDENDS
+    is_other_line_only = 0 <= total["value"] < smallest_whole_line
+    if not is_other_line_only:
+        return [total]
+
+    if not same_report_lines:
+        return [dividends]
+    dividend_line = same_report_lines[0]
+    if total["value"] == 0:
+        return [dividend_line]
+    return [dividend_line, total]
+
+
 def preferred_candidates(facts):
     """The newest fact of each value tag in order, then the equity statement column."""
     candidates = []
@@ -521,7 +587,7 @@ def cell_metric(metric, fact, ticker, split_policy):
 
 
 def summed_cell_metric(parts):
-    """A cell added up from lines of one report's cash flow statement."""
+    """A cell added up from lines of one report."""
     with localcontext() as context:
         context.prec = 50
         value = sum((part["value"] for part in parts), Decimal(0))
@@ -530,6 +596,12 @@ def summed_cell_metric(parts):
         how = (
             "Purchases of property, plant and equipment plus purchases of equipment "
             "leased to customers, two lines of one report's cash flow statement."
+        )
+    elif PREFERRED_DIVIDENDS_TOTAL_TAG in tags:
+        how = (
+            "Preferred dividends plus the other line that the same income statement "
+            "deducts before income to common, such as charges of redeemed preferred "
+            "stock."
         )
     else:
         how = "Added up from lines of one report, which shows no total."
@@ -719,28 +791,32 @@ def automatic_versions(
             current_form = None
             for report_date in sorted(report_dates):
                 known = [fact for fact in cell_facts if fact["filed"] <= report_date]
-                capex_parts = None
+                # The lines of one report that add up to the cell (capex, preferred
+                # dividends); the first one stands for the report.
+                summed_parts = None
                 if metric == "preferred_value":
                     known_dividends = [
                         fact for fact in dividend_facts if fact["filed"] <= report_date
                     ]
-                    dividend = select_by_tag_order(
-                        known_dividends, "preferred_dividends"
-                    )
-                    selected = select_preferred_value(
-                        known, dividend["value"] if dividend else None
-                    )
+                    dividend_parts = select_preferred_dividends(known_dividends)
+                    dividends = None
+                    if dividend_parts:
+                        dividends = sum(part["value"] for part in dividend_parts)
+                    selected = select_preferred_value(known, dividends)
                 elif metric == "capex":
-                    capex_parts = select_capex(known, adds_leased_equipment)
-                    selected = capex_parts[0] if capex_parts else None
+                    summed_parts = select_capex(known, adds_leased_equipment)
+                    selected = summed_parts[0] if summed_parts else None
+                elif metric == "preferred_dividends":
+                    summed_parts = select_preferred_dividends(known)
+                    selected = summed_parts[0] if summed_parts else None
                 elif metric == "discontinued_income":
                     selected = select_discontinued_income(known)
                 else:
                     selected = select_by_tag_order(known, metric)
                 if selected is None:
                     continue
-                if capex_parts is not None and len(capex_parts) > 1:
-                    cell = summed_cell_metric(capex_parts)
+                if summed_parts is not None and len(summed_parts) > 1:
+                    cell = summed_cell_metric(summed_parts)
                 else:
                     cell = cell_metric(metric, selected, ticker, split_policy)
                 # An annual report repeating a value first known from a 10-Q is

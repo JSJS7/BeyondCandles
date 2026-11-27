@@ -328,6 +328,98 @@ class CapexTests(unittest.TestCase):
         self.assertEqual(versions_of(other_report, "capex"), [])
 
 
+class PreferredDividendTests(unittest.TestCase):
+    """W45: the deduction is what the income statement subtracts between net income and
+    income to common, including redemption charges, not only the dividends paid."""
+
+    TOTAL = "PreferredStockDividendsAndOtherAdjustments"
+    DECLARED = "DividendsPreferredStock"
+    CASH = "DividendsPreferredStockCash"
+    PAYMENTS = "PaymentsOfDividendsPreferredStockAndPreferenceStock"
+
+    def test_income_statement_line_with_other_charges_is_the_whole_deduction(self):
+        """WFC 2020 (10-K 0000072971-21-000197): "Preferred stock dividends and other"
+        1591 leaves 1710 for common stock, the income EPS divides (0.41 x 4134 million).
+        The 1290 of dividends paid leave out the charges of the redeemed preferred stock."""
+        facts = [
+            fact("preferred_dividends", self.CASH, "1290"),
+            fact("preferred_dividends", self.PAYMENTS, "1290"),
+            fact("preferred_dividends", self.TOTAL, "1591"),
+        ]
+
+        cell = versions_of(facts, "preferred_dividends")[-1].value
+
+        self.assertEqual(cell.value, Decimal("1591"))
+        self.assertEqual(cell.selected_tag, self.TOTAL)
+
+    def test_small_other_line_is_added_to_the_dividends_of_its_report(self):
+        """PNC 2019 (10-K 0000713676-20-000042) shows two lines: preferred stock
+        dividends 236 and discount accretion and redemptions 4, tagged as the "and
+        other" line; together 240, the difference to income to common. The small line
+        alone would deduct 4."""
+        facts = [
+            fact("preferred_dividends", self.DECLARED, "236"),
+            fact("preferred_dividends", self.CASH, "236"),
+            fact("preferred_dividends", self.PAYMENTS, "236"),
+            fact("preferred_dividends", self.TOTAL, "4"),
+        ]
+
+        cell = versions_of(facts, "preferred_dividends")[-1].value
+
+        self.assertEqual(cell.value, Decimal("240"))
+        self.assertIsNone(cell.selected_tag)
+        self.assertEqual(cell.calculation, f"{self.DECLARED} + {self.TOTAL}")
+        self.assertEqual(len(cell.selected_sources), 2)
+
+    def test_small_line_of_another_report_is_not_added(self):
+        """The two lines add up only within one report, as capex lines do; otherwise the
+        dividends stay alone."""
+        facts = [
+            fact("preferred_dividends", self.DECLARED, "236"),
+            fact("preferred_dividends", self.TOTAL, "4", date(2024, 2, 15), "second"),
+        ]
+
+        cell = versions_of(facts, "preferred_dividends")[-1].value
+
+        self.assertEqual(cell.value, Decimal("236"))
+
+    def test_line_slightly_below_the_dividends_paid_is_still_the_whole_deduction(self):
+        """SCHW 2023: 418 on the income statement, 438 paid in cash; income to common is
+        net income less 418."""
+        facts = [
+            fact("preferred_dividends", self.CASH, "438"),
+            fact("preferred_dividends", self.TOTAL, "418"),
+        ]
+
+        cell = versions_of(facts, "preferred_dividends")[-1].value
+
+        self.assertEqual(cell.value, Decimal("418"))
+
+    def test_negative_line_is_the_whole_deduction(self):
+        """A gain on redeeming preferred stock larger than the dividends makes the line
+        negative (GM 2024: -1181); it is never a part to add to dividends."""
+        facts = [
+            fact("preferred_dividends", self.CASH, "100"),
+            fact("preferred_dividends", self.TOTAL, "-1181"),
+        ]
+
+        cell = versions_of(facts, "preferred_dividends")[-1].value
+
+        self.assertEqual(cell.value, Decimal("-1181"))
+
+    def test_without_the_line_the_dividends_count_as_before(self):
+        """Most companies tag only the dividends declared or paid."""
+        facts = [
+            fact("preferred_dividends", self.DECLARED, "1587"),
+            fact("preferred_dividends", self.PAYMENTS, "1580"),
+        ]
+
+        cell = versions_of(facts, "preferred_dividends")[-1].value
+
+        self.assertEqual(cell.value, Decimal("1587"))
+        self.assertEqual(cell.selected_tag, self.DECLARED)
+
+
 class LeasedEquipmentCapexTests(unittest.TestCase):
     """W44: equipment bought to lease to customers is part of capex where the cash flow
     statement shows it on a line of its own, as S&P Global data counts it."""

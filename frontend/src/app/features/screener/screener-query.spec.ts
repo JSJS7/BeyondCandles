@@ -52,7 +52,7 @@ describe('Screener address state', () => {
         { key: 'pe', min: '', max: '20' },
         { key: 'roe', min: '7.5', max: '' },
       ],
-      hiddenColumns: ['price', 'pb'],
+      hiddenColumns: ['sector', 'pb'],
     };
 
     expect(screenerQueryParams(DEFAULT_QUERY)).toEqual({});
@@ -63,8 +63,8 @@ describe('Screener address state', () => {
   it('drops unknown, repeated and malformed criteria from the address', () => {
     const query = parseScreenerQuery(
       convertToParamMap({
-        // Price is not a ratio, "nope" is no column, the second pe repeats, "abc" is no number.
-        filter: ['price:1:2', 'nope:1:2', 'pe:5:10', 'pe:1:2', 'roe:abc:12'],
+        // Sector is not a ratio, "nope" is no column, the second pe repeats, "abc" is no number.
+        filter: ['sector:1:2', 'nope:1:2', 'pe:5:10', 'pe:1:2', 'roe:abc:12'],
       }),
     );
 
@@ -75,10 +75,13 @@ describe('Screener address state', () => {
   });
 
   it('reads hidden columns once each in table order and ignores unknown names', () => {
-    const query = parseScreenerQuery(convertToParamMap({ hide: 'roe,nope,price,roe,,company' }));
+    const query = parseScreenerQuery(
+      convertToParamMap({ hide: 'roe,nope,price,period_end,roe,,company' }),
+    );
 
-    // "company" is no column that can be hidden: the company is always shown.
-    expect(query.hiddenColumns).toEqual(['price', 'roe']);
+    // "company" is no column that can be hidden: the company is always shown. "price" was a
+    // column until 27.11.2026 (M62), so an older address that hides it still opens.
+    expect(query.hiddenColumns).toEqual(['period_end', 'roe']);
   });
 
   it('returns a table sorted by a hidden column to the default order', () => {

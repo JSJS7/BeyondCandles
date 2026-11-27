@@ -33,7 +33,7 @@ export interface CriterionStats {
   p90: string;
 }
 
-/** The columns that can be limited by a range: the ratios, not the text, price or date. */
+/** The columns that can be limited by a range: the ratios, not the text or date. */
 export const CRITERION_COLUMNS: ScreenerColumn[] = SCREENER_COLUMNS.filter(
   (column) => column.kind === 'multiple' || column.kind === 'percent',
 );

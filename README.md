@@ -40,7 +40,7 @@ The Kaggle publisher declares GPL 3. A few price corrections use a pinned DoltHu
 `post-no-preference/stocks`, declared as CC BY-SA 4.0, and one session published by Nasdaq and Cboe,
 whose terms were not reviewed for redistribution. Rights to publicly display the underlying Yahoo
 data remain unconfirmed, and publishing this code does not establish permission to redistribute the
-datasets. Prices appear on the charts, and the screener's CSV export leaves them out. Price data
+datasets. Prices appear only on the charts; the screener and its CSV export show none. Price data
 will be removed at a rights holder's request.
 
 ## Run locally

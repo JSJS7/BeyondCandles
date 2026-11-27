@@ -359,7 +359,6 @@ def valued_period(ticker, company_id, period, periods, close, reports, rules):
         period_start=period[0],
         period_end=period[1],
         price_date=session,
-        price=rounded(price),
         market_value=rounded(market_value),
         eps_basis=cell_detail(cells, "eps_diluted", "eps_basis"),
         ocf_scope=values.ocf_scope,

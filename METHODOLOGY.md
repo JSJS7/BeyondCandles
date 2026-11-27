@@ -38,7 +38,7 @@ Data sources and their terms are in the [README](README.md); price corrections a
 | Capital expenditure | Purchase of property, plant and equipment, then a wider productive-assets line; with equipment bought to lease to customers where the cash flow statement shows it on its own line | Automatic |
 | Operating income | The `OperatingIncomeLoss` tag | Automatic |
 | Preferred stock | First plausible value among the standard tags, ending with liquidation preference | Automatic |
-| Preferred dividends | First value among the standard tags | Automatic |
+| Preferred dividends | What the income statement deducts between net income and income to common: dividends and the charges of redeemed preferred stock | Automatic |
 | Discontinued operations | Their part of net income in the newest report, the larger of the parent's share and the whole amount; only labels ratios | Automatic |
 
 **Reviewed** values were each compared with the company's original filing. **Automatic** values
@@ -90,6 +90,15 @@ reported), *Split-adjusted*, *Series break* (see Growth marker below) and, on ra
   leasing stay out, as they do there. Where a tag holds only part of the cash spent, the value comes
   from the cash flow statement. Companies that report capital expenditure only under their own tags
   stay empty.
+- **Preferred dividends:** the income statement line of preferred dividends and other adjustments
+  counts whole, because it also holds the charges of redeemed preferred stock that the dividends
+  declared or paid leave out; a negative line is a gain on redemption. Where that tag holds only a small
+  second line beside the dividends (below half of them), the two lines of the report are added up.
+  Without it, the dividends declared, then paid, count. Redemption charges tagged on their own are not
+  read, so in a year with such charges the deduction can be slightly too small (Digital Realty
+  2016–2020, MetLife 2015). Earnings allocated to participating securities are not deducted, as banks
+  such as JPMorgan leave them out of their own ROE, except where a company shows them inside the same
+  line (Charles Schwab).
 - **Operating income:** many companies have no such row, including banks. It stays empty where the
   tag holds a sum of segments or an adjusted measure. That list comes from a screen of row labels, so
   a sum of segments under a plain label can remain.
@@ -101,7 +110,8 @@ data holds plain ratios (0.25 means 25%), rounded to six decimals. A ratio is em
 missing or the result has no meaning, never zero. Price ratios are also empty without a comparable price.
 The median and the 10th and 90th percentiles under each screener criterion are real companies' values.
 The screener's CSV file holds the same values for the companies shown: plain ratios, an empty field for no
-value, and no price columns, because the vendor's prices are shown on the page but not offered for download.
+value, and no price columns. The vendor's prices appear only on the company page's chart and are not
+offered for download.
 
 | Ratio | Formula | Also empty when |
 |---|---|---|
@@ -394,6 +404,7 @@ company by company. Years are fiscal years as each company reports them.
 | General Motors 2019–2022 | Nothing deducted from equity, the subsidiary's preferred dividends deducted from net income, as in the company's own earnings per share: the report counts no preferred shares of its own |
 | Alphabet 2015 | ROE deducts the adjustment payment to Class C holders, tagged with preferred dividends and other adjustments (about 3% of net income), because the share count is calculated with it from Class A earnings per share |
 | Broadcom fiscal 2020, Sempra 2018–2019 | Preferred stock or dividends replaced by the figure the report states (a tag error above the thresholds) |
+| Charles Schwab | ROE deducts earnings allocated to participating securities with the preferred dividends (about 1% of net income): the income statement shows them in one line, as Schwab's own ROE uses it |
 
 ### Capital expenditure and operating income
 

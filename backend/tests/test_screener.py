@@ -22,6 +22,7 @@ from app.growth import (
 from app.main import app
 from app.models import AnnualMetricVersion, Company, DailyPrice, FinancialFact
 from app.ratios import ExchangeableUnits
+from app.screener import get_screener
 
 FIRST_YEAR = (date(2022, 1, 1), date(2022, 12, 31))
 SECOND_YEAR = (date(2023, 1, 1), date(2023, 12, 31))
@@ -507,6 +508,14 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         rows = {row["ticker"]: row for row in response.json()["rows"]}
         return rows[ticker]
 
+    def latest_period(self, ticker, valuation_date):
+        """One company's period as the backtest reads it, with the fields the response
+        leaves out."""
+        with self.database.connect() as connection:
+            response = get_screener(connection, valuation_date)
+        rows = {row.ticker: row for row in response.rows}
+        return rows[ticker].latest
+
     def test_row_has_ratios_and_dates_as_text_numbers(self):
         """A complete year gives known ratios; the unpublished company is not listed."""
         self.add_year(date(2024, 2, 1))
@@ -517,7 +526,6 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         self.assertEqual(row["latest"]["period_end"], "2023-12-31")
         self.assertEqual(row["latest"]["price_date"], "2024-03-28")
         self.assertEqual(row["latest"]["shares_basis"], "weighted_average")
-        self.assertEqual(row["latest"]["market_value"], "2000")
         self.assertEqual(row["latest"]["ratios"]["pe"], "20")
         self.assertEqual(row["latest"]["ratios"]["pb"], "4")
         self.assertEqual(row["latest"]["ratios"]["net_margin"], "0.1")
@@ -655,6 +663,20 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
 
         self.assertEqual(row["latest"]["period_end"], "2022-12-31")
 
+    def test_response_has_no_price_but_the_backtest_keeps_the_market_value(self):
+        """DEC-48, M62: the page shows no vendor close beside its ratios, so the response
+        has neither the price nor the market value; the backtest still reads the market
+        value (close 40 x 50 shares) from the period itself."""
+        self.add_year(date(2024, 2, 1))
+        self.add_close(date(2024, 3, 28))
+
+        row = self.row(date="2024-03-29")
+        latest = self.latest_period("TEST", date(2024, 3, 29))
+
+        self.assertNotIn("price", row["latest"])
+        self.assertNotIn("market_value", row["latest"])
+        self.assertEqual(latest.market_value, Decimal("2000"))
+
     def test_company_without_a_known_report_is_listed_empty(self):
         """It stays in the list so the reader can count what is missing."""
         row = self.row(date="2024-03-29")
@@ -668,7 +690,6 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
 
         row = self.row(date="2024-03-29")
 
-        self.assertIsNone(row["latest"]["price"])
         self.assertIsNone(row["latest"]["ratios"]["pe"])
         self.assertEqual(row["latest"]["ratios"]["net_margin"], "0.1")
 
@@ -682,7 +703,7 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
         eight_days_old = self.row(date="2024-03-30")
 
         self.assertEqual(week_old["latest"]["price_date"], "2024-03-22")
-        self.assertIsNone(eight_days_old["latest"]["price"])
+        self.assertIsNone(eight_days_old["latest"]["ratios"]["pe"])
 
     def test_jci_gets_no_price_ratios_until_a_period_after_the_merger(self):
         """JCI's price after 02.09.2016 is the new company's, FY2015 the old company's."""
@@ -752,14 +773,16 @@ class ScreenerApiTests(ScreenerDatabaseTestCase):
             listed_period = self.row("KKR", date="2022-03-31")
             later_period = self.row("KKR", date="2023-03-31")
             other_company = self.row("TEST", date="2022-03-31")
+            listed_values = self.latest_period("KKR", date(2022, 3, 31))
+            other_values = self.latest_period("TEST", date(2022, 3, 31))
 
         self.assertTrue(listed_period["latest"]["exchangeable_units"])
         self.assertEqual(listed_period["latest"]["ratios"]["ps"], "3")
         self.assertEqual(listed_period["latest"]["ratios"]["pb"], "3.2")
         self.assertEqual(listed_period["latest"]["ratios"]["pe"], "20")
         # Market value is the numerator of P/B: the listed shares only, 40 x 40.
-        self.assertEqual(listed_period["latest"]["market_value"], "1600")
-        self.assertEqual(other_company["latest"]["market_value"], "2000")
+        self.assertEqual(listed_values.market_value, Decimal("1600"))
+        self.assertEqual(other_values.market_value, Decimal("2000"))
         self.assertFalse(later_period["latest"]["exchangeable_units"])
         self.assertEqual(later_period["latest"]["ratios"]["ps"], "2")
         self.assertFalse(other_company["latest"]["exchangeable_units"])

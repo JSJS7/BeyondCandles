@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.schemas.stock import DecimalValue
 
@@ -37,9 +37,10 @@ class PeriodRatios(BaseModel):
     period_start: date
     period_end: date
     price_date: date | None = None
-    price: DecimalValue | None = None
     # Price × the listed shares of P/B, in USD; the backtest shows each quintile's median.
-    market_value: DecimalValue | None = None
+    # Left out of the response (exclude=True): the page shows no vendor close beside its
+    # ratios (DEC-48, M62), while the backtest reads the attribute.
+    market_value: DecimalValue | None = Field(default=None, exclude=True)
     eps_basis: Literal["basic", "diluted"] | None = None
     ocf_scope: Literal["total", "continuing"] | None = None
     # The share count of P/B and P/S: the report cover, the weighted average of the year

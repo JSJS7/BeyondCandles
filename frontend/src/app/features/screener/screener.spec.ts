@@ -33,7 +33,6 @@ function company(ticker: string, sector: string, ratios: Partial<Ratios>): Scree
       period_start: '2024-01-01',
       period_end: '2024-12-31',
       price_date: '2025-12-31',
-      price: '50.5',
       eps_basis: 'diluted',
       ocf_scope: 'total',
       shares_basis: 'outstanding',
@@ -159,8 +158,8 @@ describe('Screener page', () => {
 
     const bbbRow = page().querySelectorAll('tbody tr')[1];
     const cellTexts = [...bbbRow.querySelectorAll('td')].map((cell) => cell.textContent ?? '');
-    const peCell = cellTexts[3];
-    const roeCell = cellTexts[6];
+    const peCell = cellTexts[2];
+    const roeCell = cellTexts[5];
 
     expect(peCell).toContain('—');
     expect(peCell).toContain('No value');
@@ -413,24 +412,24 @@ describe('Screener page', () => {
 
   it('hides a column from the table and the address, and shows it again', async () => {
     await open();
-    expect(shownHeaders()).toHaveLength(16);
+    expect(shownHeaders()).toHaveLength(15);
     expect(pickerSummaryText('columns', 'Columns:')).toBe('Columns');
 
     await clickAndSettle(pickerBox('columns', 'P/E'));
-    await clickAndSettle(pickerBox('columns', 'Price'));
+    await clickAndSettle(pickerBox('columns', 'Sector'));
 
     expect(shownHeaders()).not.toContain('P/E');
-    expect(shownHeaders()).not.toContain('Price');
-    expect(shownHeaders()).toHaveLength(14);
+    expect(shownHeaders()).not.toContain('Sector');
+    expect(shownHeaders()).toHaveLength(13);
     // Every row has a cell for each header except the company column.
-    expect(page().querySelectorAll('tbody tr')[0].querySelectorAll('td')).toHaveLength(13);
+    expect(page().querySelectorAll('tbody tr')[0].querySelectorAll('td')).toHaveLength(12);
     expect(pickerBox('columns', 'P/E').checked).toBe(false);
-    expect(pickerSummaryText('columns', 'Columns:')).toBe('Columns (13 of 15)');
-    expect(TestBed.inject(Router).url).toContain('hide=price,pe');
+    expect(pickerSummaryText('columns', 'Columns:')).toBe('Columns (12 of 14)');
+    expect(TestBed.inject(Router).url).toContain('hide=sector,pe');
 
     await clickAndSettle(picker('columns').querySelector<HTMLButtonElement>('.reset-button')!);
 
-    expect(shownHeaders()).toHaveLength(16);
+    expect(shownHeaders()).toHaveLength(15);
     expect(TestBed.inject(Router).url).not.toContain('hide');
   });
 

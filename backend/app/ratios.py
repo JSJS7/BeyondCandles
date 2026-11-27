@@ -169,10 +169,13 @@ def exchangeable_units(split_policy):
 
 
 def income_to_common(values):
-    """Net income after preferred dividends, the income that EPS divides.
+    """Net income after preferred dividends and the charges of redeemed preferred stock,
+    as the income statement deducts them (W45).
 
-    Negative "dividends" are gains on redeeming preferred stock (GM 2024). They raise this
-    income as they raise reported EPS, so the two remain consistent.
+    It is the income that EPS divides, except for earnings allocated to participating
+    securities, which JPM, for example, deducts for EPS but not for its ROE. Negative
+    "dividends" are gains on redeeming preferred stock (GM 2024). They raise this income
+    as they raise reported EPS, so the two remain consistent.
     """
     if values.net_income is None:
         return None

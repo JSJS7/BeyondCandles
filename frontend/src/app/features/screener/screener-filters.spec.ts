@@ -172,7 +172,6 @@ describe('Screener criteria', () => {
   it('offers only ratios as criteria, with a unit that matches how they are shown', () => {
     const keys = CRITERION_COLUMNS.map((column) => column.key);
     expect(keys).toHaveLength(12);
-    expect(keys).not.toContain('price');
     expect(keys).not.toContain('sector');
     expect(keys).not.toContain('period_end');
     expect(criterionUnit('roe')).toBe('%');

@@ -218,7 +218,9 @@ class AnnualRatioApiTests(ScreenerDatabaseTestCase):
         periods = response.json()
         self.assertEqual([period["fiscal_year"] for period in periods], [2023, None])
         self.assertEqual(periods[0]["period_end"], "2023-12-31")
-        self.assertEqual(periods[0]["price"], "40")
+        # The page shows no vendor close beside its ratios (DEC-48, M62).
+        self.assertNotIn("price", periods[0])
+        self.assertNotIn("market_value", periods[0])
         self.assertEqual(periods[0]["ratios"]["pe"], "20")
 
     def test_unknown_or_unpublished_company_returns_404(self):

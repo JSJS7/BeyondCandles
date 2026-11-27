@@ -25,7 +25,6 @@ export function period(
     period_start: '2024-01-01',
     period_end: '2024-12-31',
     price_date: '2025-12-31',
-    price: '100',
     eps_basis: 'diluted',
     ocf_scope: 'total',
     shares_basis: 'outstanding',

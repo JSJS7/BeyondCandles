@@ -30,17 +30,15 @@ describe('Screener cells', () => {
     const company: ScreenerRow = { ticker: 'NEW', name: 'New', sector: 'Energy', latest: null };
 
     expect(cellText(company, column('sector'))).toBe('Energy');
-    expect(cellText(company, column('price'))).toBeNull();
     expect(cellText(company, column('period_end'))).toBeNull();
     expect(cellText(company, column('pe'))).toBeNull();
     expect(cellLabels(company.latest, 'pe')).toEqual([]);
   });
 
-  it('formats the price in dollars and the period end as a readable date', () => {
+  it('formats the period end as a readable date', () => {
     const company = row('AAPL');
-    company.latest = period({ price: '271.859985', period_end: '2025-09-27' });
+    company.latest = period({ period_end: '2025-09-27' });
 
-    expect(cellText(company, column('price'))).toBe('$271.86');
     expect(cellText(company, column('period_end'))).toBe('27 Sep 2025');
   });
 
@@ -72,7 +70,7 @@ describe('Screener cells', () => {
     expect(cellLabels(latest, 'pb')).toEqual(['Spin-off']);
     expect(cellLabels(latest, 'ps')).toEqual(['Spin-off']);
     expect(cellLabels(latest, 'roe')).toEqual([]);
-    expect(cellLabels(latest, 'price')).toEqual([]);
+    expect(cellLabels(latest, 'period_end')).toEqual([]);
   });
 
   it('marks only P/S of a company with exchangeable units', () => {
@@ -146,16 +144,16 @@ describe('Screener cells', () => {
 
 describe('Screener visible columns', () => {
   it('shows every column but the hidden ones, in table order', () => {
-    const keys = visibleColumns(['roe', 'price']).map((visible) => visible.key);
+    const keys = visibleColumns(['roe', 'pb']).map((visible) => visible.key);
 
-    expect(keys).toHaveLength(13);
-    expect(keys).not.toContain('price');
+    expect(keys).toHaveLength(12);
+    expect(keys).not.toContain('pb');
     expect(keys.slice(0, 3)).toEqual(['sector', 'period_end', 'pe']);
-    expect(visibleColumns([])).toHaveLength(15);
+    expect(visibleColumns([])).toHaveLength(14);
   });
 
   it('summarises the column choice', () => {
     expect(columnSummary([])).toBe('Columns');
-    expect(columnSummary(['pe', 'pb'])).toBe('Columns (13 of 15)');
+    expect(columnSummary(['pe', 'pb'])).toBe('Columns (12 of 14)');
   });
 });

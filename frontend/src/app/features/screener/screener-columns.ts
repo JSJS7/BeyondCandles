@@ -1,12 +1,11 @@
 // The columns of the screener table: what each one holds and how its values are shown.
 import { PeriodRatios, RatioKey, ScreenerRow } from '../../models/screener';
 import { formatDate } from '../../shared/date-format';
-import { formatFixed } from '../../shared/decimal-format';
 import { formatRatio, RATIO_DEFINITIONS, RatioKind } from '../../shared/ratio-definitions';
 import { RATIO_CELL_LABELS, RatioCellLabel, ratioLabels } from '../../shared/ratio-labels';
 
-type ColumnKind = 'text' | 'date' | 'price' | RatioKind;
-export type ColumnKey = 'sector' | 'price' | 'period_end' | RatioKey;
+type ColumnKind = 'text' | 'date' | RatioKind;
+export type ColumnKey = 'sector' | 'period_end' | RatioKey;
 
 export interface ScreenerColumn {
   key: ColumnKey;
@@ -18,7 +17,6 @@ export interface ScreenerColumn {
 
 export const SCREENER_COLUMNS: ScreenerColumn[] = [
   { key: 'sector', label: 'Sector', kind: 'text' },
-  { key: 'price', label: 'Price', kind: 'price' },
   { key: 'period_end', label: 'Period end', kind: 'date' },
   ...RATIO_DEFINITIONS,
 ];
@@ -36,9 +34,6 @@ export function columnValue(row: ScreenerRow, key: ColumnKey): string | null {
   if (row.latest === null) {
     return null;
   }
-  if (key === 'price') {
-    return row.latest.price;
-  }
   if (key === 'period_end') {
     return row.latest.period_end;
   }
@@ -52,9 +47,6 @@ export function formatValue(column: ScreenerColumn, value: string): string {
       return value;
     case 'date':
       return formatDate(value);
-    case 'price':
-      // In dollars, as the price on the company page; prices are never negative.
-      return `$${formatFixed(value, 2)}`;
     case 'multiple':
     case 'percent':
       return formatRatio(column.kind, value);
@@ -75,7 +67,7 @@ export const SCREENER_CELL_LABELS = RATIO_CELL_LABELS;
 
 /** Short labels that change how a value may be read; the same words as the financials table. */
 export function cellLabels(latest: PeriodRatios | null, key: ColumnKey): RatioCellLabel[] {
-  const isRatio = key !== 'sector' && key !== 'price' && key !== 'period_end';
+  const isRatio = key !== 'sector' && key !== 'period_end';
   if (latest === null || !isRatio) {
     return [];
   }
