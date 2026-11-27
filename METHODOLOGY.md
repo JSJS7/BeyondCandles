@@ -137,10 +137,9 @@ offered for download.
   while the year-end price still includes that business, so the latest version would join price and
   results of two different companies. The company's financial table shows the latest versions, so a
   restated year can differ between the two tables. An automatic measure that the first report does not
-  give, for example under a tag outside the reviewed list, is taken from the first later report that
-  gives it, provided that the year's revenue, net income and equity known on that report's day, a
-  quarterly restatement included, are those of the first report; discontinued operations and the cover
-  share count are never taken from a later report. A year-end price precedes any later spin-off, so these
+  give is taken from the first later report that gives it, if the year's revenue, net income and equity
+  known on that day are still those of the first report; never discontinued operations or the cover share
+  count. A year-end price precedes any later spin-off, so these
   ratios are never marked *Spin-off*. The cover share count is dated weeks after the year end, so a large
   share issue in between, such as an acquisition closing after the year end, raises P/B and P/S (marked
   *Share issue*, see Known limitations).
@@ -166,20 +165,16 @@ offered for download.
   Unit counts are the weighted averages each annual report states, for companies whose units exceed 5%
   of the share count; the ratios are marked *Exchangeable units*. Ordinary minority stakes in
   subsidiaries follow the usual convention of market value over consolidated revenue.
-- **Common equity:** equity minus preferred stock, as analysis sites deduct it. The value comes from the
-  preferred stock tags, or else from the preferred stock column of the statement of changes in equity
-  in the period's first annual report. A zero balance is not a value. When annual preferred dividends
-  exceed 25% of a value, it may be only par value or a scale error, and it counts only if it is at least
-  0.5% of equity. Without a usable value, the deduction is zero only if preferred dividends are absent or
-  at most 0.2% of equity; otherwise common-share ratios stay empty. Where the period's first annual
-  report counts no preferred shares of the company at the period end, the stock was converted or
-  redeemed during the year, or belongs only to a subsidiary outside the parent's equity: nothing is
-  deducted from equity, while the year's preferred dividends are still deducted from net income, as in
-  earnings per share. A company whose net income is already after its subsidiaries' preferred dividends,
-  and whose common equity excludes that stock, deducts neither the stock nor the dividends. Companies
-  whose diluted count already holds preferred stock as converted do not deduct it. Common equity excludes
-  noncontrolling interests, the stakes of outside owners in subsidiaries; some data services count them
-  in equity and in net income, so their P/B is lower and their ROE differs where such stakes are large.
+- **Common equity:** equity minus preferred stock, as analysis sites deduct it. The preferred value comes from
+  the preferred stock tags, else from the preferred stock column of the statement of changes in equity in the
+  period's first annual report; a zero balance is not a value, and a value that looks like par value or a
+  scale error is dropped. Without a usable value nothing is deducted only if preferred dividends are absent
+  or negligible; otherwise P/B and ROE stay empty. Where that report counts no preferred shares of the company
+  at the period end (converted, redeemed, or only a subsidiary's stock), nothing is deducted from equity,
+  while the year's preferred dividends are still deducted from net income, as in EPS. Stock already in the
+  diluted share count as converted, and a subsidiary's stock already outside net income and common equity,
+  are not deducted. Common equity excludes noncontrolling interests; some data services count them, so their
+  P/B is lower and their ROE differs where such stakes are large.
 - **Growth marker:** when the table's series implies a change more than 5% away from the report's own,
   or a value changes sign between the sources, the row is marked as a break in the series. The company
   page uses the same rule for all five reviewed measures and shows the change as one report states it;
@@ -325,8 +320,7 @@ do not make companies comparable.
   portfolios sorted by a ratio can therefore be biased too, in either direction. Compare with an
   equal-weight basket of the same companies, and do not read results as beating the market. The sector
   and the SIC code are current values applied to every year.
-- **Backtest window:** every company has a known annual value only from March 2016, and two values, needed
-  for growth, from March 2017. Reports for FY2025 filed after 31 Dec 2025 cannot drive a trade in the window.
+- **Backtest window:** reports for FY2025 filed after 31 Dec 2025 cannot drive a trade in the window.
 - **End of the window:** some companies' last period ends by mid-2025, so a cross-section by "FY2025" joins
   periods up to 11 months apart. Compare by period end, not by label.
 - **Price ratios after a spin-off:** the price no longer includes the separated business, while the latest
@@ -341,8 +335,7 @@ do not make companies comparable.
   P/S then read too high until the next annual report; P/E is not affected. Where the cover is more than
   10% above the year's weighted average, P/B and P/S are marked *Share issue*; the values stay, and a
   backtest should leave marked P/B and P/S out. After a merger during the year equity already includes the
-  acquired company, so the mark on P/B is then only a caution. A count from the balance sheet at the year
-  end would tell the two cases apart, but many reports do not tag it. A deal closing after the cover date
+  acquired company, so the mark on P/B is then only a caution. A deal closing after the cover date
   is not marked: the price is then that of the merged company, while the share count and the financials
   describe the company before it until the next annual report.
 - **Discontinued operations:** net income and EPS include the result of a business sold, spun off or
@@ -352,9 +345,6 @@ do not make companies comparable.
   growth is also marked when the year before holds such a result, because it is the base of growth. A
   one-off gain then makes a company look cheap or very profitable, so a backtest should leave marked
   values out. The amount comes from the standard tags; a company that tags it otherwise is not marked.
-  Where a report gives both the parent's share and the whole amount, the larger one counts, because a
-  report can tag only part of the result as the parent's share; the whole amount can include
-  noncontrolling interests, so a period may be marked slightly sooner.
 - **Spin-off values** follow the vendor's ratios, even where a company's own figures suggest another level
   and no single reliable value exists.
 - **Data rights:** price data comes from a third-party vendor and its rights for public display are
